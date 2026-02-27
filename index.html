@@ -3,15 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notification Settings</title>
+    <title>MOCKUP DESIGN</title>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (chung cho cả hai) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,400&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Lucide Icons (cho Report Property) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,11 +31,48 @@
     </script>
 
     <style>
-      * {
-        font-family: "DM Sans", sans-serif;
+      /* Tab chung */
+      .tab-bar {
+        background: white;
+        border-bottom: 1px solid #e2e8f0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
       }
-      h1 {
-        font-family: "Fraunces", serif;
+
+      .tab-btn {
+        padding: 0.9rem 1.8rem;
+        font-weight: 500;
+        color: #64748b;
+        border-radius: 0.5rem 0.5rem 0 0;
+        transition: all 0.18s;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+      }
+
+      .tab-btn.active {
+        background: #f8fafc;
+        color: #0f172a;
+        border-bottom: 3px solid #3b82f6;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Custom select arrow cho Notification */
+      .custom-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 12px;
       }
 
       @keyframes fadeIn {
@@ -49,436 +89,1035 @@
         animation: fadeIn 0.2s ease-out forwards;
       }
 
-      /* Custom select arrow */
-      .custom-select {
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 10px center;
-        background-size: 12px;
+      /* Reporter type button cho Report Property */
+      .reporter-type-btn {
+        flex: 1;
+        padding: 1.25rem;
+        align-items: center;
+        border: 2px solid #e5e7eb;
+        border-radius: 0.75rem;
+        text-align: center;
+        transition: all 0.2s;
+        background: white;
+      }
+      .reporter-type-btn.active {
+        border-color: #3b82f6;
+        background: #eff6ff;
+      }
+      .reporter-type-btn:hover:not(.active) {
+        border-color: #9ca3af;
+      }
+
+      /* Modal Report Property */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        z-index: 1000;
+      }
+      .modal-content {
+        background: white;
+        border-radius: 1rem;
+        width: 100%;
+        max-width: 48rem;
+        max-height: 92vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      .input,
+      .textarea,
+      select {
+        width: 100%;
+        padding: 0.875rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        font-size: 0.95rem;
+        transition: border-color 0.2s;
+      }
+      .input:focus,
+      .textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
       }
     </style>
   </head>
-  <body
-    class="min-h-screen bg-gradient-to-br from-slate-50 via-stone-50 to-amber-50/30 pb-28"
-  >
-    <div class="max-w-2xl mx-auto px-4 pt-10 pb-20">
-      <!-- Header -->
-      <div class="flex items-start gap-3 mb-1">
-        <div class="w-1 h-8 rounded-full bg-amber-400 mt-1 flex-shrink-0"></div>
-        <div>
-          <h1 class="text-3xl font-semibold text-slate-900 leading-tight">
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Tab Bar + Chú thích -->
+    <div class="tab-bar">
+      <div class="max-w-6xl mx-auto px-4 py-3">
+        <p class="text-sm text-slate-500 mb-2 italic">
+          (mockup cho các giao diện mới thêm do khách yêu cầu)
+        </p>
+        <div class="flex gap-2">
+          <button class="tab-btn active" data-tab="notification">
             Notification Settings
-          </h1>
-          <p class="text-sm text-slate-400 mt-1.5 leading-relaxed max-w-md">
-            Customize your email notifications. All notifications will be sent
-            to your on-site chat by default. You can choose whether or not to
-            receive them via email.
-          </p>
+          </button>
+          <button class="tab-btn" data-tab="report">Report Property</button>
         </div>
       </div>
+    </div>
 
-      <!-- Master Toggle -->
+    <!-- Tab 1: Notification Settings (code bạn gửi giữ nguyên) -->
+    <div id="notification" class="tab-content active">
       <div
-        id="master-card"
-        class="mt-6 flex items-center justify-between bg-white rounded-2xl border px-5 py-4 shadow-sm transition-all duration-300 border-amber-200 shadow-amber-50"
+        class="min-h-screen bg-gradient-to-br from-slate-50 via-stone-50 to-amber-50/30 pb-28"
       >
-        <div>
-          <p class="text-sm font-semibold text-slate-800">
-            Receive notifications via email
-          </p>
-          <p class="text-xs text-slate-400 mt-0.5">
-            Master switch for all email notifications below
-          </p>
+        <div class="max-w-2xl mx-auto px-4 pt-10 pb-20">
+          <!-- Header -->
+          <div class="flex items-start gap-3 mb-1">
+            <div
+              class="w-1 h-8 rounded-full bg-amber-400 mt-1 flex-shrink-0"
+            ></div>
+            <div>
+              <h1 class="text-3xl font-semibold text-slate-900 leading-tight">
+                Notification Settings
+              </h1>
+              <p class="text-sm text-slate-400 mt-1.5 leading-relaxed max-w-md">
+                Customize your email notifications. All notifications will be
+                sent to your on-site chat by default. You can choose whether or
+                not to receive them via email.
+              </p>
+            </div>
+          </div>
+
+          <!-- Master Toggle -->
+          <div
+            id="master-card"
+            class="mt-6 flex items-center justify-between bg-white rounded-2xl border px-5 py-4 shadow-sm transition-all duration-300 border-amber-200 shadow-amber-50"
+          >
+            <div>
+              <p class="text-sm font-semibold text-slate-800">
+                Receive notifications via email
+              </p>
+              <p class="text-xs text-slate-400 mt-0.5">
+                Master switch for all email notifications below
+              </p>
+            </div>
+            <button
+              id="master-toggle"
+              type="button"
+              role="switch"
+              aria-checked="true"
+              class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 bg-amber-400"
+            >
+              <span
+                id="master-knob"
+                class="pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition-transform duration-300 translate-x-6"
+              ></span>
+            </button>
+          </div>
+
+          <!-- Sections -->
+          <div
+            id="sections"
+            class="mt-6 space-y-6 transition-opacity duration-300 opacity-100"
+          >
+            <!-- Section 1 -->
+            <div
+              class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
+            >
+              <div class="px-6 py-3.5 border-b border-slate-50 bg-slate-50/70">
+                <h2
+                  class="text-xs font-bold text-slate-400 uppercase tracking-widest"
+                >
+                  Property & Service Updates
+                </h2>
+              </div>
+              <div class="px-6 divide-y divide-slate-50">
+                <div
+                  id="s1i1-row"
+                  class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
+                >
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                      <p
+                        class="text-sm font-semibold text-slate-800 leading-snug"
+                      >
+                        Saved Property Updates
+                      </p>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                      Price drops and information updates for saved/followed
+                      properties
+                    </p>
+                  </div>
+                  <div class="flex-shrink-0 pt-0.5" id="s1i1-control"></div>
+                </div>
+                <div
+                  id="s1i2-row"
+                  class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
+                >
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                      <p
+                        class="text-sm font-semibold text-slate-800 leading-snug"
+                      >
+                        Saved Search Matches
+                      </p>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                      New property matches for your search criteria
+                    </p>
+                  </div>
+                  <div class="flex-shrink-0 pt-0.5" id="s1i2-control"></div>
+                </div>
+                <div
+                  id="s1i3-row"
+                  class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
+                >
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                      <p
+                        class="text-sm font-semibold text-slate-800 leading-snug"
+                      >
+                        New Service Proposals
+                      </p>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                      New service proposals matching your requests
+                    </p>
+                  </div>
+                  <div class="flex-shrink-0 pt-0.5" id="s1i3-control"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div
+              class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
+            >
+              <div class="px-6 py-3.5 border-b border-slate-50 bg-slate-50/70">
+                <h2
+                  class="text-xs font-bold text-slate-400 uppercase tracking-widest"
+                >
+                  Proposals & Replies
+                </h2>
+              </div>
+              <div class="px-6 divide-y divide-slate-50">
+                <div
+                  id="s2i1-row"
+                  class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
+                >
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                      <p
+                        class="text-sm font-semibold text-slate-800 leading-snug"
+                      >
+                        Agent Communications
+                      </p>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                      Direct property proposals, replies, and messages from
+                      agents
+                    </p>
+                  </div>
+                  <div class="flex-shrink-0 pt-0.5" id="s2i1-control"></div>
+                </div>
+                <div
+                  id="s2i2-row"
+                  class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
+                >
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                      <p
+                        class="text-sm font-semibold text-slate-800 leading-snug"
+                      >
+                        Support Communications
+                      </p>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                      Direct service proposals, replies, and messages from
+                      support accounts
+                    </p>
+                  </div>
+                  <div class="flex-shrink-0 pt-0.5" id="s2i2-control"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div
+              class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
+            >
+              <div class="px-6 py-3.5 border-b border-slate-50 bg-slate-50/70">
+                <h2
+                  class="text-xs font-bold text-slate-400 uppercase tracking-widest"
+                >
+                  Other Notifications
+                </h2>
+              </div>
+              <div class="px-6 divide-y divide-slate-50">
+                <div
+                  id="s3i1-row"
+                  class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
+                >
+                  <div class="flex-1 min-w-0">
+                    <p
+                      class="text-sm font-semibold text-slate-800 leading-snug"
+                    >
+                      Promotional Messages
+                    </p>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                      Promotional messages and offers from agents or support
+                      accounts
+                    </p>
+                  </div>
+                  <div class="flex-shrink-0 pt-0.5" id="s3i1-control"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <button
-          id="master-toggle"
-          type="button"
-          role="switch"
-          aria-checked="true"
-          class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 bg-amber-400"
-        >
-          <span
-            id="master-knob"
-            class="pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition-transform duration-300 translate-x-6"
-          ></span>
-        </button>
-      </div>
 
-      <!-- Sections Container -->
-      <div
-        id="sections"
-        class="mt-6 space-y-6 transition-opacity duration-300 opacity-100"
-      >
-        <!-- Section 1 -->
+        <!-- Footer Notification -->
         <div
-          class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
+          class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-100 shadow-lg z-10"
         >
-          <div class="px-6 py-3.5 border-b border-slate-50 bg-slate-50/70">
-            <h2
-              class="text-xs font-bold text-slate-400 uppercase tracking-widest"
-            >
-              Property & Service Updates
-            </h2>
-          </div>
-          <div class="px-6 divide-y divide-slate-50">
-            <!-- Item 1 -->
-            <div
-              id="s1i1-row"
-              class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
-            >
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2">
-                  <p class="text-sm font-semibold text-slate-800 leading-snug">
-                    Saved Property Updates
-                  </p>
-                </div>
-                <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                  Price drops and information updates for saved/followed
-                  properties
-                </p>
-              </div>
-              <div class="flex-shrink-0 pt-0.5" id="s1i1-control"></div>
-            </div>
-
-            <!-- Item 2 -->
-            <div
-              id="s1i2-row"
-              class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
-            >
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2">
-                  <p class="text-sm font-semibold text-slate-800 leading-snug">
-                    Saved Search Matches
-                  </p>
-                </div>
-                <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                  New property matches for your search criteria
-                </p>
-              </div>
-              <div class="flex-shrink-0 pt-0.5" id="s1i2-control"></div>
-            </div>
-
-            <!-- Item 3 -->
-            <div
-              id="s1i3-row"
-              class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
-            >
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2">
-                  <p class="text-sm font-semibold text-slate-800 leading-snug">
-                    New Service Proposals
-                  </p>
-                </div>
-                <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                  New service proposals matching your requests
-                </p>
-              </div>
-              <div class="flex-shrink-0 pt-0.5" id="s1i3-control"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section 2 -->
-        <div
-          class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
-        >
-          <div class="px-6 py-3.5 border-b border-slate-50 bg-slate-50/70">
-            <h2
-              class="text-xs font-bold text-slate-400 uppercase tracking-widest"
-            >
-              Proposals & Replies
-            </h2>
-          </div>
-          <div class="px-6 divide-y divide-slate-50">
-            <!-- Item 1 -->
-            <div
-              id="s2i1-row"
-              class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
-            >
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2">
-                  <p class="text-sm font-semibold text-slate-800 leading-snug">
-                    Agent Communications
-                  </p>
-                </div>
-                <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                  Direct property proposals, replies, and messages from agents
-                </p>
-              </div>
-              <div class="flex-shrink-0 pt-0.5" id="s2i1-control"></div>
-            </div>
-
-            <!-- Item 2 -->
-            <div
-              id="s2i2-row"
-              class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
-            >
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2">
-                  <p class="text-sm font-semibold text-slate-800 leading-snug">
-                    Support Communications
-                  </p>
-                </div>
-                <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                  Direct service proposals, replies, and messages from support
-                  accounts
-                </p>
-              </div>
-              <div class="flex-shrink-0 pt-0.5" id="s2i2-control"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section 3 -->
-        <div
-          class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
-        >
-          <div class="px-6 py-3.5 border-b border-slate-50 bg-slate-50/70">
-            <h2
-              class="text-xs font-bold text-slate-400 uppercase tracking-widest"
-            >
-              Other Notifications
-            </h2>
-          </div>
-          <div class="px-6 divide-y divide-slate-50">
-            <div
-              id="s3i1-row"
-              class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
-            >
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-slate-800 leading-snug">
-                  Promotional Messages
-                </p>
-                <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                  Promotional messages and offers from agents or support
-                  accounts
-                </p>
-              </div>
-              <div class="flex-shrink-0 pt-0.5" id="s3i1-control"></div>
+          <div
+            class="max-w-2xl mx-auto px-4 py-3.5 flex items-center justify-between"
+          >
+            <p class="text-xs text-slate-400 hidden sm:block">
+              Changes are saved per notification type
+            </p>
+            <div class="flex items-center gap-3 ml-auto">
+              <button
+                class="px-5 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-slate-300"
+              >
+                Cancel
+              </button>
+              <button
+                class="px-5 py-2 text-sm font-semibold text-white bg-slate-900 rounded-xl hover:bg-slate-700 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 shadow-sm"
+              >
+                Save Changes
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Fixed Footer -->
-    <div
-      class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-100 shadow-lg z-10"
-    >
-      <div
-        class="max-w-2xl mx-auto px-4 py-3.5 flex items-center justify-between"
-      >
-        <p class="text-xs text-slate-400 hidden sm:block">
-          Changes are saved per notification type
-        </p>
-        <div class="flex items-center gap-3 ml-auto">
-          <button
-            class="px-5 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-slate-300"
+    <!-- Tab 2: Report Property -->
+    <div id="report" class="tab-content">
+      <div class="max-w-4xl mx-auto px-4 py-10">
+        <div
+          class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200"
+        >
+          <div
+            style="
+              height: 20rem;
+              background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: white;
+            "
           >
-            Cancel
-          </button>
-          <button
-            class="px-5 py-2 text-sm font-semibold text-white bg-slate-900 rounded-xl hover:bg-slate-700 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 shadow-sm"
-          >
-            Save Changes
-          </button>
+            <div style="text-align: center">
+              <i
+                data-lucide="building"
+                style="
+                  width: 80px;
+                  height: 80px;
+                  margin-bottom: 1.25rem;
+                  opacity: 0.9;
+                "
+              ></i>
+              <p style="font-size: 1.4rem; font-weight: 500">
+                Property Image Placeholder
+              </p>
+            </div>
+          </div>
+
+          <div style="padding: 2.5rem">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 2rem;
+                margin-bottom: 2rem;
+                flex-wrap: wrap;
+              "
+            >
+              <div>
+                <h1
+                  style="
+                    font-size: 2.25rem;
+                    font-weight: 700;
+                    margin-bottom: 1rem;
+                    color: #111827;
+                  "
+                >
+                  Modern 3BR Apartment in District 1
+                </h1>
+                <p
+                  style="
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    color: #2563eb;
+                    margin-bottom: 1rem;
+                  "
+                >
+                  25,000,000,000 VND
+                </p>
+                <p
+                  style="
+                    color: #4b5563;
+                    font-size: 1.2rem;
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  📍 District 1, Ho Chi Minh City
+                </p>
+                <p style="color: #6b7280; font-size: 1rem">
+                  Posted by: Sunshine Real Estate Co.
+                </p>
+              </div>
+
+              <button
+                id="report-btn"
+                style="
+                  padding: 1rem 2.25rem;
+                  font-size: 1.1rem;
+                  font-weight: 500;
+                "
+                class="bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 rounded-xl transition flex items-center gap-2 shadow-sm"
+              >
+                <i data-lucide="flag" style="width: 22px; height: 22px"></i>
+                Report
+              </button>
+            </div>
+
+            <div style="border-top: 1px solid #e5e7eb; padding-top: 2rem">
+              <h3
+                style="
+                  font-size: 1.4rem;
+                  font-weight: 600;
+                  margin-bottom: 1.25rem;
+                  color: #111827;
+                "
+              >
+                Property Details
+              </h3>
+              <ul
+                style="
+                  list-style: none;
+                  padding: 0;
+                  color: #374151;
+                  font-size: 1.1rem;
+                  line-height: 2;
+                "
+              >
+                <li>• 3 Bedrooms, 2 Bathrooms</li>
+                <li>• Usable area: 120 m²</li>
+                <li>• Fully furnished & modern interior</li>
+                <li>• Ready for immediate move-in</li>
+                <li>• High floor with city view</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Report Property (đã hoàn chỉnh) -->
+      <div id="report-modal" class="modal-overlay" style="display: none">
+        <div class="modal-content">
+          <div style="padding: 2.25rem">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+              "
+            >
+              <h2
+                style="
+                  font-size: 1.875rem;
+                  font-weight: 700;
+                  color: #111827;
+                  display: flex;
+                  align-items: center;
+                  gap: 1rem;
+                "
+              >
+                <i
+                  data-lucide="flag"
+                  style="color: #ef4444; width: 30px; height: 30px"
+                ></i>
+                Report This Property
+              </h2>
+              <button
+                id="close-modal"
+                style="
+                  background: none;
+                  border: none;
+                  color: #9ca3af;
+                  cursor: pointer;
+                  padding: 0.5rem;
+                "
+              >
+                <i data-lucide="x" style="width: 30px; height: 30px"></i>
+              </button>
+            </div>
+
+            <div
+              id="success-message"
+              style="display: none; text-align: center; padding: 4rem 1.5rem"
+            >
+              <i
+                data-lucide="check-circle"
+                style="
+                  width: 80px;
+                  height: 80px;
+                  color: #10b981;
+                  margin-bottom: 1.75rem;
+                "
+              ></i>
+              <h3
+                style="
+                  font-size: 1.75rem;
+                  font-weight: 700;
+                  margin-bottom: 1.25rem;
+                  color: #111827;
+                "
+              >
+                Report Submitted Successfully
+              </h3>
+              <p
+                style="
+                  color: #4b5563;
+                  font-size: 1.15rem;
+                  max-width: 520px;
+                  margin: 0 auto;
+                  line-height: 1.6;
+                "
+              >
+                Thank you for helping keep our platform safe and accurate.<br />We
+                will review your report shortly.
+              </p>
+            </div>
+
+            <form id="report-form">
+              <!-- Property Info -->
+              <div
+                style="
+                  background: #eff6ff;
+                  padding: 1.25rem;
+                  border-radius: 0.75rem;
+                  margin-bottom: 1.75rem;
+                "
+              >
+                <h3
+                  style="
+                    font-weight: 600;
+                    color: #1e40af;
+                    margin-bottom: 1rem;
+                    font-size: 1.1rem;
+                  "
+                >
+                  Property Information
+                </h3>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem;
+                    font-size: 0.95rem;
+                  "
+                >
+                  <div>
+                    <span style="color: var(--gray-600)">Property ID:</span
+                    ><br /><strong>PROP-2026-001234</strong>
+                  </div>
+                  <div>
+                    <span style="color: var(--gray-600)">Report Date:</span
+                    ><br /><strong>2026-02-04</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reporter Type -->
+              <div style="margin-bottom: 1.75rem">
+                <label
+                  style="
+                    display: block;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: var(--gray-700);
+                    margin-bottom: 1rem;
+                  "
+                >
+                  I am reporting as:
+                </label>
+                <div style="display: flex; gap: 1.25rem; flex-wrap: wrap">
+                  <button
+                    type="button"
+                    data-type="individual"
+                    class="reporter-type-btn active"
+                  >
+                    <i
+                      data-lucide="user"
+                      style="
+                        width: 28px;
+                        height: 28px;
+                        margin-bottom: 0.75rem;
+                        color: #2563eb;
+                      "
+                    ></i>
+                    <div style="font-weight: 600">Individual User</div>
+                  </button>
+                  <button
+                    type="button"
+                    data-type="company"
+                    class="reporter-type-btn"
+                  >
+                    <i
+                      data-lucide="building"
+                      style="
+                        width: 28px;
+                        height: 28px;
+                        margin-bottom: 0.75rem;
+                        color: #2563eb;
+                      "
+                    ></i>
+                    <div style="font-weight: 600">Real Estate Company</div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Reason -->
+              <div style="margin-bottom: 1.75rem">
+                <label
+                  style="
+                    display: block;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: var(--gray-700);
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  Reason for Report <span style="color: #ef4444">*</span>
+                </label>
+                <select
+                  id="reason-select"
+                  required
+                  class="input"
+                  style="padding: 1rem; font-size: 1rem"
+                >
+                  <option value="">Please select a reason...</option>
+                </select>
+              </div>
+
+              <!-- Contact -->
+              <div style="margin-bottom: 1.75rem">
+                <h3
+                  style="
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    margin-bottom: 1.25rem;
+                    color: #111827;
+                  "
+                >
+                  Your Contact Information
+                </h3>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    gap: 1.25rem;
+                  "
+                  id="contact-grid"
+                ></div>
+              </div>
+
+              <!-- Details -->
+              <div style="margin-bottom: 2rem">
+                <label
+                  style="
+                    display: block;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: var(--gray-700);
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  Details / Evidence <span style="color: #ef4444">*</span>
+                </label>
+                <textarea
+                  required
+                  id="details"
+                  rows="6"
+                  class="textarea"
+                  placeholder="Please describe the issue in detail. Attach photos, links or any supporting evidence if possible..."
+                  style="font-size: 1rem; line-height: 1.6"
+                ></textarea>
+              </div>
+
+              <!-- Buttons -->
+              <div style="display: flex; gap: 1rem; justify-content: flex-end">
+                <button
+                  type="button"
+                  id="cancel-report"
+                  class="btn btn-outline"
+                  style="padding: 0.875rem 2rem"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-danger"
+                  style="padding: 0.875rem 2rem"
+                >
+                  Submit Report
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
 
     <script>
-      // ============================================================================
-      // Constants
-      // ============================================================================
-      const TIMES = [
-        "06:00 AM",
-        "07:00 AM",
-        "08:00 AM",
-        "09:00 AM",
-        "10:00 AM",
-        "11:00 AM",
-        "12:00 PM",
-        "01:00 PM",
-        "02:00 PM",
-        "03:00 PM",
-        "04:00 PM",
-        "05:00 PM",
-        "06:00 PM",
-        "07:00 PM",
-        "08:00 PM",
-      ];
-      const DAYS = [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ];
-      const STANDARD_FREQ = ["Immediately", "Daily", "Weekly", "Off"];
-      const URGENT_FREQ = ["Immediately", "Off"];
-
-      // ============================================================================
-      // State
-      // ============================================================================
-      let emailEnabled = true;
-
-      const states = {
-        s1i1: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
-        s1i2: { freq: "Daily", time: "09:00 AM", day: "Monday" },
-        s1i3: { freq: "Weekly", time: "09:00 AM", day: "Monday" },
-        s2i1: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
-        s2i2: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
-        s3i1: { freq: "Off", time: "09:00 AM", day: "Monday" },
-      };
-
-      // ============================================================================
-      // Helpers
-      // ============================================================================
-      function createSelect(options, selected, onChange) {
-        const sel = document.createElement("select");
-        sel.className =
-          "custom-select appearance-none bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-lg px-3 py-2 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all hover:border-slate-300";
-        options.forEach((opt) => {
-          const option = document.createElement("option");
-          option.value = opt;
-          option.textContent = opt;
-          if (opt === selected) option.selected = true;
-          sel.appendChild(option);
+      // Tab switching
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById(btn.dataset.tab).classList.add("active");
         });
-        sel.addEventListener("change", (e) => onChange(e.target.value));
-        return sel;
-      }
+      });
 
-      function renderFrequencyControl(container, id, isUrgent = false) {
-        const state = states[id];
-        const freqOptions = isUrgent ? URGENT_FREQ : STANDARD_FREQ;
+      // ============================================================================
+      // NOTIFICATION SETTINGS LOGIC (giữ nguyên)
+      // ============================================================================
+      (function () {
+        const TIMES = [
+          "06:00 AM",
+          "07:00 AM",
+          "08:00 AM",
+          "09:00 AM",
+          "10:00 AM",
+          "11:00 AM",
+          "12:00 PM",
+          "01:00 PM",
+          "02:00 PM",
+          "03:00 PM",
+          "04:00 PM",
+          "05:00 PM",
+          "06:00 PM",
+          "07:00 PM",
+          "08:00 PM",
+        ];
+        const DAYS = [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ];
+        const STANDARD_FREQ = ["Immediately", "Daily", "Weekly", "Off"];
+        const URGENT_FREQ = ["Immediately", "Off"];
 
-        container.innerHTML = "";
+        let emailEnabled = true;
+        const states = {
+          s1i1: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
+          s1i2: { freq: "Daily", time: "09:00 AM", day: "Monday" },
+          s1i3: { freq: "Weekly", time: "09:00 AM", day: "Monday" },
+          s2i1: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
+          s2i2: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
+          s3i1: { freq: "Off", time: "09:00 AM", day: "Monday" },
+        };
 
-        const wrapper = document.createElement("div");
-        wrapper.className = "flex items-center gap-2 flex-wrap justify-end";
+        function createSelect(options, selected, onChange) {
+          const sel = document.createElement("select");
+          sel.className =
+            "custom-select appearance-none bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-lg px-3 py-2 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all hover:border-slate-300";
+          options.forEach((opt) => {
+            const o = document.createElement("option");
+            o.value = opt;
+            o.textContent = opt;
+            if (opt === selected) o.selected = true;
+            sel.appendChild(o);
+          });
+          sel.addEventListener("change", (e) => onChange(e.target.value));
+          return sel;
+        }
 
-        // Frequency select
-        const freqSelect = createSelect(freqOptions, state.freq, (val) => {
-          state.freq = val;
-          renderFrequencyControl(container, id, isUrgent);
-          updateRowOpacity(id);
-        });
-        wrapper.appendChild(freqSelect);
+        function renderFrequencyControl(container, id, isUrgent = false) {
+          const state = states[id];
+          const opts = isUrgent ? URGENT_FREQ : STANDARD_FREQ;
+          container.innerHTML = "";
 
-        if (!isUrgent) {
-          if (state.freq === "Daily") {
-            const div = document.createElement("div");
-            div.className = "flex items-center gap-1.5 animate-fadeIn";
+          const wrap = document.createElement("div");
+          wrap.className = "flex items-center gap-2 flex-wrap justify-end";
 
-            const label = document.createElement("span");
-            label.className = "text-xs text-slate-400 font-medium";
-            label.textContent = "Time";
-            div.appendChild(label);
+          const freqSel = createSelect(opts, state.freq, (val) => {
+            state.freq = val;
+            renderFrequencyControl(container, id, isUrgent);
+            updateRowOpacity(id);
+          });
+          wrap.appendChild(freqSel);
 
-            const timeSelect = createSelect(TIMES, state.time, (val) => {
-              state.time = val;
-            });
-            div.appendChild(timeSelect);
-            wrapper.appendChild(div);
+          if (!isUrgent) {
+            if (state.freq === "Daily") {
+              const d = document.createElement("div");
+              d.className = "flex items-center gap-1.5 animate-fadeIn";
+              d.innerHTML = `<span class="text-xs text-slate-400 font-medium">Time</span>`;
+              d.appendChild(
+                createSelect(TIMES, state.time, (v) => (state.time = v)),
+              );
+              wrap.appendChild(d);
+            }
+            if (state.freq === "Weekly") {
+              const g = document.createElement("div");
+              g.className =
+                "flex items-center gap-2 animate-fadeIn flex-wrap justify-end";
+
+              const dayD = document.createElement("div");
+              dayD.className = "flex items-center gap-1.5";
+              dayD.innerHTML = `<span class="text-xs text-slate-400 font-medium">Day</span>`;
+              dayD.appendChild(
+                createSelect(DAYS, state.day, (v) => (state.day = v)),
+              );
+
+              const timeD = document.createElement("div");
+              timeD.className = "flex items-center gap-1.5";
+              timeD.innerHTML = `<span class="text-xs text-slate-400 font-medium">Time</span>`;
+              timeD.appendChild(
+                createSelect(TIMES, state.time, (v) => (state.time = v)),
+              );
+
+              g.appendChild(dayD);
+              g.appendChild(timeD);
+              wrap.appendChild(g);
+            }
           }
+          container.appendChild(wrap);
+        }
 
-          if (state.freq === "Weekly") {
-            const group = document.createElement("div");
-            group.className =
-              "flex items-center gap-2 animate-fadeIn flex-wrap justify-end";
-
-            // Day
-            const dayDiv = document.createElement("div");
-            dayDiv.className = "flex items-center gap-1.5";
-            const dayLabel = document.createElement("span");
-            dayLabel.className = "text-xs text-slate-400 font-medium";
-            dayLabel.textContent = "Day";
-            dayDiv.appendChild(dayLabel);
-            const daySelect = createSelect(DAYS, state.day, (val) => {
-              state.day = val;
-            });
-            dayDiv.appendChild(daySelect);
-
-            // Time
-            const timeDiv = document.createElement("div");
-            timeDiv.className = "flex items-center gap-1.5";
-            const timeLabel = document.createElement("span");
-            timeLabel.className = "text-xs text-slate-400 font-medium";
-            timeLabel.textContent = "Time";
-            timeDiv.appendChild(timeLabel);
-            const timeSelect = createSelect(TIMES, state.time, (val) => {
-              state.time = val;
-            });
-            timeDiv.appendChild(timeSelect);
-
-            group.appendChild(dayDiv);
-            group.appendChild(timeDiv);
-            wrapper.appendChild(group);
+        function updateRowOpacity(id) {
+          const row = document.getElementById(id + "-row");
+          if (row) {
+            const off = states[id].freq === "Off";
+            row.classList.toggle("opacity-50", off);
+            row.classList.toggle("opacity-100", !off);
           }
         }
 
-        container.appendChild(wrapper);
-      }
+        function initControls() {
+          renderFrequencyControl(
+            document.getElementById("s1i1-control"),
+            "s1i1",
+          );
+          renderFrequencyControl(
+            document.getElementById("s1i2-control"),
+            "s1i2",
+          );
+          renderFrequencyControl(
+            document.getElementById("s1i3-control"),
+            "s1i3",
+          );
+          renderFrequencyControl(
+            document.getElementById("s2i1-control"),
+            "s2i1",
+            true,
+          );
+          renderFrequencyControl(
+            document.getElementById("s2i2-control"),
+            "s2i2",
+            true,
+          );
+          renderFrequencyControl(
+            document.getElementById("s3i1-control"),
+            "s3i1",
+          );
+          Object.keys(states).forEach(updateRowOpacity);
+        }
 
-      function updateRowOpacity(id) {
-        const row = document.getElementById(id + "-row");
-        if (!row) return;
-        const isOff = states[id].freq === "Off";
-        row.classList.toggle("opacity-50", isOff);
-        row.classList.toggle("opacity-100", !isOff);
-      }
+        const mt = document.getElementById("master-toggle");
+        const mk = document.getElementById("master-knob");
+        const mc = document.getElementById("master-card");
+        const sec = document.getElementById("sections");
 
-      function initAllControls() {
-        renderFrequencyControl(document.getElementById("s1i1-control"), "s1i1");
-        renderFrequencyControl(document.getElementById("s1i2-control"), "s1i2");
-        renderFrequencyControl(document.getElementById("s1i3-control"), "s1i3");
-        renderFrequencyControl(
-          document.getElementById("s2i1-control"),
-          "s2i1",
-          true,
-        );
-        renderFrequencyControl(
-          document.getElementById("s2i2-control"),
-          "s2i2",
-          true,
-        );
-        renderFrequencyControl(document.getElementById("s3i1-control"), "s3i1");
+        if (mt) {
+          mt.addEventListener("click", () => {
+            emailEnabled = !emailEnabled;
+            mt.setAttribute("aria-checked", emailEnabled);
+            mt.classList.toggle("bg-amber-400", emailEnabled);
+            mt.classList.toggle("bg-slate-200", !emailEnabled);
+            mk.classList.toggle("translate-x-6", emailEnabled);
+            mk.classList.toggle("translate-x-1", !emailEnabled);
+            mc.classList.toggle("border-amber-200", emailEnabled);
+            mc.classList.toggle("shadow-amber-50", emailEnabled);
+            mc.classList.toggle("border-slate-100", !emailEnabled);
+            sec.classList.toggle("opacity-100", emailEnabled);
+            sec.classList.toggle("opacity-40", !emailEnabled);
+            sec.classList.toggle("pointer-events-none", !emailEnabled);
+          });
+        }
 
-        // Initial opacity
-        Object.keys(states).forEach(updateRowOpacity);
-      }
+        initControls();
+      })();
 
-      // Master toggle
-      const masterToggle = document.getElementById("master-toggle");
-      const masterKnob = document.getElementById("master-knob");
-      const masterCard = document.getElementById("master-card");
-      const sections = document.getElementById("sections");
+      // ============================================================================
+      // REPORT PROPERTY LOGIC (hoàn chỉnh)
+      // ============================================================================
+      (function () {
+        lucide.createIcons();
 
-      masterToggle.addEventListener("click", () => {
-        emailEnabled = !emailEnabled;
-        masterToggle.setAttribute("aria-checked", emailEnabled);
+        const reportReasons = {
+          individual: [
+            "Property already sold",
+            "Incorrect information",
+            "Privacy/Copyright infringement",
+            "Other",
+          ],
+          company: [
+            "Property already sold",
+            "Incorrect information",
+            "Unauthorized listing of own property",
+            "Unauthorized use of own images",
+            "Other",
+          ],
+        };
 
-        masterToggle.classList.toggle("bg-amber-400", emailEnabled);
-        masterToggle.classList.toggle("bg-slate-200", !emailEnabled);
+        let reportType = "individual";
 
-        masterKnob.classList.toggle("translate-x-6", emailEnabled);
-        masterKnob.classList.toggle("translate-x-1", !emailEnabled);
+        const modal = document.getElementById("report-modal");
+        const successMsg = document.getElementById("success-message");
+        const form = document.getElementById("report-form");
+        const reasonSel = document.getElementById("reason-select");
+        const contactGrid = document.getElementById("contact-grid");
 
-        masterCard.classList.toggle("border-amber-200", emailEnabled);
-        masterCard.classList.toggle("shadow-amber-50", emailEnabled);
-        masterCard.classList.toggle("border-slate-100", !emailEnabled);
+        function updateReasons() {
+          reasonSel.innerHTML =
+            '<option value="">Please select a reason...</option>';
+          reportReasons[reportType].forEach((r) => {
+            const opt = document.createElement("option");
+            opt.value = r;
+            opt.textContent = r;
+            reasonSel.appendChild(opt);
+          });
+        }
 
-        sections.classList.toggle("opacity-100", emailEnabled);
-        sections.classList.toggle("opacity-40", !emailEnabled);
-        sections.classList.toggle("pointer-events-none", !emailEnabled);
-      });
+        function renderContact() {
+          let html = `
+          <div>
+            <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+              Name <span style="color:#ef4444;">*</span>
+            </label>
+            <input type="text" required class="input" placeholder="Your full name">
+          </div>
+          <div>
+            <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+              Email <span style="color:#ef4444;">*</span>
+            </label>
+            <input type="email" required class="input" placeholder="your.email@example.com">
+          </div>
+        `;
 
-      // Init
-      initAllControls();
+          if (reportType === "company") {
+            html += `
+            <div>
+              <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+                Company Name <span style="color:#ef4444;">*</span>
+              </label>
+              <input type="text" required class="input" placeholder="Your company name">
+            </div>
+            <div>
+              <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+                Contact Person
+              </label>
+              <input type="text" class="input" placeholder="Contact person name (optional)">
+            </div>
+          `;
+            contactGrid.style.gridTemplateColumns = "1fr 1fr";
+          } else {
+            contactGrid.style.gridTemplateColumns = "1fr";
+          }
+
+          html += `
+          <div style="${reportType === "company" ? "grid-column: span 2;" : ""}">
+            <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+              Phone Number <span style="color:#ef4444;">*</span>
+            </label>
+            <input type="tel" required class="input" placeholder="+84 xxx xxx xxxx">
+          </div>
+        `;
+
+          contactGrid.innerHTML = html;
+        }
+
+        function openReportModal() {
+          modal.style.display = "flex";
+          successMsg.style.display = "none";
+          form.style.display = "block";
+          reportType = "individual";
+          updateReasons();
+          renderContact();
+
+          document.querySelectorAll(".reporter-type-btn").forEach((b) => {
+            const active = b.dataset.type === reportType;
+            b.classList.toggle("active", active);
+            b.style.borderColor = active ? "#3b82f6" : "#e5e7eb";
+            b.style.background = active ? "#eff6ff" : "white";
+          });
+        }
+
+        document
+          .getElementById("report-btn")
+          ?.addEventListener("click", openReportModal);
+
+        document.addEventListener("click", (e) => {
+          if (e.target.closest(".reporter-type-btn")) {
+            const btn = e.target.closest(".reporter-type-btn");
+            reportType = btn.dataset.type;
+            document.querySelectorAll(".reporter-type-btn").forEach((b) => {
+              b.classList.remove("active");
+              b.style.borderColor = "#e5e7eb";
+              b.style.background = "white";
+            });
+            btn.classList.add("active");
+            btn.style.borderColor = "#3b82f6";
+            btn.style.background = "#eff6ff";
+            updateReasons();
+            renderContact();
+          }
+
+          if (
+            e.target.id === "close-modal" ||
+            e.target.id === "cancel-report"
+          ) {
+            modal.style.display = "none";
+          }
+        });
+
+        form?.addEventListener("submit", (e) => {
+          e.preventDefault();
+          successMsg.style.display = "block";
+          form.style.display = "none";
+          setTimeout(() => (modal.style.display = "none"), 2600);
+        });
+
+        // Khởi tạo ban đầu
+        updateReasons();
+        renderContact();
+      })();
     </script>
   </body>
 </html>
