@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search for properties by category</title>
+
+    <style>
+      /* ── SCOPED ONLY TO THIS SECTION ── */
+      .spc-section {
+        background-color: #f0ebe0;
+        padding: 52px 0 64px;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+          sans-serif;
+        color: #1c1a16;
+      }
+      .spc-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 40px;
+      }
+      /* ── TITLE ── */
+      .spc-title {
+        font-size: 30px;
+        font-weight: 700;
+        color: #1c1a16;
+        text-align: center;
+        margin: 0 0 32px;
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+      }
+      /* ── TAB NAV ── */
+      .spc-tabs {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+      }
+      .spc-tab {
+        font-size: 13px;
+        font-weight: 400;
+        color: #1c1a16;
+        background: none;
+        border: none;
+        padding: 7px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        line-height: 1;
+        font-family: inherit;
+        transition: background 0.15s;
+      }
+      .spc-tab:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+      .spc-tab.spc-tab--active {
+        background: #b8a98a;
+        color: #fff;
+        font-weight: 500;
+      }
+      .spc-tab.spc-tab--active:hover {
+        background: #a89878;
+      }
+      /* ── PANEL ── */
+      .spc-panel {
+        display: none;
+      }
+      .spc-panel.spc-panel--active {
+        display: block;
+      }
+      /* ── ITEM GRID ── */
+      .spc-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        row-gap: 28px;
+        column-gap: 24px;
+      }
+      @media (max-width: 1024px) {
+        .spc-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 768px) {
+        .spc-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 480px) {
+        .spc-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      /* For panels with BUY/RENT split — full-width label row */
+      .spc-split-label {
+        grid-column: 1 / -1;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #8a7f6e;
+        padding-top: 4px;
+        padding-bottom: 0;
+        margin-bottom: -10px;
+      }
+      .spc-split-divider {
+        grid-column: 1 / -1;
+        height: 1px;
+        background: #d9d2c3;
+        margin: 6px 0 4px;
+      }
+      /* ── CATEGORY ITEM ── */
+      .spc-item {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .spc-item-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1c1a16;
+        line-height: 1.3;
+      }
+      .spc-item-count {
+        font-size: 12px;
+        font-weight: 400;
+        color: #8a7f6e;
+        line-height: 1;
+      }
+      .spc-item:hover .spc-item-name {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      /* Cities panel — same grid, no sub-labels */
+      /* Investment panel — same grid */
+      /* Condition notice */
+      .spc-condition {
+        grid-column: 1 / -1;
+        font-size: 12px;
+        color: #8a7f6e;
+        margin-bottom: -6px;
+      }
+      /* Preset items (For Sale / Rental) — emoji + label inline */
+      .spc-item-name--with-icon {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      .spc-item-icon {
+        font-size: 14px;
+        line-height: 1.3;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="spc-section">
+      <div class="spc-inner">
+        <h2 class="spc-title">Search for properties by category</h2>
+
+        <!-- TAB NAV -->
+        <nav class="spc-tabs" role="tablist">
+          <button
+            class="spc-tab spc-tab--active"
+            data-spc-tab="cities"
+            role="tab"
+          >
+            Popular Cities
+          </button>
+          <button class="spc-tab" data-spc-tab="popular" role="tab">
+            Popular Properties
+          </button>
+          <button class="spc-tab" data-spc-tab="new" role="tab">
+            New Listings
+          </button>
+          <button class="spc-tab" data-spc-tab="sale" role="tab">
+            Properties For Sale
+          </button>
+          <button class="spc-tab" data-spc-tab="rental" role="tab">
+            Rental Properties
+          </button>
+          <button class="spc-tab" data-spc-tab="invest" role="tab">
+            Investment Properties
+          </button>
+          <button class="spc-tab" data-spc-tab="featured" role="tab">
+            Featured Properties
+          </button>
+        </nav>
+
+        <!-- TAB 1: POPULAR CITIES -->
+        <div class="spc-panel spc-panel--active" id="spc-panel-cities">
+          <div class="spc-grid">
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Tokyo</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Yokohama</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Osaka</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Nagoya</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Sapporo</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Fukuoka</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Hiroshima</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Kobe</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Kyoto</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Saitama</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Niseko</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Okinawa</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+          </div>
+        </div>
+
+        <!-- TAB 2: POPULAR PROPERTIES -->
+        <div class="spc-panel" id="spc-panel-popular">
+          <div class="spc-grid">
+            <span class="spc-split-label">Buy</span>
+            <div class="spc-split-divider"></div>
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Apartment Tower</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Tower Mansion</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">House</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Residential Building</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Land</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Retail Building</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Office Building</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Hotel / Ryokan</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">New Developments</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">New Houses</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+
+            <span class="spc-split-label">Rent</span>
+            <div class="spc-split-divider"></div>
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Apartment Tower</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Tower Mansion</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">House</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Retail Unit</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Office Unit</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Factory / Warehouse Unit</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+          </div>
+        </div>
+
+        <!-- TAB 3: NEW LISTINGS -->
+        <div class="spc-panel" id="spc-panel-new">
+          <div class="spc-grid">
+            <span class="spc-condition"
+              >Condition: Registered within one month</span
+            >
+            <span class="spc-split-label">Buy</span>
+            <div class="spc-split-divider"></div>
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Apartment</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Tower Mansion</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">House</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Residential Building</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Land</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Retail Building</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Office Building</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Hotel / Ryokan</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+
+            <span class="spc-split-label">Rent</span>
+            <div class="spc-split-divider"></div>
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Apartment</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Tower Mansion</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">House</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Retail Unit</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Office Unit</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Factory / Warehouse Unit</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+          </div>
+        </div>
+
+        <!-- TAB 4: PROPERTIES FOR SALE -->
+        <div class="spc-panel" id="spc-panel-sale">
+          <div class="spc-grid">
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🏠</span>New Apartment</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🏠</span>New Listing: Used
+                Apartment (Built < 10 years)</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🏠</span>Recently Built Apartment
+                (< 5 years)</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🏡</span>Newly Built House</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🏡</span>Used House (Built < 10
+                years)</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🐕</span>Pet-Friendly
+                Property</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🚗</span>Property with
+                Parking</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🌳</span>Low-Rise Apartment</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- TAB 5: RENTAL PROPERTIES -->
+        <div class="spc-panel" id="spc-panel-rental">
+          <div class="spc-grid">
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">✨</span>Newly Built /
+                Renovated</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🚗</span>Parking Available
+                Rental</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🐕</span>Pet-Friendly Rental
+                Property</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">👨‍👩‍👧‍👦</span>Family-Friendly
+                3LDK+</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🎓</span>Student-Friendly
+                Property</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🏷️</span>No Key Money</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">🚃</span>Station-Close (< 5 min
+                walk)</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+            <a class="spc-item" href="#">
+              <span class="spc-item-name spc-item-name--with-icon"
+                ><span class="spc-item-icon">📅</span>Move-In Ready</span
+              >
+              <span class="spc-item-count">100 properties</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- TAB 6: INVESTMENT PROPERTIES -->
+        <div class="spc-panel" id="spc-panel-invest">
+          <div class="spc-grid">
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Yield 6%+</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Yield 8%+</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Under ¥10M</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Fully Occupied</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Hospitality Properties</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Renovated</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Studio</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Whole Building</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Station 5 mins</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+          </div>
+        </div>
+
+        <!-- TAB 7: FEATURED PROPERTIES -->
+        <div class="spc-panel" id="spc-panel-featured">
+          <div class="spc-grid">
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">New Development</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Ocean View</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Luxury Tower Mansion</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">New House</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Resort Property</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Furnished Properties</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Traditional House</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Pet Friendly</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Online Viewing</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+            <a class="spc-item" href="#"
+              ><span class="spc-item-name">Ski Property</span
+              ><span class="spc-item-count">100 properties</span></a
+            >
+          </div>
+        </div>
+      </div>
+      <!-- /.spc-inner -->
+    </section>
+
+    <script>
+      (function () {
+        const tabs = document.querySelectorAll("[data-spc-tab]");
+        const panels = {
+          cities: document.getElementById("spc-panel-cities"),
+          popular: document.getElementById("spc-panel-popular"),
+          new: document.getElementById("spc-panel-new"),
+          sale: document.getElementById("spc-panel-sale"),
+          rental: document.getElementById("spc-panel-rental"),
+          invest: document.getElementById("spc-panel-invest"),
+          featured: document.getElementById("spc-panel-featured"),
+        };
+
+        tabs.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            // deactivate all
+            tabs.forEach(function (b) {
+              b.classList.remove("spc-tab--active");
+            });
+            Object.values(panels).forEach(function (p) {
+              p.classList.remove("spc-panel--active");
+            });
+
+            // activate clicked
+            btn.classList.add("spc-tab--active");
+            const key = btn.getAttribute("data-spc-tab");
+            if (panels[key]) panels[key].classList.add("spc-panel--active");
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

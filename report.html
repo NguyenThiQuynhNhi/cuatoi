@@ -1,0 +1,504 @@
+<div class="max-w-4xl mx-auto px-4 py-10">
+  <div
+    class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200"
+  >
+    <div
+      style="
+        height: 20rem;
+        background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      "
+    >
+      <div style="text-align: center">
+        <i
+          data-lucide="building"
+          style="
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.25rem;
+            opacity: 0.9;
+          "
+        ></i>
+        <p style="font-size: 1.4rem; font-weight: 500">
+          Property Image Placeholder
+        </p>
+      </div>
+    </div>
+
+    <div style="padding: 2.5rem">
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 2rem;
+          margin-bottom: 2rem;
+          flex-wrap: wrap;
+        "
+      >
+        <div>
+          <h1
+            style="
+              font-size: 2.25rem;
+              font-weight: 700;
+              margin-bottom: 1rem;
+              color: #111827;
+            "
+          >
+            Modern 3BR Apartment in District 1
+          </h1>
+          <p
+            style="
+              font-size: 2.5rem;
+              font-weight: 700;
+              color: #2563eb;
+              margin-bottom: 1rem;
+            "
+          >
+            25,000,000,000 VND
+          </p>
+          <p style="color: #4b5563; font-size: 1.2rem; margin-bottom: 0.75rem">
+            📍 District 1, Ho Chi Minh City
+          </p>
+          <p style="color: #6b7280; font-size: 1rem">
+            Posted by: Sunshine Real Estate Co.
+          </p>
+        </div>
+
+        <button
+          id="report-btn"
+          style="padding: 1rem 2.25rem; font-size: 1.1rem; font-weight: 500"
+          class="bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 rounded-xl transition flex items-center gap-2 shadow-sm"
+        >
+          <i data-lucide="flag" style="width: 22px; height: 22px"></i>
+          Report
+        </button>
+      </div>
+
+      <div style="border-top: 1px solid #e5e7eb; padding-top: 2rem">
+        <h3
+          style="
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: #111827;
+          "
+        >
+          Property Details
+        </h3>
+        <ul
+          style="
+            list-style: none;
+            padding: 0;
+            color: #374151;
+            font-size: 1.1rem;
+            line-height: 2;
+          "
+        >
+          <li>• 3 Bedrooms, 2 Bathrooms</li>
+          <li>• Usable area: 120 m²</li>
+          <li>• Fully furnished & modern interior</li>
+          <li>• Ready for immediate move-in</li>
+          <li>• High floor with city view</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Report Property -->
+<div id="report-modal" class="modal-overlay" style="display: none">
+  <div class="modal-content">
+    <div style="padding: 2.25rem">
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2rem;
+        "
+      >
+        <h2
+          style="
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+          "
+        >
+          <i
+            data-lucide="flag"
+            style="color: #ef4444; width: 30px; height: 30px"
+          ></i>
+          Report This Property
+        </h2>
+        <button
+          id="close-modal"
+          style="
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 0.5rem;
+          "
+        >
+          <i data-lucide="x" style="width: 30px; height: 30px"></i>
+        </button>
+      </div>
+
+      <div
+        id="success-message"
+        style="display: none; text-align: center; padding: 4rem 1.5rem"
+      >
+        <i
+          data-lucide="check-circle"
+          style="
+            width: 80px;
+            height: 80px;
+            color: #10b981;
+            margin-bottom: 1.75rem;
+          "
+        ></i>
+        <h3
+          style="
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: #111827;
+          "
+        >
+          Report Submitted Successfully
+        </h3>
+        <p
+          style="
+            color: #4b5563;
+            font-size: 1.15rem;
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.6;
+          "
+        >
+          Thank you for helping keep our platform safe and accurate.<br />We
+          will review your report shortly.
+        </p>
+      </div>
+
+      <form id="report-form">
+        <!-- Property Info -->
+        <div
+          style="
+            background: #eff6ff;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.75rem;
+          "
+        >
+          <h3
+            style="
+              font-weight: 600;
+              color: #1e40af;
+              margin-bottom: 1rem;
+              font-size: 1.1rem;
+            "
+          >
+            Property Information
+          </h3>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 1rem;
+              font-size: 0.95rem;
+            "
+          >
+            <div>
+              <span style="color: var(--gray-600)">Property ID:</span
+              ><br /><strong>PROP-2026-001234</strong>
+            </div>
+            <div>
+              <span style="color: var(--gray-600)">Report Date:</span
+              ><br /><strong>2026-02-04</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reporter Type -->
+        <div style="margin-bottom: 1.75rem">
+          <label
+            style="
+              display: block;
+              font-size: 1rem;
+              font-weight: 500;
+              color: var(--gray-700);
+              margin-bottom: 1rem;
+            "
+          >
+            I am reporting as:
+          </label>
+          <div style="display: flex; gap: 1.25rem; flex-wrap: wrap">
+            <button
+              type="button"
+              data-type="individual"
+              class="reporter-type-btn active"
+            >
+              <i
+                data-lucide="user"
+                style="
+                  width: 28px;
+                  height: 28px;
+                  margin-bottom: 0.75rem;
+                  color: #2563eb;
+                "
+              ></i>
+              <div style="font-weight: 600">Individual User</div>
+            </button>
+            <button type="button" data-type="company" class="reporter-type-btn">
+              <i
+                data-lucide="building"
+                style="
+                  width: 28px;
+                  height: 28px;
+                  margin-bottom: 0.75rem;
+                  color: #2563eb;
+                "
+              ></i>
+              <div style="font-weight: 600">Real Estate Company</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Reason -->
+        <div style="margin-bottom: 1.75rem">
+          <label
+            style="
+              display: block;
+              font-size: 1rem;
+              font-weight: 500;
+              color: var(--gray-700);
+              margin-bottom: 0.75rem;
+            "
+          >
+            Reason for Report <span style="color: #ef4444">*</span>
+          </label>
+          <select
+            id="reason-select"
+            required
+            class="input"
+            style="padding: 1rem; font-size: 1rem"
+          >
+            <option value="">Please select a reason...</option>
+          </select>
+        </div>
+
+        <!-- Contact -->
+        <div style="margin-bottom: 1.75rem">
+          <h3
+            style="
+              font-size: 1.25rem;
+              font-weight: 600;
+              margin-bottom: 1.25rem;
+              color: #111827;
+            "
+          >
+            Your Contact Information
+          </h3>
+          <div
+            style="display: grid; grid-template-columns: 1fr; gap: 1.25rem"
+            id="contact-grid"
+          ></div>
+        </div>
+
+        <!-- Details -->
+        <div style="margin-bottom: 2rem">
+          <label
+            style="
+              display: block;
+              font-size: 1rem;
+              font-weight: 500;
+              color: var(--gray-700);
+              margin-bottom: 0.75rem;
+            "
+          >
+            Details / Evidence <span style="color: #ef4444">*</span>
+          </label>
+          <textarea
+            required
+            id="details"
+            rows="6"
+            class="textarea"
+            placeholder="Please describe the issue in detail. Attach photos, links or any supporting evidence if possible..."
+            style="font-size: 1rem; line-height: 1.6"
+          ></textarea>
+        </div>
+
+        <!-- Buttons -->
+        <div style="display: flex; gap: 1rem; justify-content: flex-end">
+          <button
+            type="button"
+            id="cancel-report"
+            class="btn btn-outline"
+            style="padding: 0.875rem 2rem"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-danger"
+            style="padding: 0.875rem 2rem"
+          >
+            Submit Report
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ============================================================================
+  // REPORT PROPERTY LOGIC
+  // ============================================================================
+  (function () {
+    lucide.createIcons();
+
+    const reportReasons = {
+      individual: [
+        "Property already sold",
+        "Incorrect information",
+        "Privacy/Copyright infringement",
+        "Other",
+      ],
+      company: [
+        "Property already sold",
+        "Incorrect information",
+        "Unauthorized listing of own property",
+        "Unauthorized use of own images",
+        "Other",
+      ],
+    };
+
+    let reportType = "individual";
+
+    const modal = document.getElementById("report-modal");
+    const successMsg = document.getElementById("success-message");
+    const form = document.getElementById("report-form");
+    const reasonSel = document.getElementById("reason-select");
+    const contactGrid = document.getElementById("contact-grid");
+
+    function updateReasons() {
+      reasonSel.innerHTML =
+        '<option value="">Please select a reason...</option>';
+      reportReasons[reportType].forEach((r) => {
+        const opt = document.createElement("option");
+        opt.value = r;
+        opt.textContent = r;
+        reasonSel.appendChild(opt);
+      });
+    }
+
+    function renderContact() {
+      let html = `
+        <div>
+          <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+            Name <span style="color:#ef4444;">*</span>
+          </label>
+          <input type="text" required class="input" placeholder="Your full name">
+        </div>
+        <div>
+          <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+            Email <span style="color:#ef4444;">*</span>
+          </label>
+          <input type="email" required class="input" placeholder="your.email@example.com">
+        </div>
+      `;
+
+      if (reportType === "company") {
+        html += `
+          <div>
+            <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+              Company Name <span style="color:#ef4444;">*</span>
+            </label>
+            <input type="text" required class="input" placeholder="Your company name">
+          </div>
+          <div>
+            <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+              Contact Person
+            </label>
+            <input type="text" class="input" placeholder="Contact person name (optional)">
+          </div>
+        `;
+        contactGrid.style.gridTemplateColumns = "1fr 1fr";
+      } else {
+        contactGrid.style.gridTemplateColumns = "1fr";
+      }
+
+      html += `
+        <div style="${reportType === "company" ? "grid-column: span 2;" : ""}">
+          <label style="display:block;font-size:1rem;font-weight:500;color:#374151;margin-bottom:0.75rem;">
+            Phone Number <span style="color:#ef4444;">*</span>
+          </label>
+          <input type="tel" required class="input" placeholder="+84 xxx xxx xxxx">
+        </div>
+      `;
+
+      contactGrid.innerHTML = html;
+    }
+
+    function openReportModal() {
+      modal.style.display = "flex";
+      successMsg.style.display = "none";
+      form.style.display = "block";
+      reportType = "individual";
+      updateReasons();
+      renderContact();
+
+      document.querySelectorAll(".reporter-type-btn").forEach((b) => {
+        const active = b.dataset.type === reportType;
+        b.classList.toggle("active", active);
+        b.style.borderColor = active ? "#3b82f6" : "#e5e7eb";
+        b.style.background = active ? "#eff6ff" : "white";
+      });
+    }
+
+    document
+      .getElementById("report-btn")
+      ?.addEventListener("click", openReportModal);
+
+    document.addEventListener("click", (e) => {
+      if (e.target.closest(".reporter-type-btn")) {
+        const btn = e.target.closest(".reporter-type-btn");
+        reportType = btn.dataset.type;
+        document.querySelectorAll(".reporter-type-btn").forEach((b) => {
+          b.classList.remove("active");
+          b.style.borderColor = "#e5e7eb";
+          b.style.background = "white";
+        });
+        btn.classList.add("active");
+        btn.style.borderColor = "#3b82f6";
+        btn.style.background = "#eff6ff";
+        updateReasons();
+        renderContact();
+      }
+
+      if (e.target.id === "close-modal" || e.target.id === "cancel-report") {
+        modal.style.display = "none";
+      }
+    });
+
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      successMsg.style.display = "block";
+      form.style.display = "none";
+      setTimeout(() => (modal.style.display = "none"), 2600);
+    });
+
+    // Khởi tạo ban đầu
+    updateReasons();
+    renderContact();
+  })();
+</script>
