@@ -1,0 +1,1726 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Portal Site Map</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --g: #059669;
+        --g2: #ecfdf5;
+        --g3: #6ee7b7;
+        --a: #1a47e8;
+        --a2: #eef2ff;
+        --a3: #c7d4fd;
+        --p2-bg: #fff1f1;
+        --p2-border: #fca5a5;
+        --p2-text: #dc2626;
+        --p2-chip-bg: #fee2e2;
+        --p2-chip-border: #fca5a5;
+        --ink: #0d0d14;
+        --ink2: #3d3d52;
+        --ink3: #8888aa;
+        --paper: #f7f7fb;
+        --white: #ffffff;
+        --border: #e2e2ee;
+        --border2: #cacade;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Geist", sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        padding: 24px 0 80px;
+      }
+
+      /* ═══ TABS ═══ */
+      .tabs-wrapper {
+        max-width: 1400px;
+        margin: 0 auto 32px;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin-bottom: 24px;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 0;
+      }
+      .tab-btn {
+        font-family: "Geist", sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 12px 32px;
+        background: transparent;
+        border: none;
+        border-bottom: 3px solid transparent;
+        color: var(--ink3);
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        bottom: -2px;
+      }
+      .tab-btn:hover {
+        color: var(--ink2);
+      }
+      .tab-btn.active {
+        color: var(--ink);
+        border-bottom-color: var(--g);
+      }
+      .tab-btn.active.admin-tab {
+        border-bottom-color: var(--a);
+      }
+      .tab-content {
+        display: none;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .tab-content.active {
+        display: block;
+      }
+
+      /* ── HEADER ── */
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .eyebrow {
+        font-family: "Geist Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink3);
+        margin-bottom: 10px;
+      }
+      .header h1 {
+        font-family: "Instrument Serif", serif;
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+      .header h1 em {
+        font-style: italic;
+      }
+      .agent-portal h1 em {
+        color: var(--g);
+      }
+      .admin-portal h1 em {
+        color: var(--a);
+      }
+
+      /* ── LEGEND + CONTROLS ── */
+      .controls {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-bottom: 32px;
+      }
+      .legend {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-family: "Geist Mono", monospace;
+        padding: 7px 14px;
+        border-radius: 6px;
+        border: 1.5px solid var(--border);
+        background: var(--white);
+      }
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+      .dot-p1 {
+        background: var(--g2);
+        border: 1.5px solid var(--g3);
+      }
+      .admin-portal .dot-p1 {
+        background: var(--a2);
+        border: 1.5px solid var(--a3);
+      }
+      .dot-p2 {
+        background: var(--p2-chip-bg);
+        border: 1.5px solid var(--p2-border);
+      }
+      .btn {
+        font-family: "Geist Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 8px 18px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .btn-outline {
+        border: 1.5px solid var(--border2);
+        background: var(--white);
+        color: var(--ink2);
+      }
+      .btn-outline:hover {
+        border-color: var(--ink);
+        color: var(--ink);
+      }
+      .btn-solid {
+        border: 1.5px solid var(--g);
+        background: var(--g);
+        color: #fff;
+      }
+      .admin-portal .btn-solid {
+        border: 1.5px solid var(--a);
+        background: var(--a);
+      }
+      .btn-solid:hover {
+        opacity: 0.85;
+      }
+      .btn-red {
+        border: 1.5px solid var(--p2-border);
+        background: var(--p2-chip-bg);
+        color: var(--p2-text);
+      }
+      .btn-red:hover {
+        background: var(--p2-border);
+      }
+
+      /* ── STATS ── */
+      .stats {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 36px;
+      }
+      .stat {
+        text-align: center;
+        padding: 14px 22px;
+        background: var(--white);
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        min-width: 100px;
+      }
+      .stat-n {
+        font-family: "Geist", sans-serif;
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 1;
+      }
+      .agent-portal .stat-n.primary {
+        color: var(--g);
+      }
+      .admin-portal .stat-n.primary {
+        color: var(--a);
+      }
+      .stat-n.red {
+        color: var(--p2-text);
+      }
+      .stat-l {
+        font-size: 10px;
+        color: var(--ink3);
+        font-family: "Geist Mono", monospace;
+        margin-top: 3px;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── SECTION GROUPS ── */
+      .section-label {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink3);
+        margin: 28px 0 12px 2px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* ── GRID ── */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+        gap: 14px;
+      }
+
+      /* ── CARD ── */
+      .card {
+        background: var(--white);
+        border: 1.5px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        transition:
+          box-shadow 0.18s,
+          border-color 0.18s;
+      }
+      .card:hover {
+        border-color: var(--border2);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      }
+      .agent-portal .card.has-p2 {
+        border-color: #fcd34d44;
+      }
+      .admin-portal .card.has-p2 {
+        border-color: #e0e7ff;
+      }
+
+      /* card head */
+      .card-head {
+        padding: 14px 16px 12px;
+        border-bottom: 1.5px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .card-num {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .agent-portal .card-num {
+        background: var(--g2);
+        color: var(--g);
+      }
+      .admin-portal .card-num {
+        background: var(--a2);
+        color: var(--a);
+      }
+      .card-title {
+        font-size: 13px;
+        font-weight: 600;
+        flex: 1;
+        line-height: 1.3;
+      }
+      .card-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 3px;
+        flex-shrink: 0;
+      }
+      .count-badge {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        color: var(--ink3);
+      }
+      .p2-badge {
+        font-family: "Geist Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.05em;
+        background: var(--p2-chip-bg);
+        color: var(--p2-text);
+        border: 1px solid var(--p2-border);
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      /* card body */
+      .card-body {
+        padding: 12px 16px 14px;
+      }
+      .group-row {
+        margin-bottom: 10px;
+      }
+      .group-row:last-child {
+        margin-bottom: 0;
+      }
+      .group-name {
+        font-family: "Geist Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--ink3);
+        margin-bottom: 6px;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .chip {
+        font-size: 11.5px;
+        font-weight: 500;
+        padding: 4px 10px;
+        border-radius: 5px;
+        border: 1px solid var(--border);
+        background: var(--paper);
+        color: var(--ink2);
+        line-height: 1.4;
+        transition: all 0.13s;
+      }
+      .chip:hover {
+        border-color: var(--border2);
+        color: var(--ink);
+      }
+      .agent-portal .chip.key {
+        background: var(--g2);
+        border-color: var(--g3);
+        color: var(--g);
+      }
+      .admin-portal .chip.key {
+        background: var(--a2);
+        border-color: var(--a3);
+        color: var(--a);
+      }
+      .chip.p2 {
+        background: var(--p2-chip-bg);
+        border-color: var(--p2-border);
+        color: var(--p2-text);
+        font-weight: 600;
+      }
+      .chip.p2::before {
+        content: "P2 · ";
+        opacity: 0.6;
+        font-size: 10px;
+      }
+
+      /* ── FILTER HIDDEN ── */
+      .card.hidden {
+        display: none;
+      }
+
+      /* ── PRINT ── */
+      @media print {
+        .tabs,
+        .controls,
+        .stats {
+          display: none;
+        }
+        body {
+          padding: 16px;
+          background: #fff;
+        }
+        .card {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tabs-wrapper">
+      <div class="tabs">
+        <button class="tab-btn" onclick="switchTab('agent')">
+          🟢 Agent Portal
+        </button>
+        <button class="tab-btn admin-tab active" onclick="switchTab('admin')">
+          🔵 Admin Portal
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+     AGENT PORTAL TAB
+═══════════════════════════════════════════════════════════ -->
+    <div id="agent-tab" class="tab-content agent-portal">
+      <div class="header">
+        <h1>Agent Portal <em>Site Map</em></h1>
+      </div>
+      <!-- ═══════════ GROUP 1 ═══════════ -->
+      <div class="section-label">Core Access</div>
+      <div class="grid">
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Authenticator</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Log In</span>
+              <span class="chip key">Forgot Password</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Welcome</div>
+            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Welcome Configuration</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Search</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Top Search</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ═══════════ GROUP 2 ═══════════ -->
+      <div class="section-label">Dashboard & Analytics</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Dashboard</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Sales Performance Table</span>
+              <span class="chip p2">Property Performance</span>
+              <span class="chip p2">Customer Statistics</span>
+              <span class="chip p2">Ad Spend Statistics</span>
+              <span class="chip p2">Sales Rep Performance</span>
+              <span class="chip p2">Qobrix Additional Functions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ═══════════ GROUP 3 ═══════════ -->
+      <div class="section-label">Properties & Leads</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Property Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Property List</span>
+                <span class="chip key">Filter & Sort</span>
+                <span class="chip key">Detail Editing</span>
+                <span class="chip key">Publication Settings</span>
+                <span class="chip key">CSV Bulk Upload</span>
+                <span class="chip key">Brochure</span>
+                <span class="chip key">Create New Property</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Multilingual Brochure</span>
+                <span class="chip p2">Multi-style Brochure</span>
+                <span class="chip p2">Email Property</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Lead Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Lead List</span>
+                <span class="chip key">Filter & Sort</span>
+                <span class="chip key">Delete</span>
+                <span class="chip key">Progress</span>
+                <span class="chip key">Comment</span>
+                <span class="chip key">Media / Documents</span>
+                <span class="chip key">Details & Edit Lead</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2 — Activity</div>
+              <div class="chips">
+                <span class="chip p2">Arrange View</span>
+                <span class="chip p2">Create a Task</span>
+                <span class="chip p2">Make a Phone Call</span>
+                <span class="chip p2">Send Email</span>
+                <span class="chip p2">Send SMS</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2 — CRM & More</div>
+              <div class="chips">
+                <span class="chip p2">Lead History Management</span>
+                <span class="chip p2">Viewing Calendar</span>
+                <span class="chip p2">CRM Basic</span>
+                <span class="chip p2">CRM Standard</span>
+                <span class="chip p2">CRM Premium</span>
+                <span class="chip p2">Needs Search & Proposal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Project</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Project List</span>
+              <span class="chip key">Filter & Sort</span>
+              <span class="chip key">Detail</span>
+              <span class="chip key">Edit & Delete</span>
+              <span class="chip key">Activities</span>
+              <span class="chip key">Link Property</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ═══════════ GROUP 4 ═══════════ -->
+      <div class="section-label">CRM — Contacts, Offers & Agreements</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Contact & Organisation</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Contact List</span>
+                <span class="chip key">Filter & Sort</span>
+                <span class="chip key">Details</span>
+                <span class="chip key">Edit, Create, Delete</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Role & Permission</span>
+                <span class="chip p2">Activity – Add & History</span>
+                <span class="chip p2">Activity – Edit & Schedule</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Offers</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Offer List</span>
+              <span class="chip key">Details</span>
+              <span class="chip key">Edit Offers</span>
+              <span class="chip key">Create Offers</span>
+              <span class="chip key">Delete Offers</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Agreements</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Agreement List</span>
+              <span class="chip key">Details</span>
+              <span class="chip key">Edit Agreement</span>
+              <span class="chip key">Create Agreement</span>
+              <span class="chip key">Delete Agreement</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Brokers & External Agents</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">List & Filter</span>
+              <span class="chip p2">Details</span>
+              <span class="chip p2">Edit</span>
+              <span class="chip p2">Create</span>
+              <span class="chip p2">Delete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ═══════════ GROUP 5 ═══════════ -->
+      <div class="section-label">Activity & Calendar</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Calendar</div>
+            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Viewing Calendar</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Activity</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Viewing (LDEC)</span>
+              <span class="chip p2">Task (LDEC)</span>
+              <span class="chip p2">Jobs (LDEC)</span>
+              <span class="chip p2">Call (LDEC)</span>
+              <span class="chip p2">Email (LDEC)</span>
+              <span class="chip p2">SMS (LDEC)</span>
+              <span class="chip p2">Comments (LDEC)</span>
+            </div>
+            <div
+              style="
+                margin-top: 8px;
+                font-size: 10px;
+                color: var(--ink3);
+                font-family: &quot;Geist Mono&quot;, monospace;
+              "
+            >
+              LDEC = List, Detail, Edit, Create, Delete
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Campaigns</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">List & Filter</span>
+              <span class="chip p2">Details</span>
+              <span class="chip p2">Edit</span>
+              <span class="chip p2">Create</span>
+              <span class="chip p2">Delete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ═══════════ GROUP 6 ═══════════ -->
+      <div class="section-label">Marketing & Sales</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Marketing</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Export Data Table</span>
+                <span class="chip key">Ad Details & Edit</span>
+                <span class="chip key">Create & Delete Ad</span>
+                <span class="chip key">Comment Ad</span>
+                <span class="chip key">Sponsored Property Settings</span>
+                <span class="chip key">Banner Ad Settings</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Dashboard Table</span>
+                <span class="chip p2">Dashboard Chart</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Dashboard Table</span>
+                <span class="chip key">Dashboard Chart</span>
+                <span class="chip key">Export Data Table</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Ad Details</span>
+                <span class="chip p2">Comment Offers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">After Sales</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Edit Task</span>
+                <span class="chip key">Create Task</span>
+                <span class="chip key">Delete Task</span>
+                <span class="chip key">Comment Task</span>
+                <span class="chip key">Ad Details</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Dashboard Table</span>
+                <span class="chip p2">Dashboard Chart</span>
+                <span class="chip p2">Export Data Table</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Transaction Management</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Transaction Data Input</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ═══════════ GROUP 7 ═══════════ -->
+      <div class="section-label">Messaging & Communication</div>
+      <div class="grid">
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Messaging</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Customer Messages</span>
+              <span class="chip key">Admin Messages</span>
+              <span class="chip key">User Management</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ═══════════ GROUP 8 ═══════════ -->
+      <div class="section-label">Account, Paid & Team</div>
+      <div class="grid">
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Account Settings</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Subscription Confirmation</span>
+              <span class="chip key">Profile Management</span>
+              <span class="chip key">Account Addition</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Paid Features</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Paid Features Management</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Team Management</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Agent Admin Team Management</span>
+              <span class="chip p2">Team Tracking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ═══════════ GROUP 9 ═══════════ -->
+      <div class="section-label">Admin Panel</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Admin Panel — User Management</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">List</span>
+              <span class="chip key">Details</span>
+              <span class="chip key">Edit</span>
+              <span class="chip key">Create</span>
+              <span class="chip key">Delete</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Admin Panel — Group</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">List</span>
+              <span class="chip key">Details</span>
+              <span class="chip key">Edit</span>
+              <span class="chip key">Create</span>
+              <span class="chip key">Delete</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Admin Panel — Roles</div>
+            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">List</span>
+              <span class="chip p2">Details</span>
+              <span class="chip p2">Edit</span>
+              <span class="chip p2">Create</span>
+              <span class="chip p2">Delete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+     ADMIN PORTAL TAB
+═══════════════════════════════════════════════════════════ -->
+    <div id="admin-tab" class="tab-content active admin-portal">
+      <div class="header">
+        <h1>Admin Portal <em>Site Map</em></h1>
+      </div>
+      <!-- ══════════════════════════════════════════
+         GROUP 1 · CORE ACCESS
+        ════════════════════════════════════════════ -->
+      <div class="section-label">Core Access</div>
+      <div class="grid">
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Authenticator</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Authenticator (Admin)</span>
+              <span class="chip key">Authenticator (Agent)</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Welcome</div>
+            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Welcome Configuration</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Search</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Top Search</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════════════════
+     GROUP 2 · DASHBOARD
+════════════════════════════════════════════ -->
+      <div class="section-label">Dashboard & Analytics</div>
+      <div class="grid">
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Dashboard</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">KPI Dashboard</span>
+              <span class="chip key">Agent Statistics</span>
+              <span class="chip key">End User Statistics</span>
+              <span class="chip key">Property Statistics</span>
+              <span class="chip key">Agent League Table</span>
+              <span class="chip key">Sales Statistics</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Data Analysis</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Market Data Collection/Analysis</span>
+              <span class="chip p2">User Behavior Analysis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════════════════
+     GROUP 3 · USER & PROPERTY MANAGEMENT
+════════════════════════════════════════════ -->
+      <div class="section-label">User & Property Management</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">User Management & CRM</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Registered User List Display</span>
+                <span class="chip key">User Account Management</span>
+                <span class="chip key">Login Recovery Management</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Agent Approval/Rejection</span>
+                <span class="chip p2">Support Account Management</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Property Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Property List Display</span>
+                <span class="chip key">Property Type Mgmt & Performance</span>
+                <span class="chip key">Property List</span>
+                <span class="chip key">Property Filter</span>
+                <span class="chip key">Property Sort</span>
+                <span class="chip key">Property Detail Editing</span>
+                <span class="chip key">Property Publication Settings</span>
+                <span class="chip key">CSV Bulk Upload</span>
+                <span class="chip key">Brochure</span>
+                <span class="chip key">Create a New Property</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Property Approval Management</span>
+                <span class="chip p2">Multiple Language for Brochure</span>
+                <span class="chip p2">Multiple Style for Brochure</span>
+                <span class="chip p2">Email Property</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Lead Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Lead List</span>
+                <span class="chip key">Lead List Filter</span>
+                <span class="chip key">Lead Sort</span>
+                <span class="chip key">Lead Delete</span>
+                <span class="chip key">Lead Progress</span>
+                <span class="chip key">Lead Comment</span>
+                <span class="chip key">Media / Documents</span>
+                <span class="chip key">Lead Details</span>
+                <span class="chip key">Edit Lead</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2 — Activity</div>
+              <div class="chips">
+                <span class="chip p2">Activity Arrange View</span>
+                <span class="chip p2">Activity Create a Task</span>
+                <span class="chip p2">Activity Make a Phone Call</span>
+                <span class="chip p2">Activity Send Email</span>
+                <span class="chip p2">Activity Send a Text</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2 — CRM & More</div>
+              <div class="chips">
+                <span class="chip p2">Lead History Management</span>
+                <span class="chip p2">Viewing Calendar</span>
+                <span class="chip p2">CRM Basic</span>
+                <span class="chip p2">CRM Standard</span>
+                <span class="chip p2">CRM Premium</span>
+                <span class="chip p2">Needs Search & Proposal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════════════════
+     GROUP 4 · CONTENT & SYSTEM
+════════════════════════════════════════════ -->
+      <div class="section-label">Content & System Settings</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Content Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Static Page Management</span>
+                <span class="chip key">Blog / Article Management</span>
+                <span class="chip key"
+                  >Agent Content Application Management</span
+                >
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Product Shelf / Cart Functions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">System Settings</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Basic Settings</span>
+                <span class="chip key">External Service Integration</span>
+                <span class="chip key">Security Settings</span>
+                <span class="chip key">Administrator Account Management</span>
+                <span class="chip key"
+                  >Region, Prefecture/City, Station Routes, Categories</span
+                >
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Region/Station/Railway Settings</span>
+                <span class="chip p2">Transaction Data Input Settings</span>
+                <span class="chip p2"
+                  >Integrated Message Management System</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Feature Management</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Per-Account Feature Control</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════════════════
+     GROUP 5 · ADS, PAYMENTS & REPORTS
+════════════════════════════════════════════ -->
+      <div class="section-label">Ads, Payments & Reports</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Ad Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Property Ad Management</span>
+                <span class="chip key">Banner Ad Management</span>
+                <span class="chip key">Ad Performance</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Property Ad Management AI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Payment Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Payment Report Display</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Billing Management</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Report Management</div>
+            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Report Reception / Processing</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">CRM Marketing</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">CRM Marketing</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Marketing Message</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════════════════
+     GROUP 6 · MESSAGING & CHAT
+════════════════════════════════════════════ -->
+      <div class="section-label">Messaging & Chat</div>
+      <div class="grid">
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Messages & Emails</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Notification Management</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Messaging</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Customer Messages</span>
+              <span class="chip key">Admin Messages</span>
+              <span class="chip key">User Management</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Chat Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Customer Support</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Chatbot Settings</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════════════════
+     GROUP 7 · MARKETING & SALES
+════════════════════════════════════════════ -->
+      <div class="section-label">Marketing & Sales</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Marketing</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Export Data Table</span>
+                <span class="chip key">Ad Details</span>
+                <span class="chip key">Edit Ad</span>
+                <span class="chip key">Create Ad</span>
+                <span class="chip key">Delete Ad</span>
+                <span class="chip key">Comment Ad</span>
+                <span class="chip key">Sponsored Property Settings</span>
+                <span class="chip key">Banner Ad Settings</span>
+                <span class="chip key">Sponsored Article</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Dashboard Table</span>
+                <span class="chip p2">Dashboard Chart</span>
+                <span class="chip p2">Manuscript Upload</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Management</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Dashboard Table</span>
+                <span class="chip key">Dashboard Chart</span>
+                <span class="chip key">Export Data Table</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Ad Details</span>
+                <span class="chip p2">Comment Offers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">After Sales</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Edit Task</span>
+                <span class="chip key">Create Task</span>
+                <span class="chip key">Delete Task</span>
+                <span class="chip key">Comment Task</span>
+                <span class="chip key">Ad Details</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Dashboard Table</span>
+                <span class="chip p2">Dashboard Chart</span>
+                <span class="chip p2">Export Data Table</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Transaction Management</div>
+            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Transaction Data Input</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Paid Features</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Paid Features</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Team Management</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2"
+                >Agent Admin Team Management and Performance Tracking</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Account Settings</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Subscription Confirmation</span>
+              <span class="chip key">Profile Management</span>
+              <span class="chip key">Account Addition</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════════════════
+     GROUP 8 · CRM — CONTACTS, PROJECTS, DEALS
+════════════════════════════════════════════ -->
+      <div class="section-label">CRM — Contacts, Projects & Deals</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="mixed">
+          <div class="card-head">
+            <div class="card-title">Contact & Organisation</div>
+          </div>
+          <div class="card-body">
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Contact List</span>
+                <span class="chip key">Contact Filter</span>
+                <span class="chip key">Contact Sort</span>
+                <span class="chip key">Contact Details</span>
+                <span class="chip key">Edit Contact</span>
+                <span class="chip key">Create Contact</span>
+                <span class="chip key">Delete Contact</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Role & Permission for Contacts</span>
+                <span class="chip p2">Activity Add</span>
+                <span class="chip p2">Activity View History</span>
+                <span class="chip p2">Activity Edit</span>
+                <span class="chip p2">Activity Schedule</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Project</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Project List</span>
+              <span class="chip key">Project Filter</span>
+              <span class="chip key">Project Sort</span>
+              <span class="chip key">Project Detail</span>
+              <span class="chip key">Project Edit</span>
+              <span class="chip key">Project Delete</span>
+              <span class="chip key">Project Activities</span>
+              <span class="chip key">Link Property</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Offers</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Offer List</span>
+              <span class="chip key">Offer Details</span>
+              <span class="chip key">Edit Offers</span>
+              <span class="chip key">Create Offers</span>
+              <span class="chip key">Delete Offers</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Agreements</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Agreement List</span>
+              <span class="chip key">Agreement Details</span>
+              <span class="chip key">Edit Agreement</span>
+              <span class="chip key">Create Agreement</span>
+              <span class="chip key">Delete Agreement</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Brokers & External Agents</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">List</span>
+              <span class="chip p2">Filter</span>
+              <span class="chip p2">Details</span>
+              <span class="chip p2">Edit</span>
+              <span class="chip p2">Create</span>
+              <span class="chip p2">Delete</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Campaigns</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Campaigns List</span>
+              <span class="chip p2">Filter Campaigns</span>
+              <span class="chip p2">Campaign Details</span>
+              <span class="chip p2">Edit Campaign</span>
+              <span class="chip p2">Create Campaign</span>
+              <span class="chip p2">Delete Campaign</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════════════════
+     GROUP 9 · CALENDAR & ACTIVITY
+════════════════════════════════════════════ -->
+      <div class="section-label">Calendar & Activity</div>
+      <div class="grid">
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Calendar</div>
+            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Viewing Calendar</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Activity — Viewing</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Viewing List</span>
+              <span class="chip p2">Viewing Details</span>
+              <span class="chip p2">Edit Viewing</span>
+              <span class="chip p2">Create Viewing</span>
+              <span class="chip p2">Delete Viewing</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Activity — Task</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Task List</span>
+              <span class="chip p2">Task Details</span>
+              <span class="chip p2">Edit Task</span>
+              <span class="chip p2">Create Task</span>
+              <span class="chip p2">Delete Task</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Activity — Jobs</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Jobs List</span>
+              <span class="chip p2">Jobs Details</span>
+              <span class="chip p2">Edit Jobs</span>
+              <span class="chip p2">Create Jobs</span>
+              <span class="chip p2">Delete Jobs</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Activity — Call</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Call List</span>
+              <span class="chip p2">Call Details</span>
+              <span class="chip p2">Edit Call</span>
+              <span class="chip p2">Create Call</span>
+              <span class="chip p2">Delete Call</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Activity — Email</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Email List</span>
+              <span class="chip p2">Email Details</span>
+              <span class="chip p2">Edit Email</span>
+              <span class="chip p2">Create Email</span>
+              <span class="chip p2">Delete Email</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Activity — SMS</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">SMS List</span>
+              <span class="chip p2">SMS Details</span>
+              <span class="chip p2">Edit SMS</span>
+              <span class="chip p2">Create SMS</span>
+              <span class="chip p2">Delete SMS</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Activity — Comments</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Comments List</span>
+              <span class="chip p2">Comment Details</span>
+              <span class="chip p2">Edit Comment</span>
+              <span class="chip p2">Create Comment</span>
+              <span class="chip p2">Delete Comment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ══════════════════════════════════════════
+     GROUP 10 · ADMIN PANEL
+════════════════════════════════════════════ -->
+      <div class="section-label">Admin Panel</div>
+      <div class="grid">
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Admin Panel — User Management</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Users List</span>
+              <span class="chip key">User Details</span>
+              <span class="chip key">Edit User</span>
+              <span class="chip key">Create User</span>
+              <span class="chip key">Delete User</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-phase="p1">
+          <div class="card-head">
+            <div class="card-title">Admin Panel — Group</div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip key">Group List</span>
+              <span class="chip key">Group Details</span>
+              <span class="chip key">Edit Group</span>
+              <span class="chip key">Create Group</span>
+              <span class="chip key">Delete Group</span>
+            </div>
+          </div>
+        </div>
+        <div class="card has-p2" data-phase="p2">
+          <div class="card-head">
+            <div class="card-title">Admin Panel — Roles</div>
+            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
+          </div>
+          <div class="card-body">
+            <div class="chips">
+              <span class="chip p2">Roles List</span>
+              <span class="chip p2">Role Details</span>
+              <span class="chip p2">Edit Role</span>
+              <span class="chip p2">Create Role</span>
+              <span class="chip p2">Delete Role</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function switchTab(tab) {
+        // Hide all tabs
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+
+        // Show selected tab
+        if (tab === "agent") {
+          document.getElementById("agent-tab").classList.add("active");
+          document
+            .querySelector(".tab-btn:first-child")
+            .classList.add("active");
+        } else {
+          document.getElementById("admin-tab").classList.add("active");
+          document.querySelector(".tab-btn.admin-tab").classList.add("active");
+        }
+      }
+
+      function filterCards(portal, phase) {
+        const tabId = portal === "agent" ? "agent-tab" : "admin-tab";
+        const cards = document.querySelectorAll(`#${tabId} .card`);
+
+        cards.forEach((card) => {
+          const cp = card.dataset.phase;
+          if (phase === "all") {
+            card.classList.remove("hidden");
+          } else if (phase === "p1") {
+            card.classList.toggle("hidden", cp === "p2");
+          } else if (phase === "p2") {
+            card.classList.toggle("hidden", cp === "p1");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
