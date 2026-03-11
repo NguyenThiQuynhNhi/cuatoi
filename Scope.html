@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,6 +39,27 @@
         background: var(--paper);
         color: var(--ink);
         padding: 24px 0 80px;
+      }
+
+      /* TOOLBAR */
+      .toolbar {
+        max-width: 1400px;
+        margin: 0 auto 20px;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+      .toolbar .btn {
+        font-family: "Geist Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.05em;
+        padding: 9px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.15s;
       }
 
       /* ═══ TABS ═══ */
@@ -92,14 +113,6 @@
       .header {
         text-align: center;
         margin-bottom: 40px;
-      }
-      .eyebrow {
-        font-family: "Geist Mono", monospace;
-        font-size: 11px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--ink3);
-        margin-bottom: 10px;
       }
       .header h1 {
         font-family: "Instrument Serif", serif;
@@ -374,6 +387,7 @@
         color: var(--ink2);
         line-height: 1.4;
         transition: all 0.13s;
+        cursor: text;
       }
       .chip:hover {
         border-color: var(--border2);
@@ -406,11 +420,20 @@
         display: none;
       }
 
-      /* ── PRINT ── */
+      /* EDIT MODE VISUAL */
+      [contenteditable="true"] {
+        position: relative;
+      }
+      [contenteditable="true"]:focus {
+        outline: 3px solid #059669 !important;
+        border-radius: 4px;
+      }
+
+      /* PRINT */
       @media print {
         .tabs,
-        .controls,
-        .stats {
+        .toolbar,
+        .controls {
           display: none;
         }
         body {
@@ -424,6 +447,20 @@
     </style>
   </head>
   <body>
+    <!-- TOOLBAR - DB & EDIT CONTROLS -->
+    <div class="toolbar">
+      <button class="btn btn-outline" id="edit-btn" onclick="toggleEditMode()">
+        🟢 Enter Edit Mode
+      </button>
+      <button class="btn btn-solid" onclick="manualSave()">💾 Save Now</button>
+      <button class="btn btn-red" onclick="resetPortal('agent')">
+        Reset Agent
+      </button>
+      <button class="btn btn-red" onclick="resetPortal('admin')">
+        Reset Admin
+      </button>
+    </div>
+
     <div class="tabs-wrapper">
       <div class="tabs">
         <button class="tab-btn active" onclick="switchTab('agent')">
@@ -435,13 +472,12 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════
-     AGENT PORTAL TAB
-═══════════════════════════════════════════════════════════ -->
+    <!-- AGENT PORTAL TAB -->
     <div id="agent-tab" class="tab-content active agent-portal">
       <div class="header">
         <h1>Agent Portal <em>Site Map</em></h1>
       </div>
+
       <!-- ═══════════ GROUP 1 ═══════════ -->
       <div class="section-label">Core Access</div>
       <div class="grid">
@@ -459,7 +495,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Welcome</div>
-            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -478,26 +513,35 @@
           </div>
         </div>
       </div>
+
       <!-- ═══════════ GROUP 2 ═══════════ -->
       <div class="section-label">Dashboard & Analytics</div>
       <div class="grid">
-        <div class="card has-p2" data-phase="p2">
+        <div class="card has-p2" data-phase="mixed">
           <div class="card-head">
             <div class="card-title">Dashboard</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
-            <div class="chips">
-              <span class="chip p2">Sales Performance Table</span>
-              <span class="chip p2">Property Performance</span>
-              <span class="chip p2">Customer Statistics</span>
-              <span class="chip p2">Ad Spend Statistics</span>
-              <span class="chip p2">Sales Rep Performance</span>
-              <span class="chip p2">Qobrix Additional Functions</span>
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Sales Performance Table</span>
+                <span class="chip key">Property Performance</span>
+                <span class="chip key">Customer Statistics</span>
+                <span class="chip key">Sales Rep Performance</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Ad Spend Statistics</span>
+                <span class="chip p2">Qobrix Additional Functions</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <!-- ═══════════ GROUP 3 ═══════════ -->
       <div class="section-label">Properties & Leads</div>
       <div class="grid">
@@ -515,15 +559,15 @@
                 <span class="chip key">Publication Settings</span>
                 <span class="chip key">CSV Bulk Upload</span>
                 <span class="chip key">Brochure</span>
+                <span class="chip key">Multilingual Brochure</span>
+                <span class="chip key">Email Property</span>
                 <span class="chip key">Create New Property</span>
               </div>
             </div>
             <div class="group-row">
               <div class="group-name">Phase 2</div>
               <div class="chips">
-                <span class="chip p2">Multilingual Brochure</span>
                 <span class="chip p2">Multi-style Brochure</span>
-                <span class="chip p2">Email Property</span>
               </div>
             </div>
           </div>
@@ -543,27 +587,22 @@
                 <span class="chip key">Comment</span>
                 <span class="chip key">Media / Documents</span>
                 <span class="chip key">Details & Edit Lead</span>
+                <span class="chip key">Arrange View</span>
+                <span class="chip key">Create a Task</span>
+                <span class="chip key">Make a Phone Call</span>
+                <span class="chip key">Send Email</span>
+                <span class="chip key">Viewing Calendar</span>
+                <span class="chip key">CRM Basic</span>
+                <span class="chip key">CRM Standard</span>
+                <span class="chip key">CRM Premium</span>
+                <span class="chip key">Needs Search & Proposal</span>
               </div>
             </div>
             <div class="group-row">
-              <div class="group-name">Phase 2 — Activity</div>
+              <div class="group-name">Phase 2</div>
               <div class="chips">
-                <span class="chip p2">Arrange View</span>
-                <span class="chip p2">Create a Task</span>
-                <span class="chip p2">Make a Phone Call</span>
-                <span class="chip p2">Send Email</span>
                 <span class="chip p2">Send SMS</span>
-              </div>
-            </div>
-            <div class="group-row">
-              <div class="group-name">Phase 2 — CRM & More</div>
-              <div class="chips">
                 <span class="chip p2">Lead History Management</span>
-                <span class="chip p2">Viewing Calendar</span>
-                <span class="chip p2">CRM Basic</span>
-                <span class="chip p2">CRM Standard</span>
-                <span class="chip p2">CRM Premium</span>
-                <span class="chip p2">Needs Search & Proposal</span>
               </div>
             </div>
           </div>
@@ -584,30 +623,23 @@
           </div>
         </div>
       </div>
+
       <!-- ═══════════ GROUP 4 ═══════════ -->
       <div class="section-label">CRM — Contacts, Offers & Agreements</div>
       <div class="grid">
-        <div class="card has-p2" data-phase="mixed">
+        <div class="card" data-phase="p1">
           <div class="card-head">
             <div class="card-title">Contact & Organisation</div>
           </div>
           <div class="card-body">
-            <div class="group-row">
-              <div class="group-name">Phase 1</div>
-              <div class="chips">
-                <span class="chip key">Contact List</span>
-                <span class="chip key">Filter & Sort</span>
-                <span class="chip key">Details</span>
-                <span class="chip key">Edit, Create, Delete</span>
-              </div>
-            </div>
-            <div class="group-row">
-              <div class="group-name">Phase 2</div>
-              <div class="chips">
-                <span class="chip p2">Role & Permission</span>
-                <span class="chip p2">Activity – Add & History</span>
-                <span class="chip p2">Activity – Edit & Schedule</span>
-              </div>
+            <div class="chips">
+              <span class="chip key">Contact List</span>
+              <span class="chip key">Filter & Sort</span>
+              <span class="chip key">Details</span>
+              <span class="chip key">Edit, Create, Delete</span>
+              <span class="chip key">Role & Permission</span>
+              <span class="chip key">Activity – Add & History</span>
+              <span class="chip key">Activity – Edit & Schedule</span>
             </div>
           </div>
         </div>
@@ -642,7 +674,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Brokers & External Agents</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -655,34 +686,42 @@
           </div>
         </div>
       </div>
+
       <!-- ═══════════ GROUP 5 ═══════════ -->
       <div class="section-label">Activity & Calendar</div>
       <div class="grid">
-        <div class="card has-p2" data-phase="p2">
+        <div class="card" data-phase="p1">
           <div class="card-head">
             <div class="card-title">Calendar</div>
-            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
-              <span class="chip p2">Viewing Calendar</span>
+              <span class="chip key">Viewing Calendar</span>
             </div>
           </div>
         </div>
-        <div class="card has-p2" data-phase="p2">
+        <div class="card has-p2" data-phase="mixed">
           <div class="card-head">
             <div class="card-title">Activity</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
-            <div class="chips">
-              <span class="chip p2">Viewing (LDEC)</span>
-              <span class="chip p2">Task (LDEC)</span>
-              <span class="chip p2">Jobs (LDEC)</span>
-              <span class="chip p2">Call (LDEC)</span>
-              <span class="chip p2">Email (LDEC)</span>
-              <span class="chip p2">SMS (LDEC)</span>
-              <span class="chip p2">Comments (LDEC)</span>
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Viewing (LDEC)</span>
+                <span class="chip key">Task (LDEC)</span>
+                <span class="chip key">Call List & Details</span>
+                <span class="chip key">Email (LDEC)</span>
+                <span class="chip key">Comments (LDEC)</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Jobs (LDEC)</span>
+                <span class="chip p2">Call Edit, Create, Delete</span>
+                <span class="chip p2">SMS (LDEC)</span>
+              </div>
             </div>
             <div
               style="
@@ -699,7 +738,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Campaigns</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -712,6 +750,7 @@
           </div>
         </div>
       </div>
+
       <!-- ═══════════ GROUP 6 ═══════════ -->
       <div class="section-label">Marketing & Sales</div>
       <div class="grid">
@@ -723,19 +762,21 @@
             <div class="group-row">
               <div class="group-name">Phase 1</div>
               <div class="chips">
+                <span class="chip key">Dashboard Chart</span>
                 <span class="chip key">Export Data Table</span>
                 <span class="chip key">Ad Details & Edit</span>
                 <span class="chip key">Create & Delete Ad</span>
                 <span class="chip key">Comment Ad</span>
                 <span class="chip key">Sponsored Property Settings</span>
                 <span class="chip key">Banner Ad Settings</span>
+                <span class="chip key">Sponsored Article</span>
               </div>
             </div>
             <div class="group-row">
               <div class="group-name">Phase 2</div>
               <div class="chips">
                 <span class="chip p2">Dashboard Table</span>
-                <span class="chip p2">Dashboard Chart</span>
+                <span class="chip p2">Manuscript Upload</span>
               </div>
             </div>
           </div>
@@ -751,53 +792,46 @@
                 <span class="chip key">Dashboard Table</span>
                 <span class="chip key">Dashboard Chart</span>
                 <span class="chip key">Export Data Table</span>
+                <span class="chip key">Comment Offers</span>
               </div>
             </div>
             <div class="group-row">
               <div class="group-name">Phase 2</div>
               <div class="chips">
                 <span class="chip p2">Ad Details</span>
-                <span class="chip p2">Comment Offers</span>
               </div>
             </div>
           </div>
         </div>
-        <div class="card has-p2" data-phase="mixed">
+        <div class="card" data-phase="p1">
           <div class="card-head">
             <div class="card-title">After Sales</div>
           </div>
           <div class="card-body">
-            <div class="group-row">
-              <div class="group-name">Phase 1</div>
-              <div class="chips">
-                <span class="chip key">Edit Task</span>
-                <span class="chip key">Create Task</span>
-                <span class="chip key">Delete Task</span>
-                <span class="chip key">Comment Task</span>
-                <span class="chip key">Ad Details</span>
-              </div>
-            </div>
-            <div class="group-row">
-              <div class="group-name">Phase 2</div>
-              <div class="chips">
-                <span class="chip p2">Dashboard Table</span>
-                <span class="chip p2">Dashboard Chart</span>
-                <span class="chip p2">Export Data Table</span>
-              </div>
+            <div class="chips">
+              <span class="chip key">Dashboard Table</span>
+              <span class="chip key">Dashboard Chart</span>
+              <span class="chip key">Export Data Table</span>
+              <span class="chip key">Edit Task</span>
+              <span class="chip key">Create Task</span>
+              <span class="chip key">Delete Task</span>
+              <span class="chip key">Comment Task</span>
+              <span class="chip key">Ad Details</span>
             </div>
           </div>
         </div>
-        <div class="card has-p2" data-phase="mixed">
+        <div class="card" data-phase="p1">
           <div class="card-head">
             <div class="card-title">Transaction Management</div>
           </div>
           <div class="card-body">
             <div class="chips">
-              <span class="chip p2">Transaction Data Input</span>
+              <span class="chip key">Transaction Data Input</span>
             </div>
           </div>
         </div>
       </div>
+
       <!-- ═══════════ GROUP 7 ═══════════ -->
       <div class="section-label">Messaging & Communication</div>
       <div class="grid">
@@ -814,6 +848,7 @@
           </div>
         </div>
       </div>
+
       <!-- ═══════════ GROUP 8 ═══════════ -->
       <div class="section-label">Account, Paid & Team</div>
       <div class="grid">
@@ -839,23 +874,23 @@
             </div>
           </div>
         </div>
-        <div class="card has-p2" data-phase="p2">
+        <div class="card" data-phase="p1">
           <div class="card-head">
             <div class="card-title">Team Management</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
-              <span class="chip p2">Agent Admin Team Management</span>
-              <span class="chip p2">Team Tracking</span>
+              <span class="chip key">Agent Admin Team Management</span>
+              <span class="chip key">Team Tracking</span>
             </div>
           </div>
         </div>
       </div>
+
       <!-- ═══════════ GROUP 9 ═══════════ -->
       <div class="section-label">Admin Panel</div>
       <div class="grid">
-        <div class="card has-p2" data-phase="mixed">
+        <div class="card" data-phase="p1">
           <div class="card-head">
             <div class="card-title">Admin Panel — User Management</div>
           </div>
@@ -883,34 +918,32 @@
             </div>
           </div>
         </div>
-        <div class="card has-p2" data-phase="p2">
+        <div class="card" data-phase="p1">
           <div class="card-head">
             <div class="card-title">Admin Panel — Roles</div>
-            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
-              <span class="chip p2">List</span>
-              <span class="chip p2">Details</span>
-              <span class="chip p2">Edit</span>
-              <span class="chip p2">Create</span>
-              <span class="chip p2">Delete</span>
+              <span class="chip key">List</span>
+              <span class="chip key">Details</span>
+              <span class="chip key">Edit</span>
+              <span class="chip key">Create</span>
+              <span class="chip key">Delete</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════
-     ADMIN PORTAL TAB
-═══════════════════════════════════════════════════════════ -->
+    <!-- ADMIN PORTAL TAB -->
     <div id="admin-tab" class="tab-content admin-portal">
       <div class="header">
         <h1>Admin Portal <em>Site Map</em></h1>
       </div>
+
       <!-- ══════════════════════════════════════════
          GROUP 1 · CORE ACCESS
-        ════════════════════════════════════════════ -->
+      ════════════════════════════════════════════ -->
       <div class="section-label">Core Access</div>
       <div class="grid">
         <div class="card" data-phase="p1">
@@ -924,14 +957,13 @@
             </div>
           </div>
         </div>
-        <div class="card has-p2" data-phase="p2">
+        <div class="card" data-phase="p1">
           <div class="card-head">
             <div class="card-title">Welcome</div>
-            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
-              <span class="chip p2">Welcome Configuration</span>
+              <span class="chip key">Welcome Configuration</span>
             </div>
           </div>
         </div>
@@ -946,9 +978,10 @@
           </div>
         </div>
       </div>
+
       <!-- ══════════════════════════════════════════
-     GROUP 2 · DASHBOARD
-════════════════════════════════════════════ -->
+         GROUP 2 · DASHBOARD
+      ═════════════════════════════════════════════ -->
       <div class="section-label">Dashboard & Analytics</div>
       <div class="grid">
         <div class="card" data-phase="p1">
@@ -966,22 +999,32 @@
             </div>
           </div>
         </div>
-        <div class="card has-p2" data-phase="p2">
+        <div class="card has-p2" data-phase="mixed">
           <div class="card-head">
             <div class="card-title">Data Analysis</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
-            <div class="chips">
-              <span class="chip p2">Market Data Collection/Analysis</span>
-              <span class="chip p2">User Behavior Analysis</span>
+            <div class="group-row">
+              <div class="group-name">Phase 1</div>
+              <div class="chips">
+                <span class="chip key">Market Data Collection/Analysis</span>
+                <span class="chip key">User Behavior Analysis</span>
+                <span class="chip key">Sales Report Generation</span>
+              </div>
+            </div>
+            <div class="group-row">
+              <div class="group-name">Phase 2</div>
+              <div class="chips">
+                <span class="chip p2">Shortcut Functions</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <!-- ══════════════════════════════════════════
-     GROUP 3 · USER & PROPERTY MANAGEMENT
-════════════════════════════════════════════ -->
+         GROUP 3 · USER & PROPERTY MANAGEMENT
+      ═════════════════════════════════════════════ -->
       <div class="section-label">User & Property Management</div>
       <div class="grid">
         <div class="card has-p2" data-phase="mixed">
@@ -1080,9 +1123,10 @@
           </div>
         </div>
       </div>
+
       <!-- ══════════════════════════════════════════
-     GROUP 4 · CONTENT & SYSTEM
-════════════════════════════════════════════ -->
+         GROUP 4 · CONTENT & SYSTEM
+      ═════════════════════════════════════════════ -->
       <div class="section-label">Content & System Settings</div>
       <div class="grid">
         <div class="card has-p2" data-phase="mixed">
@@ -1148,9 +1192,10 @@
           </div>
         </div>
       </div>
+
       <!-- ══════════════════════════════════════════
-     GROUP 5 · ADS, PAYMENTS & REPORTS
-════════════════════════════════════════════ -->
+         GROUP 5 · ADS, PAYMENTS & REPORTS
+      ═════════════════════════════════════════════ -->
       <div class="section-label">Ads, Payments & Reports</div>
       <div class="grid">
         <div class="card has-p2" data-phase="mixed">
@@ -1196,7 +1241,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Report Management</div>
-            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1224,9 +1268,10 @@
           </div>
         </div>
       </div>
+
       <!-- ══════════════════════════════════════════
-     GROUP 6 · MESSAGING & CHAT
-════════════════════════════════════════════ -->
+         GROUP 6 · MESSAGING & CHAT
+      ═════════════════════════════════════════════ -->
       <div class="section-label">Messaging & Chat</div>
       <div class="grid">
         <div class="card" data-phase="p1">
@@ -1271,9 +1316,10 @@
           </div>
         </div>
       </div>
+
       <!-- ══════════════════════════════════════════
-     GROUP 7 · MARKETING & SALES
-════════════════════════════════════════════ -->
+         GROUP 7 · MARKETING & SALES
+      ═════════════════════════════════════════════ -->
       <div class="section-label">Marketing & Sales</div>
       <div class="grid">
         <div class="card has-p2" data-phase="mixed">
@@ -1355,7 +1401,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Transaction Management</div>
-            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1376,7 +1421,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Team Management</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1399,9 +1443,10 @@
           </div>
         </div>
       </div>
+
       <!-- ══════════════════════════════════════════
-     GROUP 8 · CRM — CONTACTS, PROJECTS, DEALS
-════════════════════════════════════════════ -->
+         GROUP 8 · CRM — CONTACTS, PROJECTS, DEALS
+      ═════════════════════════════════════════════ -->
       <div class="section-label">CRM — Contacts, Projects & Deals</div>
       <div class="grid">
         <div class="card has-p2" data-phase="mixed">
@@ -1481,7 +1526,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Brokers & External Agents</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1497,7 +1541,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Campaigns</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1511,15 +1554,15 @@
           </div>
         </div>
       </div>
+
       <!-- ══════════════════════════════════════════
-     GROUP 9 · CALENDAR & ACTIVITY
-════════════════════════════════════════════ -->
+         GROUP 9 · CALENDAR & ACTIVITY
+      ═════════════════════════════════════════════ -->
       <div class="section-label">Calendar & Activity</div>
       <div class="grid">
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Calendar</div>
-            <div class="card-meta"><span class="p2-badge">PHASE 2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1530,7 +1573,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Activity — Viewing</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1545,7 +1587,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Activity — Task</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1560,7 +1601,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Activity — Jobs</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1575,7 +1615,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Activity — Call</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1590,7 +1629,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Activity — Email</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1605,7 +1643,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Activity — SMS</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1620,7 +1657,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Activity — Comments</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1633,9 +1669,10 @@
           </div>
         </div>
       </div>
+
       <!-- ══════════════════════════════════════════
-     GROUP 10 · ADMIN PANEL
-════════════════════════════════════════════ -->
+         GROUP 10 · ADMIN PANEL
+      ═════════════════════════════════════════════ -->
       <div class="section-label">Admin Panel</div>
       <div class="grid">
         <div class="card" data-phase="p1">
@@ -1669,7 +1706,6 @@
         <div class="card has-p2" data-phase="p2">
           <div class="card-head">
             <div class="card-title">Admin Panel — Roles</div>
-            <div class="card-meta"><span class="p2-badge">ALL P2</span></div>
           </div>
           <div class="card-body">
             <div class="chips">
@@ -1685,8 +1721,84 @@
     </div>
 
     <script>
+      // ====================== BIẾN TOÀN CỤC ======================
+      let defaultAgentHTML = "";
+      let defaultAdminHTML = "";
+      let editMode = false;
+      let saveTimeout = null;
+
+      // ====================== HÀM SAVE REALTIME ======================
+      function debounceSave() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+          const activeTab = document.querySelector(".tab-content.active");
+          if (!activeTab) return;
+          const key =
+            activeTab.id === "agent-tab"
+              ? "agentSiteMapHTML"
+              : "adminSiteMapHTML";
+          localStorage.setItem(key, activeTab.innerHTML);
+        }, 700);
+      }
+
+      // ====================== EDIT MODE ======================
+      function toggleEditMode() {
+        editMode = !editMode;
+        const btn = document.getElementById("edit-btn");
+        btn.innerHTML = editMode ? "🔴 Exit Edit Mode" : "🟢 Enter Edit Mode";
+        applyEditModeToActive();
+      }
+
+      function applyEditModeToActive() {
+        const activeTab = document.querySelector(".tab-content.active");
+        if (!activeTab) return;
+
+        const editables = activeTab.querySelectorAll(
+          ".card-title, .chip, .group-name, .section-label, .p2-badge, .card-head, .group-row",
+        );
+        editables.forEach((el) => {
+          el.contentEditable = editMode ? "true" : "false";
+          el.spellcheck = false;
+          if (editMode) {
+            el.style.outline = "2px dashed #059669";
+            el.style.outlineOffset = "3px";
+          } else {
+            el.style.outline = "";
+          }
+        });
+      }
+
+      // ====================== SAVE MANUAL ======================
+      function manualSave() {
+        debounceSave();
+        alert("✅ Saved");
+      }
+
+      // ====================== RESET ======================
+      function resetPortal(portal) {
+        if (!confirm(`Reset ${portal.toUpperCase()}?`)) return;
+
+        const id = portal + "-tab";
+        const tabEl = document.getElementById(id);
+        const defaultHTML =
+          portal === "agent" ? defaultAgentHTML : defaultAdminHTML;
+
+        tabEl.innerHTML = defaultHTML;
+        const key =
+          portal === "agent" ? "agentSiteMapHTML" : "adminSiteMapHTML";
+        localStorage.removeItem(key);
+
+        if (
+          document.getElementById(id).classList.contains("active") &&
+          editMode
+        ) {
+          applyEditModeToActive();
+        }
+        alert("Reset successful");
+      }
+
+      // ====================== SWITCH TAB ======================
       function switchTab(tab) {
-        // Hide all tabs
         document
           .querySelectorAll(".tab-content")
           .forEach((t) => t.classList.remove("active"));
@@ -1694,7 +1806,6 @@
           .querySelectorAll(".tab-btn")
           .forEach((b) => b.classList.remove("active"));
 
-        // Show selected tab
         if (tab === "agent") {
           document.getElementById("agent-tab").classList.add("active");
           document
@@ -1704,23 +1815,67 @@
           document.getElementById("admin-tab").classList.add("active");
           document.querySelector(".tab-btn.admin-tab").classList.add("active");
         }
+
+        if (editMode) {
+          setTimeout(applyEditModeToActive, 30);
+        }
       }
 
-      function filterCards(portal, phase) {
-        const tabId = portal === "agent" ? "agent-tab" : "admin-tab";
-        const cards = document.querySelectorAll(`#${tabId} .card`);
+      // ====================== DOUBLE-CLICK ĐỔI MÀU CHIP ======================
+      function initColorCycle() {
+        document.addEventListener("dblclick", (e) => {
+          if (!editMode) return;
 
-        cards.forEach((card) => {
-          const cp = card.dataset.phase;
-          if (phase === "all") {
-            card.classList.remove("hidden");
-          } else if (phase === "p1") {
-            card.classList.toggle("hidden", cp === "p2");
-          } else if (phase === "p2") {
-            card.classList.toggle("hidden", cp === "p1");
+          const chip = e.target.closest(".chip");
+          if (!chip) return;
+
+          if (chip.classList.contains("key")) {
+            chip.classList.remove("key");
+            chip.classList.add("p2");
+          } else if (chip.classList.contains("p2")) {
+            chip.classList.remove("p2");
+          } else {
+            chip.classList.add("key");
+          }
+          debounceSave();
+          e.preventDefault();
+        });
+      }
+
+      // ====================== INPUT EVENT (realtime save) ======================
+      function initInputListener() {
+        document.addEventListener("input", (e) => {
+          if (editMode && e.target.contentEditable === "true") {
+            debounceSave();
           }
         });
       }
+
+      // ====================== KHỞI ĐỘNG ======================
+      window.addEventListener("load", () => {
+        // Lưu bản gốc
+        defaultAgentHTML = document.getElementById("agent-tab").innerHTML;
+        defaultAdminHTML = document.getElementById("admin-tab").innerHTML;
+
+        // Load từ DB (localStorage)
+        const savedAgent = localStorage.getItem("agentSiteMapHTML");
+        if (savedAgent) {
+          document.getElementById("agent-tab").innerHTML = savedAgent;
+        }
+        const savedAdmin = localStorage.getItem("adminSiteMapHTML");
+        if (savedAdmin) {
+          document.getElementById("admin-tab").innerHTML = savedAdmin;
+        }
+
+        // Khởi tạo listeners
+        initInputListener();
+        initColorCycle();
+
+        console.log(
+          "%c✅ Đã kích hoạt DB localStorage + Edit Mode\n• Nhấn Enter Edit Mode để chỉnh sửa chữ\n• Double-click chip để đổi màu (key ↔ p2 ↔ normal)\n• Mọi thay đổi lưu tự động realtime!",
+          "color:#059669; font-family:monospace",
+        );
+      });
     </script>
   </body>
 </html>

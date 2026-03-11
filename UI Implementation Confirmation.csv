@@ -1,0 +1,532 @@
+No.,Function Category,Function Name,Detailed Requirements,Period
+A1,Dashboard,KPI Dashboard,"Total users (end users/real estate agents), DAU/WAU/MAU (by end users/agents), new registrations, property listings, inquiries, average session time, graph display",Period 1
+A2,Dashboard,Agent Statistics,"Agent count, by type, location-based statistics, subscription package, [agent count graph by day]",Period 1
+A2.1,Dashboard,End User Statistics,"End user count, registered users, location based statistics, male/female, age category, DAU/WAU/MAU, average session time, number of registered users graph by day, number of active users graph by day",Period 1
+A3,Dashboard,Property Statistics,"Property count, type, location, listing duration, price change statistics, number of property views daily/weekly/monthly, [number of properties viewed, by type, graph by day]",Period 1
+A4,Dashboard,Agent League Table,"Rankings by property listings, sales, ad spend, total spend, [ Stars, reviews - Jason, also Inactive Users ]",Period 1
+A5,Dashboard,Sales Statistics,"Subscriptions Sales by type, Cart purchases, property ads, banner ad revenue, by period, [by number and amount], graph display",Period 1
+A6,User Management & CRM,Registered User List Display,"ADMIN PORTAL List of buyers, sellers, real estate agents, other support accounts　- Yuki
+23・June（Admin CRM-enabled user list display: Comprehensive management screen of end users, real estate agents, and other support accounts. 
+
+[Basic Info] Account data (name, email, phone, category, subscription category, ), creation date, status. 
+[CRM Analytics] Traffic source tracking, engagement metrics (login frequency, last login, session time). [Agent-specific] Customer service records, ad performance data, subscription history. Report count (number of reports, deletions, edits)
+[Admin Management] Support history, notification records, survey responses. 
+[Segment & Tag Management] Behavior-based segmentation, custom tagging, user group management. [Action Button Integration] Direct email sending, account editing, support ticket creation from user rows. [Dashboard Integration] Data linkage with A1 KPI dashboard, real-time updates. 
+[Alert Functions] Auto-detection of long-term inactive users, automatic problem user flagging, abnormal behavior pattern notifications. [Functions] Table display, sorting, filtering, CSV export, category switching, search functionality. -Jason [we need to have a prototype/screenshot to be able to check these]",Period 1
+A7,User Management & CRM,User Account Management,"View details, edit, suspend, delete functions",Period 1
+A8,User Management & CRM,Agent Approval/Rejection,"View/Edit/Suspend/Delete Details, PLUS New Agent and Support Account Registration Approve/Reject, Email/Site Notifications, and Rejection Reason Entry.(Automatic Notification via Email/In-site Alert upon action)",Period 2
+A9,User Management & CRM,Support Account Management,"Other real estate support accounts (management companies, legal professionals, tax advisors, etc.) registration, approval, management - part of a paid classified",Period 2
+A10,User Management & CRM,Login Recovery Management,Admin password reset when user cannot access email,Period 1
+A11,Property Management,Property List Display,"List of all properties on site, sort by category, type, price, agent, when listed, listing duration",Period 1
+A12.1,Property Management,Property Approval Management,"Property publication, suspension, deletion",Period 2
+A12.2,Property Management,Property Approval Management,"Property Flagged Listing Verification & Rectification Request""",Period 2
+A13,Property Management,"Property Type Management, Performance","Property type configuration management, Display IMP, CL, CTR, CV, and CVR for individual listings and search lists / sort by highest/lowest",Period 1
+A14,Content Management,Static Page Management,"Create, edit, delete FAQ, Privacy Policy, Terms of Service, Specified Commercial Transaction Law (Japan-specific)",Period 1
+A15,Content Management,Blog/Article Management,"Create, Add Category to, Edit, Publish, Suspend/Unpublish, and Delete the following content:
+
+1.  Insight and Area Guide Articles
+2. Video, News, and Other Articles AND
+3.  Handle Flagged Listing Verification & Rectification Requests",Period 1
+A16,Content Management,Agent Content Application Management,"Agent and support account post application list, approval, rejection, edit requests, notification and email functions,CSV format sorting and selection.",Period 1
+A17,Content Management,Product Shelf/Cart Functions,"Please see Function Sheet. Configure Subscription Packages and Pricing, for agents, end users, support accounts. Product management for agents, customers, support accounts; price and period settings. Glass : (E.g: Premium users, advanced translation function). ",Period 2
+A18,System Settings,Basic Settings,"Currency, language, timezone settings",Period 1
+A19,Messages & Emails, Notification Management,"【Message Distribution System】
+・Distribution methods (Individual email dispatch, mass distribution, targeted segment distribution)
+・Distribution Accounts (Admin, Customer Support, Business Support, Other)
+・Message template library
+  - Account type categories (Agent-focused, Support-focused, Customer-focused)
+  - Scenario-based templates (System notifications, Approval/rejection notices, etc.)
+・Delivery timing control
+  - Manual dispatch (Date/time scheduling, Calendar integration)
+  - Automated dispatch
+    ◦ Recurring delivery (Scheduled repeat delivery)
+    ◦ Event-based triggers (Post-registration, violations, purchases, etc.)
+    ◦ Drip campaigns (Sequential delivery: Day 1 content A, Day 14 content B, etc.)
+・Notification methods (In-site messages, Email, Both options)
+・Distribution control (Pause/Resume operations)
+【Analytics & Campaign Management】
+・Complete distribution history, Performance tracking (Open counts/rates, URL click counts/rates)
+・Account-specific and distribution type analysis
+【UI/UX】
+・Message interface screen, message creation and sending
+・Drag-and-drop message creation capability
+・Template customization and save functionality
+・Distribution results dashboard display",Period 1
+A20,System Settings,External Service Integration,"Payment, map, CRM integration settings",Period 1
+A21,System Settings,Security Settings,"Password policy, two-factor authentication management",Period 1
+A22,System Settings,Region/Station/Railway Settings,"Regional content, station/railway data management, station additions, line changes, place name changes",Period 1
+A23,System Settings,Transaction Data Input Settings,"Admin configurable transaction input fields (add/remove, required/optional). If agent removes a listing. Must put reason: 1) If sold, agent must put the price. Price chose as public or private to Yuushi. 2) Sold by others, 3) Seller did not want to sell . Linked to C46 and C47 in Customer Portal. Agent B30",Period 2
+A24.1,Ad Management,Property Ad Management,"Sponsored property ad approval, suspension, publication, deletion, termination. Lagged Listing Verification & Rectification Request. Normal listings can be published automatically, but there are risk mitigants.",Period 1
+A24.2,Ad Management,Property Ad Management," Prior to listing submission, AI to find illegal keywords, spam before they are allowed to submit listing. Button on the propety listing for complaints, we will review complaints on listings and listings can be suspended, removed. Please see D13 & D14",
+A25,Ad Management,Banner Ad Management,"Banner ad approval, suspension, publication, deletion, termination. Flagged Listing Verification & Rectification Request",Period 2
+A26,Ad Management,Ad Performance,"Property ad and banner ad IMP, CL, CTR, CV, CVR analysis, Comparison with general listings, CSV format sorting and selection",Period 1
+A27,Payment Management,Payment Report Display,"Agent and customers, support account payment status confirmation. [Financial reports, revenue reporting by month, year, custom period, to include revenue breakdown by type (subscription, Ads - sponsored ads, banner ads etc), Download by CSV]",Period 2
+A28,Payment Management,Billing Management,"Monthly billing for annual contract holders, payment method editing",Period 1
+A29,Report Management,Report Reception/Processing,"Reports on customers, agents, support accounts,unregistered accounts; categorization, comment review, processing. Metrics on how each is performing",Period 1
+A30,Chat Management,Customer Support,"Inquiry response for customers, agents, support accounts",Period 1
+A31,Chat Management,Chatbot Settings,Customer portal script configuration,Period 2
+A32,Data Analysis,Market Data Collection/Analysis,"Price trends, transaction volume, listing duration, popularity by building age, station distance, area-based transaction data, monthly session time, agent response rate, response time, time to transaction, contact frequency analysis. format sorting and selection.Individual listing date, listing period, price, price change history, property details (type, floor plan, address, nearest station, walking minutes, building age, square meters, etc.), response time, view count, save count, inquiry count, time to transaction, graph visualization. [How many buyers, sellers in a time period, compared to another time period, average price of transactions in a time period for property type / location, compared to anther time period, last listing price vs transaction price, record transaction price]",Period 1
+A33,Data Analysis,User Behavior Analysis,"End user Analysis by nationality, age group, gender, language, period, property searches, property details for IMP, CL, CTR, CV, CVR; CSV format sorting and selection",Period 1
+A34,Data Analysis,Shortcut Functions,"Admin-configured analysis shortcuts (monthly popular area TOP10, etc.), title setting, one-button display",Period 2
+A35,Data Analysis,Sales Report Generation,"edit email templates on updates on saved properties, saved property searches",Period 1
+A36,CRM marketing ,marketing message,"Chat marketing (e.g. LINE CHAT) Email delivery and in-site notification features, 
+Email EDM templates, 
+Edit updates on saved properties, saved property searches to End Users
+Effectiveness verification and analytics
+User data recording including notification timestamps, email open rates, and conversion tracking",Period 2
+A37,Feature Management,Per-Account Feature Control,"This is an administrative feature that enables you to use a function table to manage and update the features and paid options available to different accounts, such as agents and support accounts (including property management, tax accountants, and construction companies). You can configure key details like pricing, subscription duration, and usage limits. These settings determine which features each account can access and purchase.",Period 1
+A38,System Settings,Integrated Message Management System,"【Messaging Infrastructure System】
+・Email delivery server management for Agents & Support Accounts
+・Distribution limits configuration, delivery rate monitoring, spam protection, error log management
+【Message Template Management】
+・Common template provision
+・Customization permission settings, multilingual version management
+【Distribution Control & Monitoring】
+・Account-based distribution volume limits, anomaly detection, bulk distribution suspension
+・Delivery history monitoring, performance analytics
+【Compliance Management】
+・Specified Electronic Mail Act compliance, unsubscribe processing, personal data protection
+・Audit logging, violation report handling
+【Feature Access Control】
+・Account-based feature activation, subscription plan integration
+・Permission management, feature ON/OFF control",Period 1
+A39,System Settings,Administrator Account Management,"・Account Management & Permission Settings: Create, edit, and configure access permissions for staff accounts. *Note: When a second login attempt is made from the same account, the previously logged-in session will be automatically logged out.
+・Operation Log Recording & Review: Record and review activity history including who used which functions, when they were used, and what communications were made.",Period 1
+A40,Authenticator,Authenticator,"Log in: Admin log in to the portal with a valid username and password
+Forgot password: Admin use to reset new password for their account
+",Period 1
+A41,System Settings,,"Region management, Perfecture/City management, Station routes management
+Article and video categories managment",Period 1
+A42,Welcome,Welcome configuration,"Welcome popup, Choose unit of area, Choose currency, Verify your choice.",Period 1
+A43,Search ,Top Search,,Period 1
+A44,Property Management,Property List,"Property name, type, location, price, images, size, features display, if whole building: number of floors, units, land area, building area",Period 1
+A45,Property Management,Property Filter,"Property types, Locations, Transaction types, Internal Area, Price, Bedrooms, status, Seller, Assigned to,
+Add/Remove filter",Period 1
+A46,Property Management,Property Sort,Newest/Oldest,Period 1
+A47,Property Management,Property Detail Editing,"Description, details, 3D view, amenities, surrounding information editing",Period 1
+A48,Property Management,Property Publication Settings,"Public, private, delete, archive",Period 1
+A49,Property Management,CSV Bulk Upload,Property information CSV bulk upload,Period 1
+A50,Property Management,Brochure,Property flyer printing,Period 1
+A51,Property Management,Multiple languge for Brochure,Multi-language for Brochure,Period 1
+A52,Property Management,Multiple style for Brochure,"Hero Brochure, Standard Brochure, Comprehensive Brochure",Period 2
+A53,Property Management,Create a new Property,,Period 1
+A54,Property Management,Email Property,Auto apply email template,Period 1
+A55,Lead Management,Lead List,"Name, inquiry type, status, representative, customer reference number, creation date, next follow-up date, modification date, lead potential (1-10)",Period 1
+A56,Lead Management,Lead list filter,"To buy, To rent, Location, Status, Price range, property type",Period 1
+A57,Lead Management,Lead sort,"Hero Brochure, Standard Brochure, Comprehensive Brochure",Period 1
+A58,Lead Management,Lead delete,Delete lead,Period 1
+A59,Lead Management,Lead progress,"New, Asigned, Contact, ...",Period 1
+A60,Lead Management,Lead comment,,Period 1
+A61,Lead Management,Lead activity,Arrange view,Period 2
+A62,Lead Management,Lead activity,Create a task,Period 2
+A63,Lead Management,Lead activity,Make a phone call,Period 2
+A64,Lead Management,Lead activity,Send email,Period 2
+A65,Lead Management,Lead activity,Send a text (SMS),Period 2
+A66,Lead Management,Media/documments,"Upload Property and Area Photo - Create, View, Update and Delete lead docs",Period 1
+A67,Lead Management,Lead Details,"Contact info, conditions, history, status management (New, Assigned, Contracted, Viewing, Offer, Negotiation, Closed, Closed Lost)",Period 1
+A68,Lead Management,Lead History Management,P1 MVP,Period 2
+A69,Lead Management,Edit lead,,Period 1
+A70,Lead Management,Viewing Calendar,"Viewing appointments, contract signings, customer/agent calendar integration,Post the event to customer's google/apple calendar, also Agent's google/apple calendar.※Paid Features",Period 2
+A71,Lead Management,CRM Basic,"Basic customer management, simple messaging, 3 months chat history (then they must download). We need to retain the user details, lead details, property listing details but not all the media like videos/photos, only the main photo which distinguishes the property [pls list other info to retain]",Period 2
+A72,Lead Management,CRM Standard,"Custom tags, reminders, search filtering, 6 months chat history (then they must download), agent can export as csv(only text)",Period 2
+A73,Lead Management,CRM Premium,"Team sharing, auto follow-up, efficiency reports, memo activity history, 1 year chat history (then they must download), calendar, agent can export as csv(only text). Also advanced Team Management B33. Agent admin can control access of his users, Agent admin can assign/route new leads to his users, Agent admin can download report of performance of each user",Period 2
+A74,Messaging,Customer Messages,"Communication & Messaging System
+Real-time chat, file sharing (photos/videos/documents), automatic translation
+
+【Message Distribution System】
+・Distribution methods (Individual email dispatch, mass distribution, segment-based distribution)
+・Message template library
+  - Property type categories (Apartments, Houses, Land, Commercial properties, etc.)
+  - Scenario-based templates (Inquiry responses, Property proposals, Follow-ups, Contract-related communications, After-service follow-ups, etc.)
+・Delivery timing control
+  - Manual dispatch (Date/time scheduling, Calendar integration, Distribution scheduling)
+  - Automated dispatch
+    ◦ Event-based triggers (Post-inquiry reception, Day before property viewing, etc.)
+    ◦ Drip campaigns (Sequential delivery: Day 1 follow-up after inquiry, Week 1 status check, etc.)
+・Notification methods (In-site chat, Email, Both options)
+・Distribution control (Pause/Resume operations, Delivery stop settings)
+
+【Analytics & Campaign Management】
+・Communication history, Performance tracking (Open metrics, Click-through rates)
+・Transmission history, effectiveness measurement (open count/rate, URL click count/rate)
+
+【UI/UX】
+・Incoming notification count, Unread notification count
+・Message interface screen・ message creation and sending
+・Drag & drop message creation capability
+・Template customization features
+・Distribution results dashboard display",Period 2
+A75,Messaging,Admin Messages,"Support, plan consultation, payment inquiries, platform usage guidance",Period 1
+A76,Messaging,User Management,"Chat representative assignment, permission settings (users assigned certain permissions), admin configuration",Period 1
+A77,Marketing,Dashboard Table,"Every Ad type performance by advert, budget spending table
+Oppotunities listed by Agents, List of Campiaigns, Oppotunities listed by Direct Sources, Oppotunities listed by Sources ",Period 1
+A78,Marketing,Dashboard Chart,"Oppotunities listed by Agents, List of Campiaigns, Oppotunities listed by Direct Sources, Oppotunities listed by Sources ",Period 1
+A79,Marketing,Export data table,"Export to CSV, ... file",Period 2
+A80,Marketing,Ad details,,Period 1
+A81,Marketing,Edit Ad,,Period 1
+A82,Marketing,Create Ad,,Period 1
+A83,Marketing,Delete Ad,,Period 1
+A84,Marketing,Comment Ad,,Period 1
+A85,Marketing,Sponsored Property Settings,"Search result top display, area-based bidding, condition-based bidding like Tokyo apartments, list of all possible search pages to be bid on for sponsored property list (Rakuten, Jalan travel they have similar function). Agent can buy the keyword or filter requirements.",Period 1
+A86,Marketing,Banner Ad Settings,"Area guide pages, Blog page ad settings, manual upload. Need approval for ad banners to comply with our ad guidelines for Ad banners. Agent can pay on their page, the page will show the price and period for certain banner, and they can add into cart and pay by their credit card.(For example, rakuten travel, 2025/8/1-8-7 Banner A, 90,000JPY), agent paid it first, submit the banner for approval.",Period 1
+A87,Marketing,Sponsored Article,"Paid Article. Photo/text input,  paragraph image placement, paid application. Need approval for content before posting",Period 1
+A88,Content Creation,Manuscript Upload (Flow①),"Manuscript file upload, paid/free application",Period 1
+A89,Account Settings,Subscription Confirmation,"Current plan, contract period, feature list, auto-renewal settings.※Similar to how Google and other platforms often obscure these options, cancellation and termination settings are not easily discoverable.",Period 2
+A90,Account Settings,Profile Management,"Management of Agent Profile Page that is visable.  Company info, logo, description, team members, ratings, reviews (Basic/Standard/Premium feature differences will allow the agent to showcase more).  Current property listings, sold properties. Number of property listings, number of sales, JPY amount of sales",Period 1
+A91,Account Settings,Account Addition,"B29 or B33
+• Permission Management Function
+Parent account can individually configure function-specific permissions for child accounts (property management, customer service, payment, etc.)※Agent Access seat
+• Lead Assignment Function
+Parent account centrally manages all inquiries and manually assigns them to child accounts. Supports dual assignment system with primary and secondary representatives, including reassignment and handover capabilities.
+• Performance Tracking Function
+Tracks basic performance data for each child account (number of contracts, response speed, number of cases handled, etc. *to be confirmed), with individual and period-based report download functionality.
+• Operation History Management Function
+Complete recording of ""who performed what operation when and what communication was made,"" with history tracking capability for handovers.
+*When logging in from a second location with the same account, the previously logged-in session will be automatically logged out.
+*For Premium CRM users, refer to B18.",Period 1
+A92,Transaction Management,Transaction Data Input,"Transaction date, transaction price (excluding brokerage fees) input",Period 1
+A93,Paid Features,Paid Features,"Purchase and Manage Paid Features: Add features to your account by putting them in your cart and completing the purchase.
+
+Confirming Usage Plans, Features, Periods, and Counts: Displays the purchased features, expiration dates, available usage counts, etc.
+
+Automatic Renewal: You will be notified via in-site chat and email 30 and 7 days before your contract expires (no notification will be sent in the contract start month).
+
+Cancellation Process: The cancellation option will be placed in a less prominent area of the settings screen, similar to Google's cancellation process.
+
+Paid Features: For details on paid features, please refer to the function table.
+
+I have integrated the information you mentioned in B27.",Period 1
+A94,Lead Management,Needs Search & Proposal,"・Agent Feature Details:This feature allows real estate agents to search and save posts from clients outlining their desired property requirements (e.g., location, layout, etc.). Agents can then propose suitable properties to these clients.
+・Paid Feature:The ability to send a proposal is a paid feature for agents.
+・Privacy Protection:Client usernames will only be displayed as initials. The full name of the client will not be shown to agents.",Period 1
+A95,Team Management,Agent Admin Team Management and Performance Tracking,"Agent admin can control access of his salesperson users, Agent admin can assign/route new leads to his salespoerson users, Agent admin can track performance and download report of performance of each salesperson user. For Premium CRM users, see B18 ",Period 1
+A96,Authenticator,Authenticator,"Log in: Agent log in to the portal with their valid username and password.
+Forgot password: Agent use this page to reset new password for the account.",Period 1
+A97,Management,Dashboard table,"List of property sold, Offers",Period 1
+A98,Management,Dashboard chart,"List of property sold, Offers",Period 1
+A99,Management,Export data table,"Export to CSV, ... file",Period 1
+A100,Management,Ad details,,Period 2
+A101,Management,Comment offers,,Period 2
+A102,After Sales,Dashboard table,"Task by status, Title Deeds by Status",Period 1
+A103,After Sales,Dashboard chart,"Task by status, Title Deeds by Status",Period 1
+A104,After Sales,Export data table,"Export to CSV, ... file",Period 1
+A105,After Sales,Ad details,,Period 1
+A106,After Sales,Edit Task,,Period 1
+A107,After Sales,Create Task,,Period 1
+A108,After Sales,Delete Task,,Period 1
+A109,After Sales,Comment Task,,Period 1
+A110,Contact and organisation,Contact list,,Period 1
+A111,Contact and organisation,Contact filter,"Country, Country of nationality, City, Assigned to",Period 1
+A112,Contact and organisation,Contact sort,,Period 1
+A113,Contact and organisation,Contact details,,Period 1
+A114,Contact and organisation,Edit Contact,,Period 1
+A115,Contact and organisation,Create Contact,,Period 1
+A116,Contact and organisation,Delete Contact,,Period 1
+A117,Contact and organisation,Role and permission for contacts,,Period 1
+A118,Contact and organisation,Activity - Add,,Period 2
+A119,Contact and organisation,Activity - View history,,Period 2
+A120,Contact and organisation,Activity - Edit,,Period 2
+A121,Contact and organisation,Activity - Schedule,,Period 2
+A122,Project,Project List,,Period 1
+A123,Project,Project Filter,,Period 1
+A124,Project,Project Sort,,Period 1
+A125,Project,Project Detail ,,Period 1
+A126,Project,Project Edit,,Period 1
+A127,Project,Project Delete,,Period 1
+A128,Project,Project Activities,,Period 1
+A129,Project,Link Property,,Period 1
+A130,Offers,Offer list,,Period 1
+A131,Offers,Offer details,,Period 1
+A132,Offers,Edit offers,,Period 1
+A133,Offers,Create offers,,Period 1
+A134,Offers,Delete offers,,Period 1
+A135,Agreements,Agreement list,,Period 1
+A136,Agreements,Agreement details,,Period 1
+A137,Agreements,Edit Agreement,,Period 1
+A138,Agreements,Create Agreement,,Period 1
+A139,Agreements,Delete Agreement,,Period 1
+A140,Calendar,viewing Calendar,,Period 2
+A141,Activity,viewing List,,Period 2
+A142,Activity,Viewing Details,,Period 2
+A143,Activity,Edit Viewing,,Period 2
+A144,Activity,Create Viewing,,Period 2
+A145,Activity,Delete Viewing,,Period 2
+A146,Activity,Task List,,Period 2
+A147,Activity,Task Details,,Period 2
+A148,Activity,Edit Task,,Period 2
+A149,Activity,Create Task,,Period 2
+A150,Activity,Delete Task,,Period 2
+A151,Activity,Jobs List,,Period 2
+A152,Activity,Jobs Details,,Period 2
+A153,Activity,Edit Jobs,,Period 2
+A154,Activity,Create Jobs,,Period 2
+A155,Activity,Delete Jobs,,Period 2
+A156,Activity,Call List,,Period 2
+A157,Activity,Call Details,,Period 2
+A158,Activity,Edit Call,,Period 2
+A159,Activity,Create Call,"No need the actual Calling Function, just as an activity ",Period 2
+A160,Activity,Delete Call,,Period 2
+A161,Activity,Email List,,Period 1
+A162,Activity,Email Details,,Period 1
+A163,Activity,Edit Email,,Period 1
+A164,Activity,Create Email,,Period 2
+A165,Activity,Delete Email,,Period 2
+A166,Activity,SMS List,,Period 2
+A167,Activity,SMS Details,,Period 2
+A168,Activity,Edit SMS,,Period 2
+A169,Activity,Create SMS,,Period 2
+A170,Activity,Delete SMS,,Period 2
+A171,Activity,Comments List,,Period 2
+A172,Activity,Comment Details,,Period 2
+A173,Activity,Edit Comment,,Period 2
+A174,Activity,Create Comment,,Period 2
+A175,Activity,Delete Comment,,Period 2
+A176,Brokers & External Agents,Brokers & External Agents List,,Period 2
+A177,Brokers & External Agents,Filter Brokers & External Agents ,,Period 2
+A178,Brokers & External Agents,Brokers & External Agents Details,,Period 2
+A179,Brokers & External Agents,Edit Brokers & External Agents,,Period 2
+A180,Brokers & External Agents,Create Brokers & External Agents,,Period 2
+A181,Brokers & External Agents,Delete Brokers & External Agents,,Period 2
+A182,Campaigns,Campaigns List,,Period 2
+A183,Campaigns,Filter Campaigns ,,Period 2
+A184,Campaigns,Campaign Details,,Period 2
+A185,Campaigns,Edit Campaign,,Period 2
+A186,Campaigns,Create Campaign,,Period 2
+A187,Campaigns,Delete Campaign,,Period 2
+A188,Admin Panel,User Management,Users List,Period 1
+A189,Admin Panel,User Management,User Details,Period 1
+A190,Admin Panel,User Management,Edit User,Period 1
+A191,Admin Panel,User Management,Create User,Period 1
+A192,Admin Panel,User Management,Delete User,Period 1
+A193,Admin Panel,Group,Group List,Period 1
+A194,Admin Panel,Group,Group Details,Period 1
+A195,Admin Panel,Group,Edit Group,Period 1
+A196,Admin Panel,Group,Create Group,Period 1
+A197,Admin Panel,Group,Delete Group,Period 1
+A198,Admin Panel,Roles,Roles List,Period 1
+A199,Admin Panel,Roles,Role Details,Period 1
+A200,Admin Panel,Roles,Edit Role,Period 1
+A201,Admin Panel,Roles,Create Role,Period 1
+A202,Admin Panel,Roles,Delete Role,Period 1
+,,,,
+Agent Portal,,,,
+,,,,
+No.,Function Category,Function Name,Detailed Requirements,Period
+,Welcome,Welcome configuration,"Welcome popup, Choose unit of area, Choose currency, Verify your choice.",Period 1
+,Search ,Top Search,,Period 1
+B1,Dashboard,Sales Performance Table,"Property listing count, sales count, sales revenue, graph display",Period 1
+B2,Dashboard,Property Performance,"Search displays, views, clicks, inquiries, active chats; all properties and individual property display",Period 1
+B3,Dashboard,Customer Statistics,"Customer count, customer information, demographic analysis (gender, age, location, device usage) - for higher subscription package",Period 1
+B4,Dashboard,Ad Spend Statistics,"Platform ad budget, effectiveness measurement (by type, IMP, CL, CTR, CV, CVR)",Period 2
+B5,Dashboard,Sales Representative Performance,"Lead count, sales, number of contracts, revenue performance table　　",Period 1
+B6,Dashboard,Qobrix Additional Functions,"G: ※Please add ALL detailed Qobrix function reference sections　
+Request for detailed additions to Qobrix-inherited sections: Account registration/login, password expiration/change, inquiry handling/new messages, unread count, etc.",Period 2
+B7,Property Management,Property List,"Property name, type, location, price, images, size, features display, if whole building: number of floors, units, land area, building area",Period 1
+,Property Management,Property Filter,"Property types, Locations, Transaction types, Internal Area, Price, Bedrooms, status, Seller, Assigned to,
+Add/Remove filter",Period 1
+,Property Management,Property Sort,Newest/Oldest,Period 1
+B8,Property Management,Property Detail Editing,"Description, details, 3D view, amenities, surrounding information editing",Period 1
+B9,Property Management,Property Publication Settings,"Public, private, delete, archive",Period 1
+B10,Property Management,CSV Bulk Upload,Property information CSV bulk upload,Period 1
+B11,Property Management,Brochure,Property flyer printing,Period 1
+B7,Property Management,Multiple languge for Brochure,Multi-language for Brochure,Period 1
+B8,Property Management,Multiple style for Brochure,"Hero Brochure, Standard Brochure, Comprehensive Brochure",Period 2
+,Property Management,Create a new Property,,Period 1
+B9,Property Management,Email Property,Auto apply email template,Period 1
+B12,Lead Management,Lead List,"Name, inquiry type, status, representative, customer reference number, creation date, next follow-up date, modification date, lead potential (1-10)",Period 1
+,Lead Management,Lead list filter,"To buy, To rent, Location, Status, Price range, roperty type",Period 1
+,Lead Management,Lead sort,"Hero Brochure, Standard Brochure, Comprehensive Brochure",Period 1
+,Lead Management,Lead delete,Delete lead,Period 1
+,Lead Management,Lead progress,"New, Asigned, Contact, ...",Period 1
+,Lead Management,Lead comment,,Period 1
+B10,Lead Management,Lead activity,Arrange view,Period 1
+B11,Lead Management,Lead activity,Create a task,Period 1
+B12,Lead Management,Lead activity,Make a phone call,Period 1
+B13,Lead Management,Lead activity,Send email,Period 1
+B14,Lead Management,Lead activity,Send a text (SMS),Period 2
+,Lead Management,Media/documments,"Upload Property and Area Photo - Create, View, Update and Delete lead docs",Period 1
+B13,Lead Management,Lead Details,"Contact info, conditions, history, status management (New, Assigned, Contracted, Viewing, Offer, Negotiation, Closed, Closed Lost)",Period 1
+B14,Lead Management,Lead History Management,"Date, representative, communication content, next action recording",Period 2
+,Lead Management,Edit lead,,Period 1
+B15,Lead Management,Viewing Calendar,"Viewing appointments, contract signings, customer/agent calendar integration,Post the event to customer's google/apple calendar, also Agent's google/apple calendar.※Paid Features",Period 1
+B16,Lead Management,CRM Basic,"Basic customer management, simple messaging, 3 months chat history (then they must download). We need to retain the user details, lead details, property listing details but not all the media like videos/photos, only the main photo which distinguishes the property [pls list other info to retain]",Period 1
+B17,Lead Management,CRM Standard,"Custom tags, reminders, search filtering, 6 months chat history (then they must download), agent can export as csv(only text)",Period 1
+B18,Lead Management,CRM Premium,"Team sharing, auto follow-up, efficiency reports, memo activity history, 1 year chat history (then they must download), calendar, agent can export as csv(only text). Also advanced Team Management B33. Agent admin can control access of his users, Agent admin can assign/route new leads to his users, Agent admin can download report of performance of each user",Period 1
+B19,Messaging,Customer Messages,"Communication & Messaging System
+Real-time chat, file sharing (photos/videos/documents), automatic translation
+
+【Message Distribution System】
+・Distribution methods (Individual email dispatch, mass distribution, segment-based distribution)
+・Message template library
+  - Property type categories (Apartments, Houses, Land, Commercial properties, etc.)
+  - Scenario-based templates (Inquiry responses, Property proposals, Follow-ups, Contract-related communications, After-service follow-ups, etc.)
+・Delivery timing control
+  - Manual dispatch (Date/time scheduling, Calendar integration, Distribution scheduling)
+  - Automated dispatch
+    ◦ Event-based triggers (Post-inquiry reception, Day before property viewing, etc.)
+    ◦ Drip campaigns (Sequential delivery: Day 1 follow-up after inquiry, Week 1 status check, etc.)
+・Notification methods (In-site chat, Email, Both options)
+・Distribution control (Pause/Resume operations, Delivery stop settings)
+
+【Analytics & Campaign Management】
+・Communication history, Performance tracking (Open metrics, Click-through rates)
+・Transmission history, effectiveness measurement (open count/rate, URL click count/rate)
+
+【UI/UX】
+・Incoming notification count, Unread notification count
+・Message interface screen・ message creation and sending
+・Drag & drop message creation capability
+・Template customization features
+・Distribution results dashboard display",Period 1
+B20,Messaging,Admin Messages,"Support, plan consultation, payment inquiries, platform usage guidance",Period 1
+B21,Messaging,User Management,"Chat representative assignment, permission settings (users assigned certain permissions), admin configuration",Period 1
+B22,Marketing,Dashboard Table,"Every Ad type performance by advert, budget spending table
+Oppotunities listed by Agents, List of Campiaigns, Oppotunities listed by Direct Sources, Oppotunities listed by Sources ",Period 2
+,Marketing,Dashboard Chart,"Oppotunities listed by Agents, List of Campiaigns, Oppotunities listed by Direct Sources, Oppotunities listed by Sources ",Period 1
+,Marketing,Export data table,"Export to CSV, ... file",Period 1
+,Marketing,Ad details,,Period 1
+,Marketing,Edit Ad,,Period 1
+,Marketing,Create Ad,,Period 1
+,Marketing,Delete Ad,,Period 1
+,Marketing,Comment Ad,,Period 1
+B23,Marketing,Sponsored Property Settings,"Search result top display, area-based bidding, condition-based bidding like Tokyo apartments, list of all possible search pages to be bid on for sponsored property list (Rakuten, Jalan travel they have similar function). Agent can buy the keyword or filter requirements.",Period 1
+B24,Marketing,Banner Ad Settings,"Area guide pages, Blog page ad settings, manual upload. Need approval for ad banners to comply with our ad guidelines for Ad banners. Agent can pay on their page, the page will show the price and period for certain banner, and they can add into cart and pay by their credit card.(For example, rakuten travel, 2025/8/1-8-7 Banner A, 90,000JPY), agent paid it first, submit the banner for approval.",Period 1
+B25,Marketing,Sponsored Article,"Paid Article. Photo/text input,  paragraph image placement, paid application. Need approval for content before posting",Period 1
+B26,Content Creation,Manuscript Upload (Flow①),"Manuscript file upload, paid/free application",Period 2
+B27,Account Settings,Subscription Confirmation,"Current plan, contract period, feature list, auto-renewal settings.※Similar to how Google and other platforms often obscure these options, cancellation and termination settings are not easily discoverable.",Period 1
+B28,Account Settings,Profile Management,"Management of Agent Profile Page that is visable.  Company info, logo, description, team members, ratings, reviews (Basic/Standard/Premium feature differences will allow the agent to showcase more).  Current property listings, sold properties. Number of property listings, number of sales, JPY amount of sales",Period 1
+B29,Account Settings,Account Addition,"B29 or B33
+• Permission Management Function
+Parent account can individually configure function-specific permissions for child accounts (property management, customer service, payment, etc.)※Agent Access seat
+• Lead Assignment Function
+Parent account centrally manages all inquiries and manually assigns them to child accounts. Supports dual assignment system with primary and secondary representatives, including reassignment and handover capabilities.
+• Performance Tracking Function
+Tracks basic performance data for each child account (number of contracts, response speed, number of cases handled, etc. *to be confirmed), with individual and period-based report download functionality.
+• Operation History Management Function
+Complete recording of ""who performed what operation when and what communication was made,"" with history tracking capability for handovers.
+*When logging in from a second location with the same account, the previously logged-in session will be automatically logged out.
+*For Premium CRM users, refer to B18.",Period 1
+B30,Transaction Management,Transaction Data Input,"Transaction date, transaction price (excluding brokerage fees) input",Period 1
+B31,Paid Features,Paid Features,"Purchase and Manage Paid Features: Add features to your account by putting them in your cart and completing the purchase.
+
+Confirming Usage Plans, Features, Periods, and Counts: Displays the purchased features, expiration dates, available usage counts, etc.
+
+Automatic Renewal: You will be notified via in-site chat and email 30 and 7 days before your contract expires (no notification will be sent in the contract start month).
+
+Cancellation Process: The cancellation option will be placed in a less prominent area of the settings screen, similar to Google's cancellation process.
+
+Paid Features: For details on paid features, please refer to the function table.
+
+I have integrated the information you mentioned in B27.",Period 1
+B32,Lead Management,Needs Search & Proposal,"・Agent Feature Details:This feature allows real estate agents to search and save posts from clients outlining their desired property requirements (e.g., location, layout, etc.). Agents can then propose suitable properties to these clients.
+・Paid Feature:The ability to send a proposal is a paid feature for agents.
+・Privacy Protection:Client usernames will only be displayed as initials. The full name of the client will not be shown to agents.",Period 1
+B33 ,Team Management,Agent Admin Team Management and Performance Tracking,"Agent admin can control access of his salesperson users, Agent admin can assign/route new leads to his salespoerson users, Agent admin can track performance and download report of performance of each salesperson user. For Premium CRM users, see B18 ",Period 1
+B34,Authenticator,Authenticator,"Log in: Agent log in to the portal with their valid username and password.
+Forgot password: Agent use this page to reset new password for the account.",Period 1
+,Management,Dashboard table,"List of property sold, Offers",Period 1
+,Management,Dashboard chart,"List of property sold, Offers",Period 1
+,Management,Export data table,"Export to CSV, ... file",Period 1
+B34,Management,Ad details,,Period 2
+B35,Management,Comment offers,,Period 1
+B36,After Sales,Dashboard table,"Task by status, Title Deeds by Status",Period 1
+B37,After Sales,Dashboard chart,"Task by status, Title Deeds by Status",Period 1
+B38,After Sales,Export data table,"Export to CSV, ... file",Period 1
+,After Sales,Edit Task,,Period 1
+,After Sales,Create Task,,Period 1
+,After Sales,Delete Task,,Period 1
+,After Sales,Comment Task,,Period 1
+,Contact and organisation,Contact list,,Period 1
+,Contact and organisation,Contact filter,"Country, Country of nationality, City, Assigned to",Period 1
+,Contact and organisation,Contact sort,,Period 1
+,Contact and organisation,Contact details,,Period 1
+,Contact and organisation,Edit Contact,,Period 1
+,Contact and organisation,Create Contact,,Period 1
+,Contact and organisation,Delete Contact,,Period 1
+,After Sales,Ad details,,Period 1
+B39,Contact and organisation,Role and permission for contacts,,Period 1
+B40,Contact and organisation,Activity - Add,,Period 1
+B41,Contact and organisation,Activity - View history,,Period 1
+B42,Contact and organisation,Activity - Edit,,Period 1
+B43,Contact and organisation,Activity - Schedule,,Period 1
+,Project,Project List,,Period 1
+,Project,Project Filter,,Period 1
+,Project,Project Sort,,Period 1
+,Project,Project Detail ,,Period 1
+,Project,Project Edit,,Period 1
+,Project,Project Delete,,Period 1
+,Project,Project Activities,,Period 1
+,Project,Link Property,,Period 1
+,Offers,Offer list,,Period 1
+,Offers,Offer details,,Period 1
+,Offers,Edit offers,,Period 1
+,Offers,Create offers,,Period 1
+,Offers,Delete offers,,Period 1
+,Agreements,Agreement list,,Period 1
+,Agreements,Agreement details,,Period 1
+,Agreements,Edit Agreement,,Period 1
+,Agreements,Create Agreement,,Period 1
+,Agreements,Delete Agreement,,Period 1
+B44,Calendar,viewing Calendar,,Period 1
+B45,Activity,viewing List,,Period 1
+B46,Activity,Viewing Details,,Period 1
+B47,Activity,Edit Viewing,,Period 1
+B48,Activity,Create Viewing,,Period 1
+B49,Activity,Delete Viewing,,Period 1
+B50,Activity,Task List,,Period 1
+B51,Activity,Task Details,,Period 1
+B52,Activity,Edit Task,,Period 1
+B53,Activity,Create Task,,Period 1
+B54,Activity,Delete Task,,Period 1
+B55,Activity,Jobs List,,Period 2
+B56,Activity,Jobs Details,,Period 2
+B57,Activity,Edit Jobs,,Period 2
+B58,Activity,Create Jobs,,Period 2
+B59,Activity,Delete Jobs,,Period 2
+B60,Activity,Call List,,Period 1
+B61,Activity,Call Details,,Period 1
+B62,Activity,Edit Call,,Period 2
+B63,Activity,Create Call,"No need the actual Calling Function, just as an activity ",Period 2
+B64,Activity,Delete Call,,Period 2
+B65,Activity,Email List,,Period 1
+B66,Activity,Email Details,,Period 1
+B67,Activity,Edit Email,,Period 1
+B68,Activity,Create Email,,Period 1
+B69,Activity,Delete Email,,Period 1
+B70,Activity,SMS List,,Period 2
+B71,Activity,SMS Details,,Period 2
+B72,Activity,Edit SMS,,Period 2
+B73,Activity,Create SMS,,Period 2
+B74,Activity,Delete SMS,,Period 2
+B75,Activity,Comments List,,Period 1
+B76,Activity,Comment Details,,Period 1
+B77,Activity,Edit Comment,,Period 1
+B78,Activity,Create Comment,,Period 1
+B79,Activity,Delete Comment,,Period 1
+B80,Brokers & External Agents,Brokers & External Agents List,,Period 2
+B81,Brokers & External Agents,Filter Brokers & External Agents ,,Period 2
+B82,Brokers & External Agents,Brokers & External Agents Details,,Period 2
+B83,Brokers & External Agents,Edit Brokers & External Agents,,Period 2
+B84,Brokers & External Agents,Create Brokers & External Agents,,Period 2
+B85,Brokers & External Agents,Delete Brokers & External Agents,,Period 2
+B86,Campaigns,Campaigns List,,Period 2
+B87,Campaigns,Filter Campaigns ,,Period 2
+B88,Campaigns,Campaign Details,,Period 2
+B89,Campaigns,Edit Campaign,,Period 2
+B90,Campaigns,Create Campaign,,Period 2
+B91,Campaigns,Delete Campaign,,Period 2
+,Admin Panel,User Management,Users List,Period 1
+,Admin Panel,User Management,User Details,Period 1
+,Admin Panel,User Management,Edit User,Period 1
+,Admin Panel,User Management,Create User,Period 1
+,Admin Panel,User Management,Delete User,Period 1
+,Admin Panel,Group,Group List,Period 1
+,Admin Panel,Group,Group Details,Period 1
+,Admin Panel,Group,Edit Group,Period 1
+,Admin Panel,Group,Create Group,Period 1
+,Admin Panel,Group,Delete Group,Period 1
+B92,Admin Panel,Roles,Roles List,Period 1
+B93,Admin Panel,Roles,Role Details,Period 1
+B94,Admin Panel,Roles,Edit Role,Period 1
+B95,Admin Panel,Roles,Create Role,Period 1
+B96,Admin Panel,Roles,Delete Role,Period 1

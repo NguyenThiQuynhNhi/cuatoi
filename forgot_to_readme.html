@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quy Trình Khôi Phục Tài Khoản</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        max-width: 900px;
+        margin: auto;
+        padding: 40px;
+        line-height: 1.6;
+      }
+
+      h1,
+      h2 {
+        color: #a89062;
+      }
+
+      pre {
+        background: #f4f4f4;
+        padding: 15px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Tài Liệu Quy Trình Khôi Phục Tài Khoản</h1>
+
+    <p>
+      Tài liệu này giải thích các quy trình khôi phục tài khoản cho hệ thống xác
+      thực.
+    </p>
+    <p style="font-weight: bold">MÃ OTP: là 123456 ạ</p>
+
+    ---
+
+    <h2>Trường hợp 1 – Đặt Lại Mật Khẩu</h2>
+
+    <pre>
+Người dùng nhập Email đã đăng ký
+↓
+Hệ thống gửi OTP đến Email
+↓
+Người dùng nhập OTP
+↓
+Người dùng có thể truy cập trang Đặt Lại Mật Khẩu
+↓
+Người dùng đặt mật khẩu mới
+</pre
+    >
+
+    Quy tắc: - OTP phải được nhập chính xác - OTP hết hạn sau thời gian xác định
+    - OTP chỉ có thể sử dụng một lần ---
+
+    <h2>Trường hợp 2 – Quên Email (Đã Xác Minh Số Điện Thoại)</h2>
+
+    <pre>
+Người dùng nhập Số Điện Thoại
+↓
+Hệ thống gửi OTP qua SMS
+↓
+Người dùng nhập OTP
+↓
+Hệ thống hiển thị Email đã đăng ký
+↓
+Người dùng có thể đặt lại mật khẩu
+</pre
+    >
+
+    Quy tắc: - Tối đa 2 lần thử mỗi ngày ---
+
+    <h2>Trường hợp 3 – Quên Email (Chưa Xác Minh Số Điện Thoại)</h2>
+
+    <pre>
+Người dùng trả lời Câu Hỏi Bảo Mật
+↓
+Hệ thống hiển thị Email đã đăng ký
+↓
+Người dùng có thể đặt lại mật khẩu
+</pre
+    >
+
+    Quy tắc: - Tối đa 1 lần thử mỗi ngày - Câu hỏi bảo mật phải được cấu hình
+    trong lần đăng nhập đầu tiên ---
+
+    <h2>D16 – Yêu Cầu Khôi Phục Tài Khoản</h2>
+
+    Sử dụng khi người dùng không thể khôi phục tài khoản qua các phương pháp
+    thông thường.
+
+    <pre>
+Người dùng nộp biểu mẫu yêu cầu khôi phục
+↓
+Biểu mẫu bao gồm:
+- Họ và Tên
+- Số Điện Thoại
+- Lý do khôi phục tài khoản
+- Tải lên Giấy tờ Tùy thân
+↓
+Quản trị viên xem xét yêu cầu thủ công
+↓
+Quy trình khôi phục tài khoản được xử lý bởi đội ngũ hỗ trợ
+</pre
+    >
+
+    ---
+
+    <h2>Các Phương Pháp Khôi Phục Có Sẵn</h2>
+
+    1. Đặt lại mật khẩu bằng OTP qua Email 2. Tìm Email bằng OTP qua Số Điện
+    Thoại 3. Tìm Email bằng Câu Hỏi Bảo Mật 4. Biểu Mẫu Yêu Cầu Khôi Phục Tài
+    Khoản D16
+  </body>
+</html>

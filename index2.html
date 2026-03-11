@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOCKUP DESIGN</title>
+
+    <!-- Google Fonts (chung cho cả hai) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons (cho Report Property) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"DM Sans"', "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Tab chung */
+      .tab-bar {
+        background: white;
+        border-bottom: 1px solid #e2e8f0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      }
+
+      .tab-btn {
+        padding: 0.9rem 1.8rem;
+        font-weight: 500;
+        color: #64748b;
+        border-radius: 0.5rem 0.5rem 0 0;
+        transition: all 0.18s;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+      }
+
+      .tab-btn.active {
+        background: #f8fafc;
+        color: #0f172a;
+        border-bottom: 3px solid #3b82f6;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Custom select arrow cho Notification */
+      .custom-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 12px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 0.2s ease-out forwards;
+      }
+
+      /* Reporter type button cho Report Property */
+      .reporter-type-btn {
+        flex: 1;
+        padding: 1.25rem;
+        align-items: center;
+        border: 2px solid #e5e7eb;
+        border-radius: 0.75rem;
+        text-align: center;
+        transition: all 0.2s;
+        background: white;
+      }
+      .reporter-type-btn.active {
+        border-color: #3b82f6;
+        background: #eff6ff;
+      }
+      .reporter-type-btn:hover:not(.active) {
+        border-color: #9ca3af;
+      }
+
+      /* Modal Report Property */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        z-index: 1000;
+      }
+      .modal-content {
+        background: white;
+        border-radius: 1rem;
+        width: 100%;
+        max-width: 48rem;
+        max-height: 92vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      .input,
+      .textarea,
+      select {
+        width: 100%;
+        padding: 0.875rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        font-size: 0.95rem;
+        transition: border-color 0.2s;
+      }
+      .input:focus,
+      .textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Tab Bar + Chú thích -->
+    <div class="tab-bar">
+      <div class="max-w-6xl mx-auto px-4 py-3">
+        <p class="text-sm text-slate-500 mb-2 italic">
+          (mockup cho các giao diện mới thêm do khách yêu cầu)
+        </p>
+        <div class="flex gap-2">
+          <button class="tab-btn active" data-tab="notification">
+            Notification Settings
+          </button>
+          <button class="tab-btn" data-tab="report">Report Property</button>
+          <button class="tab-btn" data-tab="category">
+            Search by Category
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 1: Notification Settings -->
+    <div id="notification" class="tab-content active"></div>
+
+    <!-- Tab 2: Report Property -->
+    <div id="report" class="tab-content"></div>
+
+    <!-- Tab 3: Search by Category -->
+    <div id="category" class="tab-content"></div>
+
+    <script>
+      // Tab switching và load nội dung từ file riêng
+      async function loadTabContent(tabName) {
+        const container = document.getElementById(tabName);
+        if (container.children.length === 0) {
+          try {
+            const response = await fetch(`${tabName}.html`);
+            const html = await response.text();
+            container.innerHTML = html;
+
+            // Tìm và thực thi script trong nội dung đã load
+            const scriptRegex = /<script>([\s\S]*?)<\/script>/g;
+            let match;
+            while ((match = scriptRegex.exec(html)) !== null) {
+              eval(match[1]);
+            }
+          } catch (error) {
+            console.error(`Error loading ${tabName}.html:`, error);
+          }
+        }
+      }
+
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.remove("active"));
+          btn.classList.add("active");
+
+          const tabName = btn.dataset.tab;
+          await loadTabContent(tabName);
+          document.getElementById(tabName).classList.add("active");
+        });
+      });
+
+      // Load tab đầu tiên khi trang load
+      window.addEventListener("DOMContentLoaded", () => {
+        loadTabContent("notification");
+      });
+    </script>
+  </body>
+</html>

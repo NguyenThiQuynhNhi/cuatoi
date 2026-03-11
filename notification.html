@@ -63,20 +63,69 @@
         <div class="px-6 divide-y divide-slate-50">
           <div
             id="s1i1-row"
-            class="flex items-start justify-between gap-6 py-4 transition-opacity duration-200 opacity-100"
+            class="py-4 transition-opacity duration-200 opacity-100"
           >
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2">
-                <p class="text-sm font-semibold text-slate-800 leading-snug">
-                  Saved Property Updates
+            <div class="flex items-start justify-between gap-6">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-semibold text-slate-800 leading-snug">
+                    Saved Property Updates
+                  </p>
+                </div>
+                <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                  Price drops and information updates for saved/followed
+                  properties
                 </p>
               </div>
-              <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                Price drops and information updates for saved/followed
-                properties
-              </p>
             </div>
-            <div class="flex-shrink-0 pt-0.5" id="s1i1-control"></div>
+
+            <!-- Price Update Notifications Sub-section -->
+            <div class="mt-4 pl-4 border-l-2 border-slate-100 space-y-3">
+              <!-- Prices Only -->
+              <div class="flex items-start justify-between gap-6">
+                <div class="flex items-start gap-2.5 flex-1">
+                  <input
+                    type="checkbox"
+                    id="price-only-check"
+                    class="mt-0.5 w-4 h-4 text-amber-400 border-slate-300 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer"
+                    checked
+                  />
+                  <label for="price-only-check" class="cursor-pointer flex-1">
+                    <p class="text-sm font-medium text-slate-700 leading-snug">
+                      Prices Only
+                    </p>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                      Receive notifications only for price changes
+                    </p>
+                  </label>
+                </div>
+                <div class="flex-shrink-0" id="s1i1a-control"></div>
+              </div>
+
+              <!-- Any Other Updates -->
+              <div class="flex items-start justify-between gap-6">
+                <div class="flex items-start gap-2.5 flex-1">
+                  <input
+                    type="checkbox"
+                    id="other-updates-check"
+                    class="mt-0.5 w-4 h-4 text-amber-400 border-slate-300 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer"
+                    checked
+                  />
+                  <label
+                    for="other-updates-check"
+                    class="cursor-pointer flex-1"
+                  >
+                    <p class="text-sm font-medium text-slate-700 leading-snug">
+                      Any Other Updates
+                    </p>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                      Property details, photos, descriptions, etc.
+                    </p>
+                  </label>
+                </div>
+                <div class="flex-shrink-0" id="s1i1b-control"></div>
+              </div>
+            </div>
           </div>
           <div
             id="s1i2-row"
@@ -189,6 +238,72 @@
           </div>
         </div>
       </div>
+
+      <!-- Quiet Hours Section -->
+      <div
+        class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
+      >
+        <div class="px-6 py-3.5 border-b border-slate-50 bg-slate-50/70">
+          <h2
+            class="text-xs font-bold text-slate-400 uppercase tracking-widest"
+          >
+            Quiet Hours
+          </h2>
+        </div>
+        <div class="px-6 py-4">
+          <div class="flex items-start gap-4">
+            <input
+              type="checkbox"
+              id="quiet-hours-enabled"
+              class="mt-0.5 w-4 h-4 text-amber-400 border-slate-300 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer"
+            />
+            <div class="flex-1">
+              <label for="quiet-hours-enabled" class="cursor-pointer">
+                <p class="text-sm font-semibold text-slate-800 leading-snug">
+                  Enable Quiet Hours
+                </p>
+                <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                  No emails will be sent during the specified time range
+                </p>
+              </label>
+
+              <div
+                id="quiet-hours-config"
+                class="mt-4 space-y-3 opacity-40 pointer-events-none transition-opacity duration-300"
+              >
+                <!-- Time Range -->
+                <div class="flex items-center gap-3 flex-wrap">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-medium text-slate-500">From</span>
+                    <select
+                      id="quiet-start"
+                      class="custom-select appearance-none bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-lg px-3 py-2 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all hover:border-slate-300"
+                    ></select>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-medium text-slate-500">To</span>
+                    <select
+                      id="quiet-end"
+                      class="custom-select appearance-none bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-lg px-3 py-2 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all hover:border-slate-300"
+                    ></select>
+                  </div>
+                </div>
+
+                <!-- Timezone -->
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-medium text-slate-500"
+                    >Timezone</span
+                  >
+                  <select
+                    id="quiet-timezone"
+                    class="custom-select appearance-none bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-lg px-3 py-2 pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all hover:border-slate-300 max-w-xs"
+                  ></select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -251,15 +366,40 @@
     ];
     const STANDARD_FREQ = ["Immediately", "Daily", "Weekly", "Off"];
     const URGENT_FREQ = ["Immediately", "Off"];
+    const TIMEZONES = [
+      "UTC",
+      "GMT",
+      "America/New_York (EST/EDT)",
+      "America/Chicago (CST/CDT)",
+      "America/Denver (MST/MDT)",
+      "America/Los_Angeles (PST/PDT)",
+      "Europe/London (GMT/BST)",
+      "Europe/Paris (CET/CEST)",
+      "Europe/Berlin (CET/CEST)",
+      "Asia/Tokyo (JST)",
+      "Asia/Shanghai (CST)",
+      "Asia/Hong_Kong (HKT)",
+      "Asia/Singapore (SGT)",
+      "Australia/Sydney (AEDT/AEST)",
+      "Pacific/Auckland (NZDT/NZST)",
+    ];
 
     let emailEnabled = true;
     const states = {
-      s1i1: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
+      s1i1a: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
+      s1i1b: { freq: "Daily", time: "09:00 AM", day: "Monday" },
       s1i2: { freq: "Daily", time: "09:00 AM", day: "Monday" },
       s1i3: { freq: "Weekly", time: "09:00 AM", day: "Monday" },
       s2i1: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
       s2i2: { freq: "Immediately", time: "09:00 AM", day: "Monday" },
       s3i1: { freq: "Off", time: "09:00 AM", day: "Monday" },
+    };
+
+    let quietHours = {
+      enabled: false,
+      start: "10:00 PM",
+      end: "08:00 AM",
+      timezone: "UTC",
     };
 
     function createSelect(options, selected, onChange) {
@@ -338,8 +478,89 @@
       }
     }
 
+    function initQuietHours() {
+      const checkbox = document.getElementById("quiet-hours-enabled");
+      const config = document.getElementById("quiet-hours-config");
+      const startSelect = document.getElementById("quiet-start");
+      const endSelect = document.getElementById("quiet-end");
+      const timezoneSelect = document.getElementById("quiet-timezone");
+
+      // Populate time selects
+      TIMES.forEach((time) => {
+        const opt1 = document.createElement("option");
+        opt1.value = time;
+        opt1.textContent = time;
+        if (time === quietHours.start) opt1.selected = true;
+        startSelect.appendChild(opt1);
+
+        const opt2 = document.createElement("option");
+        opt2.value = time;
+        opt2.textContent = time;
+        if (time === quietHours.end) opt2.selected = true;
+        endSelect.appendChild(opt2);
+      });
+
+      // Populate timezone select
+      TIMEZONES.forEach((tz) => {
+        const opt = document.createElement("option");
+        opt.value = tz;
+        opt.textContent = tz;
+        if (tz === quietHours.timezone) opt.selected = true;
+        timezoneSelect.appendChild(opt);
+      });
+
+      // Handle checkbox toggle
+      checkbox.addEventListener("change", (e) => {
+        quietHours.enabled = e.target.checked;
+        if (quietHours.enabled) {
+          config.classList.remove("opacity-40", "pointer-events-none");
+        } else {
+          config.classList.add("opacity-40", "pointer-events-none");
+        }
+      });
+
+      // Handle time/timezone changes
+      startSelect.addEventListener("change", (e) => {
+        quietHours.start = e.target.value;
+      });
+      endSelect.addEventListener("change", (e) => {
+        quietHours.end = e.target.value;
+      });
+      timezoneSelect.addEventListener("change", (e) => {
+        quietHours.timezone = e.target.value;
+      });
+    }
+
+    function handlePriceNotificationCheckboxes() {
+      const priceOnlyCheck = document.getElementById("price-only-check");
+      const otherUpdatesCheck = document.getElementById("other-updates-check");
+      const s1i1aControl = document.getElementById("s1i1a-control");
+      const s1i1bControl = document.getElementById("s1i1b-control");
+
+      function updateControlVisibility() {
+        if (priceOnlyCheck.checked) {
+          s1i1aControl.style.display = "block";
+          renderFrequencyControl(s1i1aControl, "s1i1a");
+        } else {
+          s1i1aControl.style.display = "none";
+        }
+
+        if (otherUpdatesCheck.checked) {
+          s1i1bControl.style.display = "block";
+          renderFrequencyControl(s1i1bControl, "s1i1b");
+        } else {
+          s1i1bControl.style.display = "none";
+        }
+      }
+
+      priceOnlyCheck.addEventListener("change", updateControlVisibility);
+      otherUpdatesCheck.addEventListener("change", updateControlVisibility);
+      updateControlVisibility();
+    }
+
     function initControls() {
-      renderFrequencyControl(document.getElementById("s1i1-control"), "s1i1");
+      renderFrequencyControl(document.getElementById("s1i1a-control"), "s1i1a");
+      renderFrequencyControl(document.getElementById("s1i1b-control"), "s1i1b");
       renderFrequencyControl(document.getElementById("s1i2-control"), "s1i2");
       renderFrequencyControl(document.getElementById("s1i3-control"), "s1i3");
       renderFrequencyControl(
@@ -354,6 +575,8 @@
       );
       renderFrequencyControl(document.getElementById("s3i1-control"), "s3i1");
       Object.keys(states).forEach(updateRowOpacity);
+      handlePriceNotificationCheckboxes();
+      initQuietHours();
     }
 
     const mt = document.getElementById("master-toggle");

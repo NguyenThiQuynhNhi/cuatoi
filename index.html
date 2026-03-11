@@ -3,227 +3,777 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MOCKUP DESIGN</title>
-
-    <!-- Google Fonts (chung cho cả hai) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,400&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Lucide Icons (cho Report Property) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['"DM Sans"', "system-ui", "sans-serif"],
-            },
-          },
-        },
-      };
-    </script>
+    <title>Account Recovery</title>
 
     <style>
-      /* Tab chung */
-      .tab-bar {
-        background: white;
-        border-bottom: 1px solid #e2e8f0;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-      }
-
-      .tab-btn {
-        padding: 0.9rem 1.8rem;
-        font-weight: 500;
-        color: #64748b;
-        border-radius: 0.5rem 0.5rem 0 0;
-        transition: all 0.18s;
-        cursor: pointer;
-        border: none;
-        background: transparent;
-      }
-
-      .tab-btn.active {
-        background: #f8fafc;
-        color: #0f172a;
-        border-bottom: 3px solid #3b82f6;
-      }
-
-      .tab-content {
-        display: none;
-      }
-
-      .tab-content.active {
-        display: block;
-      }
-
-      /* Custom select arrow cho Notification */
-      .custom-select {
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 10px center;
-        background-size: 12px;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateX(6px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-      .animate-fadeIn {
-        animation: fadeIn 0.2s ease-out forwards;
-      }
-
-      /* Reporter type button cho Report Property */
-      .reporter-type-btn {
-        flex: 1;
-        padding: 1.25rem;
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #f5f5f5;
+        display: flex;
+        justify-content: center;
         align-items: center;
-        border: 2px solid #e5e7eb;
-        border-radius: 0.75rem;
-        text-align: center;
-        transition: all 0.2s;
-        background: white;
-      }
-      .reporter-type-btn.active {
-        border-color: #3b82f6;
-        background: #eff6ff;
-      }
-      .reporter-type-btn:hover:not(.active) {
-        border-color: #9ca3af;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
       }
 
-      /* Modal Report Property */
-      .modal-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.6);
+      .container {
+        width: 100%;
+        max-width: 420px;
+        background: white;
+        padding: 32px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #a89062;
+        margin: 0 0 24px;
+        font-size: 24px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #333;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #a89062;
+        box-shadow: 0 0 0 3px rgba(168, 144, 98, 0.15);
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+        background: #a89062;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      button:hover:not(:disabled) {
+        background: #96804e;
+      }
+
+      button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+
+      .secondary-btn {
+        background: white;
+        color: #a89062;
+        border: 1px solid #a89062;
+      }
+
+      .sns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .sns button {
+        background: white;
+        border: 1px solid #ddd;
+        color: #333;
+        font-weight: 500;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 1.5rem;
-        z-index: 1000;
-      }
-      .modal-content {
-        background: white;
-        border-radius: 1rem;
-        width: 100%;
-        max-width: 48rem;
-        max-height: 92vh;
-        overflow-y: auto;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        gap: 10px;
+        padding: 12px;
       }
 
-      .input,
-      .textarea,
-      select {
-        width: 100%;
-        padding: 0.875rem;
-        border: 1px solid #d1d5db;
-        border-radius: 0.5rem;
-        font-size: 0.95rem;
-        transition: border-color 0.2s;
+      .sns svg {
+        width: 20px;
+        height: 20px;
       }
-      .input:focus,
-      .textarea:focus,
-      select:focus {
-        outline: none;
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+
+      .links {
+        display: flex;
+        justify-content: space-between;
+        margin: 16px 0;
+        font-size: 14px;
+      }
+
+      .links a {
+        color: #a89062;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .divider {
+        text-align: center;
+        color: #888;
+        margin: 24px 0;
+        font-size: 14px;
+        position: relative;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background: #ddd;
+      }
+
+      .divider::before {
+        left: 0;
+      }
+      .divider::after {
+        right: 0;
+      }
+
+      .warning {
+        color: #d32f2f;
+        font-size: 13px;
+        margin-top: -8px;
+        margin-bottom: 16px;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .modal-box {
+        background: white;
+        width: 90%;
+        max-width: 380px;
+        padding: 28px;
+        border-radius: 12px;
+        position: relative;
+      }
+
+      .close {
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .otp-box {
+        display: flex;
+        gap: 10px;
+        margin: 24px 0;
+        justify-content: center;
+      }
+
+      .otp-box input {
+        width: 48px;
+        height: 52px;
+        text-align: center;
+        font-size: 24px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+
+      .otp-box input:focus {
+        border-color: #a89062;
+        box-shadow: 0 0 0 3px rgba(168, 144, 98, 0.2);
+      }
+
+      .hidden {
+        display: none !important;
       }
     </style>
   </head>
-  <body class="bg-gray-50 min-h-screen">
-    <!-- Tab Bar + Chú thích -->
-    <div class="tab-bar">
-      <div class="max-w-6xl mx-auto px-4 py-3">
-        <p class="text-sm text-slate-500 mb-2 italic">
-          (mockup cho các giao diện mới thêm do khách yêu cầu)
-        </p>
-        <div class="flex gap-2">
-          <button class="tab-btn active" data-tab="notification">
-            Notification Settings
-          </button>
-          <button class="tab-btn" data-tab="report">Report Property</button>
-          <button class="tab-btn" data-tab="category">
-            Search by Category
-          </button>
-          <a
-            href="jhn_admin.html"
-            target="_blank"
-            class="ml-auto text-sm text-blue-600 hover:underline"
+  <body>
+    <div class="container">
+      <!-- ── MAIN: Forgot Password ── -->
+      <div id="resetPassword">
+        <h1>Forgot Password</h1>
+        <label for="emailInput">Email address</label>
+        <input
+          id="emailInput"
+          type="email"
+          placeholder="example@gmail.com"
+          autocomplete="email"
+        />
+
+        <button id="btnEmailContinue" onclick="startPasswordReset()">
+          Continue
+        </button>
+
+        <div class="links">
+          <a onclick="navigateTo('phoneRecover')">Forgot email? Use phone</a>
+          <a onclick="navigateTo('questionRecover')">Use security question</a>
+        </div>
+
+        <div class="links">
+          <a onclick="navigateTo('d16')"
+            >Can't access account → Request recovery</a
           >
-            For Anh Dương
-          </a>
+        </div>
+
+        <div class="divider">Or</div>
+
+        <div class="sns">
+          <button onclick="alert('Continue with Google – not implemented yet')">
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="#4285F4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.51h5.84c-.25 1.31-.98 2.42-2.07 3.16v2.63h3.35c1.96-1.81 3.09-4.47 3.09-7.25z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 23c2.97 0 5.46-1.01 7.28-2.73l-3.35-2.63c-1.01.68-2.29 1.08-3.93 1.08-3.02 0-5.58-2.04-6.49-4.79H.96v2.67C2.77 20.39 6.62 23 12 23z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M5.51 14.21c-.23-.68-.36-1.41-.36-2.21s.13-1.53.36-2.21V7.34H.96C.35 8.85 0 10.39 0 12s.35 3.15.96 4.66l4.55-2.45z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 4.98c1.64 0 3.11.56 4.27 1.66l3.19-3.19C17.46 1.01 14.97 0 12 0 6.62 0 2.77 2.61.96 6.34l4.55 2.45C6.42 6.02 8.98 4.98 12 4.98z"
+              />
+            </svg>
+            Continue with Google
+          </button>
+
+          <button onclick="alert('Continue with Apple – not implemented yet')">
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="#000"
+                d="M12.152 6.896c-.948 0-2.121.652-2.781 1.511-.813.965-1.515 2.24-1.515 3.595 0 1.357.703 2.631 1.515 3.595.66.86 1.833 1.512 2.781 1.512.948 0 2.121-.652 2.781-1.512.813-.964 1.515-2.238 1.515-3.595 0-1.355-.702-2.63-1.515-3.595-.66-.859-1.833-1.511-2.781-1.511zM16.648 5.904c1.02 1.246 1.02 3.065 0 4.31-.813.964-2.121 1.512-3.069 1.512-.948 0-2.256-.548-3.069-1.512-.813-.964-1.515-2.238-1.515-3.595 0-1.357.702-2.631 1.515-3.595.813-.964 2.121-1.512 3.069-1.512.948 0 2.256.548 3.069 1.512z"
+              />
+            </svg>
+            Continue with Apple
+          </button>
+
+          <button onclick="alert('Continue with WeChat – not implemented yet')">
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="#07C160"
+                d="M8.691 2.188C3.891 2.188.001 5.476.001 9.53c0 2.212 1.17 4.203 3.002 5.55v4.988l4.518-2.695c.654.177 1.336.272 2.037.272 4.8 0 8.69-3.288 8.69-7.342 0-4.054-3.89-7.342-8.69-7.342z"
+              />
+            </svg>
+            Continue with WeChat
+          </button>
+
+          <button onclick="alert('Continue with Weibo – not implemented yet')">
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="#E6162D"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.5 14.5c-1.14 1.14-3.07 1.14-4.21 0-.57-.57-.57-1.5 0-2.07.57-.57 1.5-.57 2.07 0 .57.57.57 1.5 0 2.07zm-2.5-5.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM9 11c-.83 0-1.5-.67-1.5-1.5S8.17 8 9 8s1.5.67 1.5 1.5S9.83 11 9 11z"
+              />
+            </svg>
+            Continue with Weibo
+          </button>
+        </div>
+
+        <br />
+        <a
+          href="forgot_to_readme.html"
+          style="color: blue; font-size: 14px; font-weight: bold"
+          >ATOM xem mô tả ở đây nha</a
+        >
+      </div>
+
+      <!-- ── PHONE RECOVERY ── -->
+      <div id="phoneRecover" class="hidden">
+        <h1>Find Email</h1>
+        <p style="color: #666; font-size: 14px; margin-bottom: 16px">
+          Maximum 2 attempts per day
+        </p>
+
+        <label for="phoneInput">Phone number</label>
+        <input
+          id="phoneInput"
+          type="tel"
+          placeholder="+84 912 345 678"
+          autocomplete="tel"
+        />
+
+        <button id="btnPhoneSend" onclick="startPhoneRecovery()">
+          Send OTP
+        </button>
+
+        <div class="links">
+          <a onclick="navigateTo('resetPassword')">← Back</a>
+        </div>
+      </div>
+
+      <!-- ── SECURITY QUESTION ── -->
+      <div id="questionRecover" class="hidden">
+        <h1>Security Question</h1>
+        <p style="color: #666; font-size: 14px; margin-bottom: 16px">
+          Maximum 1 attempt per day
+        </p>
+
+        <p><strong>What was the name of your first school?</strong></p>
+        <input
+          id="securityAnswer"
+          placeholder="Your answer..."
+          autocomplete="off"
+        />
+
+        <button id="btnQuestionSubmit" onclick="verifySecurityQuestion()">
+          Submit
+        </button>
+
+        <div class="links">
+          <a onclick="navigateTo('resetPassword')">← Back</a>
+        </div>
+      </div>
+
+      <!-- ── EMAIL FOUND ── -->
+      <div id="emailFound" class="hidden">
+        <h1>Account Found</h1>
+        <p>Your registered email:</p>
+        <div
+          style="font-size: 20px; font-weight: bold; margin: 16px 0"
+          id="displayEmail"
+        ></div>
+
+        <button onclick="startPasswordResetFromEmailFound()">
+          Reset Password
+        </button>
+        <button class="secondary-btn" onclick="navigateTo('resetPassword')">
+          Done
+        </button>
+      </div>
+
+      <!-- ── RESET PASSWORD ── -->
+      <div id="resetPage" class="hidden">
+        <h1>Reset Password</h1>
+
+        <label for="newPassword">New password</label>
+        <input
+          id="newPassword"
+          type="password"
+          placeholder="At least 8 characters"
+          autocomplete="new-password"
+        />
+
+        <label for="confirmPassword">Confirm password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Re-enter password"
+          autocomplete="new-password"
+        />
+
+        <div id="pwdWarning" class="warning hidden">
+          Password must be at least 8 characters with letters & numbers
+        </div>
+
+        <button id="btnResetSubmit" onclick="submitPasswordReset()">
+          Reset Password
+        </button>
+      </div>
+
+      <!-- ── SUCCESS ── -->
+      <div id="resetSuccess" class="hidden">
+        <h1>Password Reset Successful</h1>
+        <p style="margin: 24px 0">You can now log in with your new password.</p>
+        <button onclick="window.location.href = '#'">Go to Login</button>
+      </div>
+
+      <!-- ── D16 MANUAL RECOVERY ── -->
+      <div id="d16" class="hidden">
+        <h1>Account Recovery Request</h1>
+        <p style="color: #666; font-size: 14px">
+          For cases where normal recovery is not possible
+        </p>
+
+        <label>Full name</label>
+        <input id="d16FullName" placeholder="Nguyễn Văn A" />
+
+        <label>Phone number</label>
+        <input id="d16Phone" type="tel" placeholder="+84 ..." />
+
+        <label>Reason for recovery</label>
+        <textarea
+          id="d16Reason"
+          rows="3"
+          placeholder="Explain your situation..."
+        ></textarea>
+
+        <label>ID Document (image or PDF)</label>
+        <input id="d16Document" type="file" accept="image/*,.pdf" />
+
+        <button id="btnD16Submit" onclick="submitD16Request()">
+          Submit Request
+        </button>
+
+        <div class="links">
+          <a onclick="navigateTo('resetPassword')">← Back</a>
+        </div>
+      </div>
+
+      <div id="d16Success" class="hidden">
+        <h1>Request Submitted</h1>
+        <p>Our support team will review your request.</p>
+        <p style="color: #666; font-size: 14px">
+          You will be contacted within 2–5 business days.
+        </p>
+        <button onclick="navigateTo('resetPassword')">Back to Options</button>
+      </div>
+    </div>
+
+    <!-- OTP Modal -->
+    <div id="otpModal" class="modal hidden">
+      <div class="modal-box">
+        <span class="close" onclick="closeOTP()">×</span>
+        <h2>Enter OTP</h2>
+        <p id="otpMessage">We sent a code to your email/phone</p>
+
+        <div class="otp-box">
+          <input maxlength="1" id="otp1" autocomplete="one-time-code" />
+          <input maxlength="1" id="otp2" />
+          <input maxlength="1" id="otp3" />
+          <input maxlength="1" id="otp4" />
+          <input maxlength="1" id="otp5" />
+          <input maxlength="1" id="otp6" />
+        </div>
+
+        <button id="btnVerifyOTP" onclick="verifyOTP()">Verify</button>
+
+        <div style="text-align: center; margin-top: 16px">
+          <a id="resendLink" onclick="resendOTP()">Resend OTP</a>
+          <span id="resendCountdown" class="hidden"></span>
         </div>
       </div>
     </div>
 
-    <!-- Tab 1: Notification Settings -->
-    <div id="notification" class="tab-content active"></div>
-
-    <!-- Tab 2: Report Property -->
-    <div id="report" class="tab-content"></div>
-
-    <!-- Tab 3: Search by Category -->
-    <div id="category" class="tab-content"></div>
-
     <script>
-      // Tab switching và load nội dung từ file riêng
-      async function loadTabContent(tabName) {
-        const container = document.getElementById(tabName);
-        if (container.children.length === 0) {
-          try {
-            const response = await fetch(`${tabName}.html`);
-            const html = await response.text();
-            container.innerHTML = html;
+      // ────────────────────────────────────────────────
+      //  State & Config
+      // ────────────────────────────────────────────────
+      const AppState = {
+        flow: null, // 'passwordReset', 'phoneRecovery', 'securityQuestion'
+        otpContext: null, // 'email', 'phone'
+        email: "",
+        phone: "",
+        foundEmail: "nguyenquynhnhi****@gmail.com", // simulated from backend
+        otpCooldownUntil: 0,
+      };
 
-            // Tìm và thực thi script trong nội dung đã load
-            const scriptRegex = /<script>([\s\S]*?)<\/script>/g;
-            let match;
-            while ((match = scriptRegex.exec(html)) !== null) {
-              eval(match[1]);
-            }
-          } catch (error) {
-            console.error(`Error loading ${tabName}.html:`, error);
-          }
-        }
+      const LIMITS = {
+        phoneOTP: { max: 2, key: "phoneOTP_attempts" },
+        securityQuestion: { max: 1, key: "security_attempts" },
+      };
+
+      const OTP_CORRECT = "123456"; // ← demo only – never do this in production
+      const RESEND_COOLDOWN = 60; // seconds
+
+      // ────────────────────────────────────────────────
+      //  Helpers
+      // ────────────────────────────────────────────────
+      function navigateTo(id) {
+        document
+          .querySelectorAll(".container > div")
+          .forEach((el) => el.classList.add("hidden"));
+        document.getElementById(id).classList.remove("hidden");
+        closeOTP();
       }
 
-      document.querySelectorAll(".tab-btn").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          document
-            .querySelectorAll(".tab-btn")
-            .forEach((b) => b.classList.remove("active"));
-          document
-            .querySelectorAll(".tab-content")
-            .forEach((c) => c.classList.remove("active"));
-          btn.classList.add("active");
+      function getToday() {
+        return new Date().toISOString().split("T")[0];
+      }
 
-          const tabName = btn.dataset.tab;
-          await loadTabContent(tabName);
-          document.getElementById(tabName).classList.add("active");
+      function canAttempt(type) {
+        const data = JSON.parse(localStorage.getItem(LIMITS[type].key) || "{}");
+        if (data.date !== getToday()) return true;
+        return (data.count || 0) < LIMITS[type].max;
+      }
+
+      function recordAttempt(type) {
+        const key = LIMITS[type].key;
+        let data = JSON.parse(localStorage.getItem(key) || "{}");
+        if (data.date !== getToday()) {
+          data = { date: getToday(), count: 0 };
+        }
+        data.count = (data.count || 0) + 1;
+        localStorage.setItem(key, JSON.stringify(data));
+      }
+
+      function setLoading(btnId, isLoading) {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+        btn.disabled = isLoading;
+        btn.textContent = isLoading
+          ? "Processing..."
+          : btn.dataset.originalText || "Button";
+      }
+
+      function startOtpCooldown() {
+        const link = document.getElementById("resendLink");
+        const countEl = document.getElementById("resendCountdown");
+        let time = RESEND_COOLDOWN;
+
+        link.classList.add("hidden");
+        countEl.classList.remove("hidden");
+        countEl.textContent = `(${time}s)`;
+
+        const timer = setInterval(() => {
+          time--;
+          countEl.textContent = `(${time}s)`;
+          if (time <= 0) {
+            clearInterval(timer);
+            link.classList.remove("hidden");
+            countEl.classList.add("hidden");
+          }
+        }, 1000);
+
+        AppState.otpCooldownUntil = Date.now() + time * 1000;
+      }
+
+      // ────────────────────────────────────────────────
+      //  OTP Handling
+      // ────────────────────────────────────────────────
+      function setupOtpInputs() {
+        const inputs = document.querySelectorAll(".otp-box input");
+        inputs.forEach((input, idx) => {
+          input.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const paste = (e.clipboardData || window.clipboardData)
+              .getData("text")
+              .trim();
+            if (/^\d{6}$/.test(paste)) {
+              paste.split("").forEach((char, i) => {
+                if (inputs[i]) inputs[i].value = char;
+              });
+              inputs[5].focus();
+            }
+          });
+
+          input.addEventListener("input", () => {
+            if (input.value.length === 1 && idx < 5) {
+              inputs[idx + 1].focus();
+            }
+          });
+
+          input.addEventListener("keydown", (e) => {
+            if (e.key === "Backspace" && input.value === "" && idx > 0) {
+              inputs[idx - 1].focus();
+            }
+          });
         });
-      });
+      }
 
-      // Load tab đầu tiên khi trang load
-      window.addEventListener("DOMContentLoaded", () => {
-        loadTabContent("notification");
+      function openOTP(message) {
+        document.getElementById("otpMessage").textContent = message;
+        document
+          .querySelectorAll(".otp-box input")
+          .forEach((el) => (el.value = ""));
+        document.getElementById("otpModal").classList.remove("hidden");
+        document.getElementById("otp1").focus();
+        startOtpCooldown();
+      }
+
+      function closeOTP() {
+        document.getElementById("otpModal").classList.add("hidden");
+      }
+
+      function verifyOTP() {
+        const otp = Array.from(document.querySelectorAll(".otp-box input"))
+          .map((el) => el.value)
+          .join("");
+
+        if (otp.length !== 6) {
+          alert("Please enter the full 6-digit code");
+          return;
+        }
+
+        setLoading("btnVerifyOTP", true);
+
+        // Simulate network delay
+        setTimeout(() => {
+          setLoading("btnVerifyOTP", false);
+
+          if (otp !== OTP_CORRECT) {
+            alert("Incorrect OTP. Please try again.");
+            return;
+          }
+
+          closeOTP();
+
+          if (
+            AppState.flow === "passwordReset" &&
+            AppState.otpContext === "email"
+          ) {
+            navigateTo("resetPage");
+          } else if (
+            AppState.flow === "phoneRecovery" &&
+            AppState.otpContext === "phone"
+          ) {
+            document.getElementById("displayEmail").textContent =
+              AppState.foundEmail;
+            navigateTo("emailFound");
+          } else if (
+            AppState.otpContext === "email" &&
+            AppState.flow === "phoneRecovery"
+          ) {
+            navigateTo("resetPage");
+          }
+        }, 800);
+      }
+
+      // ────────────────────────────────────────────────
+      //  Flow Actions
+      // ────────────────────────────────────────────────
+      function startPasswordReset() {
+        const email = document.getElementById("emailInput").value.trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          alert("Please enter a valid email address");
+          return;
+        }
+
+        AppState.flow = "passwordReset";
+        AppState.otpContext = "email";
+        AppState.email = email;
+
+        openOTP(`We sent a code to ${email.replace(/(.{3}).+@/, "$1***@")}`);
+      }
+
+      function startPhoneRecovery() {
+        if (!canAttempt("phoneOTP")) {
+          alert(
+            "You have reached the daily limit for phone verification (2 attempts). Try again tomorrow.",
+          );
+          return;
+        }
+
+        const phone = document.getElementById("phoneInput").value.trim();
+        if (!phone || phone.length < 9) {
+          alert("Please enter a valid phone number");
+          return;
+        }
+
+        AppState.flow = "phoneRecovery";
+        AppState.otpContext = "phone";
+        AppState.phone = phone;
+
+        recordAttempt("phoneOTP");
+        openOTP(
+          `We sent a code to ${phone.slice(-4).padStart(phone.length, "*")}`,
+        );
+      }
+
+      function verifySecurityQuestion() {
+        if (!canAttempt("securityQuestion")) {
+          alert(
+            "You have used your daily security question attempt. Try again tomorrow.",
+          );
+          return;
+        }
+
+        const answer = document.getElementById("securityAnswer").value.trim();
+        if (!answer) {
+          alert("Please enter your answer");
+          return;
+        }
+
+        recordAttempt("securityQuestion");
+
+        // Simulate success
+        document.getElementById("displayEmail").textContent =
+          AppState.foundEmail;
+        navigateTo("emailFound");
+      }
+
+      function startPasswordResetFromEmailFound() {
+        AppState.otpContext = "email";
+        openOTP(`Verification code sent to your registered email`);
+      }
+
+      function submitPasswordReset() {
+        const p1 = document.getElementById("newPassword").value;
+        const p2 = document.getElementById("confirmPassword").value;
+
+        if (!p1 || !p2) {
+          alert("Please fill in both password fields");
+          return;
+        }
+
+        if (p1 !== p2) {
+          alert("Passwords do not match");
+          return;
+        }
+
+        if (p1.length < 8 || !/[A-Za-z]/.test(p1) || !/\d/.test(p1)) {
+          document.getElementById("pwdWarning").classList.remove("hidden");
+          return;
+        }
+
+        document.getElementById("pwdWarning").classList.add("hidden");
+        setLoading("btnResetSubmit", true);
+
+        setTimeout(() => {
+          navigateTo("resetSuccess");
+          AppState.flow = null; // reset
+        }, 1200);
+      }
+
+      function submitD16Request() {
+        const name = document.getElementById("d16FullName").value.trim();
+        const phone = document.getElementById("d16Phone").value.trim();
+        const reason = document.getElementById("d16Reason").value.trim();
+        const file = document.getElementById("d16Document").files[0];
+
+        if (!name || !phone || !reason || !file) {
+          alert("Please complete all fields and upload an ID document");
+          return;
+        }
+
+        setLoading("btnD16Submit", true);
+
+        setTimeout(() => {
+          navigateTo("d16Success");
+        }, 1400);
+      }
+
+      function resendOTP() {
+        if (Date.now() < AppState.otpCooldownUntil) return;
+
+        alert("A new OTP has been sent");
+        startOtpCooldown();
+
+        // In real app → call same send OTP endpoint again
+      }
+
+      // Init
+      document.addEventListener("DOMContentLoaded", () => {
+        setupOtpInputs();
+
+        // Store original button texts
+        document.querySelectorAll("button").forEach((btn) => {
+          btn.dataset.originalText = btn.textContent.trim();
+        });
       });
     </script>
   </body>
