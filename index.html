@@ -300,6 +300,12 @@
           style="color: blue; font-size: 14px; font-weight: bold"
           >ATOM xem mô tả ở đây nha</a
         >
+        <br />
+        <a
+          href="myprofile.html"
+          style="color: red; font-size: 14px; font-weight: bold"
+          >thêm phần security question vào My Profile</a
+        >
       </div>
 
       <!-- ── PHONE RECOVERY ── -->
@@ -330,15 +336,70 @@
       <div id="questionRecover" class="hidden">
         <h1>Security Question</h1>
         <p style="color: #666; font-size: 14px; margin-bottom: 16px">
-          Maximum 1 attempt per day
+          Maximum 3 attempts per day
         </p>
 
-        <p><strong>What was the name of your first school?</strong></p>
+        <label for="securityQuestionSelect">Security Question</label>
+        <select
+          id="securityQuestionSelect"
+          style="
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+            background: white;
+          "
+        >
+          <option value="">-- Select a question --</option>
+          <option value="q1">
+            What was the name of your childhood best friend?
+          </option>
+          <option value="q2">
+            What was the last name of your next-door neighbour when you were a
+            child?
+          </option>
+          <option value="q3">
+            In what city or town did your parents meet?
+          </option>
+          <option value="q4">
+            What is the name of the place you used to visit most often during
+            summer vacations as a child?
+          </option>
+          <option value="q5">
+            What was your grandmother's (or grandfather's) maiden name?
+          </option>
+          <option value="q6">
+            Who was the first musical artist you ever saw in concert?
+          </option>
+          <option value="q7">
+            What was the name of your favourite stuffed animal or toy as a
+            child?
+          </option>
+          <option value="q8">
+            What was the last name of your first boss or supervisor?
+          </option>
+          <option value="q9">
+            What was the name of the cram school or after-school lesson you
+            attended as a child?
+          </option>
+          <option value="q10">
+            What was the name of the hospital where you were born?
+          </option>
+        </select>
+
+        <label for="securityAnswer">Answer</label>
         <input
           id="securityAnswer"
           placeholder="Your answer..."
           autocomplete="off"
         />
+
+        <div id="securityQuestionError" class="warning hidden">
+          Wrong answer
+        </div>
 
         <button id="btnQuestionSubmit" onclick="verifySecurityQuestion()">
           Submit
@@ -484,11 +545,25 @@
 
       const LIMITS = {
         phoneOTP: { max: 2, key: "phoneOTP_attempts" },
-        securityQuestion: { max: 1, key: "security_attempts" },
+        securityQuestion: { max: 3, key: "security_attempts" },
       };
 
       const OTP_CORRECT = "123456"; // ← demo only – never do this in production
       const RESEND_COOLDOWN = 60; // seconds
+
+      // Security Question Answers (demo only – in production, hash and store securely)
+      const SECURITY_ANSWERS = {
+        q1: "tommy", // childhood best friend
+        q2: "johnson", // neighbour's last name
+        q3: "hanoi", // city parents met
+        q4: "danang beach", // summer vacation place
+        q5: "nguyen", // grandmother's maiden name
+        q6: "beatles", // first concert artist
+        q7: "teddy bear", // favourite stuffed animal
+        q8: "smith", // first boss last name
+        q9: "kumon", // cram school name
+        q10: "saint mary hospital", // hospital where born
+      };
 
       // ────────────────────────────────────────────────
       //  Helpers
@@ -663,7 +738,7 @@
       function startPhoneRecovery() {
         if (!canAttempt("phoneOTP")) {
           alert(
-            "You have reached the daily limit for phone verification (2 attempts). Try again tomorrow.",
+            "You have reached the maximum number of attempts today. Please try again tomorrow.",
           );
           return;
         }
@@ -687,12 +762,21 @@
       function verifySecurityQuestion() {
         if (!canAttempt("securityQuestion")) {
           alert(
-            "You have used your daily security question attempt. Try again tomorrow.",
+            "You have reached the maximum number of attempts today. Please try again tomorrow.",
           );
           return;
         }
 
+        const question = document.getElementById(
+          "securityQuestionSelect",
+        ).value;
         const answer = document.getElementById("securityAnswer").value.trim();
+
+        if (!question) {
+          alert("Please select a security question");
+          return;
+        }
+
         if (!answer) {
           alert("Please enter your answer");
           return;
@@ -700,7 +784,23 @@
 
         recordAttempt("securityQuestion");
 
-        // Simulate success
+        // Hide previous error
+        document
+          .getElementById("securityQuestionError")
+          .classList.add("hidden");
+
+        // Verify answer (case-insensitive comparison)
+        const correctAnswer = SECURITY_ANSWERS[question];
+        const isCorrect = answer.toLowerCase().trim() === correctAnswer;
+
+        if (!isCorrect) {
+          document
+            .getElementById("securityQuestionError")
+            .classList.remove("hidden");
+          return;
+        }
+
+        // Success - show email
         document.getElementById("displayEmail").textContent =
           AppState.foundEmail;
         navigateTo("emailFound");

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Profile</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 40px;
+        color: #333;
+      }
+
+      .container {
+        width: 760px;
+        margin: auto;
+        background: white;
+        padding: 40px;
+        border-radius: 6px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .label {
+        font-weight: 600;
+        width: 200px;
+      }
+
+      .value {
+        flex: 1;
+        text-align: right;
+        color: #444;
+      }
+
+      .action {
+        margin-left: 16px;
+        color: #b49a68;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .optional {
+        margin-top: 30px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      .optional-header {
+        background: #f1ede8;
+        padding: 14px 18px;
+        font-weight: 600;
+        color: #888;
+        font-size: 14px;
+      }
+
+      .optional-body {
+        padding: 20px;
+      }
+
+      .field {
+        margin-bottom: 24px;
+      }
+
+      .field label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 10px 26px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        background: #eee;
+        cursor: pointer;
+      }
+
+      .btn.active {
+        background: #b49a68;
+        color: white;
+        border: none;
+      }
+
+      select,
+      input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 220px;
+      }
+
+      .checkbox-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .checkbox-grid label {
+        font-weight: normal;
+      }
+
+      .save-btn {
+        margin-top: 10px;
+        padding: 10px 18px;
+        background: #b49a68;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="label">Full Name</div>
+        <div class="value">Hang Vu <span class="action">Edit</span></div>
+      </div>
+
+      <div class="row">
+        <div class="label">Email address</div>
+        <div class="value">
+          Hangvu@gmail.com <span class="action">Change</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">Country code</div>
+        <div class="value">Vietnam (+84) <span class="action">Edit</span></div>
+      </div>
+
+      <div class="row">
+        <div class="label">Phone Number</div>
+        <div class="value">
+          +84 123 456 789 <span class="action">Verify number</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">Current Address</div>
+        <div class="value">
+          ## Street, Tokyo, Japan <span class="action">Edit</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">Nationality</div>
+        <div class="value">Japanese <span class="action">Edit</span></div>
+      </div>
+
+      <div class="row">
+        <div class="label">Password</div>
+        <div class="value"><span class="action">Change</span></div>
+      </div>
+
+      <div class="optional">
+        <div class="optional-header">OPTIONAL</div>
+
+        <div class="optional-body">
+          <div class="field">
+            <label>Have you ever owned any property in Japan?</label>
+
+            <div class="btn-group">
+              <div class="btn active">Yes</div>
+              <div class="btn">No</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Location?</label>
+
+            <select>
+              <option>Tokyo</option>
+              <option>Osaka</option>
+              <option>Kyoto</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Buyer Status?</label>
+
+            <div class="checkbox-grid">
+              <label><input type="checkbox" checked /> First-time buyer</label>
+              <label><input type="checkbox" checked /> Investor</label>
+              <label><input type="checkbox" /> Cash buyer</label>
+              <label><input type="checkbox" /> Mortgage buyer</label>
+              <label
+                ><input type="checkbox" /> Need to sell existing property
+                first</label
+              >
+            </div>
+          </div>
+
+          <!-- SECURITY QUESTION -->
+
+          <div class="field">
+            <label>Security Question</label>
+
+            <!-- Edit Mode -->
+            <div id="securityEditMode">
+              <select id="securityQuestionSelect">
+                <option value="">Select a question</option>
+                <option value="q1">
+                  What was the name of your childhood best friend?
+                </option>
+                <option value="q2">
+                  What was the last name of your next-door neighbour when you
+                  were a child?
+                </option>
+                <option value="q3">
+                  In what city or town did your parents meet?
+                </option>
+                <option value="q4">
+                  What is the name of the place you used to visit most often
+                  during summer vacations as a child?
+                </option>
+                <option value="q5">
+                  What was your grandmother's maiden name?
+                </option>
+                <option value="q6">
+                  Who was the first musical artist you ever saw in concert?
+                </option>
+                <option value="q7">
+                  What was the name of your favourite stuffed animal or toy as a
+                  child?
+                </option>
+                <option value="q8">
+                  What was the last name of your first boss or supervisor?
+                </option>
+                <option value="q9">
+                  What was the name of the cram school or after-school lesson
+                  you attended as a child?
+                </option>
+                <option value="q10">
+                  What was the name of the hospital where you were born?
+                </option>
+              </select>
+
+              <br /><br />
+
+              <input
+                id="securityAnswerInput"
+                type="text"
+                placeholder="Enter your answer"
+              />
+
+              <br />
+
+              <button class="save-btn" onclick="saveSecurityQuestion()">
+                Save Security Question
+              </button>
+            </div>
+
+            <!-- View Mode -->
+            <div id="securityViewMode" style="display: none">
+              <p
+                id="securityQuestionText"
+                style="color: #444; margin: 10px 0"
+              ></p>
+
+              <label style="margin-top: 15px">Answer:</label>
+              <p style="color: #444; margin: 10px 0">******</p>
+
+              <span
+                class="action"
+                onclick="editSecurityQuestion()"
+                style="margin-left: 0"
+                >Edit</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Security Question State
+      let savedQuestion = null;
+      let savedAnswer = null;
+
+      const questionTexts = {
+        q1: "What was the name of your childhood best friend?",
+        q2: "What was the last name of your next-door neighbour when you were a child?",
+        q3: "In what city or town did your parents meet?",
+        q4: "What is the name of the place you used to visit most often during summer vacations as a child?",
+        q5: "What was your grandmother's maiden name?",
+        q6: "Who was the first musical artist you ever saw in concert?",
+        q7: "What was the name of your favourite stuffed animal or toy as a child?",
+        q8: "What was the last name of your first boss or supervisor?",
+        q9: "What was the name of the cram school or after-school lesson you attended as a child?",
+        q10: "What was the name of the hospital where you were born?",
+      };
+
+      function saveSecurityQuestion() {
+        const questionSelect = document.getElementById(
+          "securityQuestionSelect",
+        );
+        const answerInput = document.getElementById("securityAnswerInput");
+
+        const questionValue = questionSelect.value;
+        const answerValue = answerInput.value.trim();
+
+        if (!questionValue || questionValue === "") {
+          alert("Please select a security question");
+          return;
+        }
+
+        if (!answerValue) {
+          alert("Please enter an answer");
+          return;
+        }
+
+        // Save the values
+        savedQuestion = questionValue;
+        savedAnswer = answerValue;
+
+        // Update view mode
+        document.getElementById("securityQuestionText").textContent =
+          questionTexts[questionValue];
+
+        // Switch to view mode
+        document.getElementById("securityEditMode").style.display = "none";
+        document.getElementById("securityViewMode").style.display = "block";
+
+        alert("Security question saved successfully");
+      }
+
+      function editSecurityQuestion() {
+        const questionSelect = document.getElementById(
+          "securityQuestionSelect",
+        );
+        const answerInput = document.getElementById("securityAnswerInput");
+
+        // Restore saved values
+        if (savedQuestion) {
+          questionSelect.value = savedQuestion;
+          answerInput.value = savedAnswer;
+        }
+
+        // Switch to edit mode
+        document.getElementById("securityEditMode").style.display = "block";
+        document.getElementById("securityViewMode").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

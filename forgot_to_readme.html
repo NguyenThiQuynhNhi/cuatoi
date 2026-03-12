@@ -70,21 +70,26 @@ Người dùng có thể đặt lại mật khẩu
 </pre
     >
 
-    Quy tắc: - Tối đa 2 lần thử mỗi ngày ---
+    Quy tắc: - Tối đa 2 lần thử mỗi ngày - Hiển thị thông báo khi vượt quá giới
+    hạn ---
 
     <h2>Trường hợp 3 – Quên Email (Chưa Xác Minh Số Điện Thoại)</h2>
 
     <pre>
-Người dùng trả lời Câu Hỏi Bảo Mật
+Người dùng chọn Câu Hỏi Bảo Mật từ danh sách dropdown
 ↓
-Hệ thống hiển thị Email đã đăng ký
+Người dùng nhập câu trả lời
+↓
+Nếu đúng → Hệ thống hiển thị Email đã đăng ký
 ↓
 Người dùng có thể đặt lại mật khẩu
+↓
+Nếu sai → Hiển thị "Wrong answer"
 </pre
     >
 
-    Quy tắc: - Tối đa 1 lần thử mỗi ngày - Câu hỏi bảo mật phải được cấu hình
-    trong lần đăng nhập đầu tiên ---
+    Quy tắc: - Tối đa 3 lần thử mỗi ngày - Câu hỏi bảo mật phải được thiết lập
+    trong lần đăng nhập đầu tiên - 10 câu hỏi bảo mật có sẵn để chọn ---
 
     <h2>D16 – Yêu Cầu Khôi Phục Tài Khoản</h2>
 
@@ -108,10 +113,83 @@ Quy trình khôi phục tài khoản được xử lý bởi đội ngũ hỗ tr
 
     ---
 
+    <h2>10 Câu Hỏi Bảo Mật</h2>
+
+    <table
+      border="1"
+      cellpadding="10"
+      style="border-collapse: collapse; width: 100%"
+    >
+      <thead>
+        <tr style="background: #a89062; color: white">
+          <th>Question</th>
+          <th>Correct Answer (for testing)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1. What was the name of your childhood best friend?</td>
+          <td><strong>tommy</strong></td>
+        </tr>
+        <tr>
+          <td>
+            2. What was the last name of your next-door neighbour when you were
+            a child?
+          </td>
+          <td><strong>johnson</strong></td>
+        </tr>
+        <tr>
+          <td>3. In what city or town did your parents meet?</td>
+          <td><strong>hanoi</strong></td>
+        </tr>
+        <tr>
+          <td>
+            4. What is the name of the place you used to visit most often during
+            summer vacations as a child?
+          </td>
+          <td><strong>danang beach</strong></td>
+        </tr>
+        <tr>
+          <td>
+            5. What was your grandmother's (or grandfather's) maiden name?
+          </td>
+          <td><strong>nguyen</strong></td>
+        </tr>
+        <tr>
+          <td>6. Who was the first musical artist you ever saw in concert?</td>
+          <td><strong>beatles</strong></td>
+        </tr>
+        <tr>
+          <td>
+            7. What was the name of your favourite stuffed animal or toy as a
+            child?
+          </td>
+          <td><strong>teddy bear</strong></td>
+        </tr>
+        <tr>
+          <td>8. What was the last name of your first boss or supervisor?</td>
+          <td><strong>smith</strong></td>
+        </tr>
+        <tr>
+          <td>
+            9. What was the name of the cram school or after-school lesson you
+            attended as a child?
+          </td>
+          <td><strong>kumon</strong></td>
+        </tr>
+        <tr>
+          <td>10. What was the name of the hospital where you were born?</td>
+          <td><strong>saint mary hospital</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    ---
+
     <h2>Các Phương Pháp Khôi Phục Có Sẵn</h2>
 
-    1. Đặt lại mật khẩu bằng OTP qua Email 2. Tìm Email bằng OTP qua Số Điện
-    Thoại 3. Tìm Email bằng Câu Hỏi Bảo Mật 4. Biểu Mẫu Yêu Cầu Khôi Phục Tài
-    Khoản D16
+    1. Đặt lại mật khẩu bằng OTP qua Email (không giới hạn) 2. Tìm Email bằng
+    OTP qua Số Điện Thoại (tối đa 2 lần/ngày) 3. Tìm Email bằng Câu Hỏi Bảo Mật
+    (tối đa 3 lần/ngày) 4. Biểu Mẫu Yêu Cầu Khôi Phục Tài Khoản D16
   </body>
 </html>
