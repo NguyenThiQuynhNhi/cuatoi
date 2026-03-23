@@ -1,0 +1,2734 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Đối tác - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --white: #ffffff;
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --radius-sm: 6px;
+        --sidebar-w: 210px;
+        --header-h: 52px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+
+      /* ====== HEADER ====== */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: var(--header-h);
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .header-user .avatar {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
+
+      /* ====== LAYOUT ====== */
+      .app-body {
+        display: flex;
+        padding-top: var(--header-h);
+        min-height: 100vh;
+      }
+
+      /* ====== SIDEBAR ====== */
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: white;
+        min-height: calc(100vh - var(--header-h));
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 10px;
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+      }
+      .sidebar-section {
+        margin-bottom: 6px;
+      }
+      .sidebar-label {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 4px 8px;
+        margin-bottom: 2px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+        font-size: 12.5px;
+        font-weight: 500;
+        transition: all 0.15s;
+        margin-bottom: 1px;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .sidebar-item svg {
+        opacity: 0.65;
+        flex-shrink: 0;
+      }
+      .sidebar-item.active svg {
+        opacity: 1;
+      }
+
+      /* ====== MAIN CONTENT ====== */
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 20px;
+        min-height: calc(100vh - var(--header-h));
+      }
+
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .page-title .badge {
+        font-size: 10px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      /* ====== CARD ====== */
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-header {
+        padding: 14px 18px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+      }
+      .card-header svg {
+        color: var(--primary);
+      }
+      .card-body {
+        padding: 14px 18px;
+      }
+
+      /* ====== SEARCH CARD ====== */
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .search-row + .search-row {
+        margin-top: 10px;
+      }
+
+      .date-section {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        position: relative;
+      }
+      .date-label {
+        font-size: 11px;
+        color: var(--gray-500);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .date-range {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+      }
+      .date-nav {
+        padding: 5px 10px;
+        background: var(--primary-light);
+        cursor: pointer;
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+        transition: background 0.15s;
+      }
+      .date-nav:hover {
+        background: var(--primary-mid);
+      }
+      .date-display {
+        padding: 5px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        white-space: nowrap;
+      }
+
+      .date-picker-wrap {
+        position: relative;
+      }
+      .date-picker-toggle {
+        width: 34px;
+        height: 34px;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        background: var(--primary-light);
+        color: var(--primary);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .date-picker-toggle:hover {
+        background: var(--primary-mid);
+      }
+      .date-picker-popover {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 280px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        box-shadow: var(--shadow-md);
+        padding: 10px;
+        z-index: 260;
+      }
+      .date-picker-wrap.open .date-picker-popover {
+        display: block;
+      }
+      .date-picker-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--gray-500);
+      }
+      .date-picker-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .date-picker-input {
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+      }
+      .date-picker-input:focus {
+        border-color: var(--primary);
+      }
+      .date-picker-actions {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .time-filters {
+        display: flex;
+        gap: 8px;
+      }
+      .tf-btn {
+        padding: 8px 16px;
+        min-height: 36px;
+        border-radius: 9px;
+        border: 1px solid #e2e5f1;
+        background: white;
+        color: #677194;
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.18s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .tf-btn:not(.active):hover {
+        border-color: #cfd5e8;
+        color: #4d5c83;
+        background: #f4f2ff;
+      }
+      .tf-btn.active {
+        background: #6d47d9;
+        color: #ffffff;
+        border-color: transparent;
+        font-weight: 700;
+      }
+
+      .search-input-row {
+        align-items: center;
+      }
+      .search-inline-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        min-width: 68px;
+      }
+      .criteria-wrap {
+        position: relative;
+      }
+      .criteria-btn {
+        height: 34px;
+        min-width: 150px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        color: var(--gray-700);
+        font-size: 12px;
+        font-weight: 600;
+        font-family: inherit;
+        padding: 0 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .criteria-btn:hover {
+        border-color: var(--primary-mid);
+      }
+      .criteria-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 170px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        z-index: 260;
+      }
+      .criteria-wrap.open .criteria-menu {
+        display: block;
+      }
+      .criteria-option {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .criteria-option:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .search-input-lg {
+        flex: 1;
+        min-width: 260px;
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 11px;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
+      }
+      .search-input-lg:focus {
+        border-color: var(--primary);
+      }
+
+      .search-field-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+      }
+      .select-field {
+        display: flex;
+        align-items: center;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        overflow: hidden;
+        flex: 1;
+        background: white;
+        transition: border-color 0.15s;
+      }
+      .select-field:focus-within {
+        border-color: var(--primary);
+      }
+      .select-tag {
+        padding: 6px 10px;
+        background: var(--gray-100);
+        color: var(--primary);
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+        border-right: 1px solid var(--gray-200);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .select-tag svg {
+        width: 10px;
+        height: 10px;
+      }
+      .select-input {
+        flex: 1;
+        padding: 6px 10px;
+        border: none;
+        outline: none;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+      }
+      .select-input::placeholder {
+        color: var(--gray-400);
+      }
+
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-primary:hover {
+        background: #5a32a8;
+        border-color: #5a32a8;
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-danger:hover {
+        background: #d6335a;
+        border-color: #d6335a;
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-ghost:hover {
+        background: var(--gray-200);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
+
+      /* ====== TABS ====== */
+      .tabs {
+        display: flex;
+        border-bottom: 2px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .tab {
+        padding: 8px 16px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--gray-400);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: all 0.15s;
+      }
+      .tab:hover {
+        color: var(--primary);
+      }
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+        font-weight: 600;
+      }
+
+      /* ====== TABLE ====== */
+      .table-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .table-title .count {
+        font-size: 11px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      .table-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 8px;
+      }
+      .table-actions-left,
+      .table-actions-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 900px;
+      }
+      thead {
+        background: var(--gray-50);
+      }
+      thead th {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        white-space: nowrap;
+        border-bottom: 1.5px solid var(--gray-200);
+      }
+      thead th:first-child {
+        width: 36px;
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--gray-100);
+        transition: background 0.1s;
+      }
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: var(--gray-50);
+      }
+      tbody td {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .td-left {
+        text-align: left !important;
+      }
+
+      .company-name {
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .company-name:hover {
+        color: #5a32a8;
+      }
+
+      .cell-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .menu-trigger {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: var(--primary);
+        text-decoration: underline;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .menu-trigger:hover {
+        color: #5a32a8;
+      }
+      .menu-list {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 190px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        padding: 4px;
+        display: none;
+        z-index: 250;
+      }
+      .menu-list.sm {
+        min-width: 170px;
+      }
+      .cell-menu.open .menu-list {
+        display: block;
+      }
+      .menu-item {
+        width: 100%;
+        text-align: left;
+        border: none;
+        background: transparent;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .menu-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+
+      .note-ellipsis {
+        display: inline-block;
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--gray-700);
+        font-size: 11.5px;
+        cursor: default;
+      }
+
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        justify-content: center;
+        max-width: 180px;
+        margin: 0 auto;
+      }
+      .tag {
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 10.5px;
+        font-weight: 500;
+        background: var(--gray-100);
+        color: var(--gray-600);
+        white-space: nowrap;
+      }
+      .tag-more {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .link-text {
+        color: var(--primary);
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 11.5px;
+      }
+      .link-text:hover {
+        color: #5a32a8;
+      }
+
+      input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+        accent-color: var(--primary);
+        cursor: pointer;
+      }
+
+      .stt {
+        color: var(--gray-400);
+        font-size: 11.5px;
+        font-weight: 500;
+      }
+
+      /* ====== PAGINATION ====== */
+      .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        margin-top: 16px;
+        padding-bottom: 4px;
+      }
+      .pg-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        border: 1.5px solid var(--gray-200);
+        background: white;
+        color: var(--gray-500);
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+        font-family: inherit;
+      }
+      .pg-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: var(--primary-light);
+      }
+      .pg-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        font-weight: 700;
+      }
+
+      .table-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 14px;
+      }
+      .table-footer-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .display-count {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .display-count-label {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      /* ====== FORM (PAGE 2) ====== */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 20px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .form-label {
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .form-label .req {
+        color: var(--accent);
+        margin-left: 2px;
+      }
+      .form-input {
+        padding: 7px 11px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        color: var(--gray-900);
+        font-family: inherit;
+        outline: none;
+        background: white;
+        transition: border-color 0.15s;
+      }
+      .form-input:focus {
+        border-color: var(--primary);
+      }
+      .form-input::placeholder {
+        color: var(--gray-400);
+      }
+
+      .upload-btn-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .upload-preview {
+        font-size: 11px;
+        color: var(--gray-400);
+        padding: 7px 11px;
+        border: 1.5px dashed var(--gray-200);
+        border-radius: 8px;
+        flex: 1;
+        background: var(--gray-50);
+      }
+
+      .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+      }
+      .product-chip {
+        padding: 5px 10px;
+        background: var(--primary-light);
+        color: var(--primary);
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1.5px solid var(--primary-mid);
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .product-chip:hover {
+        background: var(--primary);
+        color: white;
+      }
+      .product-chip .remove {
+        font-size: 13px;
+        line-height: 1;
+        opacity: 0.6;
+      }
+
+      .form-section-divider {
+        grid-column: 1 / -1;
+        border: none;
+        border-top: 1px solid var(--gray-100);
+        margin: 2px 0;
+      }
+
+      .form-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 14px 18px;
+        border-top: 1px solid var(--gray-100);
+      }
+
+      /* ====== PAGE SWITCH ====== */
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      /* ====== DROPDOWN MENU ====== */
+      .select-wrap {
+        position: relative;
+      }
+      .select-dropdown {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .select-dropdown select {
+        appearance: none;
+        padding: 5px 28px 5px 10px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        background: white;
+        cursor: pointer;
+        outline: none;
+      }
+      .select-dropdown::after {
+        content: "▾";
+        position: absolute;
+        right: 9px;
+        pointer-events: none;
+        font-size: 10px;
+        color: var(--gray-400);
+      }
+
+      /* ====== EMPTY ROW PLACEHOLDER ====== */
+      .empty-rows td {
+        padding: 5px 10px;
+      }
+      .empty-row-cell {
+        height: 38px;
+        background: var(--gray-50);
+        border-radius: 4px;
+        opacity: 0.4;
+      }
+
+      /* ====== TOOLTIP ====== */
+      .tooltip-wrap {
+        position: relative;
+      }
+      .tooltip-wrap:hover .tooltip {
+        display: block;
+      }
+      .tooltip {
+        display: none;
+        position: absolute;
+        bottom: calc(100% + 6px);
+        right: 0;
+        background: var(--gray-900);
+        color: white;
+        font-size: 11px;
+        border-radius: 6px;
+        padding: 6px 10px;
+        white-space: normal;
+        word-break: break-word;
+        max-width: min(320px, 70vw);
+        line-height: 1.4;
+        text-align: left;
+        z-index: 200;
+        box-shadow: var(--shadow-md);
+        pointer-events: none;
+      }
+      .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        right: 14px;
+        border: 5px solid transparent;
+        border-top-color: var(--gray-900);
+      }
+
+      /* ====== BREADCRUMB ====== */
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11.5px;
+        color: var(--gray-400);
+        margin-bottom: 14px;
+      }
+      .breadcrumb .bc-link {
+        color: var(--primary);
+        cursor: pointer;
+        font-weight: 500;
+      }
+      .breadcrumb .bc-link:hover {
+        text-decoration: underline;
+      }
+      .breadcrumb .bc-sep {
+        color: var(--gray-300);
+      }
+      .breadcrumb .bc-current {
+        color: var(--gray-700);
+        font-weight: 500;
+      }
+
+      /* ====== DETAIL INFO CARD ====== */
+      .detail-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--gray-100);
+      }
+      .detail-header-title {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+      .detail-header-meta {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .meta-badge {
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 10.5px;
+        font-weight: 600;
+      }
+      .meta-badge.active {
+        background: #e8f8f0;
+        color: #1a8a4a;
+      }
+      .meta-badge.date {
+        background: var(--gray-100);
+        color: var(--gray-500);
+      }
+
+      /* === SUBTLE ANIMATION === */
+      .card {
+        animation: fadeIn 0.2s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .row-checked {
+        background: #f5f2fc !important;
+      }
+
+      .chip-outline {
+        padding: 3px 9px;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 6px;
+        font-size: 11px;
+        color: var(--primary);
+        font-weight: 500;
+        cursor: pointer;
+        background: white;
+        transition: all 0.15s;
+      }
+      .chip-outline:hover {
+        background: var(--primary-light);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">MB</div>
+        <span>Quản lý hệ thống BEAUTY</span>
+      </div>
+      <nav class="header-nav">
+        <div class="nav-item">Trang chủ</div>
+        <div class="nav-item">Quản lý thông tin</div>
+        <div class="nav-item">Thành viên ảo</div>
+        <div class="nav-item">Thành viên thực, staff</div>
+        <div class="nav-item">Cấp bậc</div>
+        <div class="nav-item active">Bác sĩ &amp; BV</div>
+        <div class="nav-item">Menu</div>
+        <div class="nav-item">Bài viết &amp; BL</div>
+        <div class="nav-item">Thẻ</div>
+        <div class="nav-item">Spam/Báo cáo</div>
+        <div class="nav-item">Banner</div>
+        <div class="nav-item">Điểm thưởng</div>
+        <div class="nav-item">Thống kê</div>
+      </nav>
+      <div class="header-user">
+        <div class="user-info">
+          <div class="user-name">Nguyễn Văn Admin</div>
+          <div class="user-role">Quản trị viên cấp 2</div>
+        </div>
+        <div class="avatar">NV</div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Danh mục quản lý</div>
+          <div class="sidebar-item" onclick="goPage('list')">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Thành viên bác sĩ
+          </div>
+          <div class="sidebar-item" onclick="goPage('list')">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <path d="M9 9h6M9 13h6" />
+            </svg>
+            Bệnh viện
+          </div>
+          <div
+            class="sidebar-item active"
+            id="sidebar-partner"
+            onclick="goPage('list')"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 1-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            Đối tác
+          </div>
+          <div class="sidebar-item" onclick="goPage('list')">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </svg>
+            Sản phẩm
+          </div>
+        </div>
+      </aside>
+
+      <!-- PAGE 1: LIST -->
+      <main class="main page active" id="page-list">
+        <div class="page-title">Quản lý thông tin đối tác</div>
+
+        <!-- SEARCH CARD -->
+        <div class="card search-card">
+          <div class="card-header">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            Tìm kiếm
+          </div>
+          <div class="card-body">
+            <div class="search-row">
+              <div class="date-section">
+                <span class="date-label">Ngày tạo tài khoản đối tác</span>
+                <div class="date-range">
+                  <button class="date-nav" onclick="shiftDateRange(-1)">
+                    ‹
+                  </button>
+                  <span class="date-display" id="date-display"
+                    >23/06/2025 ~ 30/06/2025</span
+                  >
+                  <button class="date-nav" onclick="shiftDateRange(1)">
+                    ›
+                  </button>
+                </div>
+                <div class="date-picker-wrap" id="date-picker-wrap">
+                  <button
+                    class="date-picker-toggle"
+                    onclick="toggleDatePicker(event)"
+                    title="Chọn khoảng ngày"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                  </button>
+                  <div
+                    class="date-picker-popover"
+                    id="date-picker-popover"
+                    onclick="event.stopPropagation()"
+                  >
+                    <div class="date-picker-grid">
+                      <label class="date-picker-field">
+                        Từ ngày
+                        <input
+                          class="date-picker-input"
+                          type="date"
+                          id="date-start-input"
+                        />
+                      </label>
+                      <label class="date-picker-field">
+                        Đến ngày
+                        <input
+                          class="date-picker-input"
+                          type="date"
+                          id="date-end-input"
+                        />
+                      </label>
+                    </div>
+                    <div class="date-picker-actions">
+                      <button
+                        class="btn btn-primary btn-sm"
+                        onclick="applyDatePicker()"
+                      >
+                        Áp dụng
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn" onclick="setQuickFilter(this, 'day')">
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter(this, 'week')"
+                >
+                  Tuần
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'month')">
+                  Tháng
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'year')">
+                  Năm
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'all')">
+                  Tất cả
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'custom')">
+                  Tự chọn
+                </button>
+              </div>
+            </div>
+            <div class="search-row search-input-row" style="margin-top: 10px">
+              <span class="search-inline-label">Tìm kiếm</span>
+              <div class="criteria-wrap" id="criteria-wrap">
+                <button
+                  class="criteria-btn"
+                  id="criteria-btn"
+                  onclick="toggleCriteriaDropdown(event)"
+                >
+                  <span id="criteria-label">Tên công ty</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu" id="criteria-menu">
+                  <button
+                    class="criteria-option"
+                    onclick="selectCriteria('Tên công ty')"
+                  >
+                    Tên công ty
+                  </button>
+                  <button
+                    class="criteria-option"
+                    onclick="selectCriteria('Tên sản phẩm')"
+                  >
+                    Tên sản phẩm
+                  </button>
+                  <button
+                    class="criteria-option"
+                    onclick="selectCriteria('Tên dịch vụ')"
+                  >
+                    Tên dịch vụ
+                  </button>
+                </div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="search-input"
+                placeholder="Nhập từ khóa tìm kiếm..."
+              />
+              <button
+                class="btn btn-outline-primary"
+                id="btn-search"
+                onclick="executeSearch()"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
+                </svg>
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLE CARD -->
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              Quản lý thông tin đối tác
+              <span class="count">99 công ty</span>
+            </div>
+            <div class="tabs">
+              <div class="tab active" id="tab-info" onclick="switchTab('info')">
+                Thông tin đối tác
+              </div>
+              <div class="tab" id="tab-deleted" onclick="switchTab('deleted')">
+                Đối tác đã xóa
+              </div>
+            </div>
+
+            <!-- TAB INFO -->
+            <div id="panel-info">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button class="btn btn-outline-danger btn-sm">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <polyline points="3 6 5 6 21 6" />
+                      <path
+                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+                      />
+                    </svg>
+                    Xóa
+                  </button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown">
+                    <select>
+                      <option>30 công ty</option>
+                      <option>50 công ty</option>
+                      <option>100 công ty</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table id="table-info">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          id="chk-all-info"
+                          onchange="toggleAllInTable(this, 'table-info')"
+                        />
+                      </th>
+                      <th>Tên công ty</th>
+                      <th>Địa chỉ</th>
+                      <th>Người đại diện</th>
+                      <th>Người phụ trách</th>
+                      <th>SĐT người phụ trách</th>
+                      <th>Sản phẩm / Dịch vụ</th>
+                      <th>Trang chủ</th>
+                      <th>Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Row 1 - checked -->
+                    <tr id="tr-1">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-1')"
+                        />
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Công ty A
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa thông tin
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Đã mở màn hình gửi thông báo đẩy')
+                              "
+                            >
+                              Gửi thông báo đẩy
+                            </button>
+                            <button class="menu-item" onclick="confirmDelete()">
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>123 Lê Lợi, HCM</td>
+                      <td>Trần Thị B</td>
+                      <td>Nguyễn Văn A</td>
+                      <td>091-2345-678</td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger product-trigger"
+                            data-full-product="Serum phục hồi da, Kem mắt chống lão hóa, Sữa rửa mặt tạo bọt dịu nhẹ, Tinh chất cấp ẩm, Kem chống nắng vật lý, Mặt nạ ngủ, Nước cân bằng, Dịch vụ soi da, Dịch vụ tư vấn chăm sóc da, Combo trẻ hóa da chuyên sâu"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            50 sản phẩm
+                          </button>
+                          <div class="menu-list sm">
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
+                              "
+                            >
+                              Xem chi tiết danh sách
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
+                            >
+                              Xem đánh giá
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="link-text">maimai.vn</span></td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Đối tác chiến lược khu vực miền Nam, ưu tiên xử lý
+                            ticket trong 2h.</span
+                          >
+                          <div class="tooltip">
+                            Đối tác chiến lược khu vực miền Nam, ưu tiên xử lý
+                            ticket trong 2h.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <!-- Row 2 -->
+                    <tr id="tr-2">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-2')"
+                        />
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Công ty B
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa thông tin
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Đã mở màn hình gửi thông báo đẩy')
+                              "
+                            >
+                              Gửi thông báo đẩy
+                            </button>
+                            <button class="menu-item" onclick="confirmDelete()">
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>45 Nguyễn Huệ, HN</td>
+                      <td>Nguyễn Văn C</td>
+                      <td>Mai Thanh B</td>
+                      <td>091-2345-678</td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger product-trigger"
+                            data-full-product="Dịch vụ điều trị nám, Dịch vụ nâng cơ RF, Dịch vụ chăm sóc da cơ bản, Dịch vụ tư vấn da liễu"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            5 dịch vụ
+                          </button>
+                          <div class="menu-list sm">
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
+                              "
+                            >
+                              Xem chi tiết danh sách
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
+                            >
+                              Xem đánh giá
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="link-text">congtyb.com</span></td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >VIP - đối tác có doanh thu cao trong quý gần
+                            nhất.</span
+                          >
+                          <div class="tooltip">
+                            VIP - đối tác có doanh thu cao trong quý gần nhất.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <!-- Row 3 -->
+                    <tr id="tr-3">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-3')"
+                        />
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Phòng khám XYZ
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa thông tin
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Đã mở màn hình gửi thông báo đẩy')
+                              "
+                            >
+                              Gửi thông báo đẩy
+                            </button>
+                            <button class="menu-item" onclick="confirmDelete()">
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>78 Trần Hưng Đạo, ĐN</td>
+                      <td>Lê Thị D</td>
+                      <td>Lê Thị D</td>
+                      <td>076-8888-999</td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger product-trigger"
+                            data-full-product="Kem dưỡng phục hồi, Serum vitamin C"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            2 sản phẩm
+                          </button>
+                          <div class="menu-list sm">
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
+                              "
+                            >
+                              Xem chi tiết danh sách
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
+                            >
+                              Xem đánh giá
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="link-text">pkxyz.vn</span></td>
+                      <td style="color: var(--gray-400); font-size: 11px">—</td>
+                    </tr>
+                    <!-- Row 4 -->
+                    <tr id="tr-4">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-4')"
+                        />
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Beauty Corp
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa thông tin
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Đã mở màn hình gửi thông báo đẩy')
+                              "
+                            >
+                              Gửi thông báo đẩy
+                            </button>
+                            <button class="menu-item" onclick="confirmDelete()">
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>99 Hai Bà Trưng, HCM</td>
+                      <td>Phạm Minh E</td>
+                      <td>Phạm Minh E</td>
+                      <td>028-3456-7890</td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger product-trigger"
+                            data-full-product="Tư vấn chăm sóc da, Tư vấn định kỳ, Gói điều trị chuyên sâu, Gói theo dõi sau điều trị"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            13 dịch vụ
+                          </button>
+                          <div class="menu-list sm">
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
+                              "
+                            >
+                              Xem chi tiết danh sách
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
+                            >
+                              Xem đánh giá
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="link-text">beautycorp.vn</span></td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Đang thử nghiệm gói dịch vụ mới, cần theo dõi phản
+                            hồi khách hàng.</span
+                          >
+                          <div class="tooltip">
+                            Đang thử nghiệm gói dịch vụ mới, cần theo dõi phản
+                            hồi khách hàng.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <!-- Row 5 -->
+                    <tr id="tr-5">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-5')"
+                        />
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Spa Lotus
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa thông tin
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Đã mở màn hình gửi thông báo đẩy')
+                              "
+                            >
+                              Gửi thông báo đẩy
+                            </button>
+                            <button class="menu-item" onclick="confirmDelete()">
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>12 Điện Biên Phủ, HCM</td>
+                      <td>Vũ Thị F</td>
+                      <td>Vũ Thị F</td>
+                      <td>090-1111-222</td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger product-trigger"
+                            data-full-product="Spa thư giãn, Massage đá nóng, Chăm sóc da mặt, Liệu trình detox da"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            10 dịch vụ
+                          </button>
+                          <div class="menu-list sm">
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
+                              "
+                            >
+                              Xem chi tiết danh sách
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
+                            >
+                              Xem đánh giá
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="link-text">spalotus.vn</span></td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Đề nghị cập nhật hồ sơ pháp lý trước ngày
+                            30/07.</span
+                          >
+                          <div class="tooltip">
+                            Đề nghị cập nhật hồ sơ pháp lý trước ngày 30/07.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="table-footer">
+                <div class="table-footer-left">
+                  <div class="display-count">
+                    <span class="display-count-label">Hiển thị</span>
+                    <div class="select-dropdown">
+                      <select
+                        id="page-size-info"
+                        onchange="updatePageSizeLabel(this, 'info')"
+                      >
+                        <option>10 người</option>
+                        <option>20 người</option>
+                        <option selected>30 người</option>
+                        <option>50 người</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button class="btn btn-danger" onclick="goAdd()">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Thêm đối tác (+)
+                  </button>
+                </div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">3</button>
+                  <button class="pg-btn">4</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+
+            <!-- TAB DELETED -->
+            <div id="panel-deleted" style="display: none">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button class="btn btn-outline-primary btn-sm">
+                    Khôi phục
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm">
+                    Xóa vĩnh viễn
+                  </button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown">
+                    <select>
+                      <option>30 công ty</option>
+                      <option>50 công ty</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table id="table-deleted">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          id="chk-all-deleted"
+                          onchange="toggleAllInTable(this, 'table-deleted')"
+                        />
+                      </th>
+                      <th>Tên công ty</th>
+                      <th>Người phụ trách</th>
+                      <th>SĐT người phụ trách</th>
+                      <th>Sản phẩm / Dịch vụ</th>
+                      <th>Trang chủ</th>
+                      <th>Ngày xóa</th>
+                      <th>Người xóa</th>
+                      <th>Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="tr-deleted-1">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-deleted-1')"
+                        />
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Công ty A
+                          </button>
+                          <div class="menu-list sm">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="alert('Đã khôi phục đối tác!')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Trần Thị B</td>
+                      <td>000-0000-000</td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger product-trigger"
+                            data-full-product="Serum phục hồi da, Kem mắt chống lão hóa, Sữa rửa mặt tạo bọt dịu nhẹ, Tinh chất cấp ẩm, Kem chống nắng vật lý, Mặt nạ ngủ, Nước cân bằng, Dịch vụ soi da"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            50 sản phẩm
+                          </button>
+                          <div class="menu-list sm">
+                            <button
+                              class="menu-item"
+                              onclick="
+                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
+                              "
+                            >
+                              Xem chi tiết danh sách
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
+                            >
+                              Xem đánh giá
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="link-text">maimai.vn</span></td>
+                      <td>30/06/2025</td>
+                      <td>maimai</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Đã khóa tài khoản do quá hạn đối soát hợp
+                            đồng.</span
+                          >
+                          <div class="tooltip">
+                            Đã khóa tài khoản do quá hạn đối soát hợp đồng.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="table-footer-left">
+                  <div class="display-count">
+                    <span class="display-count-label">Hiển thị</span>
+                    <div class="select-dropdown">
+                      <select
+                        id="page-size-deleted"
+                        onchange="updatePageSizeLabel(this, 'deleted')"
+                      >
+                        <option>10 người</option>
+                        <option>20 người</option>
+                        <option selected>30 người</option>
+                        <option>50 người</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- PAGE 2: DETAIL -->
+      <main class="main page" id="page-detail">
+        <div class="breadcrumb">
+          <span class="bc-link" onclick="goPage('list')">Đối tác</span>
+          <span class="bc-sep">›</span>
+          <span class="bc-current" id="detail-mode-label"
+            >Chi tiết: Công ty A</span
+          >
+        </div>
+
+        <div class="page-title" id="detail-page-title">
+          Thông tin chi tiết Đối tác
+        </div>
+
+        <!-- DETAIL CARD -->
+        <div class="card">
+          <div class="detail-header">
+            <div class="detail-header-title" id="detail-company-title">
+              Chi tiết thông tin Đối tác: Công ty A
+            </div>
+            <div class="detail-header-meta">
+              <span class="meta-badge active">● Đang hoạt động</span>
+              <span class="meta-badge date">Tạo ngày 23/06/2025</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-grid">
+              <!-- Row 1 -->
+              <div class="form-group">
+                <label class="form-label"
+                  >Tên công ty <span class="req">*</span></label
+                >
+                <input class="form-input" value="Công ty A" id="f-company" />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >Địa chỉ <span class="req">*</span></label
+                >
+                <input class="form-input" value="123 Lê Lợi, Quận 1, TP.HCM" />
+              </div>
+              <!-- Row 2 -->
+              <div class="form-group">
+                <label class="form-label"
+                  >Tên người đại diện <span class="req">*</span></label
+                >
+                <input class="form-input" value="Trần Thị B" />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >SĐT người đại diện <span class="req">*</span></label
+                >
+                <input class="form-input" value="000-0000-000" />
+              </div>
+              <!-- Row 3 -->
+              <div class="form-group">
+                <label class="form-label"
+                  >Tên người phụ trách <span class="req">*</span></label
+                >
+                <input class="form-input" value="Nguyễn Văn A" />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >SĐT người phụ trách <span class="req">*</span></label
+                >
+                <input class="form-input" value="091-2345-678" />
+              </div>
+              <!-- Row 4 -->
+              <div class="form-group">
+                <label class="form-label"
+                  >Giấy phép ĐKKD <span class="req">*</span></label
+                >
+                <div class="upload-btn-wrap">
+                  <div class="upload-preview">giayphep_congtyA.pdf</div>
+                  <button class="btn btn-danger btn-sm">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    Tải ảnh
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >Số ĐKKD <span class="req">*</span></label
+                >
+                <input class="form-input" value="0123456789" />
+              </div>
+              <!-- Row 5 -->
+              <div class="form-group">
+                <label class="form-label">Giới thiệu công ty</label>
+                <textarea class="form-input" rows="3" style="resize: vertical">
+Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc da...</textarea
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >Ngành nghề <span class="req">*</span></label
+                >
+                <input class="form-input" value="Mỹ phẩm, Chăm sóc sắc đẹp" />
+              </div>
+              <!-- Row 6 -->
+              <div class="form-group">
+                <label class="form-label">Danh sách sản phẩm</label>
+                <div class="product-list">
+                  <span class="product-chip" data-existing-product
+                    >sửa rửa mặt <span class="remove">×</span></span
+                  >
+                  <span class="product-chip" data-existing-product
+                    >Kem mắt <span class="remove">×</span></span
+                  >
+                  <span class="product-chip" data-existing-product
+                    >Cắt mí <span class="remove">×</span></span
+                  >
+                  <span class="product-chip" data-existing-product
+                    >Xăm mày <span class="remove">×</span></span
+                  >
+                  <button class="btn btn-danger btn-sm" id="btn-add-product">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Thêm (+)
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Trang chủ / Website</label>
+                <input class="form-input" value="https://maimai.vn" />
+              </div>
+              <!-- Row 7 -->
+              <div class="form-group">
+                <label class="form-label">Ghi chú</label>
+                <textarea
+                  class="form-input"
+                  id="f-note"
+                  rows="3"
+                  style="resize: vertical"
+                >
+Đối tác chiến lược khu vực miền Nam, ưu tiên xử lý ticket trong 2h.</textarea
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label">Social media</label>
+                <input class="form-input" value="https://fb.com/congtyA" />
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button
+              class="btn btn-ghost"
+              id="btn-close"
+              onclick="goPage('list')"
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              Đóng
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              id="btn-edit"
+              onclick="goEdit()"
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M12 20h9" />
+                <path
+                  d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
+                />
+              </svg>
+              Sửa
+            </button>
+            <button class="btn btn-ghost" id="btn-cancel" onclick="goDetail()">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+              Hủy
+            </button>
+            <button
+              class="btn btn-danger"
+              id="btn-save"
+              onclick="
+                alert('Đã lưu thông tin đối tác!');
+                goDetail();
+              "
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2l11 0 5 5v11a2 2 0 0 1-2 2z"
+                />
+                <polyline points="17 21 17 13 7 13 7 21" />
+                <polyline points="7 3 7 8 15 8" />
+              </svg>
+              Lưu
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      let detailMode = "view";
+      const detailDefaults = {
+        fieldValues: [],
+        uploadPreviewText: "",
+      };
+      const searchState = {
+        criterion: "Tên công ty",
+        quickFilter: "week",
+        startDate: new Date(2025, 5, 23),
+        endDate: new Date(2025, 5, 30),
+      };
+
+      function formatDateVN(date) {
+        const d = String(date.getDate()).padStart(2, "0");
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const y = date.getFullYear();
+        return `${d}/${m}/${y}`;
+      }
+
+      function toISODate(date) {
+        const d = String(date.getDate()).padStart(2, "0");
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const y = date.getFullYear();
+        return `${y}-${m}-${d}`;
+      }
+
+      function renderDateRange() {
+        const el = document.getElementById("date-display");
+        if (!el) return;
+        el.textContent = `${formatDateVN(searchState.startDate)} ~ ${formatDateVN(searchState.endDate)}`;
+      }
+
+      function setQuickFilter(buttonEl, key) {
+        document
+          .querySelectorAll(".time-filters .tf-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        buttonEl.classList.add("active");
+        searchState.quickFilter = key;
+      }
+
+      function shiftDateRange(direction) {
+        const s = new Date(searchState.startDate);
+        const e = new Date(searchState.endDate);
+
+        if (searchState.quickFilter === "day") {
+          s.setDate(s.getDate() + direction);
+          e.setDate(e.getDate() + direction);
+        } else if (searchState.quickFilter === "week") {
+          s.setDate(s.getDate() + direction * 7);
+          e.setDate(e.getDate() + direction * 7);
+        } else if (searchState.quickFilter === "month") {
+          s.setMonth(s.getMonth() + direction);
+          e.setMonth(e.getMonth() + direction);
+        } else if (searchState.quickFilter === "year") {
+          s.setFullYear(s.getFullYear() + direction);
+          e.setFullYear(e.getFullYear() + direction);
+        } else {
+          return;
+        }
+
+        searchState.startDate = s;
+        searchState.endDate = e;
+        renderDateRange();
+      }
+
+      function syncDatePickerInputs() {
+        const startInput = document.getElementById("date-start-input");
+        const endInput = document.getElementById("date-end-input");
+        if (!startInput || !endInput) return;
+        startInput.value = toISODate(searchState.startDate);
+        endInput.value = toISODate(searchState.endDate);
+      }
+
+      function closeDatePicker() {
+        const wrap = document.getElementById("date-picker-wrap");
+        if (wrap) wrap.classList.remove("open");
+      }
+
+      function toggleDatePicker(event) {
+        event.stopPropagation();
+        const wrap = document.getElementById("date-picker-wrap");
+        if (!wrap) return;
+        const shouldOpen = !wrap.classList.contains("open");
+        closeDatePicker();
+        if (shouldOpen) {
+          syncDatePickerInputs();
+          wrap.classList.add("open");
+        }
+      }
+
+      function applyDatePicker() {
+        const startInput = document.getElementById("date-start-input");
+        const endInput = document.getElementById("date-end-input");
+        if (!startInput || !endInput || !startInput.value || !endInput.value) {
+          alert("Vui lòng chọn đủ Từ ngày và Đến ngày.");
+          return;
+        }
+
+        const startDate = new Date(`${startInput.value}T00:00:00`);
+        const endDate = new Date(`${endInput.value}T00:00:00`);
+
+        if (startDate > endDate) {
+          alert("Từ ngày không được lớn hơn Đến ngày.");
+          return;
+        }
+
+        searchState.startDate = startDate;
+        searchState.endDate = endDate;
+        searchState.quickFilter = "custom";
+        document
+          .querySelectorAll(".time-filters .tf-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document
+          .querySelector('.time-filters .tf-btn[onclick*="custom"]')
+          ?.classList.add("active");
+        renderDateRange();
+        closeDatePicker();
+      }
+
+      function toggleCriteriaDropdown(event) {
+        event.stopPropagation();
+        const wrap = document.getElementById("criteria-wrap");
+        if (!wrap) return;
+        wrap.classList.toggle("open");
+      }
+
+      function closeCriteriaDropdown() {
+        const wrap = document.getElementById("criteria-wrap");
+        if (wrap) wrap.classList.remove("open");
+      }
+
+      function selectCriteria(label) {
+        searchState.criterion = label;
+        const criterionEl = document.getElementById("criteria-label");
+        if (criterionEl) criterionEl.textContent = label;
+        closeCriteriaDropdown();
+      }
+
+      function executeSearch() {
+        const keyword = (
+          document.getElementById("search-input")?.value || ""
+        ).trim();
+        const query = {
+          criterion: searchState.criterion,
+          keyword,
+          quickFilter: searchState.quickFilter,
+          dateRange: `${formatDateVN(searchState.startDate)} ~ ${formatDateVN(searchState.endDate)}`,
+        };
+        console.log("Search query:", query);
+        alert(
+          `Tìm theo ${query.criterion}: "${query.keyword || "(trống)"}"\nKhoảng ngày: ${query.dateRange}`,
+        );
+      }
+
+      function updatePageSizeLabel(selectEl, tab) {
+        console.log("Page size changed:", { tab, value: selectEl.value });
+      }
+
+      function captureDetailDefaults() {
+        detailDefaults.fieldValues = Array.from(
+          document.querySelectorAll("#page-detail .form-input"),
+          (el) => el.value,
+        );
+
+        const uploadPreviewEl = document.querySelector(
+          "#page-detail .upload-preview",
+        );
+        detailDefaults.uploadPreviewText = uploadPreviewEl
+          ? uploadPreviewEl.textContent
+          : "";
+      }
+
+      function restoreDetailDefaults() {
+        document
+          .querySelectorAll("#page-detail .form-input")
+          .forEach((el, i) => {
+            if (detailDefaults.fieldValues[i] !== undefined) {
+              el.value = detailDefaults.fieldValues[i];
+            }
+          });
+
+        const uploadPreviewEl = document.querySelector(
+          "#page-detail .upload-preview",
+        );
+        if (uploadPreviewEl) {
+          uploadPreviewEl.textContent = detailDefaults.uploadPreviewText;
+        }
+      }
+
+      function truncateChars(text, maxChars) {
+        const value = (text || "").trim();
+        if (value.length <= maxChars) return value;
+        return `${value.slice(0, maxChars).trimEnd()} ...`;
+      }
+
+      function initProductPreview() {
+        document
+          .querySelectorAll(".product-trigger[data-full-product]")
+          .forEach((el) => {
+            const fullText = el.dataset.fullProduct || "";
+            el.textContent = truncateChars(fullText, 30);
+          });
+      }
+
+      function setDetailMode(mode) {
+        detailMode = mode;
+        const isView = mode === "view";
+        const isAdd = mode === "add";
+
+        document.getElementById("btn-close").style.display = isView
+          ? ""
+          : "none";
+        document.getElementById("btn-edit").style.display = isView
+          ? ""
+          : "none";
+        document.getElementById("btn-cancel").style.display = isView
+          ? "none"
+          : "";
+        document.getElementById("btn-save").style.display = isView
+          ? "none"
+          : "";
+
+        document.querySelectorAll("[data-existing-product]").forEach((el) => {
+          el.style.display = isAdd ? "none" : "";
+        });
+
+        document.querySelectorAll("#page-detail .form-input").forEach((el) => {
+          el.readOnly = isView;
+        });
+        document.getElementById("btn-add-product").style.display = isView
+          ? "none"
+          : "";
+      }
+
+      function goPage(page) {
+        document
+          .getElementById("page-list")
+          .classList.toggle("active", page === "list");
+        document
+          .getElementById("page-detail")
+          .classList.toggle("active", page === "detail");
+      }
+
+      function goDetail() {
+        restoreDetailDefaults();
+        document.getElementById("detail-mode-label").textContent =
+          "Chi tiết: Công ty A";
+        document.getElementById("detail-page-title").textContent =
+          "Thông tin chi tiết Đối tác";
+        document.getElementById("detail-company-title").textContent =
+          "Chi tiết thông tin Đối tác: Công ty A";
+        setDetailMode("view");
+        closeAllMenus();
+        goPage("detail");
+      }
+
+      function goEdit() {
+        restoreDetailDefaults();
+        document.getElementById("detail-mode-label").textContent =
+          "Sửa thông tin đối tác";
+        document.getElementById("detail-page-title").textContent =
+          "Sửa thông tin Đối tác";
+        document.getElementById("detail-company-title").textContent =
+          "Chỉnh sửa thông tin Đối tác: Công ty A";
+        setDetailMode("edit");
+        closeAllMenus();
+        goPage("detail");
+      }
+
+      function goAdd() {
+        document.getElementById("detail-mode-label").textContent =
+          "Thêm mới đối tác";
+        document.getElementById("detail-page-title").textContent =
+          "Thêm mới Đối tác";
+        document.getElementById("detail-company-title").textContent =
+          "Nhập thông tin Đối tác mới";
+        setDetailMode("add");
+        // Clear fields
+        document
+          .querySelectorAll(
+            '#page-detail input[type="text"], #page-detail input:not([type]), #page-detail textarea',
+          )
+          .forEach((el) => {
+            if (el.type !== "checkbox") el.value = "";
+          });
+        closeAllMenus();
+        goPage("detail");
+      }
+
+      function switchTab(tab) {
+        document
+          .getElementById("tab-info")
+          .classList.toggle("active", tab === "info");
+        document
+          .getElementById("tab-deleted")
+          .classList.toggle("active", tab === "deleted");
+        document.getElementById("panel-info").style.display =
+          tab === "info" ? "" : "none";
+        document.getElementById("panel-deleted").style.display =
+          tab === "deleted" ? "" : "none";
+      }
+
+      function toggleAllInTable(cb, tableId) {
+        const table = document.getElementById(tableId);
+        if (!table) return;
+        table.querySelectorAll('tbody input[type="checkbox"]').forEach((c) => {
+          c.checked = cb.checked;
+          const row = c.closest("tr");
+          if (row) row.classList.toggle("row-checked", cb.checked);
+        });
+      }
+
+      function toggleRow(cb, rowId) {
+        document
+          .getElementById(rowId)
+          .classList.toggle("row-checked", cb.checked);
+      }
+
+      function toggleMenu(event, menuEl) {
+        event.stopPropagation();
+        const shouldOpen = !menuEl.classList.contains("open");
+        closeAllMenus();
+        if (shouldOpen) menuEl.classList.add("open");
+      }
+
+      function closeAllMenus() {
+        document
+          .querySelectorAll(".cell-menu.open")
+          .forEach((el) => el.classList.remove("open"));
+      }
+
+      function confirmDelete() {
+        if (
+          confirm(
+            "Bạn có chắc muốn xóa vĩnh viễn đối tác này?\nHành động này không thể hoàn tác.",
+          )
+        ) {
+          alert("Đã xóa vĩnh viễn.");
+          goPage("list");
+        }
+      }
+
+      // Pagination highlight
+      document.querySelectorAll(".pg-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const parent = this.closest(".pagination");
+          parent
+            .querySelectorAll(".pg-btn")
+            .forEach((b) => b.classList.remove("active"));
+          if (!["‹", "›"].includes(this.textContent))
+            this.classList.add("active");
+        });
+      });
+
+      document
+        .getElementById("search-input")
+        ?.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") executeSearch();
+        });
+
+      document.addEventListener("click", () => {
+        closeAllMenus();
+        closeCriteriaDropdown();
+        closeDatePicker();
+      });
+
+      renderDateRange();
+      initProductPreview();
+      captureDetailDefaults();
+    </script>
+  </body>
+</html>

@@ -3,878 +3,3310 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Account Recovery</title>
-
+    <title>My Page — YUUSHI</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: #f5f5f5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
+      /* ============================================================
+   VARIABLES
+   ============================================================ */
+      :root {
+        --gold: #a38a64;
+        --gold-light: #c4a882;
+        --gold-dark: #8a7050;
+        --gold-topbar: #a8936c;
+
+        --white: #ffffff;
+        --bg-page: #f7f5f2;
+        --bg-card: #ffffff;
+
+        --text-primary: #1a1714;
+        --text-secondary: #6b6560;
+        --text-muted: #9c9490;
+
+        --border: #e6e1da;
+        --border-light: #efebe5;
+
+        --unread: #ef4444;
+        --pink: #e91e8c;
+
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.09);
+        --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.13);
+
+        --r-sm: 6px;
+        --r-md: 10px;
+        --r-lg: 14px;
+
+        --font-body: "DM Sans", system-ui, sans-serif;
+        --font-display: "Cormorant Garamond", Georgia, serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
         margin: 0;
-        padding: 20px;
-        box-sizing: border-box;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--bg-page);
+        color: var(--text-primary);
+        font-size: 14px;
+        line-height: 1.6;
       }
 
-      .container {
-        width: 100%;
-        max-width: 420px;
-        background: white;
-        padding: 32px;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      /* ============================================================
+   TOP BAR
+   ============================================================ */
+      .topbar {
+        background: var(--gold-topbar);
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
       }
-
-      h1 {
-        color: #a89062;
-        margin: 0 0 24px;
-        font-size: 24px;
+      .topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.92);
       }
-
-      label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: #333;
+      .topbar-left svg {
+        width: 13px;
+        height: 13px;
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.85);
+        stroke-width: 1.8;
+        flex-shrink: 0;
       }
-
-      input,
-      textarea {
-        width: 100%;
-        padding: 14px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 16px;
-        box-sizing: border-box;
-        margin-bottom: 16px;
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 18px;
       }
-
-      input:focus,
-      textarea:focus {
-        outline: none;
-        border-color: #a89062;
-        box-shadow: 0 0 0 3px rgba(168, 144, 98, 0.15);
-      }
-
-      button {
-        width: 100%;
-        padding: 14px;
-        background: #a89062;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 500;
+      .topbar-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.92);
         cursor: pointer;
-        transition: background 0.2s;
+        transition: color 0.15s;
+      }
+      .topbar-item:hover {
+        color: white;
+      }
+      .topbar-item svg {
+        width: 13px;
+        height: 13px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+      }
+      .topbar-sep {
+        width: 1px;
+        height: 14px;
+        background: rgba(255, 255, 255, 0.3);
       }
 
-      button:hover:not(:disabled) {
-        background: #96804e;
+      /* ============================================================
+   NAVBAR — single white bar, everything inside max-width container
+   ============================================================ */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+      }
+      .navbar-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 40px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        gap: 0;
       }
 
-      button:disabled {
-        background: #ccc;
-        cursor: not-allowed;
+      /* Logo — left */
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        flex-shrink: 0;
+        margin-right: 32px;
+      }
+      .logo-mark {
+        width: 36px;
+        height: 36px;
+      }
+      .logo-mark svg {
+        width: 36px;
+        height: 36px;
+      }
+      .logo-wordmark {
+        font-family: var(--font-body);
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        color: var(--text-primary);
+        text-transform: uppercase;
       }
 
-      .secondary-btn {
-        background: white;
-        color: #a89062;
-        border: 1px solid #a89062;
+      /* Nav links — center (flex:1) */
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        list-style: none;
+        flex: 1;
+      }
+      .nav-links a {
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 400;
+        color: var(--text-secondary);
+        padding: 6px 13px;
+        border-radius: var(--r-sm);
+        transition: color 0.15s;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .nav-links a:hover {
+        color: var(--text-primary);
+      }
+      .nav-links a svg {
+        width: 12px;
+        height: 12px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
       }
 
-      .sns {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-top: 24px;
+      /* ---- RIGHT CLUSTER: icons + separator + user pill ----
+   All inside .nav-user, which is the rightmost flex child      */
+      .nav-user {
+        display: flex;
+        align-items: center;
+        gap: 2px; /* tight gap between icon buttons */
+        flex-shrink: 0;
       }
 
-      .sns button {
-        background: white;
-        border: 1px solid #ddd;
-        color: #333;
-        font-weight: 500;
+      /* vertical separator between icons and user pill */
+      .nav-sep {
+        width: 1px;
+        height: 22px;
+        background: var(--border);
+        margin: 0 10px;
+        flex-shrink: 0;
+      }
+
+      /* Icon buttons (heart, chat) */
+      .nav-icon-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background: none;
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        padding: 12px;
+        color: var(--text-secondary);
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+      .nav-icon-btn:hover {
+        background: #f5f3f0;
+        color: var(--text-primary);
+      }
+      .nav-icon-btn svg {
+        width: 19px;
+        height: 19px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
       }
 
-      .sns svg {
-        width: 20px;
-        height: 20px;
+      /* User pill */
+      .user-menu {
+        position: relative;
       }
-
-      .links {
+      .user-trigger {
         display: flex;
-        justify-content: space-between;
-        margin: 16px 0;
-        font-size: 14px;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 5px 10px 5px 5px;
+        border-radius: 30px;
+        border: 1px solid var(--border);
+        background: var(--white);
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      .user-trigger:hover {
+        border-color: var(--gold-light);
+        box-shadow: var(--shadow-sm);
+      }
+      .user-av {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--gold-light), var(--gold));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: white;
+        flex-shrink: 0;
+      }
+      .user-name {
+        font-size: 13.5px;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+      .user-chevron {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: var(--text-muted);
+        stroke-width: 2;
+        transition: transform 0.2s;
+      }
+      .user-trigger.open .user-chevron {
+        transform: rotate(180deg);
       }
 
-      .links a {
-        color: #a89062;
+      /* Dropdown */
+      .user-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        width: 200px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-6px);
+        transition:
+          opacity 0.18s,
+          transform 0.18s;
+      }
+      .user-dropdown.open {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+      }
+      .dd-item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 11px 18px;
+        font-size: 13.5px;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition:
+          background 0.12s,
+          color 0.12s;
+        text-decoration: none;
+      }
+      .dd-item:hover {
+        background: #faf7f2;
+        color: var(--text-primary);
+      }
+      .dd-item.active {
+        color: var(--gold);
+      }
+      .dd-item svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        flex-shrink: 0;
+      }
+      .dd-item.logout {
+        color: var(--text-muted);
+      }
+      .dd-item.logout:hover {
+        color: #ef4444;
+        background: #fff5f5;
+      }
+      .dd-sep {
+        height: 1px;
+        background: var(--border-light);
+        margin: 4px 0;
+      }
+
+      /* ============================================================
+   PAGE
+   ============================================================ */
+      .page {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 36px 40px 72px;
+      }
+
+      .page-greeting {
+        margin-bottom: 28px;
+      }
+      .page-greeting-sub {
+        font-size: 12px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 4px;
+      }
+      .page-greeting-title {
+        font-family: var(--font-display);
+        font-size: 30px;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+      .page-greeting-title span {
+        color: var(--gold);
+        font-style: italic;
+      }
+
+      /* Profile bar */
+      .profile-bar {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-sm);
+        padding: 20px 28px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 28px;
+      }
+      .profile-av-lg {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--gold-light), var(--gold));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+        flex-shrink: 0;
+      }
+      .profile-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .profile-name {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .profile-email {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 1px;
+      }
+      .profile-badge {
+        font-size: 11.5px;
+        color: var(--gold);
+        font-weight: 500;
+        margin-top: 4px;
+      }
+      .profile-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .profile-link {
+        font-size: 13px;
+        color: var(--text-secondary);
         text-decoration: none;
         cursor: pointer;
+        transition: color 0.12s;
+      }
+      .profile-link:hover {
+        color: var(--gold);
+      }
+      .profile-bar-side {
+        margin-bottom: 0;
+        padding: 18px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .profile-bar-side .profile-info {
+        width: 100%;
+      }
+      .profile-bar-side .profile-links {
+        width: 100%;
+        border-top: 1px solid var(--border-light);
+        padding-top: 10px;
+        gap: 8px;
+        flex-direction: column;
+        align-items: flex-start;
       }
 
-      .divider {
-        text-align: center;
-        color: #888;
-        margin: 24px 0;
-        font-size: 14px;
+      /* ============================================================
+   SECTION HEADER
+   ============================================================ */
+      .sec-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+      .sec-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .sec-link {
+        font-size: 12.5px;
+        color: var(--gold);
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.12s;
+      }
+      .sec-link:hover {
+        color: var(--gold-dark);
+      }
+
+      /* ============================================================
+   MESSAGES (left 2/3) — no tabs, just clean list
+   ============================================================ */
+      .main-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+        margin-bottom: 28px;
+        align-items: start;
+      }
+
+      .msg-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+      }
+
+      .convo-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+        padding: 15px 20px;
+        cursor: pointer;
+        transition: background 0.12s;
+        border-bottom: 1px solid var(--border-light);
+      }
+      .convo-item:last-child {
+        border-bottom: none;
+      }
+      .convo-item:hover {
+        background: #faf8f5;
+      }
+      .convo-item.selected {
+        background: #faf7f2;
+      }
+      .convo-item.unread {
+        background: #fffdf9;
+      }
+
+      .convo-av {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: white;
+      }
+      .av1 {
+        background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      }
+      .av2 {
+        background: linear-gradient(135deg, #f4a261, #e76f51);
+      }
+      .av3 {
+        background: linear-gradient(135deg, #a78bfa, #7c3aed);
+      }
+      .av4 {
+        background: linear-gradient(135deg, #6ee7b7, #10b981);
+      }
+
+      .convo-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .convo-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 2px;
+      }
+      .convo-name {
+        font-size: 13.5px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .convo-time {
+        font-size: 11.5px;
+        color: var(--text-muted);
+        flex-shrink: 0;
+      }
+      .convo-preview {
+        font-size: 12.5px;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .convo-item.unread .convo-preview {
+        color: var(--text-primary);
+      }
+      .convo-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .unread-count {
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        border-radius: 9px;
+        background: var(--unread);
+        color: white;
+        font-size: 10.5px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ============================================================
+   PROPERTY CARD — Hero style (ảnh 1 & 2)
+   ============================================================ */
+      /* Right column: saved props stacked vertically (no change) */
+      /* Saved properties + Recently Viewed both use .prop-card */
+
+      .prop-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition:
+          box-shadow 0.22s,
+          transform 0.22s;
         position: relative;
+        cursor: pointer;
+      }
+      .prop-card:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
       }
 
-      .divider::before,
-      .divider::after {
-        content: "";
+      /* ---- HERO IMAGE AREA ---- */
+      .prop-hero {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+      .prop-hero-img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+      .prop-card:hover .prop-hero-img {
+        transform: scale(1.05);
+      }
+      .prop-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.04) 0%,
+          rgba(0, 0, 0, 0) 32%,
+          rgba(0, 0, 0, 0.6) 100%
+        );
+      }
+
+      /* Agent — top left */
+      .prop-agent {
+        position: absolute;
+        top: 10px;
+        left: 12px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .prop-agent-av {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid white;
+        font-size: 11px;
+        font-weight: 700;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .prop-agent-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: white;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Actions — top right: Compare (hover) + Wishlist (always) */
+      .prop-actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* Compare button — invisible, slides in on hover */
+      .btn-cmp {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 11px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-primary);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+        opacity: 0;
+        transform: translateX(8px);
+        pointer-events: none;
+        transition:
+          opacity 0.2s,
+          transform 0.2s,
+          background 0.15s;
+      }
+      .btn-cmp svg {
+        width: 13px;
+        height: 13px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+      }
+      .prop-card:hover .btn-cmp {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: all;
+      }
+      .btn-cmp.active {
+        background: var(--pink);
+        color: white;
+        opacity: 1;
+        pointer-events: all;
+        transform: translateX(0);
+      }
+
+      /* Wishlist button — always visible */
+      .btn-wish {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        transition:
+          transform 0.15s,
+          background 0.15s;
+      }
+      .btn-wish:hover {
+        background: white;
+        transform: scale(1.06);
+      }
+      .btn-wish svg {
+        width: 15px;
+        height: 15px;
+        fill: none;
+        stroke: #374151;
+        stroke-width: 1.6;
+      }
+      .btn-wish.liked svg {
+        fill: #ef4444;
+        stroke: #ef4444;
+      }
+
+      /* Slider arrows */
+      .prop-arrow {
         position: absolute;
         top: 50%;
-        width: 40%;
-        height: 1px;
-        background: #ddd;
-      }
-
-      .divider::before {
-        left: 0;
-      }
-      .divider::after {
-        right: 0;
-      }
-
-      .warning {
-        color: #d32f2f;
-        font-size: 13px;
-        margin-top: -8px;
-        margin-bottom: 16px;
-      }
-
-      .modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-      }
-
-      .modal-box {
-        background: white;
-        width: 90%;
-        max-width: 380px;
-        padding: 28px;
-        border-radius: 12px;
-        position: relative;
-      }
-
-      .close {
-        position: absolute;
-        right: 20px;
-        top: 16px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #666;
-      }
-
-      .otp-box {
-        display: flex;
-        gap: 10px;
-        margin: 24px 0;
-        justify-content: center;
-      }
-
-      .otp-box input {
-        width: 48px;
-        height: 52px;
-        text-align: center;
-        font-size: 24px;
-        border: 1px solid #ddd;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
         border-radius: 8px;
+        background: rgba(255, 255, 255, 0.92);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+        opacity: 0;
+        transition: opacity 0.15s;
+        z-index: 2;
+      }
+      .prop-card:hover .prop-arrow {
+        opacity: 1;
+      }
+      .prop-arrow svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: #1a1714;
+        stroke-width: 2;
+      }
+      .prop-arrow.prev {
+        left: 10px;
+      }
+      .prop-arrow.next {
+        right: 10px;
       }
 
-      .otp-box input:focus {
-        border-color: #a89062;
-        box-shadow: 0 0 0 3px rgba(168, 144, 98, 0.2);
+      /* Dots */
+      .prop-dots {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 50px;
+        display: flex;
+        gap: 5px;
+        z-index: 2;
+      }
+      .prop-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.45);
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          width 0.2s;
+      }
+      .prop-dot.active {
+        background: white;
+        width: 14px;
+        border-radius: 3px;
       }
 
-      .hidden {
-        display: none !important;
+      /* Info overlay */
+      .prop-info-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 12px 14px 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        z-index: 2;
+      }
+      .prop-title {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: white;
+        line-height: 1.3;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        max-width: 180px;
+      }
+      .prop-loc {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        margin-top: 3px;
+      }
+      .prop-loc svg {
+        width: 10px;
+        height: 10px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.5;
+      }
+      .prop-price {
+        font-size: 15px;
+        font-weight: 700;
+        color: white;
+        text-align: right;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+      }
+      .prop-price-old {
+        font-size: 10.5px;
+        color: rgba(255, 255, 255, 0.65);
+        text-decoration: line-through;
+        text-align: right;
+      }
+      .prop-yield {
+        font-size: 10.5px;
+        color: rgba(255, 255, 255, 0.88);
+        text-align: right;
+        margin-top: 2px;
+      }
+      .prop-yield strong {
+        color: white;
+      }
+      .prop-price-sub {
+        font-size: 10.5px;
+        color: rgba(255, 255, 255, 0.72);
+        text-align: right;
+      }
+
+      /* Card body below hero */
+      .prop-body {
+        padding: 11px 14px 13px;
+      }
+      .prop-specs {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .prop-spec {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      .prop-spec svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: var(--text-muted);
+        stroke-width: 1.5;
+      }
+      .prop-desc {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 6px;
+        line-height: 1.55;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .spec-badge {
+        font-size: 10.5px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .b-green {
+        background: #dcfce7;
+        color: #16a34a;
+      }
+      .b-orange {
+        background: #fef3ea;
+        color: #ea580c;
+      }
+      .b-blue {
+        background: #eff6ff;
+        color: #2563eb;
+      }
+
+      /* ============================================================
+   SAVED PROPERTIES — horizontal grid (like Recently Viewed)
+   ============================================================ */
+      .props-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      /* ============================================================
+   SAVED SEARCH — Accordion style (ảnh 3)
+   ============================================================ */
+      .ss-list {
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+      }
+      .ss-item {
+        background: var(--bg-card);
+        border-bottom: 1px solid var(--border);
+      }
+      .ss-item:last-child {
+        border-bottom: none;
+      }
+
+      .ss-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.12s;
+      }
+      .ss-header:hover {
+        background: #faf8f5;
+      }
+      .ss-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      .ss-type {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--gold);
+        margin-top: 2px;
+      }
+      .ss-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .ss-del {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: #f7f5f2;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.12s,
+          border-color 0.12s;
+        flex-shrink: 0;
+      }
+      .ss-del:hover {
+        background: #fef2f2;
+        border-color: #fca5a5;
+      }
+      .ss-del svg {
+        width: 13px;
+        height: 13px;
+        fill: none;
+        stroke: var(--text-muted);
+        stroke-width: 1.5;
+      }
+      .ss-del:hover svg {
+        stroke: var(--unread);
+      }
+
+      .ss-chevron {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: var(--text-muted);
+        stroke-width: 2;
+        transition: transform 0.22s;
+        flex-shrink: 0;
+      }
+      .ss-item.open .ss-chevron {
+        transform: rotate(180deg);
+      }
+
+      .ss-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      .ss-item.open .ss-body {
+        max-height: 800px;
+      }
+
+      .ss-content {
+        border-top: 1px solid var(--border-light);
+      }
+      .ss-row {
+        display: flex;
+        gap: 0;
+        padding: 10px 18px;
+        border-bottom: 1px solid var(--border-light);
+      }
+      .ss-row:last-child {
+        border-bottom: none;
+      }
+      .ss-row-label {
+        font-size: 10.5px;
+        font-weight: 700;
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        min-width: 120px;
+        padding-top: 2px;
+        flex-shrink: 0;
+      }
+      .ss-row-body {
+        flex: 1;
+      }
+      .ss-vals {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 18px;
+      }
+      .ss-check {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12.5px;
+        color: var(--text-secondary);
+      }
+      .ss-tick {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: #16a34a;
+        stroke-width: 2.2;
+        flex-shrink: 0;
+      }
+      .ss-note {
+        font-size: 11.5px;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      /* ============================================================
+   RECENTLY VIEWED — same 3-col grid as saved properties
+   ============================================================ */
+      .section-block {
+        margin-bottom: 28px;
+      }
+
+      /* ============================================================
+   TOAST
+   ============================================================ */
+      .toast-wrap {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        pointer-events: none;
+      }
+      .toast {
+        background: var(--text-primary);
+        color: white;
+        padding: 10px 16px;
+        border-radius: var(--r-md);
+        font-size: 13px;
+        font-weight: 500;
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        max-width: 280px;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 1024px) {
+        .main-grid {
+          grid-template-columns: 1fr;
+        }
+        .props-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 760px) {
+        .props-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <!-- ── MAIN: Forgot Password ── -->
-      <div id="resetPassword">
-        <h1>Forgot Password</h1>
-        <label for="emailInput">Email address</label>
-        <input
-          id="emailInput"
-          type="email"
-          placeholder="example@gmail.com"
-          autocomplete="email"
-        />
-
-        <button id="btnEmailContinue" onclick="startPasswordReset()">
-          Continue
-        </button>
-
-        <div class="links">
-          <a onclick="navigateTo('phoneRecover')">Forgot email? Use phone</a>
-          <a onclick="navigateTo('questionRecover')">Use security question</a>
-        </div>
-
-        <div class="links">
-          <a onclick="navigateTo('d16')"
-            >Can't access account → Request recovery</a
+    <!-- ============================================================
+     TOP BAR
+     ============================================================ -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <svg viewBox="0 0 16 16">
+          <circle cx="8" cy="7" r="2.5" />
+          <path
+            d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z"
+          />
+        </svg>
+        Tokyo, Japan
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-item">
+          <svg viewBox="0 0 16 16">
+            <circle cx="8" cy="8" r="6" />
+            <path d="M8 4v4l2 2" />
+          </svg>
+          USD
+          <svg
+            viewBox="0 0 10 6"
+            style="
+              width: 10px;
+              height: 10px;
+              stroke-width: 2.2;
+              fill: none;
+              stroke: currentColor;
+            "
           >
+            <path d="M1 1l4 4 4-4" />
+          </svg>
         </div>
-
-        <div class="divider">Or</div>
-
-        <div class="sns">
-          <button onclick="alert('Continue with Google – not implemented yet')">
-            <svg viewBox="0 0 24 24">
-              <path
-                fill="#4285F4"
-                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.51h5.84c-.25 1.31-.98 2.42-2.07 3.16v2.63h3.35c1.96-1.81 3.09-4.47 3.09-7.25z"
-              />
-              <path
-                fill="#34A853"
-                d="M12 23c2.97 0 5.46-1.01 7.28-2.73l-3.35-2.63c-1.01.68-2.29 1.08-3.93 1.08-3.02 0-5.58-2.04-6.49-4.79H.96v2.67C2.77 20.39 6.62 23 12 23z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M5.51 14.21c-.23-.68-.36-1.41-.36-2.21s.13-1.53.36-2.21V7.34H.96C.35 8.85 0 10.39 0 12s.35 3.15.96 4.66l4.55-2.45z"
-              />
-              <path
-                fill="#EA4335"
-                d="M12 4.98c1.64 0 3.11.56 4.27 1.66l3.19-3.19C17.46 1.01 14.97 0 12 0 6.62 0 2.77 2.61.96 6.34l4.55 2.45C6.42 6.02 8.98 4.98 12 4.98z"
-              />
-            </svg>
-            Continue with Google
-          </button>
-
-          <button onclick="alert('Continue with Apple – not implemented yet')">
-            <svg viewBox="0 0 24 24">
-              <path
-                fill="#000"
-                d="M12.152 6.896c-.948 0-2.121.652-2.781 1.511-.813.965-1.515 2.24-1.515 3.595 0 1.357.703 2.631 1.515 3.595.66.86 1.833 1.512 2.781 1.512.948 0 2.121-.652 2.781-1.512.813-.964 1.515-2.238 1.515-3.595 0-1.355-.702-2.63-1.515-3.595-.66-.859-1.833-1.511-2.781-1.511zM16.648 5.904c1.02 1.246 1.02 3.065 0 4.31-.813.964-2.121 1.512-3.069 1.512-.948 0-2.256-.548-3.069-1.512-.813-.964-1.515-2.238-1.515-3.595 0-1.357.702-2.631 1.515-3.595.813-.964 2.121-1.512 3.069-1.512.948 0 2.256.548 3.069 1.512z"
-              />
-            </svg>
-            Continue with Apple
-          </button>
-
-          <button onclick="alert('Continue with WeChat – not implemented yet')">
-            <svg viewBox="0 0 24 24">
-              <path
-                fill="#07C160"
-                d="M8.691 2.188C3.891 2.188.001 5.476.001 9.53c0 2.212 1.17 4.203 3.002 5.55v4.988l4.518-2.695c.654.177 1.336.272 2.037.272 4.8 0 8.69-3.288 8.69-7.342 0-4.054-3.89-7.342-8.69-7.342z"
-              />
-            </svg>
-            Continue with WeChat
-          </button>
-
-          <button onclick="alert('Continue with Weibo – not implemented yet')">
-            <svg viewBox="0 0 24 24">
-              <path
-                fill="#E6162D"
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.5 14.5c-1.14 1.14-3.07 1.14-4.21 0-.57-.57-.57-1.5 0-2.07.57-.57 1.5-.57 2.07 0 .57.57.57 1.5 0 2.07zm-2.5-5.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM9 11c-.83 0-1.5-.67-1.5-1.5S8.17 8 9 8s1.5.67 1.5 1.5S9.83 11 9 11z"
-              />
-            </svg>
-            Continue with Weibo
-          </button>
+        <div class="topbar-sep"></div>
+        <div class="topbar-item">
+          <svg viewBox="0 0 16 16">
+            <circle cx="8" cy="8" r="6" />
+            <path d="M8 2a6 6 0 000 12M8 2a9 9 0 010 12M2 8h12" />
+          </svg>
+          English
+          <svg
+            viewBox="0 0 10 6"
+            style="
+              width: 10px;
+              height: 10px;
+              stroke-width: 2.2;
+              fill: none;
+              stroke: currentColor;
+            "
+          >
+            <path d="M1 1l4 4 4-4" />
+          </svg>
         </div>
-
-        <br />
-        <a
-          href="forgot_to_readme.html"
-          style="color: blue; font-size: 14px; font-weight: bold"
-          >ATOM xem mô tả ở đây nha</a
-        >
-        <br />
-        <a
-          href="myprofile.html"
-          style="color: red; font-size: 14px; font-weight: bold"
-          >thêm phần security question vào My Profile</a
-        >
-      </div>
-
-      <!-- ── PHONE RECOVERY ── -->
-      <div id="phoneRecover" class="hidden">
-        <h1>Find Email</h1>
-        <p style="color: #666; font-size: 14px; margin-bottom: 16px">
-          Maximum 2 attempts per day
-        </p>
-
-        <label for="phoneInput">Phone number</label>
-        <input
-          id="phoneInput"
-          type="tel"
-          placeholder="+84 912 345 678"
-          autocomplete="tel"
-        />
-
-        <button id="btnPhoneSend" onclick="startPhoneRecovery()">
-          Send OTP
-        </button>
-
-        <div class="links">
-          <a onclick="navigateTo('resetPassword')">← Back</a>
-        </div>
-      </div>
-
-      <!-- ── SECURITY QUESTION ── -->
-      <div id="questionRecover" class="hidden">
-        <h1>Security Question</h1>
-        <p style="color: #666; font-size: 14px; margin-bottom: 16px">
-          Maximum 3 attempts per day
-        </p>
-
-        <label for="securityQuestionSelect">Security Question</label>
-        <select
-          id="securityQuestionSelect"
-          style="
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            box-sizing: border-box;
-            margin-bottom: 16px;
-            background: white;
-          "
-        >
-          <option value="">-- Select a question --</option>
-          <option value="q1">
-            What was the name of your childhood best friend?
-          </option>
-          <option value="q2">
-            What was the last name of your next-door neighbour when you were a
-            child?
-          </option>
-          <option value="q3">
-            In what city or town did your parents meet?
-          </option>
-          <option value="q4">
-            What is the name of the place you used to visit most often during
-            summer vacations as a child?
-          </option>
-          <option value="q5">
-            What was your grandmother's (or grandfather's) maiden name?
-          </option>
-          <option value="q6">
-            Who was the first musical artist you ever saw in concert?
-          </option>
-          <option value="q7">
-            What was the name of your favourite stuffed animal or toy as a
-            child?
-          </option>
-          <option value="q8">
-            What was the last name of your first boss or supervisor?
-          </option>
-          <option value="q9">
-            What was the name of the cram school or after-school lesson you
-            attended as a child?
-          </option>
-          <option value="q10">
-            What was the name of the hospital where you were born?
-          </option>
-        </select>
-
-        <label for="securityAnswer">Answer</label>
-        <input
-          id="securityAnswer"
-          placeholder="Your answer..."
-          autocomplete="off"
-        />
-
-        <div id="securityQuestionError" class="warning hidden">
-          Wrong answer
-        </div>
-
-        <button id="btnQuestionSubmit" onclick="verifySecurityQuestion()">
-          Submit
-        </button>
-
-        <div class="links">
-          <a onclick="navigateTo('resetPassword')">← Back</a>
-        </div>
-      </div>
-
-      <!-- ── EMAIL FOUND ── -->
-      <div id="emailFound" class="hidden">
-        <h1>Account Found</h1>
-        <p>Your registered email:</p>
-        <div
-          style="font-size: 20px; font-weight: bold; margin: 16px 0"
-          id="displayEmail"
-        ></div>
-
-        <button onclick="startPasswordResetFromEmailFound()">
-          Reset Password
-        </button>
-        <button class="secondary-btn" onclick="navigateTo('resetPassword')">
-          Done
-        </button>
-      </div>
-
-      <!-- ── RESET PASSWORD ── -->
-      <div id="resetPage" class="hidden">
-        <h1>Reset Password</h1>
-
-        <label for="newPassword">New password</label>
-        <input
-          id="newPassword"
-          type="password"
-          placeholder="At least 8 characters"
-          autocomplete="new-password"
-        />
-
-        <label for="confirmPassword">Confirm password</label>
-        <input
-          id="confirmPassword"
-          type="password"
-          placeholder="Re-enter password"
-          autocomplete="new-password"
-        />
-
-        <div id="pwdWarning" class="warning hidden">
-          Password must be at least 8 characters with letters & numbers
-        </div>
-
-        <button id="btnResetSubmit" onclick="submitPasswordReset()">
-          Reset Password
-        </button>
-      </div>
-
-      <!-- ── SUCCESS ── -->
-      <div id="resetSuccess" class="hidden">
-        <h1>Password Reset Successful</h1>
-        <p style="margin: 24px 0">You can now log in with your new password.</p>
-        <button onclick="window.location.href = '#'">Go to Login</button>
-      </div>
-
-      <!-- ── D16 MANUAL RECOVERY ── -->
-      <div id="d16" class="hidden">
-        <h1>Account Recovery Request</h1>
-        <p style="color: #666; font-size: 14px">
-          For cases where normal recovery is not possible
-        </p>
-
-        <label>Full name</label>
-        <input id="d16FullName" placeholder="Nguyễn Văn A" />
-
-        <label>Phone number</label>
-        <input id="d16Phone" type="tel" placeholder="+84 ..." />
-
-        <label>Reason for recovery</label>
-        <textarea
-          id="d16Reason"
-          rows="3"
-          placeholder="Explain your situation..."
-        ></textarea>
-
-        <label>ID Document (image or PDF)</label>
-        <input id="d16Document" type="file" accept="image/*,.pdf" />
-
-        <button id="btnD16Submit" onclick="submitD16Request()">
-          Submit Request
-        </button>
-
-        <div class="links">
-          <a onclick="navigateTo('resetPassword')">← Back</a>
-        </div>
-      </div>
-
-      <div id="d16Success" class="hidden">
-        <h1>Request Submitted</h1>
-        <p>Our support team will review your request.</p>
-        <p style="color: #666; font-size: 14px">
-          You will be contacted within 2–5 business days.
-        </p>
-        <button onclick="navigateTo('resetPassword')">Back to Options</button>
-      </div>
-    </div>
-
-    <!-- OTP Modal -->
-    <div id="otpModal" class="modal hidden">
-      <div class="modal-box">
-        <span class="close" onclick="closeOTP()">×</span>
-        <h2>Enter OTP</h2>
-        <p id="otpMessage">We sent a code to your email/phone</p>
-
-        <div class="otp-box">
-          <input maxlength="1" id="otp1" autocomplete="one-time-code" />
-          <input maxlength="1" id="otp2" />
-          <input maxlength="1" id="otp3" />
-          <input maxlength="1" id="otp4" />
-          <input maxlength="1" id="otp5" />
-          <input maxlength="1" id="otp6" />
-        </div>
-
-        <button id="btnVerifyOTP" onclick="verifyOTP()">Verify</button>
-
-        <div style="text-align: center; margin-top: 16px">
-          <a id="resendLink" onclick="resendOTP()">Resend OTP</a>
-          <span id="resendCountdown" class="hidden"></span>
+        <div class="topbar-sep"></div>
+        <div class="topbar-item">
+          <svg viewBox="0 0 16 16">
+            <path
+              d="M3 3a2 2 0 012-2h1l1.5 4-1.5 1a10 10 0 004 4l1-1.5 4 1.5v1a2 2 0 01-2 2C5.4 13 3 7.6 3 3z"
+            />
+          </svg>
+          +852 5804 4670
         </div>
       </div>
     </div>
+
+    <!-- ============================================================
+     NAVBAR — everything inside one max-width container
+     ============================================================ -->
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <!-- Logo -->
+        <a class="logo" href="#">
+          <div class="logo-mark">
+            <svg
+              viewBox="0 0 36 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="18"
+                r="16"
+                stroke="#1A1714"
+                stroke-width="1.4"
+              />
+              <path
+                d="M18 7c-6.08 0-11 4.92-11 11 0 3.3 1.5 6.25 3.88 8.22"
+                stroke="#1A1714"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+              <path
+                d="M18 10c-4.42 0-8 3.58-8 8 0 2.4 1.06 4.56 2.74 6.04"
+                stroke="#1A1714"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+              <path
+                d="M18 13c-2.76 0-5 2.24-5 5 0 1.52.68 2.88 1.76 3.8"
+                stroke="#1A1714"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+              <circle cx="18" cy="18" r="1.8" fill="#1A1714" />
+              <path
+                d="M18 16.2V10M23 9C25.3 10.5 27 13.1 27 16c0 4.97-4.03 9-9 9-1.7 0-3.28-.47-4.63-1.3"
+                stroke="#1A1714"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+              <path
+                d="M26 24C28.4 21.9 30 18.9 30 18c0-6.63-5.37-12-12-12-2.2 0-4.28.6-6.06 1.66"
+                stroke="#1A1714"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <span class="logo-wordmark">YUUSHI</span>
+        </a>
+
+        <!-- Nav links — flex:1 fills middle -->
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Buy</a></li>
+          <li><a href="#">For Sale</a></li>
+          <li><a href="#">To Rent</a></li>
+          <li>
+            <a href="#"
+              >Insights <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" /></svg
+            ></a>
+          </li>
+          <li><a href="#">Mortgage Calculator</a></li>
+        </ul>
+
+        <!-- Right cluster: icons + separator + user — all in .nav-user -->
+        <div class="nav-user">
+          <!-- Heart -->
+          <button class="nav-icon-btn" title="Favorites">
+            <svg viewBox="0 0 20 20">
+              <path
+                d="M10 17s-7-4.1-7-8.8A4.9 4.9 0 0110 3.5a4.9 4.9 0 017 4.7C17 12.9 10 17 10 17z"
+              />
+            </svg>
+          </button>
+          <!-- Chat -->
+          <button class="nav-icon-btn" title="Messages">
+            <svg viewBox="0 0 20 20">
+              <path
+                d="M18 3H2a1 1 0 00-1 1v10a1 1 0 001 1h5l3 3 3-3h5a1 1 0 001-1V4a1 1 0 00-1-1z"
+              />
+            </svg>
+          </button>
+
+          <!-- Separator -->
+          <div class="nav-sep"></div>
+
+          <!-- User pill + dropdown -->
+          <div class="user-menu" id="userMenu">
+            <div class="user-trigger" id="userTrigger">
+              <div class="user-av">A</div>
+              <span class="user-name">Anna</span>
+              <svg class="user-chevron" viewBox="0 0 16 16">
+                <path d="M4 6l4 4 4-4" />
+              </svg>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+              <a class="dd-item active" href="#">
+                <svg viewBox="0 0 16 16">
+                  <circle cx="8" cy="5.5" r="2.5" />
+                  <path d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5" />
+                </svg>
+                My Profile
+              </a>
+              <a class="dd-item" href="#">
+                <svg viewBox="0 0 16 16">
+                  <rect x="2" y="2" width="12" height="12" rx="1" />
+                  <path d="M2 6h12M6 2v12" />
+                </svg>
+                Dashboard
+              </a>
+              <a class="dd-item" href="#">
+                <svg viewBox="0 0 16 16">
+                  <circle cx="8" cy="8" r="6" />
+                  <path d="M8 5v3l2 2" />
+                </svg>
+                Recent viewed
+              </a>
+              <div class="dd-sep"></div>
+              <a class="dd-item logout" href="#">
+                <svg viewBox="0 0 16 16">
+                  <path
+                    d="M10 3h3a1 1 0 011 1v8a1 1 0 01-1 1h-3M7 11l4-4-4-4M11 8H3"
+                  />
+                </svg>
+                Log out
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- /nav-user -->
+      </div>
+      <!-- /navbar-inner -->
+    </nav>
+
+    <!-- ============================================================
+     PAGE CONTENT
+     ============================================================ -->
+    <div class="page">
+      <div class="page-greeting">
+        <div class="page-greeting-sub">Welcome back</div>
+        <div class="page-greeting-title">Good morning, <span>Anna</span></div>
+      </div>
+
+      <!-- Profile bar -->
+      <div class="profile-bar">
+        <div class="profile-av-lg">A</div>
+        <div class="profile-info">
+          <div class="profile-name">Yamamoto Anna</div>
+          <div class="profile-email">anna@example.com</div>
+          <div class="profile-email">+81 90-1234-5678</div>
+        </div>
+        <div class="profile-links">
+          <a class="profile-link" href="#">Edit Profile</a>
+        </div>
+      </div>
+
+      <!-- ============================================================
+       MAIN GRID: Messages (left 2/3) + Saved Properties (right 1/3 — stacked)
+       ============================================================ -->
+      <div class="main-grid">
+        <!-- LEFT: Messages — no tabs, just list + header link -->
+        <div>
+          <div class="sec-head">
+            <span class="sec-title">Messages</span>
+            <a class="sec-link" href="#">View All Messages →</a>
+          </div>
+          <div class="msg-card">
+            <!-- Convo 1 -->
+            <div class="convo-item unread selected">
+              <div class="convo-av av1">T</div>
+              <div class="convo-body">
+                <div class="convo-top">
+                  <span class="convo-name">Takayuki Yamada</span>
+                  <span class="convo-time">10:24</span>
+                </div>
+                <div class="convo-preview">
+                  About the property at Shinjuku — can we schedule a call this
+                  week?
+                </div>
+                <div class="convo-meta">
+                  <span class="unread-count">3</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Convo 2 -->
+            <div class="convo-item unread">
+              <div class="convo-av av2">M</div>
+              <div class="convo-body">
+                <div class="convo-top">
+                  <span class="convo-name">Masahiro Tanaka</span>
+                  <span class="convo-time">09:55</span>
+                </div>
+                <div class="convo-preview">
+                  Hi Anna! I've found a few options that match your criteria.
+                  Please check.
+                </div>
+                <div class="convo-meta">
+                  <span class="unread-count">1</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Convo 3 -->
+            <div class="convo-item">
+              <div class="convo-av av3">Y</div>
+              <div class="convo-body">
+                <div class="convo-top">
+                  <span class="convo-name">Yumiko Sato</span>
+                  <span class="convo-time">Yesterday</span>
+                </div>
+                <div class="convo-preview">
+                  Thank you for reaching out! We'll send the brochure today.
+                </div>
+                <div class="convo-meta"></div>
+              </div>
+            </div>
+
+            <!-- Convo 4 -->
+            <div class="convo-item unread">
+              <div class="convo-av av4">K</div>
+              <div class="convo-body">
+                <div class="convo-top">
+                  <span class="convo-name">Kenji Matsumoto</span>
+                  <span class="convo-time">Yesterday</span>
+                </div>
+                <div class="convo-preview">
+                  The Shibuya apartment has an extra Sunday 10:00 slot
+                  available!
+                </div>
+                <div class="convo-meta">
+                  <span class="unread-count">2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /msg-card -->
+        </div>
+        <!-- /left -->
+
+        <!-- RIGHT: Saved Properties stacked (1/3) -->
+        <div>
+          <div class="sec-head">
+            <span class="sec-title">Saved Properties</span>
+            <a class="sec-link" href="#">View All →</a>
+          </div>
+
+          <!-- Card 1 — Blue glass building -->
+          <div class="prop-card" id="sp1" style="margin-bottom: 14px">
+            <div class="prop-hero" style="height: 178px">
+              <svg
+                class="prop-hero-img"
+                viewBox="0 0 300 178"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+              >
+                <rect width="300" height="178" fill="#8098b8" />
+                <rect x="0" y="0" width="300" height="90" fill="#6888a8" />
+                <rect
+                  x="38"
+                  y="22"
+                  width="224"
+                  height="156"
+                  fill="#3a5878"
+                  rx="2"
+                />
+                <rect x="38" y="22" width="224" height="10" fill="#2a4868" />
+                <rect
+                  x="56"
+                  y="40"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#7aaac8"
+                  opacity="0.85"
+                />
+                <rect
+                  x="86"
+                  y="40"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#9ac2d8"
+                  opacity="0.9"
+                />
+                <rect
+                  x="116"
+                  y="40"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#7aaac8"
+                  opacity="0.8"
+                />
+                <rect
+                  x="146"
+                  y="40"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#9ac2d8"
+                  opacity="0.9"
+                />
+                <rect
+                  x="176"
+                  y="40"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#7aaac8"
+                  opacity="0.8"
+                />
+                <rect
+                  x="206"
+                  y="40"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#9ac2d8"
+                  opacity="0.85"
+                />
+                <rect
+                  x="56"
+                  y="64"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#5888a8"
+                  opacity="0.7"
+                />
+                <rect
+                  x="86"
+                  y="64"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#9ac2d8"
+                  opacity="0.9"
+                />
+                <rect
+                  x="116"
+                  y="64"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#5888a8"
+                  opacity="0.7"
+                />
+                <rect
+                  x="146"
+                  y="64"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#9ac2d8"
+                  opacity="0.9"
+                />
+                <rect
+                  x="176"
+                  y="64"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#5888a8"
+                  opacity="0.7"
+                />
+                <rect
+                  x="206"
+                  y="64"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#9ac2d8"
+                  opacity="0.85"
+                />
+                <rect
+                  x="56"
+                  y="88"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#7aaac8"
+                  opacity="0.7"
+                />
+                <rect
+                  x="86"
+                  y="88"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#5888a8"
+                  opacity="0.7"
+                />
+                <rect
+                  x="116"
+                  y="88"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#9ac2d8"
+                  opacity="0.9"
+                />
+                <rect
+                  x="146"
+                  y="88"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#5888a8"
+                  opacity="0.7"
+                />
+                <rect
+                  x="176"
+                  y="88"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#7aaac8"
+                  opacity="0.7"
+                />
+                <rect
+                  x="206"
+                  y="88"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#9ac2d8"
+                  opacity="0.85"
+                />
+                <rect x="110" y="120" width="80" height="58" fill="#2a4868" />
+                <rect x="0" y="158" width="300" height="20" fill="#486080" />
+              </svg>
+              <div class="prop-hero-overlay"></div>
+              <div class="prop-agent">
+                <div
+                  class="prop-agent-av"
+                  style="background: linear-gradient(135deg, #f4a261, #e76f51)"
+                >
+                  J
+                </div>
+                <span class="prop-agent-name">Jenifer Lopez</span>
+              </div>
+              <div class="prop-actions">
+                <button class="btn-cmp" onclick="toggleCmp(this)">
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M2 7h7M2 10h4" />
+                    <path d="M11 6l2 2-2 2" />
+                  </svg>
+                  Compare
+                </button>
+                <button class="btn-wish" onclick="toggleWish(this)">
+                  <svg viewBox="0 0 16 16">
+                    <path
+                      d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <button class="prop-arrow prev" onclick="slide('sp1', -1)">
+                <svg viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" /></svg>
+              </button>
+              <button class="prop-arrow next" onclick="slide('sp1', 1)">
+                <svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" /></svg>
+              </button>
+              <div class="prop-dots" style="bottom: 46px" id="sp1-dots">
+                <div class="prop-dot active"></div>
+                <div class="prop-dot"></div>
+                <div class="prop-dot"></div>
+                <div class="prop-dot"></div>
+              </div>
+              <div class="prop-info-overlay">
+                <div>
+                  <div class="prop-title">Tiny Home In Shinano Kamiminochi</div>
+                  <div class="prop-loc">
+                    <svg viewBox="0 0 12 14">
+                      <circle cx="6" cy="5.5" r="2" />
+                      <path
+                        d="M6 1C3.24 1 1 3.24 1 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5z"
+                      /></svg
+                    >Tokyo, Japan
+                  </div>
+                </div>
+                <div>
+                  <div class="prop-price">¥4.000.000</div>
+                  <div class="prop-price-sub">(monthly)</div>
+                  <div class="prop-yield">
+                    Gross Return: <strong>5,8%</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-specs">
+                <span class="spec-badge b-green">Price Drop!</span>
+                <span class="prop-spec"
+                  ><svg viewBox="0 0 16 16">
+                    <rect x="2" y="2" width="12" height="12" rx="1" />
+                    <path d="M2 6h12" /></svg
+                  >Residential</span
+                >
+                <span class="prop-spec"
+                  ><svg viewBox="0 0 16 16"><path d="M2 12V6l5-4 5 4v6" /></svg
+                  >6</span
+                >
+                <span class="prop-spec">100 m²</span>
+              </div>
+              <div class="prop-desc">
+                Discover a selection of remarkable real estate projects that
+                redefine luxury living and modern convenience. Discover a
+                selection of remark...
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 — Grid facade -->
+          <div class="prop-card" id="sp2" style="margin-bottom: 14px">
+            <div class="prop-hero" style="height: 178px">
+              <svg
+                class="prop-hero-img"
+                viewBox="0 0 300 178"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+              >
+                <rect width="300" height="178" fill="#888ea8" />
+                <rect x="0" y="0" width="300" height="90" fill="#6870a0" />
+                <rect
+                  x="8"
+                  y="10"
+                  width="284"
+                  height="168"
+                  fill="#484e68"
+                  rx="2"
+                />
+                <rect
+                  x="8"
+                  y="36"
+                  width="284"
+                  height="2.5"
+                  fill="white"
+                  opacity="0.4"
+                />
+                <rect
+                  x="8"
+                  y="66"
+                  width="284"
+                  height="2.5"
+                  fill="white"
+                  opacity="0.4"
+                />
+                <rect
+                  x="8"
+                  y="96"
+                  width="284"
+                  height="2.5"
+                  fill="white"
+                  opacity="0.4"
+                />
+                <rect
+                  x="8"
+                  y="126"
+                  width="284"
+                  height="2.5"
+                  fill="white"
+                  opacity="0.4"
+                />
+                <rect
+                  x="8"
+                  y="156"
+                  width="284"
+                  height="2.5"
+                  fill="white"
+                  opacity="0.4"
+                />
+                <rect
+                  x="65"
+                  y="10"
+                  width="2.5"
+                  height="168"
+                  fill="white"
+                  opacity="0.35"
+                />
+                <rect
+                  x="124"
+                  y="10"
+                  width="2.5"
+                  height="168"
+                  fill="white"
+                  opacity="0.35"
+                />
+                <rect
+                  x="183"
+                  y="10"
+                  width="2.5"
+                  height="168"
+                  fill="white"
+                  opacity="0.35"
+                />
+                <rect
+                  x="242"
+                  y="10"
+                  width="2.5"
+                  height="168"
+                  fill="white"
+                  opacity="0.35"
+                />
+                <line
+                  x1="8"
+                  y1="10"
+                  x2="292"
+                  y2="178"
+                  stroke="white"
+                  stroke-width="2.5"
+                  opacity="0.22"
+                />
+                <line
+                  x1="292"
+                  y1="10"
+                  x2="8"
+                  y2="178"
+                  stroke="white"
+                  stroke-width="2.5"
+                  opacity="0.22"
+                />
+                <rect
+                  x="0"
+                  y="0"
+                  width="300"
+                  height="60"
+                  fill="#7878b0"
+                  opacity="0.3"
+                />
+              </svg>
+              <div class="prop-hero-overlay"></div>
+              <div class="prop-agent">
+                <div
+                  class="prop-agent-av"
+                  style="background: linear-gradient(135deg, #f4a261, #e76f51)"
+                >
+                  J
+                </div>
+                <span class="prop-agent-name">Jenifer Lopez</span>
+              </div>
+              <div class="prop-actions">
+                <button class="btn-cmp active" onclick="toggleCmp(this)">
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M2 7h7M2 10h4" />
+                    <path d="M11 6l2 2-2 2" />
+                  </svg>
+                  Compare
+                </button>
+                <button class="btn-wish" onclick="toggleWish(this)">
+                  <svg viewBox="0 0 16 16">
+                    <path
+                      d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <button class="prop-arrow prev" onclick="slide('sp2', -1)">
+                <svg viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" /></svg>
+              </button>
+              <button class="prop-arrow next" onclick="slide('sp2', 1)">
+                <svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" /></svg>
+              </button>
+              <div class="prop-dots" style="bottom: 46px" id="sp2-dots">
+                <div class="prop-dot"></div>
+                <div class="prop-dot active"></div>
+                <div class="prop-dot"></div>
+                <div class="prop-dot"></div>
+              </div>
+              <div class="prop-info-overlay">
+                <div>
+                  <div class="prop-title">
+                    Seaside Residence In Kamakura Kanagawa
+                  </div>
+                  <div class="prop-loc">
+                    <svg viewBox="0 0 12 14">
+                      <circle cx="6" cy="5.5" r="2" />
+                      <path
+                        d="M6 1C3.24 1 1 3.24 1 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5z"
+                      /></svg
+                    >Tokyo, Japan
+                  </div>
+                </div>
+                <div>
+                  <div class="prop-price">¥4.000.000</div>
+                </div>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-specs">
+                <span class="spec-badge b-orange">New Viewing!</span>
+                <span class="prop-spec">Land</span>
+                <span class="prop-spec">150 m²</span>
+                <span class="prop-spec">First-class medium-to-high</span>
+              </div>
+              <div class="prop-desc">
+                Discover a selection of remarkable real estate projects that
+                redefine luxury living and modern convenience. Discover a
+                selection of remark...
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 — Green building -->
+          <div class="prop-card" id="sp3">
+            <div class="prop-hero" style="height: 178px">
+              <svg
+                class="prop-hero-img"
+                viewBox="0 0 300 178"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+              >
+                <rect width="300" height="178" fill="#90c0a0" />
+                <rect x="0" y="0" width="300" height="90" fill="#70a880" />
+                <rect
+                  x="24"
+                  y="32"
+                  width="252"
+                  height="146"
+                  fill="#2e6840"
+                  rx="2"
+                />
+                <rect x="24" y="32" width="252" height="10" fill="#1e5830" />
+                <rect
+                  x="42"
+                  y="50"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#58a068"
+                  opacity="0.8"
+                />
+                <rect
+                  x="72"
+                  y="50"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#78c090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="102"
+                  y="50"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#58a068"
+                  opacity="0.8"
+                />
+                <rect
+                  x="132"
+                  y="50"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#78c090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="162"
+                  y="50"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#58a068"
+                  opacity="0.8"
+                />
+                <rect
+                  x="192"
+                  y="50"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#78c090"
+                  opacity="0.85"
+                />
+                <rect
+                  x="222"
+                  y="50"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#58a068"
+                  opacity="0.8"
+                />
+                <rect
+                  x="42"
+                  y="74"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#38805a"
+                  opacity="0.7"
+                />
+                <rect
+                  x="72"
+                  y="74"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#78c090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="102"
+                  y="74"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#38805a"
+                  opacity="0.7"
+                />
+                <rect
+                  x="132"
+                  y="74"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#38805a"
+                  opacity="0.7"
+                />
+                <rect
+                  x="162"
+                  y="74"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#78c090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="192"
+                  y="74"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#38805a"
+                  opacity="0.7"
+                />
+                <rect
+                  x="222"
+                  y="74"
+                  width="20"
+                  height="14"
+                  rx="1"
+                  fill="#78c090"
+                  opacity="0.85"
+                />
+                <rect x="110" y="110" width="80" height="68" fill="#1e5830" />
+                <rect x="0" y="155" width="300" height="23" fill="#3a6048" />
+              </svg>
+              <div class="prop-hero-overlay"></div>
+              <div class="prop-agent">
+                <div
+                  class="prop-agent-av"
+                  style="background: linear-gradient(135deg, #6ee7b7, #10b981)"
+                >
+                  K
+                </div>
+                <span class="prop-agent-name">Kenji Matsumoto</span>
+              </div>
+              <div class="prop-actions">
+                <button class="btn-cmp" onclick="toggleCmp(this)">
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M2 7h7M2 10h4" />
+                    <path d="M11 6l2 2-2 2" />
+                  </svg>
+                  Compare
+                </button>
+                <button class="btn-wish liked" onclick="toggleWish(this)">
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="#EF4444"
+                    stroke="#EF4444"
+                    stroke-width="1.6"
+                  >
+                    <path
+                      d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <button class="prop-arrow prev" onclick="slide('sp3', -1)">
+                <svg viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" /></svg>
+              </button>
+              <button class="prop-arrow next" onclick="slide('sp3', 1)">
+                <svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" /></svg>
+              </button>
+              <div class="prop-dots" style="bottom: 46px" id="sp3-dots">
+                <div class="prop-dot active"></div>
+                <div class="prop-dot"></div>
+                <div class="prop-dot"></div>
+              </div>
+              <div class="prop-info-overlay">
+                <div>
+                  <div class="prop-title">Shibuya Cross Apartment</div>
+                  <div class="prop-loc">
+                    <svg viewBox="0 0 12 14">
+                      <circle cx="6" cy="5.5" r="2" />
+                      <path
+                        d="M6 1C3.24 1 1 3.24 1 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5z"
+                      /></svg
+                    >Shibuya, Tokyo
+                  </div>
+                </div>
+                <div>
+                  <div class="prop-price">¥95,000万</div>
+                  <div class="prop-yield">
+                    Gross Return: <strong>4.2%</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-specs">
+                <span class="spec-badge b-blue">New</span>
+                <span class="prop-spec">Residential</span>
+                <span class="prop-spec">80 m²</span>
+                <span class="prop-spec">2LDK</span>
+              </div>
+              <div class="prop-desc">
+                Discover a selection of remarkable real estate projects that
+                redefine luxury living and modern convenience. Discover a
+                selection of remark...
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /right stacked -->
+      </div>
+      <!-- /main-grid -->
+
+      <!-- ============================================================
+       SAVED SEARCHES — Accordion (ảnh 3, y chang)
+       ============================================================ -->
+      <div class="section-block">
+        <div class="sec-head">
+          <span class="sec-title">Saved Searches</span>
+          <a class="sec-link" href="#">View All →</a>
+        </div>
+        <div class="ss-list">
+          <!-- Item 1: Tokyo Condos — expanded -->
+          <div class="ss-item open" id="ss1">
+            <div class="ss-header" onclick="toggleSS('ss1')">
+              <div>
+                <div class="ss-title">Tokyo Condos</div>
+                <div class="ss-type">Rent</div>
+              </div>
+              <div class="ss-right">
+                <button
+                  class="ss-del"
+                  onclick="
+                    event.stopPropagation();
+                    delSS('ss1');
+                  "
+                >
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M5 4V3h4v1M3 4l.5 8h7l.5-8" />
+                  </svg>
+                </button>
+                <svg class="ss-chevron" viewBox="0 0 16 16">
+                  <path d="M4 6l4 4 4-4" />
+                </svg>
+              </div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-content">
+                <div class="ss-row">
+                  <div class="ss-row-label">Search Keywords</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Lorem ipsum
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ss-row">
+                  <div class="ss-row-label">Property Type</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Apartment
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >House
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Land
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Land
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Tower-mansion
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Tower-mansion
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ss-row">
+                  <div class="ss-row-label">Yield</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >No limit
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >10% or more
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ss-row">
+                  <div class="ss-row-label">Price</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >0 - 10M
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >10 - 50M
+                      </div>
+                    </div>
+                    <div class="ss-note">Price Range: 1M — 80M</div>
+                  </div>
+                </div>
+                <div class="ss-row">
+                  <div class="ss-row-label">Floor Plan</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >1R/1K
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >4K/4DK/4LDK
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >1DK/1LDK
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ss-row">
+                  <div class="ss-row-label">Land Area</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >0-50 m²
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >50-100 m²
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Over 500 m²
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Over 1B
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2: Collapsed -->
+          <div class="ss-item" id="ss2">
+            <div class="ss-header" onclick="toggleSS('ss2')">
+              <div>
+                <div class="ss-title">New Moment In The Summer</div>
+                <div class="ss-type">Rent</div>
+              </div>
+              <div class="ss-right">
+                <button
+                  class="ss-del"
+                  onclick="
+                    event.stopPropagation();
+                    delSS('ss2');
+                  "
+                >
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M5 4V3h4v1M3 4l.5 8h7l.5-8" />
+                  </svg>
+                </button>
+                <svg class="ss-chevron" viewBox="0 0 16 16">
+                  <path d="M4 6l4 4 4-4" />
+                </svg>
+              </div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-content">
+                <div class="ss-row">
+                  <div class="ss-row-label">Property Type</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Apartment
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Tower-mansion
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ss-row">
+                  <div class="ss-row-label">Price</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >10 - 50M
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3: Collapsed -->
+          <div class="ss-item" id="ss3">
+            <div class="ss-header" onclick="toggleSS('ss3')">
+              <div>
+                <div class="ss-title">New Moment In The Summer</div>
+                <div class="ss-type">Buy</div>
+              </div>
+              <div class="ss-right">
+                <button
+                  class="ss-del"
+                  onclick="
+                    event.stopPropagation();
+                    delSS('ss3');
+                  "
+                >
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M5 4V3h4v1M3 4l.5 8h7l.5-8" />
+                  </svg>
+                </button>
+                <svg class="ss-chevron" viewBox="0 0 16 16">
+                  <path d="M4 6l4 4 4-4" />
+                </svg>
+              </div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-content">
+                <div class="ss-row">
+                  <div class="ss-row-label">Property Type</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >House
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >Land
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ss-row">
+                  <div class="ss-row-label">Price</div>
+                  <div class="ss-row-body">
+                    <div class="ss-vals">
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >0 - 10M
+                      </div>
+                      <div class="ss-check">
+                        <svg class="ss-tick" viewBox="0 0 14 14">
+                          <path d="M2 7l4 4 6-6" /></svg
+                        >50M+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /ss-list -->
+      </div>
+      <!-- /saved searches -->
+
+      <!-- ============================================================
+       RECENTLY VIEWED — 3-col grid, same prop-card style
+       ============================================================ -->
+      <div class="section-block">
+        <div class="sec-head">
+          <span class="sec-title">Recently Viewed</span>
+          <a class="sec-link" href="#">View All →</a>
+        </div>
+        <div class="props-grid">
+          <!-- Recent 1: Blue-grey building -->
+          <div class="prop-card" id="rv1">
+            <div class="prop-hero" style="height: 190px">
+              <svg
+                class="prop-hero-img"
+                viewBox="0 0 280 190"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+              >
+                <rect width="280" height="190" fill="#b0c0d8" />
+                <rect x="0" y="0" width="280" height="96" fill="#90a0c0" />
+                <rect
+                  x="18"
+                  y="30"
+                  width="244"
+                  height="160"
+                  fill="#506080"
+                  rx="2"
+                />
+                <rect x="18" y="30" width="244" height="9" fill="#405070" />
+                <rect
+                  x="30"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#80a8c8"
+                  opacity="0.85"
+                />
+                <rect
+                  x="56"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#a0c0d8"
+                  opacity="0.9"
+                />
+                <rect
+                  x="82"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#80a8c8"
+                  opacity="0.8"
+                />
+                <rect
+                  x="108"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#a0c0d8"
+                  opacity="0.9"
+                />
+                <rect
+                  x="134"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#80a8c8"
+                  opacity="0.8"
+                />
+                <rect
+                  x="160"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#a0c0d8"
+                  opacity="0.85"
+                />
+                <rect
+                  x="186"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#80a8c8"
+                  opacity="0.8"
+                />
+                <rect
+                  x="212"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#a0c0d8"
+                  opacity="0.85"
+                />
+                <rect
+                  x="30"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#608098"
+                  opacity="0.7"
+                />
+                <rect
+                  x="56"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#a0c0d8"
+                  opacity="0.9"
+                />
+                <rect
+                  x="82"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#608098"
+                  opacity="0.7"
+                />
+                <rect
+                  x="108"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#608098"
+                  opacity="0.7"
+                />
+                <rect
+                  x="134"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#a0c0d8"
+                  opacity="0.9"
+                />
+                <rect
+                  x="160"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#608098"
+                  opacity="0.7"
+                />
+                <rect
+                  x="186"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#a0c0d8"
+                  opacity="0.85"
+                />
+                <rect
+                  x="212"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#608098"
+                  opacity="0.7"
+                />
+                <rect x="90" y="108" width="100" height="82" fill="#3a5068" />
+                <rect x="0" y="170" width="280" height="20" fill="#506080" />
+              </svg>
+              <div class="prop-hero-overlay"></div>
+              <div class="prop-agent">
+                <div
+                  class="prop-agent-av"
+                  style="background: linear-gradient(135deg, #f4a261, #e76f51)"
+                >
+                  J
+                </div>
+                <span class="prop-agent-name">Jenifer Lopez</span>
+              </div>
+              <div class="prop-actions">
+                <button class="btn-cmp" onclick="toggleCmp(this)">
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M2 7h7M2 10h4" />
+                    <path d="M11 6l2 2-2 2" />
+                  </svg>
+                  Compare
+                </button>
+                <button class="btn-wish" onclick="toggleWish(this)">
+                  <svg viewBox="0 0 16 16">
+                    <path
+                      d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <button class="prop-arrow prev" onclick="slide('rv1', -1)">
+                <svg viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" /></svg>
+              </button>
+              <button class="prop-arrow next" onclick="slide('rv1', 1)">
+                <svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" /></svg>
+              </button>
+              <div class="prop-dots" style="bottom: 46px" id="rv1-dots">
+                <div class="prop-dot active"></div>
+                <div class="prop-dot"></div>
+                <div class="prop-dot"></div>
+              </div>
+              <div class="prop-info-overlay">
+                <div>
+                  <div class="prop-title">Apt Nakameguro</div>
+                  <div class="prop-loc">
+                    <svg viewBox="0 0 12 14">
+                      <circle cx="6" cy="5.5" r="2" />
+                      <path
+                        d="M6 1C3.24 1 1 3.24 1 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5z"
+                      /></svg
+                    >Meguro, Tokyo
+                  </div>
+                </div>
+                <div><div class="prop-price">¥62,000万</div></div>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-specs">
+                <span class="prop-spec">Residential</span
+                ><span class="prop-spec">75 m²</span
+                ><span class="prop-spec">2LDK</span>
+              </div>
+              <div class="prop-desc">
+                Discover a selection of remarkable real estate projects that
+                redefine luxury living and modern convenience...
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent 2: Warm amber building -->
+          <div class="prop-card" id="rv2">
+            <div class="prop-hero" style="height: 190px">
+              <svg
+                class="prop-hero-img"
+                viewBox="0 0 280 190"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+              >
+                <rect width="280" height="190" fill="#e8d8b0" />
+                <rect x="0" y="0" width="280" height="96" fill="#c8b880" />
+                <rect
+                  x="18"
+                  y="30"
+                  width="244"
+                  height="160"
+                  fill="#8a6830"
+                  rx="2"
+                />
+                <rect x="18" y="30" width="244" height="9" fill="#7a5820" />
+                <rect
+                  x="30"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="56"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.7"
+                />
+                <rect
+                  x="82"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="108"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.7"
+                />
+                <rect
+                  x="134"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="160"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.7"
+                />
+                <rect
+                  x="186"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="212"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.7"
+                />
+                <rect
+                  x="30"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#c89850"
+                  opacity="0.7"
+                />
+                <rect
+                  x="56"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="82"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#c89850"
+                  opacity="0.7"
+                />
+                <rect
+                  x="108"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#c89850"
+                  opacity="0.7"
+                />
+                <rect
+                  x="134"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#e8d090"
+                  opacity="0.9"
+                />
+                <rect
+                  x="160"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#c89850"
+                  opacity="0.7"
+                />
+                <rect x="90" y="108" width="100" height="82" fill="#6a4818" />
+                <rect x="0" y="170" width="280" height="20" fill="#7a5820" />
+              </svg>
+              <div class="prop-hero-overlay"></div>
+              <div class="prop-agent">
+                <div
+                  class="prop-agent-av"
+                  style="background: linear-gradient(135deg, #a78bfa, #7c3aed)"
+                >
+                  Y
+                </div>
+                <span class="prop-agent-name">Yumiko Sato</span>
+              </div>
+              <div class="prop-actions">
+                <button class="btn-cmp" onclick="toggleCmp(this)">
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M2 7h7M2 10h4" />
+                    <path d="M11 6l2 2-2 2" />
+                  </svg>
+                  Compare
+                </button>
+                <button class="btn-wish" onclick="toggleWish(this)">
+                  <svg viewBox="0 0 16 16">
+                    <path
+                      d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <button class="prop-arrow prev" onclick="slide('rv2', -1)">
+                <svg viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" /></svg>
+              </button>
+              <button class="prop-arrow next" onclick="slide('rv2', 1)">
+                <svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" /></svg>
+              </button>
+              <div class="prop-dots" style="bottom: 46px" id="rv2-dots">
+                <div class="prop-dot active"></div>
+                <div class="prop-dot"></div>
+              </div>
+              <div class="prop-info-overlay">
+                <div>
+                  <div class="prop-title">Omotesando Hills</div>
+                  <div class="prop-loc">
+                    <svg viewBox="0 0 12 14">
+                      <circle cx="6" cy="5.5" r="2" />
+                      <path
+                        d="M6 1C3.24 1 1 3.24 1 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5z"
+                      /></svg
+                    >Harajuku, Tokyo
+                  </div>
+                </div>
+                <div><div class="prop-price">¥1.5億</div></div>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-specs">
+                <span class="prop-spec">Penthouse</span
+                ><span class="prop-spec">210 m²</span
+                ><span class="prop-spec">4LDK</span>
+              </div>
+              <div class="prop-desc">
+                Discover a selection of remarkable real estate projects that
+                redefine luxury living and modern convenience...
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent 3: Teal building -->
+          <div class="prop-card" id="rv3">
+            <div class="prop-hero" style="height: 190px">
+              <svg
+                class="prop-hero-img"
+                viewBox="0 0 280 190"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+              >
+                <rect width="280" height="190" fill="#b0d8d8" />
+                <rect x="0" y="0" width="280" height="96" fill="#80b8b8" />
+                <rect
+                  x="18"
+                  y="30"
+                  width="244"
+                  height="160"
+                  fill="#2e7878"
+                  rx="2"
+                />
+                <rect x="18" y="30" width="244" height="9" fill="#1e6868" />
+                <rect
+                  x="30"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#58a8b0"
+                  opacity="0.85"
+                />
+                <rect
+                  x="56"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#78c8d0"
+                  opacity="0.9"
+                />
+                <rect
+                  x="82"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#58a8b0"
+                  opacity="0.8"
+                />
+                <rect
+                  x="108"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#78c8d0"
+                  opacity="0.9"
+                />
+                <rect
+                  x="134"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#58a8b0"
+                  opacity="0.8"
+                />
+                <rect
+                  x="160"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#78c8d0"
+                  opacity="0.85"
+                />
+                <rect
+                  x="186"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#58a8b0"
+                  opacity="0.8"
+                />
+                <rect
+                  x="212"
+                  y="46"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#78c8d0"
+                  opacity="0.85"
+                />
+                <rect
+                  x="30"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#389898"
+                  opacity="0.7"
+                />
+                <rect
+                  x="56"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#78c8d0"
+                  opacity="0.9"
+                />
+                <rect
+                  x="82"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#389898"
+                  opacity="0.7"
+                />
+                <rect
+                  x="108"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#389898"
+                  opacity="0.7"
+                />
+                <rect
+                  x="134"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#78c8d0"
+                  opacity="0.9"
+                />
+                <rect
+                  x="160"
+                  y="66"
+                  width="18"
+                  height="12"
+                  rx="1"
+                  fill="#389898"
+                  opacity="0.7"
+                />
+                <rect x="90" y="108" width="100" height="82" fill="#1e5858" />
+                <rect x="0" y="170" width="280" height="20" fill="#2e7878" />
+              </svg>
+              <div class="prop-hero-overlay"></div>
+              <div class="prop-agent">
+                <div
+                  class="prop-agent-av"
+                  style="background: linear-gradient(135deg, #6ee7b7, #10b981)"
+                >
+                  K
+                </div>
+                <span class="prop-agent-name">Kenji Matsumoto</span>
+              </div>
+              <div class="prop-actions">
+                <button class="btn-cmp" onclick="toggleCmp(this)">
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M2 7h7M2 10h4" />
+                    <path d="M11 6l2 2-2 2" />
+                  </svg>
+                  Compare
+                </button>
+                <button class="btn-wish" onclick="toggleWish(this)">
+                  <svg viewBox="0 0 16 16">
+                    <path
+                      d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <button class="prop-arrow prev" onclick="slide('rv3', -1)">
+                <svg viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" /></svg>
+              </button>
+              <button class="prop-arrow next" onclick="slide('rv3', 1)">
+                <svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" /></svg>
+              </button>
+              <div class="prop-dots" style="bottom: 46px" id="rv3-dots">
+                <div class="prop-dot active"></div>
+                <div class="prop-dot"></div>
+                <div class="prop-dot"></div>
+              </div>
+              <div class="prop-info-overlay">
+                <div>
+                  <div class="prop-title">Villa Daikanyama</div>
+                  <div class="prop-loc">
+                    <svg viewBox="0 0 12 14">
+                      <circle cx="6" cy="5.5" r="2" />
+                      <path
+                        d="M6 1C3.24 1 1 3.24 1 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5z"
+                      /></svg
+                    >Daikanyama, Tokyo
+                  </div>
+                </div>
+                <div>
+                  <div class="prop-price">¥88,000万</div>
+                  <div class="prop-yield">
+                    Gross Return: <strong>3.9%</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-specs">
+                <span class="prop-spec">Luxury Villa</span
+                ><span class="prop-spec">320 m²</span
+                ><span class="prop-spec">5LDK</span>
+              </div>
+              <div class="prop-desc">
+                Discover a selection of remarkable real estate projects that
+                redefine luxury living and modern convenience...
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /props-grid -->
+      </div>
+      <!-- /recently viewed -->
+    </div>
+    <!-- /page -->
+
+    <div class="toast-wrap" id="toastWrap"></div>
 
     <script>
-      // ────────────────────────────────────────────────
-      //  State & Config
-      // ────────────────────────────────────────────────
-      const AppState = {
-        flow: null, // 'passwordReset', 'phoneRecovery', 'securityQuestion'
-        otpContext: null, // 'email', 'phone'
-        email: "",
-        phone: "",
-        foundEmail: "nguyenquynhnhi****@gmail.com", // simulated from backend
-        otpCooldownUntil: 0,
-      };
+      /* ---- LAYOUT: Messages 2/3 + Profile 1/3, Saved Properties below ---- */
+      setupDashboardLayout();
 
-      const LIMITS = {
-        phoneOTP: { max: 2, key: "phoneOTP_attempts" },
-        securityQuestion: { max: 3, key: "security_attempts" },
-      };
+      function setupDashboardLayout() {
+        const mainGrid = document.querySelector(".main-grid");
+        const profileBar = document.querySelector(".profile-bar");
+        if (!mainGrid || !profileBar || mainGrid.children.length < 2) return;
 
-      const OTP_CORRECT = "123456"; // ← demo only – never do this in production
-      const RESEND_COOLDOWN = 60; // seconds
+        const savedCol = mainGrid.children[1];
 
-      // Security Question Answers (demo only – in production, hash and store securely)
-      const SECURITY_ANSWERS = {
-        q1: "tommy", // childhood best friend
-        q2: "johnson", // neighbour's last name
-        q3: "hanoi", // city parents met
-        q4: "danang beach", // summer vacation place
-        q5: "nguyen", // grandmother's maiden name
-        q6: "beatles", // first concert artist
-        q7: "teddy bear", // favourite stuffed animal
-        q8: "smith", // first boss last name
-        q9: "kumon", // cram school name
-        q10: "saint mary hospital", // hospital where born
-      };
+        const rightCol = document.createElement("div");
+        rightCol.innerHTML = `
+          <div class="sec-head">
+            <span class="sec-title">Profile</span>
+            <a class="sec-link" href="#">Manage Account →</a>
+          </div>
+        `;
 
-      // ────────────────────────────────────────────────
-      //  Helpers
-      // ────────────────────────────────────────────────
-      function navigateTo(id) {
-        document
-          .querySelectorAll(".container > div")
-          .forEach((el) => el.classList.add("hidden"));
-        document.getElementById(id).classList.remove("hidden");
-        closeOTP();
-      }
+        profileBar.classList.add("profile-bar-side");
+        rightCol.appendChild(profileBar);
+        mainGrid.replaceChild(rightCol, savedCol);
 
-      function getToday() {
-        return new Date().toISOString().split("T")[0];
-      }
+        const savedSection = document.createElement("div");
+        savedSection.className = "section-block";
+        savedSection.innerHTML = `
+          <div class="sec-head">
+            <span class="sec-title">Saved Properties</span>
+            <a class="sec-link" href="#">View All →</a>
+          </div>
+        `;
 
-      function canAttempt(type) {
-        const data = JSON.parse(localStorage.getItem(LIMITS[type].key) || "{}");
-        if (data.date !== getToday()) return true;
-        return (data.count || 0) < LIMITS[type].max;
-      }
+        const savedGrid = document.createElement("div");
+        savedGrid.className = "props-grid";
 
-      function recordAttempt(type) {
-        const key = LIMITS[type].key;
-        let data = JSON.parse(localStorage.getItem(key) || "{}");
-        if (data.date !== getToday()) {
-          data = { date: getToday(), count: 0 };
-        }
-        data.count = (data.count || 0) + 1;
-        localStorage.setItem(key, JSON.stringify(data));
-      }
+        savedCol.querySelectorAll(".prop-card").forEach((card) => {
+          card.style.marginBottom = "";
 
-      function setLoading(btnId, isLoading) {
-        const btn = document.getElementById(btnId);
-        if (!btn) return;
-        btn.disabled = isLoading;
-        btn.textContent = isLoading
-          ? "Processing..."
-          : btn.dataset.originalText || "Button";
-      }
-
-      function startOtpCooldown() {
-        const link = document.getElementById("resendLink");
-        const countEl = document.getElementById("resendCountdown");
-        let time = RESEND_COOLDOWN;
-
-        link.classList.add("hidden");
-        countEl.classList.remove("hidden");
-        countEl.textContent = `(${time}s)`;
-
-        const timer = setInterval(() => {
-          time--;
-          countEl.textContent = `(${time}s)`;
-          if (time <= 0) {
-            clearInterval(timer);
-            link.classList.remove("hidden");
-            countEl.classList.add("hidden");
+          const wishBtn = card.querySelector(".btn-wish");
+          if (wishBtn) {
+            wishBtn.classList.add("liked");
+            const icon = wishBtn.querySelector("svg");
+            if (icon) {
+              icon.setAttribute("fill", "#EF4444");
+              icon.setAttribute("stroke", "#EF4444");
+            }
           }
-        }, 1000);
 
-        AppState.otpCooldownUntil = Date.now() + time * 1000;
-      }
-
-      // ────────────────────────────────────────────────
-      //  OTP Handling
-      // ────────────────────────────────────────────────
-      function setupOtpInputs() {
-        const inputs = document.querySelectorAll(".otp-box input");
-        inputs.forEach((input, idx) => {
-          input.addEventListener("paste", (e) => {
-            e.preventDefault();
-            const paste = (e.clipboardData || window.clipboardData)
-              .getData("text")
-              .trim();
-            if (/^\d{6}$/.test(paste)) {
-              paste.split("").forEach((char, i) => {
-                if (inputs[i]) inputs[i].value = char;
-              });
-              inputs[5].focus();
-            }
-          });
-
-          input.addEventListener("input", () => {
-            if (input.value.length === 1 && idx < 5) {
-              inputs[idx + 1].focus();
-            }
-          });
-
-          input.addEventListener("keydown", (e) => {
-            if (e.key === "Backspace" && input.value === "" && idx > 0) {
-              inputs[idx - 1].focus();
-            }
-          });
+          savedGrid.appendChild(card);
         });
+
+        savedSection.appendChild(savedGrid);
+        mainGrid.insertAdjacentElement("afterend", savedSection);
       }
 
-      function openOTP(message) {
-        document.getElementById("otpMessage").textContent = message;
-        document
-          .querySelectorAll(".otp-box input")
-          .forEach((el) => (el.value = ""));
-        document.getElementById("otpModal").classList.remove("hidden");
-        document.getElementById("otp1").focus();
-        startOtpCooldown();
-      }
-
-      function closeOTP() {
-        document.getElementById("otpModal").classList.add("hidden");
-      }
-
-      function verifyOTP() {
-        const otp = Array.from(document.querySelectorAll(".otp-box input"))
-          .map((el) => el.value)
-          .join("");
-
-        if (otp.length !== 6) {
-          alert("Please enter the full 6-digit code");
-          return;
+      /* ---- USER DROPDOWN ---- */
+      const ut = document.getElementById("userTrigger");
+      const ud = document.getElementById("userDropdown");
+      ut.addEventListener("click", () => {
+        const o = ud.classList.contains("open");
+        ud.classList.toggle("open", !o);
+        ut.classList.toggle("open", !o);
+      });
+      document.addEventListener("click", (e) => {
+        if (!document.getElementById("userMenu").contains(e.target)) {
+          ud.classList.remove("open");
+          ut.classList.remove("open");
         }
+      });
 
-        setLoading("btnVerifyOTP", true);
-
-        // Simulate network delay
-        setTimeout(() => {
-          setLoading("btnVerifyOTP", false);
-
-          if (otp !== OTP_CORRECT) {
-            alert("Incorrect OTP. Please try again.");
-            return;
-          }
-
-          closeOTP();
-
-          if (
-            AppState.flow === "passwordReset" &&
-            AppState.otpContext === "email"
-          ) {
-            navigateTo("resetPage");
-          } else if (
-            AppState.flow === "phoneRecovery" &&
-            AppState.otpContext === "phone"
-          ) {
-            document.getElementById("displayEmail").textContent =
-              AppState.foundEmail;
-            navigateTo("emailFound");
-          } else if (
-            AppState.otpContext === "email" &&
-            AppState.flow === "phoneRecovery"
-          ) {
-            navigateTo("resetPage");
-          }
-        }, 800);
-      }
-
-      // ────────────────────────────────────────────────
-      //  Flow Actions
-      // ────────────────────────────────────────────────
-      function startPasswordReset() {
-        const email = document.getElementById("emailInput").value.trim();
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          alert("Please enter a valid email address");
-          return;
-        }
-
-        AppState.flow = "passwordReset";
-        AppState.otpContext = "email";
-        AppState.email = email;
-
-        openOTP(`We sent a code to ${email.replace(/(.{3}).+@/, "$1***@")}`);
-      }
-
-      function startPhoneRecovery() {
-        if (!canAttempt("phoneOTP")) {
-          alert(
-            "You have reached the maximum number of attempts today. Please try again tomorrow.",
-          );
-          return;
-        }
-
-        const phone = document.getElementById("phoneInput").value.trim();
-        if (!phone || phone.length < 9) {
-          alert("Please enter a valid phone number");
-          return;
-        }
-
-        AppState.flow = "phoneRecovery";
-        AppState.otpContext = "phone";
-        AppState.phone = phone;
-
-        recordAttempt("phoneOTP");
-        openOTP(
-          `We sent a code to ${phone.slice(-4).padStart(phone.length, "*")}`,
-        );
-      }
-
-      function verifySecurityQuestion() {
-        if (!canAttempt("securityQuestion")) {
-          alert(
-            "You have reached the maximum number of attempts today. Please try again tomorrow.",
-          );
-          return;
-        }
-
-        const question = document.getElementById(
-          "securityQuestionSelect",
-        ).value;
-        const answer = document.getElementById("securityAnswer").value.trim();
-
-        if (!question) {
-          alert("Please select a security question");
-          return;
-        }
-
-        if (!answer) {
-          alert("Please enter your answer");
-          return;
-        }
-
-        recordAttempt("securityQuestion");
-
-        // Hide previous error
-        document
-          .getElementById("securityQuestionError")
-          .classList.add("hidden");
-
-        // Verify answer (case-insensitive comparison)
-        const correctAnswer = SECURITY_ANSWERS[question];
-        const isCorrect = answer.toLowerCase().trim() === correctAnswer;
-
-        if (!isCorrect) {
+      /* ---- MESSAGES: click to mark read ---- */
+      document.querySelectorAll(".convo-item").forEach((item) => {
+        item.addEventListener("click", () => {
           document
-            .getElementById("securityQuestionError")
-            .classList.remove("hidden");
-          return;
-        }
-
-        // Success - show email
-        document.getElementById("displayEmail").textContent =
-          AppState.foundEmail;
-        navigateTo("emailFound");
-      }
-
-      function startPasswordResetFromEmailFound() {
-        AppState.otpContext = "email";
-        openOTP(`Verification code sent to your registered email`);
-      }
-
-      function submitPasswordReset() {
-        const p1 = document.getElementById("newPassword").value;
-        const p2 = document.getElementById("confirmPassword").value;
-
-        if (!p1 || !p2) {
-          alert("Please fill in both password fields");
-          return;
-        }
-
-        if (p1 !== p2) {
-          alert("Passwords do not match");
-          return;
-        }
-
-        if (p1.length < 8 || !/[A-Za-z]/.test(p1) || !/\d/.test(p1)) {
-          document.getElementById("pwdWarning").classList.remove("hidden");
-          return;
-        }
-
-        document.getElementById("pwdWarning").classList.add("hidden");
-        setLoading("btnResetSubmit", true);
-
-        setTimeout(() => {
-          navigateTo("resetSuccess");
-          AppState.flow = null; // reset
-        }, 1200);
-      }
-
-      function submitD16Request() {
-        const name = document.getElementById("d16FullName").value.trim();
-        const phone = document.getElementById("d16Phone").value.trim();
-        const reason = document.getElementById("d16Reason").value.trim();
-        const file = document.getElementById("d16Document").files[0];
-
-        if (!name || !phone || !reason || !file) {
-          alert("Please complete all fields and upload an ID document");
-          return;
-        }
-
-        setLoading("btnD16Submit", true);
-
-        setTimeout(() => {
-          navigateTo("d16Success");
-        }, 1400);
-      }
-
-      function resendOTP() {
-        if (Date.now() < AppState.otpCooldownUntil) return;
-
-        alert("A new OTP has been sent");
-        startOtpCooldown();
-
-        // In real app → call same send OTP endpoint again
-      }
-
-      // Init
-      document.addEventListener("DOMContentLoaded", () => {
-        setupOtpInputs();
-
-        // Store original button texts
-        document.querySelectorAll("button").forEach((btn) => {
-          btn.dataset.originalText = btn.textContent.trim();
+            .querySelectorAll(".convo-item")
+            .forEach((i) => i.classList.remove("selected"));
+          item.classList.add("selected");
+          if (item.classList.contains("unread")) {
+            item.classList.remove("unread");
+            const b = item.querySelector(".unread-count");
+            if (b) {
+              b.style.transition = "opacity 0.3s";
+              b.style.opacity = "0";
+              setTimeout(() => b.remove(), 300);
+            }
+            toast("Marked as read");
+          }
         });
       });
+
+      /* ---- SLIDER DOTS ---- */
+      const pos = {};
+      function slide(id, dir) {
+        const dots = document.querySelectorAll("#" + id + "-dots .prop-dot");
+        if (!dots.length) return;
+        if (pos[id] == null) pos[id] = 0;
+        pos[id] = (pos[id] + dir + dots.length) % dots.length;
+        dots.forEach((d, i) => d.classList.toggle("active", i === pos[id]));
+      }
+
+      /* ---- COMPARE ---- */
+      function toggleCmp(btn) {
+        const a = btn.classList.contains("active");
+        btn.classList.toggle("active", !a);
+        toast(a ? "Removed from comparison" : "Added to comparison list");
+      }
+
+      /* ---- WISHLIST ---- */
+      function toggleWish(btn) {
+        const liked = btn.classList.contains("liked");
+        btn.classList.toggle("liked", !liked);
+        const svg = btn.querySelector("svg");
+        if (!liked) {
+          svg.setAttribute("fill", "#EF4444");
+          svg.setAttribute("stroke", "#EF4444");
+          toast("Added to favorites ♥");
+        } else {
+          svg.setAttribute("fill", "none");
+          svg.setAttribute("stroke", "#374151");
+          toast("Removed from favorites");
+        }
+      }
+
+      /* ---- SAVED SEARCH ACCORDION ---- */
+      function toggleSS(id) {
+        document.getElementById(id).classList.toggle("open");
+      }
+      function delSS(id) {
+        const el = document.getElementById(id);
+        el.style.transition = "opacity 0.25s, max-height 0.3s";
+        el.style.opacity = "0";
+        el.style.maxHeight = "0";
+        el.style.overflow = "hidden";
+        setTimeout(() => el.remove(), 300);
+        toast("Search filter removed");
+      }
+
+      /* ---- TOAST ---- */
+      function toast(msg) {
+        const w = document.getElementById("toastWrap");
+        const t = document.createElement("div");
+        t.className = "toast";
+        t.textContent = msg;
+        w.appendChild(t);
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => t.classList.add("show")),
+        );
+        setTimeout(() => {
+          t.classList.remove("show");
+          setTimeout(() => t.remove(), 250);
+        }, 2500);
+      }
     </script>
   </body>
 </html>

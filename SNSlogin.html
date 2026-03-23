@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YUUSHI – SNS Login Flow</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              gold: {
+                DEFAULT: "#A99260",
+                light: "#C4AE7F",
+                dark: "#8A7648",
+                muted: "#F5F0E8",
+              },
+            },
+            fontFamily: {
+              display: ["Cormorant Garamond", "serif"],
+              body: ["DM Sans", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background-color: #f5f2ec;
+      }
+
+      /* State transitions */
+      .screen {
+        display: none;
+      }
+      .screen.active {
+        display: block;
+      }
+
+      /* Fade-in animation */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-up {
+        animation: fadeUp 0.45s cubic-bezier(0.22, 0.68, 0, 1.2) forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.3s ease forwards;
+      }
+
+      /* Spinner */
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid rgba(169, 146, 96, 0.25);
+        border-top-color: #a99260;
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+      }
+
+      /* Checkmark animation */
+      @keyframes checkDraw {
+        from {
+          stroke-dashoffset: 48;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      .check-path {
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: checkDraw 0.5s ease 0.2s forwards;
+      }
+
+      /* Inputs */
+      .yuushi-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1.5px solid #e0dad0;
+        border-radius: 8px;
+        background: #fdfcfa;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        color: #3a3530;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .yuushi-input:focus {
+        border-color: #a99260;
+        box-shadow: 0 0 0 3px rgba(169, 146, 96, 0.12);
+      }
+      .yuushi-input.error {
+        border-color: #c0392b;
+      }
+
+      /* Primary button */
+      .btn-primary {
+        width: 100%;
+        padding: 14px;
+        background: #a99260;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.1s,
+          opacity 0.2s;
+      }
+      .btn-primary:hover:not(:disabled) {
+        background: #8a7648;
+      }
+      .btn-primary:active:not(:disabled) {
+        transform: scale(0.99);
+      }
+      .btn-primary:disabled {
+        background: #d4cab8;
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
+      /* Social buttons */
+      .btn-social {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 13px 16px;
+        border: 1.5px solid #e0dad0;
+        border-radius: 8px;
+        background: #fdfcfa;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        color: #3a3530;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          background 0.2s,
+          box-shadow 0.2s;
+      }
+      .btn-social:hover {
+        border-color: #a99260;
+        background: white;
+        box-shadow: 0 2px 12px rgba(169, 146, 96, 0.12);
+      }
+
+      /* Navbar */
+      .nav-bar {
+        background: #f5f2ec;
+        border-bottom: 1px solid #e8e2d8;
+        padding: 0 32px;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      /* Logo */
+      .logo-text {
+        font-family: "DM Sans", sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        color: #3a3530;
+      }
+
+      /* Divider */
+      .or-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #b5ada0;
+        font-size: 13px;
+      }
+      .or-divider::before,
+      .or-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #e0dad0;
+      }
+
+      /* Google modal overlay */
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(30, 25, 18, 0.55);
+        backdrop-filter: blur(3px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
+      .google-modal {
+        background: white;
+        border-radius: 16px;
+        width: 400px;
+        max-width: 90vw;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+        overflow: hidden;
+      }
+
+      /* Google account card */
+      .account-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 20px;
+        cursor: pointer;
+        transition: background 0.15s;
+        border-radius: 8px;
+      }
+      .account-card:hover {
+        background: #f8f5f0;
+      }
+
+      /* Read-only profile card */
+      .profile-card {
+        background: #fdfcfa;
+        border: 1.5px solid #e0dad0;
+        border-radius: 12px;
+        padding: 18px 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .avatar-circle {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #c4ae7f, #a99260);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20px;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+
+      /* Custom checkbox */
+      .custom-cb {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .custom-cb input[type="checkbox"] {
+        display: none;
+      }
+      .cb-box {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+        border: 1.5px solid #c4ae7f;
+        border-radius: 4px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+        position: relative;
+      }
+      .cb-box.checked {
+        background: #a99260;
+        border-color: #a99260;
+      }
+      .cb-box svg {
+        display: none;
+      }
+      .cb-box.checked svg {
+        display: block;
+      }
+
+      /* Success screen */
+      @keyframes scaleIn {
+        from {
+          transform: scale(0.7);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .success-icon {
+        animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .redirect-dots {
+        animation: blink 1.2s ease infinite;
+      }
+
+      /* Topbar links */
+      .nav-link {
+        font-size: 14px;
+        color: #6b6358;
+        transition: color 0.15s;
+      }
+      .nav-link:hover {
+        color: #a99260;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SHARED NAV -->
+    <nav class="nav-bar">
+      <div class="flex items-center gap-3">
+        <!-- Logo icon SVG -->
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <ellipse
+            cx="16"
+            cy="16"
+            rx="14"
+            ry="14"
+            stroke="#3A3530"
+            stroke-width="1.5"
+            fill="none"
+          />
+          <ellipse
+            cx="16"
+            cy="16"
+            rx="8"
+            ry="8"
+            stroke="#A99260"
+            stroke-width="1"
+            fill="none"
+          />
+          <ellipse cx="16" cy="16" rx="3" ry="3" fill="#3A3530" />
+          <path
+            d="M16 2 C16 2 20 8 16 16 C12 8 16 2 16 2Z"
+            fill="#A99260"
+            opacity="0.4"
+          />
+        </svg>
+        <span class="logo-text">YUUSHI</span>
+      </div>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Buy</a>
+        <a href="#" class="nav-link">To Rent</a>
+        <a href="#" class="nav-link">For Sale</a>
+        <a href="#" class="nav-link">Insights</a>
+        <a href="#" class="nav-link">Mortgage Calculator</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button
+          class="btn-social"
+          style="width: auto; padding: 8px 18px; font-size: 13px"
+        >
+          I'm an agent
+        </button>
+        <button
+          class="btn-primary"
+          style="width: auto; padding: 9px 20px; font-size: 13px"
+        >
+          Login
+        </button>
+      </div>
+    </nav>
+
+    <!-- STATE 1: REGISTER SCREEN -->
+    <div id="screen-1" class="screen active">
+      <div
+        class="min-h-screen flex items-start justify-center pt-10 pb-20 px-4"
+      >
+        <div class="w-full max-w-[500px] fade-up">
+          <!-- Heading -->
+          <div class="mb-8">
+            <h1
+              class="font-display text-4xl font-semibold text-[#3A3530] mb-2 flex items-center gap-2"
+            >
+              Create an Account <span>👋</span>
+            </h1>
+            <p class="text-[#A99260] text-sm">
+              Kindly fill in your details to create an account
+            </p>
+          </div>
+
+          <!-- Form fields -->
+          <div class="space-y-5">
+            <div>
+              <label class="block text-sm text-[#3A3530] mb-1.5"
+                >Your full name <span class="text-red-500">*</span></label
+              >
+              <input
+                class="yuushi-input error"
+                type="text"
+                placeholder="Enter your name"
+              />
+              <p class="text-red-500 text-xs mt-1.5">
+                Please fill in all required fields marked with an asterisk (*)
+                to proceed.
+              </p>
+            </div>
+            <div>
+              <label class="block text-sm text-[#3A3530] mb-1.5"
+                >Email address <span class="text-red-500">*</span></label
+              >
+              <input class="yuushi-input" type="email" value="Suzy@gmail.com" />
+            </div>
+            <div>
+              <label class="block text-sm text-[#3A3530] mb-1.5"
+                >Password <span class="text-red-500">*</span></label
+              >
+              <div class="relative">
+                <input
+                  class="yuushi-input"
+                  type="password"
+                  value="••••••••••"
+                  style="padding-right: 44px"
+                />
+                <span
+                  class="absolute right-4 top-1/2 -translate-y-1/2 text-[#B5ADA0] cursor-pointer text-lg"
+                  >👁</span
+                >
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm text-[#3A3530] mb-1.5"
+                >Confirm Password <span class="text-red-500">*</span></label
+              >
+              <div class="relative">
+                <input
+                  class="yuushi-input"
+                  type="password"
+                  value="••••••••••"
+                  style="padding-right: 44px"
+                />
+                <span
+                  class="absolute right-4 top-1/2 -translate-y-1/2 text-[#B5ADA0] cursor-pointer text-lg"
+                  >👁</span
+                >
+              </div>
+            </div>
+
+            <!-- Checkbox -->
+            <label class="custom-cb" onclick="toggleCb(this)">
+              <input type="checkbox" />
+              <div class="cb-box" id="cb-register">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                  <path
+                    d="M1 4L3.8 7L9 1"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <span class="text-sm text-[#6B6358] leading-relaxed">
+                I have read and agree to the
+                <a
+                  href="#"
+                  class="text-[#A99260] underline underline-offset-2"
+                  onclick="event.stopPropagation()"
+                  >Terms of Use</a
+                >
+                and
+                <a
+                  href="#"
+                  class="text-[#A99260] underline underline-offset-2"
+                  onclick="event.stopPropagation()"
+                  >Privacy Policy</a
+                >.
+              </span>
+            </label>
+
+            <button class="btn-primary mt-2">Register Account</button>
+
+            <!-- OR divider -->
+            <div class="or-divider py-1">Or</div>
+
+            <!-- Social buttons -->
+            <div class="grid grid-cols-2 gap-3">
+              <!-- Google -->
+              <button class="btn-social" onclick="goToState2()">
+                <svg width="18" height="18" viewBox="0 0 18 18">
+                  <path
+                    d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"
+                    fill="#4285F4"
+                  />
+                  <path
+                    d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"
+                    fill="#34A853"
+                  />
+                  <path
+                    d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"
+                    fill="#FBBC05"
+                  />
+                  <path
+                    d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"
+                    fill="#EA4335"
+                  />
+                </svg>
+                Continue with Google
+              </button>
+
+              <!-- Apple -->
+              <button class="btn-social">
+                <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
+                  <path
+                    d="M13.29 9.56c-.02-2.38 1.94-3.52 2.03-3.57-1.1-1.61-2.82-1.83-3.43-1.86-1.46-.15-2.85.87-3.59.87-.74 0-1.89-.85-3.11-.82C3.51 4.21 1.94 5.18 1.07 6.71c-1.75 3.04-.45 7.55 1.27 10.02.84 1.21 1.84 2.57 3.15 2.52 1.27-.05 1.75-.82 3.28-.82 1.54 0 1.98.82 3.31.79 1.36-.02 2.23-1.23 3.07-2.45.97-1.41 1.37-2.77 1.39-2.84-.03-.01-2.67-1.03-2.69-4.08l-.06.01z"
+                    fill="#1A1A1A"
+                  />
+                  <path
+                    d="M10.93 2.52c.7-.85 1.18-2.04 1.05-3.22-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.03 1.11.09 2.22-.56 2.89-1.31z"
+                    fill="#1A1A1A"
+                  />
+                </svg>
+                Continue with Apple
+              </button>
+
+              <!-- Weibo -->
+              <button class="btn-social">
+                <svg width="20" height="18" viewBox="0 0 20 18" fill="none">
+                  <path
+                    d="M8.8 16.2c-3.7.4-6.9-1.5-7.2-4.2-.3-2.7 2.5-5.2 6.2-5.6 3.7-.4 6.9 1.5 7.2 4.2.3 2.7-2.5 5.2-6.2 5.6z"
+                    fill="#E6162D"
+                  />
+                  <path
+                    d="M8.6 14.8c-2.5.3-4.7-1-4.9-2.8-.2-1.8 1.7-3.5 4.2-3.8 2.5-.3 4.7 1 4.9 2.8.2 1.8-1.7 3.5-4.2 3.8z"
+                    fill="white"
+                  />
+                  <circle cx="7.5" cy="12.5" r="1.2" fill="#E6162D" />
+                  <circle cx="10" cy="11.5" r=".7" fill="#E6162D" />
+                  <path
+                    d="M14.5 2c1.5 0 2.8.8 3.4 2"
+                    stroke="#FF8200"
+                    stroke-width="1.2"
+                    stroke-linecap="round"
+                    fill="none"
+                  />
+                  <path
+                    d="M13 4c.8 0 1.5.5 1.8 1.2"
+                    stroke="#FF8200"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                    fill="none"
+                  />
+                </svg>
+                Continue with Weibo
+              </button>
+
+              <!-- WeChat -->
+              <button class="btn-social">
+                <svg width="20" height="18" viewBox="0 0 20 18" fill="none">
+                  <path
+                    d="M7.5 1C4 1 1 3.4 1 6.4c0 1.7.9 3.2 2.4 4.2l-.6 2 2.3-1.1c.5.1 1 .2 1.4.2 3.5 0 6.5-2.4 6.5-5.3C13 3.4 10.5 1 7.5 1z"
+                    fill="#51C332"
+                  />
+                  <ellipse cx="5.5" cy="6.5" rx="1" ry="1" fill="white" />
+                  <ellipse cx="9.5" cy="6.5" rx="1" ry="1" fill="white" />
+                  <path
+                    d="M12 7.5c2.8.3 4.9 2.3 4.9 4.7 0 1.4-.7 2.6-1.9 3.4l.5 1.6-1.9-.9c-.4.1-.9.2-1.4.2-2.7 0-4.8-1.8-4.8-4.1 0-.2 0-.4.1-.5"
+                    stroke="#51C332"
+                    stroke-width="0.5"
+                    fill="none"
+                  />
+                  <ellipse cx="13" cy="12" rx=".8" ry=".8" fill="#51C332" />
+                  <ellipse cx="16" cy="12" rx=".8" ry=".8" fill="#51C332" />
+                </svg>
+                Continue with WeChat
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 2: GOOGLE OAUTH MODAL -->
+    <div id="screen-2" class="screen">
+      <div
+        class="min-h-screen flex items-start justify-center pt-16 px-4"
+        style="background: #f5f2ec"
+      >
+        <!-- Blurred background version of register -->
+        <div
+          class="w-full max-w-[500px]"
+          style="
+            filter: blur(2px);
+            opacity: 0.4;
+            pointer-events: none;
+            user-select: none;
+          "
+        >
+          <h1 class="font-display text-4xl font-semibold text-[#3A3530] mb-6">
+            Create an Account 👋
+          </h1>
+          <div class="space-y-4">
+            <div
+              style="
+                height: 52px;
+                background: #fdfcfa;
+                border: 1.5px solid #e0dad0;
+                border-radius: 8px;
+              "
+            ></div>
+            <div
+              style="
+                height: 52px;
+                background: #fdfcfa;
+                border: 1.5px solid #e0dad0;
+                border-radius: 8px;
+              "
+            ></div>
+            <div
+              style="
+                height: 52px;
+                background: #fdfcfa;
+                border: 1.5px solid #e0dad0;
+                border-radius: 8px;
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL OVERLAY -->
+      <div class="overlay fade-in" id="google-overlay">
+        <div class="google-modal fade-up" id="google-modal">
+          <!-- Google header -->
+          <div class="px-8 pt-8 pb-6 text-center border-b border-gray-100">
+            <!-- Google logo -->
+            <svg
+              width="72"
+              height="24"
+              viewBox="0 0 272 92"
+              class="mx-auto mb-5"
+            >
+              <path
+                fill="#4285F4"
+                d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"
+              />
+              <path
+                fill="#EA4335"
+                d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z"
+              />
+              <path fill="#4285F4" d="M225 3v65h-9.5V3h9.5z" />
+              <path
+                fill="#34A853"
+                d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z"
+              />
+              <path
+                fill="#EA4335"
+                d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65H35.29z"
+              />
+            </svg>
+            <h2 class="text-xl font-medium text-gray-800 mb-1">
+              Sign in with Google
+            </h2>
+            <p class="text-sm text-gray-500">
+              to continue to
+              <strong class="font-medium text-gray-700">YUUSHI</strong>
+            </p>
+          </div>
+
+          <!-- Account chooser -->
+          <div id="google-accounts" class="px-4 py-4">
+            <p class="text-xs text-gray-400 px-4 mb-2">Choose an account</p>
+            <div class="account-card" onclick="selectGoogleAccount()">
+              <div
+                style="
+                  width: 44px;
+                  height: 44px;
+                  border-radius: 50%;
+                  background: linear-gradient(135deg, #c4ae7f, #a99260);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: 600;
+                  font-size: 16px;
+                  flex-shrink: 0;
+                "
+              >
+                S
+              </div>
+              <div class="flex-1">
+                <p class="font-medium text-gray-800 text-sm">Suzy</p>
+                <p class="text-gray-500 text-xs">Suzy@gmail.com</p>
+              </div>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                class="text-gray-400"
+              >
+                <path
+                  d="M6 4l4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div class="account-card">
+              <div
+                style="
+                  width: 44px;
+                  height: 44px;
+                  border-radius: 50%;
+                  background: #f3f4f6;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-shrink: 0;
+                "
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="8"
+                    r="4"
+                    stroke="#9CA3AF"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M4 20c0-3.314 3.582-6 8-6s8 2.686 8 6"
+                    stroke="#9CA3AF"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-gray-500 text-sm">Use another account</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loading state (hidden) -->
+          <div
+            id="google-loading"
+            class="hidden px-8 py-10 flex flex-col items-center gap-4"
+          >
+            <div class="spinner"></div>
+            <p class="text-sm text-gray-500">Signing in to YUUSHI...</p>
+          </div>
+
+          <!-- Footer -->
+          <div
+            class="px-8 py-4 border-t border-gray-100 flex items-center justify-between"
+          >
+            <div class="flex gap-4">
+              <a href="#" class="text-xs text-blue-600">Help</a>
+              <a href="#" class="text-xs text-blue-600">Privacy</a>
+              <a href="#" class="text-xs text-blue-600">Terms</a>
+            </div>
+            <button
+              onclick="goToState1()"
+              class="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 3: COMPLETE REGISTRATION -->
+    <div id="screen-3" class="screen">
+      <div
+        class="min-h-screen flex items-start justify-center pt-10 pb-20 px-4"
+      >
+        <div class="w-full max-w-[500px]" id="s3-card">
+          <!-- Heading -->
+          <div class="mb-8 fade-up">
+            <h1
+              class="font-display text-4xl font-semibold text-[#3A3530] mb-2 flex items-center gap-2"
+            >
+              Complete your Account
+            </h1>
+            <!-- cho tôi một dấu X để đóng modal -->
+            <button
+              onclick="closeModal()"
+              class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M6 18L18 6M6 6l12 12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="space-y-6 fade-up" style="animation-delay: 0.08s">
+            <!-- Profile card (read-only) -->
+            <div>
+              <p
+                class="text-xs text-[#B5ADA0] uppercase tracking-widest mb-2 font-medium"
+              >
+                One more step to complete your registration
+              </p>
+              <div class="profile-card">
+                <div class="avatar-circle">S</div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-medium text-[#3A3530] text-base">Suzy</p>
+                  <p class="text-[#8A7A6A] text-sm">Suzy@gmail.com</p>
+                  <div class="flex items-center gap-1.5 mt-1.5">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <circle
+                        cx="7"
+                        cy="7"
+                        r="6.5"
+                        stroke="#4285F4"
+                        stroke-width="1"
+                      />
+                      <path
+                        d="M4.5 7l2 2 3-3"
+                        stroke="#4285F4"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span class="text-xs text-[#4285F4]"
+                      >Verified via Google</span
+                    >
+                  </div>
+                </div>
+                <div class="flex-shrink-0">
+                  <div
+                    style="
+                      background: #f5f0e8;
+                      border-radius: 6px;
+                      padding: 6px 10px;
+                      display: flex;
+                      align-items: center;
+                      gap: 5px;
+                    "
+                  >
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <rect
+                        x="1"
+                        y="4"
+                        width="10"
+                        height="7.5"
+                        rx="1.5"
+                        stroke="#A99260"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        d="M4 4V3a2 2 0 0 1 4 0v1"
+                        stroke="#A99260"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    <span class="text-xs text-[#A99260] font-medium"
+                      >Read-only</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Info note -->
+            <div
+              style="
+                background: #f5f0e8;
+                border-left: 3px solid #a99260;
+                border-radius: 0 8px 8px 0;
+                padding: 12px 16px;
+              "
+            >
+              <p class="text-xs text-[#8A7A6A] leading-relaxed">
+                By continuing to use our services, you acknowledge and agree to
+                our Terms of Use and Privacy Policy.
+              </p>
+            </div>
+
+            <!-- Terms checkbox -->
+            <label
+              class="custom-cb"
+              onclick="toggleTermsCb()"
+              id="terms-cb-wrap"
+            >
+              <input type="checkbox" id="terms-cb" />
+              <div class="cb-box" id="cb-terms">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                  <path
+                    d="M1 4L3.8 7L9 1"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <span class="text-sm text-[#6B6358] leading-relaxed">
+                I have read and agree to the
+                <a
+                  href="#"
+                  class="text-[#A99260] underline underline-offset-2"
+                  onclick="event.stopPropagation()"
+                  >Terms of Use</a
+                >
+                and
+                <a
+                  href="#"
+                  class="text-[#A99260] underline underline-offset-2"
+                  onclick="event.stopPropagation()"
+                  >Privacy Policy</a
+                >
+                of YUUSHI.
+              </span>
+            </label>
+
+            <!-- Submit -->
+            <div class="space-y-3">
+              <button
+                id="complete-btn"
+                class="btn-primary"
+                disabled
+                onclick="completeRegistration()"
+              >
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success overlay (hidden) -->
+        <div
+          id="success-screen"
+          class="hidden fixed inset-0 flex items-center justify-center"
+          style="background: #f5f2ec; z-index: 50"
+        >
+          <div class="text-center fade-up px-6">
+            <div
+              class="success-icon mx-auto mb-6"
+              style="
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #c4ae7f, #a99260);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path
+                  class="check-path"
+                  d="M8 18L15 25L28 11"
+                  stroke="white"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <h2 class="font-display text-4xl font-semibold text-[#3A3530] mb-3">
+              Welcome, Suzy!
+            </h2>
+            <p class="text-[#8A7A6A] text-base mb-2">
+              Your YUUSHI account is ready.
+            </p>
+            <p class="text-[#A99260] text-sm redirect-dots">
+              Redirecting to homepage...
+            </p>
+            <div class="mt-8 flex justify-center">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ─── STATE MACHINE ─── */
+      function showScreen(n) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById("screen-" + n).classList.add("active");
+        window.scrollTo(0, 0);
+      }
+
+      function goToState1() {
+        showScreen(1);
+        // reset state 3
+        document.getElementById("terms-cb").checked = false;
+        document.getElementById("cb-terms").classList.remove("checked");
+        document.getElementById("complete-btn").disabled = true;
+        document.getElementById("success-screen").classList.add("hidden");
+      }
+
+      function goToState2() {
+        showScreen(2);
+        document.getElementById("google-accounts").classList.remove("hidden");
+        document.getElementById("google-loading").classList.add("hidden");
+        document.getElementById("google-loading").classList.remove("flex");
+      }
+
+      function selectGoogleAccount() {
+        // Show spinner
+        document.getElementById("google-accounts").classList.add("hidden");
+        const loader = document.getElementById("google-loading");
+        loader.classList.remove("hidden");
+        loader.classList.add("flex");
+        // After 1.2s → go to state 3
+        setTimeout(() => {
+          showScreen(3);
+        }, 1200);
+      }
+
+      function goToState3() {
+        showScreen(3);
+      }
+
+      /* ─── CHECKBOX HELPERS ─── */
+      function toggleCb(label) {
+        const box = label.querySelector(".cb-box");
+        box.classList.toggle("checked");
+      }
+
+      function toggleTermsCb() {
+        const cb = document.getElementById("terms-cb");
+        const box = document.getElementById("cb-terms");
+        cb.checked = !cb.checked;
+        box.classList.toggle("checked", cb.checked);
+        document.getElementById("complete-btn").disabled = !cb.checked;
+      }
+
+      /* ─── COMPLETE REGISTRATION ─── */
+      function completeRegistration() {
+        document.getElementById("success-screen").classList.remove("hidden");
+        // After 2.5s redirect simulation
+        setTimeout(() => {
+          alert(
+            "🎉 Redirecting to YUUSHI Homepage...\n(In production, this would navigate to /)",
+          );
+          goToState1();
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
