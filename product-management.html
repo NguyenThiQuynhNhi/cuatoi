@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quản lý Đối tác - BEAUTY Admin</title>
+    <title>Quản lý Sản phẩm - BEAUTY Admin</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -819,6 +819,123 @@
         color: #5a32a8;
       }
 
+      .thumb-image {
+        width: 52px;
+        height: 52px;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+        object-fit: cover;
+        cursor: zoom-in;
+        box-shadow: var(--shadow-sm);
+      }
+      .price-cell {
+        font-weight: 600;
+        color: var(--gray-900);
+        white-space: nowrap;
+      }
+      .rating-cell {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        font-weight: 600;
+      }
+      .rating-cell svg {
+        color: #f3b23c;
+      }
+      .btn-view-rating {
+        padding: 4px 8px;
+      }
+      .deleted-note {
+        margin-top: 10px;
+        font-size: 11.5px;
+        color: var(--gray-500);
+        background: var(--gray-50);
+        border: 1px dashed var(--gray-200);
+        border-radius: 8px;
+        padding: 8px 10px;
+      }
+
+      .yn-wrap {
+        display: inline-flex;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        overflow: hidden;
+        width: fit-content;
+      }
+      .yn-btn {
+        min-width: 46px;
+        height: 34px;
+        border: none;
+        background: white;
+        color: var(--gray-500);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.15s;
+      }
+      .yn-btn + .yn-btn {
+        border-left: 1px solid var(--gray-200);
+      }
+      .yn-btn.active {
+        background: var(--primary-light);
+        color: var(--primary);
+      }
+
+      .image-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(30, 26, 53, 0.55);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 390;
+        padding: 16px;
+      }
+      .image-modal-backdrop.open {
+        display: flex;
+      }
+      .image-modal {
+        background: var(--white);
+        border-radius: 14px;
+        border: 1px solid var(--gray-200);
+        width: min(520px, 100%);
+        padding: 14px;
+        box-shadow: var(--shadow-md);
+      }
+      .image-modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .image-modal-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+      .image-modal-close {
+        border: 1px solid var(--gray-200);
+        background: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+      }
+      .image-modal-close:hover {
+        color: var(--primary);
+        border-color: var(--primary-mid);
+      }
+      .image-modal-preview {
+        width: 100%;
+        max-height: 72vh;
+        object-fit: contain;
+        border-radius: 10px;
+        border: 1px solid var(--gray-200);
+        background: var(--gray-50);
+      }
+
       input[type="checkbox"] {
         width: 14px;
         height: 14px;
@@ -1336,7 +1453,7 @@
             Bệnh viện
           </div>
           <div
-            class="sidebar-item active"
+            class="sidebar-item"
             id="sidebar-partner"
             onclick="goPage('list')"
           >
@@ -1354,7 +1471,11 @@
             </svg>
             Đối tác
           </div>
-          <div class="sidebar-item" onclick="goPage('list')">
+          <div
+            class="sidebar-item active"
+            id="sidebar-product"
+            onclick="goPage('list')"
+          >
             <svg
               width="14"
               height="14"
@@ -1373,7 +1494,7 @@
 
       <!-- PAGE 1: LIST -->
       <main class="main page active" id="page-list">
-        <div class="page-title">Quản lý thông tin đối tác</div>
+        <div class="page-title">Quản lý thông tin sản phẩm</div>
 
         <!-- SEARCH CARD -->
         <div class="card search-card">
@@ -1490,29 +1611,8 @@
                   id="criteria-btn"
                   onclick="toggleCriteriaDropdown(event)"
                 >
-                  <span id="criteria-label">Tên công ty</span>
-                  <span>▼</span>
+                  <span id="criteria-label">Tên sản phẩm</span>
                 </button>
-                <div class="criteria-menu" id="criteria-menu">
-                  <button
-                    class="criteria-option"
-                    onclick="selectCriteria('Tên công ty')"
-                  >
-                    Tên công ty
-                  </button>
-                  <button
-                    class="criteria-option"
-                    onclick="selectCriteria('Tên sản phẩm')"
-                  >
-                    Tên sản phẩm
-                  </button>
-                  <button
-                    class="criteria-option"
-                    onclick="selectCriteria('Tên dịch vụ')"
-                  >
-                    Tên dịch vụ
-                  </button>
-                </div>
               </div>
               <input
                 class="search-input-lg"
@@ -1545,15 +1645,15 @@
         <div class="card">
           <div class="card-body">
             <div class="table-title">
-              Quản lý thông tin đối tác
-              <span class="count">99 công ty</span>
+              Quản lý thông tin sản phẩm
+              <span class="count">99 sản phẩm</span>
             </div>
             <div class="tabs">
               <div class="tab active" id="tab-info" onclick="switchTab('info')">
-                Thông tin đối tác
+                Thông tin sản phẩm
               </div>
               <div class="tab" id="tab-deleted" onclick="switchTab('deleted')">
-                Đối tác đã xóa
+                Sản phẩm đã xóa
               </div>
             </div>
 
@@ -1611,13 +1711,13 @@
                           onchange="toggleAllInTable(this, 'table-info')"
                         />
                       </th>
+                      <th>Tên sản phẩm</th>
+                      <th>Hình ảnh</th>
+                      <th>Giá</th>
+                      <th>Danh mục</th>
                       <th>Tên công ty</th>
-                      <th>Địa chỉ</th>
-                      <th>Người đại diện</th>
-                      <th>Người phụ trách</th>
-                      <th>SĐT người phụ trách</th>
-                      <th>Sản phẩm / Dịch vụ</th>
-                      <th>Trang chủ</th>
+                      <th>Điểm đánh giá</th>
+                      <th>Lượt đánh giá</th>
                       <th>Ghi chú</th>
                     </tr>
                   </thead>
@@ -1630,28 +1730,20 @@
                           onchange="toggleRow(this, 'tr-1')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Công ty A
+                            Serum phục hồi da chuyên sâu
                           </button>
                           <div class="menu-list">
                             <button class="menu-item" onclick="goEdit()">
                               Chỉnh sửa thông tin
                             </button>
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Đã mở màn hình gửi thông báo đẩy')
-                              "
-                            >
-                              Gửi thông báo đẩy
+                              Chi tiết thông tin
                             </button>
                             <button class="menu-item" onclick="confirmDelete()">
                               Xóa
@@ -1659,47 +1751,60 @@
                           </div>
                         </div>
                       </td>
-                      <td>123 Lê Lợi, HCM</td>
-                      <td>Trần Thị B</td>
-                      <td>Nguyễn Văn A</td>
-                      <td>091-2345-678</td>
+                      <td>
+                        <img
+                          class="thumb-image"
+                          src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=240&q=80"
+                          alt="Serum phục hồi da chuyên sâu"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
+                      </td>
+                      <td class="price-cell">300,000 VND</td>
+                      <td>Dưỡng da</td>
+                      <td>Công ty Mai Mai</td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.6
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
                       <td>
                         <div class="cell-menu">
                           <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Serum phục hồi da, Kem mắt chống lão hóa, Sữa rửa mặt tạo bọt dịu nhẹ, Tinh chất cấp ẩm, Kem chống nắng vật lý, Mặt nạ ngủ, Nước cân bằng, Dịch vụ soi da, Dịch vụ tư vấn chăm sóc da, Combo trẻ hóa da chuyên sâu"
+                            class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            50 sản phẩm
+                            326
                           </button>
                           <div class="menu-list sm">
                             <button
                               class="menu-item"
                               onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
+                                viewRating('Serum phục hồi da chuyên sâu')
                               "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
                             >
                               Xem đánh giá
                             </button>
                           </div>
                         </div>
                       </td>
-                      <td><span class="link-text">maimai.vn</span></td>
                       <td>
                         <div class="tooltip-wrap">
                           <span class="note-ellipsis"
-                            >Đối tác chiến lược khu vực miền Nam, ưu tiên xử lý
-                            ticket trong 2h.</span
+                            >Sản phẩm bán chạy, tỷ lệ mua lại cao trong 90
+                            ngày.</span
                           >
                           <div class="tooltip">
-                            Đối tác chiến lược khu vực miền Nam, ưu tiên xử lý
-                            ticket trong 2h.
+                            Sản phẩm bán chạy, tỷ lệ mua lại cao trong 90 ngày.
                           </div>
                         </div>
                       </td>
@@ -1712,28 +1817,20 @@
                           onchange="toggleRow(this, 'tr-2')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Công ty B
+                            Kem mắt chống lão hóa 24h
                           </button>
                           <div class="menu-list">
                             <button class="menu-item" onclick="goEdit()">
                               Chỉnh sửa thông tin
                             </button>
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Đã mở màn hình gửi thông báo đẩy')
-                              "
-                            >
-                              Gửi thông báo đẩy
+                              Chi tiết thông tin
                             </button>
                             <button class="menu-item" onclick="confirmDelete()">
                               Xóa
@@ -1741,46 +1838,59 @@
                           </div>
                         </div>
                       </td>
-                      <td>45 Nguyễn Huệ, HN</td>
-                      <td>Nguyễn Văn C</td>
-                      <td>Mai Thanh B</td>
-                      <td>091-2345-678</td>
+                      <td>
+                        <img
+                          class="thumb-image"
+                          src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=240&q=80"
+                          alt="Kem mắt chống lão hóa 24h"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
+                      </td>
+                      <td class="price-cell">520,000 VND</td>
+                      <td>Chống lão hóa</td>
+                      <td>Beauty Corp</td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.2
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
                       <td>
                         <div class="cell-menu">
                           <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Dịch vụ điều trị nám, Dịch vụ nâng cơ RF, Dịch vụ chăm sóc da cơ bản, Dịch vụ tư vấn da liễu"
+                            class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            5 dịch vụ
+                            148
                           </button>
                           <div class="menu-list sm">
                             <button
                               class="menu-item"
-                              onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
-                              "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
+                              onclick="viewRating('Kem mắt chống lão hóa 24h')"
                             >
                               Xem đánh giá
                             </button>
                           </div>
                         </div>
                       </td>
-                      <td><span class="link-text">congtyb.com</span></td>
                       <td>
                         <div class="tooltip-wrap">
                           <span class="note-ellipsis"
-                            >VIP - đối tác có doanh thu cao trong quý gần
-                            nhất.</span
+                            >Phù hợp nhóm khách hàng 30+, phản hồi tích cực từ
+                            KOC.</span
                           >
                           <div class="tooltip">
-                            VIP - đối tác có doanh thu cao trong quý gần nhất.
+                            Phù hợp nhóm khách hàng 30+, phản hồi tích cực từ
+                            KOC.
                           </div>
                         </div>
                       </td>
@@ -1793,28 +1903,20 @@
                           onchange="toggleRow(this, 'tr-3')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Phòng khám XYZ
+                            Sữa rửa mặt dịu nhẹ pH 5.5
                           </button>
                           <div class="menu-list">
                             <button class="menu-item" onclick="goEdit()">
                               Chỉnh sửa thông tin
                             </button>
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Đã mở màn hình gửi thông báo đẩy')
-                              "
-                            >
-                              Gửi thông báo đẩy
+                              Chi tiết thông tin
                             </button>
                             <button class="menu-item" onclick="confirmDelete()">
                               Xóa
@@ -1822,38 +1924,50 @@
                           </div>
                         </div>
                       </td>
-                      <td>78 Trần Hưng Đạo, ĐN</td>
-                      <td>Lê Thị D</td>
-                      <td>Lê Thị D</td>
-                      <td>076-8888-999</td>
+                      <td>
+                        <img
+                          class="thumb-image"
+                          src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=240&q=80"
+                          alt="Sữa rửa mặt dịu nhẹ pH 5.5"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
+                      </td>
+                      <td class="price-cell">185,000 VND</td>
+                      <td>Làm sạch</td>
+                      <td>Spa Lotus</td>
+                      <td>
+                        <span class="rating-cell"
+                          >3.8
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
                       <td>
                         <div class="cell-menu">
                           <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Kem dưỡng phục hồi, Serum vitamin C"
+                            class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            2 sản phẩm
+                            67
                           </button>
                           <div class="menu-list sm">
                             <button
                               class="menu-item"
-                              onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
-                              "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
+                              onclick="viewRating('Sữa rửa mặt dịu nhẹ pH 5.5')"
                             >
                               Xem đánh giá
                             </button>
                           </div>
                         </div>
                       </td>
-                      <td><span class="link-text">pkxyz.vn</span></td>
                       <td style="color: var(--gray-400); font-size: 11px">—</td>
                     </tr>
                     <!-- Row 4 -->
@@ -1864,28 +1978,20 @@
                           onchange="toggleRow(this, 'tr-4')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Beauty Corp
+                            Kem chống nắng vật lý SPF50+
                           </button>
                           <div class="menu-list">
                             <button class="menu-item" onclick="goEdit()">
                               Chỉnh sửa thông tin
                             </button>
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Đã mở màn hình gửi thông báo đẩy')
-                              "
-                            >
-                              Gửi thông báo đẩy
+                              Chi tiết thông tin
                             </button>
                             <button class="menu-item" onclick="confirmDelete()">
                               Xóa
@@ -1893,47 +1999,61 @@
                           </div>
                         </div>
                       </td>
-                      <td>99 Hai Bà Trưng, HCM</td>
-                      <td>Phạm Minh E</td>
-                      <td>Phạm Minh E</td>
-                      <td>028-3456-7890</td>
+                      <td>
+                        <img
+                          class="thumb-image"
+                          src="https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=240&q=80"
+                          alt="Kem chống nắng vật lý SPF50+"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
+                      </td>
+                      <td class="price-cell">420,000 VND</td>
+                      <td>Chống nắng</td>
+                      <td>Dr. Skin Lab</td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.9
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
                       <td>
                         <div class="cell-menu">
                           <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Tư vấn chăm sóc da, Tư vấn định kỳ, Gói điều trị chuyên sâu, Gói theo dõi sau điều trị"
+                            class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            13 dịch vụ
+                            512
                           </button>
                           <div class="menu-list sm">
                             <button
                               class="menu-item"
                               onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
+                                viewRating('Kem chống nắng vật lý SPF50+')
                               "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
                             >
                               Xem đánh giá
                             </button>
                           </div>
                         </div>
                       </td>
-                      <td><span class="link-text">beautycorp.vn</span></td>
                       <td>
                         <div class="tooltip-wrap">
                           <span class="note-ellipsis"
-                            >Đang thử nghiệm gói dịch vụ mới, cần theo dõi phản
-                            hồi khách hàng.</span
+                            >Top sản phẩm tháng, cần duy trì tồn kho tối thiểu
+                            500 đơn vị.</span
                           >
                           <div class="tooltip">
-                            Đang thử nghiệm gói dịch vụ mới, cần theo dõi phản
-                            hồi khách hàng.
+                            Top sản phẩm tháng, cần duy trì tồn kho tối thiểu
+                            500 đơn vị.
                           </div>
                         </div>
                       </td>
@@ -1946,28 +2066,20 @@
                           onchange="toggleRow(this, 'tr-5')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Spa Lotus
+                            Nước cân bằng da dịu nhẹ
                           </button>
                           <div class="menu-list">
                             <button class="menu-item" onclick="goEdit()">
                               Chỉnh sửa thông tin
                             </button>
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Đã mở màn hình gửi thông báo đẩy')
-                              "
-                            >
-                              Gửi thông báo đẩy
+                              Chi tiết thông tin
                             </button>
                             <button class="menu-item" onclick="confirmDelete()">
                               Xóa
@@ -1975,46 +2087,59 @@
                           </div>
                         </div>
                       </td>
-                      <td>12 Điện Biên Phủ, HCM</td>
-                      <td>Vũ Thị F</td>
-                      <td>Vũ Thị F</td>
-                      <td>090-1111-222</td>
+                      <td>
+                        <img
+                          class="thumb-image"
+                          src="https://images.unsplash.com/photo-1601612628452-9e99ced43524?auto=format&fit=crop&w=240&q=80"
+                          alt="Nước cân bằng da dịu nhẹ"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
+                      </td>
+                      <td class="price-cell">250,000 VND</td>
+                      <td>Cân bằng da</td>
+                      <td>Lotus Cosmetics</td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.1
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
                       <td>
                         <div class="cell-menu">
                           <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Spa thư giãn, Massage đá nóng, Chăm sóc da mặt, Liệu trình detox da"
+                            class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            10 dịch vụ
+                            201
                           </button>
                           <div class="menu-list sm">
                             <button
                               class="menu-item"
-                              onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
-                              "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
+                              onclick="viewRating('Nước cân bằng da dịu nhẹ')"
                             >
                               Xem đánh giá
                             </button>
                           </div>
                         </div>
                       </td>
-                      <td><span class="link-text">spalotus.vn</span></td>
                       <td>
                         <div class="tooltip-wrap">
                           <span class="note-ellipsis"
-                            >Đề nghị cập nhật hồ sơ pháp lý trước ngày
-                            30/07.</span
+                            >Sản phẩm dành cho da nhạy cảm, nên đẩy mạnh mùa
+                            hanh khô.</span
                           >
                           <div class="tooltip">
-                            Đề nghị cập nhật hồ sơ pháp lý trước ngày 30/07.
+                            Sản phẩm dành cho da nhạy cảm, nên đẩy mạnh mùa hanh
+                            khô.
                           </div>
                         </div>
                       </td>
@@ -2037,7 +2162,7 @@
                       <line x1="12" y1="5" x2="12" y2="19" />
                       <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
-                    Thêm đối tác (+)
+                    Thêm sản phẩm (+)
                   </button>
                 </div>
                 <div class="pagination">
@@ -2097,11 +2222,11 @@
                           onchange="toggleAllInTable(this, 'table-deleted')"
                         />
                       </th>
+                      <th>Tên sản phẩm</th>
+                      <th>Hình ảnh</th>
+                      <th>Giá</th>
+                      <th>Danh mục</th>
                       <th>Tên công ty</th>
-                      <th>Người phụ trách</th>
-                      <th>SĐT người phụ trách</th>
-                      <th>Sản phẩm / Dịch vụ</th>
-                      <th>Trang chủ</th>
                       <th>Ngày xóa</th>
                       <th>Người xóa</th>
                       <th>Ghi chú</th>
@@ -2115,17 +2240,17 @@
                           onchange="toggleRow(this, 'tr-deleted-1')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Công ty A
+                            Mặt nạ ngủ phục hồi ban đêm
                           </button>
-                          <div class="menu-list sm">
+                          <div class="menu-list">
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
+                              Chi tiết thông tin
                             </button>
                             <button
                               class="menu-item"
@@ -2136,46 +2261,27 @@
                           </div>
                         </div>
                       </td>
-                      <td>Trần Thị B</td>
-                      <td>000-0000-000</td>
                       <td>
-                        <div class="cell-menu">
-                          <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Serum phục hồi da, Kem mắt chống lão hóa, Sữa rửa mặt tạo bọt dịu nhẹ, Tinh chất cấp ẩm, Kem chống nắng vật lý, Mặt nạ ngủ, Nước cân bằng, Dịch vụ soi da"
-                            onclick="toggleMenu(event, this.parentElement)"
-                          >
-                            50 sản phẩm
-                          </button>
-                          <div class="menu-list sm">
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
-                              "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
-                            >
-                              Xem đánh giá
-                            </button>
-                          </div>
-                        </div>
+                        <img
+                          class="thumb-image"
+                          src="https://www.elle.vn/wp-content/uploads/2019/10/28/377587/mat-na-ngu-laneige-cica-sleeping-mask-mau-xanh.png"
+                          alt="Mặt nạ ngủ phục hồi ban đêm"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
                       </td>
-                      <td><span class="link-text">maimai.vn</span></td>
+                      <td class="price-cell">390,000 VND</td>
+                      <td>Dưỡng ẩm sâu</td>
+                      <td>Công ty Mai Mai</td>
                       <td>30/06/2025</td>
                       <td>maimai</td>
                       <td>
                         <div class="tooltip-wrap">
                           <span class="note-ellipsis"
-                            >Đã khóa tài khoản do quá hạn đối soát hợp
-                            đồng.</span
+                            >Ẩn khỏi danh sách bán do tái chuẩn hóa thành
+                            phần.</span
                           >
                           <div class="tooltip">
-                            Đã khóa tài khoản do quá hạn đối soát hợp đồng.
+                            Ẩn khỏi danh sách bán do tái chuẩn hóa thành phần.
                           </div>
                         </div>
                       </td>
@@ -2188,17 +2294,17 @@
                           onchange="toggleRow(this, 'tr-deleted-2')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Công ty B
+                            Serum dưỡng ẩm chuyên sâu
                           </button>
-                          <div class="menu-list sm">
+                          <div class="menu-list">
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
+                              Chi tiết thông tin
                             </button>
                             <button
                               class="menu-item"
@@ -2209,45 +2315,26 @@
                           </div>
                         </div>
                       </td>
-                      <td>Nguyễn Văn C</td>
-                      <td>091-2222-333</td>
                       <td>
-                        <div class="cell-menu">
-                          <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Kem dưỡng tay, Sữa tắm thảo dược, Kem chống nắng"
-                            onclick="toggleMenu(event, this.parentElement)"
-                          >
-                            25 sản phẩm
-                          </button>
-                          <div class="menu-list sm">
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
-                              "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
-                            >
-                              Xem đánh giá
-                            </button>
-                          </div>
-                        </div>
+                        <img
+                          class="thumb-image"
+                          src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=240&q=80"
+                          alt="Serum dưỡng ẩm chuyên sâu"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
                       </td>
-                      <td><span class="link-text">beautycorp.vn</span></td>
+                      <td class="price-cell">280,000 VND</td>
+                      <td>Dưỡng da</td>
+                      <td>Lotus Cosmetics</td>
                       <td>28/06/2025</td>
                       <td>admin</td>
                       <td>
                         <div class="tooltip-wrap">
                           <span class="note-ellipsis"
-                            >Ngừng hợp tác theo yêu cầu của đối tác.</span
+                            >Ngừng bán do không đạt chỉ tiêu bán hàng.</span
                           >
                           <div class="tooltip">
-                            Ngừng hợp tác theo yêu cầu của đối tác.
+                            Ngừng bán do không đạt chỉ tiêu bán hàng.
                           </div>
                         </div>
                       </td>
@@ -2260,17 +2347,17 @@
                           onchange="toggleRow(this, 'tr-deleted-3')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Công ty C
+                            Kem chống lão hóa cao cấp
                           </button>
-                          <div class="menu-list sm">
+                          <div class="menu-list">
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
+                              Chi tiết thông tin
                             </button>
                             <button
                               class="menu-item"
@@ -2281,46 +2368,26 @@
                           </div>
                         </div>
                       </td>
-                      <td>Lê Thị D</td>
-                      <td>092-3333-444</td>
                       <td>
-                        <div class="cell-menu">
-                          <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Nước hoa, Sủi mặt, Serum chuyên sâu"
-                            onclick="toggleMenu(event, this.parentElement)"
-                          >
-                            15 sản phẩm
-                          </button>
-                          <div class="menu-list sm">
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
-                              "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
-                            >
-                              Xem đánh giá
-                            </button>
-                          </div>
-                        </div>
+                        <img
+                          class="thumb-image"
+                          src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=240&q=80"
+                          alt="Kem chống lão hóa cao cấp"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
                       </td>
-                      <td><span class="link-text">luxspa.com.vn</span></td>
+                      <td class="price-cell">550,000 VND</td>
+                      <td>Chống lão hóa</td>
+                      <td>Beauty Corp</td>
                       <td>25/06/2025</td>
                       <td>maimai</td>
                       <td>
                         <div class="tooltip-wrap">
                           <span class="note-ellipsis"
-                            >Không cập nhật hóa đơn lâu, tài khoản đóng
-                            băng.</span
+                            >Công thức thay đổi, cần cấp phép lại từ MFDS.</span
                           >
                           <div class="tooltip">
-                            Không cập nhật hóa đơn lâu, tài khoản đóng băng.
+                            Công thức thay đổi, cần cấp phép lại từ MFDS.
                           </div>
                         </div>
                       </td>
@@ -2333,17 +2400,17 @@
                           onchange="toggleRow(this, 'tr-deleted-4')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Công ty D
+                            Toner làm sáng da tự nhiên
                           </button>
-                          <div class="menu-list sm">
+                          <div class="menu-list">
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
+                              Chi tiết thông tin
                             </button>
                             <button
                               class="menu-item"
@@ -2354,45 +2421,26 @@
                           </div>
                         </div>
                       </td>
-                      <td>Phạm Văn E</td>
-                      <td>093-4444-555</td>
                       <td>
-                        <div class="cell-menu">
-                          <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Tinh dầu, Gel rửa mặt, Bột trắng da"
-                            onclick="toggleMenu(event, this.parentElement)"
-                          >
-                            18 sản phẩm
-                          </button>
-                          <div class="menu-list sm">
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
-                              "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
-                            >
-                              Xem đánh giá
-                            </button>
-                          </div>
-                        </div>
+                        <img
+                          class="thumb-image"
+                          src="https://images.unsplash.com/photo-1601612628452-9e99ced43524?auto=format&fit=crop&w=240&q=80"
+                          alt="Toner làm sáng da tự nhiên"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
                       </td>
-                      <td><span class="link-text">skincare.vn</span></td>
+                      <td class="price-cell">220,000 VND</td>
+                      <td>Làm sáng da</td>
+                      <td>Spa Lotus</td>
                       <td>22/06/2025</td>
                       <td>admin</td>
                       <td>
                         <div class="tooltip-wrap">
                           <span class="note-ellipsis"
-                            >Bị báo cáo bán hàng giả, tạm khóa tài khoản.</span
+                            >Vận hành thử nghiệm, gỡ khỏi danh sách bán.</span
                           >
                           <div class="tooltip">
-                            Bị báo cáo bán hàng giả, tạm khóa tài khoản.
+                            Vận hành thử nghiệm, gỡ khỏi danh sách bán.
                           </div>
                         </div>
                       </td>
@@ -2405,17 +2453,17 @@
                           onchange="toggleRow(this, 'tr-deleted-5')"
                         />
                       </td>
-                      <td>
+                      <td class="td-left">
                         <div class="cell-menu">
                           <button
                             class="menu-trigger"
                             onclick="toggleMenu(event, this.parentElement)"
                           >
-                            Công ty E
+                            Mặt nạ giấy cấp ẩm
                           </button>
-                          <div class="menu-list sm">
+                          <div class="menu-list">
                             <button class="menu-item" onclick="goDetail()">
-                              Thông tin chi tiết
+                              Chi tiết thông tin
                             </button>
                             <button
                               class="menu-item"
@@ -2426,45 +2474,26 @@
                           </div>
                         </div>
                       </td>
-                      <td>Võ Thị F</td>
-                      <td>094-5555-666</td>
                       <td>
-                        <div class="cell-menu">
-                          <button
-                            class="menu-trigger product-trigger"
-                            data-full-product="Dầu gội, Dầu xả, Mặt nạ tóc"
-                            onclick="toggleMenu(event, this.parentElement)"
-                          >
-                            12 sản phẩm
-                          </button>
-                          <div class="menu-list sm">
-                            <button
-                              class="menu-item"
-                              onclick="
-                                alert('Xem chi tiết danh sách sản phẩm/dịch vụ')
-                              "
-                            >
-                              Xem chi tiết danh sách
-                            </button>
-                            <button
-                              class="menu-item"
-                              onclick="alert('Xem đánh giá sản phẩm/dịch vụ')"
-                            >
-                              Xem đánh giá
-                            </button>
-                          </div>
-                        </div>
+                        <img
+                          class="thumb-image"
+                          src="https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=240&q=80"
+                          alt="Mặt nạ giấy cấp ẩm"
+                          onclick="openImageModal(this.src, this.alt)"
+                        />
                       </td>
-                      <td><span class="link-text">haircare.vn</span></td>
+                      <td class="price-cell">150,000 VND</td>
+                      <td>Cấp ẩm</td>
+                      <td>Dr. Skin Lab</td>
                       <td>20/06/2025</td>
                       <td>maimai</td>
                       <td>
                         <div class="tooltip-wrap">
                           <span class="note-ellipsis"
-                            >Sản phẩm shelf-life hết, yêu cầu từ khóa.</span
+                            >Sản phẩm có lỗi bao bì, tạm ngừng bán.</span
                           >
                           <div class="tooltip">
-                            Sản phẩm shelf-life hết, yêu cầu từ khóa.
+                            Sản phẩm có lỗi bao bì, tạm ngừng bán.
                           </div>
                         </div>
                       </td>
@@ -2472,6 +2501,7 @@
                   </tbody>
                 </table>
               </div>
+
               <div class="table-footer">
                 <div class="table-footer-left"></div>
                 <div class="pagination">
@@ -2490,22 +2520,22 @@
       <!-- PAGE 2: DETAIL -->
       <main class="main page" id="page-detail">
         <div class="breadcrumb">
-          <span class="bc-link" onclick="goPage('list')">Đối tác</span>
+          <span class="bc-link" onclick="goPage('list')">Sản phẩm</span>
           <span class="bc-sep">›</span>
           <span class="bc-current" id="detail-mode-label"
-            >Chi tiết: Công ty A</span
+            >Chi tiết: Serum phục hồi da chuyên sâu</span
           >
         </div>
 
         <div class="page-title" id="detail-page-title">
-          Thông tin chi tiết Đối tác
+          Thông tin chi tiết Sản phẩm
         </div>
 
         <!-- DETAIL CARD -->
         <div class="card">
           <div class="detail-header">
             <div class="detail-header-title" id="detail-company-title">
-              Chi tiết thông tin Đối tác: Công ty A
+              Chi tiết thông tin Sản phẩm: Serum phục hồi da chuyên sâu
             </div>
           </div>
           <div class="card-body">
@@ -2513,50 +2543,21 @@
               <!-- Row 1 -->
               <div class="form-group">
                 <label class="form-label"
-                  >Tên công ty <span class="req">*</span></label
+                  >Tên sản phẩm <span class="req">*</span></label
                 >
-                <input class="form-input" value="Công ty A" id="f-company" />
+                <input
+                  class="form-input"
+                  value="Serum phục hồi da chuyên sâu"
+                  id="f-product-name"
+                />
               </div>
               <div class="form-group">
                 <label class="form-label"
-                  >Địa chỉ <span class="req">*</span></label
-                >
-                <input class="form-input" value="123 Lê Lợi, Quận 1, TP.HCM" />
-              </div>
-              <!-- Row 2 -->
-              <div class="form-group">
-                <label class="form-label"
-                  >Tên người đại diện <span class="req">*</span></label
-                >
-                <input class="form-input" value="Trần Thị B" />
-              </div>
-              <div class="form-group">
-                <label class="form-label"
-                  >SĐT người đại diện <span class="req">*</span></label
-                >
-                <input class="form-input" value="000-0000-000" />
-              </div>
-              <!-- Row 3 -->
-              <div class="form-group">
-                <label class="form-label"
-                  >Tên người phụ trách <span class="req">*</span></label
-                >
-                <input class="form-input" value="Nguyễn Văn A" />
-              </div>
-              <div class="form-group">
-                <label class="form-label"
-                  >SĐT người phụ trách <span class="req">*</span></label
-                >
-                <input class="form-input" value="091-2345-678" />
-              </div>
-              <!-- Row 4 -->
-              <div class="form-group">
-                <label class="form-label"
-                  >Giấy phép ĐKKD <span class="req">*</span></label
+                  >Hình ảnh <span class="req">*</span></label
                 >
                 <div class="upload-btn-wrap">
-                  <div class="upload-preview">giayphep_congtyA.pdf</div>
-                  <button class="btn btn-danger btn-sm">
+                  <div class="upload-preview">serum-phuc-hoi-da.jpg</div>
+                  <button class="btn btn-danger btn-sm" type="button">
                     <svg
                       width="10"
                       height="10"
@@ -2573,77 +2574,140 @@
                   </button>
                 </div>
               </div>
+              <!-- Row 2 -->
+              <div class="form-group">
+                <label class="form-label">Giá <span class="req">*</span></label>
+                <input class="form-input" value="300000" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Giải thích</label>
+                <textarea class="form-input" rows="3" style="resize: vertical">
+Làm sáng da, hỗ trợ phục hồi hàng rào bảo vệ, phù hợp da nhạy cảm.</textarea
+                >
+              </div>
+              <!-- Row 3 -->
+              <div class="form-group">
+                <label class="form-label">HDSD</label>
+                <textarea class="form-input" rows="3" style="resize: vertical">
+Sau khi làm sạch và cân bằng da, lấy 2-3 giọt thoa đều lên mặt sáng và tối.</textarea
+                >
+              </div>
               <div class="form-group">
                 <label class="form-label"
-                  >Số ĐKKD <span class="req">*</span></label
+                  >Danh mục <span class="req">*</span></label
                 >
-                <input class="form-input" value="0123456789" />
+                <select class="form-input detail-editable-select">
+                  <option value="">Chọn danh mục ▼</option>
+                  <option selected>Dưỡng da</option>
+                  <option>Làm sạch</option>
+                  <option>Chống nắng</option>
+                  <option>Trang điểm</option>
+                </select>
+              </div>
+              <!-- Row 4 -->
+              <div class="form-group">
+                <label class="form-label">Giới thiệu SP</label>
+                <textarea class="form-input" rows="3" style="resize: vertical">
+Tinh chất cô đặc với niacinamide và panthenol, giúp cải thiện độ đàn hồi và làm dịu vùng da kích ứng.</textarea
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label">Thông tin thành phần</label>
+                <textarea class="form-input" rows="3" style="resize: vertical">
+Niacinamide 5%, Panthenol, Hyaluronic Acid, Centella Asiatica Extract.</textarea
+                >
               </div>
               <!-- Row 5 -->
               <div class="form-group">
-                <label class="form-label">Giới thiệu công ty</label>
-                <textarea class="form-input" rows="3" style="resize: vertical">
-Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc da...</textarea
-                >
+                <label class="form-label">Dung tích/ khối lượng</label>
+                <input class="form-input" value="30ml" />
               </div>
               <div class="form-group">
-                <label class="form-label"
-                  >Ngành nghề <span class="req">*</span></label
-                >
-                <input class="form-input" value="Mỹ phẩm, Chăm sóc sắc đẹp" />
+                <label class="form-label">Lưu ý sản phẩm</label>
+                <select class="form-input detail-editable-select">
+                  <option value="">Chọn loại da ▼</option>
+                  <option>Da thường</option>
+                  <option>Da khô</option>
+                  <option>Da dầu</option>
+                  <option>Da hỗn hợp</option>
+                  <option selected>Da nhạy cảm</option>
+                </select>
               </div>
               <!-- Row 6 -->
               <div class="form-group">
-                <label class="form-label">Danh sách sản phẩm</label>
-                <div class="product-list">
-                  <span class="product-chip" data-existing-product
-                    >sửa rửa mặt <span class="remove">×</span></span
-                  >
-                  <span class="product-chip" data-existing-product
-                    >Kem mắt <span class="remove">×</span></span
-                  >
-                  <span class="product-chip" data-existing-product
-                    >Cắt mí <span class="remove">×</span></span
-                  >
-                  <span class="product-chip" data-existing-product
-                    >Xăm mày <span class="remove">×</span></span
-                  >
-                  <button class="btn btn-danger btn-sm" id="btn-add-product">
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2.5"
-                    >
-                      <line x1="12" y1="5" x2="12" y2="19" />
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
-                    Thêm (+)
-                  </button>
-                </div>
+                <label class="form-label">Nhãn hiệu/Công ty</label>
+                <input class="form-input" value="Skin Repair Lab" />
               </div>
               <div class="form-group">
-                <label class="form-label">Trang chủ / Website</label>
-                <input class="form-input" value="https://maimai.vn" />
+                <label class="form-label"
+                  >Nơi sản xuất <span class="req">*</span></label
+                >
+                <select class="form-input detail-editable-select">
+                  <option value="">Chọn quốc gia ▼</option>
+                  <option selected>Hàn Quốc</option>
+                  <option>Nhật Bản</option>
+                  <option>Việt Nam</option>
+                  <option>Mỹ</option>
+                </select>
               </div>
               <!-- Row 7 -->
               <div class="form-group">
-                <label class="form-label">Ghi chú</label>
+                <label class="form-label">Công ty sản xuất</label>
+                <input class="form-input" value="Công ty Mai Mai" />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >MFDS phê duyệt <span class="req">*</span></label
+                >
+                <div class="yn-wrap">
+                  <button
+                    type="button"
+                    class="yn-btn active"
+                    data-cert="Y"
+                    onclick="setCertificate(this, 'Y')"
+                  >
+                    Y
+                  </button>
+                  <button
+                    type="button"
+                    class="yn-btn"
+                    data-cert="N"
+                    onclick="setCertificate(this, 'N')"
+                  >
+                    N
+                  </button>
+                </div>
+              </div>
+              <!-- Row 8 -->
+              <div class="form-group">
+                <label class="form-label">Lưu ý sử dụng</label>
                 <textarea
                   class="form-input"
                   id="f-note"
                   rows="3"
                   style="resize: vertical"
                 >
-Đối tác chiến lược khu vực miền Nam, ưu tiên xử lý ticket trong 2h.</textarea
+Không dùng trên vùng da có vết thương hở. Bảo quản dưới 30°C, tránh ánh nắng trực tiếp.</textarea
                 >
               </div>
               <div class="form-group">
-                <label class="form-label">Social media</label>
-                <input class="form-input" value="https://fb.com/congtyA" />
+                <label class="form-label"
+                  >Chứng nhận chất lượng <span class="req">*</span></label
+                >
+                <input class="form-input" value="ISO 22716" />
               </div>
+
+              <!-- Row 9 -->
+              <div class="form-group">
+                <label class="form-label">Ghi chú</label>
+                <textarea
+                  class="form-input"
+                  rows="3"
+                  style="resize: vertical"
+                  placeholder="Nhập ghi chú nội bộ"
+                ></textarea>
+              </div>
+              <div></div>
             </div>
           </div>
           <div class="form-actions">
@@ -2703,7 +2767,7 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
               class="btn btn-danger"
               id="btn-save"
               onclick="
-                alert('Đã lưu thông tin đối tác!');
+                alert('Đã lưu thông tin sản phẩm!');
                 goDetail();
               "
             >
@@ -2740,10 +2804,10 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
         onclick="event.stopPropagation()"
       >
         <h3 class="action-modal-title" id="action-modal-title">
-          Xác nhận xóa Đối tác.
+          Xác nhận xóa Sản phẩm.
         </h3>
         <p class="action-modal-body" id="action-modal-body">
-          Bạn có chắc chắn muốn xóa Đối tác đã chọn?
+          Bạn có chắc chắn muốn xóa Sản phẩm đã chọn?
         </p>
         <div class="action-modal-actions">
           <button
@@ -2757,9 +2821,27 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
             id="action-modal-confirm"
             onclick="confirmActionModal()"
           >
-            Xóa đối tác
+            Xóa sản phẩm
           </button>
         </div>
+      </div>
+    </div>
+
+    <div
+      class="image-modal-backdrop"
+      id="image-modal-backdrop"
+      onclick="closeImageModal()"
+    >
+      <div class="image-modal" onclick="event.stopPropagation()">
+        <div class="image-modal-head">
+          <div class="image-modal-title" id="image-modal-title">
+            Xem hình ảnh sản phẩm
+          </div>
+          <button class="image-modal-close" onclick="closeImageModal()">
+            ✕
+          </button>
+        </div>
+        <img class="image-modal-preview" id="image-modal-preview" alt="" />
       </div>
     </div>
 
@@ -2772,29 +2854,29 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
       let currentActionModalType = "soft-delete";
       const actionModalMap = {
         "soft-delete": {
-          title: "Xác nhận xóa Đối tác.",
-          body: "Bạn có chắc chắn muốn xóa Đối tác đã chọn?",
-          confirmText: "Xóa đối tác",
+          title: "Xác nhận xóa Sản phẩm.",
+          body: "Bạn có chắc chắn muốn xóa Sản phẩm đã chọn?",
+          confirmText: "Xóa sản phẩm",
           confirmClass: "is-soft",
-          doneMessage: "Đã xóa mềm đối tác đã chọn.",
+          doneMessage: "Đã xóa mềm sản phẩm đã chọn.",
         },
         restore: {
-          title: "Xác nhận khôi phục Đối tác.",
-          body: "Bạn có muốn khôi phục Đối tác đã chọn?",
+          title: "Xác nhận khôi phục Sản phẩm.",
+          body: "Bạn có muốn khôi phục Sản phẩm đã chọn?",
           confirmText: "Xác nhận",
           confirmClass: "is-restore",
-          doneMessage: "Đã khôi phục đối tác đã chọn.",
+          doneMessage: "Đã khôi phục sản phẩm đã chọn.",
         },
         "hard-delete": {
-          title: "Cảnh báo: Xóa vĩnh viễn Đối tác.",
-          body: "Bạn có chắc chắn muốn xóa vĩnh viễn Đối tác đã chọn?",
+          title: "Cảnh báo: Xóa vĩnh viễn Sản phẩm.",
+          body: "Bạn có chắc chắn muốn xóa vĩnh viễn Sản phẩm đã chọn?",
           confirmText: "Xóa vĩnh viễn",
           confirmClass: "is-hard",
-          doneMessage: "Đã xóa vĩnh viễn đối tác đã chọn.",
+          doneMessage: "Đã xóa vĩnh viễn sản phẩm đã chọn.",
         },
       };
       const searchState = {
-        criterion: "Tên công ty",
+        criterion: "Tên sản phẩm",
         quickFilter: "week",
         startDate: new Date(2025, 5, 23),
         endDate: new Date(2025, 5, 30),
@@ -2995,7 +3077,6 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
       function setDetailMode(mode) {
         detailMode = mode;
         const isView = mode === "view";
-        const isAdd = mode === "add";
 
         document.getElementById("btn-close").style.display = isView
           ? ""
@@ -3010,16 +3091,18 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
           ? "none"
           : "";
 
-        document.querySelectorAll("[data-existing-product]").forEach((el) => {
-          el.style.display = isAdd ? "none" : "";
+        document.querySelectorAll("#page-detail .form-input").forEach((el) => {
+          if (el.tagName === "SELECT") {
+            el.disabled = isView;
+          } else {
+            el.readOnly = isView;
+          }
         });
 
-        document.querySelectorAll("#page-detail .form-input").forEach((el) => {
-          el.readOnly = isView;
+        document.querySelectorAll(".yn-btn").forEach((btn) => {
+          btn.disabled = isView;
+          btn.style.cursor = isView ? "not-allowed" : "pointer";
         });
-        document.getElementById("btn-add-product").style.display = isView
-          ? "none"
-          : "";
       }
 
       function goPage(page) {
@@ -3034,11 +3117,11 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
       function goDetail() {
         restoreDetailDefaults();
         document.getElementById("detail-mode-label").textContent =
-          "Chi tiết: Công ty A";
+          "Chi tiết: Serum phục hồi da chuyên sâu";
         document.getElementById("detail-page-title").textContent =
-          "Thông tin chi tiết Đối tác";
+          "Thông tin chi tiết Sản phẩm";
         document.getElementById("detail-company-title").textContent =
-          "Chi tiết thông tin Đối tác: Công ty A";
+          "Chi tiết thông tin Sản phẩm: Serum phục hồi da chuyên sâu";
         setDetailMode("view");
         closeAllMenus();
         goPage("detail");
@@ -3047,11 +3130,11 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
       function goEdit() {
         restoreDetailDefaults();
         document.getElementById("detail-mode-label").textContent =
-          "Sửa thông tin đối tác";
+          "Sửa thông tin sản phẩm";
         document.getElementById("detail-page-title").textContent =
-          "Sửa thông tin Đối tác";
+          "Sửa thông tin Sản phẩm";
         document.getElementById("detail-company-title").textContent =
-          "Chỉnh sửa thông tin Đối tác: Công ty A";
+          "Chỉnh sửa thông tin Sản phẩm: Serum phục hồi da chuyên sâu";
         setDetailMode("edit");
         closeAllMenus();
         goPage("detail");
@@ -3059,22 +3142,53 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
 
       function goAdd() {
         document.getElementById("detail-mode-label").textContent =
-          "Thêm mới đối tác";
+          "Thêm mới sản phẩm";
         document.getElementById("detail-page-title").textContent =
-          "Thêm mới Đối tác";
+          "Thêm mới Sản phẩm";
         document.getElementById("detail-company-title").textContent =
-          "Nhập thông tin Đối tác mới";
+          "Nhập thông tin Sản phẩm mới";
         setDetailMode("add");
-        // Clear fields
-        document
-          .querySelectorAll(
-            '#page-detail input[type="text"], #page-detail input:not([type]), #page-detail textarea',
-          )
-          .forEach((el) => {
-            if (el.type !== "checkbox") el.value = "";
-          });
+        document.querySelectorAll("#page-detail .form-input").forEach((el) => {
+          if (el.tagName === "SELECT") {
+            el.selectedIndex = 0;
+          } else {
+            el.value = "";
+          }
+        });
+        document.querySelectorAll(".yn-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.cert === "Y");
+        });
+        const uploadPreviewEl = document.querySelector(
+          "#page-detail .upload-preview",
+        );
+        if (uploadPreviewEl) uploadPreviewEl.textContent = "Chưa chọn tệp";
         closeAllMenus();
         goPage("detail");
+      }
+
+      function setCertificate(buttonEl, value) {
+        document
+          .querySelectorAll(".yn-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        buttonEl.classList.add("active");
+        console.log("Certificate status:", value);
+      }
+
+      function openImageModal(src, alt) {
+        const preview = document.getElementById("image-modal-preview");
+        const title = document.getElementById("image-modal-title");
+        const backdrop = document.getElementById("image-modal-backdrop");
+        if (!preview || !title || !backdrop) return;
+        preview.src = src;
+        preview.alt = alt || "Ảnh sản phẩm";
+        title.textContent = alt || "Xem hình ảnh sản phẩm";
+        backdrop.classList.add("open");
+      }
+
+      function closeImageModal() {
+        document
+          .getElementById("image-modal-backdrop")
+          ?.classList.remove("open");
       }
 
       function switchTab(tab) {
@@ -3154,6 +3268,11 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
         openActionModal("soft-delete");
       }
 
+      function viewRating(productName) {
+        alert(`Xem đánh giá sản phẩm: ${productName}`);
+        closeAllMenus();
+      }
+
       // Pagination highlight
       document.querySelectorAll(".pg-btn").forEach((btn) => {
         btn.addEventListener("click", function () {
@@ -3173,7 +3292,10 @@ Công ty chuyên cung cấp các sản phẩm làm đẹp cao cấp, chăm sóc 
         });
 
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeActionModal();
+        if (e.key === "Escape") {
+          closeActionModal();
+          closeImageModal();
+        }
       });
 
       document.addEventListener("click", () => {

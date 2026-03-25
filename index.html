@@ -493,6 +493,42 @@
       .sec-link:hover {
         color: var(--gold-dark);
       }
+      .sec-subtitle {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin: -2px 0 14px;
+      }
+      .sec-head-actions {
+        display: flex;
+        align-items: center;
+      }
+      .sec-refresh {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12.5px;
+        color: var(--gold);
+        font-weight: 500;
+        border: none;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
+        transition: color 0.12s;
+      }
+      .sec-refresh:hover {
+        color: var(--gold-dark);
+      }
+      .sec-refresh svg {
+        width: 13px;
+        height: 13px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        transition: transform 0.35s ease;
+      }
+      .sec-refresh:hover svg {
+        transform: rotate(120deg);
+      }
 
       /* ============================================================
    MESSAGES (left 2/3) — no tabs, just clean list
@@ -1120,6 +1156,34 @@
         margin-bottom: 28px;
       }
 
+      .rec-bg-1 {
+        background:
+          radial-gradient(
+            circle at 12% 18%,
+            rgba(255, 255, 255, 0.3) 0 26px,
+            transparent 28px
+          ),
+          linear-gradient(135deg, #6f89af, #304864);
+      }
+      .rec-bg-2 {
+        background:
+          radial-gradient(
+            circle at 82% 22%,
+            rgba(255, 255, 255, 0.28) 0 22px,
+            transparent 24px
+          ),
+          linear-gradient(135deg, #95784e, #4d3b24);
+      }
+      .rec-bg-3 {
+        background:
+          radial-gradient(
+            circle at 22% 82%,
+            rgba(255, 255, 255, 0.25) 0 24px,
+            transparent 26px
+          ),
+          linear-gradient(135deg, #4f877f, #235249);
+      }
+
       /* ============================================================
    TOAST
    ============================================================ */
@@ -1391,9 +1455,6 @@
           <div class="profile-name">Yamamoto Anna</div>
           <div class="profile-email">anna@example.com</div>
           <div class="profile-email">+81 90-1234-5678</div>
-        </div>
-        <div class="profile-links">
-          <a class="profile-link" href="#">Edit Profile</a>
         </div>
       </div>
 
@@ -3150,6 +3211,246 @@
         <!-- /props-grid -->
       </div>
       <!-- /recently viewed -->
+
+      <!-- ============================================================
+       RECOMMENDED PROPERTIES — generated from user behavior
+       ============================================================ -->
+      <div class="section-block">
+        <div class="sec-head">
+          <span class="sec-title">Recommended Properties</span>
+          <div class="sec-head-actions">
+            <button
+              class="sec-refresh"
+              type="button"
+              onclick="refreshRecommended()"
+            >
+              Refresh
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M13.5 8A5.5 5.5 0 1 1 12 4.2" />
+                <path d="M13.5 2.5v3h-3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="props-grid recommended-grid">
+          <div class="prop-card" id="rec1">
+            <div class="prop-hero" style="height: 190px">
+              <div class="prop-hero-img rec-bg-1"></div>
+              <div class="prop-hero-overlay"></div>
+              <div class="prop-agent">
+                <div
+                  class="prop-agent-av"
+                  style="background: linear-gradient(135deg, #f4a261, #e76f51)"
+                >
+                  J
+                </div>
+                <span class="prop-agent-name">Jenifer Lopez</span>
+              </div>
+              <div class="prop-actions">
+                <button class="btn-cmp" onclick="toggleCmp(this)">
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M2 7h7M2 10h4" />
+                    <path d="M11 6l2 2-2 2" />
+                  </svg>
+                  Compare
+                </button>
+                <button class="btn-wish" onclick="toggleWish(this)">
+                  <svg viewBox="0 0 16 16">
+                    <path
+                      d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <button class="prop-arrow prev" onclick="slide('rec1', -1)">
+                <svg viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" /></svg>
+              </button>
+              <button class="prop-arrow next" onclick="slide('rec1', 1)">
+                <svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" /></svg>
+              </button>
+              <div class="prop-dots" style="bottom: 46px" id="rec1-dots">
+                <div class="prop-dot active"></div>
+                <div class="prop-dot"></div>
+                <div class="prop-dot"></div>
+              </div>
+              <div class="prop-info-overlay">
+                <div>
+                  <div class="prop-title">Aoyama Park Front Residence</div>
+                  <div class="prop-loc">
+                    <svg viewBox="0 0 12 14">
+                      <circle cx="6" cy="5.5" r="2" />
+                      <path
+                        d="M6 1C3.24 1 1 3.24 1 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5z"
+                      /></svg
+                    >Minato, Tokyo
+                  </div>
+                </div>
+                <div>
+                  <div class="prop-price">¥73,000万</div>
+                  <div class="prop-yield">
+                    Gross Return: <strong>4.5%</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-specs">
+                <span class="prop-spec">Residential</span>
+                <span class="prop-spec">95 m²</span>
+                <span class="prop-spec">3LDK</span>
+              </div>
+              <div class="prop-desc">
+                Recommended because you recently viewed high-floor apartments in
+                central Tokyo with similar budget and size.
+              </div>
+            </div>
+          </div>
+
+          <div class="prop-card" id="rec2">
+            <div class="prop-hero" style="height: 190px">
+              <div class="prop-hero-img rec-bg-2"></div>
+              <div class="prop-hero-overlay"></div>
+              <div class="prop-agent">
+                <div
+                  class="prop-agent-av"
+                  style="background: linear-gradient(135deg, #a78bfa, #7c3aed)"
+                >
+                  Y
+                </div>
+                <span class="prop-agent-name">Yumiko Sato</span>
+              </div>
+              <div class="prop-actions">
+                <button class="btn-cmp" onclick="toggleCmp(this)">
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M2 7h7M2 10h4" />
+                    <path d="M11 6l2 2-2 2" />
+                  </svg>
+                  Compare
+                </button>
+                <button class="btn-wish" onclick="toggleWish(this)">
+                  <svg viewBox="0 0 16 16">
+                    <path
+                      d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <button class="prop-arrow prev" onclick="slide('rec2', -1)">
+                <svg viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" /></svg>
+              </button>
+              <button class="prop-arrow next" onclick="slide('rec2', 1)">
+                <svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" /></svg>
+              </button>
+              <div class="prop-dots" style="bottom: 46px" id="rec2-dots">
+                <div class="prop-dot active"></div>
+                <div class="prop-dot"></div>
+              </div>
+              <div class="prop-info-overlay">
+                <div>
+                  <div class="prop-title">Ebisu Terrace Premium</div>
+                  <div class="prop-loc">
+                    <svg viewBox="0 0 12 14">
+                      <circle cx="6" cy="5.5" r="2" />
+                      <path
+                        d="M6 1C3.24 1 1 3.24 1 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5z"
+                      /></svg
+                    >Shibuya, Tokyo
+                  </div>
+                </div>
+                <div>
+                  <div class="prop-price">¥58,000万</div>
+                  <div class="prop-price-sub">(close to your saved range)</div>
+                </div>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-specs">
+                <span class="prop-spec">Apartment</span>
+                <span class="prop-spec">82 m²</span>
+                <span class="prop-spec">2LDK</span>
+              </div>
+              <div class="prop-desc">
+                Similar to the properties you saved in Minato and Meguro, with
+                comparable commute and floor-plan preference.
+              </div>
+            </div>
+          </div>
+
+          <div class="prop-card" id="rec3">
+            <div class="prop-hero" style="height: 190px">
+              <div class="prop-hero-img rec-bg-3"></div>
+              <div class="prop-hero-overlay"></div>
+              <div class="prop-agent">
+                <div
+                  class="prop-agent-av"
+                  style="background: linear-gradient(135deg, #6ee7b7, #10b981)"
+                >
+                  K
+                </div>
+                <span class="prop-agent-name">Kenji Matsumoto</span>
+              </div>
+              <div class="prop-actions">
+                <button class="btn-cmp" onclick="toggleCmp(this)">
+                  <svg viewBox="0 0 14 14">
+                    <path d="M2 4h10M2 7h7M2 10h4" />
+                    <path d="M11 6l2 2-2 2" />
+                  </svg>
+                  Compare
+                </button>
+                <button class="btn-wish" onclick="toggleWish(this)">
+                  <svg viewBox="0 0 16 16">
+                    <path
+                      d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <button class="prop-arrow prev" onclick="slide('rec3', -1)">
+                <svg viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" /></svg>
+              </button>
+              <button class="prop-arrow next" onclick="slide('rec3', 1)">
+                <svg viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" /></svg>
+              </button>
+              <div class="prop-dots" style="bottom: 46px" id="rec3-dots">
+                <div class="prop-dot active"></div>
+                <div class="prop-dot"></div>
+                <div class="prop-dot"></div>
+              </div>
+              <div class="prop-info-overlay">
+                <div>
+                  <div class="prop-title">Kichijoji Family Garden House</div>
+                  <div class="prop-loc">
+                    <svg viewBox="0 0 12 14">
+                      <circle cx="6" cy="5.5" r="2" />
+                      <path
+                        d="M6 1C3.24 1 1 3.24 1 6c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5z"
+                      /></svg
+                    >Musashino, Tokyo
+                  </div>
+                </div>
+                <div>
+                  <div class="prop-price">¥81,000万</div>
+                  <div class="prop-yield">
+                    Gross Return: <strong>4.1%</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-specs">
+                <span class="prop-spec">House</span>
+                <span class="prop-spec">140 m²</span>
+                <span class="prop-spec">4LDK</span>
+              </div>
+              <div class="prop-desc">
+                Suggested from your saved search filters for 3-4 bedroom homes
+                with strong residential environment and medium-high yield.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /recommended properties -->
     </div>
     <!-- /page -->
 
@@ -3169,7 +3470,7 @@
         const rightCol = document.createElement("div");
         rightCol.innerHTML = `
           <div class="sec-head">
-            <span class="sec-title">Profile</span>
+            <span class="sec-title">Account & Preferences</span>
             <a class="sec-link" href="#">Manage Account →</a>
           </div>
         `;
@@ -3290,6 +3591,24 @@
         el.style.overflow = "hidden";
         setTimeout(() => el.remove(), 300);
         toast("Search filter removed");
+      }
+
+      function refreshRecommended() {
+        const grid = document.querySelector(".recommended-grid");
+        if (!grid) return;
+
+        const cards = Array.from(grid.children);
+        cards
+          .sort(() => Math.random() - 0.5)
+          .forEach((card) => grid.appendChild(card));
+
+        ["rec1", "rec2", "rec3"].forEach((id) => {
+          pos[id] = 0;
+          const dots = document.querySelectorAll("#" + id + "-dots .prop-dot");
+          dots.forEach((dot, i) => dot.classList.toggle("active", i === 0));
+        });
+
+        toast("Recommendations refreshed");
       }
 
       /* ---- TOAST ---- */
