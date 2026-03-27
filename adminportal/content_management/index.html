@@ -1,0 +1,2094 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PropAdmin — Content Management</title>
+    <link rel="stylesheet" href="../styles/main.css" />
+    <style>
+      :root {
+        --cms-primary: #2563eb;
+        --cms-border-primary: rgba(37, 99, 235, 0.6);
+      }
+
+      body {
+        background: var(--bg-tertiary);
+      }
+
+      .cms-shell {
+        max-width: 1200px;
+        margin: 24px auto;
+        padding: 0 16px 24px;
+      }
+
+      .cms-header {
+        margin-bottom: 16px;
+      }
+
+      .cms-header-title {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+      }
+
+      .cms-header-sub {
+        font-size: 13px;
+        color: var(--text-secondary);
+        max-width: 760px;
+      }
+
+      .cms-layout {
+        display: flex;
+        margin-top: 20px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--bg-primary);
+        border: 0.5px solid var(--border-tertiary);
+        min-height: 520px;
+      }
+
+      .cms-nav {
+        width: 260px;
+        border-right: 0.5px solid var(--border-tertiary);
+        background: var(--bg-secondary);
+        padding: 20px 0 16px;
+      }
+
+      .cms-nav-title {
+        padding: 0 20px 4px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .cms-nav-caption {
+        padding: 0 20px 12px;
+        font-size: 11px;
+        color: var(--text-tertiary);
+      }
+
+      .cms-nav-group {
+        padding: 10px 20px 4px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-tertiary);
+      }
+
+      .cms-content-wrap {
+        flex: 1;
+        padding: 24px 24px 32px;
+        background: #f3f4f7;
+        overflow-y: auto;
+      }
+
+      .cms-pane-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .cms-pane-desc {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 18px;
+        max-width: 720px;
+      }
+
+      .cms-filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .cms-filter-input {
+        min-width: 160px;
+        padding: 6px 8px;
+        border-radius: 6px;
+        border: 0.5px solid var(--border-tertiary);
+        font-size: 12px;
+        background: var(--bg-primary);
+      }
+
+      .btn {
+        padding: 8px 14px;
+        border-radius: 6px;
+        border: 0.5px solid var(--border-tertiary);
+        background: var(--bg-primary);
+        color: var(--text-secondary);
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: var(--cms-primary);
+        color: #fff;
+        border-color: transparent;
+      }
+
+      .btn-secondary {
+        background: var(--bg-secondary);
+      }
+
+      .btn-text {
+        border: none;
+        background: transparent;
+        color: var(--cms-primary);
+        padding: 0;
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .cms-inline-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .cms-hint {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        margin-top: 4px;
+      }
+
+      .toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .toggle input {
+        display: none;
+      }
+
+      .toggle-slider {
+        width: 40px;
+        height: 20px;
+        border-radius: 999px;
+        background: var(--border-tertiary);
+        position: relative;
+        transition: background 0.16s ease;
+      }
+
+      .toggle-slider::before {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--bg-primary);
+        top: 2px;
+        left: 2px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        transition: transform 0.18s ease;
+      }
+
+      .toggle input:checked + .toggle-slider {
+        background: var(--cms-primary);
+      }
+
+      .toggle input:checked + .toggle-slider::before {
+        transform: translateX(20px);
+      }
+
+      .cms-section-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 6px;
+        border-radius: 999px;
+        border: 0.5px solid var(--border-tertiary);
+        font-size: 10px;
+        color: var(--text-tertiary);
+        margin-right: 4px;
+        background: var(--bg-primary);
+      }
+
+      .table-mini {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+
+      .table-mini th,
+      .table-mini td {
+        padding: 6px 8px;
+        border-bottom: 0.5px solid var(--border-tertiary);
+        text-align: left;
+      }
+
+      .table-mini th {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .cms-subnav {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 8px 0 10px;
+      }
+
+      .cms-subtab,
+      .cms-subtab-sm {
+        border-radius: 999px;
+        border: 0.5px solid var(--border-tertiary);
+        background: var(--bg-secondary);
+        padding: 4px 10px;
+        font-size: 11px;
+        cursor: pointer;
+        color: var(--text-tertiary);
+      }
+
+      .cms-subtab.active,
+      .cms-subtab-sm.active {
+        background: var(--cms-primary);
+        border-color: transparent;
+        color: #fff;
+      }
+
+      .insights-subpane,
+      .insights-articles-pane,
+      .insights-news-pane {
+        display: none;
+      }
+
+      .insights-subpane.active,
+      .insights-articles-pane.active,
+      .insights-news-pane.active {
+        display: block;
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.45);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+      }
+
+      .modal-backdrop.open {
+        display: flex;
+      }
+
+      .modal-shell {
+        width: 880px;
+        max-width: 95%;
+        max-height: 90vh;
+        background: var(--bg-primary);
+        border-radius: 10px;
+        box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .modal-header {
+        padding: 14px 18px;
+        border-bottom: 0.5px solid var(--border-tertiary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .modal-header-main {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .modal-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .modal-subtitle {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        margin-top: 2px;
+      }
+
+      .modal-close-btn {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1;
+        color: var(--text-tertiary);
+      }
+
+      .modal-body {
+        padding: 14px 18px 12px;
+        overflow: auto;
+        font-size: 12px;
+      }
+
+      .modal-footer {
+        padding: 10px 18px 12px;
+        border-top: 0.5px solid var(--border-tertiary);
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        background: var(--bg-secondary);
+      }
+
+      @media (max-width: 900px) {
+        .cms-layout {
+          flex-direction: column;
+        }
+        .cms-nav {
+          width: 100%;
+          border-right: none;
+          border-bottom: 0.5px solid var(--border-tertiary);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cms-shell">
+      <div class="cms-header">
+        <div class="cms-header-title">Content Management</div>
+        <div class="cms-header-sub">
+          CMS manages homepage sections and content displayed on Client & Agent
+          portals. It controls <strong>what</strong> appears, not
+          <strong>how</strong> it is laid out. Ads pricing, bidding, and
+          workflow rules are handled by separate modules.
+        </div>
+      </div>
+
+      <div class="cms-layout">
+        <!-- LEFT: navigation -->
+        <aside class="cms-nav">
+          <div class="cms-nav-title">CMS functions</div>
+          <div class="cms-nav-caption">
+            Controls content and homepage sections only. No system rules or
+            pricing logic.
+          </div>
+
+          <div class="cms-nav-group">Core content</div>
+          <div
+            class="vertical-tab active"
+            onclick="switchCmsPane('insights', this)"
+          >
+            Insights Management
+          </div>
+
+          <div class="cms-nav-group">Homepage</div>
+          <div class="vertical-tab" onclick="switchCmsPane('homepage', this)">
+            Homepage display
+          </div>
+
+          <div class="vertical-tab" onclick="switchCmsPane('video', this)">
+            Video section
+          </div>
+          <div
+            class="vertical-tab"
+            onclick="switchCmsPane('article-section', this)"
+          >
+            Article section
+          </div>
+          <div class="vertical-tab" onclick="switchCmsPane('faq', this)">
+            FAQ section
+          </div>
+          <div
+            class="vertical-tab"
+            onclick="switchCmsPane('testimonials', this)"
+          >
+            Testimonials
+          </div>
+
+          <div class="cms-nav-group">Governance</div>
+          <div class="vertical-tab" onclick="switchCmsPane('moderation', this)">
+            Moderation
+          </div>
+        </aside>
+
+        <!-- RIGHT: content panes -->
+        <section class="cms-content-wrap">
+          <!-- 1. INSIGHTS MANAGEMENT -->
+          <div id="cms-pane-insights" class="setting-pane active">
+            <h2 class="cms-pane-title">Insights Management</h2>
+            <p class="cms-pane-desc">
+              Core content library for Area Guides, Articles, News, and FAQs.
+              These datasets feed homepage sections and other views; layout and
+              placement are controlled elsewhere.
+            </p>
+
+            <div class="settings-card">
+              <div class="settings-card-title">
+                Insights library
+                <span class="badge badge-gray">Core content store</span>
+              </div>
+
+              <div class="cms-subnav">
+                <button
+                  class="cms-subtab active"
+                  onclick="switchInsightsSubTab('guides', this)"
+                >
+                  Area guides
+                </button>
+                <button
+                  class="cms-subtab"
+                  onclick="switchInsightsSubTab('articles', this)"
+                >
+                  Articles
+                </button>
+                <button
+                  class="cms-subtab"
+                  onclick="switchInsightsSubTab('news', this)"
+                >
+                  News
+                </button>
+                <button
+                  class="cms-subtab"
+                  onclick="switchInsightsSubTab('faqs', this)"
+                >
+                  FAQs
+                </button>
+              </div>
+
+              <!-- Area guides subpane -->
+              <div id="insights-sub-guides" class="insights-subpane active">
+                <div class="cms-filter-bar">
+                  <input
+                    type="text"
+                    class="cms-filter-input"
+                    placeholder="Search guides by area or keyword"
+                  />
+                </div>
+                <div class="table-wrap">
+                  <table class="table-mini">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Region</th>
+                        <th>Status</th>
+                        <th>Visibility</th>
+                        <th>Author</th>
+                        <th>Last updated</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Tokyo area guide — Yamanote line</td>
+                        <td>Tokyo</td>
+                        <td>
+                          <span class="badge badge-success">Published</span>
+                        </td>
+                        <td>Client & Agent</td>
+                        <td>Admin Tanaka</td>
+                        <td>2026-03-20</td>
+                        <td>
+                          <button class="btn-text">Edit</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="margin-top: 10px" class="cms-inline-actions">
+                  <button
+                    class="btn btn-primary"
+                    onclick="openBlogEditor('guide')"
+                  >
+                    New area guide
+                  </button>
+                </div>
+              </div>
+
+              <!-- Articles subpane (with categories: Guides / Blog / Market analysis) -->
+              <div id="insights-sub-articles" class="insights-subpane">
+                <div class="cms-subnav">
+                  <button
+                    class="cms-subtab-sm active"
+                    onclick="switchArticlesCategory('guides', this)"
+                  >
+                    Guides
+                  </button>
+                  <button
+                    class="cms-subtab-sm"
+                    onclick="switchArticlesCategory('blog', this)"
+                  >
+                    Blog
+                  </button>
+                  <button
+                    class="cms-subtab-sm"
+                    onclick="switchArticlesCategory('analysis', this)"
+                  >
+                    Market analysis
+                  </button>
+                </div>
+
+                <div
+                  id="articles-cat-guides"
+                  class="insights-articles-pane active"
+                >
+                  <div class="cms-filter-bar">
+                    <input
+                      type="text"
+                      class="cms-filter-input"
+                      placeholder="Search guide articles"
+                    />
+                  </div>
+                  <div class="table-wrap">
+                    <table class="table-mini">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Status</th>
+                          <th>Visibility</th>
+                          <th>Author</th>
+                          <th>Last updated</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Guide: reading floor plans</td>
+                          <td>
+                            <span class="badge badge-success">Published</span>
+                          </td>
+                          <td>Client</td>
+                          <td>Editor Sato</td>
+                          <td>2026-03-18</td>
+                          <td><button class="btn-text">Edit</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div style="margin-top: 10px" class="cms-inline-actions">
+                  <button
+                    class="btn btn-primary"
+                    onclick="openBlogEditor('article')"
+                  >
+                    New article
+                  </button>
+                </div>
+
+                <div id="articles-cat-blog" class="insights-articles-pane">
+                  <div class="cms-filter-bar">
+                    <input
+                      type="text"
+                      class="cms-filter-input"
+                      placeholder="Search blog posts"
+                    />
+                  </div>
+                  <div class="table-wrap">
+                    <table class="table-mini">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Status</th>
+                          <th>Visibility</th>
+                          <th>Author</th>
+                          <th>Last updated</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Platform tips for new agents</td>
+                          <td>
+                            <span class="badge badge-warning">In Review</span>
+                          </td>
+                          <td>Agent</td>
+                          <td>Content Team</td>
+                          <td>2026-03-22</td>
+                          <td><button class="btn-text">Edit</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div id="articles-cat-analysis" class="insights-articles-pane">
+                  <div class="cms-filter-bar">
+                    <div style="margin-top: 10px" class="cms-inline-actions">
+                      <button
+                        class="btn btn-primary"
+                        onclick="openBlogEditor('news')"
+                      >
+                        New news item
+                      </button>
+                    </div>
+                    <input
+                      type="text"
+                      class="cms-filter-input"
+                      placeholder="Search market analysis"
+                    />
+                  </div>
+                  <div class="table-wrap">
+                    <table class="table-mini">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Status</th>
+                          <th>Visibility</th>
+                          <th>Author</th>
+                          <th>Last updated</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Market insights — Q1 rental trends</td>
+                          <td>
+                            <span class="badge badge-warning">In Review</span>
+                          </td>
+                          <td>Client</td>
+                          <td>Editor Sato</td>
+                          <td>2026-03-25</td>
+                          <td><button class="btn-text">Edit</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="cms-hint">
+                    Video articles / news are just entries here with a video
+                    asset attached.
+                  </p>
+                </div>
+              </div>
+
+              <!-- News subpane (with categories: Japan / Real estate / Investment) -->
+              <div id="insights-sub-news" class="insights-subpane">
+                <div class="cms-subnav">
+                  <button
+                    class="cms-subtab-sm active"
+                    onclick="switchNewsCategory('japan', this)"
+                  >
+                    Japan
+                  </button>
+                  <button
+                    class="cms-subtab-sm"
+                    onclick="switchNewsCategory('realestate', this)"
+                  >
+                    Real estate
+                  </button>
+                  <button
+                    class="cms-subtab-sm"
+                    onclick="switchNewsCategory('investment', this)"
+                  >
+                    Investment
+                  </button>
+                </div>
+
+                <div id="news-cat-japan" class="insights-news-pane active">
+                  <div class="cms-filter-bar">
+                    <input
+                      type="text"
+                      class="cms-filter-input"
+                      placeholder="Search Japan news"
+                    />
+                  </div>
+                  <div class="table-wrap">
+                    <table class="table-mini">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Status</th>
+                          <th>Visibility</th>
+                          <th>Author</th>
+                          <th>Last updated</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Platform maintenance announcement</td>
+                          <td>
+                            <span class="badge badge-success">Published</span>
+                          </td>
+                          <td>Client & Agent</td>
+                          <td>System</td>
+                          <td>2026-03-01</td>
+                          <td><button class="btn-text">Edit</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div id="news-cat-realestate" class="insights-news-pane">
+                  <div class="cms-filter-bar">
+                    <input
+                      type="text"
+                      class="cms-filter-input"
+                      placeholder="Search real estate news"
+                    />
+                  </div>
+                  <div class="table-wrap">
+                    <table class="table-mini">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Status</th>
+                          <th>Visibility</th>
+                          <th>Author</th>
+                          <th>Last updated</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>New lending rules impact investment</td>
+                          <td>
+                            <span class="badge badge-success">Published</span>
+                          </td>
+                          <td>Client</td>
+                          <td>Research Team</td>
+                          <td>2026-03-05</td>
+                          <td><button class="btn-text">Edit</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div id="news-cat-investment" class="insights-news-pane">
+                  <div class="cms-filter-bar">
+                    <input
+                      type="text"
+                      class="cms-filter-input"
+                      placeholder="Search investment news"
+                    />
+                  </div>
+                  <div class="table-wrap">
+                    <table class="table-mini">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Status</th>
+                          <th>Visibility</th>
+                          <th>Author</th>
+                          <th>Last updated</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Tax basics for investors</td>
+                          <td>
+                            <span class="badge badge-success">Published</span>
+                          </td>
+                          <td>Client</td>
+                          <td>Tax Advisor</td>
+                          <td>2026-03-03</td>
+                          <td><button class="btn-text">Edit</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAQs subpane (shared FAQ store) -->
+              <div id="insights-sub-faqs" class="insights-subpane">
+                <div class="cms-filter-bar">
+                  <input
+                    type="text"
+                    class="cms-filter-input"
+                    placeholder="Search FAQ question or keyword"
+                  />
+                </div>
+                <div class="table-wrap">
+                  <table class="table-mini">
+                    <thead>
+                      <tr>
+                        <th>Question</th>
+                        <th>Status</th>
+                        <th>Last updated</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>How do I book a viewing?</td>
+                        <td>
+                          <span class="badge badge-success">Published</span>
+                        </td>
+                        <td>2026-03-10</td>
+                        <td><button class="btn-text">Edit</button></td>
+                      </tr>
+                      <tr>
+                        <td>How are yields calculated?</td>
+                        <td>
+                          <span class="badge badge-success">Published</span>
+                        </td>
+                        <td>2026-02-28</td>
+                        <td><button class="btn-text">Edit</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="cms-hint">
+                  These FAQs are referenced by the homepage FAQ block and FAQ
+                  pages.
+                </p>
+                <div style="margin-top: 10px" class="cms-inline-actions">
+                  <button
+                    class="btn btn-primary"
+                    onclick="alert('Open FAQ editor (mock).')"
+                  >
+                    New FAQ
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. HOMEPAGE SECTIONS  -->
+          <div id="cms-pane-homepage" class="setting-pane">
+            <h2 class="cms-pane-title">Homepage section management</h2>
+            <p class="cms-pane-desc">
+              Toggle homepage sections ON/OFF and choose what content each
+              section displays. Card layout and carousel behavior are fixed by
+              design; CMS only decides which items appear.
+            </p>
+
+            <!-- Properties sections -->
+            <div class="settings-card">
+              <div class="settings-card-title">Properties sections</div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-name">Properties carousel</div>
+                </div>
+                <div class="setting-control">
+                  <div class="cms-inline-actions">
+                    <label class="toggle">
+                      <input type="checkbox" checked />
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <button class="btn btn-secondary">Save</button>
+                    <button
+                      class="btn btn-secondary"
+                      onclick="openModal('modal-property')"
+                    >
+                      Customize selection
+                    </button>
+                  </div>
+                  <div class="cms-hint">
+                    Auto mode pulls from property pool using rule. Manual mode
+                    lets you pin specific Property IDs.
+                  </div>
+                </div>
+              </div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-name">New development properties</div>
+                  <div class="setting-desc">
+                    Section for newly launched developments. CMS chooses content
+                    rule and sponsored slot count; Ads module owns pricing /
+                    bidding.
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div class="cms-inline-actions">
+                    <label class="toggle">
+                      <input type="checkbox" checked />
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <button class="btn btn-secondary">Save</button>
+                    <button
+                      class="btn btn-secondary"
+                      onclick="openModal('modal-property')"
+                    >
+                      Customize selection
+                    </button>
+                  </div>
+                  <div class="cms-hint">
+                    Sponsored properties are sourced from Ads module. If slots
+                    not filled, auto-fill using the rule.
+                  </div>
+                </div>
+              </div>
+
+              <div class="setting-row" style="border-bottom: none">
+                <div class="setting-info">
+                  <div class="setting-name">New properties</div>
+                  <div class="setting-desc">
+                    Recent properties uploaded in the last 30 days, excluding
+                    new developments. Admin can also pin specific properties.
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div class="cms-inline-actions">
+                    <label class="toggle">
+                      <input type="checkbox" checked />
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <button class="btn btn-secondary">Save</button>
+                    <button
+                      class="btn btn-secondary"
+                      onclick="openModal('modal-property')"
+                    >
+                      Customize selection
+                    </button>
+                  </div>
+                  <div class="cms-hint">
+                    Auto-fill from last 30 days. Manual override allows pinning
+                    selected property IDs on top.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Famous Prefecture -->
+            <div class="settings-card">
+              <div class="settings-card-title">Famous Prefecture list</div>
+
+              <div class="setting-row" style="border-bottom: none">
+                <div class="setting-info">
+                  <div class="setting-name">Section visibility & behavior</div>
+                  <div class="setting-desc">
+                    Controls if the fixed set of 12 major prefectures appears on
+                    the homepage. Data comes from System Settings master data
+                    and cannot be edited here.
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div class="cms-inline-actions">
+                    <label class="toggle">
+                      <input type="checkbox" checked />
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <button class="btn btn-secondary">Save</button>
+                    <button
+                      class="btn btn-secondary"
+                      onclick="openModal('modal-prefecture')"
+                    >
+                      Customize prefectures
+                    </button>
+                  </div>
+                  <div class="cms-hint">
+                    Prefecture names and mapping to search results are locked to
+                    System Settings. CMS only toggles section visibility and the
+                    "View all" CTA.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. VIDEO SECTION -->
+          <div id="cms-pane-video" class="setting-pane">
+            <h2 class="cms-pane-title">Video section</h2>
+            <p class="cms-pane-desc">
+              Control which video articles appear in the homepage video
+              carousel. Carousel layout and navigation arrows are fixed.
+            </p>
+
+            <div class="settings-card">
+              <div class="settings-card-title">Video section settings</div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-name">Section visibility</div>
+                  <div class="setting-desc">
+                    Toggle the video carousel ON or OFF on the homepage.
+                  </div>
+                </div>
+                <div class="setting-control">
+                  <div class="cms-inline-actions">
+                    <label class="toggle">
+                      <input type="checkbox" checked />
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <button class="btn btn-secondary">Save</button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: 8px" class="cms-inline-actions">
+                <button
+                  class="btn btn-secondary"
+                  onclick="openModal('modal-insights')"
+                >
+                  Customize video articles from Insights
+                </button>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <div class="settings-card-title">Selected video articles</div>
+              <div class="table-wrap">
+                <table class="table-mini">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Status</th>
+                      <th>Published</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>How to evaluate rental yield</td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>2026-03-12</td>
+                      <td>
+                        <button class="btn-text">Remove from section</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Platform walkthrough for new clients</td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>2026-02-28</td>
+                      <td>
+                        <button class="btn-text">Remove from section</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. ARTICLE SECTION -->
+          <div id="cms-pane-article-section" class="setting-pane">
+            <h2 class="cms-pane-title">Article section</h2>
+            <p class="cms-pane-desc">
+              Configure the homepage article block: 1 featured article + 3
+              secondary articles. Layout is fixed.
+            </p>
+
+            <div class="settings-card">
+              <div class="settings-card-title">Section configuration</div>
+
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-name">Section visibility</div>
+                  <div class="setting-desc">Toggle article block ON / OFF.</div>
+                </div>
+                <div class="setting-control">
+                  <div class="cms-inline-actions">
+                    <label class="toggle">
+                      <input type="checkbox" checked />
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <button class="btn btn-secondary">Save</button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: 8px" class="cms-inline-actions">
+                <button
+                  class="btn btn-secondary"
+                  onclick="openModal('modal-insights')"
+                >
+                  Customize article pool from Insights
+                </button>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <div class="settings-card-title">
+                Featured & secondary articles
+              </div>
+              <div class="table-wrap">
+                <table class="table-mini">
+                  <thead>
+                    <tr>
+                      <th>Slot</th>
+                      <th>Title</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Featured</td>
+                      <td>Where to start investing in Tokyo</td>
+                      <td>Insights</td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>
+                        <button
+                          class="btn-text"
+                          onclick="openModal('modal-insights')"
+                        >
+                          Change
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Secondary #1</td>
+                      <td>Osaka rental market snapshot</td>
+                      <td>Insights</td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>
+                        <button
+                          class="btn-text"
+                          onclick="openModal('modal-insights')"
+                        >
+                          Change
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Secondary #2</td>
+                      <td>Guide: reading floor plans</td>
+                      <td>Area Guide</td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>
+                        <button
+                          class="btn-text"
+                          onclick="openModal('modal-insights')"
+                        >
+                          Change
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Secondary #3</td>
+                      <td>Tax basics for investors</td>
+                      <td>Insights</td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>
+                        <button
+                          class="btn-text"
+                          onclick="openModal('modal-insights')"
+                        >
+                          Change
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. FAQ SECTION -->
+          <div id="cms-pane-faq" class="setting-pane">
+            <h2 class="cms-pane-title">FAQ section</h2>
+            <p class="cms-pane-desc">
+              Manage frequently asked questions displayed on the homepage and
+              FAQ pages. Content is static text; UI allows multiple questions to
+              be expanded.
+            </p>
+
+            <div class="settings-card">
+              <div class="settings-card-title">Section configuration</div>
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-name">Section visibility</div>
+                  <div class="setting-desc">Toggle FAQ block ON / OFF.</div>
+                </div>
+                <div class="setting-control">
+                  <div class="cms-inline-actions">
+                    <label class="toggle">
+                      <input type="checkbox" checked />
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <button class="btn btn-secondary">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <div class="settings-card-title">FAQ management</div>
+              <div class="table-wrap">
+                <table class="table-mini">
+                  <thead>
+                    <tr>
+                      <th>Question</th>
+                      <th>Status</th>
+                      <th>Last updated</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>How do I book a viewing?</td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>2026-03-10</td>
+                      <td>
+                        <button class="btn-text">Edit</button>
+                        <button class="btn-text">Unpublish</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>How are yields calculated?</td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>2026-02-28</td>
+                      <td>
+                        <button class="btn-text">Edit</button>
+                        <button class="btn-text">Unpublish</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>How do I reset my password?</td>
+                      <td><span class="badge badge-warning">Draft</span></td>
+                      <td>2026-03-22</td>
+                      <td><button class="btn-text">Edit</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="margin-top: 10px" class="cms-inline-actions">
+                <button
+                  class="btn btn-primary"
+                  onclick="alert('Open FAQ editor (mock).')"
+                >
+                  New FAQ
+                </button>
+                <button class="btn btn-secondary">Reorder FAQs</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. TESTIMONIALS SECTION -->
+          <div id="cms-pane-testimonials" class="setting-pane">
+            <h2 class="cms-pane-title">Testimonials section</h2>
+            <p class="cms-pane-desc">
+              Configure testimonials used in the homepage carousel. UI behavior
+              (carousel, arrows) is fixed.
+            </p>
+
+            <div class="settings-card">
+              <div class="settings-card-title">Section configuration</div>
+              <div class="setting-row">
+                <div class="setting-info">
+                  <div class="setting-name">Section visibility</div>
+                  <div class="setting-desc">Toggle testimonials ON / OFF.</div>
+                </div>
+                <div class="setting-control">
+                  <div class="cms-inline-actions">
+                    <label class="toggle">
+                      <input type="checkbox" checked />
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <button class="btn btn-secondary">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <div class="settings-card-title">Testimonials content</div>
+              <div class="table-wrap">
+                <table class="table-mini">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Role</th>
+                      <th>Excerpt</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Mr. Sato</td>
+                      <td>Investor</td>
+                      <td>
+                        "The platform made it easy to compare properties …"
+                      </td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>
+                        <button class="btn-text">Edit</button>
+                        <button class="btn-text">Delete</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ms. Tan</td>
+                      <td>First-time buyer</td>
+                      <td>"I appreciated the clear yield information …"</td>
+                      <td>
+                        <span class="badge badge-success">Published</span>
+                      </td>
+                      <td>
+                        <button class="btn-text">Edit</button>
+                        <button class="btn-text">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="margin-top: 10px" class="cms-inline-actions">
+                <button
+                  class="btn btn-primary"
+                  onclick="alert('Open testimonial editor (mock).')"
+                >
+                  New testimonial
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. MODERATION -->
+          <div id="cms-pane-moderation" class="setting-pane">
+            <h2 class="cms-pane-title">CMS moderation</h2>
+            <p class="cms-pane-desc">
+              Review flagged CMS content, apply moderation decisions.
+            </p>
+
+            <div class="settings-card">
+              <div class="settings-card-title">Flagged content queue</div>
+              <div class="cms-filter-bar">
+                <select class="filter-select">
+                  <option>All</option>
+                  <option>Area Guide</option>
+                  <option>Article</option>
+                  <option>News</option>
+                  <option>FAQ</option>
+                </select>
+                <input
+                  type="text"
+                  class="cms-filter-input"
+                  placeholder="Keyword in title or reason"
+                />
+              </div>
+              <div class="table-wrap">
+                <table class="table-mini">
+                  <thead>
+                    <tr>
+                      <th>Content</th>
+                      <th>Type</th>
+                      <th>Flag reason</th>
+                      <th>Written by</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Market insights — Q1 rental trends</td>
+                      <td>Article</td>
+                      <td>Outdated numbers</td>
+                      <td>Admin Tanaka</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                      <td>
+                        <button
+                          class="btn-text"
+                          onclick="alert('Approve content (mock).')"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          class="btn-text"
+                          onclick="alert('Reject with reason (mock).')"
+                        >
+                          Reject
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>How to evaluate rental yield</td>
+                      <td>Video</td>
+                      <td>Inappropriate wording</td>
+                      <td>Editor Sato</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                      <td>
+                        <button class="btn-text">Approve</button>
+                        <button class="btn-text">Reject</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="settings-card">
+              <div class="settings-card-title">
+                Handle flagged listing verification &amp; rectification requests
+              </div>
+              <p class="cms-hint">
+                Use when property listings are reported for incorrect
+                information. CMS helps coordinate verification and
+                rectification; actual listing edits are handled in Listing
+                Management.
+              </p>
+              <div class="cms-filter-bar">
+                <select class="filter-select">
+                  <option>Status: All</option>
+                  <option>Pending verification</option>
+                  <option>Rectification requested</option>
+                  <option>Verified &amp; closed</option>
+                </select>
+                <select class="filter-select">
+                  <option>Issue type: All</option>
+                  <option>Price / yield mismatch</option>
+                  <option>Photos inaccurate</option>
+                  <option>Description inaccurate</option>
+                </select>
+                <input
+                  type="text"
+                  class="cms-filter-input"
+                  placeholder="Search by Property ID or title"
+                />
+              </div>
+              <div class="table-wrap">
+                <table class="table-mini">
+                  <thead>
+                    <tr>
+                      <th>Property ID</th>
+                      <th>Title</th>
+                      <th>Issue summary</th>
+                      <th>Reported by</th>
+                      <th>Status</th>
+                      <th>Last update</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>P-202603-0045</td>
+                      <td>Central Tokyo investment unit</td>
+                      <td>Yield calculation questioned</td>
+                      <td>Client</td>
+                      <td>
+                        <span class="badge badge-warning"
+                          >Pending verification</span
+                        >
+                      </td>
+                      <td>2026-03-24</td>
+                      <td>
+                        <button
+                          class="btn-text"
+                          onclick="alert('Mark listing as verified (mock).')"
+                        >
+                          Mark as verified
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>P-202603-0023</td>
+                      <td>Osaka family house near station</td>
+                      <td>Photos outdated</td>
+                      <td>Agent</td>
+                      <td>
+                        <span class="badge badge-warning"
+                          >Rectification requested</span
+                        >
+                      </td>
+                      <td>2026-03-21</td>
+                      <td>
+                        <button
+                          class="btn-text"
+                          onclick="
+                            alert('Notify agent to rectify listing (mock).')
+                          "
+                        >
+                          Send reminder
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- PROPERTY SELECTION MODAL -->
+    <div id="modal-property" class="modal-backdrop">
+      <div class="modal-shell">
+        <div class="modal-header">
+          <div class="modal-header-main">
+            <div class="modal-title">
+              Select properties for homepage sections
+            </div>
+            <div class="modal-subtitle">
+              Filter the property pool and pin specific listings for carousel,
+              new developments, or new properties sections.
+            </div>
+          </div>
+          <button
+            class="modal-close-btn"
+            onclick="closeModal('modal-property')"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="cms-filter-bar">
+            <select class="filter-select">
+              <option>Prefecture: All</option>
+              <option>Tokyo</option>
+              <option>Osaka</option>
+              <option>Fukuoka</option>
+            </select>
+            <select class="filter-select">
+              <option>Property type: All</option>
+              <option>Condo</option>
+              <option>House</option>
+              <option>Building</option>
+            </select>
+            <select class="filter-select">
+              <option>Source: All</option>
+              <option>Sponsored (Ads)</option>
+              <option>Organic</option>
+            </select>
+            <input
+              type="text"
+              class="cms-filter-input"
+              placeholder="Search by Property ID or title"
+            />
+          </div>
+          <div class="table-wrap">
+            <table class="table-mini">
+              <thead>
+                <tr>
+                  <th>Property ID</th>
+                  <th>Title</th>
+                  <th>Prefecture</th>
+                  <th>Type</th>
+                  <th>Source</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>P-202603-0012</td>
+                  <td>New build condo near Shinjuku</td>
+                  <td>Tokyo</td>
+                  <td>Condo</td>
+                  <td>Sponsored</td>
+                  <td>
+                    <span class="badge badge-success">Active</span>
+                  </td>
+                  <td><button class="btn-text">Select</button></td>
+                </tr>
+                <tr>
+                  <td>P-202602-0098</td>
+                  <td>Osaka rental unit with high yield</td>
+                  <td>Osaka</td>
+                  <td>Apartment</td>
+                  <td>Organic</td>
+                  <td>
+                    <span class="badge badge-success">Active</span>
+                  </td>
+                  <td><button class="btn-text">Select</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('modal-property')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              alert('Save property selection (mock).');
+              closeModal('modal-property');
+            "
+          >
+            Save selection
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREFECTURE SELECTION MODAL -->
+    <div id="modal-prefecture" class="modal-backdrop">
+      <div class="modal-shell">
+        <div class="modal-header">
+          <div class="modal-header-main">
+            <div class="modal-title">Configure famous prefectures</div>
+            <div class="modal-subtitle">
+              Select which prefectures from System Settings master data are
+              highlighted on the homepage.
+            </div>
+          </div>
+          <button
+            class="modal-close-btn"
+            onclick="closeModal('modal-prefecture')"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="cms-filter-bar">
+            <input
+              type="text"
+              class="cms-filter-input"
+              placeholder="Filter prefectures by name"
+            />
+          </div>
+          <div class="table-wrap">
+            <table class="table-mini">
+              <thead>
+                <tr>
+                  <th>Prefecture</th>
+                  <th>Code</th>
+                  <th>Homepage highlight</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Tokyo</td>
+                  <td>13</td>
+                  <td><input type="checkbox" checked /></td>
+                </tr>
+                <tr>
+                  <td>Osaka</td>
+                  <td>27</td>
+                  <td><input type="checkbox" checked /></td>
+                </tr>
+                <tr>
+                  <td>Fukuoka</td>
+                  <td>40</td>
+                  <td><input type="checkbox" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="cms-hint">
+            Master list and codes are maintained in System Settings; CMS only
+            controls which are highlighted.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('modal-prefecture')"
+          >
+            Close
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              alert('Save prefecture configuration (mock).');
+              closeModal('modal-prefecture');
+            "
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSIGHTS CONTENT SELECTION MODAL (for video/articles) -->
+    <div id="modal-insights" class="modal-backdrop">
+      <div class="modal-shell">
+        <div class="modal-header">
+          <div class="modal-header-main">
+            <div class="modal-title">Select content from Insights</div>
+            <div class="modal-subtitle">
+              Choose articles or video articles from the core Insights
+              repository to feed homepage Video and Article sections.
+            </div>
+          </div>
+          <button
+            class="modal-close-btn"
+            onclick="closeModal('modal-insights')"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="cms-filter-bar">
+            <select class="filter-select">
+              <option>Type: All</option>
+              <option>Article</option>
+              <option>Video article</option>
+              <option>Area guide</option>
+            </select>
+            <select class="filter-select">
+              <option>Category tag: All</option>
+              <option>Guides</option>
+              <option>Blog</option>
+              <option>Market Analysis</option>
+              <option>Japan</option>
+              <option>Real Estate</option>
+              <option>Investment</option>
+            </select>
+            <select class="filter-select">
+              <option>Status: All</option>
+              <option>Published</option>
+              <option>In Review</option>
+              <option>Draft</option>
+            </select>
+            <input
+              type="text"
+              class="cms-filter-input"
+              placeholder="Search by title or Blog ID"
+            />
+          </div>
+          <div class="table-wrap">
+            <table class="table-mini">
+              <thead>
+                <tr>
+                  <th>Blog ID</th>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Category tag</th>
+                  <th>Status</th>
+                  <th>Visibility</th>
+                  <th>Video badge</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>B-2026-001</td>
+                  <td>How to evaluate rental yield</td>
+                  <td>Video article</td>
+                  <td>Guides</td>
+                  <td><span class="badge badge-success">Published</span></td>
+                  <td>Client</td>
+                  <td><span class="badge badge-info">Video</span></td>
+                  <td><button class="btn-text">Select</button></td>
+                </tr>
+                <tr>
+                  <td>B-2026-002</td>
+                  <td>Where to start investing in Tokyo</td>
+                  <td>Article</td>
+                  <td>Market Analysis</td>
+                  <td><span class="badge badge-success">Published</span></td>
+                  <td>Client &amp; Agent</td>
+                  <td>-</td>
+                  <td><button class="btn-text">Select</button></td>
+                </tr>
+                <tr>
+                  <td>B-2026-003</td>
+                  <td>Osaka rental market snapshot</td>
+                  <td>Article</td>
+                  <td>Blog</td>
+                  <td><span class="badge badge-warning">In Review</span></td>
+                  <td>Client</td>
+                  <td>-</td>
+                  <td><button class="btn-text">Select</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('modal-insights')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              alert('Save Insights selection (mock).');
+              closeModal('modal-insights');
+            "
+          >
+            Save selection
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOG EDITOR MODAL FOR ARTICLES / NEWS DB STRUCTURE -->
+    <div id="modal-blog-editor" class="modal-backdrop">
+      <div class="modal-shell">
+        <div class="modal-header">
+          <div class="modal-header-main">
+            <div class="modal-title" id="blog-editor-title">
+              Blog editor — Article / News
+            </div>
+            <div class="modal-subtitle">
+              Fields mirror the DB structure for Articles &amp; News. Saving is
+              mocked for this prototype.
+            </div>
+          </div>
+          <button
+            class="modal-close-btn"
+            onclick="closeModal('modal-blog-editor')"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="detail-grid">
+            <div>
+              <div class="field-row">
+                <div class="field-label">1. Blog ID</div>
+                <div class="field-value">
+                  <input
+                    type="text"
+                    class="cms-filter-input"
+                    value="AUTO-GENERATED"
+                    disabled
+                  />
+                  <div class="cms-hint">
+                    System-generated unique identifier.
+                  </div>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-label">2. Category Tag</div>
+                <div class="field-value">
+                  <select class="filter-select" id="blog-category-tag">
+                    <option>Guides</option>
+                    <option>Blog</option>
+                    <option>Market Analysis</option>
+                    <option>Japan</option>
+                    <option>Real Estate</option>
+                    <option>Investment</option>
+                  </select>
+                  <div class="cms-hint">
+                    For Articles: Guides / Blog / Market Analysis. For News:
+                    Japan / Real Estate / Investment.
+                  </div>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-label">3. Transaction Type</div>
+                <div class="field-value">
+                  <select class="filter-select">
+                    <option>None</option>
+                    <option>SellerGuide</option>
+                    <option>BuyerGuide</option>
+                    <option>Renter Guide</option>
+                  </select>
+                  <div class="cms-hint">
+                    Defines the target page / funnel this content supports.
+                  </div>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-label">4. Thumbnail</div>
+                <div class="field-value">
+                  <input type="file" class="cms-filter-input" />
+                  <div class="cms-hint">
+                    Primary preview image for the blog card.
+                  </div>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-label">5. Property Prefecture</div>
+                <div class="field-value">
+                  <select class="filter-select">
+                    <option>None</option>
+                    <option>All Prefectures</option>
+                    <option>Specific Prefecture</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-label">6. Property Type</div>
+                <div class="field-value">
+                  <select class="filter-select">
+                    <option>None</option>
+                    <option>All Types</option>
+                    <option>Specific Type</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-label">7. Author</div>
+                <div class="field-value">
+                  <input
+                    type="text"
+                    class="cms-filter-input"
+                    placeholder="Optional — name of blog creator"
+                  />
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-label">8. Title</div>
+                <div class="field-value">
+                  <input
+                    type="text"
+                    class="cms-filter-input"
+                    placeholder="Headline of the blog"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="field-row">
+                <div class="field-label">9. Display Status</div>
+                <div class="field-value">
+                  <select class="filter-select">
+                    <option>Active (Visible)</option>
+                    <option>Inactive (Draft/Hidden)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-label">10. Upload Date</div>
+                <div class="field-value">
+                  <input
+                    type="text"
+                    class="cms-filter-input"
+                    value="Set on publish — read only"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div
+                class="field-row"
+                style="flex-direction: column; align-items: flex-start"
+              >
+                <div class="field-label">11. Content Editor</div>
+                <div class="field-value" style="width: 100%">
+                  <textarea
+                    rows="7"
+                    style="width: 100%; resize: vertical"
+                    class="cms-filter-input"
+                    placeholder="Rich text: headings, paragraphs, quotes, images, embedded video URLs..."
+                  ></textarea>
+                  <div class="cms-hint">
+                    WordPress-style rich editor. Actual rendering handled by
+                    frontend components.
+                  </div>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-label">12. Video Status</div>
+                <div class="field-value">
+                  <span class="badge badge-info">Auto-detected</span>
+                  <div class="cms-hint">
+                    System scans content for video; if found, flags the blog as
+                    "Video" for UI badges.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('modal-blog-editor')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="
+              alert('Save blog (mock).');
+              closeModal('modal-blog-editor');
+            "
+          >
+            Save blog
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function switchCmsPane(id, el) {
+        document
+          .querySelectorAll(".cms-nav .vertical-tab")
+          .forEach(function (tab) {
+            tab.classList.remove("active");
+          });
+        document.querySelectorAll(".setting-pane").forEach(function (pane) {
+          pane.classList.remove("active");
+        });
+
+        if (el) el.classList.add("active");
+        var pane = document.getElementById("cms-pane-" + id);
+        if (pane) pane.classList.add("active");
+      }
+
+      function switchInsightsSubTab(key, el) {
+        const subTabs = document.querySelectorAll(
+          "#cms-pane-insights .cms-subnav > .cms-subtab",
+        );
+        subTabs.forEach((t) => t.classList.remove("active"));
+        if (el) el.classList.add("active");
+
+        const subPanes = document.querySelectorAll(
+          "#cms-pane-insights .insights-subpane",
+        );
+        subPanes.forEach((p) => p.classList.remove("active"));
+        const target = document.getElementById("insights-sub-" + key);
+        if (target) target.classList.add("active");
+      }
+
+      function switchArticlesCategory(key, el) {
+        const tabs = document.querySelectorAll(
+          "#insights-sub-articles .cms-subtab-sm",
+        );
+        tabs.forEach((t) => t.classList.remove("active"));
+        if (el) el.classList.add("active");
+
+        const panes = document.querySelectorAll(".insights-articles-pane");
+        panes.forEach((p) => p.classList.remove("active"));
+        const target = document.getElementById("articles-cat-" + key);
+        if (target) target.classList.add("active");
+      }
+
+      function switchNewsCategory(key, el) {
+        const tabs = document.querySelectorAll(
+          "#insights-sub-news .cms-subtab-sm",
+        );
+        tabs.forEach((t) => t.classList.remove("active"));
+        if (el) el.classList.add("active");
+
+        const panes = document.querySelectorAll(".insights-news-pane");
+        panes.forEach((p) => p.classList.remove("active"));
+        const target = document.getElementById("news-cat-" + key);
+        if (target) target.classList.add("active");
+      }
+
+      function openModal(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("open");
+      }
+
+      function closeModal(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove("open");
+      }
+
+      function openBlogEditor(type) {
+        const titleEl = document.getElementById("blog-editor-title");
+        if (titleEl) {
+          if (type === "news") {
+            titleEl.textContent = "Blog editor — News";
+          } else if (type === "article") {
+            titleEl.textContent = "Blog editor — Article";
+          } else if (type === "guide") {
+            titleEl.textContent = "Area guide editor";
+          } else {
+            titleEl.textContent = "Blog editor — Article / News";
+          }
+        }
+        openModal("modal-blog-editor");
+      }
+    </script>
+  </body>
+</html>

@@ -4,984 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PropAdmin — Admin Portal</title>
-    <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      :root {
-        --sidebar-w: 220px;
-        --header-h: 52px;
-        --brand-accent: #ad986e;
-        --font:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-          sans-serif;
-
-        /* Light mode */
-        --bg-primary: #ffffff;
-        --bg-secondary: #f9f5ec;
-        --bg-tertiary: #f9f5ec;
-        --text-primary: #3b3225;
-        --text-secondary: #6c5e47;
-        --text-tertiary: #9a8a6d;
-        --border-tertiary: rgba(173, 152, 110, 0.22);
-        --border-secondary: rgba(173, 152, 110, 0.38);
-        --radius-md: 8px;
-        --radius-lg: 12px;
-
-        --bg-info: #ede4d2;
-        --text-info: #6f5a33;
-        --bg-success: #eaf3de;
-        --text-success: #47692a;
-        --bg-warning: #f8eee0;
-        --text-warning: #8a6735;
-        --bg-danger: #fbeeee;
-        --text-danger: #9a4b4b;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg-primary: #ffffff;
-          --bg-secondary: #f9f5ec;
-          --bg-tertiary: #f9f5ec;
-          --text-primary: #3b3225;
-          --text-secondary: #6c5e47;
-          --text-tertiary: #9a8a6d;
-          --border-tertiary: rgba(173, 152, 110, 0.22);
-          --border-secondary: rgba(173, 152, 110, 0.38);
-          --bg-info: #ede4d2;
-          --text-info: #6f5a33;
-          --bg-success: #eaf3de;
-          --text-success: #47692a;
-          --bg-warning: #f8eee0;
-          --text-warning: #8a6735;
-          --bg-danger: #fbeeee;
-          --text-danger: #9a4b4b;
-        }
-      }
-
-      html,
-      body {
-        height: 100%;
-        font-family: var(--font);
-        background: var(--bg-tertiary);
-        color: var(--text-primary);
-        font-size: 14px;
-        line-height: 1.5;
-      }
-
-      /* ── LAYOUT ────────────────────────────────────────────── */
-      .portal {
-        display: flex;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      /* ── SIDEBAR ───────────────────────────────────────────── */
-      .sidebar {
-        width: var(--sidebar-w);
-        background: var(--bg-secondary);
-        border-right: 0.5px solid var(--border-tertiary);
-        display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-        overflow-y: auto;
-      }
-      .sidebar-header {
-        padding: 14px 16px;
-        border-bottom: 0.5px solid var(--border-tertiary);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-shrink: 0;
-      }
-      .logo-mark {
-        width: 28px;
-        height: 28px;
-        background: var(--text-primary);
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-      }
-      .logo-mark svg {
-        width: 14px;
-        height: 14px;
-        fill: var(--bg-primary);
-      }
-      .logo-text {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text-primary);
-        white-space: nowrap;
-      }
-      .logo-badge {
-        font-size: 9px;
-        background: var(--bg-danger);
-        color: var(--text-danger);
-        border-radius: 4px;
-        padding: 1px 5px;
-        margin-left: 4px;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-      }
-      .nav-section {
-        padding: 8px 0;
-        border-bottom: 0.5px solid var(--border-tertiary);
-      }
-      .nav-label {
-        font-size: 10px;
-        color: var(--text-tertiary);
-        padding: 4px 16px 2px;
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-        font-weight: 600;
-      }
-      .nav-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 7px 16px;
-        cursor: pointer;
-        font-size: 12.5px;
-        color: var(--text-secondary);
-        border-left: 2px solid transparent;
-        transition:
-          background 0.12s,
-          color 0.12s;
-        user-select: none;
-      }
-      .nav-item:hover {
-        background: var(--bg-secondary);
-        color: var(--text-primary);
-      }
-      .nav-item.active {
-        background: #efe7d6;
-        color: var(--text-info);
-        border-left-color: var(--brand-accent);
-        font-weight: 600;
-      }
-      .nav-icon {
-        width: 15px;
-        height: 15px;
-        flex-shrink: 0;
-        opacity: 0.75;
-      }
-      .nav-badge {
-        margin-left: auto;
-        font-size: 10px;
-        background: var(--bg-danger);
-        color: var(--text-danger);
-        border-radius: 10px;
-        padding: 1px 6px;
-        font-weight: 600;
-      }
-      .sidebar-footer {
-        margin-top: auto;
-        padding: 12px 16px;
-        border-top: 0.5px solid var(--border-tertiary);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-      }
-      .sidebar-footer:hover {
-        background: var(--bg-secondary);
-      }
-      .avatar {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: var(--bg-warning);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--text-warning);
-        flex-shrink: 0;
-      }
-      .avatar-name {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-primary);
-      }
-      .avatar-role {
-        font-size: 11px;
-        color: var(--text-tertiary);
-      }
-
-      /* ── MAIN AREA ─────────────────────────────────────────── */
-      .main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        min-height: 100vh;
-        background: var(--bg-tertiary);
-      }
-
-      /* ── TOPBAR ────────────────────────────────────────────── */
-      .topbar {
-        height: var(--header-h);
-        background: var(--bg-primary);
-        border-bottom: 0.5px solid var(--border-tertiary);
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-        gap: 12px;
-        flex-shrink: 0;
-      }
-      .page-title {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text-primary);
-        flex: 1;
-      }
-      .search-box {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        background: var(--bg-secondary);
-        border: 0.5px solid var(--border-tertiary);
-        border-radius: var(--radius-md);
-        padding: 6px 10px;
-        width: 210px;
-      }
-      .search-box svg {
-        flex-shrink: 0;
-        color: var(--text-tertiary);
-      }
-      .search-box input {
-        border: none;
-        background: transparent;
-        font-size: 12px;
-        color: var(--text-primary);
-        outline: none;
-        width: 100%;
-        font-family: var(--font);
-      }
-      .search-box input::placeholder {
-        color: var(--text-tertiary);
-      }
-      .topbar-actions {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-      .icon-btn {
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: var(--radius-md);
-        cursor: pointer;
-        color: var(--text-secondary);
-        border: 0.5px solid transparent;
-        transition: background 0.12s;
-        position: relative;
-      }
-      .icon-btn:hover {
-        background: var(--bg-secondary);
-        border-color: var(--border-tertiary);
-      }
-      .notif-dot {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        width: 7px;
-        height: 7px;
-        background: var(--text-danger);
-        border-radius: 50%;
-        border: 1.5px solid var(--bg-primary);
-      }
-
-      /* ── CONTENT ───────────────────────────────────────────── */
-      .content {
-        flex: 1;
-        width: 100%;
-        min-width: 0;
-        overflow-y: auto;
-        padding: 20px;
-        background: var(--bg-tertiary);
-      }
-      .screen {
-        display: none;
-      }
-      .screen.active {
-        display: block;
-      }
-
-      /* ── COMPONENTS ────────────────────────────────────────── */
-      .kpi-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 10px;
-        margin-bottom: 16px;
-      }
-      .kpi-card {
-        background: var(--bg-secondary);
-        border-radius: var(--radius-md);
-        padding: 12px 14px;
-      }
-      .kpi-label {
-        font-size: 11px;
-        color: var(--text-tertiary);
-        margin-bottom: 4px;
-      }
-      .kpi-value {
-        font-size: 22px;
-        font-weight: 600;
-        color: var(--text-primary);
-        line-height: 1.2;
-      }
-      .kpi-change {
-        font-size: 11px;
-        margin-top: 3px;
-        color: var(--text-tertiary);
-      }
-      .kpi-change.up {
-        color: var(--text-success);
-      }
-      .kpi-change.down {
-        color: var(--text-danger);
-      }
-
-      .charts-row {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 12px;
-        margin-bottom: 16px;
-      }
-      .card {
-        background: var(--bg-primary);
-        border: 0.5px solid var(--border-tertiary);
-        border-radius: var(--radius-lg);
-        padding: 14px 16px;
-      }
-      .card + .card {
-        margin-top: 12px;
-      }
-      .card-title {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .card-sub {
-        font-size: 11px;
-        color: var(--text-tertiary);
-        font-weight: 400;
-      }
-
-      .mini-chart {
-        height: 90px;
-        display: flex;
-        align-items: flex-end;
-        gap: 4px;
-      }
-      .bar-col {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 3px;
-      }
-      .bar {
-        border-radius: 3px 3px 0 0;
-        width: 100%;
-        cursor: pointer;
-        transition: opacity 0.15s;
-      }
-      .bar:hover {
-        opacity: 0.7;
-      }
-      .bar-lbl {
-        font-size: 9px;
-        color: var(--text-tertiary);
-      }
-
-      .donut-wrap {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-      .donut-legend {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-      }
-      .legend-row {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 11px;
-        color: var(--text-secondary);
-      }
-      .legend-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        flex-shrink: 0;
-      }
-      .legend-val {
-        margin-left: auto;
-        font-weight: 600;
-        color: var(--text-primary);
-      }
-
-      .section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 12px;
-      }
-      .section-title {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text-primary);
-      }
-
-      .tabs {
-        display: flex;
-        border-bottom: 0.5px solid var(--border-tertiary);
-        margin-bottom: 14px;
-        gap: 0;
-        flex-wrap: wrap;
-      }
-      .tab {
-        padding: 8px 14px;
-        font-size: 12px;
-        cursor: pointer;
-        color: var(--text-secondary);
-        border-bottom: 2px solid transparent;
-        transition:
-          color 0.12s,
-          border-color 0.12s;
-        user-select: none;
-        white-space: nowrap;
-      }
-      .tab.active {
-        color: var(--text-info);
-        border-bottom-color: var(--text-info);
-        font-weight: 600;
-      }
-      .tab:hover:not(.active) {
-        color: var(--text-primary);
-      }
-      .tab-panel {
-        display: none;
-      }
-      .tab-panel.active {
-        display: block;
-      }
-      .masked {
-        letter-spacing: 0.04em;
-        color: var(--text-tertiary);
-      }
-
-      .table-wrap {
-        overflow-x: auto;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 12px;
-      }
-      th {
-        text-align: left;
-        padding: 6px 10px;
-        font-size: 11px;
-        color: var(--text-tertiary);
-        border-bottom: 0.5px solid var(--border-tertiary);
-        font-weight: 600;
-        white-space: nowrap;
-      }
-      td {
-        padding: 8px 10px;
-        border-bottom: 0.5px solid var(--border-tertiary);
-        color: var(--text-secondary);
-        vertical-align: middle;
-      }
-      tr:last-child td {
-        border-bottom: none;
-      }
-      tr:hover td {
-        background: var(--bg-secondary);
-      }
-
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 2px 7px;
-        border-radius: 10px;
-        font-size: 10px;
-        font-weight: 600;
-        white-space: nowrap;
-      }
-      .badge-success {
-        background: var(--bg-success);
-        color: var(--text-success);
-      }
-      .badge-warning {
-        background: var(--bg-warning);
-        color: var(--text-warning);
-      }
-      .badge-danger {
-        background: var(--bg-danger);
-        color: var(--text-danger);
-      }
-      .badge-info {
-        background: var(--bg-info);
-        color: var(--text-info);
-      }
-      .badge-gray {
-        background: var(--bg-secondary);
-        color: var(--text-secondary);
-      }
-
-      .row-actions {
-        display: flex;
-        gap: 5px;
-      }
-      .btn-sm {
-        padding: 3px 9px;
-        font-size: 11px;
-        border: 0.5px solid var(--border-secondary);
-        border-radius: 4px;
-        cursor: pointer;
-        background: transparent;
-        color: var(--text-secondary);
-        transition: background 0.12s;
-        font-family: var(--font);
-        white-space: nowrap;
-      }
-      .btn-sm:hover {
-        background: var(--bg-secondary);
-      }
-      .btn-primary {
-        background: var(--brand-accent) !important;
-        color: #ffffff !important;
-        border-color: transparent !important;
-      }
-      .btn-primary:hover {
-        opacity: 0.85;
-      }
-      .btn-danger {
-        color: var(--text-danger) !important;
-      }
-
-      .filter-bar {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
-        flex-wrap: wrap;
-      }
-      .filter-select {
-        font-size: 12px;
-        padding: 5px 8px;
-        border: 0.5px solid var(--border-tertiary);
-        border-radius: var(--radius-md);
-        background: var(--bg-primary);
-        color: var(--text-primary);
-        cursor: pointer;
-        font-family: var(--font);
-      }
-
-      .stat-row {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-        margin-bottom: 14px;
-      }
-
-      .user-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .u-av {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 11px;
-        font-weight: 600;
-        flex-shrink: 0;
-      }
-      .u-name {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-primary);
-      }
-      .u-sub {
-        font-size: 11px;
-        color: var(--text-tertiary);
-      }
-
-      .progress-bar {
-        height: 5px;
-        background: var(--border-tertiary);
-        border-radius: 3px;
-        overflow: hidden;
-      }
-      .progress-fill {
-        height: 100%;
-        border-radius: 3px;
-      }
-
-      .breadcrumb {
-        font-size: 11px;
-        color: var(--text-tertiary);
-        margin-bottom: 14px;
-      }
-      .breadcrumb span {
-        color: var(--text-secondary);
-      }
-
-      .detail-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 14px;
-      }
-      .field-row {
-        display: flex;
-        align-items: center;
-        padding: 7px 0;
-        border-bottom: 0.5px solid var(--border-tertiary);
-        gap: 12px;
-      }
-      .field-row:last-child {
-        border-bottom: none;
-      }
-      .field-label {
-        font-size: 11px;
-        color: var(--text-tertiary);
-        min-width: 140px;
-        flex-shrink: 0;
-      }
-      .field-value {
-        font-size: 12px;
-        color: var(--text-primary);
-        flex: 1;
-      }
-
-      .timeline {
-        display: flex;
-        flex-direction: column;
-      }
-      .timeline-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 0;
-        border-bottom: 0.5px solid var(--border-tertiary);
-      }
-      .timeline-item:last-child {
-        border-bottom: none;
-      }
-      .t-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        flex-shrink: 0;
-      }
-      .t-content {
-        flex: 1;
-      }
-      .t-title {
-        font-size: 12px;
-        color: var(--text-primary);
-      }
-      .t-time {
-        font-size: 11px;
-        color: var(--text-tertiary);
-        margin-top: 1px;
-      }
-
-      .split-grid {
-        display: grid;
-        grid-template-columns: 1.2fr 1fr;
-        gap: 12px;
-      }
-      .stack {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-      .hint {
-        font-size: 11px;
-        color: var(--text-tertiary);
-      }
-      .oos-note {
-        border: 0.5px dashed var(--border-secondary);
-        border-radius: var(--radius-md);
-        padding: 10px 12px;
-        font-size: 11px;
-        color: var(--text-secondary);
-        margin-bottom: 12px;
-        background: var(--bg-secondary);
-      }
-      .search-shortcuts {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-left: 8px;
-      }
-      .saved-pill {
-        font-size: 10px;
-        padding: 3px 8px;
-        border-radius: 999px;
-        border: 0.5px solid var(--border-tertiary);
-        color: var(--text-secondary);
-        background: var(--bg-primary);
-        cursor: pointer;
-      }
-      .saved-pill:hover {
-        background: var(--bg-secondary);
-      }
-      .chat-layout {
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        gap: 10px;
-      }
-      .chat-list {
-        border: 0.5px solid var(--border-tertiary);
-        border-radius: var(--radius-md);
-        overflow: hidden;
-      }
-      .chat-item {
-        padding: 10px;
-        border-bottom: 0.5px solid var(--border-tertiary);
-        cursor: pointer;
-      }
-      .chat-item:last-child {
-        border-bottom: none;
-      }
-      .chat-item.active,
-      .chat-item:hover {
-        background: var(--bg-secondary);
-      }
-      .chat-title {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-primary);
-      }
-      .chat-meta {
-        font-size: 11px;
-        color: var(--text-tertiary);
-        margin-top: 2px;
-      }
-      .chat-window {
-        border: 0.5px solid var(--border-tertiary);
-        border-radius: var(--radius-md);
-        display: flex;
-        flex-direction: column;
-        min-height: 360px;
-      }
-      .chat-header {
-        padding: 10px 12px;
-        border-bottom: 0.5px solid var(--border-tertiary);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .chat-body {
-        flex: 1;
-        padding: 12px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-      .bubble {
-        max-width: 72%;
-        font-size: 12px;
-        padding: 8px 10px;
-        border-radius: 10px;
-      }
-      .bubble.left {
-        align-self: flex-start;
-        background: var(--bg-secondary);
-      }
-      .bubble.right {
-        align-self: flex-end;
-        background: var(--bg-info);
-        color: var(--text-info);
-      }
-      .chat-compose {
-        border-top: 0.5px solid var(--border-tertiary);
-        padding: 10px;
-        display: flex;
-        gap: 8px;
-      }
-      .chat-compose input {
-        flex: 1;
-        border: 0.5px solid var(--border-tertiary);
-        border-radius: 6px;
-        padding: 7px 9px;
-        font-size: 12px;
-        background: var(--bg-primary);
-        color: var(--text-primary);
-      }
-      .control-bar {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
-        flex-wrap: wrap;
-      }
-      .state-grid {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 8px;
-      }
-      .state-card {
-        border: 0.5px dashed var(--border-secondary);
-        border-radius: var(--radius-md);
-        padding: 8px;
-        background: var(--bg-secondary);
-      }
-      .state-name {
-        font-size: 10px;
-        color: var(--text-tertiary);
-        margin-bottom: 3px;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-      }
-      .state-body {
-        font-size: 11px;
-        color: var(--text-secondary);
-      }
-      .calendar-board {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 12px;
-      }
-      .modal-like {
-        border: 0.5px solid var(--border-tertiary);
-        border-radius: var(--radius-md);
-        padding: 12px;
-        background: var(--bg-secondary);
-      }
-      .role-note {
-        font-size: 11px;
-        color: var(--text-tertiary);
-        margin-bottom: 10px;
-      }
-      .check-matrix {
-        width: 14px;
-        height: 14px;
-      }
-      .metric-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 10px;
-        margin-bottom: 12px;
-      }
-      .placeholder-input {
-        border: 0.5px solid var(--border-tertiary);
-        border-radius: 6px;
-        padding: 6px 8px;
-        background: var(--bg-primary);
-        color: var(--text-primary);
-        font-size: 12px;
-        font-family: var(--font);
-      }
-
-      .welcome-modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.35);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 50;
-      }
-      .welcome-modal.hidden {
-        display: none;
-      }
-      .welcome-card {
-        width: min(520px, calc(100vw - 24px));
-        background: var(--bg-primary);
-        border: 0.5px solid var(--border-tertiary);
-        border-radius: var(--radius-lg);
-        padding: 16px;
-      }
-      .welcome-title {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 4px;
-      }
-      .welcome-desc {
-        font-size: 12px;
-        color: var(--text-secondary);
-        margin-bottom: 12px;
-      }
-
-      /* ── RESPONSIVE ─────────────────────────────────────────── */
-      @media (max-width: 900px) {
-        .sidebar {
-          width: 52px;
-        }
-        .sidebar-header .logo-text,
-        .nav-label,
-        .nav-item span:not(.nav-icon),
-        .nav-badge,
-        .sidebar-footer .avatar-info {
-          display: none;
-        }
-        .nav-item {
-          justify-content: center;
-          padding: 10px;
-        }
-        .nav-icon {
-          opacity: 1;
-        }
-        .sidebar-footer {
-          justify-content: center;
-        }
-        .kpi-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        .charts-row,
-        .detail-grid,
-        .split-grid {
-          grid-template-columns: 1fr;
-        }
-        .chat-layout {
-          grid-template-columns: 1fr;
-        }
-        .calendar-board,
-        .state-grid,
-        .metric-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      @media (max-width: 600px) {
-        .kpi-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-        .stat-row {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./styles/main.css" />
   </head>
   <body>
     <div class="portal">
       <!-- ── SIDEBAR ─────────────────────────────────────── -->
+      <!-- include: ./components/sidebar.html -->
       <aside class="sidebar">
         <div class="sidebar-header">
           <div class="logo-mark">
@@ -989,551 +17,176 @@
               <path d="M7 1L13 4V10L7 13L1 10V4Z" />
             </svg>
           </div>
-          <span class="logo-text"
-            >PropAdmin<span class="logo-badge">ADMIN</span></span
-          >
+          <span class="logo-text">PropAdmin<span class="logo-badge">ADMIN</span></span>
         </div>
 
         <div class="nav-section">
           <div class="nav-label">Overview</div>
-          <div
-            class="nav-item active"
-            onclick="switchScreen('dashboard', this)"
-            title="KPI Dashboard"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <rect x="1" y="1" width="5" height="5" rx="1" />
-              <rect x="9" y="1" width="5" height="5" rx="1" />
-              <rect x="1" y="9" width="5" height="5" rx="1" />
-              <rect x="9" y="9" width="5" height="5" rx="1" />
-            </svg>
+          <div class="nav-item active" onclick="switchScreen('dashboard', this)" title="KPI Dashboard">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1" /><rect x="9" y="1" width="5" height="5" rx="1" /><rect x="1" y="9" width="5" height="5" rx="1" /><rect x="9" y="9" width="5" height="5" rx="1" /></svg>
             <span>KPI Dashboard</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('dashboards', this)"
-            title="Multi-area Dashboards"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.3"
-            >
-              <path d="M2 12h11M3 10V5M7 10V2M11 10V7" stroke-linecap="round" />
-            </svg>
+          <div class="nav-item" onclick="switchScreen('dashboards', this)" title="Multi-area Dashboards">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 12h11M3 10V5M7 10V2M11 10V7" stroke-linecap="round" /></svg>
             <span>Dashboards</span>
           </div>
         </div>
 
         <div class="nav-section">
-          <div class="nav-label">Users</div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('users', this)"
-            title="User Management"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <circle cx="7.5" cy="4.5" r="2.5" />
-              <path d="M2 13c0-3.04 2.46-5.5 5.5-5.5S13 9.96 13 13" />
-            </svg>
+          <div class="nav-label">Users & Agents</div>
+          <div class="nav-item" onclick="switchScreen('users', this)" title="User Management">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7.5" cy="4.5" r="2.5" /><path d="M2 13c0-3.04 2.46-5.5 5.5-5.5S13 9.96 13 13" /></svg>
             <span>User Management</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('agent-list', this)"
-            title="Agent Directory"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <path d="M2 4h11M2 7.5h11M2 11h11" stroke-linecap="round" />
-            </svg>
+          <div class="nav-item" onclick="switchScreen('agent-list', this)" title="Agent Directory">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 4h11M2 7.5h11M2 11h11" stroke-linecap="round" /></svg>
             <span>Agents Directory</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('agents', this)"
-            title="Agent Approvals"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path d="M5 1h5l1 3H4L5 1zm-3 3h11l-1 9H3L2 4z" />
-            </svg>
+          <div class="nav-item" onclick="switchScreen('agents', this)" title="Agent Approvals">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M5 1h5l1 3H4L5 1zm-3 3h11l-1 9H3L2 4z" /></svg>
             <span>Agent Approvals</span>
             <span class="nav-badge">4</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('leads', this)"
-            title="Lead Oversight"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path d="M2 2h11v2H2zM2 6h11v2H2zM2 10h7v2H2z" />
-            </svg>
+          <div class="nav-item" onclick="switchScreen('leads', this)" title="Lead Oversight">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M2 2h11v2H2zM2 6h11v2H2zM2 10h7v2H2z" /></svg>
             <span>Lead Oversight</span>
           </div>
-        </div>
-
-        <div class="nav-section">
-          <div class="nav-label">Content</div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('content', this)"
-            title="CMS & Articles"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <rect x="1" y="1" width="13" height="2" rx="1" />
-              <rect x="1" y="5" width="9" height="2" rx="1" />
-              <rect x="1" y="9" width="11" height="2" rx="1" />
-              <rect x="1" y="13" width="7" height="2" rx="1" /></svg
-            ><span>CMS &amp; Articles</span>
+          <div class="nav-item" onclick="switchScreen('staff-users', this)" title="Staff Users">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="5" cy="5" r="2"/><circle cx="10.5" cy="5" r="1.5"/><path d="M1.5 12c0-2 1.5-3.5 3.5-3.5s3.5 1.5 3.5 3.5"/><path d="M8.7 12c0-1.7 1.1-2.9 2.7-2.9"/></svg>
+            <span>Staff Users</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('cms-pages', this)"
-            title="CMS Pages"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <rect x="2" y="2" width="11" height="11" rx="1" />
-              <rect
-                x="4"
-                y="5"
-                width="7"
-                height="1.5"
-                fill="var(--bg-primary)"
-              />
-              <rect
-                x="4"
-                y="8"
-                width="5"
-                height="1.5"
-                fill="var(--bg-primary)"
-              /></svg
-            ><span>CMS Pages</span>
+          <div class="nav-item" onclick="switchScreen('admin-accounts', this)" title="Admin Accounts">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7.5" cy="4.5" r="2.5"/><path d="M2 13c0-3.04 2.46-5.5 5.5-5.5S13 9.96 13 13"/><path d="M12 2v2M11 3h2" stroke-linecap="round"/></svg>
+            <span>Admin Accounts</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('seo-control', this)"
-            title="SEO Control"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <circle cx="6.5" cy="6.5" r="3.5" />
-              <path d="M9.5 9.5L13 13" stroke-linecap="round" /></svg
-            ><span>SEO Control</span>
-          </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('properties', this)"
-            title="Property Oversight"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path d="M1 14V7.5L7.5 1 14 7.5V14H9.5v-4h-4v4H1z" /></svg
-            ><span>Property Oversight</span>
-          </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('property-moderation', this)"
-            title="Property Moderation"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <path d="M2 2h11v7H2z" />
-              <path d="M5 13h5" stroke-linecap="round" /></svg
-            ><span>Property Moderation</span>
+          <div class="nav-item" onclick="switchScreen('staff-roles', this)" title="Roles & Permissions">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M7.5 1l5.5 2.5v4C13 11 10.6 13 7.5 14 4.4 13 2 11 2 7.5v-4z"/></svg>
+            <span>Roles & Permissions</span>
           </div>
         </div>
 
         <div class="nav-section">
-          <div class="nav-label">Monetisation</div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('offers', this)"
-            title="Offers & Pricing"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path d="M2 3h11v2H2zM2 6h11v6H2z" /></svg
-            ><span>Offers & Pricing</span>
+          <div class="nav-label">Properties</div>
+          <div class="nav-item" onclick="switchScreen('properties', this)" title="Property Oversight">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M1 14V7.5L7.5 1 14 7.5V14H9.5v-4h-4v4H1z" /></svg>
+            <span>Property Oversight</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('ads', this)"
-            title="Ad Management"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <rect x="1" y="3" width="13" height="9" rx="1" />
-              <path
-                d="M4 9V6l2 3 2-3v3M11 9V6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              /></svg
-            ><span>Ad Management</span><span class="nav-badge">2</span>
+          <div class="nav-item" onclick="switchScreen('property-moderation', this)" title="Property Moderation">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 2h11v7H2z" /><path d="M5 13h5" stroke-linecap="round" /></svg>
+            <span>Property Moderation</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('payments', this)"
-            title="Payment Reports"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <rect x="1" y="3" width="13" height="9" rx="1" />
-              <rect
-                x="1"
-                y="6"
-                width="13"
-                height="2"
-                fill="currentColor"
-                stroke="none"
-              /></svg
-            ><span>Payment Reports</span>
+          <div class="nav-item" onclick="switchScreen('projects', this)" title="Projects">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><rect x="1" y="2" width="13" height="11" rx="1"/><rect x="3" y="4" width="4" height="3" rx=".5" fill="var(--bg-primary)"/></svg>
+            <span>Projects</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('financials', this)"
-            title="Financial Dashboard"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path
-                d="M2 12h11v1H2zM3 11V7h2v4H3zm3 0V4h2v7H6zm3 0V6h2v5H9z"
-              /></svg
-            ><span>Financials</span>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Content (CMS & Layout)</div>
+          <div class="nav-item" onclick="switchScreen('content', this)" title="CMS & Articles">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><rect x="1" y="1" width="13" height="2" rx="1" /><rect x="1" y="5" width="9" height="2" rx="1" /><rect x="1" y="9" width="11" height="2" rx="1" /><rect x="1" y="13" width="7" height="2" rx="1" /></svg>
+            <span>CMS & Articles</span>
+          </div>
+          <div class="nav-item" onclick="switchScreen('cms-pages', this)" title="CMS Pages">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><rect x="2" y="2" width="11" height="11" rx="1" /><rect x="4" y="5" width="7" height="1.5" fill="var(--bg-primary)" /><rect x="4" y="8" width="5" height="1.5" fill="var(--bg-primary)" /></svg>
+            <span>CMS Pages</span>
+          </div>
+          <div class="nav-item" onclick="switchScreen('seo-control', this)" title="SEO Control">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="6.5" cy="6.5" r="3.5"/><path d="M9.5 9.5L13 13" stroke-linecap="round"/></svg>
+            <span>SEO Control</span>
+          </div>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-label">Monetisation & Ads</div>
+          <div class="nav-item" onclick="switchScreen('ads', this)" title="Ad Management">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="3" width="13" height="9" rx="1" /><path d="M4 9V6l2 3 2-3v3M11 9V6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            <span>Ad Management</span><span class="nav-badge">2</span>
+          </div>
+          <div class="nav-item" onclick="switchScreen('offers', this)" title="Offers & Pricing">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M2 3h11v2H2zM2 6h11v6H2z" /></svg>
+            <span>Offers & Pricing</span>
+          </div>
+          <div class="nav-item" onclick="switchScreen('payments', this)" title="Payment Reports">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="3" width="13" height="9" rx="1"/><rect x="1" y="6" width="13" height="2" fill="currentColor" stroke="none"/></svg>
+            <span>Payment Reports</span>
+          </div>
+          <div class="nav-item" onclick="switchScreen('financials', this)" title="Financial Dashboard">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M2 12h11v1H2zM3 11V7h2v4H3zm3 0V4h2v7H6zm3 0V6h2v5H9z" /></svg>
+            <span>Financials</span>
           </div>
         </div>
 
         <div class="nav-section">
           <div class="nav-label">Comms & Support</div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('messages', this)"
-            title="Messages & Emails"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <rect x="1.5" y="2.5" width="12" height="9" rx="1" />
-              <path d="M2.5 4l5 3.5L12.5 4" /></svg
-            ><span>Messages & Emails</span>
+          <div class="nav-item" onclick="switchScreen('messages', this)" title="Messages & Emails">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="2.5" width="12" height="9" rx="1"/><path d="M2.5 4l5 3.5L12.5 4"/></svg>
+            <span>Messages & Emails</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('notifications', this)"
-            title="Notifications"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path
-                d="M7.5 1.5A4 4 0 0 1 11.5 5v3l1 1V10h-10V9l1-1V5a4 4 0 0 1 4-3.5z"
-              /></svg
-            ><span>Notifications</span>
+          <div class="nav-item" onclick="switchScreen('notifications', this)" title="Notifications">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M7.5 1.5A4 4 0 0 1 11.5 5v3l1 1V10h-10V9l1-1V5a4 4 0 0 1 4-3.5z" /></svg>
+            <span>Notifications</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('edm-campaigns', this)"
-            title="EDM Campaigns"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <rect x="1.5" y="2.5" width="12" height="10" rx="1" />
-              <path d="M3 5h9M3 8h6" stroke-linecap="round" /></svg
-            ><span>EDM Campaigns</span>
+          <div class="nav-item" onclick="switchScreen('edm-campaigns', this)" title="EDM Campaigns">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="2.5" width="12" height="10" rx="1" /><path d="M3 5h9M3 8h6" stroke-linecap="round" /></svg>
+            <span>EDM Campaigns</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('support-tickets', this)"
-            title="Support Tickets"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path d="M2 2h11v9H6l-3 2v-2H2z" /></svg
-            ><span>Support & Tickets</span>
+          <div class="nav-item" onclick="switchScreen('support-tickets', this)" title="Support Tickets">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M2 2h11v9H6l-3 2v-2H2z" /></svg>
+            <span>Support & Tickets</span>
           </div>
         </div>
 
         <div class="nav-section">
-          <div class="nav-label">Analytics & Ops</div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('analytics', this)"
-            title="Market Analysis"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M1 13L5 8l3 3 3-4 3-3" /></svg
-            ><span>Market Analysis</span>
+          <div class="nav-label">Operations & Analytics</div>
+          <div class="nav-item" onclick="switchScreen('analytics', this)" title="Market Analysis">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1 13L5 8l3 3 3-4 3-3"/></svg>
+            <span>Market Analysis</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('activity', this)"
-            title="Activity"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.3"
-            >
-              <path
-                d="M1.5 8h2.5l1.5-3 2.2 6 1.8-4h3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              /></svg
-            ><span>Activity</span>
+          <div class="nav-item" onclick="switchScreen('activity', this)" title="Activity">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M1.5 8h2.5l1.5-3 2.2 6 1.8-4h3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            <span>Activity</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('reports', this)"
-            title="Reports"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path d="M3 1h7l2 2v11H3z" />
-              <path
-                d="M5 6h5M5 8h5M5 10h4"
-                stroke="var(--bg-primary)"
-                stroke-width="1"
-              /></svg
-            ><span>Reports</span>
+          <div class="nav-item" onclick="switchScreen('reports', this)" title="Reports">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M3 1h7l2 2v11H3z"/><path d="M5 6h5M5 8h5M5 10h4" stroke="var(--bg-primary)" stroke-width="1"/></svg>
+            <span>Reports</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('contacts', this)"
-            title="Contacts"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <circle cx="5" cy="5" r="2" />
-              <path d="M1.5 10.5c0-2 1.5-3.5 3.5-3.5s3.5 1.5 3.5 3.5" />
-              <circle cx="11" cy="5" r="1.5" />
-              <path
-                d="M8.8 10.5c.2-1.5 1.2-2.6 2.7-2.6 1.6 0 2.8 1.2 2.8 2.8"
-              /></svg
-            ><span>Contacts</span>
+          <div class="nav-item" onclick="switchScreen('contacts', this)" title="Contacts">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="5" cy="5" r="2"/><path d="M1.5 10.5c0-2 1.5-3.5 3.5-3.5s3.5 1.5 3.5 3.5"/><circle cx="11" cy="5" r="1.5"/><path d="M8.8 10.5c.2-1.5 1.2-2.6 2.7-2.6 1.6 0 2.8 1.2 2.8 2.8"/></svg>
+            <span>Contacts</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('projects', this)"
-            title="Projects"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <rect x="1" y="2" width="13" height="11" rx="1" />
-              <rect
-                x="3"
-                y="4"
-                width="4"
-                height="3"
-                rx=".5"
-                fill="var(--bg-primary)"
-              /></svg
-            ><span>Projects</span>
+          <div class="nav-item" onclick="switchScreen('agreements', this)" title="Agreements">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M3 1h9v13H3z"/><path d="M5 4h5M5 7h5M5 10h4" stroke="var(--bg-primary)" stroke-width="1"/></svg>
+            <span>Agreements</span><span class="nav-badge">P2</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('agreements', this)"
-            title="Agreements"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path d="M3 1h9v13H3z" />
-              <path
-                d="M5 4h5M5 7h5M5 10h4"
-                stroke="var(--bg-primary)"
-                stroke-width="1"
-              /></svg
-            ><span>Agreements</span><span class="nav-badge">P2</span>
-          </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('calendar', this)"
-            title="Calendar Assignment"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <rect x="1" y="2" width="13" height="12" rx="1" />
-              <rect
-                x="1"
-                y="5"
-                width="13"
-                height="2"
-                fill="var(--bg-primary)"
-              /></svg
-            ><span>Calendar Assignment</span>
+          <div class="nav-item" onclick="switchScreen('calendar', this)" title="Calendar Assignment">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><rect x="1" y="2" width="13" height="12" rx="1" /><rect x="1" y="5" width="13" height="2" fill="var(--bg-primary)" /></svg>
+            <span>Calendar Assignment</span>
           </div>
         </div>
 
         <div class="nav-section">
-          <div class="nav-label">System</div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('settings', this)"
-            title="System Settings"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-              stroke-linecap="round"
-            >
-              <circle cx="7.5" cy="7.5" r="2" />
-              <path
-                d="M7.5 1v2M7.5 12v2M1 7.5h2M12 7.5h2M3.2 3.2l1.4 1.4M10.4 10.4l1.4 1.4M3.2 11.8l1.4-1.4M10.4 4.6l1.4-1.4"
-              /></svg
-            ><span>System Settings</span>
+          <div class="nav-label">Settings, Data & Integrations</div>
+          
+          <div class="nav-item" onclick="switchScreen('settings', this)" title="System Settings">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="2" /><path d="M7.5 1v2M7.5 12v2M1 7.5h2M12 7.5h2M3.2 3.2l1.4 1.4M10.4 10.4l1.4 1.4M3.2 11.8l1.4-1.4M10.4 4.6l1.4-1.4" /></svg>
+            <span>System Settings</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('feature-control', this)"
-            title="Feature Control"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path
-                d="M7.5 1l2 2.4h3.1v3.1l2.4 2-2.4 2v3.1H9.5l-2 2.4-2-2.4H2.4V10.5L0 8.5l2.4-2V3.4h3.1z"
-              /></svg
-            ><span>Feature Control</span>
+          <div class="nav-item" onclick="switchScreen('feature-control', this)" title="Feature Control">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M7.5 1l2 2.4h3.1v3.1l2.4 2-2.4 2v3.1H9.5l-2 2.4-2-2.4H2.4V10.5L0 8.5l2.4-2V3.4h3.1z"/></svg>
+            <span>Feature Control</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('staff-users', this)"
-            title="Staff Users"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <circle cx="5" cy="5" r="2" />
-              <circle cx="10.5" cy="5" r="1.5" />
-              <path d="M1.5 12c0-2 1.5-3.5 3.5-3.5s3.5 1.5 3.5 3.5" />
-              <path d="M8.7 12c0-1.7 1.1-2.9 2.7-2.9" /></svg
-            ><span>Staff Users</span>
+          <div class="nav-item" onclick="switchScreen('integrations', this)" title="Integrations (Basic)">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="2" width="4" height="4"/><rect x="9.5" y="2" width="4" height="4"/><rect x="5.5" y="9" width="4" height="4"/><path d="M5.5 4h4M7.5 6.2V9"/></svg>
+            <span>Integrations (Basic)</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('staff-roles', this)"
-            title="Roles & Permissions"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path
-                d="M7.5 1l5.5 2.5v4C13 11 10.6 13 7.5 14 4.4 13 2 11 2 7.5v-4z"
-              /></svg
-            ><span>Roles & Permissions</span>
+          <div class="nav-item" onclick="switchScreen('audit-logs', this)" title="Audit Logs">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor"><path d="M3 1h9v13H3z"/><path d="M5 4h5M5 7h5M5 10h4" stroke="var(--bg-primary)" stroke-width="1"/></svg>
+            <span>Audit Logs</span>
           </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('admin-accounts', this)"
-            title="Admin Accounts"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <circle cx="7.5" cy="4.5" r="2.5" />
-              <path d="M2 13c0-3.04 2.46-5.5 5.5-5.5S13 9.96 13 13" />
-              <path d="M12 2v2M11 3h2" stroke-linecap="round" /></svg
-            ><span>Admin Accounts</span>
-          </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('integrations', this)"
-            title="Integrations"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <rect x="1.5" y="2" width="4" height="4" />
-              <rect x="9.5" y="2" width="4" height="4" />
-              <rect x="5.5" y="9" width="4" height="4" />
-              <path d="M5.5 4h4M7.5 6.2V9" /></svg
-            ><span>Integrations</span>
-          </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('audit-logs', this)"
-            title="Audit Logs"
-          >
-            <svg class="nav-icon" viewBox="0 0 15 15" fill="currentColor">
-              <path d="M3 1h9v13H3z" />
-              <path
-                d="M5 4h5M5 7h5M5 10h4"
-                stroke="var(--bg-primary)"
-                stroke-width="1"
-              /></svg
-            ><span>Audit Logs</span>
-          </div>
-          <div
-            class="nav-item"
-            onclick="switchScreen('profile', this)"
-            title="Admin Profile"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 15 15"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.2"
-            >
-              <circle cx="7.5" cy="4.5" r="2.5" />
-              <path d="M2 13c0-3.04 2.46-5.5 5.5-5.5S13 9.96 13 13" /></svg
-            ><span>My Profile</span>
+          <div class="nav-item" onclick="switchScreen('profile', this)" title="My Profile">
+            <svg class="nav-icon" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7.5" cy="4.5" r="2.5"/><path d="M2 13c0-3.04 2.46-5.5 5.5-5.5S13 9.96 13 13"/></svg>
+            <span>My Profile</span>
           </div>
         </div>
 
@@ -1541,7 +194,7 @@
           <div class="avatar">AT</div>
           <div class="avatar-info">
             <div class="avatar-name">Admin Tanaka</div>
-            <div class="avatar-role">Super Admin</div>
+            <div class="avatar-role">Platform Architect</div>
           </div>
         </div>
       </aside>
@@ -1549,6 +202,7 @@
       <!-- ── MAIN ────────────────────────────────────────── -->
       <div class="main">
         <!-- Topbar -->
+        <!-- include: ./components/topbar.html -->
         <div class="topbar">
           <div class="page-title" id="page-title">KPI Dashboard</div>
           <div class="search-box">
@@ -1633,6 +287,7 @@
         </div>
 
         <!-- Screens -->
+        <!-- include: ./components/screens.html -->
         <div class="content">
           <!-- ══ DASHBOARD ═══════════════════════════════════ -->
           <div class="screen active" id="screen-dashboard">
@@ -5868,499 +4523,819 @@
           <!-- /audit-logs -->
 
           <!-- ══ SETTINGS ══════════════════════════════════════ -->
+
+          <!-- ══ SYSTEM SETTINGS – FINAL STRUCTURE ═══════════════════════════════════ -->
           <div class="screen" id="screen-settings">
-            <div class="breadcrumb">System / <span>Settings</span></div>
-            <div class="detail-grid">
-              <div class="card">
-                <div class="tabs">
-                  <div
-                    class="tab active"
-                    data-tab-target="settings-basic"
-                    onclick="switchTab(this, 'settings-tab')"
-                  >
-                    Basic
-                  </div>
-                  <div
-                    class="tab"
-                    data-tab-target="settings-security"
-                    onclick="switchTab(this, 'settings-tab')"
-                  >
-                    Security
-                  </div>
-                  <div
-                    class="tab"
-                    data-tab-target="settings-integrations"
-                    onclick="switchTab(this, 'settings-tab')"
-                  >
-                    Integrations
-                  </div>
-                  <div
-                    class="tab"
-                    data-tab-target="settings-region"
-                    onclick="switchTab(this, 'settings-tab')"
-                  >
-                    Region / Taxonomy
-                  </div>
-                  <div
-                    class="tab"
-                    data-tab-target="settings-admin"
-                    onclick="switchTab(this, 'settings-tab')"
-                  >
-                    Admin accounts
-                  </div>
+            <div class="card" style="padding: 0; display:flex; height: calc(100vh - 120px); border:none; box-shadow:none; overflow:hidden;">
+
+              <!-- Left Sidebar: Vertical Settings Nav (System-only) -->
+              <div style="width: 280px; border-right: 1px solid var(--border-secondary); background: var(--bg-primary); padding: 24px 0; overflow-y:auto;">
+                <div style="padding: 0 24px 4px; font-weight:700; color:var(--text-primary); font-size:18px;">System Settings</div>
+                <div style="padding: 0 24px 16px; font-size:12px; color:var(--text-tertiary);">
+                  Platform-wide configuration only. No business workflow or content.
                 </div>
 
-                <div class="tab-panel active" data-tab-panel="settings-basic">
-                  <div class="field-row">
-                    <div class="field-label">Default currency</div>
-                    <div class="field-value">
-                      <select class="filter-select">
-                        <option>JPY (¥)</option>
-                        <option>USD ($)</option>
-                        <option>CNY (¥)</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Platform language</div>
-                    <div class="field-value">
-                      <select class="filter-select">
-                        <option>Japanese</option>
-                        <option>English</option>
-                        <option>Chinese (Simplified)</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Timezone</div>
-                    <div class="field-value">
-                      <select class="filter-select">
-                        <option>Asia/Tokyo (JST, UTC+9)</option>
-                        <option>UTC+8 (Shanghai)</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Area unit</div>
-                    <div class="field-value">
-                      <select class="filter-select">
-                        <option>m² (square metres)</option>
-                        <option>Tsubo</option>
-                        <option>sqft</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Saved properties max</div>
-                    <div class="field-value">
-                      <input
-                        type="number"
-                        value="100"
-                        style="
-                          font-size: 12px;
-                          width: 80px;
-                          padding: 4px 8px;
-                          border: 0.5px solid var(--border-tertiary);
-                          border-radius: 4px;
-                          background: var(--bg-primary);
-                          color: var(--text-primary);
-                          font-family: var(--font);
-                        "
-                      />
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Saved searches max</div>
-                    <div class="field-value">
-                      <input
-                        type="number"
-                        value="20"
-                        style="
-                          font-size: 12px;
-                          width: 80px;
-                          padding: 4px 8px;
-                          border: 0.5px solid var(--border-tertiary);
-                          border-radius: 4px;
-                          background: var(--bg-primary);
-                          color: var(--text-primary);
-                          font-family: var(--font);
-                        "
-                      />
-                    </div>
-                  </div>
-                </div>
+                <div style="padding: 8px 24px 4px; font-weight:600; color:var(--text-tertiary); font-size:11px; text-transform:uppercase; letter-spacing:0.6px;">Platform Core</div>
+                <div class="vertical-tab active" onclick="switchSettingTab('general', this)">1. General & Display</div>
+                <div class="vertical-tab" onclick="switchSettingTab('welcome', this)">2. Welcome Setup</div>
 
-                <div class="tab-panel" data-tab-panel="settings-security">
-                  <div class="field-row">
-                    <div class="field-label">Password min length</div>
-                    <div class="field-value">
-                      <input
-                        type="number"
-                        value="8"
-                        style="
-                          font-size: 12px;
-                          width: 80px;
-                          padding: 4px 8px;
-                          border: 0.5px solid var(--border-tertiary);
-                          border-radius: 4px;
-                          background: var(--bg-primary);
-                          color: var(--text-primary);
-                          font-family: var(--font);
-                        "
-                      />
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Complexity policy</div>
-                    <div class="field-value">
-                      Upper/lower/number/symbol required
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Two-factor auth</div>
-                    <div class="field-value">
-                      <span class="badge badge-success"
-                        >Required for all admins</span
-                      >
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Session timeout</div>
-                    <div class="field-value">30 minutes idle</div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Second login behavior</div>
-                    <div class="field-value">Auto-logout previous session</div>
-                  </div>
-                </div>
+                <div style="padding: 18px 24px 4px; font-weight:600; color:var(--text-tertiary); font-size:11px; text-transform:uppercase; letter-spacing:0.6px;">Security & Control</div>
+                <div class="vertical-tab" onclick="switchSettingTab('security', this)">3. Security & Access</div>
+                <div class="vertical-tab" onclick="switchSettingTab('audit', this)">4. Audit & Logs</div>
+                <div class="vertical-tab" onclick="switchSettingTab('features', this)">5. Feature Toggles</div>
 
-                <div class="tab-panel" data-tab-panel="settings-integrations">
-                  <div class="field-row">
-                    <div class="field-label">Payment gateway</div>
-                    <div class="field-value">Stripe JP (Live)</div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Maps</div>
-                    <div class="field-value">Google Maps + Places API</div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">CRM sync</div>
-                    <div class="field-value">
-                      Enabled (daily batch 02:00 JST)
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Message relay</div>
-                    <div class="field-value">
-                      Rate limit + spam guard enabled
-                    </div>
-                  </div>
-                </div>
+                <div style="padding: 18px 24px 4px; font-weight:600; color:var(--text-tertiary); font-size:11px; text-transform:uppercase; letter-spacing:0.6px;">Infrastructure</div>
+                <div class="vertical-tab" onclick="switchSettingTab('infra', this)">6. Messaging Infra</div>
+                <div class="vertical-tab" onclick="switchSettingTab('integrations', this)">7. External Integrations</div>
 
-                <div class="tab-panel" data-tab-panel="settings-region">
-                  <div class="field-row">
-                    <div class="field-label">Prefecture/City taxonomy</div>
-                    <div class="field-value">
-                      <button class="btn-sm">Manage master data</button>
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Railway/Station mapping</div>
-                    <div class="field-value">
-                      <button class="btn-sm">Manage lines/stations</button>
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Article categories</div>
-                    <div class="field-value">
-                      <button class="btn-sm">Manage categories</button>
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Video categories</div>
-                    <div class="field-value">
-                      <button class="btn-sm">Manage categories</button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tab-panel" data-tab-panel="settings-admin">
-                  <div class="field-row">
-                    <div class="field-label">Available roles</div>
-                    <div class="field-value">
-                      Super Admin, Finance Admin, Ops Admin, Viewer
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Create staff account</div>
-                    <div class="field-value">
-                      <button class="btn-sm btn-primary">
-                        + New admin account
-                      </button>
-                    </div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Permission model</div>
-                    <div class="field-value">Predefined roles only</div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field-label">Operation log retention</div>
-                    <div class="field-value">24 months</div>
-                  </div>
-                </div>
-
-                <div style="margin-top: 16px; display: flex; gap: 8px">
-                  <button class="btn-sm btn-primary">Save changes</button>
-                  <button class="btn-sm">Reset to defaults</button>
-                </div>
+                <div style="padding: 18px 24px 4px; font-weight:600; color:var(--text-tertiary); font-size:11px; text-transform:uppercase; letter-spacing:0.6px;">Data & Governance</div>
+                <div class="vertical-tab" onclick="switchSettingTab('master-data', this)">8. Master Data</div>
+                <div class="vertical-tab" onclick="switchSettingTab('governance', this)">9. Data Governance</div>
               </div>
 
-              <div>
-                <div class="card">
-                  <div class="card-title">Quick shortcuts (A34)</div>
-                  <div class="timeline">
-                    <div class="timeline-item">
-                      <div class="t-dot" style="background: #378add"></div>
-                      <div class="t-content">
-                        <div class="t-title">Monthly TOP10 areas</div>
-                        <div class="t-time">Last run: Mar 1, 2026</div>
+              <!-- Right Content: Settings Panes (9 screens) -->
+              <div style="flex:1; padding: 32px; overflow-y:auto; background: #f2f4f7; position:relative;" id="settings-content-area">
+
+                <!-- SCREEN 1: GENERAL & DISPLAY -->
+                <div id="set-general" class="setting-pane active">
+                  <h2 style="margin-bottom:4px; font-size:24px;">General & Display Settings</h2>
+                  <p style="color:var(--text-secondary); margin-bottom:20px; max-width:620px;">
+                    Thiết lập giá trị mặc định cho toàn bộ nền tảng (Client / Agent / Admin). Không chạm tới dữ liệu nghiệp vụ hay nội dung.
+                  </p>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Localization</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Default Language – Client</div>
+                        <div class="setting-desc">Ngôn ngữ mặc định cho người dùng cuối khi chưa đăng nhập.</div>
                       </div>
-                      <button class="btn-sm">Run</button>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Japanese (JA)</option><option>English (EN)</option><option>Chinese (ZH)</option></select>
+                      </div>
                     </div>
-                    <div class="timeline-item">
-                      <div class="t-dot" style="background: #1d9e75"></div>
-                      <div class="t-content">
-                        <div class="t-title">Agent league refresh</div>
-                        <div class="t-time">Last run: Mar 16, 2026</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Default Language – Agent</div>
+                        <div class="setting-desc">Áp dụng cho giao diện Agent portal khi tạo tài khoản mới.</div>
                       </div>
-                      <button class="btn-sm">Run</button>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Japanese (JA)</option><option>English (EN)</option></select>
+                      </div>
                     </div>
-                    <div class="timeline-item">
-                      <div class="t-dot" style="background: #ef9f27"></div>
-                      <div class="t-content">
-                        <div class="t-title">Inactive user report</div>
-                        <div class="t-time">Last run: Mar 10, 2026</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Admin UI Language</div>
+                        <div class="setting-desc">Giao diện mặc định của Admin portal. Mỗi admin vẫn có thể override ở phần Profile.</div>
                       </div>
-                      <button class="btn-sm">Run</button>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Japanese (JA)</option><option>English (EN)</option></select>
+                      </div>
                     </div>
-                    <div class="timeline-item">
-                      <div class="t-dot" style="background: #d85a30"></div>
-                      <div class="t-content">
-                        <div class="t-title">Flagged content digest</div>
-                        <div class="t-time">Last run: Mar 14, 2026</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Timezone & Date Format</div>
+                        <div class="setting-desc">Baseline cho cron, log và toàn bộ timestamp trên hệ thống.</div>
                       </div>
-                      <button class="btn-sm">Run</button>
+                      <div class="setting-control" style="display:flex; gap:8px;">
+                        <select class="input-field-sm"><option selected>Asia/Tokyo (UTC+9)</option></select>
+                        <select class="input-field-sm"><option>YYYY/MM/DD</option><option>DD/MM/YYYY</option><option>MM/DD/YYYY</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Number Format</div>
+                        <div class="setting-desc">Hiển thị số trong bảng, biểu đồ và export.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>1,000,000 (comma)</option><option>1.000.000 (dot)</option></select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Currency & Measurement</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Default Currency</div>
+                        <div class="setting-desc">Dùng cho billing, báo cáo tài chính và hiển thị giá niêm yết.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>JPY (¥)</option><option>USD ($)</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Area Unit</div>
+                        <div class="setting-desc">Đơn vị đo diện tích mặc định trên Client / Agent.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>m² (Square meters)</option><option>Tsubo (坪)</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Price Rounding Rule</div>
+                        <div class="setting-desc">Quy tắc làm tròn khi hiển thị giá (không thay đổi dữ liệu gốc).</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Round to nearest 1,000</option><option>Round to nearest 10,000</option><option>No rounding</option></select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">UI Defaults</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Default Pagination Size</div>
+                        <div class="setting-desc">Số dòng mặc định trên mọi bảng dữ liệu (Users, Properties, Logs…).</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option>20</option><option selected>50</option><option>100</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Default List Sorting</div>
+                        <div class="setting-desc">Thứ tự sắp xếp mặc định cho danh sách (theo thời gian hay tên).</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Newest first</option><option>Oldest first</option><option>A–Z</option><option>Z–A</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Empty-state Behavior</div>
+                        <div class="setting-desc">Chọn hiển thị gợi ý hay để trống khi chưa có dữ liệu.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Show tips / onboarding blocks</option><option>Show minimal placeholder only</option><option>Hide empty sections</option></select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sticky Save / Reset Bar with confirmation -->
+                  <div class="sticky-save-bar">
+                    <div>
+                      <div style="font-weight:600;">Unsaved changes</div>
+                      <div style="font-size:12px; color:var(--text-secondary);">Mọi thay đổi tại đây sẽ áp dụng cho TẤT CẢ portals.</div>
+                    </div>
+                    <div style="display:flex; gap:12px;">
+                      <button class="btn btn-secondary" onclick="resetSystemSettingsPane('general')">Reset</button>
+                      <button class="btn btn-primary" onclick="confirmSystemSettingsSave()">Save</button>
                     </div>
                   </div>
                 </div>
-                <div class="card" style="margin-top: 12px">
-                  <div class="card-title">System health</div>
-                  <div class="field-row">
-                    <div class="field-label">Email delivery</div>
-                    <div class="field-value">
-                      <span class="badge badge-success">Healthy</span>
+
+                <!-- SCREEN 2: WELCOME & INITIAL CONFIGURATION -->
+                <div id="set-welcome" class="setting-pane">
+                  <h2 style="margin-bottom:4px; font-size:24px;">Welcome & Initial Configuration</h2>
+                  <p style="color:var(--text-secondary); margin-bottom:20px; max-width:620px;">
+                    Thiết lập bước khởi tạo bắt buộc của platform. Không lẫn với CMS hay global config nội dung.
+                  </p>
+
+                  <div class="settings-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <div class="settings-card-title" style="margin-bottom:4px;">Welcome Setup Status</div>
+                      <div style="font-size:13px; color:var(--text-tertiary);">Trạng thái wizard khởi tạo hệ thống.</div>
+                    </div>
+                    <div style="text-align:right;">
+                      <span class="badge badge-success" style="padding:4px 10px; font-size:11px;">Completed</span>
+                      <div style="font-size:11px; color:var(--text-tertiary); margin-top:4px;">Last run: 2026-03-18 10:32 JST</div>
                     </div>
                   </div>
-                  <div class="field-row">
-                    <div class="field-label">Payment gateway</div>
-                    <div class="field-value">
-                      <span class="badge badge-success">Healthy</span>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Welcome Configuration</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Onboarding Currency</div>
+                        <div class="setting-desc">Giá trị mặc định dùng trong bước welcome khi tạo platform mới.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>JPY (¥)</option><option>USD ($)</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Onboarding Area Unit</div>
+                        <div class="setting-desc">Đơn vị diện tích xuất hiện trong wizard khởi tạo.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>m²</option><option>Tsubo (坪)</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Initial Setup Status Flag</div>
+                        <div class="setting-desc">Dùng cho hệ thống để biết đã hoàn tất bước khởi tạo hay chưa.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Completed</option><option>Not completed</option></select>
+                      </div>
                     </div>
                   </div>
-                  <div class="field-row">
-                    <div class="field-label">Maps API</div>
-                    <div class="field-value">
-                      <span class="badge badge-success">Healthy</span>
+
+                  <div class="settings-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <div class="setting-name" style="margin-bottom:4px;">Re-run welcome setup</div>
+                      <div class="setting-desc">Chỉ ảnh hưởng cấu hình hệ thống, KHÔNG chạm workflows hiện tại.</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="alert('Welcome setup wizard would be re-triggered for platform admins.')">Re-run welcome setup</button>
+                  </div>
+                </div>
+
+                <!-- SCREEN 3: SECURITY & ACCESS CONTROL -->
+                <div id="set-security" class="setting-pane">
+                  <h2 style="margin-bottom:4px; font-size:24px;">Security & Access Control</h2>
+                  <p style="color:var(--text-secondary); margin-bottom:20px; max-width:640px;">
+                    Cấu hình bảo mật cấp hệ thống. Không áp dụng cho từng user cụ thể và không chỉnh sửa nội dung.
+                  </p>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Authentication</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Password Policy</div>
+                        <div class="setting-desc">Yêu cầu độ dài và độ phức tạp tối thiểu.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Strict – 12+ chars, số, ký tự đặc biệt</option><option>Standard – 8+ chars</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Password Expiry (days)</div>
+                        <div class="setting-desc">Thời gian tối đa mật khẩu được sử dụng trước khi bắt buộc đổi.</div>
+                      </div>
+                      <div class="setting-control">
+                        <input type="number" class="input-field-sm" value="90" />
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Failed Login Lock Policy</div>
+                        <div class="setting-desc">Khóa tạm thời sau N lần đăng nhập sai liên tiếp.</div>
+                      </div>
+                      <div class="setting-control" style="display:flex; gap:8px;">
+                        <input type="number" class="input-field-sm" value="5" />
+                      </div>
                     </div>
                   </div>
-                  <div class="field-row">
-                    <div class="field-label">CDN</div>
-                    <div class="field-value">
-                      <span class="badge badge-warning">Degraded</span>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Session Control</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Session Timeout (minutes)</div>
+                        <div class="setting-desc">Tự động đăng xuất sau khi không hoạt động.</div>
+                      </div>
+                      <div class="setting-control">
+                        <input type="number" class="input-field-sm" value="30" />
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Concurrent Login Rule</div>
+                        <div class="setting-desc">Xử lý khi cùng một tài khoản đăng nhập hai nơi.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Force logout previous session</option><option>Block new login</option><option>Allow multiple sessions</option></select>
+                      </div>
                     </div>
                   </div>
-                  <div class="field-row">
-                    <div class="field-label">Search index</div>
-                    <div class="field-value">
-                      <span class="badge badge-success">Healthy</span>
+
+                  <div class="settings-card" style="border-left: 4px solid var(--primary);">
+                    <div class="settings-card-title">Two-Factor Authentication (2FA)</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Enable / Disable 2FA</div>
+                        <div class="setting-desc">Bật/tắt yêu cầu 2FA ở cấp hệ thống.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Enabled</option><option>Disabled</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Required Roles</div>
+                        <div class="setting-desc">Những role bắt buộc phải kích hoạt 2FA.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm" multiple style="height:72px;">
+                          <option selected>Admin</option>
+                          <option selected>Support</option>
+                          <option>Finance</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p class="hint" style="margin-top:8px; font-size:11px; color:var(--text-tertiary);">
+                    Mọi thay đổi Security sẽ được ghi vào Audit Log. Các rule mới không áp dụng hồi tố cho session cũ.
+                  </p>
+                </div>
+
+                <!-- SCREEN 4: AUDIT & SYSTEM LOGS -->
+                <div id="set-audit" class="setting-pane">
+                  <h2 style="margin-bottom:4px; font-size:24px;">Audit & System Logs</h2>
+                  <p style="color:var(--text-secondary); margin-bottom:16px; max-width:640px;">
+                    Log hệ thống cho các hành động cấu hình và truy cập. Không phải analytics, không chứa nội dung chat/email.
+                  </p>
+
+                  <div class="settings-card" style="margin-bottom:16px;">
+                    <div class="settings-card-title">Filters</div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Date range, Action type, Actor</div>
+                        <div class="setting-desc">Dùng để thu hẹp danh sách log khi tra soát.</div>
+                      </div>
+                      <div class="setting-control" style="display:flex; flex-direction:column; gap:8px;">
+                        <select class="input-field-sm"><option>Date range: Last 7 days</option><option>Last 30 days</option><option>Custom…</option></select>
+                        <select class="input-field-sm"><option>Action: All</option><option>Config change</option><option>Login / Logout</option><option>Permission change</option><option>Session termination</option></select>
+                        <select class="input-field-sm"><option>Actor: All admins</option><option>admin.tanaka</option><option>support.sato</option></select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Audit Log Table</div>
+                    <div class="table-wrap">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Timestamp</th>
+                            <th>Actor (Admin)</th>
+                            <th>Action</th>
+                            <th>Target</th>
+                            <th>Result</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>2026-03-18 10:02</td>
+                            <td>admin.tanaka</td>
+                            <td>Security policy updated</td>
+                            <td>Password expiry → 90 days</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                          </tr>
+                          <tr>
+                            <td>2026-03-18 09:21</td>
+                            <td>support.sato</td>
+                            <td>Forced logout</td>
+                            <td>admin.saito (concurrent login)</td>
+                            <td><span class="badge badge-success">Success</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
+
+                <!-- SCREEN 5: FEATURE TOGGLES – SYSTEM LEVEL -->
+                <div id="set-features" class="setting-pane">
+                  <h2 style="margin-bottom:4px; font-size:24px;">Feature Toggles – System Level</h2>
+                  <p style="color:var(--text-secondary); margin-bottom:20px; max-width:640px;">
+                    Bật/tắt các module lớn của platform. Đây là SYSTEM enable/disable, KHÔNG phải per-account feature control.
+                  </p>
+
+                  <div class="settings-card">
+                    <div class="setting-row" style="padding-top:0;">
+                      <div class="setting-info">
+                        <div class="setting-name" style="font-size:15px;">Sponsored Ads module</div>
+                        <div class="setting-desc">Tắt module này sẽ ẩn toàn bộ UI Ads trên Client & Agent và auto-pause inventory.</div>
+                      </div>
+                      <div>
+                        <div class="toggle-switch active" style="width:44px; height:24px; background:var(--bg-success); border-radius:12px; position:relative; cursor:pointer;"><div style="width:20px; height:20px; background:white; position:absolute; right:2px; top:2px; border-radius:50%;"></div></div>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name" style="font-size:15px;">New Development module</div>
+                        <div class="setting-desc">Bật/tắt toàn bộ hub quản lý dự án bất động sản mới.</div>
+                      </div>
+                      <div>
+                        <div class="toggle-switch active" style="width:44px; height:24px; background:var(--bg-success); border-radius:12px; position:relative; cursor:pointer;"><div style="width:20px; height:20px; background:white; position:absolute; right:2px; top:2px; border-radius:50%;"></div></div>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name" style="font-size:15px;">Chatbot AI</div>
+                        <div class="setting-desc">Bật hạ tầng chatbot hỗ trợ tìm kiếm và Q&A, không hiển thị nội dung chat trong admin.</div>
+                      </div>
+                      <div>
+                        <div class="toggle-switch" style="width:44px; height:24px; background:var(--border-tertiary); border-radius:12px; position:relative; cursor:pointer;"><div style="width:20px; height:20px; background:white; position:absolute; left:2px; top:2px; border-radius:50%; box-shadow:0 1px 2px rgba(0,0,0,0.2);"></div></div>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name" style="font-size:15px;">EDM Campaigns (CR)</div>
+                        <div class="setting-desc">Cho phép module EDM marketing xuất hiện trong Agent/Client; khi tắt sẽ ẩn toàn bộ UI liên quan.</div>
+                      </div>
+                      <div>
+                        <div class="toggle-switch" style="width:44px; height:24px; background:var(--border-tertiary); border-radius:12px; position:relative; cursor:pointer;"><div style="width:20px; height:20px; background:white; position:absolute; left:2px; top:2px; border-radius:50%; box-shadow:0 1px 2px rgba(0,0,0,0.2);"></div></div>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name" style="font-size:15px; color:#d92d20;">Support Ticket System (CR)</div>
+                        <div class="setting-desc">Tắt module này sẽ ẩn toàn bộ UI ticketing và các entry point liên quan, bao gồm một số form liên hệ.</div>
+                      </div>
+                      <div>
+                        <div class="toggle-switch active" style="width:44px; height:24px; background:var(--bg-success); border-radius:12px; position:relative; cursor:pointer;"><div style="width:20px; height:20px; background:white; position:absolute; right:2px; top:2px; border-radius:50%;"></div></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p class="hint" style="font-size:11px; color:var(--text-tertiary);">
+                    Khi tắt một feature, toàn bộ navigation + entry UI liên quan trên Client & Agent sẽ được ẩn. Không có tác động trực tiếp đến dữ liệu nghiệp vụ đã lưu.
+                  </p>
+                </div>
+
+                <!-- SCREEN 6: MESSAGING INFRASTRUCTURE SETTINGS -->
+                <div id="set-infra" class="setting-pane">
+                  <h2 style="margin-bottom:4px; font-size:24px;">Messaging Infrastructure Settings</h2>
+                  <p style="color:var(--text-secondary); margin-bottom:20px; max-width:640px;">
+                    Cấu hình hạ tầng gửi email/thông báo. Không phải giao diện gửi tin, không sửa template.
+                  </p>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Email Delivery</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Email Provider</div>
+                        <div class="setting-desc">Chọn kênh gửi: SMTP truyền thống hoặc API của provider.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>SMTP (internal)</option><option>AWS SES (API)</option><option>SendGrid (API)</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Sender name & domain (Client / Agent)</div>
+                        <div class="setting-desc">Sender mặc định, sử dụng chung cho các thông báo hệ thống.</div>
+                      </div>
+                      <div class="setting-control" style="display:flex; flex-direction:column; gap:6px;">
+                        <input type="text" class="input-field-sm" value="PropAdmin Client &lt;no-reply@client.propadmin.jp&gt;" />
+                        <input type="text" class="input-field-sm" value="PropAdmin Agent &lt;no-reply@agent.propadmin.jp&gt;" />
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Rate limit per hour</div>
+                        <div class="setting-desc">Giới hạn số email hệ thống được phép gửi mỗi giờ để bảo vệ reputation.</div>
+                      </div>
+                      <div class="setting-control">
+                        <input type="number" class="input-field-sm" value="5000" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Delivery Rules</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Retry policy</div>
+                        <div class="setting-desc">Số lần retry và khoảng thời gian giữa các lần retry khi provider trả lỗi tạm thời.</div>
+                      </div>
+                      <div class="setting-control" style="display:flex; gap:8px;">
+                        <input type="number" class="input-field-sm" value="3" />
+                        <select class="input-field-sm"><option>Every 10 minutes</option><option selected>Every 30 minutes</option><option>Every 60 minutes</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Bounce handling</div>
+                        <div class="setting-desc">Chiến lược xử lý hard/soft bounce cho địa chỉ email.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Auto-suppress after hard bounce</option><option>Log only</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Blocklist domains</div>
+                        <div class="setting-desc">Danh sách domain không được phép gửi (ví dụ domain test).</div>
+                      </div>
+                      <div class="setting-control">
+                        <input type="text" class="input-field-sm" value="example.test, internal-only.local" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card" style="margin-bottom:16px;">
+                    <div class="settings-card-title">Compliance</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Unsubscribe behavior</div>
+                        <div class="setting-desc">Tự động chèn link unsubscribe và ghi nhận trạng thái opt-out.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>One-click global unsubscribe</option><option>Unsubscribe per category</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Mandatory footer fields</div>
+                        <div class="setting-desc">Tên công ty, địa chỉ, thông tin pháp lý bắt buộc cuối email.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>JP Act compliant footer</option><option>Custom enterprise footer</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">JP Act compliance flags</div>
+                        <div class="setting-desc">Cờ hệ thống để đảm bảo email tuân thủ luật quảng cáo và viễn thông tại Nhật.</div>
+                      </div>
+                      <div class="setting-control">
+                        <div class="toggle-switch active" style="width:36px; height:20px; background:var(--bg-success); border-radius:10px; position:relative;"><div style="width:16px; height:16px; background:white; position:absolute; right:2px; top:2px; border-radius:50%;"></div></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button class="btn btn-secondary" style="width:100%;" onclick="alert('Test connection: email infrastructure check (mock).')">Test Connection</button>
+                </div>
+
+                <!-- SCREEN 7: EXTERNAL INTEGRATIONS -->
+                <div id="set-integrations" class="setting-pane">
+                  <h2 style="margin-bottom:4px; font-size:24px;">External Integrations</h2>
+                  <p style="color:var(--text-secondary); margin-bottom:20px; max-width:640px;">
+                    Quản lý kết nối kỹ thuật với hệ thống bên ngoài (gateway, map, CRM webhook, search, email). Không định nghĩa business flow.
+                  </p>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Payment Gateway</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Provider</div>
+                        <div class="setting-desc">Ví dụ: Stripe, Adyen. Dùng cho thanh toán subscription/ads.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Stripe (Sandbox)</option><option>Stripe (Production)</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">API key / token</div>
+                        <div class="setting-desc">Được mask trong UI. Chỉ Super Admin mới có quyền chỉnh.</div>
+                      </div>
+                      <div class="setting-control">
+                        <input type="password" class="input-field-sm" value="sk_live_••••••••••••" />
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Environment</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option>Sandbox</option><option selected>Production</option></select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Map Provider & Search</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Map provider</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Google Maps</option><option>Mapbox</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Search engine endpoint</div>
+                        <div class="setting-desc">Ví dụ: Elasticsearch/OpenSearch endpoint cho search nội bộ.</div>
+                      </div>
+                      <div class="setting-control">
+                        <input type="text" class="input-field-sm" value="https://search.internal.propadmin.jp" />
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Connection status</div>
+                      </div>
+                      <div class="setting-control">
+                        <span class="badge badge-success">Connected</span>
+                        <div style="font-size:11px; color:var(--text-tertiary); margin-top:4px;">Last sync: 2026-03-18 09:10</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">CRM Webhook & Email Service</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">CRM webhook endpoint</div>
+                        <div class="setting-desc">URL nhận sự kiện trạng thái (lead, ticket…). Chỉ metadata, không gửi nội dung.</div>
+                      </div>
+                      <div class="setting-control">
+                        <input type="text" class="input-field-sm" value="https://crm.example.com/webhooks/propadmin" />
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Email infrastructure</div>
+                        <div class="setting-desc">Tham chiếu sang Messaging Infrastructure để đồng bộ provider.</div>
+                      </div>
+                      <div class="setting-control">
+                        <span class="badge badge-info">Managed in Messaging Infra</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SCREEN 8: MASTER DATA MANAGEMENT – OVERVIEW -->
+                <div id="set-master-data" class="setting-pane">
+                  <h2 style="margin-bottom:4px; font-size:24px;">Master Data Management – Overview</h2>
+                  <p style="color:var(--text-secondary); margin-bottom:20px; max-width:640px;">
+                    Nền tảng dữ liệu phi nghiệp vụ dùng chung cho toàn hệ thống: địa lý, tuyến tàu, loại hình bất động sản, enums hệ thống.
+                  </p>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">8.1 Geo Hierarchy Manager</div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Prefecture → City → Ward</div>
+                        <div class="setting-desc">Tree view cho phép mở rộng/collapse. Không thể xóa node đang được sử dụng ở module khác.</div>
+                      </div>
+                      <div class="setting-control">
+                        <button class="btn btn-secondary" style="width:100%;">Open Geo Hierarchy Editor</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">8.2 Railway & Station Manager</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Company → Line → Station</div>
+                        <div class="setting-desc">Hỗ trợ multi-line station và flag trạm trung chuyển (transfer station).</div>
+                      </div>
+                      <div class="setting-control">
+                        <button class="btn btn-secondary" style="width:100%;">Open Railway Manager</button>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">CSV import / export</div>
+                        <div class="setting-desc">Cho phép import/export mapping tuyến/tên trạm theo chuẩn nội bộ.</div>
+                      </div>
+                      <div class="setting-control">
+                        <button class="btn btn-sm">Import CSV</button>
+                        <button class="btn btn-sm">Export CSV</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">8.3 Property Type Manager</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Type hierarchy</div>
+                        <div class="setting-desc">Quản lý cây loại hình: Residential / Commercial / Land, v.v.</div>
+                      </div>
+                      <div class="setting-control">
+                        <button class="btn btn-secondary" style="width:100%;">Open Property Type Editor</button>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Custom attributes & Active toggle</div>
+                        <div class="setting-desc">Mỗi type có bộ thuộc tính tuỳ chỉnh và trạng thái Active/Inactive.</div>
+                      </div>
+                      <div class="setting-control">
+                        <span class="badge badge-info">Configurable per type</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">8.4 System Enums & Codes</div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Violation reasons, ticket categories, ad placement enums, transaction types…</div>
+                        <div class="setting-desc">Bảng enum có thể thêm/sửa nhưng bị kiểm soát dependency (cảnh báo khi xoá giá trị đang được dùng).</div>
+                      </div>
+                      <div class="setting-control">
+                        <button class="btn btn-secondary" style="width:100%;">Open Enum & Code Editor</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SCREEN 9: DATA GOVERNANCE & PRIVACY CONTROLS -->
+                <div id="set-governance" class="setting-pane">
+                  <h2 style="margin-bottom:4px; font-size:24px;">Data Governance & Privacy Controls</h2>
+                  <p style="color:var(--text-secondary); margin-bottom:20px; max-width:640px;">
+                    Thiết lập quy tắc dữ liệu mang tính pháp lý và enterprise: retention, masking, quyền export, và yêu cầu audit.
+                  </p>
+
+                  <div class="settings-card" style="border: 1px solid #d92d20;">
+                    <div class="settings-card-title" style="color:#d92d20;">Data Retention</div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Data retention duration</div>
+                        <div class="setting-desc">Thời gian giữ dữ liệu người dùng/hoạt động trước khi xoá hoặc ẩn danh hoá.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option>1 year</option><option selected>5 years</option><option>7 years</option><option>Never delete (archive only)</option></select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">PII Masking Rules</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">PII masking</div>
+                        <div class="setting-desc">Quy tắc mask email, điện thoại, tên thật trong UI admin và export.</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Mask in UI + Exports</option><option>Mask in UI only</option><option>Mask in exports only</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Sensitive fields auto-masked</div>
+                        <div class="setting-desc">Các trường nhạy cảm (số điện thoại, email, ID) luôn được auto-mask trong CSV.</div>
+                      </div>
+                      <div class="setting-control">
+                        <div class="toggle-switch active" style="width:36px; height:20px; background:var(--bg-success); border-radius:10px; position:relative;"><div style="width:16px; height:16px; background:white; position:absolute; right:2px; top:2px; border-radius:50%;"></div></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">Export Governance</div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Who can export which data</div>
+                        <div class="setting-desc">Mapping high-level: role → loại dữ liệu được phép export (users, leads, properties…).</div>
+                      </div>
+                      <div class="setting-control">
+                        <select class="input-field-sm"><option selected>Managers & Compliance only for PII-heavy exports</option><option>All admins (not recommended)</option></select>
+                      </div>
+                    </div>
+                    <div class="setting-row">
+                      <div class="setting-info">
+                        <div class="setting-name">Export audit requirement</div>
+                        <div class="setting-desc">Mọi export chứa dữ liệu nhạy cảm phải yêu cầu ghi lý do và log vào Audit.</div>
+                      </div>
+                      <div class="setting-control">
+                        <div class="toggle-switch active" style="width:36px; height:20px; background:var(--bg-success); border-radius:10px; position:relative;"><div style="width:16px; height:16px; background:white; position:absolute; right:2px; top:2px; border-radius:50%;"></div></div>
+                      </div>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                      <div class="setting-info">
+                        <div class="setting-name">Export must log reason</div>
+                        <div class="setting-desc">Trước khi generate file, admin phải nhập lý do; lý do + file metadata được ghi vào Audit Log.</div>
+                      </div>
+                      <div class="setting-control">
+                        <span class="badge badge-info">Enforced</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
+
             </div>
           </div>
-          <!-- /settings -->
-        </div>
-        <!-- /content -->
-      </div>
-      <!-- /main -->
-    </div>
-    <!-- /portal -->
 
-    <div class="welcome-modal" id="welcome-modal">
-      <div class="welcome-card">
-        <div class="welcome-title">Welcome configuration</div>
-        <p class="welcome-desc">
-          Select default unit and currency for admin workspace. Selection is
-          verified and shown as in-site notification.
-        </p>
-        <div class="field-row">
-          <div class="field-label">Unit of area</div>
-          <div class="field-value">
-            <select class="filter-select" id="welcome-area-unit">
-              <option value="m2">m²</option>
-              <option value="tsubo">Tsubo</option>
-              <option value="sqft">sqft</option>
-            </select>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">Currency</div>
-          <div class="field-value">
-            <select class="filter-select" id="welcome-currency">
-              <option value="JPY">JPY (¥)</option>
-              <option value="USD">USD ($)</option>
-              <option value="CNY">CNY (¥)</option>
-            </select>
-          </div>
-        </div>
-        <div
-          style="
-            margin-top: 14px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-          "
-        >
-          <button class="btn-sm" onclick="dismissWelcome()">Later</button>
-          <button class="btn-sm btn-primary" onclick="verifyWelcomeConfig()">
-            Verify & continue
-          </button>
-        </div>
-      </div>
+          <script>
+            function switchSettingTab(id, el) {
+              document.querySelectorAll('.vertical-tab').forEach(function (t) {
+                t.classList.remove('active');
+              });
+              document.querySelectorAll('.setting-pane').forEach(function (p) {
+                p.classList.remove('active');
+              });
+
+              if (el) el.classList.add('active');
+              var pane = document.getElementById('set-' + id);
+              if (pane) pane.classList.add('active');
+            }
+
+            function confirmSystemSettingsSave() {
+              var ok = window.confirm('This change affects all portals. Apply now?');
+              if (ok) {
+                alert('System configuration updated globally (mock UI).');
+              }
+            }
+
+            function resetSystemSettingsPane(id) {
+              // Mock reset: in real impl, would reload defaults for this pane only
+              alert('Settings for "' + id + '" would be reset to defaults (mock).');
+            }
+          </script>
+</div>
     </div>
 
-    <script>
-      const PAGE_TITLES = {
-        dashboard: "KPI Dashboard",
-        dashboards: "Multi-area Dashboards",
-        users: "User Management",
-        "user-detail": "User Detail",
-        agents: "Agent Approvals",
-        "agent-list": "Agents Directory",
-        "agent-detail": "Agent Detail",
-        leads: "Lead Oversight",
-        messages: "Messages & Emails",
-        notifications: "Notifications",
-        "edm-campaigns": "EDM Campaigns",
-        "support-tickets": "Support Tickets",
-        content: "CMS & Articles",
-        "cms-pages": "CMS Pages",
-        "seo-control": "SEO Control",
-        properties: "Property Oversight",
-        "property-moderation": "Property Moderation",
-        ads: "Ad Management",
-        payments: "Payment Reports",
-        financials: "Financial Dashboard",
-        analytics: "Market Analysis",
-        activity: "Activity Monitoring",
-        reports: "Underlying Reports",
-        contacts: "Contacts & Organisations",
-        projects: "Projects Oversight",
-        offers: "Offers & Pricing",
-        agreements: "Agreements & Templates",
-        calendar: "Calendar Assignment",
-        "feature-control": "Per-Account Feature Control",
-        "staff-users": "Staff Users",
-        "staff-roles": "Roles & Permissions",
-        integrations: "External Integrations",
-        "audit-logs": "Audit Logs",
-        "admin-accounts": "Administrator Account Management",
-        profile: "Admin Profile",
-        settings: "System Settings",
-      };
-
-      function switchScreen(id, el) {
-        // hide all screens
-        document
-          .querySelectorAll(".screen")
-          .forEach((s) => s.classList.remove("active"));
-        // deactivate all nav items
-        document
-          .querySelectorAll(".nav-item")
-          .forEach((n) => n.classList.remove("active"));
-        // activate target
-        const screen = document.getElementById("screen-" + id);
-        if (screen) screen.classList.add("active");
-        if (el) el.classList.add("active");
-        document.getElementById("page-title").textContent =
-          PAGE_TITLES[id] || id;
-      }
-
-      function openScreen(id) {
-        const navItem = Array.from(document.querySelectorAll(".nav-item")).find(
-          (item) =>
-            item.getAttribute("onclick") &&
-            item.getAttribute("onclick").includes("'" + id + "'"),
-        );
-        switchScreen(id, navItem || null);
-      }
-
-      function switchTab(el, group) {
-        const parent = el.closest(".tabs");
-        if (!parent) return;
-        parent
-          .querySelectorAll(".tab")
-          .forEach((t) => t.classList.remove("active"));
-        el.classList.add("active");
-
-        const card = el.closest(".card");
-        const target = el.getAttribute("data-tab-target");
-        if (!card || !target) return;
-
-        const panels = card.querySelectorAll(".tab-panel");
-        if (!panels.length) return;
-        panels.forEach((panel) => panel.classList.remove("active"));
-        const activePanel = card.querySelector(
-          '.tab-panel[data-tab-panel="' + target + '"]',
-        );
-        if (activePanel) activePanel.classList.add("active");
-      }
-
-      function openProfile() {
-        const profileNav = Array.from(
-          document.querySelectorAll(".nav-item"),
-        ).find(
-          (item) =>
-            item.getAttribute("onclick") &&
-            item.getAttribute("onclick").includes("'profile'"),
-        );
-        if (profileNav) switchScreen("profile", profileNav);
-      }
-
-      function verifyWelcomeConfig() {
-        const area = document.getElementById("welcome-area-unit").value;
-        const currency = document.getElementById("welcome-currency").value;
-        alert(
-          "Welcome settings verified: area=" + area + ", currency=" + currency,
-        );
-        dismissWelcome();
-      }
-
-      function dismissWelcome() {
-        const modal = document.getElementById("welcome-modal");
-        if (modal) modal.classList.add("hidden");
-      }
-
-      // Highlight active nav item on click for child actions
-      document.querySelectorAll(".nav-item").forEach((item) => {
-        item.addEventListener("click", function () {
-          document
-            .querySelectorAll(".nav-item")
-            .forEach((n) => n.classList.remove("active"));
-          this.classList.add("active");
-        });
-      });
-    </script>
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/enterprise-modules.js"></script>
   </body>
 </html>

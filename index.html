@@ -243,6 +243,28 @@
         stroke-width: 1.6;
       }
 
+      .nav-icon-messages {
+        position: relative;
+      }
+
+      .nav-unread-badge {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: 999px;
+        background: var(--unread);
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 700;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 2px #ffffff;
+      }
+
       /* User pill */
       .user-menu {
         position: relative;
@@ -547,6 +569,54 @@
         border-radius: var(--r-lg);
         box-shadow: var(--shadow-sm);
         overflow: hidden;
+      }
+
+      .msg-tabs {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .msg-tab {
+        border-radius: 999px;
+        padding: 4px 12px;
+        font-size: 12px;
+        border: 1px solid var(--border);
+        background: #f7f5f2;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          color 0.15s,
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+
+      .msg-tab:hover {
+        border-color: var(--gold-light);
+        color: var(--text-primary);
+      }
+
+      .msg-tab.active {
+        background: var(--text-primary);
+        color: #ffffff;
+        border-color: var(--text-primary);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .msg-view {
+        display: none;
+        opacity: 0;
+        transform: translateX(4px);
+        transition:
+          opacity 0.18s ease,
+          transform 0.18s ease;
+      }
+
+      .msg-view.active {
+        display: block;
+        opacity: 1;
+        transform: translateX(0);
       }
 
       .convo-item {
@@ -1380,12 +1450,13 @@
             </svg>
           </button>
           <!-- Chat -->
-          <button class="nav-icon-btn" title="Messages">
+          <button class="nav-icon-btn nav-icon-messages" title="Messages">
             <svg viewBox="0 0 20 20">
               <path
                 d="M18 3H2a1 1 0 00-1 1v10a1 1 0 001 1h5l3 3 3-3h5a1 1 0 001-1V4a1 1 0 00-1-1z"
               />
             </svg>
+            <span class="nav-unread-badge" id="navUnreadBadge"></span>
           </button>
 
           <!-- Separator -->
@@ -1410,17 +1481,32 @@
               </a>
               <a class="dd-item" href="#">
                 <svg viewBox="0 0 16 16">
-                  <rect x="2" y="2" width="12" height="12" rx="1" />
-                  <path d="M2 6h12M6 2v12" />
+                  <path
+                    d="M2 3h12a1 1 0 011 1v5.5a1 1 0 01-1 1H9l-3 3-3-3H2a1 1 0 01-1-1V4a1 1 0 011-1z"
+                  />
+                </svg>
+                Messages
+              </a>
+              <a class="dd-item" href="#">
+                <svg viewBox="0 0 16 16">
+                  <path
+                    d="M8 14s-6-3.5-6-7.5A4 4 0 018 3a4 4 0 016 3.5C14 10.5 8 14 8 14z"
+                  />
+                </svg>
+                Saved List
+              </a>
+              <a class="dd-item" href="#">
+                <svg viewBox="0 0 16 16">
+                  <rect x="2" y="2" width="12" height="12" rx="2" />
+                  <path d="M2 7h12M7 2v12" />
                 </svg>
                 Dashboard
               </a>
               <a class="dd-item" href="#">
                 <svg viewBox="0 0 16 16">
-                  <circle cx="8" cy="8" r="6" />
-                  <path d="M8 5v3l2 2" />
+                  <path d="M8 3a5 5 0 105 5M10 2v3h3M3 8h4M3 11h3M3 5h2" />
                 </svg>
-                Recent viewed
+                Recent Viewed
               </a>
               <div class="dd-sep"></div>
               <a class="dd-item logout" href="#">
@@ -1429,7 +1515,7 @@
                     d="M10 3h3a1 1 0 011 1v8a1 1 0 01-1 1h-3M7 11l4-4-4-4M11 8H3"
                   />
                 </svg>
-                Log out
+                Logout
               </a>
             </div>
           </div>
@@ -1453,8 +1539,21 @@
         <div class="profile-av-lg">A</div>
         <div class="profile-info">
           <div class="profile-name">Yamamoto Anna</div>
-          <div class="profile-email">anna@example.com</div>
-          <div class="profile-email">+81 90-1234-5678</div>
+          <div class="profile-email">
+            <strong>Email:</strong> anna@example.com
+          </div>
+          <div class="profile-email">
+            <strong>Country Code:</strong> +81 (Japan)
+          </div>
+          <div class="profile-email">
+            <strong>Phone Number:</strong> +81 90-1234-5678
+          </div>
+          <div class="profile-email">
+            <strong>Current Address:</strong> Shinjuku, Tokyo, Japan
+          </div>
+          <div class="profile-email">
+            <strong>Nationality:</strong> Japanese
+          </div>
         </div>
       </div>
 
@@ -1465,10 +1564,17 @@
         <!-- LEFT: Messages — no tabs, just list + header link -->
         <div>
           <div class="sec-head">
-            <span class="sec-title">Messages</span>
-            <a class="sec-link" href="#">View All Messages →</a>
+            <div class="msg-tabs">
+              <button class="msg-tab active" data-tab="messages">
+                Messages
+              </button>
+              <button class="msg-tab" data-tab="agents">
+                Saved Agent Contacts
+              </button>
+            </div>
+            <a class="sec-link msg-view-link" href="#">View All Messages →</a>
           </div>
-          <div class="msg-card">
+          <div class="msg-card msg-view active" id="messagesView">
             <!-- Convo 1 -->
             <div class="convo-item unread selected">
               <div class="convo-av av1">T</div>
@@ -1538,7 +1644,71 @@
               </div>
             </div>
           </div>
-          <!-- /msg-card -->
+          <!-- /msg-card: messages -->
+
+          <!-- Saved Agent Contacts view -->
+          <div class="msg-card msg-view" id="agentsView">
+            <div class="convo-item">
+              <div class="convo-av av1">T</div>
+              <div class="convo-body">
+                <div class="convo-top">
+                  <span class="convo-name">Takayuki Yamada</span>
+                  <span class="convo-time"></span>
+                </div>
+                <div class="convo-preview"></div>
+                <p style="font-style: italic; color: red">
+                  need to be define what to show here
+                </p>
+                <div class="convo-meta"></div>
+              </div>
+            </div>
+
+            <div class="convo-item">
+              <div class="convo-av av2">M</div>
+              <div class="convo-body">
+                <div class="convo-top">
+                  <span class="convo-name">Masahiro Tanaka</span>
+                  <span class="convo-time"></span>
+                </div>
+                <div class="convo-preview"></div>
+                <p style="font-style: italic; color: red">
+                  need to be define what to show here
+                </p>
+                <div class="convo-meta"></div>
+              </div>
+            </div>
+
+            <div class="convo-item">
+              <div class="convo-av av3">Y</div>
+              <div class="convo-body">
+                <div class="convo-top">
+                  <span class="convo-name">Yumiko Sato</span>
+                  <span class="convo-time"></span>
+                </div>
+                <div class="convo-preview"></div>
+                <p style="font-style: italic; color: red">
+                  need to be define what to show here
+                </p>
+                <div class="convo-meta"></div>
+              </div>
+            </div>
+
+            <div class="convo-item">
+              <div class="convo-av av4">K</div>
+              <div class="convo-body">
+                <div class="convo-top">
+                  <span class="convo-name">Kenji Matsumoto</span>
+                  <span class="convo-time"></span>
+                </div>
+                <div class="convo-preview"></div>
+                <p style="font-style: italic; color: red">
+                  need to be define what to show here
+                </p>
+                <div class="convo-meta"></div>
+              </div>
+            </div>
+          </div>
+          <!-- /msg-card: saved agents -->
         </div>
         <!-- /left -->
 
@@ -3543,8 +3713,62 @@
             }
             toast("Marked as read");
           }
+          updateNavUnreadBadge();
         });
       });
+
+      function updateNavUnreadBadge() {
+        const unreadCount =
+          document.querySelectorAll(".convo-item.unread").length;
+        const badge = document.getElementById("navUnreadBadge");
+        if (!badge) return;
+        if (unreadCount > 0) {
+          badge.textContent = unreadCount;
+          badge.style.display = "flex";
+        } else {
+          badge.style.display = "none";
+        }
+      }
+
+      updateNavUnreadBadge();
+
+      /* ---- MESSAGE / AGENT TABS ---- */
+      function setupMessageTabs() {
+        const tabs = document.querySelectorAll(".msg-tab");
+        const messagesView = document.getElementById("messagesView");
+        const agentsView = document.getElementById("agentsView");
+        const viewLink = document.querySelector(".msg-view-link");
+
+        if (!tabs.length || !messagesView || !agentsView) return;
+
+        function activate(tabName) {
+          tabs.forEach((tab) => {
+            const isActive = tab.dataset.tab === tabName;
+            tab.classList.toggle("active", isActive);
+          });
+
+          messagesView.classList.toggle("active", tabName === "messages");
+          agentsView.classList.toggle("active", tabName === "agents");
+
+          if (viewLink) {
+            if (tabName === "messages") {
+              viewLink.textContent = "View All Messages →";
+            } else {
+              viewLink.textContent = "View All Saved Agents →";
+            }
+          }
+        }
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            activate(tab.dataset.tab || "messages");
+          });
+        });
+
+        activate("messages");
+      }
+
+      setupMessageTabs();
 
       /* ---- SLIDER DOTS ---- */
       const pos = {};
