@@ -1382,7 +1382,7 @@
             </div>
 
             <!-- amount -->
-            <div class="field">
+            <div class="field" id="c-amt-field">
               <label class="field-label"
                 >Transaction Amount (JPY) <span class="req">*</span></label
               >
@@ -1403,7 +1403,7 @@
             </div>
 
             <!-- comment -->
-            <div class="field">
+            <div class="field" id="e-amt-field">
               <label class="field-label"
                 >Comment <span class="req">*</span></label
               >
@@ -1747,6 +1747,11 @@ Grace was incredibly professional throughout the entire buying process. She was 
           y.classList.toggle("on", v === "yes");
           n.classList.toggle("on", v === "no");
         }
+        // Ẩn/hiện ô Transaction Amount khi Completed = No
+        const amtField = document.getElementById(`${p}-amt-field`);
+        if (amtField) {
+          amtField.style.display = v === "yes" ? "block" : "none";
+        }
         if (p === "c") validateCreate();
         if (p === "e") validateEdit();
       }
@@ -1796,17 +1801,17 @@ Grace was incredibly professional throughout the entire buying process. She was 
         const anonOk = !anonOn || anonName.length > 0;
         const amtOk = chkAmt("c-amt", "c-amterr");
         const amt = document.getElementById("c-amt")?.value;
+        const amtRequired = ST.c.tog === "yes";
         const type = document.getElementById("c-type")?.value;
         const cmt = document.getElementById("c-cmt")?.value.trim();
         const ok =
           ST.c.r > 0 &&
           type &&
           ST.c.tog &&
-          amt &&
-          parseFloat(amt) >= 0 &&
           cmt &&
           amtOk &&
-          anonOk;
+          anonOk &&
+          (!amtRequired || (amt && parseFloat(amt) >= 0));
         const btn = document.getElementById("c-submit");
         if (btn) btn.disabled = !ok;
       }
@@ -1816,17 +1821,17 @@ Grace was incredibly professional throughout the entire buying process. She was 
         const anonOk = !anonOn || anonName.length > 0;
         const amtOk = chkAmt("e-amt", "e-amterr");
         const amt = document.getElementById("e-amt")?.value;
+        const amtRequired = ST.e.tog === "yes";
         const type = document.getElementById("e-type")?.value;
         const cmt = document.getElementById("e-cmt")?.value.trim();
         const ok =
           ST.e.r > 0 &&
           type &&
           ST.e.tog &&
-          amt &&
-          parseFloat(amt) >= 0 &&
           cmt &&
           amtOk &&
-          anonOk;
+          anonOk &&
+          (!amtRequired || (amt && parseFloat(amt) >= 0));
         const btn = document.getElementById("e-submit");
         if (btn) btn.disabled = !ok;
       }
