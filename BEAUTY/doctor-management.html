@@ -1,0 +1,3296 @@
+﻿<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Bác sĩ - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --white: #ffffff;
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --radius-sm: 6px;
+        --sidebar-w: 210px;
+        --header-h: 52px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+
+      /* ====== HEADER ====== */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: var(--header-h);
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .header-user .avatar {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
+
+      /* ====== LAYOUT ====== */
+      .app-body {
+        display: flex;
+        padding-top: var(--header-h);
+        min-height: 100vh;
+      }
+
+      /* ====== SIDEBAR ====== */
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: white;
+        min-height: calc(100vh - var(--header-h));
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 10px;
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+      }
+      .sidebar-section {
+        margin-bottom: 6px;
+      }
+      .sidebar-label {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 4px 8px;
+        margin-bottom: 2px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+        font-size: 12.5px;
+        font-weight: 500;
+        transition: all 0.15s;
+        margin-bottom: 1px;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .sidebar-item svg {
+        opacity: 0.65;
+        flex-shrink: 0;
+      }
+      .sidebar-item.active svg {
+        opacity: 1;
+      }
+
+      /* ====== MAIN CONTENT ====== */
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 20px;
+        min-height: calc(100vh - var(--header-h));
+      }
+
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .page-title .badge {
+        font-size: 10px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      /* ====== CARD ====== */
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--primary);
+      }
+      .card-header svg {
+        color: var(--primary);
+      }
+      .card-body {
+        padding: 14px 18px;
+      }
+
+      /* ====== SEARCH CARD ====== */
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .search-row + .search-row {
+        margin-top: 10px;
+      }
+
+      .date-section {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: 1;
+        position: relative;
+      }
+      .date-label {
+        font-size: 11px;
+        color: var(--gray-500);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .date-range {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        flex: 1;
+        max-width: 280px;
+      }
+      .date-nav {
+        padding: 6px 12px;
+        background: var(--primary-light);
+        cursor: pointer;
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+        transition: background 0.15s;
+      }
+      .date-nav:hover {
+        background: var(--primary-mid);
+      }
+      .date-display {
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        white-space: nowrap;
+        flex: 1;
+        text-align: center;
+      }
+
+      .date-picker-wrap {
+        position: relative;
+      }
+      .date-picker-toggle {
+        width: 34px;
+        height: 34px;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        background: var(--primary-light);
+        color: var(--primary);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .date-picker-toggle:hover {
+        background: var(--primary-mid);
+      }
+      .date-picker-popover {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 280px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        box-shadow: var(--shadow-md);
+        padding: 10px;
+        z-index: 260;
+      }
+      .date-picker-wrap.open .date-picker-popover {
+        display: block;
+      }
+      .date-picker-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--gray-500);
+      }
+      .date-picker-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .date-picker-input {
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+      }
+      .date-picker-input:focus {
+        border-color: var(--primary);
+      }
+      .date-picker-actions {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .time-filters {
+        display: flex;
+        gap: 6px;
+        margin-left: 0;
+      }
+      .tf-btn {
+        padding: 8px 16px;
+        min-height: 36px;
+        border-radius: 9px;
+        border: 1px solid #e2e5f1;
+        background: white;
+        color: #677194;
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.18s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .tf-btn:not(.active):hover {
+        border-color: #cfd5e8;
+        color: #4d5c83;
+        background: #f4f2ff;
+      }
+      .tf-btn.active {
+        background: #6d47d9;
+        color: #ffffff;
+        border-color: transparent;
+        font-weight: 700;
+      }
+
+      .search-input-row {
+        align-items: center;
+      }
+      .search-inline-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        min-width: 68px;
+      }
+      .criteria-wrap {
+        position: relative;
+      }
+      .criteria-btn {
+        height: 34px;
+        min-width: 150px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        font-family: inherit;
+        padding: 0 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .criteria-btn:hover {
+        border-color: var(--primary-mid);
+      }
+      .criteria-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 170px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        z-index: 260;
+      }
+      .criteria-wrap.open .criteria-menu {
+        display: block;
+      }
+      .criteria-option {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .criteria-option:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .search-input-lg {
+        flex: 1;
+        min-width: 260px;
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 11px;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
+      }
+      .search-input-lg:focus {
+        border-color: var(--primary);
+      }
+
+      .search-field-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+      }
+      .select-field {
+        display: flex;
+        align-items: center;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        overflow: hidden;
+        flex: 1;
+        background: white;
+        transition: border-color 0.15s;
+      }
+      .select-field:focus-within {
+        border-color: var(--primary);
+      }
+      .select-tag {
+        padding: 6px 10px;
+        background: var(--gray-100);
+        color: var(--primary);
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+        border-right: 1px solid var(--gray-200);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .select-tag svg {
+        width: 10px;
+        height: 10px;
+      }
+      .select-input {
+        flex: 1;
+        padding: 6px 10px;
+        border: none;
+        outline: none;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+      }
+      .select-input::placeholder {
+        color: var(--gray-400);
+      }
+
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-primary:hover {
+        background: #5a32a8;
+        border-color: #5a32a8;
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-danger:hover {
+        background: #d6335a;
+        border-color: #d6335a;
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-ghost:hover {
+        background: var(--gray-200);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
+
+      /* ====== TABS ====== */
+      .tabs {
+        display: flex;
+        border-bottom: 2px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .tab {
+        padding: 8px 16px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--gray-400);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: all 0.15s;
+      }
+      .tab:hover {
+        color: var(--primary);
+      }
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+        font-weight: 600;
+      }
+
+      /* ====== TABLE ====== */
+      .table-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .table-title .count {
+        font-size: 11px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      .table-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 8px;
+      }
+      .table-actions-left,
+      .table-actions-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 900px;
+      }
+      thead {
+        background: var(--gray-50);
+      }
+      thead th {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        white-space: nowrap;
+        border-bottom: 1.5px solid var(--gray-200);
+      }
+      thead th:first-child {
+        width: 36px;
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--gray-100);
+        transition: background 0.1s;
+      }
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: var(--gray-50);
+      }
+      tbody td {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .td-left {
+        text-align: left !important;
+      }
+
+      .cell-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .menu-trigger {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .menu-trigger:hover {
+        color: #5a32a8;
+      }
+      .menu-list {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        z-index: 40;
+        min-width: 160px;
+        display: none;
+        flex-direction: column;
+      }
+      .menu-list.sm {
+        min-width: 140px;
+      }
+      .cell-menu.open .menu-list {
+        display: flex;
+      }
+      .menu-item {
+        padding: 8px 12px;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        transition: background 0.1s;
+      }
+      .menu-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+
+      .note-ellipsis {
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: help;
+      }
+      .note-edit-area {
+        width: 100%;
+        min-height: 56px;
+        resize: vertical;
+      }
+      .note-edit-actions {
+        display: none;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .link-text {
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .link-text:hover {
+        color: #5a32a8;
+      }
+
+      input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        accent-color: var(--primary);
+      }
+
+      .stt {
+        font-size: 11px;
+        color: var(--gray-500);
+        font-weight: 500;
+        text-align: center;
+      }
+
+      /* ====== PAGINATION ====== */
+      .pagination {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+        margin: 16px 0;
+      }
+      .pg-btn {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid var(--gray-300);
+        background: white;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .pg-btn:hover {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        color: var(--primary);
+      }
+      .pg-btn.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
+
+      .table-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--gray-200);
+      }
+      .table-footer-left {
+        display: flex;
+        gap: 8px;
+      }
+      .display-count {
+        font-size: 11px;
+        color: var(--gray-600);
+        display: flex;
+        gap: 4px;
+        align-items: center;
+      }
+      .display-count-label {
+        color: var(--gray-500);
+        font-weight: 500;
+      }
+
+      /* ====== FORM (PAGE 2) ====== */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .form-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .form-label .req {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .form-input {
+        padding: 8px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+      }
+      .form-input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+      .form-input::placeholder {
+        color: var(--gray-400);
+      }
+
+      .upload-btn-wrap {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .upload-preview {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        font-size: 11px;
+        color: var(--gray-600);
+        padding: 6px 8px;
+        background: var(--gray-100);
+        border-radius: 6px;
+      }
+
+      .form-section-divider {
+        grid-column: 1 / -1;
+        height: 1px;
+        background: var(--gray-200);
+        margin: 8px 0;
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid var(--gray-200);
+      }
+
+      /* ====== PAGE SWITCH ====== */
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      /* ====== DROPDOWN MENU ====== */
+      .select-wrap {
+        position: relative;
+      }
+      .select-dropdown {
+        position: relative;
+      }
+      .select-dropdown select {
+        padding: 8px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        background: white;
+        cursor: pointer;
+        appearance: none;
+        width: 100%;
+      }
+      .select-dropdown::after {
+        content: "▼";
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        font-size: 10px;
+        color: var(--gray-600);
+        pointer-events: none;
+      }
+
+      /* ====== TOOLTIP ====== */
+      .tooltip-wrap {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+      }
+      .tooltip-wrap:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
+      .tooltip {
+        position: absolute;
+        bottom: 120%;
+        left: 0;
+        background: var(--gray-700);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 11px;
+        white-space: normal;
+        max-width: 250px;
+        z-index: 60;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s;
+        line-height: 1.4;
+      }
+      .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 8px;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid var(--gray-700);
+      }
+
+      /* ====== BREADCRUMB ====== */
+      .breadcrumb {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        font-size: 11px;
+        margin-bottom: 12px;
+      }
+      .breadcrumb .bc-link {
+        color: var(--primary);
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .breadcrumb .bc-link:hover {
+        text-decoration: underline;
+      }
+      .breadcrumb .bc-sep {
+        color: var(--gray-400);
+      }
+      .breadcrumb .bc-current {
+        color: var(--gray-700);
+        font-weight: 600;
+      }
+
+      /* ====== DETAIL INFO CARD ====== */
+      .detail-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .detail-header-title {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        flex: 1;
+      }
+      .doctor-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .detail-header-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+      }
+      .detail-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--gray-700);
+      }
+      .meta-badge {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        padding: 4px 8px;
+        background: var(--gray-200);
+        color: var(--gray-700);
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .meta-badge.active {
+        background: var(--success-light);
+        color: var(--success);
+      }
+      .meta-badge.date {
+        background: var(--gray-200);
+        color: var(--gray-600);
+      }
+
+      /* ====== STATS GRID ====== */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .stat-box {
+        padding: 12px;
+        background: var(--gray-100);
+        border-radius: 8px;
+        text-align: center;
+      }
+      .stat-label {
+        font-size: 11px;
+        color: var(--gray-600);
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      .stat-value {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      /* ====== ACTION MODAL ====== */
+      .action-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 360px;
+        min-width: 280px;
+        box-shadow: var(--shadow-md);
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-600);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-cancel:hover {
+        background: var(--gray-300);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+      .action-modal-btn-confirm:hover {
+        background: #d6335a;
+      }
+
+      .note-edit-textarea {
+        width: 100%;
+        min-height: 60px;
+        padding: 10px 12px;
+        font-size: 12px;
+        font-family: inherit;
+        border: 1px solid var(--primary);
+        border-radius: 4px;
+        background: white;
+        color: var(--gray-700);
+        resize: vertical;
+        font-weight: 400;
+      }
+
+      .note-edit-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .form-input-group {
+        display: flex;
+        align-items: end;
+        gap: 8px;
+      }
+
+      .form-input-group .form-input {
+        flex: 1;
+      }
+
+      .form-input-group .btn-check {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+        padding: 8px 12px;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 8px;
+        white-space: nowrap;
+      }
+
+      .form-input-group .btn-check:hover {
+        background: var(--accent-light);
+      }
+
+      .upload-btn-wrap .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+
+      .upload-btn-wrap .btn-danger:hover {
+        background: #d6335a;
+        border-color: #d6335a;
+      }
+
+      @media (max-width: 768px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">MB</div>
+        <span>Quản lý hệ thống BEAUTY</span>
+      </div>
+      <nav class="header-nav">
+        <div class="nav-item">Trang chủ</div>
+        <div class="nav-item">Quản lý thông tin</div>
+        <div class="nav-item">Thành viên ảo</div>
+        <div class="nav-item">Thành viên thực, staff</div>
+        <div class="nav-item">Cấp bậc</div>
+        <div class="nav-item active">Bác sĩ &amp; BV</div>
+        <div class="nav-item">Menu</div>
+        <div class="nav-item">Số Bài viết &amp; BL</div>
+        <div class="nav-item">Thẻ</div>
+        <div class="nav-item">Spam/Báo cáo</div>
+        <div class="nav-item">Banner</div>
+        <div class="nav-item">Điểm thưởng</div>
+        <div class="nav-item">Thống kê</div>
+      </nav>
+      <div class="header-user">
+        <div class="user-info">
+          <div class="user-name">Nguyễn Văn Admin</div>
+          <div class="user-role">Quản trị viên cấp 2</div>
+        </div>
+        <div class="avatar">NV</div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Danh mục quản lý</div>
+          <div
+            class="sidebar-item active"
+            id="sidebar-doctor"
+            onclick="window.location.href = 'doctor-management.html'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Thành viên bác sĩ
+          </div>
+          <div
+            class="sidebar-item"
+            onclick="window.location.href = 'hospital-management.html'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <path d="M9 9h6M9 13h6" />
+            </svg>
+            Bệnh viện
+          </div>
+          <div
+            class="sidebar-item"
+            id="sidebar-partner"
+            onclick="window.location.href = 'partner-management.html'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 1-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            Đối tác
+          </div>
+          <div
+            class="sidebar-item"
+            id="sidebar-product"
+            onclick="window.location.href = 'product-management.html'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </svg>
+            Sản phẩm
+          </div>
+        </div>
+      </aside>
+
+      <!-- PAGE 1: LIST -->
+      <main class="main page active" id="page-list">
+        <div class="page-title">
+          Quản lý Bác sĩ
+          <span class="badge">125</span>
+        </div>
+
+        <div class="card search-card">
+          <div class="card-body">
+            <div class="search-row">
+              <div class="date-section">
+                <div class="card-header" style="margin-right: 450px">
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                  </svg>
+                  Tìm kiếm
+                </div>
+                <div class="date-range">
+                  <button
+                    class="date-nav"
+                    id="date-prev"
+                    onclick="shiftDateRange(-1)"
+                  >
+                    ‹
+                  </button>
+                  <span class="date-display" id="date-display"
+                    >23/06/2025 ~ 30/06/2025</span
+                  >
+                  <button
+                    class="date-nav"
+                    id="date-next"
+                    onclick="shiftDateRange(1)"
+                  >
+                    ›
+                  </button>
+                </div>
+                <div class="date-picker-wrap" id="date-picker-wrap">
+                  <button
+                    class="date-picker-toggle"
+                    onclick="toggleDatePicker(event)"
+                    title="Chọn khoảng ngày"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                  </button>
+                  <div
+                    class="date-picker-popover"
+                    id="date-picker-popover"
+                    onclick="event.stopPropagation()"
+                  >
+                    <div class="date-picker-grid">
+                      <label class="date-picker-field"
+                        >Từ ngày<input
+                          class="date-picker-input"
+                          type="date"
+                          id="date-start-input"
+                      /></label>
+                      <label class="date-picker-field"
+                        >Đến ngày<input
+                          class="date-picker-input"
+                          type="date"
+                          id="date-end-input"
+                      /></label>
+                    </div>
+                    <div class="date-picker-actions">
+                      <button
+                        class="btn btn-primary btn-sm"
+                        onclick="applyDatePicker()"
+                      >
+                        Áp dụng
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn" onclick="setQuickFilter(this, 'day')">
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter(this, 'week')"
+                >
+                  Tuần
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'month')">
+                  Tháng
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'year')">
+                  Năm
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'all')">
+                  Tất cả
+                </button>
+              </div>
+            </div>
+            <div class="search-row search-input-row" style="margin-top: 10px">
+              <div class="criteria-wrap" id="criteria-wrap">
+                <button
+                  class="criteria-btn"
+                  id="criteria-btn"
+                  onclick="toggleCriteriaDropdown(event)"
+                >
+                  <span id="criteria-label">ID</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu" id="criteria-menu">
+                  <button
+                    class="criteria-option"
+                    onclick="selectCriteria('ID')"
+                  >
+                    ID
+                  </button>
+                  <button
+                    class="criteria-option"
+                    onclick="selectCriteria('Nickname')"
+                  >
+                    Nickname
+                  </button>
+                </div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="search-input"
+                placeholder="Nhập từ khóa tìm kiếm..."
+              />
+              <button class="btn btn-outline-primary" onclick="executeSearch()">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
+                </svg>
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLE CARD -->
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              Danh sách Bác sĩ
+              <span class="count">125 bác sĩ</span>
+            </div>
+            <div class="tabs">
+              <div class="tab active" id="tab-info" onclick="switchTab('info')">
+                Thông tin Bác sĩ
+              </div>
+              <div class="tab" id="tab-deleted" onclick="switchTab('deleted')">
+                Bác sĩ đã xóa
+              </div>
+            </div>
+
+            <!-- TAB INFO -->
+            <div id="panel-info">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    onclick="openActionModal('soft-delete')"
+                  >
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <polyline points="3 6 5 6 21 6" />
+                      <path
+                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+                      />
+                    </svg>
+                    Xóa
+                  </button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="openActionModal('notify')"
+                  >
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                    Gửi thông báo
+                  </button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="note-edit-actions" id="note-edit-actions">
+                    <button class="btn btn-primary btn-sm" onclick="saveNoteEdit()">
+                      Lưu
+                    </button>
+                    <button class="btn btn-ghost btn-sm" onclick="cancelNoteEdit()">
+                      Hủy
+                    </button>
+                  </div>
+                  <div class="select-dropdown">
+                    <select onchange="updatePageSizeLabel(this, 'info')">
+                      <option>Danh sách 30</option>
+                      <option>Danh sách 50</option>
+                      <option>Danh sách 100</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table id="table-info">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          id="chk-all-info"
+                          onchange="toggleAllInTable(this, 'table-info')"
+                        />
+                      </th>
+                      <th>ID</th>
+                      <th>Nickname</th>
+                      <th>Ngày đăng nhập cuối</th>
+                      <th>Số lần truy cập</th>
+                      <th>Số Bài viết</th>
+                      <th>Số Bình luận</th>
+                      <th>Giới tính</th>
+                      <th>Ngày tạo</th>
+                      <th>Người tạo</th>
+                      <th>Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="tr-info-1">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-info-1')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC001</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Nguyễn A
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Lịch sử hoạt động
+                            </button>
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('notify')"
+                            >
+                              Gửi thông báo
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>22/06/2025</td>
+                      <td>1,245</td>
+                      <td>48</td>
+                      <td>312</td>
+                      <td>Nam</td>
+                      <td>15/03/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Bác sĩ hàng đầu trong lĩnh vực thẩm mỹ da với kinh
+                            nghiệm...</span
+                          >
+                          <div class="tooltip">
+                            Bác sĩ hàng đầu trong lĩnh vực thẩm mỹ da với kinh
+                            nghiệm 12 năm, chuyên môn cao.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="tr-info-2">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-info-2')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC002</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Trần B
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Lịch sử hoạt động
+                            </button>
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('notify')"
+                            >
+                              Gửi thông báo
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>21/06/2025</td>
+                      <td>892</td>
+                      <td>35</td>
+                      <td>256</td>
+                      <td>Nam</td>
+                      <td>20/02/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Chuyên khoa nhi, tích cực tham gia cộng
+                            đồng...</span
+                          >
+                          <div class="tooltip">
+                            Chuyên khoa nhi, tích cực tham gia cộng đồng, hỗ trợ
+                            tư vấn miễn phí.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="tr-info-3">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-info-3')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC003</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Phạm C
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Lịch sử hoạt động
+                            </button>
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('notify')"
+                            >
+                              Gửi thông báo
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>20/06/2025</td>
+                      <td>567</td>
+                      <td>28</td>
+                      <td>189</td>
+                      <td>Nữ</td>
+                      <td>10/01/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Chuyên gia về chăm sóc da từ thiên nhiên...</span
+                          >
+                          <div class="tooltip">
+                            Chuyên gia về chăm sóc da từ thiên nhiên, có sách
+                            xuất bản.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="tr-info-4">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-info-4')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC004</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Lê D
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Thông tin chi tiết
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Lịch sử hoạt động
+                            </button>
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('notify')"
+                            >
+                              Gửi thông báo
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>19/06/2025</td>
+                      <td>1,523</td>
+                      <td>52</td>
+                      <td>428</td>
+                      <td>Nam</td>
+                      <td>05/12/2024</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Giáo sư tại trường Y Hà Nội, tác giả 3 cuốn
+                            sách...</span
+                          >
+                          <div class="tooltip">
+                            Giáo sư tại trường Y Hà Nội, tác giả 3 cuốn sách,
+                            chuyên gia phẫu thuật thẩm mỹ.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="tr-info-5">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-info-5')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC005</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Vũ E
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Lịch sử hoạt động
+                            </button>
+                            <button class="menu-item" onclick="goEdit()">
+                              Chỉnh sửa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('notify')"
+                            >
+                              Gửi thông báo
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>18/06/2025</td>
+                      <td>734</td>
+                      <td>31</td>
+                      <td>276</td>
+                      <td>Nữ</td>
+                      <td>28/11/2024</td>
+                      <td>Admin</td>
+                      <td style="color: var(--gray-400); font-size: 11px">—</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="table-footer">
+                <div class="table-footer-left">
+                  <button class="btn btn-danger" onclick="goAdd()">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Thêm bác sĩ (+)
+                  </button>
+                </div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">3</button>
+                  <button class="pg-btn">4</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+
+            <!-- TAB DELETED -->
+            <div id="panel-deleted" style="display: none">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    onclick="openActionModal('hard-delete')"
+                  >
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <polyline points="3 6 5 6 21 6" />
+                      <path
+                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+                      />
+                    </svg>
+                    Xóa vĩnh viễn
+                  </button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="openActionModal('restore')"
+                  >
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <path d="M3 7v6h6M21 17v-6h-6" />
+                      <path
+                        d="M16.83 12a5 5 0 0 0-9.66-1M7.17 12a5 5 0 0 0 9.66 1"
+                      />
+                    </svg>
+                    Khôi phục
+                  </button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown">
+                    <select onchange="updatePageSizeLabel(this, 'deleted')">
+                      <option>Danh sách 30</option>
+                      <option>Danh sách 50</option>
+                      <option>Danh sách 100</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table id="table-deleted">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          id="chk-all-deleted"
+                          onchange="toggleAllInTable(this, 'table-deleted')"
+                        />
+                      </th>
+                      <th>ID</th>
+                      <th>Nickname</th>
+                      <th>Số lần truy cập</th>
+                      <th>Số Bài viết</th>
+                      <th>Số Bình luận</th>
+                      <th>Giới tính</th>
+                      <th>Ngày xóa</th>
+                      <th>Người xóa</th>
+                      <th>Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="tr-deleted-1">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-deleted-1')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC010</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Hoàng F
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Chi tiết thông tin
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>456</td>
+                      <td>18</td>
+                      <td>134</td>
+                      <td>Nam</td>
+                      <td>10/06/2025</td>
+                      <td>Admin</td>
+                      <td style="color: var(--gray-400); font-size: 11px">—</td>
+                    </tr>
+                    <tr id="tr-deleted-2">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-deleted-2')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC011</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Bùi G
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Chi tiết thông tin
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>289</td>
+                      <td>12</td>
+                      <td>98</td>
+                      <td>Nữ</td>
+                      <td>05/06/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Xóa do không còn hoạt động...</span
+                          >
+                          <div class="tooltip">
+                            Xóa do không còn hoạt động trên nền tảng.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="tr-deleted-3">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-deleted-3')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC012</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Dương H
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Chi tiết thông tin
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>123</td>
+                      <td>8</td>
+                      <td>67</td>
+                      <td>Nam</td>
+                      <td>01/06/2025</td>
+                      <td>Admin</td>
+                      <td style="color: var(--gray-400); font-size: 11px">—</td>
+                    </tr>
+                    <tr id="tr-deleted-4">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-deleted-4')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC013</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Thủy I
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Chi tiết thông tin
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>367</td>
+                      <td>22</td>
+                      <td>156</td>
+                      <td>Nữ</td>
+                      <td>28/05/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Vi phạm điều khoản cộng đồng...</span
+                          >
+                          <div class="tooltip">
+                            Vi phạm điều khoản cộng đồng liên quan đến quảng cáo
+                            trái phép.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="tr-deleted-5">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'tr-deleted-5')"
+                        />
+                      </td>
+                      <td>
+                        <span class="link-text" onclick="goDetail()"
+                          >DOC014</span
+                        >
+                      </td>
+                      <td>
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            Dr. Kiên J
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Chi tiết thông tin
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>612</td>
+                      <td>41</td>
+                      <td>289</td>
+                      <td>Nam</td>
+                      <td>20/05/2025</td>
+                      <td>Admin</td>
+                      <td style="color: var(--gray-400); font-size: 11px">—</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="table-footer-left"></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- PAGE 2: DETAIL -->
+      <main class="main page" id="page-detail">
+        <div class="breadcrumb">
+          <span class="bc-link" onclick="goPage('list')">Danh sách bác sĩ</span>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">DR. Nguyễn A</span>
+        </div>
+
+        <!-- DASHBOARD HEADER -->
+        <div class="card">
+          <div class="card-body">
+            <div
+              style="
+                display: flex;
+                gap: 8px;
+                justify-content: flex-start;
+                margin-top: 2px;
+                margin-bottom: 12px;
+              "
+            >
+              <button class="btn btn-ghost" onclick="goPage('list')">&lt; Danh sách bác sĩ</button>
+            </div>
+            <div style="margin-bottom: 12px; margin-top: 4px; font-size: 16px; font-weight: 600; text-transform: uppercase">
+              Thông tin và Hoạt động
+            </div>
+            <div class="detail-header">
+              
+              <div class="detail-header-title">
+                <div class="doctor-avatar">NA</div>
+                <div>
+                  <div class="detail-title">Dr. Nguyễn Văn A</div>
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      gap: 8px;
+                      flex-wrap: wrap;
+                      margin-top: 6px;
+                    "
+                  >
+                    <span class="meta-badge">Doctor</span>
+                    <span class="meta-badge">ID: DOC001</span>
+                    <span class="meta-badge">Nam</span>
+                  </div>
+                  
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px">
+                <button class="btn btn-outline-primary">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    />
+                  </svg>
+                  Xem hồ sơ
+                </button>
+                <button class="btn btn-primary">
+                  <svg
+                    width="12"
+                    height="12"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M9 11l3 3L22 4" />
+                    <path d="M20.88 9.12a1 1 0 0 0-1.24 1.24l5.18 5.18a1 1 0 0 0 1.24-1.24l-5.18-5.18zM6.5 3a2.5 2.5 0 0 1 2.5 2.5v8.5a2.5 2.5 0 1 1-5 0V5.5A2.5 2.5 0 0 1 6.5 3z" />
+                    <path d="M9 11l-5 5" />
+                  </svg>
+                  Gửi thông báo đẩy
+                </button>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-box">
+                <div class="stat-label">Số lần truy cập</div>
+                <div class="stat-value">1,245</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Số Bài viết</div>
+                <div class="stat-value">48</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Số Bình luận</div>
+                <div class="stat-value">312</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Báo cáo</div>
+                <div class="stat-value">2</div>
+              </div>
+            </div>
+
+            
+          </div>
+        </div>
+
+        <!-- ACTIVITY HISTORY -->
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">Lịch sử hoạt động</div>
+            <div class="tabs">
+              <div
+                class="tab active"
+                id="tab-posts"
+                onclick="switchTab('posts')"
+              >
+                Bài viết
+              </div>
+              <div
+                class="tab"
+                id="tab-comments"
+                onclick="switchTab('comments')"
+              >
+                Bình luận
+              </div>
+            </div>
+
+            <!-- POSTS TAB -->
+            <div id="panel-posts">
+              <div
+                class="search-row"
+                style="margin-top: 12px; margin-bottom: 12px"
+              >
+                <input
+                  class="search-input-lg"
+                  placeholder="Tìm kiếm bài viết..."
+                  style="flex: 0 1 300px"
+                />
+                <div class="date-section" style="flex: 0 1 auto">
+                  <span class="date-label">Ngày:</span>
+                  <div class="date-range">
+                    <button class="date-nav" onclick="shiftDateRange(-1)">
+                      ‹
+                    </button>
+                    <span class="date-display">23/06/2025 ~ 30/06/2025</span>
+                    <button class="date-nav" onclick="shiftDateRange(1)">
+                      ›
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" /></th>
+                      <th>Tiêu đề bài viết</th>
+                      <th>Danh mục</th>
+                      <th>Ngày đăng</th>
+                      <th>Lượt xem</th>
+                      <th>Số Bình luận</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>
+                        <span class="link-text"
+                          >Chăm sóc da mặt trong mùa hè</span
+                        >
+                      </td>
+                      <td>Thẩm mỹ da</td>
+                      <td>22/06/2025</td>
+                      <td>523</td>
+                      <td>48</td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>
+                        <span class="link-text"
+                          >Bí quyết làm đẹp từ thiên nhiên</span
+                        >
+                      </td>
+                      <td>Thẩm mỹ da</td>
+                      <td>20/06/2025</td>
+                      <td>782</td>
+                      <td>64</td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>
+                        <span class="link-text"
+                          >Hành trình trở thành bác sĩ chuyên khoa</span
+                        >
+                      </td>
+                      <td>Thẩm mỹ da</td>
+                      <td>18/06/2025</td>
+                      <td>234</td>
+                      <td>21</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="table-actions" style="margin-top: 12px">
+                <button class="btn btn-outline-danger btn-sm">
+                  Xóa mục chọn
+                </button>
+              </div>
+            </div>
+
+            <!-- COMMENTS TAB -->
+            <div id="panel-comments" style="display: none">
+              <div
+                class="search-row"
+                style="margin-top: 12px; margin-bottom: 12px"
+              >
+                <input
+                  class="search-input-lg"
+                  placeholder="Tìm kiếm bình luận..."
+                  style="flex: 0 1 300px"
+                />
+                <div class="date-section" style="flex: 0 1 auto">
+                  <span class="date-label">Ngày:</span>
+                  <div class="date-range">
+                    <button class="date-nav" onclick="shiftDateRange(-1)">
+                      ‹
+                    </button>
+                    <span class="date-display">23/06/2025 ~ 30/06/2025</span>
+                    <button class="date-nav" onclick="shiftDateRange(1)">
+                      ›
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" /></th>
+                      <th>Nội dung</th>
+                      <th>Trên bài viết</th>
+                      <th>Ngày bình luận</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>
+                        <span class="link-text"
+                          >Cảm ơn bác sĩ vì lời khuyên hữu ích!</span
+                        >
+                      </td>
+                      <td>Chăm sóc da mặt...</td>
+                      <td>22/06/2025 14:30</td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td>
+                        <span class="link-text"
+                          >Mình sẽ thử phương pháp này ngay</span
+                        >
+                      </td>
+                      <td>Bí quyết làm đẹp...</td>
+                      <td>19/06/2025 10:15</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="table-actions" style="margin-top: 12px">
+                <button class="btn btn-outline-danger btn-sm">
+                  Ẩn mục chọn
+                </button>
+              </div>
+            </div>
+            <!-- INTERNAL NOTES SECTION -->
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--gray-200)">
+              <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--gray-700)">
+                Ghi chú nội bộ
+              </div>
+              <div
+                id="internal-notes"
+                class="tooltip-wrap"
+                style="
+                  min-height: 60px;
+                  padding: 10px 12px;
+                  background: var(--gray-50);
+                  border: 1px solid var(--gray-200);
+                  border-radius: 4px;
+                  cursor: pointer;
+                  position: relative;
+                "
+                ondblclick="enterInternalNoteEdit()"
+              >
+                <span id="note-display" style="font-size: 12px; color: var(--gray-600); white-space: pre-wrap">-</span>
+                <div class="tooltip" style="display: none"></div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </main>
+
+      <!-- PAGE 3: FORM -->
+      <main class="main page" id="page-form">
+        <div class="breadcrumb">
+          <span class="bc-link" onclick="goPage('list')">Danh sách bác sĩ</span>
+          <span class="bc-sep">/</span>
+          <span class="bc-current" id="form-bc-current">Sửa thông tin bác sĩ</span>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div id="form-mode-title" style="font-size: 14px; font-weight: 700; margin-bottom: 16px">
+              Sửa thông tin bác sĩ
+            </div>
+            <div class="form-grid">
+              <!-- Row 1: Họ và tên - Email -->
+              <div class="form-group">
+                <label class="form-label">Họ và tên <span class="req">*</span></label>
+                <input id="f-name" class="form-input" placeholder="Nguyen Van A" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email <span class="req">*</span></label>
+                <input id="f-email" class="form-input" type="email" placeholder="doctor.a@beauty.com" />
+              </div>
+
+              <!-- Row 2: Số điện thoại - Ngày sinh - Giới tính-->
+              <div class="form-group">
+                <label class="form-label">Số điện thoại</label>
+                <input id="f-phone" class="form-input" placeholder="0901-234567" />
+              </div>
+
+              <div class="form-group" style="flex-direction: row;">
+                <div style="display: flex; flex-direction: column;">
+                  <label class="form-label" style="margin-bottom: 4px;">Ngày sinh <span class="req">*</span></label>
+                  <input id="f-birth" class="form-input" type="date" />
+                </div>
+                <div style="display: flex; flex-direction: column; margin-left: 20px;">
+                  <label class="form-label" style="margin-bottom: 4px;">Giới tính <span class="req">*</span></label>
+                  <select id="f-gender" class="form-input" style="max-width: 120px">
+                    <option value="">Giới tính</option>
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Row 3: ID (with check) - Nickname (with check) -->
+              <div class="form-group">
+                <label class="form-label">ID <span class="req">*</span></label>
+                <div class="form-input-group">
+                  <input id="f-id" class="form-input" placeholder="DOC001" />
+                  <button type="button" class="btn-check">KIỂM TRA</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nickname <span class="req">*</span></label>
+                <div class="form-input-group">
+                  <input id="f-nickname" class="form-input" placeholder="doctor.a123" />
+                  <button type="button" class="btn-check">KIỂM TRA</button>
+                </div>
+              </div>
+
+              <!-- Row 4: Khu vực - Ảnh đại diện -->
+              <div class="form-group">
+                <label class="form-label">Khu vực <span class="req">*</span></label>
+                <select id="f-region" class="form-input">
+                  <option value="">Nhập nội dung</option>
+                  <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                  <option value="Hà Nội">Hà Nội</option>
+                  <option value="Đà Nẵng">Đà Nẵng</option>
+                  <option value="Hải Phòng">Hải Phòng</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ảnh đại diện <span class="req">*</span></label>
+                <div class="upload-btn-wrap">
+                  <button type="button" class="btn btn-danger btn-sm">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    Tải ảnh
+                  </button>
+                  <div id="avatar-preview" class="upload-preview">avatar.jpg</div>
+                </div>
+              </div>
+
+              <!-- Row 5: Danh mục lớn - Danh mục nhỏ -->
+              <div class="form-group">
+                <label class="form-label">Danh mục lớn <span class="req">*</span></label>
+                <select id="f-category-big" class="form-input">
+                  <option value="">-- Chọn danh mục --</option>
+                  <option>Thẩm mỹ da</option>
+                  <option>Chỉnh hình</option>
+                  <option>Nha khoa</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Danh mục nhỏ <span class="req">*</span></label>
+                <select id="f-category-small" class="form-input">
+                  <option value="">-- Chọn danh mục --</option>
+                  <option>Trẻ hóa da</option>
+                  <option>Tiêm chích</option>
+                  <option>Tái tạo da</option>
+                </select>
+              </div>
+
+              <!-- Row 6: Nơi làm việc - Địa chỉ nơi làm việc -->
+              <div class="form-group">
+                <label class="form-label">Nơi làm việc <span class="req">*</span></label>
+                <select id="f-workplace" class="form-input">
+                  <option value="">Nhập nội dung</option>
+                  <option value="Bệnh viện A">Bệnh viện A</option>
+                  <option value="Bệnh viện B">Bệnh viện B</option>
+                  <option value="Phòng khám C">Phòng khám C</option>
+                  <option value="Spa D">Spa D</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Địa chỉ nơi làm việc</label>
+                <input id="f-work-address" class="form-input" placeholder="Nhập nội dung" />
+              </div>
+
+              <!-- Row 7: Học lực - Kinh nghiệm -->
+              <div class="form-group">
+                <label class="form-label">Học lực</label>
+                <input id="f-education" class="form-input" placeholder="Nhập nội dung" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Kinh nghiệm</label>
+                <input id="f-experience" class="form-input" type="number" placeholder="Nhập nội dung" />
+              </div>
+
+              <!-- Row 8: Chuyên khoa - Bằng cấp -->
+              <div class="form-group">
+                <label class="form-label">Chuyên khoa</label>
+                <input id="f-specialty" class="form-input" placeholder="Nhập nội dung" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Bằng cấp</label>
+                <div class="upload-btn-wrap">
+                  <button type="button" class="btn btn-danger btn-sm">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    Tải file
+                  </button>
+                  <div id="degree-preview" class="upload-preview">degree.pdf</div>
+                </div>
+              </div>
+
+              <!-- Row 9: Giấy phép hành nghề - Mã số GPHN -->
+              <div class="form-group">
+                <label class="form-label">Giấy phép hành nghề</label>
+                <div class="upload-btn-wrap">
+                  <button type="button" class="btn btn-danger btn-sm">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    Tải file
+                  </button>
+                  <div id="license-preview" class="upload-preview">license.pdf</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Mã số GPHN</label>
+                <input id="f-license-number" class="form-input" placeholder="Nhập nội dung" />
+              </div>
+
+              <!-- Row 10: Hiệp hội chuyên ngành & luận văn - Giới thiệu bản thân -->
+              <div class="form-group">
+                <label class="form-label">Hiệp hội chuyên ngành & luận văn</label>
+                <textarea id="f-association" class="form-input" rows="3" placeholder="Nhập nội dung"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Giới thiệu bản thân</label>
+                <textarea id="f-intro" class="form-input" rows="3" placeholder="Nhập nội dung"></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+          <button id="btn-form-cancel" class="btn btn-outline-primary" onclick="handleFormCancel()">
+            Hủy
+          </button>
+          <button id="btn-form-save" class="btn btn-primary" onclick="handleFormSave()">Lưu</button>
+        </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ACTION MODAL -->
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title" id="action-modal-title">
+          Xác nhận hành động
+        </h3>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn muốn thực hiện hành động này?
+        </p>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let detailMode = "view";
+      let currentActionModalType = "soft-delete";
+      let currentNoteEdit = null;
+
+      const doctorEditDefaults = {
+        name: "Nguyen Van A",
+        email: "doctor.a@beauty.com",
+        phone: "0901-234567",
+        birth: "1988-10-12",
+        gender: "Nam",
+        id: "DOC001",
+        nickname: "doctor.a123",
+        region: "TP. Hồ Chí Minh",
+        categoryBig: "Thẩm mỹ da",
+        categorySmall: "Trẻ hóa da",
+        workplace: "Bệnh viện A",
+        workAddress: "123 Lê Lợi, Q1, TP.HCM",
+        education: "Tiến sĩ",
+        experience: "12",
+        specialty: "Phẫu thuật thẩm mỹ",
+        licenseNumber: "BYT-12345",
+        association: "Hội Phẫu thuật Thẩm mỹ Việt Nam",
+        intro: "Bác sĩ chuyên sâu về trẻ hóa da, có 12 năm kinh nghiệm.",
+        avatarFile: "avatar.jpg",
+        degreeFile: "degree.pdf",
+        licenseFile: "license.pdf",
+      };
+
+      const actionModalMap = {
+        "soft-delete": {
+          title: "Xóa bác sĩ",
+          body: "Bác sĩ sẽ được chuyển vào mục 'Đã xóa'. Bạn có thể khôi phục sau.",
+          doneMessage: "Đã xóa bác sĩ.",
+        },
+        "hard-delete": {
+          title: "Xóa vĩnh viễn",
+          body: "Hành động này không thể hoàn tác. Dữ liệu bác sĩ sẽ bị xóa hoàn toàn.",
+          doneMessage: "Đã xóa vĩnh viễn.",
+        },
+        restore: {
+          title: "Khôi phục bác sĩ",
+          body: "Bác sĩ sẽ được khôi phục vào mục 'Bác sĩ đang hoạt động'.",
+          doneMessage: "Đã khôi phục bác sĩ.",
+        },
+        notify: {
+          title: "Gửi thông báo",
+          body: "Gửi thông báo đẩy đến bác sĩ. Họ sẽ nhận được thông báo trên ứng dụng.",
+          doneMessage: "Đã gửi thông báo.",
+        },
+      };
+
+      function formatDateVN(date) {
+        const d = new Date(date);
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = d.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
+
+      function renderDateRange() {
+        const today = new Date();
+        const start = new Date(today);
+        start.setDate(start.getDate() - 7);
+        document.getElementById("date-display").textContent =
+          `${formatDateVN(start)} ~ ${formatDateVN(today)}`;
+      }
+
+      function setQuickFilter(buttonEl, key) {
+        document
+          .querySelectorAll(".tf-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        buttonEl.classList.add("active");
+      }
+
+      function shiftDateRange(direction) {
+        alert(
+          "Chuyển khoảng thời gian: " +
+            (direction > 0 ? "Tiếp theo" : "Trước đó"),
+        );
+      }
+
+      function closeDatePicker() {
+        document.getElementById("date-picker-wrap").classList.remove("open");
+      }
+
+      function toggleDatePicker(event) {
+        event.stopPropagation();
+        document.getElementById("date-picker-wrap").classList.toggle("open");
+      }
+
+      function applyDatePicker() {
+        closeDatePicker();
+        alert("Áp dụng khoảng ngày tùy chọn");
+      }
+
+      function toggleCriteriaDropdown(event) {
+        event.stopPropagation();
+        document.getElementById("criteria-wrap").classList.toggle("open");
+      }
+
+      function closeCriteriaDropdown() {
+        document.getElementById("criteria-wrap").classList.remove("open");
+      }
+
+      function selectCriteria(label) {
+        document.getElementById("criteria-label").textContent = label;
+        closeCriteriaDropdown();
+      }
+
+      function executeSearch() {
+        alert("Tìm kiếm");
+      }
+
+      function updatePageSizeLabel(selectEl, tab) {
+        alert("Thay đổi kích thước danh sách: " + selectEl.value);
+      }
+
+      function goPage(page) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + page).classList.add("active");
+        closeAllMenus();
+        closeDatePicker();
+      }
+
+      function goDetail() {
+        goPage("detail");
+      }
+
+      function setFormValue(id, value) {
+        const element = document.getElementById(id);
+        if (!element) return;
+        element.value = value || "";
+      }
+
+      function setUploadPreview(id, value) {
+        const element = document.getElementById(id);
+        if (!element) return;
+        element.textContent = value || "Chưa có file";
+      }
+
+      function fillDoctorForm(data) {
+        setFormValue("f-name", data.name);
+        setFormValue("f-email", data.email);
+        setFormValue("f-phone", data.phone);
+        setFormValue("f-birth", data.birth);
+        setFormValue("f-gender", data.gender);
+        setFormValue("f-id", data.id);
+        setFormValue("f-nickname", data.nickname);
+        setFormValue("f-region", data.region);
+        setFormValue("f-category-big", data.categoryBig);
+        setFormValue("f-category-small", data.categorySmall);
+        setFormValue("f-workplace", data.workplace);
+        setFormValue("f-work-address", data.workAddress);
+        setFormValue("f-education", data.education);
+        setFormValue("f-experience", data.experience);
+        setFormValue("f-specialty", data.specialty);
+        setFormValue("f-license-number", data.licenseNumber);
+        setFormValue("f-association", data.association);
+        setFormValue("f-intro", data.intro);
+
+        setUploadPreview("avatar-preview", data.avatarFile);
+        setUploadPreview("degree-preview", data.degreeFile);
+        setUploadPreview("license-preview", data.licenseFile);
+      }
+
+      function setFormMode(mode) {
+        detailMode = mode;
+        const bcCurrent = document.getElementById("form-bc-current");
+        const title = document.getElementById("form-mode-title");
+
+        if (mode === "add") {
+          if (bcCurrent) bcCurrent.textContent = "Thêm mới bác sĩ";
+          if (title) title.textContent = "Thêm mới bác sĩ";
+          fillDoctorForm({
+            name: "",
+            email: "",
+            phone: "",
+            birth: "",
+            gender: "",
+            id: "",
+            nickname: "",
+            region: "",
+            categoryBig: "",
+            categorySmall: "",
+            workplace: "",
+            workAddress: "",
+            education: "",
+            experience: "",
+            specialty: "",
+            licenseNumber: "",
+            association: "",
+            intro: "",
+            avatarFile: "Chưa có file",
+            degreeFile: "Chưa có file",
+            licenseFile: "Chưa có file",
+          });
+          return;
+        }
+
+        if (bcCurrent) bcCurrent.textContent = "Sửa thông tin bác sĩ";
+        if (title) title.textContent = "Sửa thông tin bác sĩ";
+        fillDoctorForm(doctorEditDefaults);
+      }
+
+      function goEdit() {
+        setFormMode("edit");
+        goPage("form");
+      }
+
+      function goAdd() {
+        setFormMode("add");
+        goPage("form");
+      }
+
+      function handleFormCancel() {
+        if (detailMode === "edit") {
+          setFormMode("edit");
+          goDetail();
+          return;
+        }
+
+        goPage("list");
+      }
+
+      function handleFormSave() {
+        alert(detailMode === "add" ? "Đã thêm mới bác sĩ." : "Đã lưu chỉnh sửa bác sĩ.");
+        goDetail();
+      }
+
+
+      function switchTab(tab) {
+        if (tab === "info" || tab === "deleted") {
+          document.getElementById("panel-info").style.display =
+            tab === "info" ? "block" : "none";
+          document.getElementById("panel-deleted").style.display =
+            tab === "deleted" ? "block" : "none";
+          document
+            .getElementById("tab-info")
+            .classList.toggle("active", tab === "info");
+          document
+            .getElementById("tab-deleted")
+            .classList.toggle("active", tab === "deleted");
+        } else if (tab === "posts" || tab === "comments") {
+          document.getElementById("panel-posts").style.display =
+            tab === "posts" ? "block" : "none";
+          document.getElementById("panel-comments").style.display =
+            tab === "comments" ? "block" : "none";
+          document
+            .getElementById("tab-posts")
+            .classList.toggle("active", tab === "posts");
+          document
+            .getElementById("tab-comments")
+            .classList.toggle("active", tab === "comments");
+        }
+      }
+
+      function toggleAllInTable(cb, tableId) {
+        const checkboxes = document.querySelectorAll(
+          `#${tableId} tbody input[type="checkbox"]`,
+        );
+        checkboxes.forEach((chk) => (chk.checked = cb.checked));
+      }
+
+      function toggleRow(cb, rowId) {
+        document
+          .getElementById(rowId)
+          .classList.toggle("row-checked", cb.checked);
+      }
+
+      function toggleMenu(event, menuEl) {
+        event.stopPropagation();
+        closeAllMenus();
+        menuEl.classList.add("open");
+      }
+
+      function closeAllMenus() {
+        document
+          .querySelectorAll(".cell-menu")
+          .forEach((menu) => menu.classList.remove("open"));
+      }
+
+      function openActionModal(type) {
+        currentActionModalType = type;
+        const modal = actionModalMap[type];
+        document.getElementById("action-modal-title").textContent = modal.title;
+        document.getElementById("action-modal-body").textContent = modal.body;
+        document.getElementById("action-modal-backdrop").classList.add("open");
+      }
+
+      function closeActionModal() {
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
+      }
+
+      function confirmActionModal() {
+        alert(actionModalMap[currentActionModalType].doneMessage);
+        closeActionModal();
+      }
+
+      function getNoteFullTextFromCell(cell) {
+        const tooltipText = cell.querySelector(".tooltip-wrap .tooltip")?.textContent;
+        if (tooltipText && tooltipText.trim()) return tooltipText.trim();
+        const ellipsisText = cell.querySelector(".note-ellipsis")?.textContent;
+        if (ellipsisText && ellipsisText.trim()) return ellipsisText.trim();
+        return "";
+      }
+
+      function renderNoteCell(cell, text) {
+        const cleanText = (text || "").trim();
+        if (!cleanText) {
+          cell.innerHTML = '<span style="color: var(--gray-400); font-size: 11px">—</span>';
+          return;
+        }
+
+        const displayText =
+          cleanText.length > 58 ? `${cleanText.slice(0, 55)}...` : cleanText;
+        cell.innerHTML = `
+          <div class="tooltip-wrap">
+            <span class="note-ellipsis">${displayText}</span>
+            <div class="tooltip">${cleanText}</div>
+          </div>
+        `;
+      }
+
+      function showNoteEditActions(show) {
+        const wrap = document.getElementById("note-edit-actions");
+        if (!wrap) return;
+        wrap.style.display = show ? "inline-flex" : "none";
+      }
+
+      function enterNoteEdit(cell) {
+        if (!cell || currentNoteEdit) return;
+
+        const originalText = getNoteFullTextFromCell(cell);
+        currentNoteEdit = {
+          cell,
+          originalText,
+        };
+
+        cell.innerHTML = `
+          <textarea class="form-input note-edit-area" id="note-edit-input" placeholder="Nhập ghi chú..."></textarea>
+        `;
+        const input = cell.querySelector("#note-edit-input");
+        if (input) {
+          input.value = originalText;
+          input.focus();
+          input.setSelectionRange(input.value.length, input.value.length);
+        }
+
+        showNoteEditActions(true);
+      }
+
+      function saveNoteEdit() {
+        if (!currentNoteEdit) return;
+        const input = currentNoteEdit.cell.querySelector("#note-edit-input");
+        const value = input ? input.value : "";
+        renderNoteCell(currentNoteEdit.cell, value);
+        currentNoteEdit = null;
+        showNoteEditActions(false);
+      }
+
+      function cancelNoteEdit() {
+        if (!currentNoteEdit) return;
+        renderNoteCell(currentNoteEdit.cell, currentNoteEdit.originalText);
+        currentNoteEdit = null;
+        showNoteEditActions(false);
+      }
+
+      let internalNoteEditState = null;
+
+      function enterInternalNoteEdit() {
+        const notesElement = document.getElementById("internal-notes");
+        if (!notesElement || internalNoteEditState) return;
+
+        const currentText = document.getElementById("note-display").textContent.trim();
+        const actualText = currentText === "-" ? "" : currentText;
+
+        internalNoteEditState = {
+          originalText: actualText
+        };
+
+        const textarea = document.createElement("textarea");
+        textarea.className = "note-edit-textarea";
+        textarea.value = actualText;
+
+        notesElement.innerHTML = "";
+        notesElement.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        const actionsDiv = document.createElement("div");
+        actionsDiv.className = "note-edit-actions";
+        actionsDiv.innerHTML = `
+          <button class="btn btn-primary btn-sm" onclick="saveInternalNote()">Lưu</button>
+          <button class="btn btn-ghost btn-sm" onclick="cancelInternalNote()">Hủy</button>
+        `;
+        notesElement.appendChild(actionsDiv);
+      }
+
+      function saveInternalNote() {
+        if (!internalNoteEditState) return;
+
+        const notesElement = document.getElementById("internal-notes");
+        const textarea = notesElement.querySelector("textarea");
+        const newText = textarea ? textarea.value.trim() : "";
+
+        notesElement.innerHTML = `<span id="note-display" style="font-size: 12px; color: var(--gray-600); white-space: pre-wrap">${newText || "-"}</span>`;
+        internalNoteEditState = null;
+      }
+
+      function cancelInternalNote() {
+        if (!internalNoteEditState) return;
+
+        const notesElement = document.getElementById("internal-notes");
+        const displayText = internalNoteEditState.originalText || "-";
+        notesElement.innerHTML = `<span id="note-display" style="font-size: 12px; color: var(--gray-600); white-space: pre-wrap">${displayText}</span>`;
+        internalNoteEditState = null;
+      }
+
+      function bindNoteEditEvents() {
+        const tableBody = document.querySelector("#table-info tbody");
+        if (!tableBody) return;
+
+        tableBody.addEventListener("dblclick", (event) => {
+          const cell = event.target.closest("td");
+          if (!cell) return;
+
+          const row = cell.parentElement;
+          if (!row || !row.closest("#table-info")) return;
+
+          if (cell.cellIndex !== row.cells.length - 1) return;
+          if (currentNoteEdit) return;
+
+          enterNoteEdit(cell);
+        });
+      }
+
+      document.addEventListener("click", () => {
+        closeAllMenus();
+        closeDatePicker();
+        closeCriteriaDropdown();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && currentNoteEdit) {
+          cancelNoteEdit();
+          return;
+        }
+        if (e.key === "Escape") closeActionModal();
+      });
+
+      renderDateRange();
+      setFormMode("edit");
+      bindNoteEditEvents();
+    </script>
+  </body>
+</html>

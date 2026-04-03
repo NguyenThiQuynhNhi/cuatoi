@@ -1307,7 +1307,10 @@
       <aside class="sidebar">
         <div class="sidebar-section">
           <div class="sidebar-label">Danh mục quản lý</div>
-          <div class="sidebar-item" onclick="goPage('list')">
+          <div
+            class="sidebar-item"
+            onclick="window.location.href = 'hospital-management.html'"
+          >
             <svg
               width="14"
               height="14"
@@ -1321,7 +1324,10 @@
             </svg>
             Thành viên bác sĩ
           </div>
-          <div class="sidebar-item" onclick="goPage('list')">
+          <div
+            class="sidebar-item"
+            onclick="window.location.href = 'doctor-management.html'"
+          >
             <svg
               width="14"
               height="14"
@@ -1338,7 +1344,7 @@
           <div
             class="sidebar-item active"
             id="sidebar-partner"
-            onclick="goPage('list')"
+            onclick="window.location.href = 'partner-management.html'"
           >
             <svg
               width="14"
@@ -1354,7 +1360,10 @@
             </svg>
             Đối tác
           </div>
-          <div class="sidebar-item" onclick="goPage('list')">
+          <div
+            class="sidebar-item"
+            onclick="window.location.href = 'product-management.html'"
+          >
             <svg
               width="14"
               height="14"
@@ -1394,7 +1403,7 @@
                   </svg>
                   Tìm kiếm
                 </div>
-                <div class="date-range" style="margin-left: 750px">
+                <div class="date-range" style="margin-left: 650px">
                   <button class="date-nav" onclick="shiftDateRange(-1)">
                     ‹
                   </button>
@@ -1477,9 +1486,6 @@
                 </button>
                 <button class="tf-btn" onclick="setQuickFilter(this, 'all')">
                   Tất cả
-                </button>
-                <button class="tf-btn" onclick="setQuickFilter(this, 'custom')">
-                  Tự chọn
                 </button>
               </div>
             </div>

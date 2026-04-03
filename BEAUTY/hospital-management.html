@@ -1,0 +1,3406 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Bệnh viện - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --white: #ffffff;
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --radius-sm: 6px;
+        --sidebar-w: 210px;
+        --header-h: 52px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: var(--header-h);
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .header-user .avatar {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
+
+      .app-body {
+        display: flex;
+        padding-top: var(--header-h);
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: white;
+        min-height: calc(100vh - var(--header-h));
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 10px;
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+      }
+      .sidebar-section {
+        margin-bottom: 6px;
+      }
+      .sidebar-label {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 4px 8px;
+        margin-bottom: 2px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+        font-size: 12.5px;
+        font-weight: 500;
+        transition: all 0.15s;
+        margin-bottom: 1px;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .sidebar-item svg {
+        opacity: 0.65;
+        flex-shrink: 0;
+      }
+      .sidebar-item.active svg {
+        opacity: 1;
+      }
+
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 20px;
+        min-height: calc(100vh - var(--header-h));
+      }
+
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .page-title .badge {
+        font-size: 10px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--primary);
+      }
+      .card-header svg {
+        color: var(--primary);
+      }
+      .card-body {
+        padding: 14px 18px;
+      }
+
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .search-row + .search-row {
+        margin-top: 10px;
+      }
+
+      .date-section {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: 1;
+        position: relative;
+      }
+      .date-range {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        flex: 1;
+        max-width: 280px;
+      }
+      .date-nav {
+        padding: 6px 12px;
+        background: var(--primary-light);
+        cursor: pointer;
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+        transition: background 0.15s;
+      }
+      .date-nav:disabled {
+        background: var(--gray-100);
+        color: var(--gray-400);
+        cursor: not-allowed;
+      }
+      .date-nav:not(:disabled):hover {
+        background: var(--primary-mid);
+      }
+      .date-display {
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        white-space: nowrap;
+        flex: 1;
+        text-align: center;
+      }
+
+      .date-picker-wrap {
+        position: relative;
+      }
+      .date-picker-toggle {
+        width: 34px;
+        height: 34px;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        background: var(--primary-light);
+        color: var(--primary);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .date-picker-toggle:hover {
+        background: var(--primary-mid);
+      }
+      .date-picker-popover {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 280px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        box-shadow: var(--shadow-md);
+        padding: 10px;
+        z-index: 260;
+      }
+      .date-picker-wrap.open .date-picker-popover {
+        display: block;
+      }
+      .date-picker-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--gray-500);
+      }
+      .date-picker-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .date-picker-input {
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+      }
+      .date-picker-input:focus {
+        border-color: var(--primary);
+      }
+      .date-picker-actions {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .time-filters {
+        display: flex;
+        gap: 6px;
+      }
+      .tf-btn {
+        padding: 8px 16px;
+        min-height: 36px;
+        border-radius: 9px;
+        border: 1px solid #e2e5f1;
+        background: white;
+        color: #677194;
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.18s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .tf-btn:not(.active):hover {
+        border-color: #cfd5e8;
+        color: #4d5c83;
+        background: #f4f2ff;
+      }
+      .tf-btn.active {
+        background: #6d47d9;
+        color: #ffffff;
+        border-color: transparent;
+        font-weight: 700;
+      }
+
+      .search-input-row {
+        align-items: center;
+      }
+      .criteria-wrap {
+        position: relative;
+      }
+      .criteria-btn {
+        height: 34px;
+        min-width: 170px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        color: var(--gray-700);
+        font-size: 12px;
+        font-weight: 600;
+        font-family: inherit;
+        padding: 0 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .criteria-btn:hover {
+        border-color: var(--primary-mid);
+      }
+      .criteria-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 170px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        z-index: 260;
+      }
+      .criteria-wrap.open .criteria-menu {
+        display: block;
+      }
+      .criteria-option {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .criteria-option:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .search-input-lg {
+        flex: 1;
+        min-width: 260px;
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 11px;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
+      }
+      .search-input-lg:focus {
+        border-color: var(--primary);
+      }
+
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-primary:hover {
+        background: #5a32a8;
+        border-color: #5a32a8;
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-danger:hover {
+        background: #d6335a;
+        border-color: #d6335a;
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-ghost:hover {
+        background: var(--gray-200);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
+
+      .tabs {
+        display: flex;
+        border-bottom: 2px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .tab {
+        padding: 8px 16px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--gray-400);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: all 0.15s;
+      }
+      .tab:hover {
+        color: var(--primary);
+      }
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+        font-weight: 600;
+      }
+
+      .table-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .table-title .count {
+        font-size: 11px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      .table-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 8px;
+      }
+      .table-actions-left,
+      .table-actions-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1080px;
+      }
+      thead {
+        background: var(--gray-50);
+      }
+      thead th {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        white-space: nowrap;
+        border-bottom: 1.5px solid var(--gray-200);
+      }
+      thead th:first-child {
+        width: 36px;
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--gray-100);
+        transition: background 0.1s;
+      }
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: var(--gray-50);
+      }
+      tbody td {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .td-left {
+        text-align: left !important;
+      }
+
+      .cell-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .menu-trigger {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .menu-trigger:hover {
+        color: #5a32a8;
+      }
+      .menu-list {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        z-index: 40;
+        min-width: 160px;
+        display: none;
+        flex-direction: column;
+      }
+      .cell-menu.open .menu-list {
+        display: flex;
+      }
+      .menu-item {
+        padding: 8px 12px;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        transition: background 0.1s;
+      }
+      .menu-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+
+      .doctor-badge-wrap {
+        position: relative;
+        display: inline-block;
+      }
+      .doctor-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 30px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--primary);
+        background: var(--primary-light);
+        border: 1px solid var(--primary-mid);
+        cursor: pointer;
+      }
+      .doctor-popover {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 210px;
+        max-width: 260px;
+        max-height: 210px;
+        overflow-y: auto;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        padding: 8px;
+        z-index: 60;
+      }
+      .doctor-badge-wrap:hover .doctor-popover {
+        display: block;
+      }
+      .doctor-popover-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 6px;
+      }
+      .doctor-popover ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .doctor-popover li {
+        font-size: 11px;
+        color: var(--gray-600);
+      }
+
+      .review-badge-wrap {
+        position: relative;
+        display: inline-block;
+      }
+      .review-badge-wrap .menu-trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        min-width: 44px;
+        justify-content: center;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--accent);
+        background: var(--accent-light);
+        border: 1px solid #f3b7c6;
+        cursor: pointer;
+      }
+      .review-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        min-width: 44px;
+        justify-content: center;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--accent);
+        background: var(--accent-light);
+        border: 1px solid #f3b7c6;
+        cursor: pointer;
+      }
+      .review-badge-wrap.open .menu-list {
+        display: flex;
+      }
+      .review-popover {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 220px;
+        max-width: 280px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        padding: 8px;
+        z-index: 60;
+      }
+      .review-badge-wrap:hover .review-popover {
+        display: block;
+      }
+      .review-popover-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gray-700);
+      }
+      .review-popover ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .review-popover li {
+        font-size: 11px;
+        color: var(--gray-600);
+        line-height: 1.4;
+      }
+      .review-score {
+        color: #f59e0b;
+        font-weight: 700;
+      }
+
+      .rating-cell {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-weight: 700;
+      }
+      .rating-cell svg {
+        color: #f59e0b;
+      }
+
+      .note-ellipsis {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: help;
+      }
+      .tooltip-wrap {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+      }
+      .tooltip-wrap:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
+      .tooltip {
+        position: absolute;
+        bottom: 120%;
+        left: 0;
+        background: var(--gray-700);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 11px;
+        white-space: normal;
+        max-width: 260px;
+        z-index: 60;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s;
+        line-height: 1.4;
+      }
+      .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 8px;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid var(--gray-700);
+      }
+
+      input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        accent-color: var(--primary);
+      }
+
+      .pagination {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+        margin: 16px 0;
+      }
+      .pg-btn {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid var(--gray-300);
+        background: white;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .pg-btn:hover {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        color: var(--primary);
+      }
+      .pg-btn.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
+
+      .table-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--gray-200);
+      }
+      .table-footer-left {
+        display: flex;
+        gap: 8px;
+      }
+
+      .select-dropdown {
+        position: relative;
+      }
+      .select-dropdown select {
+        padding: 8px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        background: white;
+        cursor: pointer;
+        appearance: none;
+        width: 100%;
+        min-width: 120px;
+      }
+      .select-dropdown::after {
+        content: "▼";
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        font-size: 10px;
+        color: var(--gray-600);
+        pointer-events: none;
+      }
+
+      .breadcrumb {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        font-size: 11px;
+        margin-bottom: 12px;
+      }
+      .breadcrumb .bc-link {
+        color: var(--primary);
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .breadcrumb .bc-link:hover {
+        text-decoration: underline;
+      }
+      .breadcrumb .bc-sep {
+        color: var(--gray-400);
+      }
+      .breadcrumb .bc-current {
+        color: var(--gray-700);
+        font-weight: 600;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .form-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .form-label .req {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .form-input {
+        padding: 8px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+      }
+      .form-input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+      .form-input::placeholder {
+        color: var(--gray-400);
+      }
+
+      .upload-btn-wrap {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .upload-preview {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        font-size: 11px;
+        color: var(--gray-600);
+        padding: 6px 8px;
+        background: var(--gray-100);
+        border-radius: 6px;
+      }
+
+      .suggest-wrap {
+        position: relative;
+      }
+      .suggest-list {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        width: 100%;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        display: none;
+        flex-direction: column;
+        z-index: 60;
+        max-height: 170px;
+        overflow-y: auto;
+      }
+      .suggest-wrap.open .suggest-list {
+        display: flex;
+      }
+      .suggest-item {
+        padding: 8px 10px;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+      }
+      .suggest-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+
+      .doctor-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .doctor-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: var(--primary-light);
+        color: var(--primary);
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .work-schedule {
+        grid-column: 1 / -1;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 10px;
+        background: var(--gray-50);
+      }
+      .work-row {
+        display: grid;
+        grid-template-columns: 90px 130px 130px 1fr;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .work-row:last-child {
+        margin-bottom: 0;
+      }
+      .work-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .time-input {
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 8px;
+        font-size: 12px;
+      }
+
+      .form-section-divider {
+        grid-column: 1 / -1;
+        height: 1px;
+        background: var(--gray-200);
+        margin: 8px 0;
+      }
+      .form-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid var(--gray-200);
+      }
+
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      .action-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 360px;
+        min-width: 280px;
+        box-shadow: var(--shadow-md);
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-600);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+
+      @media (max-width: 768px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .work-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">MB</div>
+        <span>Quản lý hệ thống BEAUTY</span>
+      </div>
+      <nav class="header-nav">
+        <div class="nav-item">Trang chủ</div>
+        <div class="nav-item">Quản lý thông tin</div>
+        <div class="nav-item">Thành viên ảo</div>
+        <div class="nav-item">Thành viên thực, staff</div>
+        <div class="nav-item">Cấp bậc</div>
+        <div class="nav-item active">Bác sĩ &amp; BV</div>
+        <div class="nav-item">Menu</div>
+        <div class="nav-item">Bài viết &amp; BL</div>
+        <div class="nav-item">Thẻ</div>
+        <div class="nav-item">Spam/Báo cáo</div>
+        <div class="nav-item">Banner</div>
+        <div class="nav-item">Điểm thưởng</div>
+        <div class="nav-item">Thống kê</div>
+      </nav>
+      <div class="header-user">
+        <div class="user-info">
+          <div class="user-name">Nguyễn Văn Admin</div>
+          <div class="user-role">Quản trị viên cấp 2</div>
+        </div>
+        <div class="avatar">NV</div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Danh mục quản lý</div>
+          <div
+            class="sidebar-item"
+            onclick="window.location.href = 'doctor-management.html'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Thành viên bác sĩ
+          </div>
+          <div
+            class="sidebar-item active"
+            onclick="window.location.href = 'hospital-management.html'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <path d="M9 9h6M9 13h6" />
+            </svg>
+            Bệnh viện
+          </div>
+          <div
+            class="sidebar-item"
+            id="sidebar-partner"
+            onclick="window.location.href = 'partner-management.html'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 1-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            Đối tác
+          </div>
+          <div
+            class="sidebar-item"
+            id="sidebar-product"
+            onclick="window.location.href = 'product-management.html'"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </svg>
+            Sản phẩm
+          </div>
+        </div>
+      </aside>
+
+      <main class="main page active" id="page-list">
+        <div class="page-title">
+          Quản lý Bệnh viện
+          <span class="badge">52</span>
+        </div>
+
+        <div class="card search-card">
+          <div class="card-body">
+            <div class="search-row">
+              <div class="date-section">
+                <div class="card-header" style="margin-right: 600px">
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                  </svg>
+                  Tìm kiếm
+                </div>
+                <div class="date-range">
+                  <button
+                    class="date-nav"
+                    id="date-prev"
+                    onclick="shiftDateRange(-1)"
+                  >
+                    ‹
+                  </button>
+                  <span class="date-display" id="date-display"
+                    >23/06/2025 ~ 30/06/2025</span
+                  >
+                  <button
+                    class="date-nav"
+                    id="date-next"
+                    onclick="shiftDateRange(1)"
+                  >
+                    ›
+                  </button>
+                </div>
+                <div class="date-picker-wrap" id="date-picker-wrap">
+                  <button
+                    class="date-picker-toggle"
+                    onclick="toggleDatePicker(event)"
+                    title="Chọn khoảng ngày"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                  </button>
+                  <div
+                    class="date-picker-popover"
+                    id="date-picker-popover"
+                    onclick="event.stopPropagation()"
+                  >
+                    <div class="date-picker-grid">
+                      <label class="date-picker-field"
+                        >Từ ngày<input
+                          class="date-picker-input"
+                          type="date"
+                          id="date-start-input"
+                      /></label>
+                      <label class="date-picker-field"
+                        >Đến ngày<input
+                          class="date-picker-input"
+                          type="date"
+                          id="date-end-input"
+                      /></label>
+                    </div>
+                    <div class="date-picker-actions">
+                      <button
+                        class="btn btn-primary btn-sm"
+                        onclick="applyDatePicker()"
+                      >
+                        Áp dụng
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn" onclick="setQuickFilter(this, 'day')">
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter(this, 'week')"
+                >
+                  Tuần
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'month')">
+                  Tháng
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'year')">
+                  Năm
+                </button>
+                <button class="tf-btn" onclick="setQuickFilter(this, 'all')">
+                  Tất cả
+                </button>
+              </div>
+            </div>
+            <div class="search-row search-input-row" style="margin-top: 10px">
+              <div class="criteria-wrap" id="criteria-wrap">
+                <button
+                  class="criteria-btn"
+                  id="criteria-btn"
+                  onclick="toggleCriteriaDropdown(event)"
+                >
+                  <span id="criteria-label">Tên bệnh viện</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu" id="criteria-menu">
+                  <button
+                    class="criteria-option"
+                    onclick="selectCriteria('Tên bệnh viện')"
+                  >
+                    Tên bệnh viện
+                  </button>
+                  <button
+                    class="criteria-option"
+                    onclick="selectCriteria('Tên bác sĩ')"
+                  >
+                    Tên bác sĩ
+                  </button>
+                </div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="search-input"
+                placeholder="Nhập từ khóa tìm kiếm..."
+              />
+              <button class="btn btn-outline-primary" onclick="executeSearch()">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
+                </svg>
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              Danh sách Bệnh viện <span class="count">52 bệnh viện</span>
+            </div>
+            <div class="tabs">
+              <div class="tab active" id="tab-info" onclick="switchTab('info')">
+                Thông tin bệnh viện
+              </div>
+              <div class="tab" id="tab-deleted" onclick="switchTab('deleted')">
+                Bệnh viện đã xóa
+              </div>
+            </div>
+
+            <div id="panel-info">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    onclick="openActionModal('soft-delete')"
+                  >
+                    Xóa
+                  </button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Danh sách 30</option>
+                      <option>Danh sách 50</option>
+                      <option>Danh sách 100</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table id="table-info">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          id="chk-all-info"
+                          onchange="toggleAllInTable(this, 'table-info')"
+                        />
+                      </th>
+                      <th>Tên bệnh viện</th>
+                      <th>Số lượng bác sĩ</th>
+                      <th>Điểm đánh giá</th>
+                      <th>Lượt đánh giá</th>
+                      <th>SĐT người phụ trách</th>
+                      <th>Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="row-h-1">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-h-1')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Thẩm mỹ Lotus Prime
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Sửa nhanh
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">12 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Nguyễn A</li>
+                              <li>Dr. Trần B</li>
+                              <li>Dr. Phạm C</li>
+                              <li>Dr. Đỗ D</li>
+                              <li>Dr. Hoàng E</li>
+                              <li>Dr. Lê F</li>
+                              <li>Dr. Vũ G</li>
+                              <li>Dr. Bùi H</li>
+                              <li>Dr. Ngô I</li>
+                              <li>Dr. Tạ K</li>
+                              <li>Dr. Trương L</li>
+                              <li>Dr. Huỳnh M</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.8
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            426
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0901-111-222</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Bệnh viện đối tác chiến lược, ưu tiên hiển thị khu
+                            vực miền Nam, đã ký MOU 3 năm.</span
+                          >
+                          <div class="tooltip">
+                            Bệnh viện đối tác chiến lược, ưu tiên hiển thị khu
+                            vực miền Nam, đã ký MOU 3 năm.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-h-2">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-h-2')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Chuyên khoa Da liễu Aurora
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Sửa nhanh
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">8 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Vũ E</li>
+                              <li>Dr. Lê D</li>
+                              <li>Dr. Đặng F</li>
+                              <li>Dr. Phan G</li>
+                              <li>Dr. Hồ H</li>
+                              <li>Dr. Trịnh I</li>
+                              <li>Dr. Quách K</li>
+                              <li>Dr. Ninh L</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.5
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            /></svg
+                        ></span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            298
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0902-333-444</td>
+                      <td style="color: var(--gray-400); font-size: 11px">—</td>
+                    </tr>
+                    <tr id="row-h-3">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-h-3')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Đa khoa Harmony Central
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Sửa nhanh
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">16 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Hoàng M</li>
+                              <li>Dr. Nguyễn K</li>
+                              <li>Dr. Bùi T</li>
+                              <li>Dr. Đỗ H</li>
+                              <li>Dr. Trương Q</li>
+                              <li>Dr. Vương R</li>
+                              <li>Dr. Lâm S</li>
+                              <li>Dr. Mai U</li>
+                              <li>Dr. Dương V</li>
+                              <li>Dr. Tô W</li>
+                              <li>Dr. Phùng X</li>
+                              <li>Dr. Đinh Y</li>
+                              <li>Dr. Châu Z</li>
+                              <li>Dr. Kiều AA</li>
+                              <li>Dr. Cù BB</li>
+                              <li>Dr. Lương CC</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.6
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            /></svg
+                        ></span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            381
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0908-777-121</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Đối tác mạnh khu vực trung tâm, có khoa laser và
+                            chăm sóc hậu thủ thuật chuyên sâu.</span
+                          >
+                          <div class="tooltip">
+                            Đối tác mạnh khu vực trung tâm, có khoa laser và
+                            chăm sóc hậu thủ thuật chuyên sâu.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-h-4">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-h-4')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Quốc tế NovaCare
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Sửa nhanh
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">6 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Hà Y</li>
+                              <li>Dr. Trịnh C</li>
+                              <li>Dr. Võ P</li>
+                              <li>Dr. Khưu Q</li>
+                              <li>Dr. Tăng R</li>
+                              <li>Dr. Triệu S</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.2
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            /></svg
+                        ></span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            214
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0906-222-909</td>
+                      <td style="color: var(--gray-400); font-size: 11px">—</td>
+                    </tr>
+                    <tr id="row-h-5">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-h-5')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Chuyên sâu Dermasafe
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Sửa nhanh
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">10 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Khánh N</li>
+                              <li>Dr. Mai R</li>
+                              <li>Dr. Lý S</li>
+                              <li>Dr. Phan V</li>
+                              <li>Dr. Cấn W</li>
+                              <li>Dr. Tôn X</li>
+                              <li>Dr. Mạc Y</li>
+                              <li>Dr. Thái Z</li>
+                              <li>Dr. Vương AA</li>
+                              <li>Dr. Trần BB</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.7
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            /></svg
+                        ></span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            337
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0912-676-808</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Thế mạnh điều trị tăng sắc tố và tái tạo da, lượng
+                            đánh giá tăng đều theo quý.</span
+                          >
+                          <div class="tooltip">
+                            Thế mạnh điều trị tăng sắc tố và tái tạo da, lượng
+                            đánh giá tăng đều theo quý.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-h-6">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-h-6')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV MedSkin Riverside
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Sửa nhanh
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">14 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Quỳnh T</li>
+                              <li>Dr. Dương H</li>
+                              <li>Dr. Lâm K</li>
+                              <li>Dr. Hứa U</li>
+                              <li>Dr. Thiệu V</li>
+                              <li>Dr. Chu W</li>
+                              <li>Dr. Đoàn X</li>
+                              <li>Dr. La Y</li>
+                              <li>Dr. Bạch Z</li>
+                              <li>Dr. Sầm AA</li>
+                              <li>Dr. Dương BB</li>
+                              <li>Dr. Kha CC</li>
+                              <li>Dr. Mạnh DD</li>
+                              <li>Dr. An EE</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.4
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            /></svg
+                        ></span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            289
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0933-115-220</td>
+                      <td style="color: var(--gray-400); font-size: 11px">—</td>
+                    </tr>
+                    <tr id="row-h-7">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-h-7')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Premium Sakura
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goEdit()">
+                              Sửa nhanh
+                            </button>
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('soft-delete')"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">9 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Thanh P</li>
+                              <li>Dr. Hồ W</li>
+                              <li>Dr. Kim J</li>
+                              <li>Dr. Lưu K</li>
+                              <li>Dr. Đặng L</li>
+                              <li>Dr. Thư M</li>
+                              <li>Dr. Cầm N</li>
+                              <li>Dr. Tùng O</li>
+                              <li>Dr. Nguyễn Q</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.3
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            /></svg
+                        ></span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            245
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0988-441-552</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Đã mở rộng thêm cơ sở vệ tinh, cần theo dõi chất
+                            lượng dịch vụ đồng bộ giữa các chi nhánh.</span
+                          >
+                          <div class="tooltip">
+                            Đã mở rộng thêm cơ sở vệ tinh, cần theo dõi chất
+                            lượng dịch vụ đồng bộ giữa các chi nhánh.
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="table-footer">
+                <div class="table-footer-left">
+                  <button class="btn btn-danger" onclick="goAdd()">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Thêm bệnh viện (+)
+                  </button>
+                </div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+
+            <div id="panel-deleted" style="display: none">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="openActionModal('restore')"
+                  >
+                    Khôi phục
+                  </button>
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    onclick="openActionModal('hard-delete')"
+                  >
+                    Xóa vĩnh viễn
+                  </button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Danh sách 30</option>
+                      <option>Danh sách 50</option>
+                      <option>Danh sách 100</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table id="table-deleted">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          id="chk-all-deleted"
+                          onchange="toggleAllInTable(this, 'table-deleted')"
+                        />
+                      </th>
+                      <th>Tên bệnh viện</th>
+                      <th>Số lượng bác sĩ</th>
+                      <th>Điểm đánh giá</th>
+                      <th>Lượt đánh giá</th>
+                      <th>SĐT người phụ trách</th>
+                      <th>Ngày xóa</th>
+                      <th>Người xóa</th>
+                      <th>Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="row-d-1">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-d-1')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Quốc tế Zenith
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">5 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Quốc A</li>
+                              <li>Dr. Mai B</li>
+                              <li>Dr. Lâm C</li>
+                              <li>Dr. Hạnh D</li>
+                              <li>Dr. Tâm E</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.1
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            164
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0903-555-666</td>
+                      <td>12/06/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"></span>
+                          <div class="tooltip"></div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-d-2">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-d-2')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Da liễu Stellar Care
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">7 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Thu F</li>
+                              <li>Dr. Huy G</li>
+                              <li>Dr. Anh H</li>
+                              <li>Dr. Vy I</li>
+                              <li>Dr. Khoa K</li>
+                              <li>Dr. Linh L</li>
+                              <li>Dr. Phúc M</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.3
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            201
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0905-112-889</td>
+                      <td>18/06/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Đã đổi sang đối tác khác</span
+                          >
+                          <div class="tooltip">Đã đổi sang đối tác khác</div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-d-3">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-d-3')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Quốc tế Elysian
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">9 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Quân N</li>
+                              <li>Dr. Nhi O</li>
+                              <li>Dr. Long P</li>
+                              <li>Dr. Trang Q</li>
+                              <li>Dr. Việt R</li>
+                              <li>Dr. Hòa S</li>
+                              <li>Dr. Tín T</li>
+                              <li>Dr. Uyên U</li>
+                              <li>Dr. Phong V</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.0
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            153
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0907-223-514</td>
+                      <td>20/06/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis">Ngừng hợp tác</span>
+                          <div class="tooltip">Ngừng hợp tác</div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-d-4">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-d-4')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Thẩm mỹ Aster Clinic
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">4 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Hạnh W</li>
+                              <li>Dr. Nhật X</li>
+                              <li>Dr. Vy Y</li>
+                              <li>Dr. Sơn Z</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.2
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            187
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0911-908-776</td>
+                      <td>02/07/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis">Tạm ngưng hoạt động</span>
+                          <div class="tooltip">Tạm ngưng hoạt động</div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-d-5">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-d-5')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Da liễu Meridian
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">11 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. Hạ AA</li>
+                              <li>Dr. Kỳ AB</li>
+                              <li>Dr. Minh AC</li>
+                              <li>Dr. Lan AD</li>
+                              <li>Dr. Sơn AE</li>
+                              <li>Dr. Hằng AF</li>
+                              <li>Dr. Tú AG</li>
+                              <li>Dr. Nga AH</li>
+                              <li>Dr. Lộc AI</li>
+                              <li>Dr. Quỳnh AJ</li>
+                              <li>Dr. Bảo AK</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.6
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            214
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0938-440-912</td>
+                      <td>05/07/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis"
+                            >Chưa gia hạn hợp đồng</span
+                          >
+                          <div class="tooltip">Chưa gia hạn hợp đồng</div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-d-6">
+                      <td>
+                        <input
+                          type="checkbox"
+                          onchange="toggleRow(this, 'row-d-6')"
+                        />
+                      </td>
+                      <td class="td-left">
+                        <div class="cell-menu">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            BV Chuyên khoa Radiant
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item" onclick="goDetail()">
+                              Thông tin chi tiết
+                            </button>
+                            <button
+                              class="menu-item"
+                              onclick="openActionModal('restore')"
+                            >
+                              Khôi phục
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="doctor-badge-wrap">
+                          <span class="doctor-badge">13 BS</span>
+                          <div class="doctor-popover">
+                            <div class="doctor-popover-title">
+                              Đội ngũ bác sĩ
+                            </div>
+                            <ul>
+                              <li>Dr. An AL</li>
+                              <li>Dr. Bình AM</li>
+                              <li>Dr. Chi AN</li>
+                              <li>Dr. Duyên AO</li>
+                              <li>Dr. Em AP</li>
+                              <li>Dr. Giang AQ</li>
+                              <li>Dr. Hà AR</li>
+                              <li>Dr. Ivy AS</li>
+                              <li>Dr. Khoa AT</li>
+                              <li>Dr. Linh AU</li>
+                              <li>Dr. Nam AV</li>
+                              <li>Dr. Oanh AW</li>
+                              <li>Dr. Phát AX</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="rating-cell"
+                          >4.4
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                            />
+                          </svg>
+                        </span>
+                      </td>
+                      <td>
+                        <div class="review-badge-wrap">
+                          <button
+                            class="menu-trigger"
+                            onclick="toggleMenu(event, this.parentElement)"
+                          >
+                            236
+                          </button>
+                          <div class="menu-list">
+                            <button class="menu-item">Xem đánh giá</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>0904-882-300</td>
+                      <td>08/07/2025</td>
+                      <td>Admin</td>
+                      <td>
+                        <div class="tooltip-wrap">
+                          <span class="note-ellipsis">Chuyển đổi mô hình</span>
+                          <div class="tooltip">Chuyển đổi mô hình</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <main class="main page" id="page-detail">
+        <div class="breadcrumb">
+          <span class="bc-link" onclick="goPage('list')"
+            >Danh sách bệnh viện</span
+          >
+          <span class="bc-sep">/</span>
+          <span class="bc-current" id="detail-mode-label"
+            >Chi tiết BV: Lotus Prime</span
+          >
+        </div>
+
+        <div class="page-title" id="detail-page-title">
+          Thông tin chi tiết Bệnh viện
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="form-grid">
+              <!-- Hàng 1: Tên BV & Ảnh đại diện -->
+              <div class="form-group">
+                <label class="form-label"
+                  >Tên bệnh viện <span class="req">*</span></label
+                ><input
+                  class="form-input"
+                  id="f-hospital-name"
+                  placeholder="Nhập nội dung"
+                  value="BV Thẩm mỹ Lotus Prime"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ảnh đại diện</label>
+                <div class="upload-btn-wrap">
+                  <button class="btn btn-danger btn-sm">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    Tải ảnh
+                  </button>
+                  <div class="upload-preview" id="avatar-preview">
+                    hospital-avatar.jpg
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hàng 2: Địa chỉ & SĐT người đại diện -->
+              <div class="form-group">
+                <label class="form-label"
+                  >Địa chỉ <span class="req">*</span></label
+                ><input
+                  class="form-input"
+                  id="f-address"
+                  placeholder="Nhập nội dung"
+                  value="88 Nguyễn Huệ, Quận 1, TP.HCM"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >SĐT người đại diện <span class="req">*</span></label
+                ><input
+                  class="form-input"
+                  id="f-rep-phone"
+                  placeholder="Nhập nội dung"
+                  value="0912-345-678"
+                />
+              </div>
+
+              <!-- Hàng 3: Mã số ĐKKD & Tên người đại diện -->
+              <div class="form-group">
+                <label class="form-label"
+                  >Mã số ĐKKD <span class="req">*</span></label
+                ><input
+                  class="form-input"
+                  id="f-reg-code"
+                  placeholder="Nhập nội dung"
+                  value="0312345678"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >Tên người đại diện <span class="req">*</span></label
+                ><input
+                  class="form-input"
+                  id="f-rep-name"
+                  placeholder="Nhập nội dung"
+                  value="Lê Quang H"
+                />
+              </div>
+
+              <!-- Hàng 4: Tên người phụ trách & SĐT người phụ trách -->
+              <div class="form-group">
+                <label class="form-label"
+                  >Tên người phụ trách <span class="req">*</span></label
+                ><input
+                  class="form-input"
+                  id="f-manager-name"
+                  placeholder="Nhập nội dung"
+                  value="Nguyễn Minh K"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >SĐT người phụ trách <span class="req">*</span></label
+                ><input
+                  class="form-input"
+                  id="f-manager-phone"
+                  placeholder="Nhập nội dung"
+                  value="0901-111-222"
+                />
+              </div>
+
+              <!-- Hàng 5: Giới thiệu bệnh viện & Đội ngũ bác sĩ -->
+              <div class="form-group">
+                <label class="form-label">Giới thiệu bệnh viện</label
+                ><textarea
+                  class="form-input"
+                  rows="4"
+                  id="f-intro"
+                  placeholder="Nhập nội dung"
+                >
+Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc tế, đội ngũ bác sĩ giàu kinh nghiệm.</textarea
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label">Đội ngũ bác sĩ</label>
+                <div>
+                  <input
+                    class="form-input"
+                    id="doctor-input"
+                    placeholder="Nhập nội dung"
+                  />
+                  <div
+                    class="doctor-links"
+                    id="doctor-links"
+                    style="
+                      margin-top: 8px;
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 6px;
+                    "
+                  >
+                    <span class="doctor-chip">Dr. Nguyễn A</span>
+                    <span class="doctor-chip">Dr. Trần B</span>
+                    <span class="doctor-chip">Dr. Phạm C</span>
+                  </div>
+                  <button
+                    class="btn btn-danger btn-sm"
+                    style="margin-top: 8px"
+                    onclick="addDoctorLink()"
+                  >
+                    THÊM THÔNG TIN (+)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Hàng 6: Thông tin bác sĩ & Hạng mục điều trị -->
+              <div class="form-group">
+                <label class="form-label">Thông tin bác sĩ</label
+                ><textarea
+                  class="form-input"
+                  rows="4"
+                  id="f-doctor-info"
+                  placeholder="Nhập nội dung"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hạng mục điều trị</label>
+                <div class="suggest-wrap" id="suggest-wrap">
+                  <input
+                    class="form-input"
+                    id="treatment-input"
+                    placeholder="Nhập nội dung"
+                    oninput="handleTreatmentInput()"
+                    onfocus="openSuggest()"
+                  />
+                  <div class="suggest-list" id="suggest-list">
+                    <button
+                      class="suggest-item"
+                      type="button"
+                      onclick="pickSuggest('Điều trị nám da')"
+                    >
+                      Điều trị nám da
+                    </button>
+                    <button
+                      class="suggest-item"
+                      type="button"
+                      onclick="pickSuggest('Phẫu thuật thẩm mỹ')"
+                    >
+                      Phẫu thuật thẩm mỹ
+                    </button>
+                    <button
+                      class="suggest-item"
+                      type="button"
+                      onclick="pickSuggest('Nha khoa thẩm mỹ')"
+                    >
+                      Nha khoa thẩm mỹ
+                    </button>
+                    <button
+                      class="suggest-item"
+                      type="button"
+                      onclick="pickSuggest('Tạo hình khuôn mặt')"
+                    >
+                      Tạo hình khuôn mặt
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hàng 7: Thời gian hoạt động (Full width) -->
+              <div class="form-group" style="grid-column: 1 / -1">
+                <label class="form-label">Thời gian hoạt động</label>
+                <input
+                  class="form-input"
+                  id="f-work-time"
+                  type="text"
+                  placeholder="Chọn thời gian"
+                  readonly
+                  value="Thứ 2 - Thứ 6: 08:00 - 17:00, Chủ nhật: 09:00 - 12:00"
+                />
+              </div>
+
+              <!-- Hàng 8: Trang chủ & Ghi chú -->
+              <div class="form-group">
+                <label class="form-label">Trang chủ</label
+                ><input
+                  class="form-input"
+                  id="f-website"
+                  placeholder="Nhập nội dung"
+                  value="https://lotusprime.vn"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ghi chú</label>
+                <textarea
+                  class="form-input"
+                  id="f-note"
+                  rows="3"
+                  placeholder="Nhập nội dung"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-ghost" onclick="goPage('list')">Đóng</button>
+          <button class="btn btn-outline-primary" onclick="goEdit()">
+            Sửa nhanh
+          </button>
+        </div>
+      </main>
+
+      <main class="main page" id="page-form">
+        <div class="breadcrumb">
+          <span class="bc-link" onclick="goPage('list')"
+            >Danh sách bệnh viện</span
+          >
+          <span class="bc-sep">/</span>
+          <span class="bc-current">Thêm mới / Chỉnh sửa bệnh viện</span>
+        </div>
+        <div class="page-title">Biểu mẫu Bệnh viện</div>
+        <div class="card">
+          <div class="card-body">
+            <p style="font-size: 12px; color: var(--gray-500)">
+              Sử dụng cùng layout form với màn chi tiết. Bạn có thể chỉnh sửa và
+              lưu để quay về danh sách.
+            </p>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-ghost" onclick="goPage('list')">Hủy</button>
+          <button class="btn btn-primary" onclick="saveHospital()">Lưu</button>
+        </div>
+      </main>
+    </div>
+
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title" id="action-modal-title">
+          Xác nhận hành động
+        </h3>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn muốn thực hiện?
+        </p>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const searchState = {
+        criterion: "Tên bệnh viện",
+        quickFilter: "week",
+        startDate: new Date(2025, 5, 23),
+        endDate: new Date(2025, 5, 30),
+      };
+      let currentActionModalType = "soft-delete";
+      const actionModalMap = {
+        "soft-delete": {
+          title: "Xóa bệnh viện",
+          body: "Bệnh viện sẽ được chuyển sang tab 'Bệnh viện đã xóa'.",
+          doneMessage: "Đã xóa bệnh viện.",
+        },
+        "hard-delete": {
+          title: "Xóa vĩnh viễn",
+          body: "Hành động này không thể hoàn tác.",
+          doneMessage: "Đã xóa vĩnh viễn bệnh viện.",
+        },
+        restore: {
+          title: "Khôi phục bệnh viện",
+          body: "Bệnh viện sẽ quay lại danh sách đang hoạt động.",
+          doneMessage: "Đã khôi phục bệnh viện.",
+        },
+      };
+
+      function formatDateVN(date) {
+        const d = String(date.getDate()).padStart(2, "0");
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const y = date.getFullYear();
+        return `${d}/${m}/${y}`;
+      }
+
+      function toISODate(date) {
+        const d = String(date.getDate()).padStart(2, "0");
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const y = date.getFullYear();
+        return `${y}-${m}-${d}`;
+      }
+
+      function renderDateRange() {
+        const el = document.getElementById("date-display");
+        if (!el) return;
+        el.textContent = `${formatDateVN(searchState.startDate)} ~ ${formatDateVN(searchState.endDate)}`;
+      }
+
+      function syncDatePickerInputs() {
+        const startInput = document.getElementById("date-start-input");
+        const endInput = document.getElementById("date-end-input");
+        if (!startInput || !endInput) return;
+        startInput.value = toISODate(searchState.startDate);
+        endInput.value = toISODate(searchState.endDate);
+      }
+
+      function updateDateArrowsState() {
+        const disable =
+          searchState.quickFilter === "all" ||
+          searchState.quickFilter === "custom";
+        const prev = document.getElementById("date-prev");
+        const next = document.getElementById("date-next");
+        if (prev) prev.disabled = disable;
+        if (next) next.disabled = disable;
+      }
+
+      function setQuickFilter(buttonEl, key) {
+        document
+          .querySelectorAll(".tf-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        buttonEl.classList.add("active");
+        searchState.quickFilter = key;
+        updateDateArrowsState();
+      }
+
+      function shiftDateRange(direction) {
+        if (
+          searchState.quickFilter === "all" ||
+          searchState.quickFilter === "custom"
+        )
+          return;
+
+        const s = new Date(searchState.startDate);
+        const e = new Date(searchState.endDate);
+
+        if (searchState.quickFilter === "day") {
+          s.setDate(s.getDate() + direction);
+          e.setDate(e.getDate() + direction);
+        } else if (searchState.quickFilter === "week") {
+          s.setDate(s.getDate() + direction * 7);
+          e.setDate(e.getDate() + direction * 7);
+        } else if (searchState.quickFilter === "month") {
+          s.setMonth(s.getMonth() + direction);
+          e.setMonth(e.getMonth() + direction);
+        } else if (searchState.quickFilter === "year") {
+          s.setFullYear(s.getFullYear() + direction);
+          e.setFullYear(e.getFullYear() + direction);
+        }
+
+        searchState.startDate = s;
+        searchState.endDate = e;
+        renderDateRange();
+      }
+
+      function closeDatePicker() {
+        const wrap = document.getElementById("date-picker-wrap");
+        if (wrap) wrap.classList.remove("open");
+      }
+
+      function toggleDatePicker(event) {
+        event.stopPropagation();
+        const wrap = document.getElementById("date-picker-wrap");
+        if (!wrap) return;
+        const shouldOpen = !wrap.classList.contains("open");
+        closeDatePicker();
+        if (shouldOpen) {
+          wrap.classList.add("open");
+          syncDatePickerInputs();
+        }
+      }
+
+      function applyDatePicker() {
+        const startInput = document.getElementById("date-start-input");
+        const endInput = document.getElementById("date-end-input");
+        if (!startInput || !endInput || !startInput.value || !endInput.value)
+          return;
+
+        const startDate = new Date(`${startInput.value}T00:00:00`);
+        const endDate = new Date(`${endInput.value}T00:00:00`);
+        if (startDate > endDate) return;
+
+        searchState.startDate = startDate;
+        searchState.endDate = endDate;
+        searchState.quickFilter = "custom";
+        document
+          .querySelectorAll(".tf-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        renderDateRange();
+        updateDateArrowsState();
+        closeDatePicker();
+      }
+
+      function toggleCriteriaDropdown(event) {
+        event.stopPropagation();
+        const wrap = document.getElementById("criteria-wrap");
+        if (!wrap) return;
+        wrap.classList.toggle("open");
+      }
+
+      function closeCriteriaDropdown() {
+        const wrap = document.getElementById("criteria-wrap");
+        if (wrap) wrap.classList.remove("open");
+      }
+
+      function selectCriteria(label) {
+        searchState.criterion = label;
+        const criterionEl = document.getElementById("criteria-label");
+        if (criterionEl) criterionEl.textContent = label;
+        closeCriteriaDropdown();
+      }
+
+      function executeSearch() {
+        const keyword = (
+          document.getElementById("search-input")?.value || ""
+        ).trim();
+        console.log("Search hospital", {
+          criterion: searchState.criterion,
+          keyword,
+        });
+      }
+
+      function switchTab(tab) {
+        document.getElementById("panel-info").style.display =
+          tab === "info" ? "" : "none";
+        document.getElementById("panel-deleted").style.display =
+          tab === "deleted" ? "" : "none";
+        document
+          .getElementById("tab-info")
+          .classList.toggle("active", tab === "info");
+        document
+          .getElementById("tab-deleted")
+          .classList.toggle("active", tab === "deleted");
+      }
+
+      function toggleAllInTable(cb, tableId) {
+        const table = document.getElementById(tableId);
+        if (!table) return;
+        table.querySelectorAll('tbody input[type="checkbox"]').forEach((c) => {
+          c.checked = cb.checked;
+          const row = c.closest("tr");
+          if (row) row.classList.toggle("row-checked", cb.checked);
+        });
+      }
+
+      function toggleRow(cb, rowId) {
+        const row = document.getElementById(rowId);
+        if (row) row.classList.toggle("row-checked", cb.checked);
+      }
+
+      function toggleMenu(event, menuEl) {
+        event.stopPropagation();
+        const shouldOpen = !menuEl.classList.contains("open");
+        closeAllMenus();
+        if (shouldOpen) menuEl.classList.add("open");
+      }
+
+      function closeAllMenus() {
+        document
+          .querySelectorAll(".cell-menu")
+          .forEach((menu) => menu.classList.remove("open"));
+      }
+
+      function goPage(page) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById(`page-${page}`)?.classList.add("active");
+        closeAllMenus();
+        closeDatePicker();
+      }
+
+      function goDetail() {
+        goPage("detail");
+      }
+
+      function goEdit() {
+        goPage("form");
+      }
+
+      function goAdd() {
+        goPage("form");
+      }
+
+      function saveHospital() {
+        goPage("list");
+      }
+
+      function openSuggest() {
+        const wrap = document.getElementById("suggest-wrap");
+        if (wrap) wrap.classList.add("open");
+      }
+
+      function handleTreatmentInput() {
+        openSuggest();
+      }
+
+      function pickSuggest(value) {
+        const input = document.getElementById("treatment-input");
+        if (input) input.value = value;
+        const wrap = document.getElementById("suggest-wrap");
+        if (wrap) wrap.classList.remove("open");
+      }
+
+      function addDoctorLink() {
+        const list = document.getElementById("doctor-links");
+        if (!list) return;
+        const chip = document.createElement("span");
+        chip.className = "doctor-chip";
+        chip.textContent = "Dr. Mới";
+        list.insertBefore(chip, list.lastElementChild);
+      }
+
+      function applyMondayToAll() {
+        const monStart = document.getElementById("mon-start")?.value || "08:00";
+        const monEnd = document.getElementById("mon-end")?.value || "17:00";
+        document.querySelectorAll(".day-start").forEach((el) => {
+          el.value = monStart;
+        });
+        document.querySelectorAll(".day-end").forEach((el) => {
+          el.value = monEnd;
+        });
+      }
+
+      function openActionModal(type) {
+        const modal = actionModalMap[type];
+        if (!modal) return;
+        currentActionModalType = type;
+        document.getElementById("action-modal-title").textContent = modal.title;
+        document.getElementById("action-modal-body").textContent = modal.body;
+        document.getElementById("action-modal-backdrop").classList.add("open");
+      }
+
+      function closeActionModal() {
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
+      }
+
+      function confirmActionModal() {
+        alert(actionModalMap[currentActionModalType].doneMessage);
+        closeActionModal();
+      }
+
+      document.addEventListener("click", () => {
+        closeAllMenus();
+        closeDatePicker();
+        closeCriteriaDropdown();
+        document.getElementById("suggest-wrap")?.classList.remove("open");
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeActionModal();
+      });
+
+      renderDateRange();
+      syncDatePickerInputs();
+      updateDateArrowsState();
+    </script>
+  </body>
+</html>

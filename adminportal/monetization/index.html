@@ -1,0 +1,1621 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Monetisation Demo – Client / Agent / Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --primary: #ad986e;
+        --bg: #fbf8f5;
+        --white: #ffffff;
+        --text: #333333;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.4;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      .page {
+        max-width: 1200px;
+        margin: 24px auto;
+        padding: 16px 20px 32px;
+        background: var(--white);
+        border: 1px solid rgba(173, 152, 110, 0.4);
+        border-radius: 12px;
+      }
+
+      .header {
+        margin-bottom: 16px;
+      }
+
+      .header-title {
+        font-size: 20px;
+        font-weight: 650;
+        margin-bottom: 4px;
+        color: var(--primary);
+      }
+
+      .header-sub {
+        font-size: 13px;
+        opacity: 0.8;
+      }
+
+      .portal-switcher {
+        margin-top: 20px;
+        display: flex;
+        gap: 8px;
+        border-bottom: 1px solid var(--primary);
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+      }
+
+      .portal-tab {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 13px;
+        cursor: pointer;
+        background: var(--bg);
+        color: var(--primary);
+      }
+
+      .portal-tab.active {
+        background: var(--primary);
+        color: var(--white);
+        border-color: var(--primary);
+      }
+
+      .portal-container {
+        display: none;
+      }
+
+      .portal-container.active {
+        display: block;
+      }
+
+      .portal-header {
+        margin-bottom: 16px;
+      }
+
+      .portal-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .portal-sub {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .layout-single {
+        display: block;
+      }
+
+      .section {
+        margin-bottom: 16px;
+        border: 1px solid rgba(173, 152, 110, 0.45);
+        border-radius: 10px;
+        padding: 12px 14px;
+        background: rgba(251, 248, 245, 0.8);
+      }
+
+      .section-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .section-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--primary);
+      }
+
+      .section-note {
+        font-size: 11px;
+        opacity: 0.7;
+        text-align: right;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(173, 152, 110, 0.7);
+        font-size: 11px;
+        margin-right: 6px;
+        margin-top: 4px;
+        background: var(--white);
+      }
+
+      .inline-label {
+        font-size: 12px;
+        margin-bottom: 4px;
+        font-weight: 500;
+      }
+
+      .inline-value {
+        font-size: 13px;
+        margin-bottom: 6px;
+      }
+
+      .inline-row {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .inline-row span {
+        white-space: nowrap;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 10px;
+        margin-top: 6px;
+      }
+
+      .feature-card {
+        border-radius: 10px;
+        padding: 10px 10px 9px;
+        background: var(--white);
+        border: 1px solid var(--primary);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .feature-title {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .feature-meta {
+        font-size: 11px;
+        opacity: 0.9;
+      }
+
+      .feature-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+      }
+
+      .tag {
+        font-size: 10px;
+        border-radius: 999px;
+        padding: 2px 6px;
+        border: 1px solid var(--primary);
+      }
+
+      .feature-price {
+        font-size: 11px;
+        margin-top: 2px;
+        opacity: 0.9;
+      }
+
+      .feature-footer {
+        margin-top: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      button {
+        border-radius: 999px;
+        border: 1px solid var(--primary);
+        background: var(--primary);
+        color: var(--white);
+        padding: 6px 10px;
+        font-size: 11px;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      button.secondary {
+        background: var(--bg);
+        color: var(--primary);
+      }
+
+      button span.btn-line-main {
+        display: block;
+        font-weight: 600;
+        font-size: 11px;
+      }
+
+      button span.btn-line-sub {
+        display: block;
+        font-size: 9px;
+        opacity: 0.9;
+      }
+
+      button:disabled {
+        opacity: 0.7;
+        cursor: default;
+      }
+
+      .cart-panel {
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        background: var(--bg);
+        padding: 10px 12px;
+      }
+
+      .cart-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .cart-sub {
+        font-size: 11px;
+        margin-bottom: 8px;
+        opacity: 0.9;
+      }
+
+      .cart-list {
+        border-top: 1px solid var(--primary);
+        margin-top: 6px;
+        padding-top: 6px;
+        max-height: 260px;
+        overflow-y: auto;
+      }
+
+      .cart-empty {
+        font-size: 11px;
+        opacity: 0.8;
+        padding: 6px 0;
+      }
+
+      .cart-item {
+        border-bottom: 1px dashed var(--primary);
+        padding: 4px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .cart-item-main {
+        font-size: 11px;
+      }
+
+      .cart-item-name {
+        font-weight: 600;
+      }
+
+      .cart-item-meta {
+        font-size: 10px;
+        opacity: 0.9;
+      }
+
+      .cart-item-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .cart-footer {
+        margin-top: 8px;
+        padding-top: 6px;
+        border-top: 1px solid var(--primary);
+        font-size: 11px;
+      }
+
+      .payment-options {
+        margin-top: 8px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .payment-card {
+        border-radius: 8px;
+        border: 1px solid var(--primary);
+        background: var(--white);
+        padding: 8px 8px 7px;
+        font-size: 11px;
+      }
+
+      .payment-title {
+        font-weight: 600;
+        margin-bottom: 3px;
+      }
+
+      .payment-desc {
+        font-size: 11px;
+        opacity: 0.9;
+      }
+
+      .qr-placeholder {
+        margin-top: 6px;
+        border-radius: 4px;
+        border: 1px solid var(--primary);
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        text-align: center;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+        margin-top: 6px;
+      }
+
+      .table th,
+      .table td {
+        border: 1px solid var(--primary);
+        padding: 4px 6px;
+        text-align: left;
+      }
+
+      .table th {
+        background: var(--bg);
+        font-weight: 600;
+      }
+
+      .badge-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+
+      .badge-card {
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        background: var(--bg);
+        padding: 8px;
+        font-size: 11px;
+        min-width: 160px;
+      }
+
+      .badge-name {
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+
+      .note-block {
+        font-size: 11px;
+        margin-top: 4px;
+        opacity: 0.9;
+      }
+
+      .small-note {
+        font-size: 10px;
+        margin-top: 3px;
+        opacity: 0.85;
+      }
+
+      .highlight {
+        font-weight: 600;
+      }
+
+      .tbc {
+        font-style: italic;
+        font-size: 10px;
+        margin-top: 3px;
+        opacity: 0.85;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 4px;
+      }
+
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="header">
+        <div class="header-title">
+          Monetisation Flows – Client / Agent / Admin (Demo)
+        </div>
+        <div class="header-sub">
+          Neutral, non-decisional mockup. All behaviour and pricing shown here
+          are placeholders only.
+        </div>
+      </div>
+
+      <div class="portal-switcher">
+        <button class="portal-tab active" data-portal="client">
+          Client Portal
+        </button>
+        <button class="portal-tab" data-portal="agent">Agent Portal</button>
+        <button class="portal-tab" data-portal="admin">Admin Portal</button>
+      </div>
+
+      <!-- CLIENT PORTAL -->
+      <div class="portal-container active" id="portal-client">
+        <div class="portal-header">
+          <div class="portal-title">
+            Client Portal – Paid Features &amp; Promotion (Demo)
+          </div>
+          <div class="portal-sub">
+            Explains which client-side features could be monetised. No final
+            business rules. To be confirmed with client.
+          </div>
+        </div>
+
+        <div class="layout">
+          <div>
+            <div class="section">
+              <div class="section-title-row">
+                <div class="section-title">1. My Plan &amp; Paid Features</div>
+                <div class="section-note">
+                  Display only – no real subscription logic
+                </div>
+              </div>
+              <div class="inline-label">Current Plan (Placeholder)</div>
+              <div class="inline-row">
+                <span>Plan: <span class="highlight">Free (Example)</span></span>
+                <span
+                  >Upgrade path:
+                  <span class="highlight"
+                    >To be confirmed with client</span
+                  ></span
+                >
+              </div>
+              <div class="inline-label">
+                Active Paid Features (Placeholder List)
+              </div>
+              <ul style="font-size: 11px; margin-left: 16px; margin-top: 4px">
+                <li>Extended message history – 1 year (Example)</li>
+                <li>Property status insights for 5 properties (Example)</li>
+              </ul>
+              <div class="small-note">
+                This section shows what client already has. No purchase actions
+                here.
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title-row">
+                <div class="section-title">2. Paid Feature Store – Client</div>
+                <div class="section-note">
+                  Each item: paid feature for end users
+                </div>
+              </div>
+              <div class="feature-grid">
+                <div
+                  class="feature-card"
+                  data-portal="client"
+                  data-name="Extended Message History – 1 year"
+                  data-billing="Paid Feature – Client / 1 year"
+                >
+                  <div class="feature-title">
+                    Extended Message History – 1 year
+                  </div>
+                  <div class="feature-meta">Paid Feature – Client</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Paid Feature</span>
+                    <span class="tag">Unit: 1 year</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / Placeholder (exact pricing to be confirmed
+                    with client)
+                  </div>
+                  <div class="feature-footer">
+                    <div style="font-size: 10px">
+                      Add to cart for visual demo only:
+                    </div>
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="client"
+                  data-name="Extended Message History – 3 years"
+                  data-billing="Paid Feature – Client / 3 years"
+                >
+                  <div class="feature-title">
+                    Extended Message History – 3 years
+                  </div>
+                  <div class="feature-meta">Paid Feature – Client</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Paid Feature</span>
+                    <span class="tag">Unit: 3 years</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / Placeholder (longer period example)
+                  </div>
+                  <div class="feature-footer">
+                    <div style="font-size: 10px">
+                      Add to cart for visual demo only:
+                    </div>
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="client"
+                  data-name="Extended Message History – Unlimited"
+                  data-billing="Paid Feature – Client / Unlimited (Example)"
+                >
+                  <div class="feature-title">
+                    Extended Message History – Unlimited
+                  </div>
+                  <div class="feature-meta">Paid Feature – Client</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Subscription</span>
+                    <span class="tag">Unit: Monthly</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / Placeholder (subscription-style example)
+                  </div>
+                  <div class="feature-footer">
+                    <div style="font-size: 10px">
+                      Add to cart for visual demo only:
+                    </div>
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="client"
+                  data-name="Property Status Insights"
+                  data-billing="Paid Feature – Client / per property or per period (TBC)"
+                >
+                  <div class="feature-title">Property Status Insights</div>
+                  <div class="feature-meta">Paid Feature – Client</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Paid Feature</span>
+                    <span class="tag"
+                      >Unit: Usage or time-based (To be confirmed)</span
+                    >
+                  </div>
+                  <div class="feature-price">
+                    Views / saves / inquiries status. Exact limits and billing
+                    model:
+                    <span class="highlight">To be confirmed with client</span>.
+                  </div>
+                  <div class="feature-footer">
+                    <div style="font-size: 10px">
+                      Add to cart for visual demo only:
+                    </div>
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title-row">
+                <div class="section-title">3. Wanted Property Promotion</div>
+                <div class="section-note">Shows mix of free and paid items</div>
+              </div>
+              <div class="feature-grid">
+                <div class="feature-card">
+                  <div class="feature-title">Wanted Property Post</div>
+                  <div class="feature-meta">
+                    Example of free feature for clients
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Free (Example)</span>
+                    <span class="tag">Unit: Posting</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥0 – Placeholder free base capability.
+                  </div>
+                  <div class="tbc">
+                    Exact quota and visibility rules to be confirmed with
+                    client.
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="client"
+                  data-name="Promote Wanted Property"
+                  data-billing="Advertising – Client / time-based (Example)"
+                >
+                  <div class="feature-title">Promote Wanted Property</div>
+                  <div class="feature-meta">
+                    Paid Feature – Client (Advertising-style)
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Advertising</span>
+                    <span class="tag">Unit: Time period</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / Placeholder time slot. Exact exposure and
+                    ranking:
+                    <span class="highlight">To be confirmed with client</span>.
+                  </div>
+                  <div class="feature-footer">
+                    <div style="font-size: 10px">
+                      Add to cart for visual demo only:
+                    </div>
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CLIENT CART -->
+          <div>
+            <div class="cart-panel">
+              <div class="cart-title">Client Portal Cart (Demo Only)</div>
+              <div class="cart-sub">
+                This cart only explains how client-side paid items could be
+                collected before payment. No real checkout. All amounts are
+                placeholders.
+              </div>
+              <div class="cart-list" id="cart-client-list">
+                <div class="cart-empty">
+                  No items yet. Use “Add to Cart” buttons on the left to fill
+                  this demo cart.
+                </div>
+              </div>
+              <div class="cart-footer">
+                <div>Subtotal (Demo): ¥XXXX – Placeholder only.</div>
+                <div class="tbc">
+                  Real calculations and taxes to be confirmed with client.
+                </div>
+                <div style="margin-top: 6px">
+                  <button disabled>
+                    <span class="btn-line-main"
+                      >Proceed to Checkout (Example)</span
+                    >
+                    <span class="btn-line-sub">Demo Only – No Action</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGENT PORTAL -->
+      <div class="portal-container" id="portal-agent">
+        <div class="portal-header">
+          <div class="portal-title">
+            Agent Portal – Subscriptions, Paid Features &amp; Advertising (Demo)
+          </div>
+          <div class="portal-sub">
+            This view illustrates how agents might see and select paid
+            capabilities. It does not define final rules or prices.
+          </div>
+        </div>
+
+        <div class="layout">
+          <div>
+            <div class="section">
+              <div class="section-title-row">
+                <div class="section-title">1. Subscription &amp; Account</div>
+                <div class="section-note">
+                  Simple visual of subscription state
+                </div>
+              </div>
+              <div class="inline-label">Current Subscription (Text only)</div>
+              <div class="inline-row">
+                <span
+                  >Plan:
+                  <span class="highlight">Agent Standard (Example)</span></span
+                >
+                <span
+                  >Renewal:
+                  <span class="highlight">Monthly – Placeholder</span></span
+                >
+              </div>
+              <div class="inline-label">Auto-renew (Visual Only)</div>
+              <div class="inline-row">
+                <span
+                  >Auto-renew toggle:
+                  <span class="pill">ON (Example state)</span></span
+                >
+                <span class="tbc"
+                  >Real behaviour and allowed options to be confirmed with
+                  client.</span
+                >
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title-row">
+                <div class="section-title">2. Paid Feature Store – Agent</div>
+                <div class="section-note">Categorised by usage type</div>
+              </div>
+
+              <!-- A. Property & Listing Features -->
+              <div class="inline-label">A. Property &amp; Listing Features</div>
+              <div class="feature-grid">
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Property Listings – Up to N"
+                  data-billing="Subscription / Monthly (capacity example)"
+                >
+                  <div class="feature-title">Property Listings – Up to N</div>
+                  <div class="feature-meta">
+                    Capacity-based subscription example
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Subscription</span>
+                    <span class="tag">Unit: Monthly</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / month – amount and N value to be confirmed
+                    with client.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Unlimited Listings"
+                  data-billing="Subscription / Monthly (unlimited example)"
+                >
+                  <div class="feature-title">Unlimited Listings</div>
+                  <div class="feature-meta">Subscription alternative</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Subscription</span>
+                    <span class="tag">Unit: Monthly</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / month – unlimited behaviour still to be
+                    confirmed.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- B. Preference & Proposal Features -->
+              <div class="inline-label" style="margin-top: 10px">
+                B. Preference &amp; Proposal Features
+              </div>
+              <div class="feature-grid">
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Keep Wanted Property Info"
+                  data-billing="Paid Feature / Monthly or usage-based (TBC)"
+                >
+                  <div class="feature-title">Keep Wanted Property Info</div>
+                  <div class="feature-meta">
+                    Persist client requests longer or in more detail.
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Paid Feature</span>
+                    <span class="tag">Unit: To be confirmed</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / Placeholder. Exact model (monthly vs per
+                    record) to be confirmed with client.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Send Proposals – 50 credits"
+                  data-billing="Usage-based / Per credit pack"
+                >
+                  <div class="feature-title">Send Proposals – 50 credits</div>
+                  <div class="feature-meta">Usage-based example</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Usage-based</span>
+                    <span class="tag">Unit: Credit pack</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / 50 credits – usage thresholds and reset rules
+                    to be confirmed.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- C. CRM & Communication -->
+              <div class="inline-label" style="margin-top: 10px">
+                C. CRM &amp; Communication
+              </div>
+              <div class="feature-grid">
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Calendar"
+                  data-billing="Paid Feature / Monthly"
+                >
+                  <div class="feature-title">Calendar</div>
+                  <div class="feature-meta">
+                    Basic scheduling and reminders.
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Paid Feature</span>
+                    <span class="tag">Unit: Monthly</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / month – exact scope of calendar features to
+                    be confirmed.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="CRM Basic"
+                  data-billing="Paid Feature / Monthly"
+                >
+                  <div class="feature-title">CRM Basic</div>
+                  <div class="feature-meta">
+                    Simple contact &amp; pipeline management.
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Paid Feature</span>
+                    <span class="tag">Unit: Monthly</span>
+                  </div>
+                  <div class="feature-price">
+                    Price: ¥XXXX / month – placeholder. Detailed scope to be
+                    confirmed.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="CRM Behavioral Analysis"
+                  data-billing="Advanced / To be confirmed"
+                >
+                  <div class="feature-title">CRM Behavioral Analysis</div>
+                  <div class="feature-meta">
+                    More advanced analytics for client behaviour.
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Paid Feature</span>
+                    <span class="tag">Level: Advanced (label only)</span>
+                  </div>
+                  <div class="feature-price">
+                    Pricing model intentionally not set here.
+                    <span class="highlight">To be confirmed with client.</span>
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Message History Extension"
+                  data-billing="Paid Feature / Monthly or period-based (TBC)"
+                >
+                  <div class="feature-title">Message History Extension</div>
+                  <div class="feature-meta">
+                    Longer retention of own conversations (within privacy
+                    rules).
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Paid Feature</span>
+                    <span class="tag">Unit: Time period</span>
+                  </div>
+                  <div class="feature-price">
+                    Exact retention rules and what can be shown are subject to
+                    privacy constraints.
+                    <span class="highlight">To be confirmed with client.</span>
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- D. Marketing & Segmentation -->
+              <div class="inline-label" style="margin-top: 10px">
+                D. Marketing &amp; Segmentation
+              </div>
+              <div class="feature-grid">
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Segment Marketing Email"
+                  data-billing="Usage-based or subscription (TBC)"
+                >
+                  <div class="feature-title">Segment Marketing Email</div>
+                  <div class="feature-meta">Targeted email campaigns.</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Paid Feature</span>
+                    <span class="tag">Unit: Monthly / per volume (TBC)</span>
+                  </div>
+                  <div class="feature-price">
+                    Price and sending limits still open. Marked as “To be
+                    confirmed with client”.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Bulk Chat / DM"
+                  data-billing="Usage-based / Per message batch"
+                >
+                  <div class="feature-title">Bulk Chat / DM</div>
+                  <div class="feature-meta">
+                    Bulk outreach to existing contacts.
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Usage-based</span>
+                    <span class="tag">Unit: Message batches</span>
+                  </div>
+                  <div class="feature-price">
+                    Only a conceptual example. No fixed policy or limit is
+                    decided here.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="User Behavior Analysis"
+                  data-billing="Advanced / Analytics (TBC)"
+                >
+                  <div class="feature-title">User Behavior Analysis</div>
+                  <div class="feature-meta">
+                    Aggregated, privacy-safe analysis only.
+                  </div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Analytics</span>
+                    <span class="tag">Availability: To be confirmed</span>
+                  </div>
+                  <div class="feature-price">
+                    This is an analytics add-on. Exact exposure and metrics must
+                    be defined with client.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- E. Advertising & Promotion -->
+              <div class="inline-label" style="margin-top: 10px">
+                E. Advertising &amp; Promotion
+              </div>
+              <div class="feature-grid">
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Top Ranking in Agent Search"
+                  data-billing="Advertising / time slot"
+                >
+                  <div class="feature-title">Top Ranking in Agent Search</div>
+                  <div class="feature-meta">Advertising placement example.</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Advertising</span>
+                    <span class="tag">Unit: Time period</span>
+                  </div>
+                  <div class="feature-price">
+                    Exact ranking rules and fairness are intentionally not set
+                    here. To be confirmed with client.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Sponsored Property"
+                  data-billing="Advertising / per listing or period (TBC)"
+                >
+                  <div class="feature-title">Sponsored Property</div>
+                  <div class="feature-meta">Boosted listing visibility.</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Advertising</span>
+                    <span class="tag">Unit: To be confirmed</span>
+                  </div>
+                  <div class="feature-price">
+                    Can be per property or per time window. Model is not chosen
+                    yet.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="feature-card"
+                  data-portal="agent"
+                  data-name="Banner Ad"
+                  data-billing="Advertising / placement"
+                >
+                  <div class="feature-title">Banner Ad</div>
+                  <div class="feature-meta">Visual advertising example.</div>
+                  <div class="feature-tags">
+                    <span class="tag">Type: Advertising</span>
+                    <span class="tag">Unit: Placement/time</span>
+                  </div>
+                  <div class="feature-price">
+                    Inventory, pricing logic and targeting are all “To be
+                    confirmed with client”.
+                  </div>
+                  <div class="feature-footer">
+                    <button class="add-to-cart-btn">
+                      <span class="btn-line-main">Add to Cart</span>
+                      <span class="btn-line-sub">Demo Only – No Action</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AGENT CART & PAYMENT OPTIONS -->
+          <div>
+            <div class="cart-panel">
+              <div class="cart-title">Agent Portal Cart (Demo Only)</div>
+              <div class="cart-sub">
+                This cart is for illustrating how multiple paid items
+                (subscription, usage, advertising) could coexist before payment.
+                No actual charging is implied here.
+              </div>
+              <div class="cart-list" id="cart-agent-list">
+                <div class="cart-empty">
+                  No items yet. Use “Add to Cart” buttons on the left to fill
+                  this demo cart.
+                </div>
+              </div>
+              <div class="cart-footer">
+                <div>Subtotal (Demo): ¥XXXX – Placeholder only.</div>
+                <div class="tbc">
+                  Real currency handling, taxation and discounts are not defined
+                  here.
+                </div>
+
+                <div style="margin-top: 8px; font-size: 11px; font-weight: 600">
+                  Checkout Options (Demo)
+                </div>
+                <div class="payment-options">
+                  <div class="payment-card">
+                    <div class="payment-title">
+                      Option 1 – External Payment Gateway (Placeholder)
+                    </div>
+                    <div class="payment-desc">
+                      Represents card payment or other external gateway. No
+                      integration is active in this mockup. Exact providers and
+                      flows to be confirmed with client.
+                    </div>
+                    <div style="margin-top: 6px">
+                      <button disabled>
+                        <span class="btn-line-main"
+                          >Simulate Gateway Checkout</span
+                        >
+                        <span class="btn-line-sub">Demo Only – No Action</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="payment-card">
+                    <div class="payment-title">
+                      Option 2 – Company QR Code Payment (Placeholder)
+                    </div>
+                    <div class="payment-desc">
+                      Example where agents could scan a company-provided QR code
+                      for offline or alternative settlement. Actual QR behaviour
+                      is not specified.
+                    </div>
+                    <div class="qr-placeholder">QR<br />Placeholder</div>
+                    <div style="margin-top: 6px">
+                      <button disabled>
+                        <span class="btn-line-main"
+                          >Acknowledge QR Payment</span
+                        >
+                        <span class="btn-line-sub">Demo Only – No Action</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="small-note">
+                  Cart behaviour here: single cart per portal, items can be
+                  added and removed visually, but totals remain placeholders.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMIN PORTAL -->
+      <div class="portal-container" id="portal-admin">
+        <div class="portal-header">
+          <div class="portal-title">
+            Admin Portal – Monetisation Control &amp; Governance (Demo)
+          </div>
+          <div class="portal-sub">
+            Focuses on oversight, configuration and governance. Admin does not
+            purchase features here.
+          </div>
+        </div>
+
+        <div class="layout-single">
+          <div class="section">
+            <div class="section-title-row">
+              <div class="section-title">1. Monetisation Overview</div>
+              <div class="section-note">
+                High-level counts only – no personal details
+              </div>
+            </div>
+            <div class="two-col">
+              <div>
+                <div class="inline-label">
+                  Active Subscriptions (Example numbers)
+                </div>
+                <ul style="font-size: 11px; margin-left: 16px; margin-top: 3px">
+                  <li>Client subscriptions (if any): 0 – example</li>
+                  <li>Agent subscriptions: 1,200 – placeholder</li>
+                  <li>Support/Back-office subscriptions: 30 – placeholder</li>
+                </ul>
+              </div>
+              <div>
+                <div class="inline-label">
+                  Active Paid Features &amp; Advertising (Example)
+                </div>
+                <ul style="font-size: 11px; margin-left: 16px; margin-top: 3px">
+                  <li>Paid features in use: 8 types – placeholder</li>
+                  <li>Active advertising items: 120 – placeholder</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tbc">
+              Exact definitions of “active” and measurement windows to be
+              confirmed with client.
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title-row">
+              <div class="section-title">
+                2. Feature Control Table (Client / Agent / Support)
+              </div>
+              <div class="section-note">
+                Read-only matrix example – no toggles
+              </div>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Feature name</th>
+                  <th>Feature type</th>
+                  <th>Availability (Client / Agent / Support)</th>
+                  <th>Billing model</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Extended Message History</td>
+                  <td>Paid Feature</td>
+                  <td>Client: Yes / Agent: Yes / Support: No direct use</td>
+                  <td>Time period or subscription (TBC)</td>
+                  <td>
+                    Exact retention rules must respect privacy and compliance.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Property Status Insights</td>
+                  <td>Paid Feature</td>
+                  <td>
+                    Client: Yes / Agent: Read-only aggregated / Support:
+                    Analytics only
+                  </td>
+                  <td>Usage or monthly (TBC)</td>
+                  <td>
+                    Admin only sees aggregated analytics, not personal message
+                    content.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Segment Marketing Email</td>
+                  <td>Paid Feature</td>
+                  <td>Client: No / Agent: Yes / Support: Operations only</td>
+                  <td>Volume or subscription (TBC)</td>
+                  <td>
+                    Rules for opt-in, unsubscribe and rate limits to be
+                    confirmed.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Sponsored Property</td>
+                  <td>Advertising</td>
+                  <td>
+                    Client: View only / Agent: Purchaser / Support: Reviewer
+                  </td>
+                  <td>Placement / time-based</td>
+                  <td>
+                    Ranking logic and fairness policy are not decided in this
+                    mockup.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Top Ranking in Agent Search</td>
+                  <td>Advertising</td>
+                  <td>
+                    Client: View only / Agent: Purchaser / Support: Compliance
+                  </td>
+                  <td>Time slot (TBC)</td>
+                  <td>
+                    Needs clear disclosure rules. Marked “To be confirmed with
+                    client”.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="small-note">
+              This table is explanatory only. Final feature list, billing model
+              and availability per role must be defined in product workshops.
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title-row">
+              <div class="section-title">
+                3. Cart &amp; Payment Governance (Text Only)
+              </div>
+              <div class="section-note">
+                Explains behaviour; does not execute it
+              </div>
+            </div>
+            <div class="note-block">
+              <strong>Cart behaviour (high-level explanation)</strong>
+              <ul style="font-size: 11px; margin-left: 16px; margin-top: 4px">
+                <li>
+                  Each portal (Client / Agent / Admin tools) uses its own visual
+                  cart in this mockup.
+                </li>
+                <li>
+                  The real system may share technical components, but policy is
+                  not decided here.
+                </li>
+                <li>
+                  A cart can contain: subscriptions, one-off paid features,
+                  usage-based packs and advertising items at the same time.
+                </li>
+              </ul>
+            </div>
+            <div class="note-block" style="margin-top: 6px">
+              <strong>Payment methods (configuration-level view)</strong>
+              <ul style="font-size: 11px; margin-left: 16px; margin-top: 4px">
+                <li>
+                  Available payment methods (gateway, QR, bank transfer, etc.)
+                  are configurable from system settings.
+                </li>
+                <li>
+                  Which method is allowed for which portal or plan is
+                  <span class="highlight">to be confirmed with client</span>.
+                </li>
+                <li>
+                  This screen only describes options; no actual method is
+                  enforced by this HTML.
+                </li>
+              </ul>
+            </div>
+            <div class="note-block" style="margin-top: 6px">
+              <strong>Auto-renew &amp; notifications</strong>
+              <ul style="font-size: 11px; margin-left: 16px; margin-top: 4px">
+                <li>
+                  Admin can configure whether subscriptions use auto-renew in
+                  principle.
+                </li>
+                <li>
+                  Notification timing (e.g. days before renewal) is not defined
+                  here and must be agreed with client.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title-row">
+              <div class="section-title">4. Badge Overview (Display only)</div>
+              <div class="section-note">
+                Badges shown here are examples only
+              </div>
+            </div>
+            <div class="badge-row">
+              <div class="badge-card">
+                <div class="badge-name">Subscription-based Badge</div>
+                <div class="note-block">
+                  Example: “Premium Agent” badge tied to subscription level.
+                </div>
+                <div class="tbc">
+                  Exact mapping to plans is not defined in this mockup.
+                </div>
+              </div>
+              <div class="badge-card">
+                <div class="badge-name">Performance Badge</div>
+                <div class="note-block">
+                  Example: “High Response Rate” or “Top Rated”.
+                </div>
+                <div class="tbc">
+                  Metrics, thresholds and review periods are still to be
+                  confirmed with client.
+                </div>
+              </div>
+              <div class="badge-card">
+                <div class="badge-name">Manual Badge</div>
+                <div class="note-block">
+                  Example: “Verified Partner” or “Compliance Verified” assigned
+                  by admin.
+                </div>
+                <div class="tbc">
+                  Rules for manual assignment and removal must be documented
+                  later.
+                </div>
+              </div>
+            </div>
+            <div class="small-note" style="margin-top: 6px">
+              For clarity:
+              <strong>Badge rules not defined in this mockup.</strong> This
+              section only shows the categories admins may manage.
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title-row">
+              <div class="section-title">5. Governance Notes</div>
+              <div class="section-note">Privacy, scope and limitations</div>
+            </div>
+            <ul style="font-size: 11px; margin-left: 16px; margin-top: 4px">
+              <li>
+                Admin <strong>does NOT</strong> access private agent–client
+                message content through monetisation screens.
+              </li>
+              <li>
+                All analytics and monetisation views for messages are strictly
+                aggregated or anonymised where required.
+              </li>
+              <li>
+                Admin manages configurations only: which features exist, who can
+                see them, and high-level thresholds.
+              </li>
+              <li>
+                Actual enforcement of business rules will depend on contracts
+                and compliance review with the client.
+              </li>
+            </ul>
+            <div class="tbc">
+              Any additional governance requirement (e.g. data retention,
+              jurisdiction-specific rules) must be confirmed with client and
+              legal teams.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const tabs = document.querySelectorAll(".portal-tab");
+        const portals = {
+          client: document.getElementById("portal-client"),
+          agent: document.getElementById("portal-agent"),
+          admin: document.getElementById("portal-admin"),
+        };
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const portal = tab.getAttribute("data-portal");
+            tabs.forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
+            Object.keys(portals).forEach((key) => {
+              portals[key].classList.toggle("active", key === portal);
+            });
+          });
+        });
+
+        const carts = {
+          client: [],
+          agent: [],
+          admin: [], // kept for conceptual completeness; admin portal does not add items here
+        };
+
+        const cartLists = {
+          client: document.getElementById("cart-client-list"),
+          agent: document.getElementById("cart-agent-list"),
+          admin: null,
+        };
+
+        function renderCart(portalKey) {
+          const listEl = cartLists[portalKey];
+          if (!listEl) return;
+          const items = carts[portalKey];
+
+          listEl.innerHTML = "";
+          if (!items.length) {
+            const div = document.createElement("div");
+            div.className = "cart-empty";
+            div.textContent =
+              "No items yet. Use “Add to Cart” buttons to fill this demo cart.";
+            listEl.appendChild(div);
+            return;
+          }
+
+          items.forEach((item, index) => {
+            const row = document.createElement("div");
+            row.className = "cart-item";
+
+            const main = document.createElement("div");
+            main.className = "cart-item-main";
+            const name = document.createElement("div");
+            name.className = "cart-item-name";
+            name.textContent = item.name;
+            const meta = document.createElement("div");
+            meta.className = "cart-item-meta";
+            meta.textContent = item.billing;
+            main.appendChild(name);
+            main.appendChild(meta);
+
+            const actions = document.createElement("div");
+            actions.className = "cart-item-actions";
+
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "secondary";
+            removeBtn.type = "button";
+            removeBtn.addEventListener("click", () => {
+              carts[portalKey].splice(index, 1);
+              renderCart(portalKey);
+            });
+            const lineMain = document.createElement("span");
+            lineMain.className = "btn-line-main";
+            lineMain.textContent = "Remove from Cart";
+            const lineSub = document.createElement("span");
+            lineSub.className = "btn-line-sub";
+            lineSub.textContent = "Demo Only – No Action";
+            removeBtn.appendChild(lineMain);
+            removeBtn.appendChild(lineSub);
+
+            actions.appendChild(removeBtn);
+
+            row.appendChild(main);
+            row.appendChild(actions);
+
+            listEl.appendChild(row);
+          });
+        }
+
+        document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const card = btn.closest(".feature-card");
+            if (!card) return;
+            const portal = card.getAttribute("data-portal") || "agent";
+            const name =
+              card.getAttribute("data-name") || "Unnamed feature (demo)";
+            const billing =
+              card.getAttribute("data-billing") || "Billing model placeholder";
+
+            if (!carts[portal]) {
+              carts[portal] = [];
+            }
+            carts[portal].push({ name, billing });
+            renderCart(portal);
+          });
+        });
+
+        renderCart("client");
+        renderCart("agent");
+      })();
+    </script>
+  </body>
+</html>
