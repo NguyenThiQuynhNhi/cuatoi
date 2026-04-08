@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mortgage Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <script
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&display=swap");
+
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+      }
+      h1 {
+        font-family: "Playfair Display", serif;
+      }
+      .tooltip {
+        position: relative;
+        display: inline-block;
+      }
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 260px;
+        background-color: #111827;
+        color: #fff;
+        text-align: center;
+        border-radius: 8px;
+        padding: 12px;
+        position: absolute;
+        z-index: 50;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -130px;
+        opacity: 0;
+        transition: all 0.2s ease;
+        font-size: 12px;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+        pointer-events: none;
+      }
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+      .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -8px;
+        border: 8px solid transparent;
+        border-top-color: #111827;
+      }
+    </style>
+  </head>
+  <body class="bg-white min-h-screen">
+    <div
+      class="min-h-screen bg-white p-4 sm:p-8 font-sans text-gray-800"
+      x-data="mortgageCalculator()"
+    >
+      <div class="max-w-7xl mx-auto">
+        <h1 class="text-5xl font-serif text-[#1a1a1a] mb-10">
+          Mortgage Calculator
+        </h1>
+
+        <!-- Tabs -->
+        <div class="flex space-x-1 mb-0">
+          <button
+            class="px-8 py-3 text-sm font-semibold text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            Monthly Payment Amount
+          </button>
+          <button
+            class="px-8 py-3 text-sm font-semibold bg-[#b09b71] text-white rounded-t-lg"
+          >
+            Affordable Purchase Price
+          </button>
+        </div>
+
+        <!-- Main Container -->
+        <div
+          class="grid grid-cols-1 lg:grid-cols-2 border border-gray-200 rounded-b-xl rounded-tr-xl overflow-hidden shadow-sm"
+        >
+          <!-- Left Section: Inputs -->
+          <div class="p-10 bg-[#f9f9f9] border-r border-gray-200">
+            <div class="mb-8">
+              <label class="block text-sm font-medium text-gray-500 mb-3"
+                >Repayment amount (monthly)</label
+              >
+              <div class="relative">
+                <input
+                  type="number"
+                  x-model.number="monthlyRepayment"
+                  @input="calculateResults"
+                  class="w-full p-4 bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#b09b71] outline-none transition-all text-lg"
+                />
+                <span
+                  class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
+                  >¥</span
+                >
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <label class="block text-sm font-medium text-gray-500 mb-3"
+                >Down Payment</label
+              >
+              <div class="relative">
+                <input
+                  type="number"
+                  x-model.number="downPayment"
+                  @input="calculateResults"
+                  class="w-full p-4 bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#b09b71] outline-none transition-all text-lg"
+                />
+                <span
+                  class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
+                  >¥</span
+                >
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8 mb-10">
+              <div>
+                <label class="block text-sm font-medium text-gray-500 mb-3"
+                  >Repayment Period</label
+                >
+                <div class="relative">
+                  <input
+                    type="number"
+                    x-model.number="periodYears"
+                    @input="calculateResults"
+                    class="w-full p-4 bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#b09b71] outline-none transition-all text-lg"
+                  />
+                  <span
+                    class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
+                    >year</span
+                  >
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-500 mb-3"
+                  >Loan Interest Rate</label
+                >
+                <div class="relative">
+                  <input
+                    type="number"
+                    step="0.1"
+                    x-model.number="interestRate"
+                    @input="calculateResults"
+                    class="w-full p-4 bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#b09b71] outline-none transition-all text-lg"
+                  />
+                  <span
+                    class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
+                    >%</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Advanced Toggle Section -->
+            <div class="mt-8 pt-6 border-t border-gray-200">
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-cog text-[#b09b71]"></i>
+                  <span
+                    class="text-sm font-bold text-gray-700 uppercase tracking-wide"
+                    >Advanced Payment Options</span
+                  >
+                </div>
+                <button
+                  @click="isBonusActive = !isBonusActive"
+                  class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none"
+                  :class="isBonusActive ? 'bg-[#b09b71]' : 'bg-gray-200'"
+                >
+                  <span
+                    class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
+                    :class="isBonusActive ? 'translate-x-6' : 'translate-x-1'"
+                  ></span>
+                </button>
+              </div>
+
+              <div x-show="isBonusActive" x-transition class="overflow-hidden">
+                <div
+                  class="p-6 bg-white border border-gray-200 rounded-xl shadow-sm space-y-6"
+                >
+                  <!-- Fixed Amount (linked to percentage) -->
+                  <div>
+                    <div class="flex items-center space-x-1 mb-2 mt-4">
+                      <label
+                        class="block text-xs font-bold text-gray-400 uppercase tracking-widest"
+                        >Bonus Payment</label
+                      >
+                    </div>
+
+                    <div class="relative">
+                      <input
+                        type="number"
+                        x-model.number="bonusAmount"
+                        @input="bonusInputSource = 'fixed'; calculateResults()"
+                        class="w-full p-3 bg-gray-50 border border-gray-100 rounded-lg focus:ring-1 focus:ring-[#b09b71] outline-none font-bold"
+                      />
+                      <span
+                        class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
+                        >¥</span
+                      >
+                    </div>
+                  </div>
+
+                  <!-- Percentage controls (slider + input)
+                  <div>
+                    <label
+                      class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2"
+                      >(Max 50%)</label
+                    >
+                    <div class="flex items-center space-x-4">
+                      <input
+                        type="range"
+                        min="0"
+                        max="50"
+                        step="1"
+                        x-model.number="bonusPercent"
+                        @input="bonusInputSource = 'percent'; calculateResults()"
+                        class="w-full accent-[#b09b71]"
+                      />
+                      <div class="relative w-24">
+                        <input
+                          type="number"
+                          min="0"
+                          max="50"
+                          x-model.number="bonusPercent"
+                          @input="bonusInputSource = 'percent'; calculateResults()"
+                          class="w-full p-2 bg-gray-50 border border-gray-100 rounded-lg focus:ring-1 focus:ring-[#b09b71] outline-none font-bold text-right"
+                        />
+                        <span
+                          class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 text-xs"
+                          >%</span
+                        >
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- Error -->
+                  <div
+                    x-show="error"
+                    class="flex items-center text-red-500 text-xs bg-red-50 p-3 rounded-lg border border-red-100"
+                  >
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span x-text="error"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              @click="calculateResults"
+              class="w-full mt-10 py-5 bg-[#b09b71] text-white font-bold text-xl rounded-lg shadow-md hover:bg-[#9d8a64] transition-all active:scale-95"
+            >
+              Calculate
+            </button>
+          </div>
+
+          <!-- Right Section: Results -->
+          <div
+            class="p-12 flex flex-col justify-center items-center text-center bg-white"
+          >
+            <div class="space-y-12 w-full max-w-md">
+              <div>
+                <p class="text-gray-500 text-lg mb-2">Loan limit</p>
+                <p class="text-6xl font-bold tracking-tight text-[#1a1a1a]">
+                  <span class="text-2xl mr-2 font-medium">¥</span>
+                  <span
+                    x-text="loanLimit.toLocaleString('en-US', {maximumFractionDigits: 0})"
+                  ></span>
+                </p>
+              </div>
+
+              <div>
+                <p class="text-gray-500 text-lg mb-2">
+                  Available purchase amount
+                </p>
+                <p
+                  class="text-7xl font-bold tracking-tighter"
+                  :class="error ? 'text-gray-200' : 'text-[#d64545]'"
+                >
+                  <span class="text-3xl mr-2 font-medium">¥</span>
+                  <span
+                    x-text="availablePurchase.toLocaleString('en-US', {maximumFractionDigits: 0})"
+                  ></span>
+                </p>
+              </div>
+
+              <p
+                class="text-sm text-gray-400 leading-relaxed pt-8 border-t border-gray-100"
+              >
+                The actual borrowing amount may vary depending on annual income,
+                interest rate type, and loan approval.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function mortgageCalculator() {
+        return {
+          // Basic States
+          monthlyRepayment: 4500,
+          downPayment: 200000,
+          periodYears: 30,
+          interestRate: 4.5,
+
+          // Advanced Bonus States
+          isBonusActive: false,
+          bonusAmount: 18000,
+          bonusPercent: 20,
+          bonusInputSource: "percent", // 'percent' | 'fixed'
+
+          // Output States
+          loanLimit: 0,
+          availablePurchase: 0,
+          error: "",
+
+          calculateResults() {
+            this.error = "";
+
+            const r_m = this.interestRate / 100 / 12;
+            const n_m = this.periodYears * 12;
+
+            if (r_m === 0 || n_m === 0) {
+              this.loanLimit = 0;
+              this.availablePurchase = this.downPayment;
+              return;
+            }
+
+            // Monthly Portion Loan Limit
+            const pvFactorMonthly = (1 - Math.pow(1 + r_m, -n_m)) / r_m;
+            const loanLimitMonthly = this.monthlyRepayment * pvFactorMonthly;
+
+            let totalLoanLimit = 0;
+            let loanLimitBonus = 0;
+
+            if (!this.isBonusActive) {
+              totalLoanLimit = loanLimitMonthly;
+              this.bonusAmount = 0;
+              this.bonusPercent = 0;
+            } else {
+              // 2 bonus payments per year
+              const r_b = this.interestRate / 100 / 2;
+              const n_b = this.periodYears * 2;
+              const pvFactorBonus = (1 - Math.pow(1 + r_b, -n_b)) / r_b;
+
+              if (this.bonusInputSource === "percent") {
+                const pctDecimal = this.bonusPercent / 100;
+                if (pctDecimal >= 0.5001) {
+                  this.error = "Bonus allocation cannot exceed 50%.";
+                  return;
+                }
+
+                totalLoanLimit = loanLimitMonthly / (1 - pctDecimal);
+                loanLimitBonus = totalLoanLimit * pctDecimal;
+
+                // Sync fixed amount from percent
+                this.bonusAmount = loanLimitBonus / pvFactorBonus;
+              } else {
+                // Source is fixed amount, derive percent share
+                loanLimitBonus = this.bonusAmount * pvFactorBonus;
+                totalLoanLimit = loanLimitMonthly + loanLimitBonus;
+
+                const pctDecimal =
+                  totalLoanLimit > 0 ? loanLimitBonus / totalLoanLimit : 0;
+
+                if (pctDecimal >= 0.5001) {
+                  this.error =
+                    "Bonus repayment cannot exceed 50% of the total loan amount.";
+                  return;
+                }
+
+                this.bonusPercent = pctDecimal * 100;
+              }
+            }
+
+            this.loanLimit = totalLoanLimit;
+            this.availablePurchase = totalLoanLimit + this.downPayment;
+          },
+
+          init() {
+            // Tính toán ngay khi load
+            this.$nextTick(() => {
+              this.calculateResults();
+            });
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

@@ -1029,6 +1029,11 @@
         background: var(--gray-100);
         border-radius: 6px;
       }
+      .upload-preview.is-avatar {
+        border: 1.5px dashed var(--gray-300);
+        background: var(--gray-50);
+        min-height: 30px;
+      }
 
       .suggest-wrap {
         position: relative;
@@ -1078,6 +1083,120 @@
         font-size: 11px;
         font-weight: 600;
       }
+      .doctor-chip .remove {
+        border: none;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font-size: 12px;
+        line-height: 1;
+        opacity: 0.75;
+      }
+      .doctor-chip .remove:hover {
+        opacity: 1;
+      }
+
+      .work-time-display {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .work-time-summary {
+        flex: 1;
+        min-height: 34px;
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        color: var(--gray-700);
+        font-size: 12px;
+      }
+
+      .schedule-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 280;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+      }
+      .schedule-modal-backdrop.open {
+        display: flex;
+      }
+      .schedule-modal {
+        width: min(760px, 100%);
+        background: white;
+        border-radius: 10px;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--gray-200);
+      }
+      .schedule-modal-header {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--gray-200);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .schedule-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+      .schedule-modal-body {
+        padding: 14px 16px;
+      }
+      .schedule-top-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+      }
+      .schedule-row {
+        display: grid;
+        grid-template-columns: 120px 1fr 26px 1fr;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .schedule-row:last-child {
+        margin-bottom: 0;
+      }
+      .schedule-day {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .schedule-row .to-label {
+        text-align: center;
+        font-size: 11px;
+        color: var(--gray-500);
+      }
+      .schedule-time {
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 8px;
+        font-size: 12px;
+        font-family: inherit;
+      }
+      .schedule-time:disabled {
+        background: var(--gray-100);
+        color: var(--gray-400);
+        cursor: not-allowed;
+      }
+      .schedule-modal-actions {
+        padding: 12px 16px;
+        border-top: 1px solid var(--gray-200);
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+      }
 
       .work-schedule {
         grid-column: 1 / -1;
@@ -1122,6 +1241,195 @@
         margin-top: 20px;
         padding-top: 16px;
         border-top: 1px solid var(--gray-200);
+      }
+
+      .detail-hero {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid var(--gray-200);
+        border-radius: 12px;
+        background: linear-gradient(135deg, #fbf9ff 0%, #f3edff 100%);
+        margin-bottom: 14px;
+      }
+      .detail-avatar {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 25%,
+          #ffffff 0%,
+          #e7defc 65%,
+          #c4b0ec 100%
+        );
+        border: 2px solid #d8c8f6;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 700;
+        flex-shrink: 0;
+        box-shadow: 0 4px 14px rgba(108, 63, 197, 0.22);
+      }
+      .detail-avatar svg {
+        width: 30px;
+        height: 30px;
+      }
+      .detail-hero-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+      .detail-hero-rating {
+        margin-top: 4px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: #f59e0b;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .detail-layout {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr;
+        gap: 14px;
+      }
+      .detail-col {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .detail-card {
+        border: 1px solid var(--gray-200);
+        border-radius: 12px;
+        background: white;
+        padding: 14px;
+        box-shadow: 0 3px 10px rgba(108, 63, 197, 0.06);
+      }
+      .detail-card-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 10px;
+        letter-spacing: 0.01em;
+      }
+
+      .basic-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .basic-item {
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 9px 10px;
+        min-height: 56px;
+        background: #fcfbff;
+      }
+      .basic-item-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--gray-500);
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .basic-item-value {
+        margin-top: 4px;
+        color: var(--gray-900);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .intro-box {
+        background: linear-gradient(180deg, #fcfbff 0%, #f8f5ff 100%);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 12px;
+        color: var(--gray-700);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+      .detail-row {
+        margin-top: 10px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--gray-700);
+      }
+      .detail-row-label {
+        font-weight: 700;
+        color: var(--gray-700);
+        min-width: 120px;
+      }
+      .detail-link {
+        color: var(--primary);
+        text-decoration: underline;
+        font-weight: 600;
+      }
+
+      .doctor-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .doctor-count {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        border-radius: 999px;
+        background: var(--primary-light);
+        color: var(--primary);
+        border: 1px solid var(--primary-mid);
+        padding: 3px 8px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .doctor-detail-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .doctor-detail-item {
+        width: 100%;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        background: #fcfbff;
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--gray-700);
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .doctor-detail-item:hover {
+        border-color: var(--primary-mid);
+        color: var(--primary);
+      }
+
+      .time-card {
+        background: linear-gradient(165deg, #f5eeff 0%, #fff 70%);
+        border-color: #dccdf9;
+      }
+      .time-main {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--primary);
+      }
+      .time-days {
+        margin-top: 6px;
+        color: var(--gray-600);
+        font-size: 12px;
       }
 
       .page {
@@ -1193,6 +1501,15 @@
           grid-template-columns: 1fr;
         }
         .work-row {
+          grid-template-columns: 1fr;
+        }
+        .schedule-row {
+          grid-template-columns: 1fr;
+        }
+        .detail-layout {
+          grid-template-columns: 1fr;
+        }
+        .basic-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -2795,22 +3112,323 @@
 
         <div class="card">
           <div class="card-body">
+            <div class="detail-hero">
+              <div class="detail-avatar" aria-hidden="true">L</div>
+              <div>
+                <div class="detail-hero-title">Bệnh viện Lotus Prime</div>
+                <div class="detail-hero-rating">
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="m12 2.5 2.96 6 6.62.96-4.79 4.67 1.13 6.6L12 17.62l-5.92 3.11 1.13-6.6L2.42 9.46l6.62-.96L12 2.5z"
+                    />
+                  </svg>
+                  4.8
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-layout">
+              <div class="detail-col">
+                <div class="detail-card">
+                  <div
+                    class="detail-card-title"
+                    style="text-transform: uppercase"
+                  >
+                    Thông tin cơ bản
+                  </div>
+                  <div class="basic-grid">
+                    <div class="basic-item">
+                      <div class="basic-item-label">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"
+                          />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        Địa chỉ
+                      </div>
+                      <div class="basic-item-value">
+                        Thành phố Hồ Chí Minh, Việt Nam
+                      </div>
+                    </div>
+                    <div class="basic-item">
+                      <div class="basic-item-label">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                          />
+                          <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                        Mã số ĐKKD
+                      </div>
+                      <div class="basic-item-value">000000000</div>
+                    </div>
+                    <div class="basic-item">
+                      <div class="basic-item-label">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Người phụ trách
+                      </div>
+                      <div class="basic-item-value">Trần Văn A</div>
+                    </div>
+                    <div class="basic-item">
+                      <div class="basic-item-label">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.11 4.18 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.47-1.17a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"
+                          />
+                        </svg>
+                        SĐT người phụ trách
+                      </div>
+                      <div class="basic-item-value">000-1111-222</div>
+                    </div>
+                    <div class="basic-item">
+                      <div class="basic-item-label">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Người đại diện
+                      </div>
+                      <div class="basic-item-value">Nguyễn Văn B</div>
+                    </div>
+                    <div class="basic-item">
+                      <div class="basic-item-label">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.11 4.18 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.47-1.17a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92z"
+                          />
+                        </svg>
+                        SĐT người đại diện
+                      </div>
+                      <div class="basic-item-value">000-1111-222</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-card">
+                  <div
+                    class="detail-card-title"
+                    style="text-transform: uppercase"
+                  >
+                    Giới thiệu bệnh viện
+                  </div>
+                  <div class="intro-box">
+                    Bệnh viện cung cấp dịch vụ khám và điều trị thẩm mỹ chuyên
+                    sâu, tập trung các chuyên khoa nội khoa, ngoại khoa và nhi
+                    khoa. Đội ngũ bác sĩ giàu kinh nghiệm, quy trình vận hành
+                    theo tiêu chuẩn an toàn và chất lượng.
+                  </div>
+                  <div class="detail-row">
+                    <div class="detail-row-label">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        style="vertical-align: -2px; margin-right: 4px"
+                      >
+                        <path
+                          d="M11 2a4 4 0 0 1 4 4v4a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"
+                        />
+                        <path d="M15 8h2a3 3 0 0 1 0 6h-2" />
+                        <circle cx="18" cy="17" r="3" />
+                        <path d="M15 17h-1.5a4.5 4.5 0 0 1-4.5-4.5" />
+                      </svg>
+                      Hạng mục điều trị
+                    </div>
+                    <div>Nội khoa, Ngoại khoa, Nhi khoa</div>
+                  </div>
+                  <div class="detail-row">
+                    <div class="detail-row-label">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        style="vertical-align: -2px; margin-right: 4px"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <path
+                          d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                        />
+                      </svg>
+                      Trang chủ
+                    </div>
+                    <a
+                      class="detail-link"
+                      href="https://www.hospital-a.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >www.hospital-a.com</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="detail-col">
+                <div class="detail-card">
+                  <div class="doctor-card-header">
+                    <div
+                      class="detail-card-title"
+                      style="margin: 0; text-transform: uppercase"
+                    >
+                      Đội ngũ y bác sĩ
+                    </div>
+                    <span class="doctor-count">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>
+                      1 Bác sĩ
+                    </span>
+                  </div>
+                  <ul class="doctor-detail-list">
+                    <li>
+                      <button
+                        class="doctor-detail-item"
+                        type="button"
+                        onclick="
+                          window.location.href = 'doctor-management.html'
+                        "
+                      >
+                        <span>Bác sĩ D</span><span>&gt;</span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="detail-card time-card">
+                  <div
+                    class="detail-card-title"
+                    style="text-transform: uppercase"
+                  >
+                    Thời gian hoạt động
+                  </div>
+                  <div class="time-main">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    08:00 AM - 08:00 PM
+                  </div>
+                  <div class="time-days">Thứ 2 - Thứ 6</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-ghost" onclick="goPage('list')">Đóng</button>
+          <button class="btn btn-outline-primary" onclick="goEdit()">
+            Sửa
+          </button>
+        </div>
+      </main>
+
+      <main class="main page" id="page-form">
+        <div class="breadcrumb">
+          <span class="bc-link" onclick="goPage('list')"
+            >Danh sách bệnh viện</span
+          >
+          <span class="bc-sep">/</span>
+          <span class="bc-current" id="form-bc-current"
+            >Thêm mới bệnh viện</span
+          >
+        </div>
+        <div class="page-title" id="form-page-title">Thêm mới bệnh viện</div>
+        <div class="card">
+          <div class="card-body">
             <div class="form-grid">
-              <!-- Hàng 1: Tên BV & Ảnh đại diện -->
               <div class="form-group">
                 <label class="form-label"
-                  >Tên bệnh viện <span class="req">*</span></label
-                ><input
+                  >Tên Bệnh viện <span class="req">*</span></label
+                >
+                <input
                   class="form-input"
-                  id="f-hospital-name"
+                  id="hf-name"
                   placeholder="Nhập nội dung"
-                  value="BV Thẩm mỹ Lotus Prime"
                 />
               </div>
               <div class="form-group">
                 <label class="form-label">Ảnh đại diện</label>
                 <div class="upload-btn-wrap">
-                  <button class="btn btn-danger btn-sm">
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm"
+                    onclick="handleHospitalAvatarUpload()"
+                  >
                     <svg
                       width="12"
                       height="12"
@@ -2825,168 +3443,143 @@
                     </svg>
                     Tải ảnh
                   </button>
-                  <div class="upload-preview" id="avatar-preview">
-                    hospital-avatar.jpg
-                  </div>
                 </div>
               </div>
 
-              <!-- Hàng 2: Địa chỉ & SĐT người đại diện -->
               <div class="form-group">
                 <label class="form-label"
                   >Địa chỉ <span class="req">*</span></label
-                ><input
+                >
+                <input
                   class="form-input"
-                  id="f-address"
+                  id="hf-address"
                   placeholder="Nhập nội dung"
-                  value="88 Nguyễn Huệ, Quận 1, TP.HCM"
                 />
               </div>
               <div class="form-group">
                 <label class="form-label"
                   >SĐT người đại diện <span class="req">*</span></label
-                ><input
+                >
+                <input
                   class="form-input"
-                  id="f-rep-phone"
-                  placeholder="Nhập nội dung"
-                  value="0912-345-678"
+                  id="hf-rep-phone"
+                  placeholder="000-0000-000"
                 />
               </div>
 
-              <!-- Hàng 3: Mã số ĐKKD & Tên người đại diện -->
               <div class="form-group">
                 <label class="form-label"
                   >Mã số ĐKKD <span class="req">*</span></label
-                ><input
+                >
+                <input
                   class="form-input"
-                  id="f-reg-code"
-                  placeholder="Nhập nội dung"
-                  value="0312345678"
+                  id="hf-reg-code"
+                  placeholder="000000"
                 />
               </div>
               <div class="form-group">
                 <label class="form-label"
                   >Tên người đại diện <span class="req">*</span></label
-                ><input
+                >
+                <input
                   class="form-input"
-                  id="f-rep-name"
+                  id="hf-rep-name"
                   placeholder="Nhập nội dung"
-                  value="Lê Quang H"
                 />
               </div>
 
-              <!-- Hàng 4: Tên người phụ trách & SĐT người phụ trách -->
               <div class="form-group">
                 <label class="form-label"
                   >Tên người phụ trách <span class="req">*</span></label
-                ><input
+                >
+                <input
                   class="form-input"
-                  id="f-manager-name"
-                  placeholder="Nhập nội dung"
-                  value="Nguyễn Minh K"
+                  id="hf-manager-name"
+                  placeholder="Tran Van A"
                 />
               </div>
               <div class="form-group">
                 <label class="form-label"
                   >SĐT người phụ trách <span class="req">*</span></label
-                ><input
+                >
+                <input
                   class="form-input"
-                  id="f-manager-phone"
-                  placeholder="Nhập nội dung"
-                  value="0901-111-222"
+                  id="hf-manager-phone"
+                  placeholder="000-0000-000"
                 />
               </div>
 
-              <!-- Hàng 5: Giới thiệu bệnh viện & Đội ngũ bác sĩ -->
               <div class="form-group">
-                <label class="form-label">Giới thiệu bệnh viện</label
-                ><textarea
+                <label class="form-label">Giới thiệu bệnh viện</label>
+                <textarea
                   class="form-input"
-                  rows="4"
-                  id="f-intro"
-                  placeholder="Nhập nội dung"
-                >
-Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc tế, đội ngũ bác sĩ giàu kinh nghiệm.</textarea
-                >
-              </div>
-              <div class="form-group">
-                <label class="form-label">Đội ngũ bác sĩ</label>
-                <div>
-                  <input
-                    class="form-input"
-                    id="doctor-input"
-                    placeholder="Nhập nội dung"
-                  />
-                  <div
-                    class="doctor-links"
-                    id="doctor-links"
-                    style="
-                      margin-top: 8px;
-                      display: flex;
-                      flex-wrap: wrap;
-                      gap: 6px;
-                    "
-                  >
-                    <span class="doctor-chip">Dr. Nguyễn A</span>
-                    <span class="doctor-chip">Dr. Trần B</span>
-                    <span class="doctor-chip">Dr. Phạm C</span>
-                  </div>
-                  <button
-                    class="btn btn-danger btn-sm"
-                    style="margin-top: 8px"
-                    onclick="addDoctorLink()"
-                  >
-                    THÊM THÔNG TIN (+)
-                  </button>
-                </div>
-              </div>
-
-              <!-- Hàng 6: Thông tin bác sĩ & Hạng mục điều trị -->
-              <div class="form-group">
-                <label class="form-label">Thông tin bác sĩ</label
-                ><textarea
-                  class="form-input"
-                  rows="4"
-                  id="f-doctor-info"
+                  rows="3"
+                  id="hf-intro"
                   placeholder="Nhập nội dung"
                 ></textarea>
               </div>
               <div class="form-group">
+                <label class="form-label">Đội ngũ y bác sĩ</label>
+                <input
+                  class="form-input"
+                  id="hf-doctor-input"
+                  placeholder="Danh sách bác sĩ đã liên kết"
+                  readonly
+                />
+                <div class="doctor-links" id="hf-doctor-tags"></div>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  type="button"
+                  onclick="addHospitalDoctorTag()"
+                >
+                  Thêm thông tin (+)
+                </button>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Thông tin bác sĩ</label>
+                <input
+                  class="form-input"
+                  id="hf-doctor-info"
+                  placeholder="Nhập nội dung"
+                />
+              </div>
+              <div class="form-group">
                 <label class="form-label">Hạng mục điều trị</label>
-                <div class="suggest-wrap" id="suggest-wrap">
+                <div class="suggest-wrap" id="hf-suggest-wrap">
                   <input
                     class="form-input"
-                    id="treatment-input"
+                    id="hf-treatment-input"
                     placeholder="Nhập nội dung"
-                    oninput="handleTreatmentInput()"
-                    onfocus="openSuggest()"
+                    oninput="handleHospitalTreatmentInput()"
+                    onfocus="openHospitalSuggest()"
                   />
-                  <div class="suggest-list" id="suggest-list">
+                  <div class="suggest-list" id="hf-suggest-list">
                     <button
                       class="suggest-item"
                       type="button"
-                      onclick="pickSuggest('Điều trị nám da')"
+                      onclick="pickHospitalSuggest('Điều trị nám da')"
                     >
                       Điều trị nám da
                     </button>
                     <button
                       class="suggest-item"
                       type="button"
-                      onclick="pickSuggest('Phẫu thuật thẩm mỹ')"
+                      onclick="pickHospitalSuggest('Phẫu thuật thẩm mỹ')"
                     >
                       Phẫu thuật thẩm mỹ
                     </button>
                     <button
                       class="suggest-item"
                       type="button"
-                      onclick="pickSuggest('Nha khoa thẩm mỹ')"
+                      onclick="pickHospitalSuggest('Nha khoa thẩm mỹ')"
                     >
                       Nha khoa thẩm mỹ
                     </button>
                     <button
                       class="suggest-item"
                       type="button"
-                      onclick="pickSuggest('Tạo hình khuôn mặt')"
+                      onclick="pickHospitalSuggest('Tạo hình khuôn mặt')"
                     >
                       Tạo hình khuôn mặt
                     </button>
@@ -2994,34 +3587,48 @@ Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc t
                 </div>
               </div>
 
-              <!-- Hàng 7: Thời gian hoạt động (Full width) -->
               <div class="form-group" style="grid-column: 1 / -1">
                 <label class="form-label">Thời gian hoạt động</label>
-                <input
-                  class="form-input"
-                  id="f-work-time"
-                  type="text"
-                  placeholder="Chọn thời gian"
-                  readonly
-                  value="Thứ 2 - Thứ 6: 08:00 - 17:00, Chủ nhật: 09:00 - 12:00"
-                />
+                <div class="work-time-display">
+                  <div class="work-time-summary" id="hf-work-summary">
+                    Chưa thiết lập khung giờ
+                  </div>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    type="button"
+                    onclick="openScheduleModal()"
+                  >
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    Lịch
+                  </button>
+                </div>
               </div>
 
-              <!-- Hàng 8: Trang chủ & Ghi chú -->
               <div class="form-group">
-                <label class="form-label">Trang chủ</label
-                ><input
+                <label class="form-label">Trang chủ</label>
+                <input
                   class="form-input"
-                  id="f-website"
+                  id="hf-website"
                   placeholder="Nhập nội dung"
-                  value="https://lotusprime.vn"
                 />
               </div>
               <div class="form-group">
                 <label class="form-label">Ghi chú</label>
                 <textarea
                   class="form-input"
-                  id="f-note"
+                  id="hf-note"
                   rows="3"
                   placeholder="Nhập nội dung"
                 ></textarea>
@@ -3029,37 +3636,60 @@ Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc t
             </div>
           </div>
         </div>
-
         <div class="form-actions">
-          <button class="btn btn-ghost" onclick="goPage('list')">Đóng</button>
-          <button class="btn btn-outline-primary" onclick="goEdit()">
-            Sửa nhanh
+          <button class="btn btn-ghost" onclick="handleHospitalFormCancel()">
+            Hủy
           </button>
-        </div>
-      </main>
-
-      <main class="main page" id="page-form">
-        <div class="breadcrumb">
-          <span class="bc-link" onclick="goPage('list')"
-            >Danh sách bệnh viện</span
-          >
-          <span class="bc-sep">/</span>
-          <span class="bc-current">Thêm mới / Chỉnh sửa bệnh viện</span>
-        </div>
-        <div class="page-title">Biểu mẫu Bệnh viện</div>
-        <div class="card">
-          <div class="card-body">
-            <p style="font-size: 12px; color: var(--gray-500)">
-              Sử dụng cùng layout form với màn chi tiết. Bạn có thể chỉnh sửa và
-              lưu để quay về danh sách.
-            </p>
-          </div>
-        </div>
-        <div class="form-actions">
-          <button class="btn btn-ghost" onclick="goPage('list')">Hủy</button>
           <button class="btn btn-primary" onclick="saveHospital()">Lưu</button>
         </div>
       </main>
+    </div>
+
+    <div
+      class="schedule-modal-backdrop"
+      id="schedule-modal-backdrop"
+      onclick="closeScheduleModal()"
+    >
+      <div class="schedule-modal" onclick="event.stopPropagation()">
+        <div class="schedule-modal-header">
+          <div class="schedule-modal-title">Thiết lập thời gian hoạt động</div>
+          <button
+            class="btn btn-ghost btn-sm"
+            type="button"
+            onclick="closeScheduleModal()"
+          >
+            Đóng
+          </button>
+        </div>
+        <div class="schedule-modal-body">
+          <div class="schedule-top-actions">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              type="button"
+              onclick="applyMondayToAllSchedule()"
+            >
+              Áp dụng giờ Thứ 2 cho tất cả
+            </button>
+          </div>
+          <div id="schedule-rows"></div>
+        </div>
+        <div class="schedule-modal-actions">
+          <button
+            class="btn btn-ghost"
+            type="button"
+            onclick="closeScheduleModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="saveScheduleModal()"
+          >
+            Lưu
+          </button>
+        </div>
+      </div>
     </div>
 
     <div
@@ -3121,6 +3751,51 @@ Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc t
           doneMessage: "Đã khôi phục bệnh viện.",
         },
       };
+      let hospitalFormMode = "add";
+      const hospitalDoctorPool = [
+        "Dr. Nguyễn A",
+        "Dr. Trần B",
+        "Dr. Phạm C",
+        "Dr. Lê D",
+        "Dr. Võ E",
+      ];
+      const hospitalFormDefaults = {
+        name: "BV Thẩm mỹ Lotus Prime",
+        address: "88 Nguyễn Huệ, Quận 1, TP.HCM",
+        regCode: "0312345678",
+        managerName: "Nguyễn Minh K",
+        intro:
+          "Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc tế, đội ngũ bác sĩ giàu kinh nghiệm.",
+        doctorInfo:
+          "Đội ngũ bác sĩ 10+ năm kinh nghiệm, có chứng chỉ chuyên sâu.",
+        repPhone: "0912-345-678",
+        repName: "Lê Quang H",
+        managerPhone: "0901-111-222",
+        treatment: "Phẫu thuật thẩm mỹ",
+        website: "https://lotusprime.vn",
+        note: "",
+        avatarFile: "hospital-avatar.jpg",
+        doctors: ["Dr. Nguyễn A", "Dr. Trần B", "Dr. Phạm C"],
+      };
+      const scheduleDayLabels = [
+        "Thứ 2",
+        "Thứ 3",
+        "Thứ 4",
+        "Thứ 5",
+        "Thứ 6",
+        "Thứ 7",
+        "Chủ nhật",
+      ];
+      let hospitalScheduleState = [
+        { checked: true, start: "08:00", end: "18:00" },
+        { checked: true, start: "08:00", end: "18:00" },
+        { checked: true, start: "08:00", end: "18:00" },
+        { checked: true, start: "08:00", end: "18:00" },
+        { checked: true, start: "08:00", end: "18:00" },
+        { checked: false, start: "09:00", end: "12:00" },
+        { checked: false, start: "09:00", end: "12:00" },
+      ];
+      let hospitalScheduleDraft = null;
 
       function formatDateVN(date) {
         const d = String(date.getDate()).padStart(2, "0");
@@ -3313,6 +3988,8 @@ Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc t
         document.getElementById(`page-${page}`)?.classList.add("active");
         closeAllMenus();
         closeDatePicker();
+        closeScheduleModal();
+        document.getElementById("hf-suggest-wrap")?.classList.remove("open");
       }
 
       function goDetail() {
@@ -3320,15 +3997,136 @@ Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc t
       }
 
       function goEdit() {
+        setHospitalFormMode("edit");
         goPage("form");
       }
 
       function goAdd() {
+        setHospitalFormMode("add");
         goPage("form");
       }
 
+      function getHospitalFormFields() {
+        return {
+          name: document.getElementById("hf-name"),
+          address: document.getElementById("hf-address"),
+          regCode: document.getElementById("hf-reg-code"),
+          managerName: document.getElementById("hf-manager-name"),
+          intro: document.getElementById("hf-intro"),
+          doctorInfo: document.getElementById("hf-doctor-info"),
+          repPhone: document.getElementById("hf-rep-phone"),
+          repName: document.getElementById("hf-rep-name"),
+          managerPhone: document.getElementById("hf-manager-phone"),
+          treatment: document.getElementById("hf-treatment-input"),
+          website: document.getElementById("hf-website"),
+          note: document.getElementById("hf-note"),
+          avatarPreview: document.getElementById("hf-avatar-preview"),
+        };
+      }
+
+      function setHospitalFormMode(mode) {
+        hospitalFormMode = mode;
+        const isAdd = mode === "add";
+        const bc = document.getElementById("form-bc-current");
+        const title = document.getElementById("form-page-title");
+        if (bc) bc.textContent = isAdd ? "Thêm mới bệnh viện" : "Sửa bệnh viện";
+        if (title)
+          title.textContent = isAdd ? "Thêm mới bệnh viện" : "Sửa bệnh viện";
+
+        if (isAdd) {
+          resetHospitalForm();
+        } else {
+          fillHospitalForm(hospitalFormDefaults);
+        }
+      }
+
+      function fillHospitalForm(data) {
+        const fields = getHospitalFormFields();
+        fields.name.value = data.name || "";
+        fields.address.value = data.address || "";
+        fields.regCode.value = data.regCode || "";
+        fields.managerName.value = data.managerName || "";
+        fields.intro.value = data.intro || "";
+        fields.doctorInfo.value = data.doctorInfo || "";
+        fields.repPhone.value = data.repPhone || "";
+        fields.repName.value = data.repName || "";
+        fields.managerPhone.value = data.managerPhone || "";
+        fields.treatment.value = data.treatment || "";
+        fields.website.value = data.website || "";
+        fields.note.value = data.note || "";
+        fields.avatarPreview.textContent = data.avatarFile || "Chưa có file";
+
+        renderHospitalDoctorTags(data.doctors || []);
+        hospitalScheduleState = [
+          { checked: true, start: "08:00", end: "18:00" },
+          { checked: true, start: "08:00", end: "18:00" },
+          { checked: true, start: "08:00", end: "18:00" },
+          { checked: true, start: "08:00", end: "18:00" },
+          { checked: true, start: "08:00", end: "18:00" },
+          { checked: false, start: "09:00", end: "12:00" },
+          { checked: false, start: "09:00", end: "12:00" },
+        ];
+        updateScheduleSummary();
+      }
+
+      function resetHospitalForm() {
+        const fields = getHospitalFormFields();
+        Object.values(fields).forEach((el) => {
+          if (el && "value" in el) el.value = "";
+        });
+        if (fields.avatarPreview)
+          fields.avatarPreview.textContent = "Chưa có file";
+        renderHospitalDoctorTags([]);
+        hospitalScheduleState = [
+          { checked: true, start: "08:00", end: "18:00" },
+          { checked: false, start: "08:00", end: "18:00" },
+          { checked: false, start: "08:00", end: "18:00" },
+          { checked: false, start: "08:00", end: "18:00" },
+          { checked: false, start: "08:00", end: "18:00" },
+          { checked: false, start: "09:00", end: "12:00" },
+          { checked: false, start: "09:00", end: "12:00" },
+        ];
+        updateScheduleSummary();
+      }
+
       function saveHospital() {
+        const requiredFields = [
+          { id: "hf-name", label: "Tên bệnh viện" },
+          { id: "hf-address", label: "Địa chỉ" },
+          { id: "hf-reg-code", label: "Mã số ĐKKD" },
+          { id: "hf-manager-name", label: "Tên người phụ trách" },
+          { id: "hf-rep-phone", label: "SĐT người đại diện" },
+          { id: "hf-rep-name", label: "Tên người đại diện" },
+          { id: "hf-manager-phone", label: "SĐT người phụ trách" },
+        ];
+        for (const field of requiredFields) {
+          const el = document.getElementById(field.id);
+          if (!el || !el.value.trim()) {
+            alert(`Vui lòng nhập ${field.label}.`);
+            el?.focus();
+            return;
+          }
+        }
+
         goPage("list");
+      }
+
+      function handleHospitalFormCancel() {
+        if (hospitalFormMode === "edit") {
+          fillHospitalForm(hospitalFormDefaults);
+        } else {
+          resetHospitalForm();
+        }
+        goPage("list");
+      }
+
+      function openHospitalSuggest() {
+        const wrap = document.getElementById("hf-suggest-wrap");
+        if (wrap) wrap.classList.add("open");
+      }
+
+      function handleHospitalTreatmentInput() {
+        openHospitalSuggest();
       }
 
       function openSuggest() {
@@ -3347,24 +4145,205 @@ Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc t
         if (wrap) wrap.classList.remove("open");
       }
 
+      function pickHospitalSuggest(value) {
+        const input = document.getElementById("hf-treatment-input");
+        if (input) input.value = value;
+        const wrap = document.getElementById("hf-suggest-wrap");
+        if (wrap) wrap.classList.remove("open");
+      }
+
+      function renderHospitalDoctorTags(doctorNames) {
+        const list = document.getElementById("hf-doctor-tags");
+        if (!list) return;
+        list.innerHTML = "";
+
+        doctorNames.forEach((name) => {
+          const chip = document.createElement("span");
+          chip.className = "doctor-chip";
+          chip.dataset.value = name;
+          chip.innerHTML = `${name} <button type="button" class="remove" onclick="removeHospitalDoctorTag(this)">x</button>`;
+          list.appendChild(chip);
+        });
+        syncHospitalDoctorDisplay();
+      }
+
+      function syncHospitalDoctorDisplay() {
+        const tags = document.querySelectorAll("#hf-doctor-tags .doctor-chip");
+        const display = document.getElementById("hf-doctor-input");
+        if (!display) return;
+        const names = Array.from(tags).map((chip) => chip.dataset.value || "");
+        display.value = names.length ? names.join(", ") : "";
+      }
+
+      function addHospitalDoctorTag() {
+        const name = prompt(
+          "Nhập tên bác sĩ hoặc chọn từ hệ thống:",
+          hospitalDoctorPool[0],
+        );
+        if (!name || !name.trim()) return;
+        const clean = name.trim();
+        const list = document.getElementById("hf-doctor-tags");
+        if (!list) return;
+        const exists = Array.from(list.querySelectorAll(".doctor-chip")).some(
+          (chip) => (chip.dataset.value || "") === clean,
+        );
+        if (exists) return;
+        const chip = document.createElement("span");
+        chip.className = "doctor-chip";
+        chip.dataset.value = clean;
+        chip.innerHTML = `${clean} <button type="button" class="remove" onclick="removeHospitalDoctorTag(this)">x</button>`;
+        list.appendChild(chip);
+        syncHospitalDoctorDisplay();
+      }
+
+      function removeHospitalDoctorTag(btn) {
+        btn.closest(".doctor-chip")?.remove();
+        syncHospitalDoctorDisplay();
+      }
+
       function addDoctorLink() {
         const list = document.getElementById("doctor-links");
         if (!list) return;
         const chip = document.createElement("span");
         chip.className = "doctor-chip";
         chip.textContent = "Dr. Mới";
-        list.insertBefore(chip, list.lastElementChild);
+        list.appendChild(chip);
       }
 
-      function applyMondayToAll() {
-        const monStart = document.getElementById("mon-start")?.value || "08:00";
-        const monEnd = document.getElementById("mon-end")?.value || "17:00";
-        document.querySelectorAll(".day-start").forEach((el) => {
-          el.value = monStart;
+      function handleHospitalAvatarUpload() {
+        const fileName = prompt(
+          "Nhập tên file ảnh đại diện:",
+          "hospital-avatar.jpg",
+        );
+        if (!fileName) return;
+        const preview = document.getElementById("hf-avatar-preview");
+        if (preview) preview.textContent = fileName.trim();
+      }
+
+      function openScheduleModal() {
+        hospitalScheduleDraft = hospitalScheduleState.map((item) => ({
+          ...item,
+        }));
+        renderScheduleRows();
+        document
+          .getElementById("schedule-modal-backdrop")
+          ?.classList.add("open");
+      }
+
+      function closeScheduleModal() {
+        document
+          .getElementById("schedule-modal-backdrop")
+          ?.classList.remove("open");
+        hospitalScheduleDraft = null;
+      }
+
+      function renderScheduleRows() {
+        const container = document.getElementById("schedule-rows");
+        if (!container || !hospitalScheduleDraft) return;
+        container.innerHTML = "";
+        hospitalScheduleDraft.forEach((row, index) => {
+          const rowEl = document.createElement("div");
+          rowEl.className = "schedule-row";
+          rowEl.innerHTML = `
+            <label class="schedule-day">
+              <input type="checkbox" ${row.checked ? "checked" : ""} onchange="toggleScheduleDay(${index}, this.checked)" />
+              ${scheduleDayLabels[index]}
+            </label>
+            <input class="schedule-time" type="time" value="${row.start}" ${row.checked ? "" : "disabled"} onchange="updateScheduleTime(${index}, 'start', this.value)" />
+            <span class="to-label">đến</span>
+            <input class="schedule-time" type="time" value="${row.end}" ${row.checked ? "" : "disabled"} onchange="updateScheduleTime(${index}, 'end', this.value)" />
+          `;
+          container.appendChild(rowEl);
         });
-        document.querySelectorAll(".day-end").forEach((el) => {
-          el.value = monEnd;
+      }
+
+      function toggleScheduleDay(index, checked) {
+        if (!hospitalScheduleDraft) return;
+        hospitalScheduleDraft[index].checked = checked;
+        renderScheduleRows();
+      }
+
+      function updateScheduleTime(index, field, value) {
+        if (!hospitalScheduleDraft) return;
+        hospitalScheduleDraft[index][field] = value;
+
+        // Validate end time when changed
+        if (field === "end") {
+          const row = hospitalScheduleDraft[index];
+          const startMins = time24ToMinutes(row.start);
+          const endMins = time24ToMinutes(row.end);
+          if (endMins <= startMins) {
+            alert(
+              `Giờ kết thúc phải lớn hơn giờ bắt đầu của ${scheduleDayLabels[index]}.`,
+            );
+          }
+        }
+      }
+
+      function applyMondayToAllSchedule() {
+        if (!hospitalScheduleDraft) return;
+        const monday = hospitalScheduleDraft[0];
+        for (let i = 1; i < hospitalScheduleDraft.length; i++) {
+          hospitalScheduleDraft[i].checked = true;
+          hospitalScheduleDraft[i].start = monday.start;
+          hospitalScheduleDraft[i].end = monday.end;
+        }
+        renderScheduleRows();
+      }
+
+      function formatTimeAMPM(time24) {
+        if (!time24 || !time24.includes(":")) return time24 || "";
+        const [hh, mm] = time24.split(":");
+        const hour = Number(hh);
+        const suffix = hour >= 12 ? "PM" : "AM";
+        const hour12 = hour % 12 || 12;
+        return `${String(hour12).padStart(2, "0")}:${mm} ${suffix}`;
+      }
+
+      function time24ToMinutes(time24) {
+        if (!time24 || !time24.includes(":")) return 0;
+        const [hh, mm] = time24.split(":");
+        return Number(hh) * 60 + Number(mm);
+      }
+
+      function buildScheduleSummary() {
+        const dayShort = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+        const parts = [];
+        hospitalScheduleState.forEach((row, index) => {
+          if (!row.checked) return;
+          parts.push(
+            `${dayShort[index]}: ${formatTimeAMPM(row.start)}-${formatTimeAMPM(row.end)}`,
+          );
         });
+        return parts.length ? parts.join("; ") : "Chưa thiết lập khung giờ";
+      }
+
+      function updateScheduleSummary() {
+        const summaryEl = document.getElementById("hf-work-summary");
+        if (summaryEl) summaryEl.textContent = buildScheduleSummary();
+      }
+
+      function saveScheduleModal() {
+        if (!hospitalScheduleDraft) return;
+        for (let i = 0; i < hospitalScheduleDraft.length; i++) {
+          const row = hospitalScheduleDraft[i];
+          if (!row.checked) continue;
+          if (!row.start || !row.end) {
+            alert(`Vui lòng chọn khung giờ cho ${scheduleDayLabels[i]}.`);
+            return;
+          }
+          if (time24ToMinutes(row.end) <= time24ToMinutes(row.start)) {
+            alert(
+              `Giờ kết thúc phải lớn hơn giờ bắt đầu của ${scheduleDayLabels[i]}.`,
+            );
+            return;
+          }
+        }
+        hospitalScheduleState = hospitalScheduleDraft.map((item) => ({
+          ...item,
+        }));
+        updateScheduleSummary();
+        closeScheduleModal();
       }
 
       function openActionModal(type) {
@@ -3392,15 +4371,18 @@ Bệnh viện chuyên sâu thẩm mỹ công nghệ cao, đạt chuẩn quốc t
         closeDatePicker();
         closeCriteriaDropdown();
         document.getElementById("suggest-wrap")?.classList.remove("open");
+        document.getElementById("hf-suggest-wrap")?.classList.remove("open");
       });
 
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeActionModal();
+        if (e.key === "Escape") closeScheduleModal();
       });
 
       renderDateRange();
       syncDatePickerInputs();
       updateDateArrowsState();
+      setHospitalFormMode("add");
     </script>
   </body>
 </html>

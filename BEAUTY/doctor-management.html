@@ -912,6 +912,61 @@
         border-radius: 6px;
       }
 
+      .avatar-upload-preview {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 1.5px solid var(--gray-200);
+        overflow: hidden;
+        background: var(--gray-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gray-500);
+        font-size: 11px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .avatar-upload-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .file-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .file-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: var(--gray-100);
+        border: 1px solid var(--gray-200);
+        font-size: 11px;
+        color: var(--gray-700);
+      }
+
+      .file-chip button {
+        border: none;
+        background: transparent;
+        color: var(--gray-500);
+        font-size: 12px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .file-chip button:hover {
+        color: var(--accent);
+      }
+
       .form-section-divider {
         grid-column: 1 / -1;
         height: 1px;
@@ -2578,7 +2633,7 @@
             <!-- INTERNAL NOTES SECTION -->
             <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--gray-200)">
               <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--gray-700)">
-                Ghi chú nội bộ
+                Ghi chú
               </div>
               <div
                 id="internal-notes"
@@ -2651,17 +2706,11 @@
               <!-- Row 3: ID (with check) - Nickname (with check) -->
               <div class="form-group">
                 <label class="form-label">ID <span class="req">*</span></label>
-                <div class="form-input-group">
-                  <input id="f-id" class="form-input" placeholder="DOC001" />
-                  <button type="button" class="btn-check">KIỂM TRA</button>
-                </div>
+                <input id="f-id" class="form-input" placeholder="DOC001" />
               </div>
               <div class="form-group">
                 <label class="form-label">Nickname <span class="req">*</span></label>
-                <div class="form-input-group">
-                  <input id="f-nickname" class="form-input" placeholder="doctor.a123" />
-                  <button type="button" class="btn-check">KIỂM TRA</button>
-                </div>
+                <input id="f-nickname" class="form-input" placeholder="doctor.a123" />
               </div>
 
               <!-- Row 4: Khu vực - Ảnh đại diện -->
@@ -2678,7 +2727,7 @@
               <div class="form-group">
                 <label class="form-label">Ảnh đại diện <span class="req">*</span></label>
                 <div class="upload-btn-wrap">
-                  <button type="button" class="btn btn-danger btn-sm">
+                  <button type="button" class="btn btn-danger btn-sm" onclick="triggerAvatarUpload()">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                       <polyline points="17 8 12 3 7 8" />
@@ -2686,7 +2735,8 @@
                     </svg>
                     Tải ảnh
                   </button>
-                  <div id="avatar-preview" class="upload-preview">avatar.jpg</div>
+                  <div id="avatar-preview" class="avatar-upload-preview"><img src="https://i.pravatar.cc/120?img=32" alt="Avatar mẫu" /></div>
+                  <input id="avatar-input" type="file" accept="image/*" hidden onchange="handleAvatarUpload(event)" />
                 </div>
               </div>
 
@@ -2744,7 +2794,7 @@
               <div class="form-group">
                 <label class="form-label">Bằng cấp</label>
                 <div class="upload-btn-wrap">
-                  <button type="button" class="btn btn-danger btn-sm">
+                  <button type="button" class="btn btn-danger btn-sm" onclick="triggerDegreeUpload()">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                       <polyline points="17 8 12 3 7 8" />
@@ -2752,7 +2802,8 @@
                     </svg>
                     Tải file
                   </button>
-                  <div id="degree-preview" class="upload-preview">degree.pdf</div>
+                  <div id="degree-preview" class="file-list"></div>
+                  <input id="degree-input" type="file" hidden multiple onchange="handleDegreeUpload(event)" />
                 </div>
               </div>
 
@@ -2760,7 +2811,7 @@
               <div class="form-group">
                 <label class="form-label">Giấy phép hành nghề</label>
                 <div class="upload-btn-wrap">
-                  <button type="button" class="btn btn-danger btn-sm">
+                  <button type="button" class="btn btn-danger btn-sm" onclick="triggerLicenseUpload()">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                       <polyline points="17 8 12 3 7 8" />
@@ -2769,6 +2820,7 @@
                     Tải file
                   </button>
                   <div id="license-preview" class="upload-preview">license.pdf</div>
+                  <input id="license-input" type="file" hidden onchange="handleLicenseUpload(event)" />
                 </div>
               </div>
               <div class="form-group">
@@ -2784,6 +2836,11 @@
               <div class="form-group">
                 <label class="form-label">Giới thiệu bản thân</label>
                 <textarea id="f-intro" class="form-input" rows="3" placeholder="Nhập nội dung"></textarea>
+              </div>
+
+              <div class="form-group form-row-full">
+                <label class="form-label">Ghi chú</label>
+                <textarea id="f-note" class="form-input" rows="3" placeholder="Nhập ghi chú"></textarea>
               </div>
             </div>
             <div class="form-actions">
@@ -2837,6 +2894,8 @@
       let detailMode = "view";
       let currentActionModalType = "soft-delete";
       let currentNoteEdit = null;
+      let avatarPreviewUrl = "";
+      let degreeFiles = [];
 
       const doctorEditDefaults = {
         name: "Nguyen Van A",
@@ -2857,8 +2916,10 @@
         licenseNumber: "BYT-12345",
         association: "Hội Phẫu thuật Thẩm mỹ Việt Nam",
         intro: "Bác sĩ chuyên sâu về trẻ hóa da, có 12 năm kinh nghiệm.",
-        avatarFile: "avatar.jpg",
-        degreeFile: "degree.pdf",
+        note: "Ưu tiên lịch tư vấn vào buổi sáng, hỗ trợ nội dung chuyên môn.",
+        avatarInitials: "NA",
+        avatarUrl: "https://i.pravatar.cc/120?img=32",
+        degreeFiles: ["degree1.pdf", "degree2.pdf"],
         licenseFile: "license.pdf",
       };
 
@@ -2973,7 +3034,82 @@
       function setUploadPreview(id, value) {
         const element = document.getElementById(id);
         if (!element) return;
-        element.textContent = value || "Chưa có file";
+        element.textContent = value || "";
+      }
+
+      function getInitials(text) {
+        const source = (text || "").trim();
+        if (!source) return "NA";
+        return source
+          .split(/\s+/)
+          .slice(-2)
+          .map((word) => word.charAt(0).toUpperCase())
+          .join("");
+      }
+
+      function setAvatarPreview(initials, imageUrl) {
+        const element = document.getElementById("avatar-preview");
+        if (!element) return;
+        if (imageUrl) {
+          element.innerHTML = `<img src="${imageUrl}" alt="Avatar" />`;
+          return;
+        }
+        element.textContent = initials || "NA";
+      }
+
+      function renderDegreeFiles() {
+        const wrap = document.getElementById("degree-preview");
+        if (!wrap) return;
+        if (!degreeFiles.length) {
+          wrap.innerHTML = "";
+          return;
+        }
+        wrap.innerHTML = degreeFiles
+          .map(
+            (name, index) =>
+              `<span class="file-chip">${name}<button type="button" onclick="removeDegreeFile(${index})" aria-label="Xóa file">×</button></span>`,
+          )
+          .join("");
+      }
+
+      function removeDegreeFile(index) {
+        degreeFiles = degreeFiles.filter((_, i) => i !== index);
+        renderDegreeFiles();
+      }
+
+      function triggerAvatarUpload() {
+        document.getElementById("avatar-input")?.click();
+      }
+
+      function handleAvatarUpload(event) {
+        const file = event.target?.files?.[0];
+        if (!file) return;
+        if (avatarPreviewUrl) URL.revokeObjectURL(avatarPreviewUrl);
+        avatarPreviewUrl = URL.createObjectURL(file);
+        setAvatarPreview("", avatarPreviewUrl);
+      }
+
+      function triggerDegreeUpload() {
+        document.getElementById("degree-input")?.click();
+      }
+
+      function handleDegreeUpload(event) {
+        const files = Array.from(event.target?.files || []);
+        if (!files.length) return;
+        degreeFiles = [...degreeFiles, ...files.map((file) => file.name)];
+        renderDegreeFiles();
+        event.target.value = "";
+      }
+
+      function triggerLicenseUpload() {
+        document.getElementById("license-input")?.click();
+      }
+
+      function handleLicenseUpload(event) {
+        const file = event.target?.files?.[0];
+        if (!file) return;
+        setUploadPreview("license-preview", file.name);
+        event.target.value = "";
       }
 
       function fillDoctorForm(data) {
@@ -2995,9 +3131,14 @@
         setFormValue("f-license-number", data.licenseNumber);
         setFormValue("f-association", data.association);
         setFormValue("f-intro", data.intro);
+        setFormValue("f-note", data.note);
 
-        setUploadPreview("avatar-preview", data.avatarFile);
-        setUploadPreview("degree-preview", data.degreeFile);
+        setAvatarPreview(
+          data.avatarInitials || getInitials(data.name),
+          data.avatarUrl || "",
+        );
+        degreeFiles = Array.isArray(data.degreeFiles) ? [...data.degreeFiles] : [];
+        renderDegreeFiles();
         setUploadPreview("license-preview", data.licenseFile);
       }
 
@@ -3028,9 +3169,11 @@
             licenseNumber: "",
             association: "",
             intro: "",
-            avatarFile: "Chưa có file",
-            degreeFile: "Chưa có file",
-            licenseFile: "Chưa có file",
+            note: "",
+            avatarInitials: "NA",
+            avatarUrl: "",
+            degreeFiles: [],
+            licenseFile: "",
           });
           return;
         }
