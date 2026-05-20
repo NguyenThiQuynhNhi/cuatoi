@@ -1,0 +1,2485 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Từ cấm, Spam, Báo cáo - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --success: #16a34a;
+        --success-light: #dcfce7;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --radius-sm: 6px;
+        --sidebar-w: 210px;
+        --header-h: 60px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+
+      /* ====== HEADER ====== */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        min-height: 60px;
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+            .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .nav-dropdown a.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+.nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+      }
+      .header-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 11px;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-user-name {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      .header-user-role {
+        font-size: 10.5px;
+        opacity: 0.8;
+        line-height: 1.2;
+      }
+
+      /* ====== SIDEBAR ====== */
+      .sidebar {
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        width: var(--sidebar-w);
+        background: white;
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 0;
+        overflow-y: auto;
+        z-index: 50;
+      }
+      .sidebar-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gray-500);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        padding: 0 16px 8px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 16px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--gray-700);
+        cursor: pointer;
+        border-left: 3px solid transparent;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-50);
+        color: var(--primary);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+        border-left-color: var(--primary);
+      }
+      .sidebar-item svg {
+        width: 16px;
+        height: 16px;
+      }
+      .sidebar-group-label {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-style: italic;
+        padding: 12px 16px 4px;
+      }
+      .sidebar-item.sub {
+        padding-left: 32px;
+        font-size: 12px;
+      }
+
+      /* ====== MAIN ====== */
+      .main {
+        margin-left: var(--sidebar-w);
+        margin-top: var(--header-h);
+        padding: 20px;
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .page-title::before {
+        content: "•";
+        color: var(--primary);
+        font-size: 18px;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      .section-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .section-title::before {
+        content: "•";
+        color: var(--primary);
+        font-size: 16px;
+      }
+      .section-title .count {
+        font-size: 11px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+      .head-note {
+        font-size: 11px;
+        color: var(--gray-500);
+        border: 1px dashed var(--gray-300);
+        border-radius: 6px;
+        padding: 4px 10px;
+        white-space: pre-line;
+        text-align: center;
+        line-height: 1.4;
+      }
+
+      /* ====== CARD ====== */
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-body {
+        padding: 14px 18px;
+      }
+
+      /* ====== BUTTONS ====== */
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
+
+      /* ====== FORM ====== */
+      .form-input {
+        padding: 8px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        outline: none;
+        color: var(--gray-700);
+        background: white;
+      }
+      .form-input:focus {
+        border-color: var(--primary);
+      }
+      select.form-input {
+        appearance: none;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236b6390' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        padding-right: 26px;
+        cursor: pointer;
+      }
+
+      /* ====== DATE RANGE / QUICK FILTER ====== */
+      .filter-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .now-tag {
+        font-size: 11px;
+        color: var(--gray-500);
+        border: 1px dashed var(--gray-300);
+        border-radius: 6px;
+        padding: 5px 10px;
+      }
+      .date-range {
+        display: inline-flex;
+        align-items: center;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+      }
+      .date-nav {
+        padding: 6px 10px;
+        background: var(--primary-light);
+        cursor: pointer;
+        color: var(--primary);
+        font-weight: 700;
+        border: none;
+        font-size: 12px;
+      }
+      .date-display {
+        padding: 6px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        white-space: nowrap;
+      }
+      .quick-filters {
+        display: inline-flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .qf-btn {
+        padding: 6px 14px;
+        min-height: 32px;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+        background: white;
+        color: var(--gray-500);
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .qf-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: transparent;
+        font-weight: 700;
+      }
+
+      /* ====== SEARCH ROW ====== */
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .search-row .search-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .criteria-wrap {
+        position: relative;
+      }
+      .criteria-btn {
+        height: 34px;
+        min-width: 160px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        font-family: inherit;
+        padding: 0 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .criteria-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 180px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        z-index: 80;
+      }
+      .criteria-wrap.open .criteria-menu {
+        display: block;
+      }
+      .criteria-option {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        cursor: pointer;
+      }
+      .criteria-option:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .search-input-lg {
+        flex: 1;
+        min-width: 240px;
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 11px;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
+      }
+
+      /* ====== TABLE ====== */
+      .table-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left,
+      .table-actions-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left .selected-label {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      thead {
+        background: var(--gray-50);
+      }
+      thead th {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        white-space: nowrap;
+        border-bottom: 1.5px solid var(--gray-200);
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--gray-100);
+      }
+      tbody td {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .td-left {
+        text-align: left !important;
+      }
+      tr.row-checked {
+        background: var(--primary-light);
+      }
+      tr.row-handled {
+        background: var(--success-light);
+      }
+
+      /* ====== TYPE BADGES (Loại) ====== */
+      .type-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .type-badge.content {
+        background: var(--primary-light);
+        color: var(--primary);
+      }
+      .type-badge.nickname {
+        background: var(--accent-light);
+        color: var(--accent);
+      }
+      .type-badge.all {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .reason-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 600;
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+
+      /* ====== INLINE INPUTS / NOTE ====== */
+      .inline-input {
+        height: 28px;
+        width: 180px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 6px;
+        padding: 0 8px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
+        background: white;
+      }
+      .inline-input:focus {
+        border-color: var(--primary);
+      }
+      .inline-input.sm {
+        width: 140px;
+      }
+
+      /* ====== CELL MENU ====== */
+      .cell-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .menu-trigger {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .menu-list {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        z-index: 80;
+        min-width: 200px;
+        display: none;
+        flex-direction: column;
+      }
+      .cell-menu.open .menu-list {
+        display: flex;
+      }
+      .menu-item {
+        padding: 8px 12px;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .menu-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+
+      /* ====== TOOLTIP ====== */
+      .tooltip-wrap {
+        position: relative;
+        display: inline-block;
+      }
+      .tooltip-wrap:hover .tooltip {
+        display: block;
+      }
+      .tooltip {
+        display: none;
+        position: absolute;
+        bottom: calc(100% + 6px);
+        left: 0;
+        background: var(--gray-900);
+        color: white;
+        font-size: 11px;
+        border-radius: 6px;
+        padding: 6px 10px;
+        white-space: normal;
+        word-break: break-word;
+        max-width: min(320px, 60vw);
+        line-height: 1.4;
+        z-index: 90;
+        box-shadow: var(--shadow-md);
+        pointer-events: none;
+      }
+      .note-ellipsis {
+        display: inline-block;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--gray-700);
+        font-size: 12px;
+        cursor: default;
+      }
+
+      /* ====== STATUS SELECT (per-row) ====== */
+      .status-select {
+        appearance: none;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        padding: 4px 22px 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236b6390' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 6px center;
+        min-width: 150px;
+      }
+      .status-select.s-pending {
+        background-color: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .status-select.s-reviewing {
+        background-color: var(--accent-light);
+        color: var(--accent);
+      }
+      .status-select.s-deleted {
+        background-color: var(--success-light);
+        color: var(--success);
+      }
+      .status-select.s-suspended {
+        background-color: var(--primary-light);
+        color: var(--primary);
+      }
+      .status-select.s-forced {
+        background-color: var(--accent-light);
+        color: var(--accent);
+      }
+      .status-select.s-cancel-up {
+        background-color: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .status-select.s-notify {
+        background-color: var(--primary-light);
+        color: var(--primary);
+      }
+      .status-select.s-message {
+        background-color: var(--success-light);
+        color: var(--success);
+      }
+
+      /* ====== TABLE FOOTER / PAGINATION ====== */
+      .table-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--gray-200);
+      }
+      .pagination {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+      }
+      .pg-btn {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid var(--gray-300);
+        background: white;
+        border-radius: 6px;
+        font-size: 12px;
+        cursor: pointer;
+        font-family: inherit;
+        color: var(--gray-700);
+      }
+      .pg-btn.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+        font-weight: 700;
+      }
+
+      /* ====== HINT BOX ====== */
+      .hint-box {
+        margin-top: 10px;
+        border: 1px dashed var(--gray-300);
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: var(--gray-50);
+        color: var(--gray-500);
+        font-size: 11px;
+        line-height: 1.5;
+      }
+      .table-side-layout {
+        display: flex;
+        gap: 12px;
+      }
+      .table-side-layout .table-main {
+        flex: 1;
+        min-width: 0;
+      }
+      .side-label-vertical {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        border: 1px dashed var(--gray-300);
+        border-radius: 6px;
+        padding: 8px 4px;
+        font-size: 11px;
+        color: var(--gray-500);
+        font-weight: 600;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: var(--gray-50);
+      }
+
+      /* ====== ACTION MODAL ====== */
+      .action-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 360px;
+        min-width: 280px;
+        box-shadow: var(--shadow-md);
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-500);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ====== HEADER ====== -->
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">B</div>
+        BEAUTY Admin
+      </div>
+      <nav class="header-nav">
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item active" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+      </nav>
+      <div class="header-user">
+        <div class="header-avatar">AD</div>
+        <div>
+          <div class="header-user-name">Admin</div>
+          <div class="header-user-role">Quản trị viên</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ====== SIDEBAR ====== -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Từ cấm, Spam, Báo cáo</div>
+      <div
+        class="sidebar-item active"
+        id="sidebar-tucam"
+        onclick="goSection('tucam')"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+        </svg>
+        Từ cấm
+      </div>
+      <div
+        class="sidebar-item"
+        id="sidebar-spam"
+        onclick="goSection('spam')"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z" />
+        </svg>
+        Spam
+      </div>
+      <div class="sidebar-group-label">Báo cáo</div>
+      <div
+        class="sidebar-item sub"
+        id="sidebar-baocao-baiviet"
+        onclick="goSection('baocao-baiviet')"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+        </svg>
+        Bài viết. bình luận
+      </div>
+      <div
+        class="sidebar-item sub"
+        id="sidebar-baocao-thanhvien"
+        onclick="goSection('baocao-thanhvien')"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        Thành viên bị báo cáo
+      </div>
+    </aside>
+
+    <!-- ====== TRANG 1: TỪ CẤM ====== -->
+    <main class="main page active" id="page-tucam">
+      <!-- Section A: Thêm từ cấm -->
+      <div class="card">
+        <div class="card-body">
+          <div class="page-title">Thêm từ cấm</div>
+          <div class="search-row">
+            <input
+              id="banned-input"
+              class="form-input"
+              style="flex: 1; min-width: 240px"
+              placeholder="Nhập từ cấm"
+            />
+            <select
+              id="banned-add-type"
+              class="form-input"
+              style="width: 160px"
+            >
+              <option value="all">Tất cả</option>
+              <option value="content">Nội dung</option>
+              <option value="nickname">Tên hiển thị/ID</option>
+            </select>
+            <button class="btn btn-primary" onclick="addBannedWord()">
+              Thêm
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section B: Quản lý từ cấm -->
+      <div class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <div class="section-title">Quản lý từ cấm</div>
+            <div class="filter-row">
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate(-1)">◄</button>
+                <div class="date-display">23-06-2025 ~ 30-06-2025</div>
+                <button class="date-nav" onclick="shiftDate(1)">►</button>
+              </div>
+              <div class="quick-filters">
+                <button class="qf-btn" onclick="setQuickFilter(this)">
+                  Ngày
+                </button>
+                <button class="qf-btn active" onclick="setQuickFilter(this)">
+                  Tuần
+                </button>
+                <button class="qf-btn" onclick="setQuickFilter(this)">
+                  Tháng
+                </button>
+                <button class="qf-btn" onclick="setQuickFilter(this)">
+                  Năm
+                </button>
+                <button class="qf-btn" onclick="setQuickFilter(this)">
+                  Tất cả
+                </button>
+                <button class="qf-btn" onclick="setQuickFilter(this)">
+                  Tự chọn
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="search-row" style="margin-bottom: 14px">
+            <span class="search-label">Tìm kiếm</span>
+            <div class="criteria-wrap" id="banned-criteria">
+              <button
+                class="criteria-btn"
+                onclick="toggleCriteria(event,'banned-criteria')"
+              >
+                <span id="banned-criteria-label">Từ cấm</span>
+                <span>▾</span>
+              </button>
+              <div class="criteria-menu">
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('banned-criteria','Từ cấm')"
+                >
+                  Từ cấm
+                </button>
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('banned-criteria','Người tạo')"
+                >
+                  Người tạo
+                </button>
+              </div>
+            </div>
+            <select
+              id="banned-filter-type"
+              class="form-input"
+              style="width: 150px"
+              onchange="filterBannedByType(this.value)"
+            >
+              <option value="all">Tất cả</option>
+              <option value="content">Nội dung</option>
+              <option value="nickname">Tên hiển thị/ID</option>
+            </select>
+            <input
+              class="search-input-lg"
+              placeholder="Thanh nhập"
+              id="banned-search"
+            />
+            <button class="btn btn-primary btn-sm" onclick="searchBanned()">
+              Tìm
+            </button>
+          </div>
+
+          <div class="section-head">
+            <div class="section-title">
+              Từ cấm <span class="count" id="banned-count">0 từ</span>
+            </div>
+          </div>
+
+          <div class="table-actions">
+            <div class="table-actions-left">
+              <span class="selected-label">Mục đã chọn:</span>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                onclick="bulkDeleteBanned()"
+              >
+                Xóa
+              </button>
+            </div>
+            <div class="table-actions-right">
+              <select class="form-input" style="width: 130px">
+                <option>Danh sách 30</option>
+                <option>Danh sách 50</option>
+                <option>Danh sách 100</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table id="table-banned" style="min-width: 900px">
+              <thead>
+                <tr>
+                  <th style="width: 40px">#</th>
+                  <th style="width: 40px">
+                    <input
+                      type="checkbox"
+                      id="chk-all-banned"
+                      onchange="toggleAllInTable(this,'table-banned','banned')"
+                    />
+                  </th>
+                  <th>Từ cấm</th>
+                  <th>Loại</th>
+                  <th>Ngày tạo</th>
+                  <th>Ghi chú</th>
+                  <th>Người tạo</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-banned"></tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <div class="pagination">
+              <button class="pg-btn">‹</button>
+              <button class="pg-btn active">1</button>
+              <button class="pg-btn">2</button>
+              <button class="pg-btn">3</button>
+              <button class="pg-btn">4</button>
+              <button class="pg-btn">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ====== TRANG 2: SPAM ====== -->
+    <main class="main page" id="page-spam">
+      <div class="card">
+        <div class="card-body">
+          <div class="filter-row">
+            <span class="now-tag">Theo thời gian hiện tại</span>
+            <div class="date-range">
+              <button class="date-nav" onclick="shiftDate(-1)">◄</button>
+              <div class="date-display">23-06-2025 ~ 30-06-2025</div>
+              <button class="date-nav" onclick="shiftDate(1)">►</button>
+            </div>
+            <div class="quick-filters">
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Ngày
+              </button>
+              <button class="qf-btn active" onclick="setQuickFilter(this)">
+                Tuần
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tháng
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Năm
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tất cả
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tự chọn
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="page-title">Tìm kiếm</div>
+          <div class="search-row">
+            <span class="search-label">Tìm kiếm</span>
+            <div class="criteria-wrap" id="spam-criteria">
+              <button
+                class="criteria-btn"
+                onclick="toggleCriteria(event,'spam-criteria')"
+              >
+                <span id="spam-criteria-label">ID/ Tên hiển thị</span>
+                <span>▾</span>
+              </button>
+              <div class="criteria-menu">
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('spam-criteria','ID/ Tên hiển thị')"
+                >
+                  ID/ Tên hiển thị
+                </button>
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('spam-criteria','Tiêu đề/ nội dung bài viết')"
+                >
+                  Tiêu đề/ nội dung bài viết
+                </button>
+              </div>
+            </div>
+            <input class="search-input-lg" placeholder="Thanh nhập" />
+            <button class="btn btn-primary btn-sm" onclick="searchSpam()">
+              Tìm
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <div class="section-title">
+              Bài spam <span class="count" id="spam-count">0 bài</span>
+            </div>
+            <div class="head-note">Toàn bộ
+Bài viết
+Bình luận</div>
+          </div>
+
+          <div class="hint-box" style="margin-top: 0; margin-bottom: 10px">
+            Bài bị đánh dấu spam sẽ không được hiển thị
+          </div>
+
+          <div class="table-actions">
+            <div class="table-actions-left">
+              <span class="selected-label">Mục đã chọn:</span>
+              <button
+                class="btn btn-danger btn-sm"
+                onclick="bulkSpamHardDelete()"
+              >
+                Xóa vĩnh viễn
+              </button>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="bulkSpamRestore()"
+              >
+                Khôi phục
+              </button>
+            </div>
+            <div class="table-actions-right">
+              <select class="form-input" style="width: 130px">
+                <option>Bài viết</option>
+                <option>Bình luận</option>
+              </select>
+              <select class="form-input" style="width: 130px">
+                <option>Danh sách 30</option>
+                <option>Danh sách 50</option>
+                <option>Danh sách 100</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table id="table-spam" style="min-width: 1100px">
+              <thead>
+                <tr>
+                  <th style="width: 40px">
+                    <input
+                      type="checkbox"
+                      id="chk-all-spam"
+                      onchange="toggleAllInTable(this,'table-spam','spam')"
+                    />
+                  </th>
+                  <th>Tiêu đề</th>
+                  <th>Nội dung</th>
+                  <th>Lý do</th>
+                  <th>Người đăng</th>
+                  <th>Ngày đăng</th>
+                  <th>Ghi chú</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-spam"></tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <div class="pagination">
+              <button class="pg-btn">‹</button>
+              <button class="pg-btn active">1</button>
+              <button class="pg-btn">2</button>
+              <button class="pg-btn">3</button>
+              <button class="pg-btn">4</button>
+              <button class="pg-btn">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ====== TRANG 3: BÁO CÁO BÀI VIẾT ====== -->
+    <main class="main page" id="page-baocao-baiviet">
+      <div class="card">
+        <div class="card-body">
+          <div class="filter-row">
+            <span class="now-tag">Theo thời gian hiện tại</span>
+            <div class="date-range">
+              <button class="date-nav" onclick="shiftDate(-1)">◄</button>
+              <div class="date-display">23-06-2025 ~ 30-06-2025</div>
+              <button class="date-nav" onclick="shiftDate(1)">►</button>
+            </div>
+            <div class="quick-filters">
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Ngày
+              </button>
+              <button class="qf-btn active" onclick="setQuickFilter(this)">
+                Tuần
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tháng
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Năm
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tất cả
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tự chọn
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="page-title">Tìm kiếm</div>
+          <div class="search-row">
+            <span class="search-label">Tìm kiếm</span>
+            <div class="criteria-wrap" id="report-post-criteria">
+              <button
+                class="criteria-btn"
+                onclick="toggleCriteria(event,'report-post-criteria')"
+              >
+                <span id="report-post-criteria-label">ID/ Tên hiển thị</span>
+                <span>▾</span>
+              </button>
+              <div class="criteria-menu">
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('report-post-criteria','ID/ Tên hiển thị')"
+                >
+                  ID/ Tên hiển thị
+                </button>
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('report-post-criteria','Tiêu đề/ nội dung bài viết')"
+                >
+                  Tiêu đề/ nội dung bài viết
+                </button>
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('report-post-criteria','Nội dung bình luận')"
+                >
+                  Nội dung bình luận
+                </button>
+              </div>
+            </div>
+            <input class="search-input-lg" placeholder="Thanh nhập" />
+            <button class="btn btn-primary btn-sm" onclick="searchReportPost()">
+              Tìm
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <div class="section-title">
+              Bài bị báo cáo
+              <span class="count" id="report-post-count">0 bài</span>
+            </div>
+            <div class="head-note">Toàn bộ
+Bài viết
+Bình luận</div>
+          </div>
+
+          <div class="table-actions">
+            <div class="table-actions-left">
+              <span class="selected-label">Mục đã chọn:</span>
+              <button
+                class="btn btn-danger btn-sm"
+                onclick="bulkReportPostDelete()"
+              >
+                Xóa
+              </button>
+            </div>
+            <div class="table-actions-right">
+              <select class="form-input" style="width: 130px">
+                <option>Bài viết</option>
+                <option>Bình luận</option>
+              </select>
+              <select class="form-input" style="width: 130px">
+                <option>Danh sách 30</option>
+                <option>Danh sách 50</option>
+                <option>Danh sách 100</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table id="table-report-post" style="min-width: 1300px">
+              <thead>
+                <tr>
+                  <th style="width: 40px">
+                    <input
+                      type="checkbox"
+                      id="chk-all-report-post"
+                      onchange="toggleAllInTable(this,'table-report-post','report-post')"
+                    />
+                  </th>
+                  <th>Tiêu đề</th>
+                  <th>Nội dung</th>
+                  <th>Người báo cáo</th>
+                  <th>Người bị báo cáo</th>
+                  <th>Lý do báo cáo</th>
+                  <th>Người xử lý</th>
+                  <th>Tình trạng</th>
+                  <th>Ghi chú</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-report-post"></tbody>
+            </table>
+          </div>
+
+          <div class="hint-box">
+            Giá trị mặc định là 'Trước khi xử lý'. Sau khi quản trị viên xử lý,
+            trạng thái sẽ được thay đổi thủ công. Danh sách trạng thái: Đang
+            xem xét / Đã xóa bài viết / Tài khoản bị tạm ngưng / Thành viên bị
+            buộc rời khỏi hệ thống / Đã gửi tin nhắn.
+          </div>
+
+          <div class="table-footer">
+            <div class="pagination">
+              <button class="pg-btn">‹</button>
+              <button class="pg-btn active">1</button>
+              <button class="pg-btn">2</button>
+              <button class="pg-btn">3</button>
+              <button class="pg-btn">4</button>
+              <button class="pg-btn">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ====== TRANG 4: BÁO CÁO THÀNH VIÊN ====== -->
+    <main class="main page" id="page-baocao-thanhvien">
+      <div class="card">
+        <div class="card-body">
+          <div class="filter-row">
+            <span class="now-tag">Theo thời gian hiện tại</span>
+            <div class="date-range">
+              <button class="date-nav" onclick="shiftDate(-1)">◄</button>
+              <div class="date-display">23-06-2025 ~ 30-06-2025</div>
+              <button class="date-nav" onclick="shiftDate(1)">►</button>
+            </div>
+            <div class="quick-filters">
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Ngày
+              </button>
+              <button class="qf-btn active" onclick="setQuickFilter(this)">
+                Tuần
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tháng
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Năm
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tất cả
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tự chọn
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="page-title">Tìm kiếm</div>
+          <div class="search-row">
+            <span class="search-label">Tìm kiếm</span>
+            <div class="criteria-wrap" id="report-mem-criteria">
+              <button
+                class="criteria-btn"
+                onclick="toggleCriteria(event,'report-mem-criteria')"
+              >
+                <span id="report-mem-criteria-label">ID/ Tên hiển thị</span>
+                <span>▾</span>
+              </button>
+              <div class="criteria-menu">
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('report-mem-criteria','ID/ Tên hiển thị')"
+                >
+                  ID/ Tên hiển thị
+                </button>
+              </div>
+            </div>
+            <input class="search-input-lg" placeholder="Thanh nhập" />
+            <button class="btn btn-primary btn-sm" onclick="searchReportMember()">
+              Tìm
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <div class="section-title">
+              Thành viên bị báo cáo
+              <span class="count" id="report-mem-count">0 người</span>
+            </div>
+            <div class="head-note">Chọn cấp bậc
+thành viên</div>
+          </div>
+
+          <div class="table-actions">
+            <div class="table-actions-left">
+              <span class="selected-label">Mục đã chọn:</span>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                onclick="bulkSuspend()"
+              >
+                Tạm khóa
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                onclick="bulkForceLeave()"
+              >
+                Buộc rời bỏ
+              </button>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="bulkCancelUpgrade()"
+              >
+                Hủy nâng cấp tự động
+              </button>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="bulkNotify()"
+              >
+                Gửi thông báo đẩy
+              </button>
+            </div>
+            <div class="table-actions-right">
+              <select class="form-input" style="width: 140px">
+                <option>Tất cả</option>
+                <option>Lv.1</option>
+                <option>Lv.2</option>
+                <option>Lv.3</option>
+                <option>Lv.4</option>
+                <option>Lv.5</option>
+                <option>Đối tác</option>
+                <option>Bệnh viện</option>
+                <option>Chuyên gia</option>
+                <option>Bác sĩ</option>
+              </select>
+              <select class="form-input" style="width: 130px">
+                <option>Danh sách 30</option>
+                <option>Danh sách 50</option>
+                <option>Danh sách 100</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-side-layout">
+            <div class="table-main">
+              <div class="table-wrap">
+                <table id="table-report-mem" style="min-width: 1200px">
+                  <thead>
+                    <tr>
+                      <th style="width: 40px">
+                        <input
+                          type="checkbox"
+                          id="chk-all-report-mem"
+                          onchange="toggleAllInTable(this,'table-report-mem','report-mem')"
+                        />
+                      </th>
+                      <th>Người báo cáo</th>
+                      <th>Người bị báo cáo</th>
+                      <th>Lý do báo cáo</th>
+                      <th>Số lần báo cáo</th>
+                      <th>Ghi chú</th>
+                      <th>Tình trạng</th>
+                      <th>Người xử lý</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-report-mem"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="side-label-vertical">
+              Đã xử lý&nbsp;&nbsp;/&nbsp;&nbsp;Chưa xử lý
+            </div>
+          </div>
+
+          <div class="table-footer">
+            <div class="pagination">
+              <button class="pg-btn">‹</button>
+              <button class="pg-btn active">1</button>
+              <button class="pg-btn">2</button>
+              <button class="pg-btn">3</button>
+              <button class="pg-btn">4</button>
+              <button class="pg-btn">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ====== ACTION MODAL ====== -->
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title" id="action-modal-title">
+          Xác nhận hành động
+        </h3>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn muốn thực hiện?
+        </p>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ====== STATE ====== */
+      let activeSection = "tucam";
+      let selectedWordType = "all";
+      let selectedBannedIds = [];
+      let selectedSpamIds = [];
+      let selectedReportIds = [];
+      let selectedMemberIds = [];
+      let currentActionType = null;
+      let currentTargetId = null;
+
+      /* ====== DATA ====== */
+      const bannedWords = [
+        { id: 1, word: "Bệnh viện A", type: "content", date: "23-06-2025 08:15", note: "", creator: "Như Mai" },
+        { id: 2, word: "Bác sĩ ABC", type: "content", date: "23-06-2025 09:30", note: "", creator: "Như Mai" },
+        { id: 3, word: "Thuốc A", type: "nickname", date: "23-06-2025 10:45", note: "", creator: "Như Mai" },
+        { id: 4, word: "spa123", type: "all", date: "22-06-2025 12:20", note: "Spam quảng cáo", creator: "Admin" },
+        { id: 5, word: "khoedep.vn", type: "content", date: "21-06-2025 14:05", note: "", creator: "Như Mai" },
+        { id: 6, word: "clinic_fake", type: "nickname", date: "20-06-2025 15:40", note: "", creator: "Admin" },
+      ];
+
+      const spamPosts = [
+        { id: 1, title: "Các chị ơi", content: "cho em hỏi là bệnh viện này làm có đẹp không, em đang phân vân quá", reason: "dùng từ cấm", author: "hihihi11", date: "24-06-2025 16:55", note: "Nghi ngờ MKT" },
+        { id: 2, title: "Em làm mũi rùi ne", content: "cả nhà ơi em mới làm mũi xong nè, khoe nhẹ ạ", reason: "đăng liên tục", author: "bobalove", date: "23-06-2025 18:10", note: "" },
+        { id: 3, title: "Review spa X", content: "dịch vụ tốt lắm, các bạn nên đến đây", reason: "spam quảng cáo", author: "user123", date: "22-06-2025 20:25", note: "" },
+      ];
+
+      const reportedPosts = [
+        { id: 1, title: "chào mng a", content: "chào mng a, mọi người cho mình hỏi địa chỉ làm đẹp uy tín với", reporter: "hihihi11", reported: "bobalove", reason: "Vi phạm điều luật cộng đồng", handler: "Như Mai", status: "reviewing", note: "" },
+        { id: 2, title: "Review X", content: "dịch vụ ở đây rất tệ, không nên đi", reporter: "user99", reported: "spa_fake", reason: "Spam quảng cáo", handler: "", status: "deleted", note: "" },
+      ];
+
+      const reportedMembers = [
+        { id: 1, reporter: "hihihi11", reported: "bobalove", reason: "Vi phạm điều luật cộng đồng", count: 5, note: "", status: "pending", handler: "Như Mai" },
+        { id: 2, reporter: "maimai", reported: "vyyy", reason: "Vi phạm điều luật cộng đồng", count: 3, note: "", status: "deleted", handler: "" },
+        { id: 3, reporter: "user99", reported: "spa_xyz", reason: "Spam quảng cáo", count: 8, note: "", status: "suspended", handler: "Admin" },
+      ];
+
+      const actionModalMap = {
+        "delete-banned": { title: "Xóa từ cấm", body: "Từ cấm này sẽ bị xóa vĩnh viễn khỏi hệ thống." },
+        "delete-spam": { title: "Xóa vĩnh viễn bài spam", body: "Bài viết sẽ bị xóa vĩnh viễn, không thể khôi phục." },
+        "restore-spam": { title: "Khôi phục bài spam", body: "Bài viết sẽ được khôi phục và hiển thị lại." },
+        "delete-report": { title: "Xóa bài bị báo cáo", body: "Hành động này không thể hoàn tác." },
+        "suspend-member": { title: "Tạm khóa thành viên", body: "Tài khoản sẽ bị tạm ngưng hoạt động." },
+        "force-leave": { title: "Buộc rời bỏ", body: "Thành viên sẽ bị buộc rời khỏi hệ thống." },
+        "cancel-upgrade": { title: "Hủy nâng cấp tự động", body: "Quy trình nâng cấp tự động của thành viên sẽ bị hủy." },
+        notify: { title: "Gửi thông báo đẩy", body: "Gửi thông báo đẩy đến thành viên được chọn." },
+        "suspend-single": { title: "Tạm khóa hoạt động", body: "Tài khoản thành viên này sẽ bị tạm ngưng hoạt động." },
+        "force-leave-single": { title: "Buộc rời bỏ", body: "Thành viên sẽ bị buộc rời khỏi hệ thống. Không thể hoàn tác." },
+        "cancel-upgrade-single": { title: "Hủy nâng cấp tự động", body: "Quy trình nâng cấp tự động của thành viên này sẽ bị hủy." },
+        "notify-single": { title: "Gửi thông báo đẩy", body: "Gửi thông báo đẩy đến thành viên này." },
+        "delete-spam-single": { title: "Xóa vĩnh viễn bài spam", body: "Bài viết này sẽ bị xóa vĩnh viễn, không thể khôi phục." },
+        "delete-report-single": { title: "Xóa bài bị báo cáo", body: "Bài viết này sẽ bị xóa. Xác nhận tiếp tục?" },
+      };
+
+      const TYPE_LABEL = {
+        all: "Tất cả",
+        content: "Nội dung",
+        nickname: "Tên hiển thị/ID",
+      };
+
+      const STATUS_OPTIONS_POST = [
+        { v: "reviewing", label: "Đang xem xét", cls: "s-reviewing" },
+        { v: "deleted", label: "Đã xóa bài viết", cls: "s-deleted" },
+        { v: "suspended", label: "Tài khoản bị tạm ngưng", cls: "s-suspended" },
+        { v: "forced", label: "Thành viên bị buộc rời khỏi hệ thống", cls: "s-forced" },
+        { v: "message", label: "Đã gửi tin nhắn", cls: "s-message" },
+      ];
+
+      const STATUS_OPTIONS_MEMBER = [
+        { v: "pending", label: "Chưa xử lý", cls: "s-pending" },
+        { v: "reviewing", label: "Đang xem xét", cls: "s-reviewing" },
+        { v: "deleted", label: "Đã xóa bài viết", cls: "s-deleted" },
+        { v: "suspended", label: "Tạm khóa hoạt động", cls: "s-suspended" },
+        { v: "forced", label: "Buộc rời bỏ", cls: "s-forced" },
+        { v: "cancel-up", label: "Hủy nâng cấp tự động", cls: "s-cancel-up" },
+        { v: "notify", label: "Gửi thông báo đẩy", cls: "s-notify" },
+      ];
+
+      const HANDLED_STATUSES = new Set([
+        "deleted",
+        "suspended",
+        "forced",
+        "cancel-up",
+        "notify",
+        "message",
+      ]);
+
+      /* ====== HELPERS ====== */
+      function escapeHtml(s) {
+        return String(s == null ? "" : s).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+      function truncate(s, n) {
+        if (!s) return "";
+        return s.length > n ? s.slice(0, n) + "…" : s;
+      }
+
+      /* ====== SECTION SWITCH ====== */
+      function goSection(name) {
+        activeSection = name;
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById("sidebar-" + name)?.classList.add("active");
+        document
+          .querySelectorAll(".main.page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + name)?.classList.add("active");
+        if (name === "tucam") renderBannedTable();
+        if (name === "spam") renderSpamTable();
+        if (name === "baocao-baiviet") renderReportPostTable();
+        if (name === "baocao-thanhvien") renderReportMemberTable();
+      }
+
+      /* ====== BANNED ====== */
+      function getFilteredBanned() {
+        return selectedWordType === "all"
+          ? bannedWords.slice()
+          : bannedWords.filter((b) => b.type === selectedWordType);
+      }
+      function renderBannedTable() {
+        const tbody = document.getElementById("tbody-banned");
+        if (!tbody) return;
+        const list = getFilteredBanned();
+        document.getElementById("banned-count").textContent =
+          list.length + " từ";
+        tbody.innerHTML = list
+          .map((b, idx) => {
+            const checked = selectedBannedIds.includes(b.id);
+            return `
+              <tr id="row-banned-${b.id}" class="${checked ? "row-checked" : ""}">
+                <td>${idx + 1}</td>
+                <td>
+                  <input type="checkbox" ${checked ? "checked" : ""}
+                         onchange="toggleSelected('banned',${b.id},this.checked)" />
+                </td>
+                <td class="td-left" style="color:var(--gray-900);font-weight:600">
+                  ${escapeHtml(b.word)}
+                </td>
+                <td>
+                  <span class="type-badge ${b.type}">${TYPE_LABEL[b.type] || "Tất cả"}</span>
+                </td>
+                <td>${escapeHtml(b.date)}</td>
+                <td>
+                  <input class="inline-input" placeholder="Nhập nội dung"
+                         value="${escapeHtml(b.note)}"
+                         onchange="updateBannedNote(${b.id}, this.value)" />
+                </td>
+                <td>${escapeHtml(b.creator)}</td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+      function filterBannedByType(type) {
+        selectedWordType = type;
+        renderBannedTable();
+      }
+      function updateBannedNote(id, value) {
+        const item = bannedWords.find((b) => b.id === id);
+        if (item) item.note = value;
+      }
+      function addBannedWord() {
+        const input = document.getElementById("banned-input");
+        const typeSel = document.getElementById("banned-add-type");
+        const word = (input.value || "").trim();
+        if (!word) {
+          alert("Vui lòng nhập từ cấm.");
+          return;
+        }
+        const duplicate = bannedWords.find(
+          (w) => w.word.toLowerCase() === word.toLowerCase(),
+        );
+        if (duplicate) {
+          alert(`Từ cấm "${word}" đã tồn tại trong hệ thống.`);
+          return;
+        }
+        bannedWords.unshift({
+          id: Date.now(),
+          word,
+          type: typeSel.value,
+          date: (() => {
+            const d = new Date();
+            const dd = String(d.getDate()).padStart(2, "0");
+            const mm = String(d.getMonth() + 1).padStart(2, "0");
+            const yyyy = d.getFullYear();
+            const hh = String(d.getHours()).padStart(2, "0");
+            const mi = String(d.getMinutes()).padStart(2, "0");
+            return `${dd}-${mm}-${yyyy} ${hh}:${mi}`;
+          })(),
+          note: "",
+          creator: "Admin",
+        });
+        input.value = "";
+        renderBannedTable();
+        alert("Đã thêm từ cấm.");
+      }
+      function bulkDeleteBanned() {
+        if (!selectedBannedIds.length) {
+          alert("Vui lòng chọn ít nhất 1 từ cấm cần xóa.");
+          return;
+        }
+        openActionModal("delete-banned-bulk", null, {
+          title: "Xóa từ cấm",
+          body: `Bạn đang xóa ${selectedBannedIds.length} từ cấm. Hành động này không thể hoàn tác.`,
+        });
+      }
+      function searchBanned() {
+        alert("Đang tìm kiếm từ cấm.");
+      }
+
+      /* ====== SPAM ====== */
+      function renderSpamTable() {
+        const tbody = document.getElementById("tbody-spam");
+        if (!tbody) return;
+        document.getElementById("spam-count").textContent =
+          spamPosts.length + " bài";
+        tbody.innerHTML = spamPosts
+          .map((p) => {
+            const checked = selectedSpamIds.includes(p.id);
+            return `
+              <tr id="row-spam-${p.id}" class="${checked ? "row-checked" : ""}">
+                <td>
+                  <input type="checkbox" ${checked ? "checked" : ""}
+                         onchange="toggleSelected('spam',${p.id},this.checked)" />
+                </td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">
+                      ${escapeHtml(p.title)}
+                    </button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="handleRowAction('detail-post',${p.id})">Chi tiết thông tin</button>
+                      <button class="menu-item" onclick="handleRowAction('history-post',${p.id})">Lịch sử hoạt động</button>
+                      <button class="menu-item" onclick="handleRowAction('suspend-member',${p.id})">Tạm khóa hoạt động</button>
+                      <button class="menu-item" onclick="handleRowAction('force-leave',${p.id})">Buộc rời bỏ</button>
+                      <button class="menu-item" onclick="handleRowAction('notify',${p.id})">Gửi thông báo đẩy</button>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-left">
+                  <div class="tooltip-wrap">
+                    <span class="note-ellipsis">${escapeHtml(truncate(p.content, 60))}</span>
+                    <div class="tooltip">${escapeHtml(p.content)}</div>
+                  </div>
+                </td>
+                <td><span class="reason-badge">${escapeHtml(p.reason)}</span></td>
+                <td>${escapeHtml(p.author)}</td>
+                <td>${escapeHtml(p.date)}</td>
+                <td>
+                  <input class="inline-input" placeholder="Nhập nội dung"
+                         value="${escapeHtml(p.note)}"
+                         onchange="updateSpamNote(${p.id}, this.value)" />
+                </td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+      function updateSpamNote(id, value) {
+        const item = spamPosts.find((b) => b.id === id);
+        if (item) item.note = value;
+      }
+      function bulkSpamHardDelete() {
+        if (!selectedSpamIds.length) {
+          alert("Vui lòng chọn ít nhất 1 bài cần xóa.");
+          return;
+        }
+        openActionModal("delete-spam-bulk", null, {
+          title: "Xóa vĩnh viễn bài spam",
+          body: `${selectedSpamIds.length} bài viết sẽ bị xóa vĩnh viễn. Hành động này không thể hoàn tác.`,
+        });
+      }
+      function bulkSpamRestore() {
+        if (!selectedSpamIds.length) {
+          alert("Vui lòng chọn ít nhất 1 bài cần khôi phục.");
+          return;
+        }
+        openActionModal("restore-spam-bulk", null, {
+          title: "Khôi phục bài spam",
+          body: `${selectedSpamIds.length} bài viết sẽ được khôi phục và hiển thị lại cho người dùng.`,
+        });
+      }
+      function searchSpam() {
+        alert("Đang tìm kiếm bài spam.");
+      }
+
+      /* ====== REPORT POST ====== */
+      function renderReportPostTable() {
+        const tbody = document.getElementById("tbody-report-post");
+        if (!tbody) return;
+        document.getElementById("report-post-count").textContent =
+          reportedPosts.length + " bài";
+        tbody.innerHTML = reportedPosts
+          .map((r) => {
+            const checked = selectedReportIds.includes(r.id);
+            const statusOptions = STATUS_OPTIONS_POST.map(
+              (s) =>
+                `<option value="${s.v}" ${s.v === r.status ? "selected" : ""}>${s.label}</option>`,
+            ).join("");
+            const cls =
+              STATUS_OPTIONS_POST.find((s) => s.v === r.status)?.cls || "";
+            return `
+              <tr id="row-report-post-${r.id}" class="${checked ? "row-checked" : ""}">
+                <td>
+                  <input type="checkbox" ${checked ? "checked" : ""}
+                         onchange="toggleSelected('report-post',${r.id},this.checked)" />
+                </td>
+                <td class="td-left" style="font-weight:600;color:var(--gray-900)">
+                  ${escapeHtml(r.title)}
+                </td>
+                <td class="td-left">
+                  <div class="tooltip-wrap">
+                    <span class="note-ellipsis">${escapeHtml(truncate(r.content, 60))}</span>
+                    <div class="tooltip">${escapeHtml(r.content)}</div>
+                  </div>
+                </td>
+                <td>${escapeHtml(r.reporter)}</td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">
+                      ${escapeHtml(r.reported)}
+                    </button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="handleRowAction('detail-member',${r.id})">Thông tin chi tiết</button>
+                      <button class="menu-item" onclick="handleRowAction('history-member',${r.id})">Lịch sử hoạt động</button>
+                      <button class="menu-item" onclick="handleRowAction('suspend-member',${r.id})">Tạm khóa hoạt động</button>
+                      <button class="menu-item" onclick="handleRowAction('force-leave',${r.id})">Buộc rời bỏ</button>
+                      <button class="menu-item" onclick="handleRowAction('cancel-upgrade',${r.id})">Hủy nâng cấp tự động</button>
+                      <button class="menu-item" onclick="handleRowAction('notify',${r.id})">Gửi thông báo đẩy</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${escapeHtml(r.reason)}</td>
+                <td>
+                  <input class="inline-input sm" placeholder="Thanh nhập"
+                         value="${escapeHtml(r.handler)}"
+                         onchange="updateReportPostHandler(${r.id}, this.value)" />
+                </td>
+                <td>
+                  <select class="status-select ${cls}"
+                          onchange="updateReportPostStatus(${r.id}, this)">
+                    ${statusOptions}
+                  </select>
+                </td>
+                <td>
+                  <input class="inline-input" placeholder="Nhập nội dung"
+                         value="${escapeHtml(r.note)}"
+                         onchange="updateReportPostNote(${r.id}, this.value)" />
+                </td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+      function updateReportPostStatus(id, sel) {
+        const r = reportedPosts.find((x) => x.id === id);
+        if (!r) return;
+        r.status = sel.value;
+        const cls =
+          STATUS_OPTIONS_POST.find((s) => s.v === sel.value)?.cls || "";
+        sel.className = "status-select " + cls;
+      }
+      function updateReportPostNote(id, v) {
+        const r = reportedPosts.find((x) => x.id === id);
+        if (r) r.note = v;
+      }
+      function updateReportPostHandler(id, v) {
+        const r = reportedPosts.find((x) => x.id === id);
+        if (r) r.handler = v;
+      }
+      function bulkReportPostDelete() {
+        if (!selectedReportIds.length) {
+          alert("Vui lòng chọn ít nhất 1 bài cần xóa.");
+          return;
+        }
+        openActionModal("delete-report-bulk", null, {
+          title: "Xóa bài bị báo cáo",
+          body: `${selectedReportIds.length} bài viết sẽ bị xóa. Xác nhận tiếp tục?`,
+        });
+      }
+      function searchReportPost() {
+        alert("Đang tìm kiếm bài bị báo cáo.");
+      }
+
+      /* ====== REPORT MEMBER ====== */
+      function renderReportMemberTable() {
+        const tbody = document.getElementById("tbody-report-mem");
+        if (!tbody) return;
+        document.getElementById("report-mem-count").textContent =
+          reportedMembers.length + " người";
+        tbody.innerHTML = reportedMembers
+          .map((m) => {
+            const checked = selectedMemberIds.includes(m.id);
+            const statusOptions = STATUS_OPTIONS_MEMBER.map(
+              (s) =>
+                `<option value="${s.v}" ${s.v === m.status ? "selected" : ""}>${s.label}</option>`,
+            ).join("");
+            const cls =
+              STATUS_OPTIONS_MEMBER.find((s) => s.v === m.status)?.cls || "";
+            const handled = HANDLED_STATUSES.has(m.status);
+            const trClasses = [
+              checked ? "row-checked" : "",
+              handled ? "row-handled" : "",
+            ]
+              .filter(Boolean)
+              .join(" ");
+            return `
+              <tr id="row-report-mem-${m.id}" class="${trClasses}">
+                <td>
+                  <input type="checkbox" ${checked ? "checked" : ""}
+                         onchange="toggleSelected('report-mem',${m.id},this.checked)" />
+                </td>
+                <td>${escapeHtml(m.reporter)}</td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">
+                      ${escapeHtml(m.reported)}
+                    </button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="handleRowAction('detail-member',${m.id})">Thông tin chi tiết</button>
+                      <button class="menu-item" onclick="handleRowAction('history-member',${m.id})">Lịch sử hoạt động</button>
+                      <button class="menu-item" onclick="handleRowAction('suspend-member',${m.id})">Tạm khóa hoạt động</button>
+                      <button class="menu-item" onclick="handleRowAction('force-leave',${m.id})">Buộc rời bỏ</button>
+                      <button class="menu-item" onclick="handleRowAction('cancel-upgrade',${m.id})">Hủy nâng cấp tự động</button>
+                      <button class="menu-item" onclick="handleRowAction('notify',${m.id})">Gửi thông báo đẩy</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${escapeHtml(m.reason)}</td>
+                <td style="font-weight:600;color:var(--gray-900)">${m.count}</td>
+                <td>
+                  <input class="inline-input" placeholder="Thanh nhập"
+                         value="${escapeHtml(m.note)}"
+                         onchange="updateReportMemNote(${m.id}, this.value)" />
+                </td>
+                <td>
+                  <select class="status-select ${cls}"
+                          onchange="updateReportMemStatus(${m.id}, this)">
+                    ${statusOptions}
+                  </select>
+                </td>
+                <td>
+                  <input class="inline-input sm" placeholder="Thanh nhập"
+                         value="${escapeHtml(m.handler)}"
+                         onchange="updateReportMemHandler(${m.id}, this.value)" />
+                </td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+      function updateReportMemStatus(id, sel) {
+        const m = reportedMembers.find((x) => x.id === id);
+        if (!m) return;
+        m.status = sel.value;
+        renderReportMemberTable();
+      }
+      function updateReportMemNote(id, v) {
+        const m = reportedMembers.find((x) => x.id === id);
+        if (m) m.note = v;
+      }
+      function updateReportMemHandler(id, v) {
+        const m = reportedMembers.find((x) => x.id === id);
+        if (m) m.handler = v;
+      }
+      function memberBulkAction(type) {
+        if (!selectedMemberIds.length) {
+          alert("Vui lòng chọn ít nhất 1 thành viên.");
+          return;
+        }
+        const map = {
+          suspend: {
+            title: "Tạm khóa thành viên",
+            body: `Tạm khóa hoạt động của ${selectedMemberIds.length} thành viên được chọn.`,
+          },
+          "force-leave": {
+            title: "Buộc rời bỏ",
+            body: `${selectedMemberIds.length} thành viên sẽ bị buộc rời khỏi hệ thống. Không thể hoàn tác.`,
+          },
+          "cancel-upgrade": {
+            title: "Hủy nâng cấp tự động",
+            body: `Hủy quy trình nâng cấp tự động của ${selectedMemberIds.length} thành viên.`,
+          },
+          notify: {
+            title: "Gửi thông báo đẩy",
+            body: `Gửi thông báo đẩy đến ${selectedMemberIds.length} thành viên được chọn.`,
+          },
+        };
+        const cfg = map[type];
+        if (!cfg) return;
+        openActionModal(`member-bulk-${type}`, null, cfg);
+      }
+      function bulkSuspend() {
+        memberBulkAction("suspend");
+      }
+      function bulkForceLeave() {
+        memberBulkAction("force-leave");
+      }
+      function bulkCancelUpgrade() {
+        memberBulkAction("cancel-upgrade");
+      }
+      function bulkNotify() {
+        memberBulkAction("notify");
+      }
+      function searchReportMember() {
+        alert("Đang tìm kiếm thành viên bị báo cáo.");
+      }
+
+      /* ====== SHARED ROW HELPERS ====== */
+      function toggleSelected(kind, id, checked) {
+        const target =
+          kind === "banned"
+            ? selectedBannedIds
+            : kind === "spam"
+              ? selectedSpamIds
+              : kind === "report-post"
+                ? selectedReportIds
+                : selectedMemberIds;
+        const idx = target.indexOf(id);
+        if (checked && idx < 0) target.push(id);
+        if (!checked && idx >= 0) target.splice(idx, 1);
+        const row = document.getElementById(`row-${kind}-${id}`);
+        if (row) row.classList.toggle("row-checked", checked);
+      }
+
+      function toggleAllInTable(cb, tableId, kind) {
+        const table = document.getElementById(tableId);
+        if (!table) return;
+        const list =
+          kind === "banned"
+            ? bannedWords.map((b) => b.id)
+            : kind === "spam"
+              ? spamPosts.map((b) => b.id)
+              : kind === "report-post"
+                ? reportedPosts.map((b) => b.id)
+                : reportedMembers.map((b) => b.id);
+        if (cb.checked) {
+          if (kind === "banned") selectedBannedIds = list.slice();
+          else if (kind === "spam") selectedSpamIds = list.slice();
+          else if (kind === "report-post") selectedReportIds = list.slice();
+          else selectedMemberIds = list.slice();
+        } else {
+          if (kind === "banned") selectedBannedIds = [];
+          else if (kind === "spam") selectedSpamIds = [];
+          else if (kind === "report-post") selectedReportIds = [];
+          else selectedMemberIds = [];
+        }
+        if (kind === "banned") renderBannedTable();
+        else if (kind === "spam") renderSpamTable();
+        else if (kind === "report-post") renderReportPostTable();
+        else renderReportMemberTable();
+        const headerCb = document.getElementById("chk-all-" + kind);
+        if (headerCb) headerCb.checked = cb.checked;
+      }
+
+      function toggleMenu(event, menuEl) {
+        event.stopPropagation();
+        const open = !menuEl.classList.contains("open");
+        closeAllMenus();
+        if (open) menuEl.classList.add("open");
+      }
+      function closeAllMenus() {
+        document
+          .querySelectorAll(".cell-menu")
+          .forEach((m) => m.classList.remove("open"));
+        document
+          .querySelectorAll(".criteria-wrap")
+          .forEach((m) => m.classList.remove("open"));
+      }
+
+      /* ====== CRITERIA DROPDOWN ====== */
+      function toggleCriteria(event, id) {
+        event.stopPropagation();
+        const wrap = document.getElementById(id);
+        if (!wrap) return;
+        const open = !wrap.classList.contains("open");
+        closeAllMenus();
+        if (open) wrap.classList.add("open");
+      }
+      function pickCriteria(id, label) {
+        document.getElementById(id + "-label").textContent = label;
+        document.getElementById(id)?.classList.remove("open");
+      }
+
+      /* ====== DATE / QUICK FILTER ====== */
+      function shiftDate(direction) {
+        alert(
+          "Chuyển khoảng thời gian: " +
+            (direction > 0 ? "Tiếp theo" : "Trước đó"),
+        );
+      }
+      function setQuickFilter(btn) {
+        const wrap = btn.parentElement;
+        wrap
+          .querySelectorAll(".qf-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+      function formatToday() {
+        const d = new Date();
+        return [
+          String(d.getDate()).padStart(2, "0"),
+          String(d.getMonth() + 1).padStart(2, "0"),
+          d.getFullYear(),
+        ].join("/");
+      }
+
+      /* ====== CELL-MENU ROW ACTIONS ====== */
+      function handleRowAction(action, id) {
+        closeAllMenus();
+        if (action === "detail-post" || action === "detail-member") {
+          alert("Mở thông tin chi tiết (mock).");
+          return;
+        }
+        if (action === "history-post" || action === "history-member") {
+          alert("Mở lịch sử hoạt động (mock).");
+          return;
+        }
+        const singleMap = {
+          "suspend-member": "suspend-single",
+          "force-leave": "force-leave-single",
+          "cancel-upgrade": "cancel-upgrade-single",
+          notify: "notify-single",
+          "delete-spam": "delete-spam-single",
+          "delete-report": "delete-report-single",
+        };
+        const key = singleMap[action] || action;
+        if (actionModalMap[key]) openActionModal(key, id);
+      }
+
+      /* ====== ACTION MODAL ====== */
+      function openActionModal(type, id = null, override = null) {
+        const cfg = override || actionModalMap[type];
+        if (!cfg) return;
+        currentActionType = type;
+        currentTargetId = id;
+        document.getElementById("action-modal-title").textContent = cfg.title;
+        document.getElementById("action-modal-body").textContent = cfg.body;
+        document.getElementById("action-modal-backdrop").classList.add("open");
+      }
+      function closeActionModal() {
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
+        currentActionType = null;
+        currentTargetId = null;
+      }
+      function uncheckAllHeader(id) {
+        const cb = document.getElementById(id);
+        if (cb) cb.checked = false;
+      }
+      function confirmActionModal() {
+        const type = currentActionType;
+        const targetId = currentTargetId;
+        const titleText = document.getElementById(
+          "action-modal-title",
+        ).textContent;
+        closeActionModal();
+        if (!type) return;
+
+        /* === BULK === */
+        if (type === "delete-banned-bulk") {
+          const count = selectedBannedIds.length;
+          for (const id of selectedBannedIds.slice()) {
+            const idx = bannedWords.findIndex((b) => b.id === id);
+            if (idx >= 0) bannedWords.splice(idx, 1);
+          }
+          selectedBannedIds = [];
+          uncheckAllHeader("chk-all-banned");
+          renderBannedTable();
+          alert(`Đã xóa ${count} từ cấm.`);
+          return;
+        }
+        if (type === "delete-spam-bulk") {
+          for (const id of selectedSpamIds.slice()) {
+            const idx = spamPosts.findIndex((b) => b.id === id);
+            if (idx >= 0) spamPosts.splice(idx, 1);
+          }
+          selectedSpamIds = [];
+          uncheckAllHeader("chk-all-spam");
+          renderSpamTable();
+          alert("Đã xóa vĩnh viễn các bài spam.");
+          return;
+        }
+        if (type === "restore-spam-bulk") {
+          selectedSpamIds = [];
+          uncheckAllHeader("chk-all-spam");
+          renderSpamTable();
+          alert("Đã khôi phục các bài spam.");
+          return;
+        }
+        if (type === "delete-report-bulk") {
+          for (const id of selectedReportIds.slice()) {
+            const idx = reportedPosts.findIndex((b) => b.id === id);
+            if (idx >= 0) reportedPosts.splice(idx, 1);
+          }
+          selectedReportIds = [];
+          uncheckAllHeader("chk-all-report-post");
+          renderReportPostTable();
+          alert("Đã xóa các bài bị báo cáo.");
+          return;
+        }
+        if (type && type.startsWith("member-bulk-")) {
+          selectedMemberIds = [];
+          uncheckAllHeader("chk-all-report-mem");
+          renderReportMemberTable();
+          alert(`Đã thực hiện: ${titleText}.`);
+          return;
+        }
+
+        /* === SINGLE (cell-menu) === */
+        if (type === "delete-spam-single" && targetId != null) {
+          const idx = spamPosts.findIndex((b) => b.id === targetId);
+          if (idx >= 0) spamPosts.splice(idx, 1);
+          renderSpamTable();
+          alert("Đã xóa bài spam.");
+          return;
+        }
+        if (type === "delete-report-single" && targetId != null) {
+          const idx = reportedPosts.findIndex((b) => b.id === targetId);
+          if (idx >= 0) reportedPosts.splice(idx, 1);
+          renderReportPostTable();
+          alert("Đã xóa bài bị báo cáo.");
+          return;
+        }
+        if (
+          type === "suspend-single" ||
+          type === "force-leave-single" ||
+          type === "cancel-upgrade-single" ||
+          type === "notify-single"
+        ) {
+          alert(`Đã thực hiện: ${titleText}.`);
+          return;
+        }
+
+        /* === LEGACY/ ACTION-MAP keys === */
+        if (type === "delete-banned") {
+          for (const id of selectedBannedIds.slice()) {
+            const idx = bannedWords.findIndex((b) => b.id === id);
+            if (idx >= 0) bannedWords.splice(idx, 1);
+          }
+          selectedBannedIds = [];
+          uncheckAllHeader("chk-all-banned");
+          renderBannedTable();
+          alert("Đã xóa.");
+          return;
+        }
+        alert("Đã thực hiện: " + (actionModalMap[type]?.title || type) + ".");
+      }
+
+      /* ====== INIT & GLOBAL LISTENERS ====== */
+      document.addEventListener("DOMContentLoaded", () => {
+        renderBannedTable();
+        renderSpamTable();
+        renderReportPostTable();
+        renderReportMemberTable();
+      });
+      document.addEventListener("click", () => {
+        closeAllMenus();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeActionModal();
+          closeAllMenus();
+        }
+      });
+</script>
+  </body>
+</html>

@@ -1,0 +1,1617 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thành viên thực, staff - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --success: #16a34a;
+        --success-light: #dcfce7;
+        --warning: #f59e0b;
+        --warning-light: #fef3c7;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --sidebar-w: 230px;
+        --header-h: 60px;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+      .header {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        min-height: 60px;
+        background: linear-gradient(135deg, #4a2096 0%, #6c3fc5 60%, #8b5cf6 100%);
+        display: flex; align-items: center; justify-content: space-between;
+        padding-left: 20px; padding-right: 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo { display: flex; align-items: center; gap: 10px; color: white; font-weight: 700; font-size: 14px; }
+      .header-logo .logo-box {
+        width: 30px; height: 30px; background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px; display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 13px; color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav { display: flex; align-items: center; gap: 2px; flex: 1; padding: 0 24px; }
+      .nav-item {
+        padding: 5px 9px; border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75); cursor: pointer;
+        font-size: 11.5px; font-weight: 500;
+        white-space: normal; line-height: 1.2; text-align: center;
+        max-width: 120px; transition: all 0.15s;
+      }
+      .nav-item:hover, .nav-item.active { background: rgba(255, 255, 255, 0.18); color: white; }
+      .nav-item.active { background: rgba(255, 255, 255, 0.22); font-weight: 600; }
+      .nav-item-group { position: relative; }
+      .nav-item-group .nav-dropdown {
+        position: absolute; top: 100%; left: 0; background: white;
+        border: 1px solid var(--gray-200); border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px; display: none; z-index: 300; padding: 4px 0; margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown { display: block; }
+      .nav-dropdown a {
+        display: block; padding: 8px 14px; color: var(--gray-700);
+        text-decoration: none; font-size: 11.5px; font-weight: 500; white-space: nowrap;
+      }
+      .nav-dropdown a:hover { background: var(--gray-100); color: var(--primary); }
+      a.nav-item { text-decoration: none; display: inline-block; }
+      .header-user { display: flex; align-items: center; gap: 8px; color: white; font-size: 12px; }
+      .header-user .avatar {
+        width: 30px; height: 30px; background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-weight: 700; font-size: 12px; border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info { text-align: right; }
+      .header-user .user-name { font-weight: 600; font-size: 12px; }
+      .header-user .user-role { font-size: 10.5px; opacity: 0.75; }
+
+      .app-body { display: flex; padding-top: var(--header-h); min-height: 100vh; }
+      .sidebar {
+        width: var(--sidebar-w); flex-shrink: 0; background: white;
+        min-height: calc(100vh - var(--header-h));
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 10px;
+        position: fixed; top: var(--header-h); left: 0; bottom: 0;
+        overflow-y: auto;
+      }
+      .sidebar-label {
+        font-size: 9.5px; font-weight: 700; color: var(--gray-400);
+        letter-spacing: 0.08em; text-transform: uppercase;
+        padding: 6px 8px; margin-top: 10px;
+      }
+      .sidebar-label:first-child { margin-top: 0; }
+      .sidebar-item {
+        display: flex; align-items: center; gap: 8px;
+        padding: 7px 10px; border-radius: 8px; cursor: pointer;
+        color: var(--gray-500); font-size: 12.5px; font-weight: 500;
+        transition: all 0.15s; margin-bottom: 1px;
+      }
+      .sidebar-item:hover { background: var(--gray-100); color: var(--gray-700); }
+      .sidebar-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+      .main { margin-left: var(--sidebar-w); flex: 1; padding: 20px; }
+      .page { display: none; }
+      .page.active { display: block; }
+      .page-title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+
+      .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: 14px; }
+      .card-body { padding: 14px 18px; }
+
+      .search-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+      .search-row + .search-row { margin-top: 10px; }
+      .filter-label { font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+
+      .date-range {
+        display: flex; align-items: center;
+        border: 1.5px solid var(--primary-mid); border-radius: 8px;
+        overflow: hidden; background: white; max-width: 280px;
+      }
+      .date-nav {
+        padding: 6px 12px; background: var(--primary-light);
+        cursor: pointer; color: var(--primary);
+        font-size: 14px; font-weight: 700; border: none;
+      }
+      .date-display { padding: 6px 16px; font-size: 12px; font-weight: 600; color: var(--primary); background: white; white-space: nowrap; text-align: center; min-width: 200px; }
+
+      .time-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+      .tf-btn {
+        padding: 7px 14px; min-height: 32px; border-radius: 9px;
+        border: 1px solid #e2e5f1; background: white; color: #677194;
+        font-size: 11.5px; font-weight: 500; cursor: pointer; font-family: inherit;
+      }
+      .tf-btn.active { background: var(--primary); color: white; border-color: transparent; font-weight: 700; }
+
+      .criteria-wrap { position: relative; }
+      .criteria-btn {
+        height: 34px; min-width: 150px;
+        border: 1.5px solid var(--gray-200); border-radius: 8px; background: white;
+        font-size: 12px; font-weight: 600; color: var(--gray-700);
+        font-family: inherit; padding: 0 10px; cursor: pointer;
+        display: inline-flex; align-items: center; justify-content: space-between; gap: 10px;
+      }
+      .criteria-menu {
+        display: none; position: absolute; top: calc(100% + 6px); left: 0;
+        min-width: 160px; background: white; border: 1px solid var(--gray-200);
+        border-radius: 8px; padding: 4px; box-shadow: var(--shadow-md); z-index: 260;
+      }
+      .criteria-wrap.open .criteria-menu { display: block; }
+      .criteria-option {
+        width: 100%; border: none; background: transparent; text-align: left;
+        border-radius: 6px; padding: 7px 9px; font-size: 11.5px; color: var(--gray-700);
+        cursor: pointer; font-family: inherit;
+      }
+      .criteria-option:hover { background: var(--gray-100); color: var(--primary); }
+
+      .search-input-lg {
+        flex: 1; min-width: 240px; height: 34px;
+        border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 0 11px;
+        font-size: 12px; color: var(--gray-700); font-family: inherit; outline: none;
+      }
+
+      .btn {
+        padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600;
+        cursor: pointer; border: none; font-family: inherit; transition: all 0.15s;
+        display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+      }
+      .btn-outline-primary { background: white; border: 1.5px solid var(--primary); color: var(--primary); }
+      .btn-outline-primary:hover { background: var(--primary-light); }
+      .btn-outline-danger { background: white; border: 1.5px solid var(--accent); color: var(--accent); }
+      .btn-outline-danger:hover { background: var(--accent-light); }
+      .btn-primary { background: var(--primary); color: white; border: 1.5px solid var(--primary); }
+      .btn-danger { background: var(--accent); color: white; border: 1.5px solid var(--accent); }
+      .btn-ghost { background: var(--gray-100); border: 1.5px solid var(--gray-200); color: var(--gray-500); }
+      .btn-sm { padding: 4px 11px; font-size: 11px; }
+
+      .tabs { display: flex; border-bottom: 2px solid var(--gray-200); margin-bottom: 14px; flex-wrap: wrap; }
+      .tab {
+        padding: 8px 16px; font-size: 12.5px; font-weight: 500;
+        color: var(--gray-400); cursor: pointer;
+        border-bottom: 2px solid transparent; margin-bottom: -2px;
+        font-family: inherit; background: none; border-left: none; border-right: none; border-top: none;
+      }
+      .tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+
+      .table-title { font-size: 13px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+      .table-title .count { font-size: 11px; background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+
+      .table-actions { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
+      .table-actions-left, .table-actions-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+      .table-actions-left span { font-size: 11.5px; color: var(--gray-500); font-weight: 500; }
+
+      .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200); }
+      table { width: 100%; border-collapse: collapse; min-width: 1200px; }
+      thead { background: var(--gray-50); }
+      thead th { padding: 9px 10px; text-align: center; font-size: 11.5px; font-weight: 600; color: var(--gray-500); white-space: nowrap; border-bottom: 1.5px solid var(--gray-200); }
+      tbody tr { border-bottom: 1px solid var(--gray-100); }
+      tbody tr:hover { background: var(--gray-50); }
+      tbody td { padding: 9px 10px; text-align: center; font-size: 12px; color: var(--gray-700); vertical-align: middle; }
+      .td-left { text-align: left !important; }
+
+      .cell-menu { position: relative; display: inline-block; }
+      .menu-trigger {
+        background: none; border: none; padding: 0; font: inherit;
+        color: var(--primary); font-weight: 600; text-decoration: underline;
+        cursor: pointer; font-size: 12px;
+      }
+      .menu-list {
+        position: absolute; top: calc(100% + 2px); left: 0; background: white;
+        border: 1px solid var(--gray-200); border-radius: 8px; box-shadow: var(--shadow-md);
+        z-index: 40; min-width: 200px; display: none; flex-direction: column; padding: 4px 0;
+      }
+      .cell-menu.open .menu-list { display: flex; }
+      .menu-item {
+        padding: 7px 12px; background: none; border: none; text-align: left;
+        font-size: 12px; color: var(--gray-700); cursor: pointer; font-family: inherit;
+      }
+      .menu-item:hover { background: var(--gray-100); color: var(--primary); }
+      .menu-divider { margin: 4px 0; border: none; border-top: 1px solid var(--gray-200); }
+
+      .table-footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--gray-200); background: white; }
+      .pagination { display: flex; gap: 4px; justify-content: center; align-items: center; }
+      .pg-btn {
+        min-width: 32px; height: 32px; padding: 0 8px;
+        border: 1px solid var(--gray-300); background: white; border-radius: 6px;
+        font-size: 12px; font-weight: 600; color: var(--gray-700); cursor: pointer;
+      }
+      .pg-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+
+      .select-dropdown { position: relative; display: inline-flex; align-items: center; }
+      .select-dropdown select {
+        appearance: none; padding: 6px 28px 6px 10px;
+        border: 1.5px solid var(--gray-200); border-radius: 8px;
+        font-size: 12px; font-family: inherit; color: var(--gray-700);
+        background: white; cursor: pointer; outline: none; min-width: 150px;
+      }
+      .select-dropdown::after {
+        content: "▾"; position: absolute; right: 10px; pointer-events: none;
+        font-size: 10px; color: var(--gray-400);
+      }
+
+      .info-note {
+        margin: 0 0 14px; padding: 10px 14px; font-size: 11.5px;
+        color: var(--warning); background: var(--warning-light);
+        border: 1px solid var(--warning); border-radius: 8px; font-weight: 500;
+      }
+
+      .ip-text { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 11.5px; color: var(--gray-700); }
+
+      /* ====== ACTION MODAL ====== */
+      .action-modal-backdrop {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.5); z-index: 260;
+        display: none; align-items: center; justify-content: center;
+      }
+      .action-modal-backdrop.open { display: flex; }
+      .action-modal { background: white; border-radius: 10px; padding: 20px; max-width: 460px; width: 95vw; box-shadow: var(--shadow-md); }
+      .action-modal-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+      .action-modal-body { font-size: 12px; color: var(--gray-600); line-height: 1.5; margin-bottom: 16px; }
+      .action-modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+      .action-modal-btn { padding: 8px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
+      .action-modal-btn-cancel { background: var(--gray-200); color: var(--gray-700); }
+      .action-modal-btn-confirm { background: var(--accent); color: white; }
+      .action-modal-btn-confirm.is-primary { background: var(--primary); }
+
+      .reason-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+      .reason-radio {
+        display: flex; align-items: center; gap: 8px;
+        padding: 8px 10px; border: 1.5px solid var(--gray-200); border-radius: 8px;
+        cursor: pointer; font-size: 12px; color: var(--gray-700);
+      }
+      .reason-radio input { margin: 0; }
+      .reason-radio:has(input:checked) { border-color: var(--primary); background: var(--primary-light); color: var(--primary); font-weight: 600; }
+      .reason-other-input {
+        margin-top: 6px; width: 100%; padding: 8px 12px;
+        border: 1.5px solid var(--gray-200); border-radius: 8px;
+        font-size: 12px; font-family: inherit; outline: none;
+      }
+      .reason-other-input:focus { border-color: var(--primary); }
+      .reason-duration {
+        margin-top: 8px; padding: 10px 12px;
+        background: var(--gray-50); border: 1px solid var(--gray-200);
+        border-radius: 8px; display: flex; align-items: center; gap: 10px;
+      }
+      .reason-duration .label { font-size: 12px; font-weight: 600; color: var(--gray-700); }
+      .reason-duration select {
+        padding: 5px 26px 5px 10px; appearance: none;
+        border: 1.5px solid var(--gray-200); border-radius: 6px;
+        font-size: 12px; color: var(--gray-700); background: white; cursor: pointer;
+      }
+
+      /* ====== REASON CHIP EDITOR (4.1.4) ====== */
+      .reason-input-row { display: flex; align-items: center; gap: 10px; }
+      .reason-input {
+        flex: 1; height: 38px;
+        border: 1.5px solid var(--success); background: var(--success-light);
+        border-radius: 10px; padding: 0 14px;
+        font-size: 12.5px; color: var(--gray-900); font-family: inherit; outline: none;
+      }
+      .reason-input:focus { border-color: var(--primary); background: white; }
+      .reason-input.editing { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+      .reason-chip {
+        display: inline-flex; align-items: center;
+        padding: 6px 14px; border: 1.5px solid var(--primary-mid);
+        background: var(--primary-light); color: var(--primary);
+        border-radius: 999px; font-size: 12px; font-weight: 600;
+        cursor: pointer; font-family: inherit;
+      }
+      .reason-chip:hover, .reason-chip.editing { background: var(--primary); color: white; border-color: var(--primary); }
+
+      /* ====== MINI BAR CHART (4.1.5-2 placeholder) ====== */
+      .bars-row { display: flex; align-items: flex-end; gap: 6px; height: 80px; padding: 4px 0; }
+      .bar {
+        flex: 1; background: var(--primary); border-radius: 4px 4px 0 0;
+        position: relative; min-height: 8px; transition: background 0.15s;
+      }
+      .bar:hover { background: var(--accent); }
+      .bar-label { font-size: 10px; color: var(--gray-500); text-align: center; margin-top: 4px; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">B</div>
+        BEAUTY Admin
+      </div>
+      <nav class="header-nav">
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <div class="nav-item active">Thành viên thực, staff</div>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+      </nav>
+      <div class="header-user">
+        <div class="user-info">
+          <div class="user-name">Nguyễn Văn Admin</div>
+          <div class="user-role">Quản trị viên cấp 3</div>
+        </div>
+        <div class="avatar">AD</div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="sidebar">
+        <div class="sidebar-label">Quản lý thành viên thực</div>
+        <div class="sidebar-item active" id="sidebar-real" onclick="goSection('real')">Thành viên thực</div>
+        <div class="sidebar-item" id="sidebar-suspended" onclick="goSection('suspended')">Thành viên bị tạm khóa</div>
+        <div class="sidebar-item" id="sidebar-leave" onclick="goSection('leave')">QL thành viên rời bỏ</div>
+        <div class="sidebar-item" id="sidebar-leave-reason" onclick="goSection('leave-reason')">QL lý do rời bỏ</div>
+        <div class="sidebar-item" id="sidebar-no-access" onclick="goSection('no-access')">Thành viên không truy cập</div>
+
+        <div class="sidebar-label">Staff</div>
+        <div class="sidebar-item" id="sidebar-add-staff" onclick="goSection('add-staff')">Thêm staff</div>
+        <div class="sidebar-item" id="sidebar-manage-staff" onclick="goSection('manage-staff')">Quản lý staff</div>
+      </aside>
+
+      <!-- ====== 4.1.1 THÀNH VIÊN THỰC ====== -->
+      <main class="main page active" id="page-real">
+        <div class="page-title">• Quản lý thành viên thực</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Ngày đăng ký:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate('real',-1)">‹</button>
+                <span class="date-display" id="real-date">23-06-2025 ~ 30-06-2025</span>
+                <button class="date-nav" onclick="shiftDate('real',1)">›</button>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn" onclick="setQuickFilter('real','day',this)">Ngày</button>
+                <button class="tf-btn active" onclick="setQuickFilter('real','week',this)">Tuần</button>
+                <button class="tf-btn" onclick="setQuickFilter('real','month',this)">Tháng</button>
+                <button class="tf-btn" onclick="setQuickFilter('real','year',this)">Năm</button>
+                <button class="tf-btn" onclick="setQuickFilter('real','all',this)">Tất cả</button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-real">
+                <button class="criteria-btn" onclick="toggleCriteria('real',event)">
+                  <span id="criteria-label-real">ID</span><span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input class="search-input-lg" placeholder="Nhập thông tin" />
+              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">• Thành viên thực <span class="count">2,678 người</span></div>
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <div class="select-dropdown"><select><option>Chọn cấp bậc</option><option>Lv.1</option><option>Lv.2</option><option>Lv.3</option><option>KOL</option><option>Chuyên gia</option><option>Bác sĩ</option></select></div>
+                <button class="btn btn-outline-primary btn-sm" onclick="alert('Đã thay đổi cấp bậc.')">Thay đổi</button>
+                <button class="btn btn-outline-danger btn-sm" onclick="openSuspendModal()">Tạm khóa</button>
+                <button class="btn btn-danger btn-sm" onclick="openForceLeaveModal()">Buộc rời bỏ</button>
+                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('cancel-upgrade')">Hủy nâng cấp tự động</button>
+                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('send-email')">Gửi Email</button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown"><select><option>Tất cả cấp bậc</option><option>Lv.1</option><option>Lv.2</option><option>Lv.3</option><option>KOL</option><option>Chuyên gia</option><option>Bác sĩ</option></select></div>
+                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option><option>Danh sách 100</option></select></div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>ID</th>
+                    <th>Tên hiển thị</th>
+                    <th>Cấp bậc</th>
+                    <th>Ngày đăng ký</th>
+                    <th>Lần cuối truy cập</th>
+                    <th>Số lần truy cập</th>
+                    <th>Số bài viết</th>
+                    <th>Số bình luận</th>
+                    <th>Giới tính</th>
+                    <th>Địa chỉ IP</th>
+                    <th>Ghi chú</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-real"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">3</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== 4.1.2 THÀNH VIÊN BỊ TẠM KHÓA ====== -->
+      <main class="main page" id="page-suspended">
+        <div class="page-title">• Quản lý thành viên bị tạm khóa</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Ngày tạm khóa:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate('suspended',-1)">‹</button>
+                <span class="date-display" id="suspended-date">23-06-2025 ~ 30-06-2025</span>
+                <button class="date-nav" onclick="shiftDate('suspended',1)">›</button>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn" onclick="setQuickFilter('suspended','day',this)">Ngày</button>
+                <button class="tf-btn active" onclick="setQuickFilter('suspended','week',this)">Tuần</button>
+                <button class="tf-btn" onclick="setQuickFilter('suspended','month',this)">Tháng</button>
+                <button class="tf-btn" onclick="setQuickFilter('suspended','year',this)">Năm</button>
+                <button class="tf-btn" onclick="setQuickFilter('suspended','all',this)">Tất cả</button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-suspended">
+                <button class="criteria-btn" onclick="toggleCriteria('suspended',event)">
+                  <span id="criteria-label-suspended">ID</span><span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input class="search-input-lg" placeholder="Nhập thông tin" />
+              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">• Thành viên bị tạm khóa <span class="count">9 người</span></div>
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('unsuspend')">Gỡ tạm khóa</button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>ID</th>
+                    <th>Tên hiển thị</th>
+                    <th>Lý do bị tạm khóa</th>
+                    <th>Ngày xử lý</th>
+                    <th>Người xử lý</th>
+                    <th>Địa chỉ IP</th>
+                    <th>Ghi chú</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-suspended"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== 4.1.3 QUẢN LÝ THÀNH VIÊN RỜI BỎ ====== -->
+      <main class="main page" id="page-leave">
+        <div class="page-title">• Quản lý thành viên rời bỏ</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label" id="leave-date-label">Ngày rời bỏ:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate('leave',-1)">‹</button>
+                <span class="date-display" id="leave-date">23-06-2025 ~ 30-06-2025</span>
+                <button class="date-nav" onclick="shiftDate('leave',1)">›</button>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn" onclick="setQuickFilter('leave','day',this)">Ngày</button>
+                <button class="tf-btn active" onclick="setQuickFilter('leave','week',this)">Tuần</button>
+                <button class="tf-btn" onclick="setQuickFilter('leave','month',this)">Tháng</button>
+                <button class="tf-btn" onclick="setQuickFilter('leave','year',this)">Năm</button>
+                <button class="tf-btn" onclick="setQuickFilter('leave','all',this)">Tất cả</button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-leave">
+                <button class="criteria-btn" onclick="toggleCriteria('leave',event)">
+                  <span id="criteria-label-leave">ID</span><span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input class="search-input-lg" placeholder="Nhập thông tin" />
+              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              <span id="leave-title">• Thành viên bị cấm đăng ký lại</span>
+              <span class="count" id="leave-count">9 người</span>
+            </div>
+
+            <div class="tabs">
+              <div class="tab active" id="tab-leave-banned" onclick="switchLeaveSub('banned',this)">Thành viên bị cấm đăng ký lại</div>
+              <div class="tab" id="tab-leave-self" onclick="switchLeaveSub('self',this)">Thành viên tự rời bỏ</div>
+            </div>
+
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <div id="leave-bulk-actions">
+                  <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('unban-register')">Gỡ chặn cấm đăng ký</button>
+                </div>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table id="table-leave">
+                <thead id="thead-leave"></thead>
+                <tbody id="tbody-leave"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== 4.1.4 QUẢN LÝ LÝ DO RỜI BỎ ====== -->
+      <main class="main page" id="page-leave-reason">
+        <div class="page-title">• Quản lý lý do rời bỏ</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="reason-input-row">
+              <input type="text" id="lr-input" class="reason-input" placeholder="Nhập lý do rời bỏ (tối đa 20 từ)"
+                oninput="handleLRInput()" onkeydown="handleLRKey(event)" />
+              <button class="btn btn-primary" id="lr-btn" onclick="submitLR()">Thêm</button>
+            </div>
+            <div class="info-note" style="margin-top: 12px">
+              Hướng dẫn: Phần nào khiến bạn bất tiện vậy? — Viết lý do trên 20 từ.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">• Danh sách lý do rời bỏ <span class="count" id="lr-count">0 lý do</span></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="td-left" style="padding-left: 16px">Lý do rời bỏ</th>
+                    <th style="width: 140px">Người tạo</th>
+                    <th style="width: 140px">Ngày</th>
+                    <th style="width: 100px">Quản lý</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-lr"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">• Thống kê lý do rời bỏ</div>
+            <div class="search-row" style="margin-bottom: 12px">
+              <div class="select-dropdown"><select><option>Tất cả cấp bậc</option><option>Lv.1</option><option>Lv.2</option><option>Lv.3</option><option>Chuyên gia</option></select></div>
+              <div class="time-filters">
+                <button class="tf-btn">Ngày</button>
+                <button class="tf-btn active">Tuần</button>
+                <button class="tf-btn">Tháng</button>
+                <button class="tf-btn">Năm</button>
+                <button class="tf-btn">Tất cả</button>
+              </div>
+            </div>
+            <div class="bars-row" id="lr-stats-bars"></div>
+            <div style="display:flex;gap:6px;margin-top:8px" id="lr-stats-labels"></div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== 4.1.5 THÀNH VIÊN KHÔNG TRUY CẬP ====== -->
+      <main class="main page" id="page-no-access">
+        <div class="page-title">• Thành viên không truy cập</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Lần cuối đăng nhập:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate('na',-1)">‹</button>
+                <span class="date-display" id="na-date">23-06-2025 ~ 30-06-2025</span>
+                <button class="date-nav" onclick="shiftDate('na',1)">›</button>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn">Ngày</button>
+                <button class="tf-btn active">Tuần</button>
+                <button class="tf-btn">Tháng</button>
+                <button class="tf-btn">Năm</button>
+                <button class="tf-btn">Tất cả</button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-na">
+                <button class="criteria-btn" onclick="toggleCriteria('na',event)">
+                  <span id="criteria-label-na">ID</span><span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input class="search-input-lg" placeholder="Nhập thông tin" />
+              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              <span id="na-title">• Quản lý thành viên không truy cập</span>
+              <span class="count" id="na-count">22 người</span>
+            </div>
+
+            <div class="tabs">
+              <div class="tab active" id="tab-na-list" onclick="switchNoAccess('list',this)">Quản lý thành viên không truy cập</div>
+              <div class="tab" id="tab-na-stats" onclick="switchNoAccess('stats',this)">Thống kê lượng thành viên không truy cập</div>
+            </div>
+
+            <div id="na-panel-list">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span>Mục đã chọn:</span>
+                  <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('push-notify')">Gửi thông báo đẩy</button>
+                  <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('send-email')">Gửi Email</button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown"><select><option>Tất cả cấp bậc</option><option>Lv.1</option><option>Lv.2</option></select></div>
+                  <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" /></th>
+                      <th>ID</th>
+                      <th>Tên hiển thị</th>
+                      <th>Ngày đăng ký</th>
+                      <th>Lần cuối đăng nhập</th>
+                      <th>Số ngày không đăng nhập</th>
+                      <th>Cấp bậc</th>
+                      <th>Lịch sử gửi thông báo</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-na"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="na-panel-stats" style="display: none">
+              <div class="info-note">
+                Bảng thống kê theo cấp bậc và tuần. Số lượng thành viên không đăng nhập trong khoảng thời gian.
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tuần</th>
+                      <th>Tổng thành viên</th>
+                      <th>Lv.1</th>
+                      <th>Lv.2</th>
+                      <th>Lv.3</th>
+                      <th>Lv.4</th>
+                      <th>Lv.5</th>
+                      <th>Chuyên gia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="td-left">Tuần 02/06/2025 - 09/06/2025</td>
+                      <td>320</td><td>180</td><td>95</td><td>20</td><td>10</td><td>5</td><td>10</td>
+                    </tr>
+                    <tr>
+                      <td class="td-left">Tuần 09/06/2025 - 16/06/2025</td>
+                      <td>345</td><td>192</td><td>104</td><td>21</td><td>9</td><td>5</td><td>14</td>
+                    </tr>
+                    <tr>
+                      <td class="td-left">Tuần 16/06/2025 - 23/06/2025</td>
+                      <td>352</td><td>198</td><td>108</td><td>20</td><td>10</td><td>5</td><td>11</td>
+                    </tr>
+                    <tr>
+                      <td class="td-left">Tuần 23/06/2025 - 30/06/2025</td>
+                      <td>361</td><td>201</td><td>112</td><td>22</td><td>10</td><td>5</td><td>11</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== 4.2.1 THÊM STAFF ====== -->
+      <main class="main page" id="page-add-staff">
+        <div class="page-title">• Thêm staff</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="info-note">
+              Tìm thành viên thực để cấp quyền staff. Sau khi thêm QTV (staff), thông tin sẽ được hiển thị trong menu "Quản lý staff".
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-as">
+                <button class="criteria-btn" onclick="toggleCriteria('as',event)">
+                  <span id="criteria-label-as">ID</span><span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input class="search-input-lg" placeholder="mai" value="mai" />
+              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">• Danh sách kết quả <span class="count" id="as-count">2 người</span></div>
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <div class="select-dropdown"><select><option>Chọn cấp bậc</option><option>Quản trị viên 1</option><option>Quản trị viên 2</option></select></div>
+                <button class="btn btn-primary btn-sm" onclick="openActionModal('add-staff')">Thêm</button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>ID</th>
+                    <th>Tên hiển thị</th>
+                    <th>Cấp bậc</th>
+                    <th>Ngày đăng ký</th>
+                    <th>Ngày cuối đăng nhập</th>
+                    <th>Số bài viết</th>
+                    <th>Số bình luận</th>
+                    <th>Giới tính</th>
+                    <th>Địa chỉ IP</th>
+                    <th>Ghi chú</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-as"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== 4.2.2 QUẢN LÝ STAFF ====== -->
+      <main class="main page" id="page-manage-staff">
+        <div class="page-title">• Quản lý staff</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="info-note">
+              QTV1 không có quyền truy cập trang này. Đây là màn hình của QTV3. QTV2 chỉ có thể quản lý QTV1.
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Ngày tạo:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate('ms',-1)">‹</button>
+                <span class="date-display" id="ms-date">23-06-2025 ~ 30-06-2025</span>
+                <button class="date-nav" onclick="shiftDate('ms',1)">›</button>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn">Ngày</button>
+                <button class="tf-btn active">Tuần</button>
+                <button class="tf-btn">Tháng</button>
+                <button class="tf-btn">Năm</button>
+                <button class="tf-btn">Tất cả</button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-ms">
+                <button class="criteria-btn" onclick="toggleCriteria('ms',event)">
+                  <span id="criteria-label-ms">ID</span><span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input class="search-input-lg" placeholder="Nhập thông tin" />
+              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">• Quản lý staff <span class="count">100 người</span></div>
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('change-staff-grade')">Đổi cấp bậc</button>
+                <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('remove-staff')">Xóa</button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown"><select><option>Toàn bộ</option><option>QTV 1</option><option>QTV 2</option></select></div>
+                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>ID</th>
+                    <th>Tên hiển thị</th>
+                    <th>Ngày tạo</th>
+                    <th>Người tạo</th>
+                    <th>Cấp bậc</th>
+                    <th>Ngày xử lý gần nhất</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-ms"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ====== ACTION MODAL (generic) ====== -->
+    <div class="action-modal-backdrop" id="action-modal-backdrop" onclick="closeActionModal()">
+      <div class="action-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+        <h3 class="action-modal-title" id="action-modal-title">Xác nhận</h3>
+        <p class="action-modal-body" id="action-modal-body">Bạn có chắc chắn?</p>
+        <div class="action-modal-actions">
+          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeActionModal()">Hủy</button>
+          <button class="action-modal-btn action-modal-btn-confirm is-primary" onclick="confirmActionModal()">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SUSPEND MODAL ====== -->
+    <div class="action-modal-backdrop" id="suspend-modal-backdrop" onclick="closeSuspendModal()">
+      <div class="action-modal" role="dialog" aria-modal="true" style="max-width: 480px" onclick="event.stopPropagation()">
+        <h3 class="action-modal-title">Tạm khóa hoạt động</h3>
+        <p class="action-modal-body">Chọn lý do tạm khóa hoạt động cho thành viên đã chọn.</p>
+        <div class="reason-list" id="suspend-reasons"></div>
+        <input type="text" id="suspend-other" class="reason-other-input" placeholder="Nhập lý do khác..." style="display: none" />
+        <div class="reason-duration">
+          <span class="label">Thời gian tạm khóa:</span>
+          <select id="suspend-duration">
+            <option>1 ngày</option>
+            <option selected>7 ngày</option>
+            <option>14 ngày</option>
+            <option>30 ngày</option>
+            <option>Vô thời hạn</option>
+          </select>
+        </div>
+        <div class="action-modal-actions" style="margin-top: 16px">
+          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeSuspendModal()">Hủy</button>
+          <button class="action-modal-btn action-modal-btn-confirm" onclick="confirmSuspend()">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== FORCE LEAVE MODAL ====== -->
+    <div class="action-modal-backdrop" id="force-leave-modal-backdrop" onclick="closeForceLeaveModal()">
+      <div class="action-modal" role="dialog" aria-modal="true" style="max-width: 480px" onclick="event.stopPropagation()">
+        <h3 class="action-modal-title">Buộc rời bỏ hệ thống</h3>
+        <p class="action-modal-body">
+          Thành viên bị buộc rời khỏi hệ thống sẽ không thể đăng ký lại. Chọn lý do trước khi xác nhận.
+        </p>
+        <div class="reason-list" id="force-leave-reasons"></div>
+        <input type="text" id="force-leave-other" class="reason-other-input" placeholder="Nhập lý do khác..." style="display: none" />
+        <div class="action-modal-actions" style="margin-top: 16px">
+          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeForceLeaveModal()">Hủy</button>
+          <button class="action-modal-btn action-modal-btn-confirm" onclick="confirmForceLeave()">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ====== DATA ====== */
+      const realMembers = [
+        { id: "M001", nickname: "maimai",      grade: "Lv.1",        regDate: "30-06-2025", lastSeen: "30-07-2025", visits: 23, posts: 12, comments: 26, gender: "Nữ", ip: "113.165.12.45", note: "" },
+        { id: "M002", nickname: "thanhtuyen",  grade: "Lv.3",        regDate: "12-05-2025", lastSeen: "29-07-2025", visits: 48, posts: 30, comments: 88, gender: "Nữ", ip: "203.205.40.218", note: "VIP" },
+        { id: "M003", nickname: "drAnh.skin",  grade: "Bác sĩ",      regDate: "01-04-2025", lastSeen: "30-07-2025", visits: 110, posts: 56, comments: 230, gender: "Nam", ip: "27.79.155.91", note: "Chuyên khoa da" },
+        { id: "M004", nickname: "haiyen.beauty", grade: "KOL",       regDate: "20-03-2025", lastSeen: "28-07-2025", visits: 89, posts: 41, comments: 192, gender: "Nữ", ip: "171.232.18.7", note: "" },
+        { id: "M005", nickname: "Thu.skin.journal", grade: "Chuyên gia", regDate: "12-02-2025", lastSeen: "25-07-2025", visits: 67, posts: 22, comments: 130, gender: "Nữ", ip: "115.78.231.150", note: "" },
+      ];
+
+      const suspendedMembers = [
+        { id: "M101", nickname: "vyvii",   reason: "Vi phạm luật",       date: "03-08-2025", handler: "maimai",    ip: "123456",  note: "" },
+        { id: "M102", nickname: "spamx99", reason: "Spam quảng cáo",     date: "30-07-2025", handler: "chikihong", ip: "118.69.45.12", note: "Lần thứ 2" },
+        { id: "M103", nickname: "trolluser", reason: "Lăng mạ chửi tục", date: "28-07-2025", handler: "Admin A",   ip: "171.255.180.20", note: "" },
+      ];
+
+      const leaveBanned = [
+        { id: "M201", nickname: "vyvii",     reason: "Vi phạm luật",         date: "03-08-2025", handler: "maimai", ip: "123456", note: "" },
+        { id: "M202", nickname: "fakeacc55", reason: "Spam, đăng bài liên tục", date: "01-08-2025", handler: "chikihong", ip: "10.0.5.32", note: "" },
+        { id: "M203", nickname: "abuse_x",   reason: "Quảng cáo, lăng mạ",   date: "29-07-2025", handler: "Admin B", ip: "115.78.231.4", note: "Tài khoản giả" },
+      ];
+
+      const leaveSelf = [
+        { id: "M301", nickname: "maimai",  reason: "Sử dụng app bất tiện (UI/UX)", note2: "Không có cách (UI/UX)", ip: "123456", remark: "" },
+        { id: "M302", nickname: "linhmiu", reason: "Quá nhiều thông báo",          note2: "App push quá nhiều",      ip: "27.79.99.18", remark: "" },
+        { id: "M303", nickname: "ngocanh", reason: "Khác",                          note2: "Không hợp gu cá nhân",   ip: "113.165.12.99", remark: "" },
+      ];
+
+      const noAccessMembers = [
+        { id: "M401", nickname: "maimai",      regDate: "10-06-2025", lastLogin: "20-06-2025", daysAway: 10, grade: "Lv.1", lastNotify: "30-06-2025" },
+        { id: "M402", nickname: "ngocanh.skin", regDate: "05-05-2025", lastLogin: "15-06-2025", daysAway: 15, grade: "Lv.2", lastNotify: "28-06-2025" },
+        { id: "M403", nickname: "tuyetnhi.kr", regDate: "20-04-2025", lastLogin: "01-06-2025", daysAway: 28, grade: "Lv.3", lastNotify: "—" },
+      ];
+
+      const leaveReasons = [
+        { id: "LR001", reason: "Sử dụng app bất tiện (UI/UX)", creator: "maimai", date: "30-06-2025" },
+        { id: "LR002", reason: "Quá nhiều thông báo",         creator: "maimai", date: "30-06-2025" },
+        { id: "LR003", reason: "Chuyển sang dùng app khác",   creator: "maimai", date: "29-06-2025" },
+        { id: "LR004", reason: "Phần nào khiến bạn bất tiện vậy?", creator: "maimai", date: "28-06-2025" },
+        { id: "LR005", reason: "Có thể cho tụi mình biết bạn dùng app nào không?", creator: "maimai", date: "28-06-2025" },
+        { id: "LR006", reason: "Còn lý do nào khác mà tụi mình chưa liệt kê không?", creator: "maimai", date: "27-06-2025" },
+      ];
+
+      const addStaffCandidates = [
+        { id: "M001", nickname: "maimai", grade: "Lv.1", regDate: "06-06-2025", lastLogin: "30-06-2025", posts: 5, comments: 25, gender: "Nữ", ip: "123456", note: "" },
+        { id: "M002", nickname: "maindn", grade: "Lv.2", regDate: "04-05-2025", lastLogin: "28-06-2025", posts: 12, comments: 45, gender: "Nữ", ip: "457897", note: "" },
+      ];
+
+      const manageStaff = [
+        { id: "S001", nickname: "quynh",  createdAt: "29-06-2025", creator: "maimai",    grade: "Lv.1", lastAction: "30-06-2025" },
+        { id: "S002", nickname: "nguyen", createdAt: "29-06-2025", creator: "maimai",    grade: "Lv.1", lastAction: "01-07-2025" },
+        { id: "S003", nickname: "mai",    createdAt: "20-06-2025", creator: "chikihong", grade: "Lv.2", lastAction: "02-07-2025" },
+      ];
+
+      const SEARCH_CRITERIA = ["ID", "Tên hiển thị"];
+      const reasonOptionsSuspend = [
+        "Vi phạm tiêu chuẩn cộng đồng",
+        "Spam, đăng bài liên tục",
+        "Quảng cáo, lăng mạ, chửi tục",
+        "Khác",
+      ];
+      const reasonOptionsForceLeave = [
+        "Vi phạm tiêu chuẩn cộng đồng",
+        "Spam, đăng bài liên tục",
+        "Quảng cáo, lăng mạ, chửi tục",
+        "Khác",
+      ];
+
+      let currentSection = "real";
+      let currentLeaveSub = "banned";
+      let currentNoAccess = "list";
+      let pendingAction = null;
+      let editingLRId = null;
+
+      /* ====== HELPERS ====== */
+      function escText(s) {
+        return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      }
+
+      /* ====== NAVIGATION ====== */
+      function goSection(section) {
+        currentSection = section;
+        document.querySelectorAll(".sidebar-item").forEach((el) => el.classList.remove("active"));
+        document.getElementById("sidebar-" + section)?.classList.add("active");
+        document.querySelectorAll(".main.page").forEach((el) => el.classList.remove("active"));
+        document.getElementById("page-" + section)?.classList.add("active");
+        closeAllMenus();
+      }
+
+      function shiftDate(target, dir) { alert("Chuyển khoảng thời gian: " + (dir > 0 ? "tiếp theo" : "trước đó")); }
+      function setQuickFilter(target, key, btn) {
+        const wrap = btn.parentElement;
+        wrap.querySelectorAll(".tf-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+
+      /* ====== CRITERIA ====== */
+      function renderCriteriaMenu(target) {
+        const menu = document.querySelector(`#criteria-${target} .criteria-menu`);
+        if (!menu) return;
+        menu.innerHTML = SEARCH_CRITERIA
+          .map((opt) => `<button class="criteria-option" onclick="selectCriteria('${target}','${escText(opt)}')">${escText(opt)}</button>`)
+          .join("");
+      }
+      function toggleCriteria(target, e) {
+        e.stopPropagation();
+        const wrap = document.getElementById("criteria-" + target);
+        document.querySelectorAll(".criteria-wrap.open").forEach((w) => { if (w !== wrap) w.classList.remove("open"); });
+        wrap?.classList.toggle("open");
+      }
+      function selectCriteria(target, label) {
+        const el = document.getElementById("criteria-label-" + target);
+        if (el) el.textContent = label;
+        document.getElementById("criteria-" + target)?.classList.remove("open");
+      }
+
+      /* ====== CELL-MENU ====== */
+      function toggleMenu(event, menuEl) {
+        event.stopPropagation();
+        menuEl.classList.toggle("open");
+      }
+      function closeAllMenus() {
+        document.querySelectorAll(".cell-menu.open").forEach((m) => m.classList.remove("open"));
+        document.querySelectorAll(".criteria-wrap.open").forEach((w) => w.classList.remove("open"));
+      }
+
+      /* ====== RENDER: REAL MEMBERS ====== */
+      function renderRealMembers() {
+        const tbody = document.getElementById("tbody-real");
+        if (!tbody) return;
+        tbody.innerHTML = realMembers.map((m) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>${escText(m.id)}</td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Chỉnh sửa thông tin</button>
+                  <hr class="menu-divider"/>
+                  <button class="menu-item" onclick="openSuspendModal()">Tạm khóa hoạt động</button>
+                  <button class="menu-item" onclick="openForceLeaveModal()">Buộc rời bỏ</button>
+                  <button class="menu-item" onclick="openActionModal('cancel-upgrade')">Hủy nâng cấp tự động</button>
+                  <button class="menu-item" onclick="openActionModal('send-email')">Gửi Email</button>
+                  <button class="menu-item" onclick="openActionModal('push-notify')">Gửi thông báo đẩy</button>
+                </div>
+              </div>
+            </td>
+            <td>${escText(m.grade)}</td>
+            <td>${escText(m.regDate)}</td>
+            <td>${escText(m.lastSeen)}</td>
+            <td>${m.visits}</td>
+            <td>${m.posts}</td>
+            <td>${m.comments}</td>
+            <td>${escText(m.gender)}</td>
+            <td><span class="ip-text">${escText(m.ip)}</span></td>
+            <td class="td-left">${escText(m.note || "—")}</td>
+          </tr>`).join("");
+      }
+
+      /* ====== RENDER: SUSPENDED ====== */
+      function renderSuspended() {
+        const tbody = document.getElementById("tbody-suspended");
+        if (!tbody) return;
+        tbody.innerHTML = suspendedMembers.map((m) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>${escText(m.id)}</td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+                  <button class="menu-item" onclick="openActionModal('unsuspend')">Gỡ chặn tạm khóa</button>
+                </div>
+              </div>
+            </td>
+            <td class="td-left">${escText(m.reason)}</td>
+            <td>${escText(m.date)}</td>
+            <td>${escText(m.handler)}</td>
+            <td><span class="ip-text">${escText(m.ip)}</span></td>
+            <td class="td-left">${escText(m.note || "—")}</td>
+          </tr>`).join("");
+      }
+
+      /* ====== RENDER: LEAVE (2 sub-tabs) ====== */
+      function renderLeaveTable() {
+        const thead = document.getElementById("thead-leave");
+        const tbody = document.getElementById("tbody-leave");
+        if (!thead || !tbody) return;
+
+        if (currentLeaveSub === "banned") {
+          thead.innerHTML = `<tr>
+            <th><input type="checkbox" /></th>
+            <th>ID</th>
+            <th>Tên hiển thị</th>
+            <th>Lý do bị cấm</th>
+            <th>Ngày xử lý</th>
+            <th>Người xử lý</th>
+            <th>Địa chỉ IP</th>
+            <th>Ghi chú</th>
+          </tr>`;
+          tbody.innerHTML = leaveBanned.map((m) => `
+            <tr>
+              <td><input type="checkbox" /></td>
+              <td>${escText(m.id)}</td>
+              <td class="td-left">
+                <div class="cell-menu">
+                  <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
+                  <div class="menu-list">
+                    <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+                    <button class="menu-item" onclick="openActionModal('unban-register')">Gỡ chặn cấm đăng ký</button>
+                  </div>
+                </div>
+              </td>
+              <td class="td-left">${escText(m.reason)}</td>
+              <td>${escText(m.date)}</td>
+              <td>${escText(m.handler)}</td>
+              <td><span class="ip-text">${escText(m.ip)}</span></td>
+              <td class="td-left">${escText(m.note || "—")}</td>
+            </tr>`).join("");
+        } else {
+          thead.innerHTML = `<tr>
+            <th><input type="checkbox" /></th>
+            <th>ID</th>
+            <th>Tên hiển thị</th>
+            <th>Lý do rời bỏ</th>
+            <th>Câu trả lời</th>
+            <th>Địa chỉ IP</th>
+            <th>Ghi chú</th>
+          </tr>`;
+          tbody.innerHTML = leaveSelf.map((m) => `
+            <tr>
+              <td><input type="checkbox" /></td>
+              <td>${escText(m.id)}</td>
+              <td class="td-left">
+                <div class="cell-menu">
+                  <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
+                  <div class="menu-list">
+                    <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+                    <button class="menu-item" onclick="openBanRegisterModal('${escText(m.id)}')">Cấm đăng ký lại</button>
+                  </div>
+                </div>
+              </td>
+              <td class="td-left">${escText(m.reason)}</td>
+              <td class="td-left">${escText(m.note2 || "—")}</td>
+              <td><span class="ip-text">${escText(m.ip)}</span></td>
+              <td class="td-left">${escText(m.remark || "—")}</td>
+            </tr>`).join("");
+        }
+      }
+
+      function switchLeaveSub(sub, btn) {
+        currentLeaveSub = sub;
+        document.querySelectorAll("#page-leave .tab").forEach((t) => t.classList.remove("active"));
+        btn?.classList.add("active");
+        // Update title/count/bulk actions
+        const title = document.getElementById("leave-title");
+        const count = document.getElementById("leave-count");
+        const bulk = document.getElementById("leave-bulk-actions");
+        const dateLabel = document.getElementById("leave-date-label");
+        if (sub === "banned") {
+          title.textContent = "• Thành viên bị cấm đăng ký lại";
+          count.textContent = leaveBanned.length + " người";
+          bulk.innerHTML = `<button class="btn btn-outline-primary btn-sm" onclick="openActionModal('unban-register')">Gỡ chặn cấm đăng ký</button>`;
+          dateLabel.textContent = "Ngày bị cấm:";
+        } else {
+          title.textContent = "• Thành viên tự rời bỏ";
+          count.textContent = leaveSelf.length + " người";
+          bulk.innerHTML = `<button class="btn btn-outline-danger btn-sm" onclick="openBanRegisterModal(null)">Cấm đăng ký lại</button>`;
+          dateLabel.textContent = "Ngày tự rời bỏ:";
+        }
+        renderLeaveTable();
+      }
+
+      /* ====== RENDER: NO ACCESS ====== */
+      function renderNoAccess() {
+        const tbody = document.getElementById("tbody-na");
+        if (!tbody) return;
+        tbody.innerHTML = noAccessMembers.map((m) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>${escText(m.id)}</td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+                  <button class="menu-item" onclick="openActionModal('push-notify')">Gửi thông báo đẩy</button>
+                  <button class="menu-item" onclick="openActionModal('send-email')">Gửi Email</button>
+                </div>
+              </div>
+            </td>
+            <td>${escText(m.regDate)}</td>
+            <td>${escText(m.lastLogin)}</td>
+            <td>${m.daysAway} ngày</td>
+            <td>${escText(m.grade)}</td>
+            <td>${escText(m.lastNotify)}</td>
+          </tr>`).join("");
+      }
+
+      function switchNoAccess(sub, btn) {
+        currentNoAccess = sub;
+        document.querySelectorAll("#page-no-access .tab").forEach((t) => t.classList.remove("active"));
+        btn?.classList.add("active");
+        document.getElementById("na-panel-list").style.display = sub === "list" ? "" : "none";
+        document.getElementById("na-panel-stats").style.display = sub === "stats" ? "" : "none";
+        document.getElementById("na-title").textContent =
+          sub === "list" ? "• Quản lý thành viên không truy cập" : "• Thống kê lượng thành viên không truy cập";
+      }
+
+      /* ====== RENDER: LEAVE REASONS (4.1.4) ====== */
+      function renderLR() {
+        const tbody = document.getElementById("tbody-lr");
+        if (!tbody) return;
+        document.getElementById("lr-count").textContent = leaveReasons.length + " lý do";
+        tbody.innerHTML = leaveReasons.map((r) => `
+          <tr>
+            <td class="td-left" style="padding-left: 16px">
+              <button class="reason-chip${editingLRId === r.id ? " editing" : ""}" onclick="editLR('${escText(r.id)}')">${escText(r.reason)}</button>
+            </td>
+            <td>${escText(r.creator)}</td>
+            <td>${escText(r.date)}</td>
+            <td>
+              <button class="btn btn-outline-danger btn-sm" onclick="deleteLR('${escText(r.id)}')">Xóa</button>
+            </td>
+          </tr>`).join("");
+      }
+
+      function editLR(id) {
+        const r = leaveReasons.find((x) => x.id === id);
+        if (!r) return;
+        editingLRId = id;
+        const inp = document.getElementById("lr-input");
+        inp.value = r.reason;
+        inp.classList.add("editing");
+        inp.focus();
+        document.getElementById("lr-btn").textContent = "Cập nhật";
+        renderLR();
+      }
+
+      function resetLR() {
+        editingLRId = null;
+        const inp = document.getElementById("lr-input");
+        inp.value = "";
+        inp.classList.remove("editing");
+        document.getElementById("lr-btn").textContent = "Thêm";
+        renderLR();
+      }
+
+      function handleLRInput() {
+        const inp = document.getElementById("lr-input");
+        if (editingLRId && inp.value.trim() === "") resetLR();
+      }
+
+      function handleLRKey(e) {
+        if (e.key === "Escape") resetLR();
+        else if (e.key === "Enter") submitLR();
+      }
+
+      function submitLR() {
+        const inp = document.getElementById("lr-input");
+        const text = (inp.value || "").trim();
+        if (!text) { alert("Vui lòng nhập lý do."); return; }
+        if (editingLRId) {
+          const r = leaveReasons.find((x) => x.id === editingLRId);
+          if (r) r.reason = text;
+          alert("Đã cập nhật lý do rời bỏ.");
+          resetLR();
+        } else {
+          const nextId = "LR" + String(Math.max(0, ...leaveReasons.map((r) => Number(r.id.replace(/\D/g, "")) || 0)) + 1).padStart(3, "0");
+          const today = new Date();
+          const date = `${String(today.getDate()).padStart(2,"0")}-${String(today.getMonth()+1).padStart(2,"0")}-${today.getFullYear()}`;
+          leaveReasons.unshift({ id: nextId, reason: text, creator: "Admin", date });
+          inp.value = "";
+          alert("Đã thêm lý do rời bỏ.");
+          renderLR();
+        }
+      }
+
+      function deleteLR(id) {
+        pendingAction = { type: "delete-leave-reason", id };
+        document.getElementById("action-modal-title").textContent = "Xóa lý do";
+        document.getElementById("action-modal-body").textContent =
+          "Lý do này sẽ bị xóa khỏi hệ thống. Tiếp tục?";
+        document.getElementById("action-modal-backdrop").classList.add("open");
+      }
+
+      /* ====== LR STATS bars (sample) ====== */
+      function renderLRBars() {
+        const data = [
+          { label: "UI/UX", value: 32 },
+          { label: "Thông báo nhiều", value: 24 },
+          { label: "Chuyển app khác", value: 18 },
+          { label: "Lý do khác", value: 12 },
+          { label: "Bất tiện", value: 28 },
+          { label: "Khác", value: 9 },
+        ];
+        const max = Math.max(...data.map((d) => d.value));
+        const bars = document.getElementById("lr-stats-bars");
+        const labels = document.getElementById("lr-stats-labels");
+        if (!bars || !labels) return;
+        bars.innerHTML = data.map((d) =>
+          `<div class="bar" style="height:${(d.value / max) * 100}%" title="${escText(d.label)}: ${d.value}"></div>`
+        ).join("");
+        labels.innerHTML = data.map((d) =>
+          `<div class="bar-label" style="flex:1">${escText(d.label)}</div>`
+        ).join("");
+      }
+
+      /* ====== RENDER: ADD STAFF ====== */
+      function renderAddStaff() {
+        const tbody = document.getElementById("tbody-as");
+        if (!tbody) return;
+        tbody.innerHTML = addStaffCandidates.map((m) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>${escText(m.id)}</td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Chi tiết thông tin</button>
+                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Chỉnh sửa thông tin</button>
+                  <button class="menu-item" onclick="openActionModal('push-notify')">Gửi thông báo đẩy</button>
+                </div>
+              </div>
+            </td>
+            <td>${escText(m.grade)}</td>
+            <td>${escText(m.regDate)}</td>
+            <td>${escText(m.lastLogin || "—")}</td>
+            <td>${m.posts}</td>
+            <td>${m.comments}</td>
+            <td>${escText(m.gender)}</td>
+            <td><span class="ip-text">${escText(m.ip)}</span></td>
+            <td class="td-left">${escText(m.note || "—")}</td>
+          </tr>`).join("");
+      }
+
+      /* ====== RENDER: MANAGE STAFF ====== */
+      function renderManageStaff() {
+        const tbody = document.getElementById("tbody-ms");
+        if (!tbody) return;
+        tbody.innerHTML = manageStaff.map((s) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>${escText(s.id)}</td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(s.nickname)}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="openActionModal('change-staff-grade')">Đổi cấp bậc</button>
+                  <button class="menu-item" onclick="openActionModal('remove-staff')">Xóa (trở về thành viên ảo, mất quyền quản trị)</button>
+                </div>
+              </div>
+            </td>
+            <td>${escText(s.createdAt)}</td>
+            <td>${escText(s.creator)}</td>
+            <td>${escText(s.grade)}</td>
+            <td>${escText(s.lastAction)}</td>
+          </tr>`).join("");
+      }
+
+      /* ====== ACTION MODAL (generic) ====== */
+      const actionMap = {
+        "unsuspend": { title: "Gỡ tạm khóa", body: "Thành viên sẽ được gỡ tạm khóa và hoạt động bình thường.", done: "Đã gỡ tạm khóa." },
+        "unban-register": { title: "Gỡ chặn cấm đăng ký", body: "Thành viên sẽ được phép đăng ký lại tài khoản.", done: "Đã gỡ chặn cấm đăng ký." },
+        "cancel-upgrade": { title: "Hủy nâng cấp tự động", body: "Tài khoản sẽ ngừng tự động nâng cấp cấp bậc.", done: "Đã hủy nâng cấp tự động." },
+        "send-email": { title: "Gửi Email", body: "Gửi Email tới các thành viên đã chọn.", done: "Đã gửi Email." },
+        "push-notify": { title: "Gửi thông báo đẩy", body: "Gửi thông báo đẩy tới các thành viên đã chọn.", done: "Đã gửi thông báo đẩy." },
+        "add-staff": { title: "Thêm Staff", body: "Thành viên được chọn sẽ được cấp quyền quản trị viên.", done: "Đã thêm staff." },
+        "remove-staff": { title: "Xóa Staff", body: "Staff sẽ trở về thành viên ảo và mất toàn bộ quyền quản trị.", done: "Đã xóa staff." },
+        "change-staff-grade": { title: "Đổi cấp bậc Staff", body: "Cấp bậc staff sẽ được cập nhật.", done: "Đã đổi cấp bậc staff." },
+        "delete-leave-reason": { title: "Xóa lý do", body: "Lý do này sẽ bị xóa khỏi hệ thống.", done: "Đã xóa lý do." },
+      };
+
+      function openActionModal(type) {
+        const cfg = actionMap[type];
+        if (!cfg) return;
+        pendingAction = { type };
+        document.getElementById("action-modal-title").textContent = cfg.title;
+        document.getElementById("action-modal-body").textContent = cfg.body;
+        document.getElementById("action-modal-backdrop").classList.add("open");
+        closeAllMenus();
+      }
+      function closeActionModal() {
+        document.getElementById("action-modal-backdrop").classList.remove("open");
+        pendingAction = null;
+      }
+      function confirmActionModal() {
+        if (!pendingAction) { closeActionModal(); return; }
+        const cfg = actionMap[pendingAction.type];
+        if (pendingAction.type === "delete-leave-reason" && pendingAction.id) {
+          const idx = leaveReasons.findIndex((r) => r.id === pendingAction.id);
+          if (idx >= 0) leaveReasons.splice(idx, 1);
+          if (editingLRId === pendingAction.id) resetLR();
+          else renderLR();
+        }
+        if (cfg) alert(cfg.done);
+        closeActionModal();
+      }
+
+      /* ====== SUSPEND MODAL ====== */
+      function openSuspendModal() {
+        const list = document.getElementById("suspend-reasons");
+        list.innerHTML = reasonOptionsSuspend.map((r, i) => `
+          <label class="reason-radio">
+            <input type="radio" name="suspend-reason" value="${escText(r)}" ${i === 0 ? "checked" : ""} onchange="onSuspendReasonChange()" />
+            <span>${escText(r)}</span>
+          </label>`).join("");
+        document.getElementById("suspend-other").value = "";
+        document.getElementById("suspend-other").style.display = "none";
+        document.getElementById("suspend-modal-backdrop").classList.add("open");
+        closeAllMenus();
+      }
+      function closeSuspendModal() {
+        document.getElementById("suspend-modal-backdrop").classList.remove("open");
+      }
+      function onSuspendReasonChange() {
+        const selected = document.querySelector("input[name='suspend-reason']:checked");
+        const other = document.getElementById("suspend-other");
+        other.style.display = selected && selected.value === "Khác" ? "block" : "none";
+      }
+      function confirmSuspend() {
+        const selected = document.querySelector("input[name='suspend-reason']:checked");
+        if (!selected) { alert("Vui lòng chọn lý do."); return; }
+        if (selected.value === "Khác") {
+          const other = document.getElementById("suspend-other").value.trim();
+          if (!other) { alert("Vui lòng nhập lý do."); return; }
+        }
+        const duration = document.getElementById("suspend-duration").value;
+        closeSuspendModal();
+        alert(`Đã tạm khóa hoạt động (${duration}).`);
+      }
+
+      /* ====== FORCE LEAVE MODAL ====== */
+      function openForceLeaveModal() {
+        const list = document.getElementById("force-leave-reasons");
+        list.innerHTML = reasonOptionsForceLeave.map((r, i) => `
+          <label class="reason-radio">
+            <input type="radio" name="fl-reason" value="${escText(r)}" ${i === 0 ? "checked" : ""} onchange="onFLReasonChange()" />
+            <span>${escText(r)}</span>
+          </label>`).join("");
+        document.getElementById("force-leave-other").value = "";
+        document.getElementById("force-leave-other").style.display = "none";
+        document.getElementById("force-leave-modal-backdrop").classList.add("open");
+        closeAllMenus();
+      }
+      function closeForceLeaveModal() {
+        document.getElementById("force-leave-modal-backdrop").classList.remove("open");
+      }
+      function onFLReasonChange() {
+        const selected = document.querySelector("input[name='fl-reason']:checked");
+        const other = document.getElementById("force-leave-other");
+        other.style.display = selected && selected.value === "Khác" ? "block" : "none";
+      }
+      function confirmForceLeave() {
+        const selected = document.querySelector("input[name='fl-reason']:checked");
+        if (!selected) { alert("Vui lòng chọn lý do."); return; }
+        if (selected.value === "Khác") {
+          const other = document.getElementById("force-leave-other").value.trim();
+          if (!other) { alert("Vui lòng nhập lý do."); return; }
+        }
+        closeForceLeaveModal();
+        alert("Đã buộc thành viên rời bỏ hệ thống.");
+      }
+
+      /* ====== BAN REGISTER MODAL (alias of force-leave with custom title) ====== */
+      function openBanRegisterModal(id) {
+        const list = document.getElementById("force-leave-reasons");
+        list.innerHTML = reasonOptionsForceLeave.map((r, i) => `
+          <label class="reason-radio">
+            <input type="radio" name="fl-reason" value="${escText(r)}" ${i === 0 ? "checked" : ""} onchange="onFLReasonChange()" />
+            <span>${escText(r)}</span>
+          </label>`).join("");
+        document.getElementById("force-leave-other").value = "";
+        document.getElementById("force-leave-other").style.display = "none";
+        const modal = document.querySelector("#force-leave-modal-backdrop .action-modal-title");
+        modal.textContent = "Cấm đăng ký lại";
+        document.querySelectorAll("#force-leave-modal-backdrop .action-modal-body")[0].textContent =
+          "Thành viên này sẽ bị cấm đăng ký lại với tài khoản đã rời bỏ. Chọn lý do trước khi xác nhận.";
+        document.getElementById("force-leave-modal-backdrop").classList.add("open");
+        closeAllMenus();
+      }
+
+      /* ====== GLOBAL LISTENERS ====== */
+      document.addEventListener("click", () => closeAllMenus());
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeActionModal();
+          closeSuspendModal();
+          closeForceLeaveModal();
+        }
+      });
+
+      /* ====== INIT ====== */
+      ["real", "suspended", "leave", "na", "as", "ms"].forEach(renderCriteriaMenu);
+      renderRealMembers();
+      renderSuspended();
+      renderLeaveTable();
+      renderNoAccess();
+      renderLR();
+      renderLRBars();
+      renderAddStaff();
+      renderManageStaff();
+    </script>
+  </body>
+</html>

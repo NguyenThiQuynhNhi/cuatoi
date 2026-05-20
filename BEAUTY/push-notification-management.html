@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông báo đẩy - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --success: #16a34a;
+        --success-light: #dcfce7;
+        --warning: #f59e0b;
+        --warning-light: #fef3c7;
+        --info: #2563eb;
+        --info-light: #dbeafe;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --shadow-sm: 0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md: 0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --sidebar-w: 230px;
+        --header-h: 60px;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: "Be Vietnam Pro", sans-serif; background: var(--gray-50); color: var(--gray-900); font-size: 13px; min-height: 100vh; }
+
+      .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; min-height: 60px; background: linear-gradient(135deg, #4a2096 0%, #6c3fc5 60%, #8b5cf6 100%); display: flex; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25); }
+      .header-logo { display: flex; align-items: center; gap: 10px; color: white; font-weight: 700; font-size: 14px; }
+      .header-logo .logo-box { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: white; border: 1.5px solid rgba(255, 255, 255, 0.35); }
+      .header-nav { display: flex; align-items: center; gap: 2px; flex: 1; padding: 0 24px; }
+      .nav-item { padding: 5px 9px; border-radius: 6px; color: rgba(255, 255, 255, 0.75); cursor: pointer; font-size: 11.5px; font-weight: 500; white-space: normal; line-height: 1.2; text-align: center; max-width: 120px; transition: all 0.15s; }
+      .nav-item:hover, .nav-item.active { background: rgba(255, 255, 255, 0.18); color: white; }
+      .nav-item.active { background: rgba(255, 255, 255, 0.22); font-weight: 600; }
+      .nav-item-group { position: relative; }
+      .nav-item-group .nav-dropdown { position: absolute; top: 100%; left: 0; background: white; border: 1px solid var(--gray-200); border-radius: 6px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); min-width: 180px; display: none; z-index: 300; padding: 4px 0; margin-top: 4px; }
+      .nav-item-group:hover .nav-dropdown { display: block; }
+      .nav-dropdown a { display: block; padding: 8px 14px; color: var(--gray-700); text-decoration: none; font-size: 11.5px; font-weight: 500; white-space: nowrap; }
+      .nav-dropdown a:hover { background: var(--gray-100); color: var(--primary); }
+      a.nav-item { text-decoration: none; display: inline-block; }
+      .header-user { display: flex; align-items: center; gap: 8px; color: white; font-size: 12px; }
+      .header-user .avatar { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; border: 1.5px solid rgba(255, 255, 255, 0.4); }
+      .header-user .user-info { text-align: right; }
+      .header-user .user-name { font-weight: 600; font-size: 12px; }
+      .header-user .user-role { font-size: 10.5px; opacity: 0.75; }
+
+      .app-body { display: flex; padding-top: var(--header-h); min-height: 100vh; }
+      .sidebar { width: var(--sidebar-w); flex-shrink: 0; background: white; min-height: calc(100vh - var(--header-h)); border-right: 1px solid var(--gray-200); padding: 14px 8px; position: fixed; top: var(--header-h); left: 0; bottom: 0; overflow-y: auto; }
+      .sidebar-label { font-size: 9.5px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 8px 4px; }
+      .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; cursor: pointer; color: var(--gray-500); font-size: 12.5px; font-weight: 500; transition: all 0.15s; margin-bottom: 1px; }
+      .sidebar-item:hover { background: var(--gray-100); color: var(--gray-700); }
+      .sidebar-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+      .sidebar-note { margin-top: 12px; padding: 10px; font-size: 10.5px; color: var(--info); background: var(--info-light); border: 1px solid var(--info); border-radius: 8px; line-height: 1.4; }
+
+      .main { margin-left: var(--sidebar-w); flex: 1; padding: 20px; }
+      .page { display: none; }
+      .page.active { display: block; }
+      .page-title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+
+      .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: 14px; }
+      .card-body { padding: 14px 18px; }
+
+      .search-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+      .search-row + .search-row { margin-top: 10px; }
+      .filter-label { font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+
+      .date-range { display: flex; align-items: center; border: 1.5px solid var(--primary-mid); border-radius: 8px; overflow: hidden; background: white; max-width: 280px; }
+      .date-nav { padding: 6px 12px; background: var(--primary-light); cursor: pointer; color: var(--primary); font-size: 14px; font-weight: 700; border: none; }
+      .date-display { padding: 6px 16px; font-size: 12px; font-weight: 600; color: var(--primary); background: white; white-space: nowrap; text-align: center; min-width: 200px; }
+      .time-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+      .tf-btn { padding: 7px 14px; min-height: 32px; border-radius: 9px; border: 1px solid #e2e5f1; background: white; color: #677194; font-size: 11.5px; font-weight: 500; cursor: pointer; font-family: inherit; }
+      .tf-btn.active { background: var(--primary); color: white; border-color: transparent; font-weight: 700; }
+
+      .criteria-wrap { position: relative; }
+      .criteria-btn { height: 34px; min-width: 170px; border: 1.5px solid var(--gray-200); border-radius: 8px; background: white; font-size: 12px; font-weight: 600; color: var(--gray-700); font-family: inherit; padding: 0 10px; cursor: pointer; display: inline-flex; align-items: center; justify-content: space-between; gap: 10px; }
+      .criteria-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 200px; background: white; border: 1px solid var(--gray-200); border-radius: 8px; padding: 4px; box-shadow: var(--shadow-md); z-index: 260; }
+      .criteria-wrap.open .criteria-menu { display: block; }
+      .criteria-option { width: 100%; border: none; background: transparent; text-align: left; border-radius: 6px; padding: 7px 9px; font-size: 11.5px; color: var(--gray-700); cursor: pointer; font-family: inherit; }
+      .criteria-option:hover { background: var(--gray-100); color: var(--primary); }
+      .search-input-lg { flex: 1; min-width: 240px; height: 34px; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 0 11px; font-size: 12px; color: var(--gray-700); font-family: inherit; outline: none; }
+
+      .btn { padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+      .btn-outline-primary { background: white; border: 1.5px solid var(--primary); color: var(--primary); }
+      .btn-outline-primary:hover { background: var(--primary-light); }
+      .btn-outline-danger { background: white; border: 1.5px solid var(--accent); color: var(--accent); }
+      .btn-outline-danger:hover { background: var(--accent-light); }
+      .btn-primary { background: var(--primary); color: white; border: 1.5px solid var(--primary); }
+      .btn-danger { background: var(--accent); color: white; border: 1.5px solid var(--accent); }
+      .btn-ghost { background: var(--gray-100); border: 1.5px solid var(--gray-200); color: var(--gray-500); }
+      .btn-sm { padding: 4px 11px; font-size: 11px; }
+
+      .tabs { display: flex; gap: 0; border-bottom: 1.5px solid var(--gray-200); margin-bottom: 14px; }
+      .tab { padding: 10px 20px; font-size: 12.5px; font-weight: 600; color: var(--gray-500); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1.5px; }
+      .tab:hover { color: var(--gray-700); }
+      .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+      .table-title { font-size: 13px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+      .table-title .count { font-size: 11px; background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+      .table-actions { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
+      .table-actions-left, .table-actions-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+      .table-actions-left span { font-size: 11.5px; color: var(--gray-500); font-weight: 500; }
+
+      .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200); }
+      table { width: 100%; border-collapse: collapse; min-width: 1100px; background: white; }
+      thead { background: var(--gray-50); }
+      thead th { padding: 9px 10px; text-align: center; font-size: 11.5px; font-weight: 600; color: var(--gray-500); white-space: nowrap; border-bottom: 1.5px solid var(--gray-200); }
+      tbody tr { border-bottom: 1px solid var(--gray-100); }
+      tbody tr:hover { background: var(--gray-50); }
+      tbody td { padding: 9px 10px; text-align: center; font-size: 12px; color: var(--gray-700); vertical-align: middle; }
+      .td-left { text-align: left !important; }
+
+      .cell-menu { position: relative; display: inline-block; }
+      .menu-trigger { background: none; border: none; padding: 0; font: inherit; color: var(--primary); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: 12px; }
+      .menu-list { position: absolute; top: calc(100% + 2px); left: 0; background: white; border: 1px solid var(--gray-200); border-radius: 8px; box-shadow: var(--shadow-md); z-index: 40; min-width: 200px; display: none; flex-direction: column; padding: 4px 0; }
+      .cell-menu.open .menu-list { display: flex; }
+      .menu-item { padding: 7px 12px; background: none; border: none; text-align: left; font-size: 12px; color: var(--gray-700); cursor: pointer; font-family: inherit; }
+      .menu-item:hover { background: var(--gray-100); color: var(--primary); }
+      .menu-item.danger { color: var(--accent); }
+
+      .table-footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--gray-200); background: white; }
+      .pagination { display: flex; gap: 4px; justify-content: center; align-items: center; }
+      .pg-btn { min-width: 32px; height: 32px; padding: 0 8px; border: 1px solid var(--gray-300); background: white; border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--gray-700); cursor: pointer; }
+      .pg-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+
+      .select-dropdown { position: relative; display: inline-flex; align-items: center; }
+      .select-dropdown select { appearance: none; padding: 6px 28px 6px 10px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 12px; font-family: inherit; color: var(--gray-700); background: white; cursor: pointer; outline: none; min-width: 150px; }
+      .select-dropdown::after { content: "▾"; position: absolute; right: 10px; pointer-events: none; font-size: 10px; color: var(--gray-400); }
+
+      .status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+      .status-badge.scheduled { background: var(--warning-light); color: var(--warning); border: 1px solid var(--warning); }
+      .status-badge.sent { background: var(--success-light); color: var(--success); border: 1px solid var(--success); }
+      .status-badge.cancelled { background: var(--gray-100); color: var(--gray-500); border: 1px solid var(--gray-300); }
+      .status-badge.failed { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); }
+      .status-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+      .target-chip { display: inline-block; padding: 2px 8px; border-radius: 6px; background: var(--primary-light); color: var(--primary); font-size: 10.5px; font-weight: 600; margin: 1px 2px; border: 1px solid var(--primary-mid); }
+
+      .note-ellipsis { display: inline-block; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle; color: var(--gray-700); font-size: 11.5px; }
+
+      /* ====== COMPOSE FORM ====== */
+      .compose-grid { display: grid; grid-template-columns: 200px 1fr; gap: 14px 18px; align-items: start; }
+      .compose-label { font-size: 12.5px; font-weight: 600; color: var(--gray-700); padding-top: 8px; }
+      .compose-label .req { color: var(--accent); }
+      .form-input, .form-textarea { width: 100%; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 8px 11px; font-size: 12px; font-family: inherit; color: var(--gray-700); outline: none; background: white; }
+      .form-input:focus, .form-textarea:focus { border-color: var(--primary); }
+      .form-textarea { min-height: 110px; resize: vertical; }
+
+      .target-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; }
+      .target-card { padding: 9px 12px; border: 1.5px solid var(--gray-200); border-radius: 8px; background: white; cursor: pointer; font-size: 11.5px; font-weight: 500; color: var(--gray-700); display: flex; align-items: center; gap: 7px; }
+      .target-card.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary); font-weight: 700; }
+      .target-card .icon { color: var(--primary); }
+
+      .target-mode-tabs { display: flex; gap: 6px; margin-bottom: 8px; }
+      .target-mode-tab { padding: 6px 14px; border-radius: 8px 8px 0 0; background: var(--gray-100); color: var(--gray-500); font-size: 11.5px; font-weight: 600; cursor: pointer; border: 1px solid var(--gray-200); border-bottom: none; }
+      .target-mode-tab.active { background: white; color: var(--primary); border-color: var(--primary); }
+
+      .compose-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--gray-200); }
+
+      .preview-card { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border-radius: 12px; padding: 14px 16px; max-width: 360px; margin-top: 8px; box-shadow: var(--shadow-md); }
+      .preview-card .pv-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+      .preview-card .pv-body { font-size: 11.5px; line-height: 1.5; opacity: 0.95; }
+      .preview-card .pv-meta { font-size: 10px; opacity: 0.7; margin-top: 8px; }
+
+      /* ====== ACTION MODAL ====== */
+      .action-modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 260; display: none; align-items: center; justify-content: center; }
+      .action-modal-backdrop.open { display: flex; }
+      .action-modal { background: white; border-radius: 10px; padding: 20px; max-width: 440px; width: 95vw; box-shadow: var(--shadow-md); }
+      .action-modal-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+      .action-modal-body { font-size: 12px; color: var(--gray-500); line-height: 1.5; margin-bottom: 16px; }
+      .action-modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+      .action-modal-btn { padding: 8px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
+      .action-modal-btn-cancel { background: var(--gray-200); color: var(--gray-700); }
+      .action-modal-btn-confirm { background: var(--accent); color: white; }
+      .action-modal-btn-confirm.is-primary { background: var(--primary); }
+
+      /* ====== SCHEDULE MODAL ====== */
+      .sched-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); z-index: 270; display: none; align-items: center; justify-content: center; }
+      .sched-backdrop.open { display: flex; }
+      .sched-modal { background: white; border-radius: 12px; padding: 20px; max-width: 440px; width: 95vw; box-shadow: var(--shadow-md); }
+      .sched-modal h3 { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; }
+      .sched-row { margin-bottom: 10px; }
+      .sched-row label { display: block; font-size: 12px; font-weight: 600; color: var(--gray-700); margin-bottom: 5px; }
+      .sched-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+
+      /* ====== EDIT MODAL ====== */
+      .edit-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); z-index: 280; display: none; align-items: center; justify-content: center; }
+      .edit-backdrop.open { display: flex; }
+      .edit-modal { background: white; border-radius: 12px; padding: 22px; max-width: 720px; width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-md); }
+      .edit-modal h3 { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">B</div>
+        BEAUTY Admin
+      </div>
+      <nav class="header-nav">
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <div class="nav-item active">Thông báo đẩy</div>
+      </nav>
+      <div class="header-user">
+        <div class="user-info">
+          <div class="user-name">Nguyễn Văn Admin</div>
+          <div class="user-role">Quản trị viên cấp 3</div>
+        </div>
+        <div class="avatar">AD</div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="sidebar">
+        <div class="sidebar-label">Thông báo đẩy</div>
+        <div class="sidebar-item active" id="sb-compose" onclick="goSection('compose')">Tạo thông báo đẩy</div>
+        <div class="sidebar-item" id="sb-broadcast" onclick="goSection('broadcast')">Quản lý thông báo đẩy</div>
+        <div class="sidebar-item" id="sb-personal" onclick="goSection('personal')">Thông báo đẩy cá nhân</div>
+        <div class="sidebar-note">
+          Thông báo đẩy gửi đồng loạt theo cấp bậc hoặc gửi 1:1 cho từng thành viên. Đã gửi thì không thể chỉnh sửa — chỉ có thể xóa khỏi danh sách.
+        </div>
+      </aside>
+
+      <!-- ====== 14.1 TẠO THÔNG BÁO ĐẨY ====== -->
+      <main class="main page active" id="page-compose">
+        <div class="page-title">• Tạo thông báo đẩy</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="compose-grid">
+              <div class="compose-label">Gửi tới <span class="req">*</span></div>
+              <div>
+                <div class="target-mode-tabs">
+                  <div class="target-mode-tab active" onclick="switchTargetMode('broadcast')">Gửi đồng loạt (theo cấp bậc)</div>
+                  <div class="target-mode-tab" onclick="switchTargetMode('personal')">Gửi 1:1 (theo ID thành viên)</div>
+                </div>
+
+                <div id="target-broadcast">
+                  <div class="target-grid" id="target-grid"></div>
+                  <div style="margin-top:8px;font-size:11px;color:var(--gray-500);font-style:italic">Có thể chọn nhiều cấp bậc cùng lúc. Chọn "Tất cả thành viên" để gửi cho toàn bộ.</div>
+                </div>
+
+                <div id="target-personal" style="display:none">
+                  <input class="form-input" id="cf-personal-ids" placeholder="Nhập ID thành viên, phân tách bằng dấu phẩy. Ví dụ: U001, U002, U003" />
+                  <div style="margin-top:8px;font-size:11px;color:var(--gray-500);font-style:italic">Hệ thống sẽ tìm theo ID hoặc Tên hiển thị. Có thể nhập nhiều thành viên cùng lúc.</div>
+                </div>
+              </div>
+
+              <div class="compose-label">Tiêu đề thông báo <span class="req">*</span></div>
+              <div><input class="form-input" id="cf-title" placeholder="Ví dụ: Sự kiện tháng 7 — Đăng ký ngay!" oninput="updatePreview()" /></div>
+
+              <div class="compose-label">Nội dung thông báo <span class="req">*</span></div>
+              <div>
+                <textarea class="form-textarea" id="cf-body" placeholder="Sau đây là hướng dẫn về sự kiện tháng 7! Đăng bộ là sự kiện đầu tiên của chúng tôi trong tháng 7..." oninput="updatePreview()"></textarea>
+              </div>
+
+              <div class="compose-label">Xem trước</div>
+              <div>
+                <div class="preview-card">
+                  <div class="pv-title" id="pv-title">(Nhập tiêu đề thông báo)</div>
+                  <div class="pv-body" id="pv-body">(Nhập nội dung thông báo)</div>
+                  <div class="pv-meta">BEAUTY · vừa xong</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="compose-actions">
+              <button class="btn btn-ghost" onclick="cancelCompose()">Hủy bỏ</button>
+              <button class="btn btn-outline-primary" onclick="openSchedule()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Hẹn lịch gửi
+              </button>
+              <button class="btn btn-primary" onclick="sendNow()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Gửi ngay
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== 14.2 QUẢN LÝ THÔNG BÁO ĐẨY (đồng loạt) ====== -->
+      <main class="main page" id="page-broadcast">
+        <div class="page-title">• Quản lý thông báo đẩy</div>
+
+        <div class="tabs">
+          <div class="tab active" id="tab-b-pre" onclick="switchTab('broadcast','pre')">Trước khi gửi</div>
+          <div class="tab" id="tab-b-post" onclick="switchTab('broadcast','post')">Sau khi gửi</div>
+          <div class="tab" id="tab-b-del" onclick="switchTab('broadcast','del')">Thông báo đã xóa</div>
+        </div>
+
+        <!-- shared filter -->
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label" id="b-date-label">Dựa trên thời gian tạo thông báo:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate('b')">‹</button>
+                <span class="date-display" id="b-date">23-06-2025 ~ 30-06-2025</span>
+                <button class="date-nav" onclick="shiftDate('b')">›</button>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn">Ngày</button>
+                <button class="tf-btn active">Tuần</button>
+                <button class="tf-btn">Tháng</button>
+                <button class="tf-btn">Năm</button>
+                <button class="tf-btn">Tất cả</button>
+                <button class="tf-btn">Tự chọn</button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-b">
+                <button class="criteria-btn" onclick="toggleCriteria('b',event)">
+                  <span id="criteria-label-b">Tiêu đề/Nội dung</span><span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input class="search-input-lg" id="search-b" placeholder="Nhập thông tin..." />
+              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- pre-send panel -->
+        <div id="panel-b-pre">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-title">• Trước khi gửi <span class="count" id="b-pre-count">0 thông báo</span></div>
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span>Mục đã chọn:</span>
+                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-cancel')">Hủy</button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Tất cả trạng thái</option>
+                      <option>Hẹn lịch</option>
+                      <option>Có thể hủy</option>
+                      <option>Đã hủy</option>
+                    </select>
+                  </div>
+                  <div class="select-dropdown">
+                    <select><option>Danh sách 30</option><option>Danh sách 50</option><option>Danh sách 100</option></select>
+                  </div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" onchange="toggleAll(this,'tbody-b-pre')" /></th>
+                      <th class="td-left">Tiêu đề thông báo</th>
+                      <th>Người nhận</th>
+                      <th>Ngày tạo</th>
+                      <th>Ngày gửi dự kiến</th>
+                      <th>Người tạo</th>
+                      <th>Trạng thái</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-b-pre"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">3</button>
+                  <button class="pg-btn">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- sent panel -->
+        <div id="panel-b-post" style="display:none">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-title">• Sau khi gửi <span class="count" id="b-post-count">0 thông báo</span></div>
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span>Mục đã chọn:</span>
+                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-delete')">Xóa</button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown">
+                    <select><option>Danh sách 30</option><option>Danh sách 50</option></select>
+                  </div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" onchange="toggleAll(this,'tbody-b-post')" /></th>
+                      <th class="td-left">Tiêu đề thông báo</th>
+                      <th>Người nhận</th>
+                      <th>Số nhận được</th>
+                      <th>Ngày gửi</th>
+                      <th>Người tạo</th>
+                      <th>Trạng thái</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-b-post"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination"><button class="pg-btn">‹</button><button class="pg-btn active">1</button><button class="pg-btn">2</button><button class="pg-btn">›</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- deleted panel -->
+        <div id="panel-b-del" style="display:none">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-title">• Thông báo đã xóa <span class="count" id="b-del-count">0 thông báo</span></div>
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span>Mục đã chọn:</span>
+                  <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('bulk-restore')">Khôi phục</button>
+                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-hard-delete')">Xóa vĩnh viễn</button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown"><select><option>Danh sách 30</option></select></div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" onchange="toggleAll(this,'tbody-b-del')" /></th>
+                      <th class="td-left">Tiêu đề thông báo</th>
+                      <th>Người nhận</th>
+                      <th>Người xóa</th>
+                      <th>Ngày xóa</th>
+                      <th class="td-left">Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-b-del"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination"><button class="pg-btn">‹</button><button class="pg-btn active">1</button><button class="pg-btn">2</button><button class="pg-btn">›</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== 14.4 THÔNG BÁO ĐẨY CÁ NHÂN ====== -->
+      <main class="main page" id="page-personal">
+        <div class="page-title">• Thông báo đẩy cá nhân</div>
+
+        <div class="tabs">
+          <div class="tab active" id="tab-p-pre" onclick="switchTab('personal','pre')">Trước khi gửi</div>
+          <div class="tab" id="tab-p-post" onclick="switchTab('personal','post')">Sau khi gửi</div>
+          <div class="tab" id="tab-p-del" onclick="switchTab('personal','del')">Thông báo đã xóa</div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Dựa trên thời gian tạo:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate('p')">‹</button>
+                <span class="date-display" id="p-date">23-06-2025 ~ 30-06-2025</span>
+                <button class="date-nav" onclick="shiftDate('p')">›</button>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn">Ngày</button>
+                <button class="tf-btn active">Tuần</button>
+                <button class="tf-btn">Tháng</button>
+                <button class="tf-btn">Năm</button>
+                <button class="tf-btn">Tất cả</button>
+                <button class="tf-btn">Tự chọn</button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-p">
+                <button class="criteria-btn" onclick="toggleCriteria('p',event)">
+                  <span id="criteria-label-p">Tiêu đề/Nội dung</span><span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input class="search-input-lg" id="search-p" placeholder="Nhập thông tin..." />
+              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-p-pre">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-title">• Trước khi gửi <span class="count" id="p-pre-count">0 thông báo</span></div>
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span>Mục đã chọn:</span>
+                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-cancel')">Hủy</button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" onchange="toggleAll(this,'tbody-p-pre')" /></th>
+                      <th class="td-left">Tiêu đề thông báo</th>
+                      <th>Người nhận (cụ thể)</th>
+                      <th>Ngày tạo</th>
+                      <th>Ngày gửi dự kiến</th>
+                      <th>Người tạo</th>
+                      <th>Trạng thái</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-p-pre"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination"><button class="pg-btn">‹</button><button class="pg-btn active">1</button><button class="pg-btn">2</button><button class="pg-btn">›</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-p-post" style="display:none">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-title">• Sau khi gửi <span class="count" id="p-post-count">0 thông báo</span></div>
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span>Mục đã chọn:</span>
+                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-delete')">Xóa</button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown"><select><option>Danh sách 30</option></select></div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" onchange="toggleAll(this,'tbody-p-post')" /></th>
+                      <th class="td-left">Tiêu đề thông báo</th>
+                      <th>Người nhận</th>
+                      <th>Đã đọc / Tổng</th>
+                      <th>Ngày gửi</th>
+                      <th>Người tạo</th>
+                      <th>Trạng thái</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-p-post"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-p-del" style="display:none">
+          <div class="card">
+            <div class="card-body">
+              <div class="table-title">• Thông báo cá nhân đã xóa <span class="count" id="p-del-count">0 thông báo</span></div>
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span>Mục đã chọn:</span>
+                  <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('bulk-restore')">Khôi phục</button>
+                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-hard-delete')">Xóa vĩnh viễn</button>
+                </div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown"><select><option>Danh sách 30</option></select></div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" onchange="toggleAll(this,'tbody-p-del')" /></th>
+                      <th class="td-left">Tiêu đề thông báo</th>
+                      <th>Người nhận</th>
+                      <th>Người xóa</th>
+                      <th>Ngày xóa</th>
+                      <th class="td-left">Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-p-del"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ====== ACTION MODAL ====== -->
+    <div class="action-modal-backdrop" id="action-modal-backdrop" onclick="closeActionModal()">
+      <div class="action-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+        <h3 class="action-modal-title" id="action-modal-title">Xác nhận</h3>
+        <p class="action-modal-body" id="action-modal-body">Bạn có chắc chắn?</p>
+        <div class="action-modal-actions">
+          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeActionModal()">Hủy</button>
+          <button class="action-modal-btn action-modal-btn-confirm" id="action-modal-confirm" onclick="confirmActionModal()">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SCHEDULE MODAL ====== -->
+    <div class="sched-backdrop" id="sched-backdrop" onclick="closeSchedule()">
+      <div class="sched-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+        <h3>Hẹn lịch gửi thông báo</h3>
+        <div class="sched-row">
+          <label>Ngày gửi</label>
+          <input class="form-input" id="sched-date" value="01-07-2025" placeholder="dd-mm-yyyy" />
+        </div>
+        <div class="sched-row">
+          <label>Giờ gửi</label>
+          <input class="form-input" id="sched-time" value="09:00" placeholder="hh:mm" />
+        </div>
+        <div class="sched-actions">
+          <button class="btn btn-ghost" onclick="closeSchedule()">Hủy</button>
+          <button class="btn btn-primary" onclick="confirmSchedule()">Hẹn lịch</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== EDIT MODAL (14.3) ====== -->
+    <div class="edit-backdrop" id="edit-backdrop" onclick="closeEdit()">
+      <div class="edit-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+        <h3>Chỉnh sửa thông báo đẩy</h3>
+        <div style="font-size:11.5px;color:var(--info);background:var(--info-light);border:1px solid var(--info);border-radius:8px;padding:8px 12px;margin-bottom:10px">
+          Khi chỉnh sửa, một thông báo đẩy mới sẽ được gửi (thay vì sửa nội dung của thông báo cũ đã gửi).
+        </div>
+        <div class="compose-grid">
+          <div class="compose-label">Gửi tới <span class="req">*</span></div>
+          <div>
+            <div class="target-grid" id="edit-target-grid"></div>
+          </div>
+          <div class="compose-label">Tiêu đề</div>
+          <div><input class="form-input" id="ef-title" /></div>
+          <div class="compose-label">Nội dung</div>
+          <div><textarea class="form-textarea" id="ef-body"></textarea></div>
+        </div>
+        <div class="compose-actions">
+          <button class="btn btn-ghost" onclick="closeEdit()">Hủy</button>
+          <button class="btn btn-outline-primary" onclick="closeEdit();alert('Đã hẹn lịch gửi lại thông báo.')">Hẹn lịch</button>
+          <button class="btn btn-primary" onclick="closeEdit();alert('Đã gửi lại thông báo.')">Gửi ngay</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ====== DATA ====== */
+      const targets = ["Tất cả thành viên", "Cấp độ 1", "Cấp độ 2", "Cấp độ 3", "Cấp độ 4", "Cấp độ 5", "Thành viên chuyên gia", "Thành viên bác sĩ"];
+      let selectedTargets = new Set(["Tất cả thành viên"]);
+
+      const broadcastPre = [
+        { id: 1, title: "Event mừng năm mới", body: "Sự kiện mừng năm mới 2026!", receivers: ["Tất cả thành viên"], created: "30-06-2025", scheduled: "01-01-2026", createdBy: "maimai", status: "Hẹn lịch" },
+        { id: 2, title: "Sự kiện tháng 12", body: "Khuyến mãi cuối năm.", receivers: ["Cấp độ 3"], created: "30-06-2025", scheduled: "01-12-2025", createdBy: "maimai", status: "Đã hủy" },
+        { id: 3, title: "Thông báo bảo trì hệ thống", body: "Hệ thống bảo trì từ 22h đến 24h.", receivers: ["Tất cả thành viên"], created: "29-06-2025", scheduled: "05-07-2025", createdBy: "ngocanh", status: "Hẹn lịch" },
+        { id: 4, title: "Tặng quà sinh nhật Lv.5", body: "Quà sinh nhật cho Lv.5.", receivers: ["Cấp độ 5"], created: "28-06-2025", scheduled: "01-08-2025", createdBy: "ducanh", status: "Hẹn lịch" },
+        { id: 5, title: "Thông báo bác sĩ", body: "Cập nhật hồ sơ bác sĩ.", receivers: ["Thành viên bác sĩ"], created: "27-06-2025", scheduled: "10-07-2025", createdBy: "maimai", status: "Có thể hủy" },
+      ];
+
+      const broadcastPost = [
+        { id: 11, title: "Sự kiện tháng 6", body: "Sự kiện đã kết thúc.", receivers: ["Tất cả thành viên"], received: 1820, sent: "01-06-2025", createdBy: "maimai", status: "Đã gửi" },
+        { id: 12, title: "Khuyến mãi 30/4", body: "Khuyến mãi lễ.", receivers: ["Cấp độ 2", "Cấp độ 3"], received: 942, sent: "25-04-2025", createdBy: "ngocanh", status: "Đã gửi" },
+        { id: 13, title: "Welcome to BEAUTY", body: "Lời chào mừng.", receivers: ["Cấp độ 1"], received: 482, sent: "15-05-2025", createdBy: "maimai", status: "Đã gửi" },
+        { id: 14, title: "Sự kiện sinh nhật BEAUTY", body: "1 năm thành lập.", receivers: ["Tất cả thành viên"], received: 2120, sent: "20-05-2025", createdBy: "ducanh", status: "Đã gửi" },
+        { id: 15, title: "Khảo sát người dùng", body: "Tham gia khảo sát.", receivers: ["Cấp độ 3", "Cấp độ 4", "Cấp độ 5"], received: 820, sent: "10-06-2025", createdBy: "ngocanh", status: "Một phần thất bại" },
+      ];
+
+      const broadcastDel = [
+        { id: 21, title: "Xin chào", body: "Lời chào.", receivers: ["Tất cả thành viên"], deletedBy: "maimai", deletedAt: "05-06-2025", note: "Sự kiện kết thúc" },
+        { id: 22, title: "Hướng dẫn về sự kiện tháng 7!", body: "Đã hết hạn.", receivers: ["Toàn bộ Lv.3"], deletedBy: "maimai", deletedAt: "25-06-2025", note: "Đã thay thế bằng thông báo mới" },
+        { id: 23, title: "Quà tặng tháng 5", body: "Quà đã trao.", receivers: ["Tất cả thành viên"], deletedBy: "ngocanh", deletedAt: "10-06-2025", note: "" },
+      ];
+
+      const personalPre = [
+        { id: 31, title: "Event mừng năm mới", body: "Riêng cho mynguyen.", receivers: ["mynguyen"], created: "30-06-2025", scheduled: "01-01-2026", createdBy: "maimai", status: "Hẹn lịch" },
+        { id: 32, title: "Sự kiện tháng 12", body: "Riêng cho vivi123.", receivers: ["vivi123"], created: "30-06-2025", scheduled: "01-12-2025", createdBy: "maimai", status: "Đã hủy" },
+        { id: 33, title: "Cảnh báo vi phạm", body: "Bài viết vi phạm quy định.", receivers: ["ducanh"], created: "29-06-2025", scheduled: "01-07-2025", createdBy: "ngocanh", status: "Hẹn lịch" },
+      ];
+
+      const personalPost = [
+        { id: 41, title: "Chúc mừng sinh nhật!", receivers: ["maimai"], readOf: "1/1", sent: "20-06-2025", createdBy: "ngocanh", status: "Đã đọc" },
+        { id: 42, title: "Phản hồi báo cáo", receivers: ["lanh_anh"], readOf: "1/1", sent: "18-06-2025", createdBy: "maimai", status: "Đã đọc" },
+        { id: 43, title: "Cảnh báo: bài viết bị xóa", receivers: ["thuylinh"], readOf: "0/1", sent: "15-06-2025", createdBy: "ducanh", status: "Chưa đọc" },
+        { id: 44, title: "Mời tham gia KOL", receivers: ["minhthu"], readOf: "1/1", sent: "10-06-2025", createdBy: "ngocanh", status: "Đã đọc" },
+      ];
+
+      const personalDel = [
+        { id: 51, title: "Xin chào", receivers: ["mynguyen"], deletedBy: "maimai", deletedAt: "05-06-2025", note: "Sự kiện kết thúc" },
+        { id: 52, title: "Hướng dẫn về sự kiện tháng 7!", receivers: ["vivi123"], deletedBy: "maimai", deletedAt: "25-06-2025", note: "" },
+      ];
+
+      /* ====== NAV ====== */
+      function goSection(section) {
+        document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
+        document.querySelectorAll(".sidebar-item").forEach((s) => s.classList.remove("active"));
+        document.getElementById(`page-${section}`).classList.add("active");
+        document.getElementById(`sb-${section}`).classList.add("active");
+        window.scrollTo(0, 0);
+      }
+
+      /* ====== TABS ====== */
+      function switchTab(area, name) {
+        const prefix = area === "broadcast" ? "b" : "p";
+        document.querySelectorAll(`[id^="tab-${prefix}-"]`).forEach((t) => t.classList.remove("active"));
+        document.getElementById(`tab-${prefix}-${name}`).classList.add("active");
+        ["pre", "post", "del"].forEach((n) => {
+          const el = document.getElementById(`panel-${prefix}-${n}`);
+          if (el) el.style.display = n === name ? "" : "none";
+        });
+        const label = document.getElementById(`${prefix}-date-label`);
+        if (label) {
+          label.textContent = name === "pre" ? "Dựa trên thời gian tạo thông báo:" : name === "post" ? "Dựa trên thời gian gửi:" : "Dựa trên thời gian xóa:";
+        }
+      }
+
+      /* ====== TARGET MODE ====== */
+      function switchTargetMode(mode) {
+        document.querySelectorAll(".target-mode-tab").forEach((t) => t.classList.remove("active"));
+        event.target.classList.add("active");
+        document.getElementById("target-broadcast").style.display = mode === "broadcast" ? "" : "none";
+        document.getElementById("target-personal").style.display = mode === "personal" ? "" : "none";
+      }
+
+      function renderTargets(containerId = "target-grid") {
+        const g = document.getElementById(containerId);
+        g.innerHTML = targets.map((t) => `
+          <div class="target-card ${selectedTargets.has(t) ? "selected" : ""}" onclick="toggleTarget('${t.replace(/'/g, "&#39;")}','${containerId}')">
+            <input type="checkbox" ${selectedTargets.has(t) ? "checked" : ""} style="margin:0" />
+            <span>${t}</span>
+          </div>
+        `).join("");
+      }
+      function toggleTarget(name, containerId) {
+        if (selectedTargets.has(name)) selectedTargets.delete(name);
+        else selectedTargets.add(name);
+        if (name === "Tất cả thành viên" && selectedTargets.has(name)) {
+          selectedTargets = new Set(["Tất cả thành viên"]);
+        } else if (selectedTargets.has(name) && selectedTargets.has("Tất cả thành viên") && name !== "Tất cả thành viên") {
+          selectedTargets.delete("Tất cả thành viên");
+        }
+        renderTargets(containerId);
+      }
+
+      /* ====== PREVIEW ====== */
+      function updatePreview() {
+        const t = document.getElementById("cf-title").value.trim() || "(Nhập tiêu đề thông báo)";
+        const b = document.getElementById("cf-body").value.trim() || "(Nhập nội dung thông báo)";
+        document.getElementById("pv-title").textContent = t;
+        document.getElementById("pv-body").textContent = b;
+      }
+
+      /* ====== COMPOSE ACTIONS ====== */
+      function cancelCompose() {
+        if (!confirm("Hủy bỏ thông báo? Mọi nội dung đã nhập sẽ mất.")) return;
+        document.getElementById("cf-title").value = "";
+        document.getElementById("cf-body").value = "";
+        document.getElementById("cf-personal-ids").value = "";
+        selectedTargets = new Set(["Tất cả thành viên"]);
+        renderTargets();
+        updatePreview();
+      }
+
+      function validateCompose() {
+        const t = document.getElementById("cf-title").value.trim();
+        const b = document.getElementById("cf-body").value.trim();
+        if (!t) { alert("Vui lòng nhập tiêu đề thông báo."); return false; }
+        if (!b) { alert("Vui lòng nhập nội dung thông báo."); return false; }
+        return true;
+      }
+
+      function sendNow() {
+        if (!validateCompose()) return;
+        alert(`Đã gửi thông báo đến ${selectedTargets.size} đối tượng.`);
+      }
+
+      function openSchedule() {
+        if (!validateCompose()) return;
+        document.getElementById("sched-backdrop").classList.add("open");
+      }
+      function closeSchedule() { document.getElementById("sched-backdrop").classList.remove("open"); }
+      function confirmSchedule() {
+        const d = document.getElementById("sched-date").value;
+        const t = document.getElementById("sched-time").value;
+        closeSchedule();
+        alert(`Đã hẹn lịch gửi: ${d} ${t}.`);
+      }
+
+      /* ====== RENDER TABLES ====== */
+      function renderBroadcastPre() {
+        document.getElementById("tbody-b-pre").innerHTML = broadcastPre.map((n) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${n.title}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="openEdit(${n.id},'broadcast')">Chỉnh sửa</button>
+                  <button class="menu-item" onclick="alert('Xem chi tiết thông báo.')">Xem chi tiết</button>
+                  <button class="menu-item danger" onclick="openActionModal('cancel-one',${n.id})">Hủy</button>
+                </div>
+              </div>
+              <div style="font-size:10.5px;color:var(--gray-500);margin-top:3px"><span class="note-ellipsis">${n.body}</span></div>
+            </td>
+            <td>${n.receivers.map((r) => `<span class="target-chip">${r}</span>`).join("")}</td>
+            <td>${n.created}</td>
+            <td>${n.scheduled}</td>
+            <td>${n.createdBy}</td>
+            <td>${statusBadge(n.status)}</td>
+          </tr>
+        `).join("");
+        document.getElementById("b-pre-count").textContent = `${broadcastPre.length} thông báo`;
+      }
+      function renderBroadcastPost() {
+        document.getElementById("tbody-b-post").innerHTML = broadcastPost.map((n) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${n.title}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="alert('Xem chi tiết thông báo.')">Xem chi tiết</button>
+                  <button class="menu-item" onclick="openEdit(${n.id},'broadcast')">Tạo bản tương tự</button>
+                  <button class="menu-item danger" onclick="openActionModal('delete-one',${n.id})">Xóa</button>
+                </div>
+              </div>
+              <div style="font-size:10.5px;color:var(--gray-500);margin-top:3px"><span class="note-ellipsis">${n.body}</span></div>
+            </td>
+            <td>${n.receivers.map((r) => `<span class="target-chip">${r}</span>`).join("")}</td>
+            <td><strong>${n.received.toLocaleString()}</strong></td>
+            <td>${n.sent}</td>
+            <td>${n.createdBy}</td>
+            <td>${statusBadge(n.status)}</td>
+          </tr>
+        `).join("");
+        document.getElementById("b-post-count").textContent = `${broadcastPost.length} thông báo`;
+      }
+      function renderBroadcastDel() {
+        document.getElementById("tbody-b-del").innerHTML = broadcastDel.map((n) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${n.title}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="openActionModal('restore-one',${n.id})">Khôi phục</button>
+                  <button class="menu-item danger" onclick="openActionModal('hard-delete-one',${n.id})">Xóa vĩnh viễn</button>
+                </div>
+              </div>
+            </td>
+            <td>${n.receivers.map((r) => `<span class="target-chip">${r}</span>`).join("")}</td>
+            <td>${n.deletedBy}</td>
+            <td>${n.deletedAt}</td>
+            <td class="td-left"><span class="note-ellipsis">${n.note || "—"}</span></td>
+          </tr>
+        `).join("");
+        document.getElementById("b-del-count").textContent = `${broadcastDel.length} thông báo`;
+      }
+      function renderPersonalPre() {
+        document.getElementById("tbody-p-pre").innerHTML = personalPre.map((n) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${n.title}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="openEdit(${n.id},'personal')">Chỉnh sửa</button>
+                  <button class="menu-item" onclick="alert('Xem chi tiết thông báo.')">Xem chi tiết</button>
+                  <button class="menu-item danger" onclick="openActionModal('cancel-one',${n.id})">Hủy</button>
+                </div>
+              </div>
+            </td>
+            <td>${n.receivers.map((r) => `<span class="target-chip">${r}</span>`).join("")}</td>
+            <td>${n.created}</td>
+            <td>${n.scheduled}</td>
+            <td>${n.createdBy}</td>
+            <td>${statusBadge(n.status)}</td>
+          </tr>
+        `).join("");
+        document.getElementById("p-pre-count").textContent = `${personalPre.length} thông báo`;
+      }
+      function renderPersonalPost() {
+        document.getElementById("tbody-p-post").innerHTML = personalPost.map((n) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${n.title}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="alert('Xem chi tiết thông báo.')">Xem chi tiết</button>
+                  <button class="menu-item danger" onclick="openActionModal('delete-one',${n.id})">Xóa</button>
+                </div>
+              </div>
+            </td>
+            <td>${n.receivers.map((r) => `<span class="target-chip">${r}</span>`).join("")}</td>
+            <td>${n.readOf}</td>
+            <td>${n.sent}</td>
+            <td>${n.createdBy}</td>
+            <td>${statusBadge(n.status)}</td>
+          </tr>
+        `).join("");
+        document.getElementById("p-post-count").textContent = `${personalPost.length} thông báo`;
+      }
+      function renderPersonalDel() {
+        document.getElementById("tbody-p-del").innerHTML = personalDel.map((n) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${n.title}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="openActionModal('restore-one',${n.id})">Khôi phục</button>
+                  <button class="menu-item danger" onclick="openActionModal('hard-delete-one',${n.id})">Xóa vĩnh viễn</button>
+                </div>
+              </div>
+            </td>
+            <td>${n.receivers.map((r) => `<span class="target-chip">${r}</span>`).join("")}</td>
+            <td>${n.deletedBy}</td>
+            <td>${n.deletedAt}</td>
+            <td class="td-left"><span class="note-ellipsis">${n.note || "—"}</span></td>
+          </tr>
+        `).join("");
+        document.getElementById("p-del-count").textContent = `${personalDel.length} thông báo`;
+      }
+
+      function statusBadge(s) {
+        if (s === "Đã gửi" || s === "Đã đọc") return `<span class="status-badge sent"><span class="dot"></span>${s}</span>`;
+        if (s === "Hẹn lịch" || s === "Có thể hủy") return `<span class="status-badge scheduled"><span class="dot"></span>${s}</span>`;
+        if (s === "Đã hủy" || s === "Chưa đọc") return `<span class="status-badge cancelled"><span class="dot"></span>${s}</span>`;
+        if (s === "Một phần thất bại") return `<span class="status-badge failed"><span class="dot"></span>${s}</span>`;
+        return `<span class="status-badge">${s}</span>`;
+      }
+
+      /* ====== CELL MENU ====== */
+      function toggleMenu(ev, el) {
+        ev.stopPropagation();
+        el.classList.toggle("open");
+      }
+      function closeAllMenus() {
+        document.querySelectorAll(".cell-menu.open").forEach((m) => m.classList.remove("open"));
+      }
+
+      /* ====== CRITERIA ====== */
+      const criteriaOptions = {
+        b: ["Tiêu đề/Nội dung", "ID thành viên", "Người tạo"],
+        p: ["Tiêu đề/Nội dung", "ID thành viên", "Tên hiển thị", "Người tạo"],
+      };
+      function buildCriteriaMenu(key) {
+        const wrap = document.getElementById(`criteria-${key}`);
+        const menu = wrap.querySelector(".criteria-menu");
+        menu.innerHTML = criteriaOptions[key].map((o) => `<button class="criteria-option" onclick="selectCriteria('${key}','${o}')">${o}</button>`).join("");
+      }
+      function toggleCriteria(key, ev) {
+        ev.stopPropagation();
+        const wrap = document.getElementById(`criteria-${key}`);
+        const opened = wrap.classList.contains("open");
+        closeAllCriteria();
+        if (!opened) wrap.classList.add("open");
+      }
+      function selectCriteria(key, label) {
+        document.getElementById(`criteria-label-${key}`).textContent = label;
+        closeAllCriteria();
+      }
+      function closeAllCriteria() {
+        document.querySelectorAll(".criteria-wrap").forEach((w) => w.classList.remove("open"));
+      }
+
+      /* ====== DATE NAV ====== */
+      function shiftDate(key) {
+        const el = document.getElementById(`${key}-date`);
+        el.style.color = "var(--accent)";
+        setTimeout(() => (el.style.color = ""), 250);
+      }
+      function toggleAll(chk, tbodyId) {
+        document.querySelectorAll(`#${tbodyId} input[type="checkbox"]`).forEach((c) => (c.checked = chk.checked));
+      }
+
+      /* ====== ACTION MODAL ====== */
+      const actionModalMap = {
+        "bulk-cancel": { title: "Hủy thông báo đã chọn", body: "Hủy gửi các thông báo đã chọn? Thông báo đã hủy không thể khôi phục lại.", btn: "Hủy thông báo", danger: true },
+        "cancel-one": { title: "Hủy thông báo", body: "Hủy thông báo này? Thông báo đã hủy không thể khôi phục lại.", btn: "Hủy", danger: true },
+        "bulk-delete": { title: "Xóa thông báo đã chọn", body: "Xóa các thông báo đã chọn? Thông báo sẽ chuyển sang tab 'Đã xóa'.", btn: "Xóa", danger: true },
+        "delete-one": { title: "Xóa thông báo", body: "Xóa thông báo này? Thông báo sẽ chuyển sang tab 'Đã xóa'.", btn: "Xóa", danger: true },
+        "bulk-restore": { title: "Khôi phục thông báo đã chọn", body: "Khôi phục các thông báo đã chọn về danh sách 'Sau khi gửi'?", btn: "Khôi phục", danger: false },
+        "restore-one": { title: "Khôi phục thông báo", body: "Khôi phục thông báo này về danh sách 'Sau khi gửi'?", btn: "Khôi phục", danger: false },
+        "bulk-hard-delete": { title: "Xóa vĩnh viễn", body: "Các thông báo sẽ bị xóa vĩnh viễn khỏi hệ thống và không thể khôi phục. Tiếp tục?", btn: "Xóa vĩnh viễn", danger: true },
+        "hard-delete-one": { title: "Xóa vĩnh viễn", body: "Thông báo sẽ bị xóa vĩnh viễn khỏi hệ thống và không thể khôi phục. Tiếp tục?", btn: "Xóa vĩnh viễn", danger: true },
+      };
+      let currentActionContext = null;
+      function openActionModal(type, ctx) {
+        const cfg = actionModalMap[type];
+        if (!cfg) return;
+        currentActionContext = { type, ctx };
+        document.getElementById("action-modal-title").textContent = cfg.title;
+        document.getElementById("action-modal-body").textContent = cfg.body;
+        const cBtn = document.getElementById("action-modal-confirm");
+        cBtn.textContent = cfg.btn;
+        cBtn.classList.toggle("is-primary", !cfg.danger);
+        document.getElementById("action-modal-backdrop").classList.add("open");
+      }
+      function closeActionModal() {
+        document.getElementById("action-modal-backdrop").classList.remove("open");
+        currentActionContext = null;
+      }
+      function confirmActionModal() {
+        if (!currentActionContext) return closeActionModal();
+        alert(`Đã ${actionModalMap[currentActionContext.type].btn.toLowerCase()}.`);
+        closeActionModal();
+      }
+
+      /* ====== EDIT MODAL (14.3) ====== */
+      function openEdit(id, area) {
+        const list = area === "broadcast" ? broadcastPre.concat(broadcastPost) : personalPre.concat(personalPost);
+        const n = list.find((x) => x.id === id);
+        if (!n) return;
+        document.getElementById("ef-title").value = n.title;
+        document.getElementById("ef-body").value = n.body || "";
+        const g = document.getElementById("edit-target-grid");
+        g.innerHTML = targets.map((t) => `
+          <div class="target-card ${n.receivers.includes(t) ? "selected" : ""}">
+            <input type="checkbox" ${n.receivers.includes(t) ? "checked" : ""} style="margin:0" />
+            <span>${t}</span>
+          </div>
+        `).join("");
+        document.getElementById("edit-backdrop").classList.add("open");
+      }
+      function closeEdit() { document.getElementById("edit-backdrop").classList.remove("open"); }
+
+      /* ====== GLOBAL LISTENERS ====== */
+      document.addEventListener("click", () => {
+        closeAllMenus();
+        closeAllCriteria();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeActionModal();
+          closeSchedule();
+          closeEdit();
+        }
+      });
+
+      /* ====== INIT ====== */
+      buildCriteriaMenu("b");
+      buildCriteriaMenu("p");
+      renderTargets();
+      updatePreview();
+      renderBroadcastPre();
+      renderBroadcastPost();
+      renderBroadcastDel();
+      renderPersonalPre();
+      renderPersonalPost();
+      renderPersonalDel();
+    </script>
+  </body>
+</html>

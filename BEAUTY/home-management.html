@@ -1,0 +1,939 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang chủ - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --success: #16a34a;
+        --success-light: #dcfce7;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --header-h: 60px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        min-height: 60px;
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+      }
+      .header-user .avatar {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
+
+      .main {
+        padding: 20px;
+        padding-top: calc(var(--header-h) + 20px);
+        max-width: 1440px;
+        margin: 0 auto;
+      }
+
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+      }
+
+      .breadcrumb {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        font-size: 11px;
+        margin-bottom: 12px;
+      }
+      .bc-link {
+        color: var(--primary);
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .bc-sep {
+        color: var(--gray-400);
+      }
+      .bc-current {
+        color: var(--gray-700);
+        font-weight: 600;
+      }
+
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-body {
+        padding: 16px 18px;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .card-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+      .card-link {
+        font-size: 11px;
+        color: var(--primary);
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .card-time {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
+      .card-time strong {
+        color: var(--gray-700);
+        font-weight: 700;
+      }
+
+      /* ====== DASHBOARD LAYOUT ====== */
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+        gap: 14px;
+      }
+      @media (max-width: 1024px) {
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ====== STATS ====== */
+      .date-chip {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--primary-light);
+        color: var(--primary);
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+      @media (max-width: 768px) {
+        .stats-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      .stat-box {
+        padding: 14px 14px 12px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.15s;
+        text-align: center;
+        position: relative;
+      }
+      .stat-box:hover {
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary-mid);
+        transform: translateY(-1px);
+      }
+      .stat-label {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .stat-value {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--gray-900);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .trend-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 10.5px;
+        font-weight: 700;
+      }
+      .trend-chip.up {
+        background: var(--success-light);
+        color: var(--success);
+      }
+      .trend-chip.down {
+        background: var(--accent-light);
+        color: var(--accent);
+      }
+      .trend-chip svg {
+        flex-shrink: 0;
+      }
+
+      /* ====== CHARTS ====== */
+      .charts-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+      @media (max-width: 1024px) {
+        .charts-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 640px) {
+        .charts-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .chart-box {
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 12px;
+      }
+      .chart-title {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .chart-help {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--gray-200);
+        color: var(--gray-500);
+        font-size: 9.5px;
+        font-weight: 700;
+        cursor: help;
+      }
+      .chart-legend {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 6px;
+      }
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10.5px;
+        color: var(--gray-600);
+        font-weight: 600;
+      }
+      .legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      .chart-svg {
+        width: 100%;
+        height: 110px;
+        display: block;
+      }
+
+      /* ====== TASK LIST ====== */
+      .tasks-card {
+        position: sticky;
+        top: calc(var(--header-h) + 20px);
+        align-self: start;
+      }
+      .task-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .task-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.15s;
+        text-decoration: none;
+        color: inherit;
+        background: white;
+      }
+      .task-item:hover {
+        background: var(--gray-50);
+        border-color: var(--primary-mid);
+      }
+      .task-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: var(--primary-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .task-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .task-label {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 2px;
+      }
+      .task-detail {
+        font-size: 11px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
+      .task-detail strong {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .task-arrow {
+        font-size: 16px;
+        color: var(--gray-400);
+      }
+
+      /* ====== WEEKLY DETAIL PAGE ====== */
+      .weekly-chart-stack {
+        display: grid;
+        gap: 14px;
+      }
+      .chart-box-lg {
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 18px;
+      }
+      .chart-box-lg .chart-title {
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+      .chart-svg-lg {
+        width: 100%;
+        height: 220px;
+        display: block;
+      }
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        border: 1.5px solid var(--gray-200);
+        background: white;
+        color: var(--gray-700);
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .back-btn:hover {
+        background: var(--gray-100);
+      }
+
+      /* ====== TOOLTIP-NATIVE ====== */
+      [data-tip] {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">B</div>
+        BEAUTY Admin
+      </div>
+      <nav class="header-nav">
+        <div class="nav-item active">Trang chủ</div>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+      </nav>
+      <div class="header-user">
+        <div class="user-info">
+          <div class="user-name">Nguyễn Văn Admin</div>
+          <div class="user-role">Quản trị viên cấp 3</div>
+        </div>
+        <div class="avatar">AD</div>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- ====== TRANG DASHBOARD ====== -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-title">Trang chủ</div>
+
+        <div class="dashboard-grid">
+          <div class="dashboard-left">
+            <!-- Tình hình hằng ngày -->
+            <div class="card">
+              <div class="card-body">
+                <div class="card-header">
+                  <div class="card-title">Tình hình hằng ngày</div>
+                  <div class="card-time">
+                    <strong id="now-date">30-06-2025</strong>
+                    · <span id="now-time">13:30</span>
+                  </div>
+                </div>
+                <div>
+                  <span class="date-chip" id="range-chip">23-06-2025 ~ 30-06-2025</span>
+                </div>
+                <div class="stats-grid" id="stats-grid"></div>
+              </div>
+            </div>
+
+            <!-- Tình hình hằng tuần -->
+            <div class="card">
+              <div class="card-body">
+                <div class="card-header">
+                  <div class="card-title">Tình hình hằng tuần</div>
+                  <div class="card-link" onclick="goPage('weekly-detail')">
+                    Tham khảo trang "1.1 Giải thích chi tiết tình hình hằng tuần" →
+                  </div>
+                </div>
+                <div class="charts-grid" id="charts-grid"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-right">
+            <div class="card tasks-card">
+              <div class="card-body">
+                <div class="card-header" style="margin-bottom: 12px">
+                  <div class="card-title">Công việc hằng ngày</div>
+                </div>
+                <div class="task-list" id="task-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== TRANG CHI TIẾT HẰNG TUẦN ====== -->
+      <div class="page" id="page-weekly-detail">
+        <div class="breadcrumb">
+          <span class="bc-link" onclick="goPage('dashboard')">Trang chủ</span>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">Chi tiết tình hình hằng tuần</span>
+        </div>
+        <div class="page-title">Chi tiết tình hình hằng tuần</div>
+
+        <div style="margin-bottom: 14px">
+          <button class="back-btn" onclick="goPage('dashboard')">
+            ‹ Quay lại Trang chủ
+          </button>
+        </div>
+
+        <div class="weekly-chart-stack" id="weekly-detail-stack"></div>
+
+        <div style="margin-top: 14px">
+          <button class="back-btn" onclick="goPage('dashboard')">
+            ‹ Quay lại Trang chủ
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      /* ====== DATA ====== */
+      const dailyStats = {
+        date: "30-06-2025",
+        time: "13:30",
+        range: "23-06-2025 ~ 30-06-2025",
+        metrics: [
+          { key: "views",     label: "Lượt xem",     value: 686, change: +9,  unit: "%" },
+          { key: "posts",     label: "Số bài viết",  value: 88,  change: +10, unit: "%" },
+          { key: "comments",  label: "Số bình luận", value: 86,  change: +2,  unit: "%" },
+          { key: "downloads", label: "Lượt tải app", value: 888, change: +10, unit: "%" },
+          { key: "signups",   label: "Lượt đăng ký", value: 666, change: +5,  unit: "%" },
+          { key: "leaves",    label: "Lượt rời bỏ",  value: 79,  change: -7,  unit: "%" },
+        ],
+      };
+
+      const weeklyCharts = [
+        {
+          key: "views",
+          title: "Lượt xem",
+          series: [{ label: "Lượt xem", color: "var(--primary)", data: [30, 25, 28, 40, 45, 40, 50] }],
+        },
+        {
+          key: "posts-comments",
+          title: "Lượng bài viết / bình luận",
+          series: [
+            { label: "Bài viết", color: "var(--primary)", data: [25, 28, 40, 30, 45, 40, 50] },
+            { label: "Bình luận", color: "var(--accent)", data: [28, 30, 25, 40, 35, 50, 45] },
+          ],
+        },
+        {
+          key: "downloads",
+          title: "Lượt tải về",
+          series: [{ label: "Tải về", color: "var(--primary)", data: [25, 28, 40, 30, 45, 40, 50] }],
+        },
+        {
+          key: "login-leave",
+          title: "Lượng đăng nhập / rời bỏ",
+          series: [
+            { label: "Đăng nhập", color: "var(--primary)", data: [25, 28, 40, 30, 45, 40, 50] },
+            { label: "Rời bỏ", color: "var(--accent)", data: [25, 28, 28, 30, 25, 40, 40] },
+          ],
+        },
+        {
+          key: "signup-leave",
+          title: "Lượt đăng ký và rời bỏ",
+          help: "(rời bỏ là xóa account hay log out?)",
+          series: [
+            { label: "Đăng ký", color: "var(--primary)", data: [25, 28, 40, 30, 45, 40, 50] },
+            { label: "Rời bỏ", color: "var(--accent)", data: [25, 28, 28, 30, 25, 40, 40] },
+          ],
+        },
+      ];
+
+      const weekDayLabels = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+
+      const dailyTasks = [
+        {
+          key: "inbox",
+          icon: "📬",
+          label: "Hộp thư đến",
+          detailHtml: "Hộp thư chưa đọc: <strong>120 thư</strong>",
+          target: "alert:Mở trang Thông báo đẩy / Hộp thư đến (đang phát triển).",
+        },
+        {
+          key: "reported",
+          icon: "🚨",
+          label: "Bài viết bị báo cáo",
+          detailHtml: "<strong>24 bài</strong>",
+          target: "report-management.html",
+        },
+        {
+          key: "leave-rate",
+          icon: "📉",
+          label: "Kiểm tra tỉ lệ rời bỏ",
+          detailHtml: "Tỉ lệ rời bỏ",
+          target: "alert:Mở trang Thống kê tỉ lệ rời bỏ (đang phát triển).",
+        },
+        {
+          key: "email",
+          icon: "✉️",
+          label: "Kiểm tra Email",
+          detailHtml: "Mở Gmail",
+          target: "https://mail.google.com",
+          external: true,
+        },
+      ];
+
+      /* ====== HELPERS ====== */
+      function escText(s) {
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+      function fmtNum(n) {
+        return Number(n || 0).toLocaleString("vi-VN");
+      }
+      function fmtChange(n) {
+        const sign = n > 0 ? "+" : "";
+        return `${sign}${n}%`;
+      }
+
+      /* ====== NAVIGATION ====== */
+      function goPage(page) {
+        document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + page)?.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function goStats(key) {
+        alert("Di chuyển đến trang thống kê: " + key + " (đang phát triển).");
+      }
+
+      function goTask(target, external) {
+        if (!target) return;
+        if (target.startsWith("alert:")) {
+          alert(target.slice(6));
+          return;
+        }
+        if (external) {
+          window.open(target, "_blank", "noopener");
+          return;
+        }
+        window.location.href = target;
+      }
+
+      /* ====== STATS RENDER ====== */
+      function renderStats() {
+        const grid = document.getElementById("stats-grid");
+        if (!grid) return;
+        grid.innerHTML = dailyStats.metrics
+          .map((m) => {
+            const isUp = m.change >= 0;
+            const arrow = isUp
+              ? '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7"/></svg>'
+              : '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12l7 7 7-7"/></svg>';
+            return `
+              <div class="stat-box" onclick="goStats('${escText(m.key)}')" title="Click để xem chi tiết">
+                <div class="stat-label">${escText(m.label)}</div>
+                <div class="stat-value">${fmtNum(m.value)}</div>
+                <span class="trend-chip ${isUp ? "up" : "down"}">
+                  ${arrow}${fmtChange(m.change)}
+                </span>
+              </div>`;
+          })
+          .join("");
+      }
+
+      /* ====== CHART SVG (mini + large) ====== */
+      function buildLineChart(series, width, height, opts = {}) {
+        const padX = 16;
+        const padTop = 8;
+        const padBottom = opts.showAxis ? 22 : 8;
+        const innerW = width - padX * 2;
+        const innerH = height - padTop - padBottom;
+
+        const allData = series.flatMap((s) => s.data);
+        const maxVal = Math.max(60, Math.max(...allData));
+        const n = series[0].data.length;
+        const stepX = innerW / (n - 1);
+
+        let svg = `<svg viewBox="0 0 ${width} ${height}" class="${opts.lg ? "chart-svg-lg" : "chart-svg"}" preserveAspectRatio="none">`;
+
+        // grid (optional, lg only)
+        if (opts.lg) {
+          for (let i = 1; i <= 4; i++) {
+            const y = padTop + (innerH * i) / 5;
+            svg += `<line x1="${padX}" y1="${y}" x2="${padX + innerW}" y2="${y}" stroke="var(--gray-200)" stroke-width="1" stroke-dasharray="3 3"/>`;
+          }
+        }
+
+        // x-axis labels (optional, lg only)
+        if (opts.showAxis) {
+          for (let i = 0; i < n; i++) {
+            const x = padX + stepX * i;
+            svg += `<text x="${x}" y="${height - 4}" text-anchor="middle" font-size="9.5" fill="var(--gray-500)" font-family="inherit">${weekDayLabels[i] || ""}</text>`;
+          }
+        }
+
+        // lines
+        for (const s of series) {
+          const points = s.data
+            .map((v, i) => {
+              const x = padX + stepX * i;
+              const y = padTop + innerH - (v / maxVal) * innerH;
+              return `${x.toFixed(1)},${y.toFixed(1)}`;
+            })
+            .join(" ");
+          svg += `<polyline points="${points}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+          // dots
+          for (let i = 0; i < s.data.length; i++) {
+            const x = padX + stepX * i;
+            const y = padTop + innerH - (s.data[i] / maxVal) * innerH;
+            svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${opts.lg ? 3 : 2.5}" fill="${s.color}"><title>${escText(s.label)}: ${s.data[i]}</title></circle>`;
+          }
+        }
+
+        svg += `</svg>`;
+        return svg;
+      }
+
+      function renderMiniCharts() {
+        const grid = document.getElementById("charts-grid");
+        if (!grid) return;
+        grid.innerHTML = weeklyCharts
+          .map((c) => {
+            const help = c.help
+              ? `<span class="chart-help" title="${escText(c.help)}">?</span>`
+              : "";
+            const legend = c.series.length > 1
+              ? `<div class="chart-legend">${c.series
+                  .map(
+                    (s) =>
+                      `<span class="legend-item"><span class="legend-dot" style="background:${s.color}"></span>${escText(s.label)}</span>`,
+                  )
+                  .join("")}</div>`
+              : "";
+            return `
+              <div class="chart-box">
+                <div class="chart-title">${escText(c.title)}${help}</div>
+                ${legend}
+                ${buildLineChart(c.series, 240, 110)}
+              </div>`;
+          })
+          .join("");
+      }
+
+      function renderWeeklyDetail() {
+        const stack = document.getElementById("weekly-detail-stack");
+        if (!stack) return;
+        stack.innerHTML = weeklyCharts
+          .map((c) => {
+            const help = c.help
+              ? `<span class="chart-help" title="${escText(c.help)}">?</span>`
+              : "";
+            const legend = c.series.length > 1
+              ? `<div class="chart-legend">${c.series
+                  .map(
+                    (s) =>
+                      `<span class="legend-item"><span class="legend-dot" style="background:${s.color}"></span>${escText(s.label)}</span>`,
+                  )
+                  .join("")}</div>`
+              : "";
+            return `
+              <div class="chart-box-lg">
+                <div class="chart-title">${escText(c.title)}${help}</div>
+                ${legend}
+                ${buildLineChart(c.series, 800, 220, { lg: true, showAxis: true })}
+              </div>`;
+          })
+          .join("");
+      }
+
+      /* ====== TASKS ====== */
+      function renderTasks() {
+        const list = document.getElementById("task-list");
+        if (!list) return;
+        list.innerHTML = dailyTasks
+          .map(
+            (t) => `
+              <div class="task-item" onclick="goTask('${escText(t.target)}', ${t.external ? "true" : "false"})">
+                <div class="task-icon">${t.icon}</div>
+                <div class="task-body">
+                  <div class="task-label">${escText(t.label)}</div>
+                  <div class="task-detail">${t.detailHtml}</div>
+                </div>
+                <div class="task-arrow">›</div>
+              </div>`,
+          )
+          .join("");
+      }
+
+      /* ====== CLOCK ====== */
+      function updateClock() {
+        const d = new Date();
+        const dd = String(d.getDate()).padStart(2, "0");
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        const yyyy = d.getFullYear();
+        const hh = String(d.getHours()).padStart(2, "0");
+        const mi = String(d.getMinutes()).padStart(2, "0");
+        const dateEl = document.getElementById("now-date");
+        const timeEl = document.getElementById("now-time");
+        if (dateEl) dateEl.textContent = `${dd}-${mm}-${yyyy}`;
+        if (timeEl) timeEl.textContent = `${hh}:${mi}`;
+      }
+
+      /* ====== INIT ====== */
+      renderStats();
+      renderMiniCharts();
+      renderTasks();
+      renderWeeklyDetail();
+      updateClock();
+      setInterval(updateClock, 60000);
+    </script>
+  </body>
+</html>

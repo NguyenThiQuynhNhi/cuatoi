@@ -1,0 +1,3747 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài viết. Bình luận - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --success: #16a34a;
+        --success-light: #dcfce7;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --sidebar-w: 210px;
+        --header-h: 60px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        min-height: 60px;
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .nav-dropdown a.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+      }
+      .header-user .avatar {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
+
+      .app-body {
+        display: flex;
+        padding-top: var(--header-h);
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: white;
+        min-height: calc(100vh - var(--header-h));
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 10px;
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+      }
+      .sidebar-label {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 4px 8px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+        font-size: 12.5px;
+        font-weight: 500;
+        transition: all 0.15s;
+        margin-bottom: 1px;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 20px;
+      }
+
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-body {
+        padding: 14px 18px;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .search-row + .search-row {
+        margin-top: 10px;
+      }
+      .filter-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        white-space: nowrap;
+      }
+
+      .date-section {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        position: relative;
+      }
+      .date-range {
+        display: flex;
+        align-items: center;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        max-width: 280px;
+      }
+      .date-nav {
+        padding: 6px 12px;
+        background: var(--primary-light);
+        cursor: pointer;
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+      }
+      .date-nav:disabled {
+        background: var(--gray-100);
+        color: var(--gray-400);
+        cursor: not-allowed;
+      }
+      .date-display {
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        white-space: nowrap;
+        text-align: center;
+        min-width: 200px;
+      }
+
+      .time-filters {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .tf-btn {
+        padding: 7px 14px;
+        min-height: 32px;
+        border-radius: 9px;
+        border: 1px solid #e2e5f1;
+        background: white;
+        color: #677194;
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .tf-btn.active {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: transparent;
+        font-weight: 700;
+      }
+
+      .criteria-wrap {
+        position: relative;
+      }
+      .criteria-btn {
+        height: 34px;
+        min-width: 150px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        font-family: inherit;
+        padding: 0 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .criteria-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 160px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        z-index: 260;
+      }
+      .criteria-wrap.open .criteria-menu {
+        display: block;
+      }
+      .criteria-option {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .criteria-option:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+
+      .search-input-lg {
+        flex: 1;
+        min-width: 260px;
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 11px;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
+      }
+
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
+      .btn-xs {
+        padding: 2px 8px;
+        font-size: 10.5px;
+        border-radius: 6px;
+      }
+
+      .table-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .table-title .count {
+        font-size: 11px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      .table-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left,
+      .table-actions-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left span {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1200px;
+      }
+      thead {
+        background: var(--gray-50);
+      }
+      thead th {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        white-space: nowrap;
+        border-bottom: 1.5px solid var(--gray-200);
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--gray-100);
+      }
+      tbody tr:hover {
+        background: var(--gray-50);
+      }
+      tbody td {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .td-left {
+        text-align: left !important;
+      }
+      .td-cat-cell {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .td-ip-cell {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .ip-text {
+        font-family: ui-monospace, SFMono-Regular, monospace;
+        font-size: 11.5px;
+        color: var(--gray-700);
+      }
+      .post-title-link {
+        color: var(--primary);
+        text-decoration: underline;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .cell-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .menu-trigger {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .menu-list {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        z-index: 40;
+        min-width: 200px;
+        display: none;
+        flex-direction: column;
+        padding: 4px 0;
+      }
+      .cell-menu.open .menu-list {
+        display: flex;
+      }
+      .menu-item {
+        padding: 7px 12px;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .menu-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .menu-divider {
+        margin: 4px 0;
+        border: none;
+        border-top: 1px solid var(--gray-200);
+      }
+
+      .table-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--gray-200);
+        background: white;
+      }
+      .pagination {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+      }
+      .pg-btn {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid var(--gray-300);
+        background: white;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        cursor: pointer;
+      }
+      .pg-btn.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
+
+      .select-dropdown {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+      .select-dropdown select {
+        appearance: none;
+        padding: 6px 28px 6px 10px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        background: white;
+        cursor: pointer;
+        outline: none;
+        min-width: 150px;
+      }
+      .select-dropdown::after {
+        content: "▾";
+        position: absolute;
+        right: 10px;
+        pointer-events: none;
+        font-size: 10px;
+        color: var(--gray-400);
+      }
+
+      .action-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 440px;
+        min-width: 320px;
+        box-shadow: var(--shadow-md);
+        width: 95vw;
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-600);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+      .action-modal-btn-confirm.is-primary {
+        background: var(--primary);
+      }
+
+      .change-cat-row {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .change-cat-col {
+        flex: 1;
+        position: relative;
+      }
+      .change-cat-label {
+        display: block;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .change-cat-btn {
+        width: 100%;
+        height: 36px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        font-family: inherit;
+      }
+      .change-cat-menu {
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        max-height: 240px;
+        overflow-y: auto;
+        z-index: 270;
+        padding: 4px 0;
+        display: none;
+      }
+      .change-cat-col.open .change-cat-menu {
+        display: block;
+      }
+      .change-cat-opt {
+        display: block;
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        padding: 7px 10px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .change-cat-opt:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .change-cat-hint {
+        font-size: 11px;
+        color: var(--gray-400);
+        margin-top: 8px;
+      }
+
+      .view-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 270;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .view-modal-backdrop.open {
+        display: flex;
+      }
+      .view-modal {
+        background: white;
+        border-radius: 12px;
+        max-width: 620px;
+        width: 95vw;
+        max-height: 86vh;
+        overflow-y: auto;
+        padding: 20px 22px;
+        box-shadow: var(--shadow-md);
+      }
+      .view-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .view-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+      .view-modal-close {
+        background: none;
+        border: none;
+        font-size: 22px;
+        color: var(--gray-500);
+        cursor: pointer;
+        line-height: 1;
+      }
+      .view-modal-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 14px;
+        margin-bottom: 14px;
+      }
+      .view-modal-meta div {
+        font-size: 11.5px;
+        color: var(--gray-700);
+      }
+      .view-modal-meta strong {
+        color: var(--gray-900);
+        font-weight: 600;
+      }
+      .view-modal-content {
+        font-size: 12.5px;
+        color: var(--gray-700);
+        line-height: 1.55;
+        background: var(--gray-50);
+        border-radius: 8px;
+        padding: 10px 12px;
+        white-space: pre-wrap;
+      }
+
+      .placeholder-card {
+        padding: 60px 20px;
+        text-align: center;
+        color: var(--gray-500);
+      }
+      .placeholder-card .ph-icon {
+        font-size: 36px;
+        margin-bottom: 12px;
+      }
+      .placeholder-card .ph-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--gray-700);
+        margin-bottom: 4px;
+      }
+      .placeholder-card .ph-desc {
+        font-size: 12px;
+      }
+
+      .chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 10.5px;
+        font-weight: 600;
+      }
+      .chip-best {
+        background: var(--accent-light);
+        color: var(--accent);
+      }
+
+      .tabs {
+        display: flex;
+        border-bottom: 2px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .tab {
+        padding: 8px 16px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--gray-400);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        font-family: inherit;
+        background: none;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+      }
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+        font-weight: 600;
+      }
+
+      .content-ellipsis {
+        display: inline-block;
+        max-width: 260px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+      }
+
+      .reason-input-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .reason-input {
+        flex: 1;
+        height: 38px;
+        border: 1.5px solid var(--success);
+        background: var(--success-light);
+        border-radius: 10px;
+        padding: 0 14px;
+        font-size: 12.5px;
+        color: var(--gray-900);
+        font-family: inherit;
+        outline: none;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+      }
+      .reason-input:focus {
+        border-color: var(--primary);
+        background: white;
+      }
+      .reason-input.editing {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        color: var(--primary);
+      }
+
+      .reason-chip-wrap {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 6px 0;
+      }
+      .reason-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 14px;
+        border: 1.5px solid var(--primary-mid);
+        background: var(--primary-light);
+        color: var(--primary);
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .reason-chip:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+      .reason-chip.editing {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+      .reason-chip-hint {
+        font-size: 10.5px;
+        color: var(--gray-400);
+        border-bottom: 1px dashed var(--gray-300);
+        padding-bottom: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">B</div>
+        BEAUTY Admin
+      </div>
+      <nav class="header-nav">
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item" href="virtual-member-management.html"
+          >Thành viên ảo</a
+        >
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <div class="nav-item active">Bài viết. Bình luận</div>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html"
+          >Từ cấm. Spam. Báo cáo</a
+        >
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+      </nav>
+      <div class="header-user">
+        <div class="user-info">
+          <div class="user-name">Nguyễn Văn Admin</div>
+          <div class="user-role">Quản trị viên cấp 2</div>
+        </div>
+        <div class="avatar">AD</div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="sidebar">
+        <div class="sidebar-label">Bài viết. Bình luận</div>
+        <div
+          class="sidebar-item active"
+          id="sidebar-posts-real"
+          onclick="goSection('posts-real')"
+        >
+          Bài viết của thành viên thực
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-posts-best"
+          onclick="goSection('posts-best')"
+        >
+          Bài viết Best
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-posts-deleted"
+          onclick="goSection('posts-deleted')"
+        >
+          Bài viết đã xóa
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-posts-hidden"
+          onclick="goSection('posts-hidden')"
+        >
+          Bài viết đã ẩn
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-comments"
+          onclick="goSection('comments')"
+        >
+          Bình luận
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-comments-deleted"
+          onclick="goSection('comments-deleted')"
+        >
+          Bình luận đã xóa
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-delete-reason"
+          onclick="goSection('delete-reason')"
+        >
+          Lý do xóa
+        </div>
+      </aside>
+
+      <!-- ====== TRANG 1: BÀI VIẾT CỦA THÀNH VIÊN THỰC ====== -->
+      <main class="main page active" id="page-posts-real">
+        <div class="page-title">
+          <span>•</span> Bài viết của thành viên thực
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Ngày đăng bài viết:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDateRange('real', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="real-date-display"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDateRange('real', 1)">
+                  ›
+                </button>
+              </div>
+              <div class="time-filters">
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('real', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('real', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('real', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('real', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('real', 'all', this)"
+                >
+                  Tất cả
+                </button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-real">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('real', event)"
+                >
+                  <span id="criteria-label-real">ID</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="search-input-real"
+                placeholder="Nhập thông tin"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              • Bài viết của thành viên thực
+              <span class="count" id="count-real">2,345 bài</span>
+            </div>
+
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openBulkChangeCategoryModal('real')"
+                >
+                  Thay đổi danh mục
+                </button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="bulkAction('real', 'delete')"
+                >
+                  Xóa
+                </button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown">
+                  <select id="filter-cat-real">
+                    <option value="">Tất cả danh mục</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select id="filter-grade-real">
+                    <option value="">Tất cả cấp bậc</option>
+                    <option value="lv1">Lv.1</option>
+                    <option value="lv2">Lv.2</option>
+                    <option value="lv3">Lv.3</option>
+                    <option value="kol">KOL</option>
+                    <option value="expert">Chuyên gia</option>
+                    <option value="doctor">Bác sĩ</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                    <option>Danh sách 100</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table id="table-real">
+                <thead>
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-real')"
+                      />
+                    </th>
+                    <th>Tên chuyên mục</th>
+                    <th>Tên danh mục</th>
+                    <th>Tiêu đề</th>
+                    <th>Người viết</th>
+                    <th>Lượt xem</th>
+                    <th>Lượt thích</th>
+                    <th>Bình luận</th>
+                    <th>Địa chỉ IP</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-real"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">3</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 2: BÀI VIẾT BEST ====== -->
+      <main class="main page" id="page-posts-best">
+        <div class="page-title"><span>•</span> Bài viết Best</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Ngày đăng bài viết:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDateRange('best', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="best-date-display"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDateRange('best', 1)">
+                  ›
+                </button>
+              </div>
+              <div class="time-filters">
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('best', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('best', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('best', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('best', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('best', 'all', this)"
+                >
+                  Tất cả
+                </button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-best">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('best', event)"
+                >
+                  <span id="criteria-label-best">ID</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="search-input-best"
+                placeholder="Nhập thông tin"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              • Bài viết Best
+              <span class="count" id="count-best">345 bài</span>
+            </div>
+
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="bulkAction('best', 'remove-best')"
+                >
+                  Gỡ Best
+                </button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown">
+                  <select id="filter-cat-best">
+                    <option value="">Tất cả danh mục</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select id="filter-grade-best">
+                    <option value="">Tất cả cấp bậc</option>
+                    <option value="lv1">Lv.1</option>
+                    <option value="lv2">Lv.2</option>
+                    <option value="lv3">Lv.3</option>
+                    <option value="kol">KOL</option>
+                    <option value="expert">Chuyên gia</option>
+                    <option value="doctor">Bác sĩ</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                    <option>Danh sách 100</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table id="table-best">
+                <thead>
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-best')"
+                      />
+                    </th>
+                    <th>Tên chuyên mục</th>
+                    <th>Tên danh mục</th>
+                    <th>Lượt thích</th>
+                    <th>Tiêu đề</th>
+                    <th>Bình luận</th>
+                    <th>Người viết</th>
+                    <th>Địa chỉ IP</th>
+                    <th>Lượt xem</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-best"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 3: BÀI VIẾT ĐÃ XÓA ====== -->
+      <main class="main page" id="page-posts-deleted">
+        <div class="page-title"><span>•</span> Bài viết đã xóa</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Ngày xóa:</span>
+              <div class="date-range">
+                <button
+                  class="date-nav"
+                  onclick="shiftDateRange('deleted', -1)"
+                >
+                  ‹
+                </button>
+                <span class="date-display" id="deleted-date-display"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDateRange('deleted', 1)">
+                  ›
+                </button>
+              </div>
+              <div class="time-filters">
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('deleted', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('deleted', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('deleted', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('deleted', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('deleted', 'all', this)"
+                >
+                  Tất cả
+                </button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-deleted">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('deleted', event)"
+                >
+                  <span id="criteria-label-deleted">ID</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="search-input-deleted"
+                placeholder="Nhập thông tin"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              • Bài viết đã xóa
+              <span class="count" id="count-deleted">567 bài</span>
+            </div>
+
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="bulkAction('deleted', 'restore')"
+                >
+                  Khôi phục
+                </button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown">
+                  <select id="filter-cat-deleted">
+                    <option value="">Tất cả danh mục</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select id="filter-grade-deleted">
+                    <option value="">Tất cả cấp bậc</option>
+                    <option value="lv1">Lv.1</option>
+                    <option value="lv2">Lv.2</option>
+                    <option value="lv3">Lv.3</option>
+                    <option value="kol">KOL</option>
+                    <option value="expert">Chuyên gia</option>
+                    <option value="doctor">Bác sĩ</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                    <option>Danh sách 100</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table id="table-deleted">
+                <thead>
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-deleted')"
+                      />
+                    </th>
+                    <th>Tên chuyên mục</th>
+                    <th>Tên danh mục</th>
+                    <th>Người viết</th>
+                    <th>Tiêu đề</th>
+                    <th>Địa chỉ IP</th>
+                    <th>Người xử lý</th>
+                    <th>Lý do xóa</th>
+                    <th>Ngày viết</th>
+                    <th>Ngày xóa</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-deleted"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 4: BÀI VIẾT ĐÃ ẨN ====== -->
+      <main class="main page" id="page-posts-hidden">
+        <div class="page-title"><span>•</span> Bài viết đã ẩn</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label" id="hidden-date-label"
+                >Ngày tạm ẩn:</span
+              >
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDateRange('hidden', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="hidden-date-display"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDateRange('hidden', 1)">
+                  ›
+                </button>
+              </div>
+              <div class="time-filters">
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('hidden', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('hidden', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('hidden', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('hidden', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('hidden', 'all', this)"
+                >
+                  Tất cả
+                </button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-hidden">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('hidden', event)"
+                >
+                  <span id="criteria-label-hidden">ID</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="search-input-hidden"
+                placeholder="Nhập thông tin"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              <span id="hidden-title-text">• Bài viết đã ẩn</span>
+              <span class="count" id="count-hidden">567 bài</span>
+            </div>
+
+            <div class="tabs">
+              <div
+                class="tab active"
+                id="tab-hidden-suspended"
+                onclick="switchHiddenSub('suspended', this)"
+              >
+                Bài viết tạm ẩn
+              </div>
+              <div
+                class="tab"
+                id="tab-hidden-unfeatured"
+                onclick="switchHiddenSub('unfeatured', this)"
+              >
+                Gỡ khỏi trang chủ
+              </div>
+            </div>
+
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="bulkAction('hidden', 'restore')"
+                >
+                  Khôi phục
+                </button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown">
+                  <select id="filter-cat-hidden">
+                    <option value="">Tất cả danh mục</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select id="filter-grade-hidden">
+                    <option value="">Tất cả cấp bậc</option>
+                    <option value="lv1">Lv.1</option>
+                    <option value="lv2">Lv.2</option>
+                    <option value="lv3">Lv.3</option>
+                    <option value="kol">KOL</option>
+                    <option value="expert">Chuyên gia</option>
+                    <option value="doctor">Bác sĩ</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                    <option>Danh sách 100</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table id="table-hidden">
+                <thead>
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-hidden')"
+                      />
+                    </th>
+                    <th>Tên chuyên mục</th>
+                    <th>Tên danh mục</th>
+                    <th>Người viết</th>
+                    <th>Tiêu đề</th>
+                    <th>Địa chỉ IP</th>
+                    <th>Người xử lý</th>
+                    <th id="hidden-th-reason">Lý do ẩn</th>
+                    <th>Ngày viết</th>
+                    <th id="hidden-th-date">Ngày ẩn</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-hidden"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 5: BÌNH LUẬN ====== -->
+      <main class="main page" id="page-comments">
+        <div class="page-title"><span>•</span> Bình luận</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Ngày viết bình luận:</span>
+              <div class="date-range">
+                <button
+                  class="date-nav"
+                  onclick="shiftDateRange('comments', -1)"
+                >
+                  ‹
+                </button>
+                <span class="date-display" id="comments-date-display"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button
+                  class="date-nav"
+                  onclick="shiftDateRange('comments', 1)"
+                >
+                  ›
+                </button>
+              </div>
+              <div class="time-filters">
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('comments', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('comments', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('comments', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('comments', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('comments', 'all', this)"
+                >
+                  Tất cả
+                </button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-comments">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('comments', event)"
+                >
+                  <span id="criteria-label-comments">ID</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="search-input-comments"
+                placeholder="Nhập thông tin"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              • Bình luận
+              <span class="count" id="count-comments">6,456 bình luận</span>
+            </div>
+
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="bulkAction('comments', 'delete-comment')"
+                >
+                  Xóa
+                </button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown">
+                  <select id="filter-cat-comments">
+                    <option value="">Tất cả danh mục</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select id="filter-grade-comments">
+                    <option value="">Tất cả cấp bậc</option>
+                    <option value="lv1">Lv.1</option>
+                    <option value="lv2">Lv.2</option>
+                    <option value="lv3">Lv.3</option>
+                    <option value="kol">KOL</option>
+                    <option value="expert">Chuyên gia</option>
+                    <option value="doctor">Bác sĩ</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                    <option>Danh sách 100</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table id="table-comments">
+                <thead>
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-comments')"
+                      />
+                    </th>
+                    <th>Tên chuyên mục</th>
+                    <th>Tên danh mục</th>
+                    <th>Người viết</th>
+                    <th>Nội dung</th>
+                    <th>Ngày viết</th>
+                    <th>Địa chỉ IP</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-comments"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">3</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 6: BÌNH LUẬN ĐÃ XÓA ====== -->
+      <main class="main page" id="page-comments-deleted">
+        <div class="page-title"><span>•</span> Bình luận đã xóa</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Ngày xóa:</span>
+              <div class="date-range">
+                <button
+                  class="date-nav"
+                  onclick="shiftDateRange('cdeleted', -1)"
+                >
+                  ‹
+                </button>
+                <span class="date-display" id="cdeleted-date-display"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button
+                  class="date-nav"
+                  onclick="shiftDateRange('cdeleted', 1)"
+                >
+                  ›
+                </button>
+              </div>
+              <div class="time-filters">
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('cdeleted', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('cdeleted', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('cdeleted', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('cdeleted', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('cdeleted', 'all', this)"
+                >
+                  Tất cả
+                </button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-cdeleted">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('cdeleted', event)"
+                >
+                  <span id="criteria-label-cdeleted">ID</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu"></div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="search-input-cdeleted"
+                placeholder="Nhập thông tin"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              • Bình luận đã xóa
+              <span class="count" id="count-cdeleted">3,234 bình luận</span>
+            </div>
+
+            <div class="table-actions">
+              <div class="table-actions-left">
+                <span>Mục đã chọn:</span>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="bulkAction('cdeleted', 'restore-comment')"
+                >
+                  Khôi phục
+                </button>
+              </div>
+              <div class="table-actions-right">
+                <div class="select-dropdown">
+                  <select id="filter-grade-cdeleted">
+                    <option value="">Tất cả cấp bậc</option>
+                    <option value="lv1">Lv.1</option>
+                    <option value="lv2">Lv.2</option>
+                    <option value="lv3">Lv.3</option>
+                    <option value="kol">KOL</option>
+                    <option value="expert">Chuyên gia</option>
+                    <option value="doctor">Bác sĩ</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                    <option>Danh sách 100</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table id="table-cdeleted">
+                <thead>
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-cdeleted')"
+                      />
+                    </th>
+                    <th>Tên chuyên mục</th>
+                    <th>Tên danh mục</th>
+                    <th>Nội dung bình luận</th>
+                    <th>Người viết</th>
+                    <th>Địa chỉ IP</th>
+                    <th>Người xử lý</th>
+                    <th>Lý do xóa</th>
+                    <th>Ngày xóa</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-cdeleted"></tbody>
+              </table>
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 7: LÝ DO XÓA ====== -->
+      <main class="main page" id="page-delete-reason">
+        <div class="page-title"><span>•</span> Lý do xoá</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="reason-input-row">
+              <input
+                type="text"
+                id="reason-input"
+                class="reason-input"
+                placeholder="Nhập lý do xoá"
+                oninput="handleReasonInputChange()"
+                onkeydown="handleReasonKey(event)"
+              />
+              <button
+                class="btn btn-primary"
+                id="reason-submit-btn"
+                onclick="submitReason()"
+              >
+                Thêm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              • Danh sách lý do xoá
+              <span class="count" id="count-reason">0 lý do</span>
+            </div>
+            <div class="table-wrap">
+              <table id="table-reason">
+                <thead>
+                  <tr>
+                    <th class="td-left" style="padding-left: 16px">
+                      Lý do xóa
+                    </th>
+                    <th style="width: 140px">Quản lý</th>
+                    <th style="width: 180px">Người tạo</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-reason"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ====== ACTION MODAL (confirm) ====== -->
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title" id="action-modal-title">
+          Xác nhận hành động
+        </h3>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn muốn thực hiện?
+        </p>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            id="action-modal-confirm"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== MODAL: THAY ĐỔI DANH MỤC ====== -->
+    <div
+      class="action-modal-backdrop"
+      id="change-category-modal-backdrop"
+      onclick="closeChangeCategoryModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        style="max-width: 460px"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title" id="change-cat-title">
+          Thay đổi danh mục
+        </h3>
+        <div style="margin-bottom: 14px">
+          <div class="change-cat-row">
+            <div class="change-cat-col" id="change-main-col">
+              <label class="change-cat-label">Danh mục chính</label>
+              <button
+                type="button"
+                class="change-cat-btn"
+                onclick="toggleChangeCat('main', event)"
+              >
+                <span id="change-main-label">Chọn danh mục</span>
+                <span>▼</span>
+              </button>
+              <div class="change-cat-menu" id="change-main-menu"></div>
+            </div>
+            <div class="change-cat-col" id="change-sub-col">
+              <label class="change-cat-label">Danh mục phụ</label>
+              <button
+                type="button"
+                class="change-cat-btn"
+                onclick="toggleChangeCat('sub', event)"
+              >
+                <span id="change-sub-label">Chọn danh mục phụ</span>
+                <span>▼</span>
+              </button>
+              <div class="change-cat-menu" id="change-sub-menu"></div>
+            </div>
+          </div>
+          <div class="change-cat-hint">
+            Danh mục phụ hiển thị theo danh mục chính đã chọn.
+          </div>
+        </div>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeChangeCategoryModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm is-primary"
+            onclick="confirmChangeCategory()"
+          >
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== MODAL: XEM BÀI VIẾT / BÌNH LUẬN ====== -->
+    <div
+      class="view-modal-backdrop"
+      id="view-modal-backdrop"
+      onclick="closeViewModal()"
+    >
+      <div
+        class="view-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <div class="view-modal-header">
+          <div class="view-modal-title" id="view-modal-title">
+            Chi tiết bài viết
+          </div>
+          <button class="view-modal-close" onclick="closeViewModal()">×</button>
+        </div>
+        <div class="view-modal-meta" id="view-modal-meta"></div>
+        <div class="view-modal-content" id="view-modal-content"></div>
+      </div>
+    </div>
+
+    <script>
+      /* ====== DATA ====== */
+      const postCategoryMap = {
+        "Làn da": [
+          "Mỹ phẩm",
+          "PTTM/ Tiểu phẫu",
+          "TPCN/ Dược phẩm",
+          "Thiết bị/ Sản phẩm",
+          "Khác",
+        ],
+        "Mắt/ Lông mi": [
+          "Mỹ phẩm",
+          "PTTM/ Tiểu phẫu",
+          "Thời trang",
+          "Phun xăm",
+          "TPCN",
+          "Thiết bị",
+          "Khác",
+        ],
+        Môi: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Khác"],
+        Mũi: [
+          "Mỹ phẩm",
+          "PTTM/ Tiểu phẫu",
+          "Thời trang",
+          "TPCN",
+          "Thiết bị",
+          "Khác",
+        ],
+        "Khuôn mặt/ V line": [
+          "Mỹ phẩm",
+          "PTTM/ Tiểu phẫu",
+          "Thiết bị/ Sản phẩm",
+          "Khác",
+        ],
+        "Da đầu/ Lông tóc": [
+          "Mỹ phẩm",
+          "PTTM/ Tiểu phẫu",
+          "Thời trang",
+          "Phun xăm",
+          "Triệt lông",
+          "TPCN",
+          "Thiết bị",
+          "Khác",
+        ],
+        "Răng miệng": [
+          "PTTM/ Tiểu phẫu",
+          "TPCN/ Dược phẩm",
+          "Thiết bị/ Sản phẩm",
+          "Khác",
+        ],
+        Cổ: [
+          "Mỹ phẩm",
+          "PTTM/ Tiểu phẫu",
+          "Thời trang",
+          "Thiết bị/ Sản phẩm",
+          "Khác",
+        ],
+        Ngực: [
+          "PTTM/ Tiểu phẫu",
+          "Thể thao/ Giảm cân",
+          "Thời trang",
+          "Phun xăm",
+          "TPCN",
+          "Thiết bị",
+          "Khác",
+        ],
+        "Tay/ Cánh tay": [
+          "PTTM/ Tiểu phẫu",
+          "Thể thao/ Giảm cân",
+          "Thời trang",
+          "Nail",
+          "Thiết bị",
+          "Khác",
+        ],
+        "Chân/ Bắp chân": [
+          "PTTM/ Tiểu phẫu",
+          "Thể thao/ Giảm cân",
+          "Thời trang",
+          "Thiết bị/ Sản phẩm",
+          "Khác",
+        ],
+        "Chiều cao/ Vóc dáng": [
+          "PTTM/ Tiểu phẫu",
+          "Thể thao/ Giảm cân",
+          "Thời trang",
+          "TPCN/ Dược phẩm",
+          "Khác",
+        ],
+        "Vùng kín/ Chữ Y": [
+          "PTTM/ Tiểu phẫu",
+          "Thời trang",
+          "Phun xăm",
+          "Triệt lông",
+          "TPCN",
+          "Khác",
+        ],
+        Trán: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"],
+        Khác: ["Khác"],
+      };
+
+      const searchCriteriaOptions = {
+        real: ["ID", "Tên hiển thị", "Nội dung tiêu đề", "Thẻ"],
+        best: ["ID", "Tên hiển thị", "Nội dung tiêu đề", "Thẻ"],
+        deleted: ["ID", "Tên hiển thị", "Nội dung tiêu đề", "Thẻ"],
+        hidden: ["ID", "Tên hiển thị", "Nội dung tiêu đề", "Thẻ"],
+        comments: [
+          "ID",
+          "Tên hiển thị",
+          "Nội dung bình luận",
+          "Tiêu đề bài viết",
+        ],
+        cdeleted: [
+          "ID",
+          "Tên hiển thị",
+          "Nội dung bình luận",
+          "Tiêu đề bài viết",
+        ],
+      };
+
+      const postsReal = [
+        {
+          id: "P001",
+          topic: "Review",
+          mainCat: "Làn da",
+          subCat: "Mỹ phẩm",
+          title: "Review serum B5 sau 14 ngày dùng đều",
+          content:
+            "Mình đã dùng serum B5 hơn 2 tuần. Da phục hồi rõ rệt sau lăn kim, giảm mẩn đỏ và bớt khô. Khuyến nghị dùng buổi tối.",
+          author: "maimai",
+          views: 1240,
+          likes: 215,
+          comments: 48,
+          ip: "113.165.12.45",
+          postedAt: "22-06-2025 10:20",
+        },
+        {
+          id: "P002",
+          topic: "Hỏi đáp",
+          mainCat: "Răng miệng",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "Có nên niềng răng ở tuổi 30?",
+          content:
+            "Mọi người tư vấn giúp em. Em 30 tuổi, răng hô nhẹ. Liệu niềng giai đoạn này còn hiệu quả không?",
+          author: "Khanh.clinic.talk",
+          views: 560,
+          likes: 78,
+          comments: 230,
+          ip: "203.205.40.218",
+          postedAt: "21-06-2025 14:00",
+        },
+        {
+          id: "P003",
+          topic: "Hướng dẫn",
+          mainCat: "Mắt/ Lông mi",
+          subCat: "Mỹ phẩm",
+          title: "5 tips kẻ mắt cho mắt một mí",
+          content:
+            "Hướng dẫn chi tiết các bước kẻ mắt cho người mắt một mí, dùng bút lông hoặc gel.",
+          author: "haiyen.beauty",
+          views: 2310,
+          likes: 540,
+          comments: 132,
+          ip: "27.79.155.91",
+          postedAt: "19-06-2025 16:30",
+        },
+        {
+          id: "P004",
+          topic: "Chia sẻ",
+          mainCat: "Làn da",
+          subCat: "TPCN/ Dược phẩm",
+          title: "Collagen uống có thực sự hiệu quả?",
+          content:
+            "Chia sẻ trải nghiệm uống collagen 3 tháng. Da căng mịn hơn, móng tay cứng chắc hơn.",
+          author: "Thu.skin.journal",
+          views: 3105,
+          likes: 1280,
+          comments: 280,
+          ip: "171.232.18.7",
+          postedAt: "18-06-2025 20:05",
+        },
+        {
+          id: "P005",
+          topic: "Cảnh báo",
+          mainCat: "Mũi",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "3 dấu hiệu nguy hiểm sau khi nâng mũi",
+          content:
+            "Sưng kéo dài, đầu mũi tím đậm và đau nhói là các triệu chứng cần đi tái khám gấp.",
+          author: "drAnh.skin.vn",
+          views: 4830,
+          likes: 920,
+          comments: 410,
+          ip: "115.78.231.150",
+          postedAt: "17-06-2025 08:45",
+        },
+      ];
+
+      const postsBest = [
+        {
+          id: "PB001",
+          topic: "Review",
+          mainCat: "Làn da",
+          subCat: "Mỹ phẩm",
+          title: "Top 5 kem chống nắng đáng đầu tư 2025",
+          content:
+            "Bài viết tổng hợp 5 lựa chọn chống nắng cho da dầu, da khô và da nhạy cảm.",
+          author: "kosmetik.lab",
+          views: 12450,
+          likes: 4820,
+          comments: 612,
+          ip: "42.116.78.205",
+          postedAt: "15-06-2025 09:00",
+        },
+        {
+          id: "PB002",
+          topic: "Hướng dẫn",
+          mainCat: "Da đầu/ Lông tóc",
+          subCat: "Mỹ phẩm",
+          title: "Phục hồi tóc hư tổn sau tẩy nhuộm chỉ với 3 bước",
+          content:
+            "Routine 3 bước: gội phục hồi, dầu xả keratin, mặt nạ tóc. Mỗi tuần 2 lần.",
+          author: "hairlove.vn",
+          views: 8120,
+          likes: 3210,
+          comments: 480,
+          ip: "117.4.245.18",
+          postedAt: "12-06-2025 18:30",
+        },
+        {
+          id: "PB003",
+          topic: "Chia sẻ",
+          mainCat: "Chiều cao/ Vóc dáng",
+          subCat: "Thể thao/ Giảm cân",
+          title: "Tập yoga 15 phút buổi sáng cho người mới",
+          content:
+            "Các tư thế yoga cơ bản giúp khởi động cơ thể nhẹ nhàng, kích thích tiêu hóa.",
+          author: "yoga.everyday",
+          views: 6500,
+          likes: 2540,
+          comments: 320,
+          ip: "171.255.42.66",
+          postedAt: "10-06-2025 06:45",
+        },
+        {
+          id: "PB004",
+          topic: "Tư vấn chuyên môn",
+          mainCat: "Răng miệng",
+          subCat: "TPCN/ Dược phẩm",
+          title: "Trẻ em mọc răng sữa: bố mẹ cần lưu ý gì?",
+          content:
+            "Bài viết của BS Hoa giải thích các vấn đề thường gặp khi trẻ mọc răng và cách xử trí.",
+          author: "drhoa.kid",
+          views: 5340,
+          likes: 1980,
+          comments: 245,
+          ip: "14.232.117.4",
+          postedAt: "05-06-2025 11:10",
+        },
+      ];
+
+      const postsDeleted = [
+        {
+          id: "PD001",
+          topic: "Tán gẫu",
+          mainCat: "Khác",
+          subCat: "Khác",
+          title: "Today's beauty",
+          content: "Bài viết ngắn, không rõ nội dung beauty.",
+          author: "hi1234",
+          ip: "10.0.0.5",
+          handler: "Admin A",
+          reason: "Spam quảng cáo",
+          postedAt: "20-06-2025 13:00",
+          deletedAt: "23-06-2025 09:25",
+        },
+        {
+          id: "PD002",
+          topic: "Review",
+          mainCat: "Làn da",
+          subCat: "Mỹ phẩm",
+          title: "Review kem chống nắng",
+          content: "Nội dung bị tố trùng lặp với bài viết khác.",
+          author: "maimai",
+          ip: "113.165.12.45",
+          handler: "chikihong",
+          reason: "Vi phạm bản quyền",
+          postedAt: "19-06-2025 21:18",
+          deletedAt: "22-06-2025 14:42",
+        },
+        {
+          id: "PD003",
+          topic: "Hướng dẫn",
+          mainCat: "Mắt/ Lông mi",
+          subCat: "Khác",
+          title: "Lông mi giả hay thật?",
+          content: "Bài bị báo cáo vì ngôn từ không phù hợp.",
+          author: "haiyen.beauty",
+          ip: "27.79.155.91",
+          handler: "Admin B",
+          reason: "Ngôn từ phản cảm",
+          postedAt: "17-06-2025 08:30",
+          deletedAt: "21-06-2025 19:05",
+        },
+        {
+          id: "PD004",
+          topic: "Hỏi đáp",
+          mainCat: "Vùng kín/ Chữ Y",
+          subCat: "Khác",
+          title: "Hỏi đáp: dị ứng dung dịch vệ sinh",
+          content: "Nội dung tế nhị, bị admin chuyển sang nhóm kín.",
+          author: "bobalove",
+          ip: "115.79.122.30",
+          handler: "chikihong",
+          reason: "Cần kiểm duyệt thêm",
+          postedAt: "12-06-2025 22:00",
+          deletedAt: "20-06-2025 10:00",
+        },
+      ];
+
+      const memberGrades = {
+        maimai: "Lv.3",
+        "Khanh.clinic.talk": "Chuyên gia",
+        "haiyen.beauty": "KOL",
+        "Thu.skin.journal": "Lv.2",
+        "drAnh.skin.vn": "Bác sĩ",
+        "kosmetik.lab": "KOL",
+        "hairlove.vn": "Chuyên gia",
+        "yoga.everyday": "Lv.3",
+        "drhoa.kid": "Bác sĩ",
+        hi1234: "Lv.1",
+        bobalove: "Lv.1",
+      };
+
+      /* ====== STATE ====== */
+      let currentSection = "posts-real";
+      const searchState = {
+        real: { criterion: "ID" },
+        best: { criterion: "ID" },
+        deleted: { criterion: "ID" },
+        hidden: { criterion: "ID" },
+        comments: { criterion: "ID" },
+        cdeleted: { criterion: "ID" },
+      };
+      const selectedIds = {
+        real: new Set(),
+        best: new Set(),
+        deleted: new Set(),
+        hidden: new Set(),
+        comments: new Set(),
+        cdeleted: new Set(),
+      };
+      let currentHiddenSub = "suspended";
+      let pendingChangeCat = { target: null, ids: [] };
+      let pendingAction = { type: null, id: null };
+      let pendingMain = null;
+      let pendingSub = null;
+
+      /* ====== HELPERS ====== */
+      function escText(s) {
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+      function fmtNum(n) {
+        return Number(n || 0).toLocaleString("vi-VN");
+      }
+
+      /* ====== NAVIGATION ====== */
+      function goSection(section) {
+        currentSection = section;
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById("sidebar-" + section)?.classList.add("active");
+        document
+          .querySelectorAll(".main.page")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById("page-" + section)?.classList.add("active");
+        closeAllMenus();
+      }
+
+      /* ====== SEARCH CRITERIA ====== */
+      function renderCriteriaMenu(target) {
+        const menu = document.querySelector(
+          `#criteria-${target} .criteria-menu`,
+        );
+        if (!menu) return;
+        const opts =
+          searchCriteriaOptions[target] || searchCriteriaOptions.real;
+        menu.innerHTML = opts
+          .map(
+            (opt) =>
+              `<button class="criteria-option" onclick="selectCriteria('${target}','${escText(opt)}')">${escText(opt)}</button>`,
+          )
+          .join("");
+      }
+      function toggleCriteria(target, e) {
+        e.stopPropagation();
+        const wrap = document.getElementById("criteria-" + target);
+        document.querySelectorAll(".criteria-wrap.open").forEach((w) => {
+          if (w !== wrap) w.classList.remove("open");
+        });
+        wrap?.classList.toggle("open");
+      }
+      function selectCriteria(target, label) {
+        searchState[target].criterion = label;
+        const el = document.getElementById("criteria-label-" + target);
+        if (el) el.textContent = label;
+        document.getElementById("criteria-" + target)?.classList.remove("open");
+      }
+
+      /* ====== DATE RANGE (mock) ====== */
+      function shiftDateRange(target, dir) {
+        alert(
+          "Chuyển khoảng thời gian: " + (dir > 0 ? "tiếp theo" : "trước đó"),
+        );
+      }
+      function setQuickFilter(target, key, btn) {
+        const wrap = btn.parentElement;
+        wrap
+          .querySelectorAll(".tf-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+
+      /* ====== CATEGORY FILTER DROPDOWN POPULATE ====== */
+      function populateCategoryFilters() {
+        const cats = ["", ...Object.keys(postCategoryMap)];
+        ["real", "best", "deleted", "hidden", "comments"].forEach((t) => {
+          const sel = document.getElementById("filter-cat-" + t);
+          if (!sel) return;
+          sel.innerHTML = cats
+            .map(
+              (c) =>
+                `<option value="${escText(c)}">${c === "" ? "Tất cả danh mục" : escText(c)}</option>`,
+            )
+            .join("");
+        });
+      }
+
+      /* ====== CELL MENU ====== */
+      function toggleMenu(event, menuEl) {
+        event.stopPropagation();
+        menuEl.classList.toggle("open");
+      }
+      function closeAllMenus() {
+        document
+          .querySelectorAll(".cell-menu.open")
+          .forEach((m) => m.classList.remove("open"));
+        document
+          .querySelectorAll(".criteria-wrap.open")
+          .forEach((m) => m.classList.remove("open"));
+      }
+
+      /* ====== ROW SELECT ====== */
+      function toggleRow(chk, target, id) {
+        if (chk.checked) selectedIds[target].add(id);
+        else selectedIds[target].delete(id);
+      }
+      function toggleAll(chk, tbodyId) {
+        const target = tbodyId.replace("tbody-", "");
+        const boxes = document.querySelectorAll(
+          `#${tbodyId} input[type=checkbox]`,
+        );
+        boxes.forEach((b) => {
+          b.checked = chk.checked;
+          const id = b.getAttribute("data-id");
+          if (id) {
+            if (chk.checked) selectedIds[target].add(id);
+            else selectedIds[target].delete(id);
+          }
+        });
+      }
+
+      /* ====== CATEGORY CELL ====== */
+      function renderCategoryCell(post, target) {
+        const text = `${escText(post.mainCat)} - ${escText(post.subCat)}`;
+        if (!target) return `<span>${text}</span>`;
+        return `<div class="cell-menu">
+          <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${text}</button>
+          <div class="menu-list">
+            <button class="menu-item" onclick="openSingleChangeCategoryModal('${target}','${escText(post.id)}')">Thay đổi danh mục</button>
+          </div>
+        </div>`;
+      }
+
+      function renderIpCell(post) {
+        return `<div class="cell-menu">
+          <button class="menu-trigger ip-text" onclick="toggleMenu(event,this.parentElement)">${escText(post.ip)}</button>
+          <div class="menu-list">
+            <button class="menu-item" onclick="openActionModal('block-ip','${escText(post.id)}')">Chặn IP</button>
+          </div>
+        </div>`;
+      }
+
+      function renderTitleMenu(post, page) {
+        const items =
+          page === "best"
+            ? `
+              <button class="menu-item" onclick="viewPost('${post.id}')">Xem bài viết</button>
+              <button class="menu-item" onclick="openActionModal('remove-best','${post.id}')">Gỡ Best</button>
+              <button class="menu-item" onclick="openActionModal('hide-post','${post.id}')">Tạm ẩn bài viết</button>
+              <button class="menu-item" onclick="openActionModal('unfeature-post','${post.id}')">Gỡ khỏi trang chủ</button>
+              <hr class="menu-divider"/>
+              <button class="menu-item" onclick="openActionModal('delete-post','${post.id}')">Xóa</button>`
+            : `
+              <button class="menu-item" onclick="viewPost('${post.id}')">Xem bài viết</button>
+              <button class="menu-item" onclick="openActionModal('mark-best','${post.id}')">Đánh dấu bài viết Best</button>
+              <button class="menu-item" onclick="openActionModal('hide-post','${post.id}')">Tạm ẩn bài viết</button>
+              <button class="menu-item" onclick="openActionModal('unfeature-post','${post.id}')">Gỡ khỏi trang chủ</button>
+              <hr class="menu-divider"/>
+              <button class="menu-item" onclick="openActionModal('delete-post','${post.id}')">Xóa</button>`;
+        return `<div class="cell-menu">
+          <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(post.title)}">${escText(post.title)}</button>
+          <div class="menu-list">${items}</div>
+        </div>`;
+      }
+
+      function renderAuthorMenu(post) {
+        return `<div class="cell-menu">
+          <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(post.author)}</button>
+          <div class="menu-list">
+            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Chỉnh sửa thông tin</button>
+            <hr class="menu-divider"/>
+            <button class="menu-item" onclick="openActionModal('suspend-author','${post.id}')">Tạm khóa hoạt động</button>
+            <button class="menu-item" onclick="openActionModal('force-leave-author','${post.id}')">Buộc rời bỏ</button>
+            <button class="menu-item" onclick="openActionModal('cancel-upgrade','${post.id}')">Hủy nâng cấp tự động</button>
+            <button class="menu-item" onclick="openActionModal('notify-author','${post.id}')">Gửi thông báo đẩy</button>
+          </div>
+        </div>`;
+      }
+
+      /* ====== RENDER TABLES ====== */
+      function renderTableReal() {
+        const tbody = document.getElementById("tbody-real");
+        if (!tbody) return;
+        tbody.innerHTML = postsReal
+          .map(
+            (p) => `
+              <tr>
+                <td><input type="checkbox" data-id="${escText(p.id)}" onchange="toggleRow(this,'real','${escText(p.id)}')"/></td>
+                <td class="td-left">${escText(p.topic)}</td>
+                <td class="td-left">${renderCategoryCell(p, "real")}</td>
+                <td class="td-left">${renderTitleMenu(p, "real")}</td>
+                <td class="td-left">${renderAuthorMenu(p)}</td>
+                <td>${fmtNum(p.views)}</td>
+                <td>${fmtNum(p.likes)}</td>
+                <td>${fmtNum(p.comments)}</td>
+                <td class="td-left">${renderIpCell(p)}</td>
+              </tr>`,
+          )
+          .join("");
+      }
+
+      function renderTableBest() {
+        const tbody = document.getElementById("tbody-best");
+        if (!tbody) return;
+        tbody.innerHTML = postsBest
+          .map(
+            (p) => `
+              <tr>
+                <td><input type="checkbox" data-id="${escText(p.id)}" onchange="toggleRow(this,'best','${escText(p.id)}')"/></td>
+                <td class="td-left">${escText(p.topic)}</td>
+                <td class="td-left">${renderCategoryCell(p, "best")}</td>
+                <td>${fmtNum(p.likes)}</td>
+                <td class="td-left">${renderTitleMenu(p, "best")}</td>
+                <td>${fmtNum(p.comments)}</td>
+                <td class="td-left">${renderAuthorMenu(p)}</td>
+                <td class="td-left">${renderIpCell(p)}</td>
+                <td>${fmtNum(p.views)}</td>
+              </tr>`,
+          )
+          .join("");
+      }
+
+      function renderTableDeleted() {
+        const tbody = document.getElementById("tbody-deleted");
+        if (!tbody) return;
+        tbody.innerHTML = postsDeleted
+          .map(
+            (p) => `
+              <tr>
+                <td><input type="checkbox" data-id="${escText(p.id)}" onchange="toggleRow(this,'deleted','${escText(p.id)}')"/></td>
+                <td class="td-left">${escText(p.topic)}</td>
+                <td class="td-left">${escText(p.mainCat)} - ${escText(p.subCat)}</td>
+                <td class="td-left">${renderAuthorMenu(p)}</td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(p.title)}">${escText(p.title)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="viewPost('${escText(p.id)}')">Xem bài viết</button>
+                      <button class="menu-item" onclick="openActionModal('restore-post','${escText(p.id)}')">Khôi phục</button>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-left">${renderIpCell(p)}</td>
+                <td>${escText(p.handler)}</td>
+                <td>${escText(p.reason)}</td>
+                <td>${escText(p.postedAt)}</td>
+                <td>${escText(p.deletedAt)}</td>
+              </tr>`,
+          )
+          .join("");
+      }
+
+      /* ====== VIEW POST MODAL ====== */
+      function findPostById(id) {
+        return (
+          postsReal.find((p) => p.id === id) ||
+          postsBest.find((p) => p.id === id) ||
+          postsDeleted.find((p) => p.id === id) ||
+          null
+        );
+      }
+      function viewPost(id) {
+        const p = findPostById(id);
+        if (!p) return;
+        document.getElementById("view-modal-title").textContent =
+          "Chi tiết bài viết";
+        const grade = memberGrades[p.author] || "—";
+        document.getElementById("view-modal-meta").innerHTML = `
+          <div><strong>ID:</strong> ${escText(p.id)}</div>
+          <div><strong>Người viết:</strong> ${escText(p.author)} (${escText(grade)})</div>
+          <div><strong>Chuyên mục:</strong> ${escText(p.topic)}</div>
+          <div><strong>Danh mục:</strong> ${escText(p.mainCat)} - ${escText(p.subCat)}</div>
+          <div><strong>Ngày đăng:</strong> ${escText(p.postedAt || "—")}</div>
+          <div><strong>IP:</strong> ${escText(p.ip)}</div>
+        `;
+        document.getElementById("view-modal-content").innerHTML = `
+          <div style="font-weight:600;color:var(--gray-900);margin-bottom:6px">${escText(p.title)}</div>
+          <div>${escText(p.content)}</div>
+        `;
+        document.getElementById("view-modal-backdrop").classList.add("open");
+      }
+      function closeViewModal() {
+        document.getElementById("view-modal-backdrop").classList.remove("open");
+      }
+
+      /* ====== ACTION MODAL ====== */
+      const actionModalMap = {
+        "delete-post": {
+          title: "Xóa bài viết",
+          body: "Bài viết sẽ được chuyển sang mục 'Bài viết đã xóa'.",
+          done: "Đã xóa bài viết.",
+        },
+        "mark-best": {
+          title: "Đánh dấu bài viết Best",
+          body: "Bài viết sẽ được thêm vào danh sách Best.",
+          done: "Đã đánh dấu Best.",
+        },
+        "remove-best": {
+          title: "Gỡ Best",
+          body: "Bài viết sẽ bị gỡ khỏi danh sách Best.",
+          done: "Đã gỡ Best.",
+        },
+        "hide-post": {
+          title: "Tạm ẩn bài viết",
+          body: "Bài viết sẽ tạm ẩn khỏi feed người dùng.",
+          done: "Đã tạm ẩn bài viết.",
+        },
+        "unfeature-post": {
+          title: "Gỡ khỏi trang chủ",
+          body: "Bài viết sẽ không còn xuất hiện trên trang chủ.",
+          done: "Đã gỡ khỏi trang chủ.",
+        },
+        "restore-hidden": {
+          title: "Khôi phục bài viết",
+          body: "Bài viết sẽ được khôi phục về danh sách hoạt động.",
+          done: "Đã khôi phục bài viết.",
+        },
+        "restore-post": {
+          title: "Khôi phục bài viết",
+          body: "Bài viết sẽ được khôi phục về danh sách hoạt động.",
+          done: "Đã khôi phục bài viết.",
+        },
+        "delete-comment": {
+          title: "Xóa bình luận",
+          body: "Bình luận sẽ được chuyển sang mục 'Bình luận đã xóa'.",
+          done: "Đã xóa bình luận.",
+        },
+        "restore-comment": {
+          title: "Khôi phục bình luận",
+          body: "Bình luận sẽ được khôi phục về danh sách bình luận.",
+          done: "Đã khôi phục bình luận.",
+        },
+        "block-ip": {
+          title: "Chặn địa chỉ IP",
+          body: "Mọi truy cập từ IP này sẽ bị chặn cho đến khi được mở lại.",
+          done: "Đã chặn IP.",
+        },
+        "suspend-author": {
+          title: "Tạm khóa hoạt động",
+          body: "Tài khoản người viết sẽ bị tạm khóa cho đến khi được mở lại.",
+          done: "Đã tạm khóa người viết.",
+        },
+        "force-leave-author": {
+          title: "Buộc rời bỏ hệ thống",
+          body: "Người viết sẽ bị buộc rời khỏi hệ thống ngay lập tức.",
+          done: "Đã buộc rời bỏ.",
+        },
+        "cancel-upgrade": {
+          title: "Hủy nâng cấp tự động",
+          body: "Tài khoản sẽ ngừng được tự động nâng cấp cấp bậc.",
+          done: "Đã hủy nâng cấp tự động.",
+        },
+        "notify-author": {
+          title: "Gửi thông báo đẩy",
+          body: "Gửi thông báo đẩy đến người viết bài.",
+          done: "Đã gửi thông báo đẩy.",
+        },
+        "delete-reason": {
+          title: "Xóa lý do",
+          body: "Lý do này sẽ bị xóa khỏi hệ thống. Các bài viết/bình luận đã dùng lý do này sẽ giữ nguyên.",
+          done: "Đã xóa lý do.",
+        },
+        "bulk-delete": {
+          title: "Xóa các bài viết đã chọn",
+          body: "Các bài viết sẽ được chuyển sang 'Bài viết đã xóa'.",
+          done: "Đã xóa các bài viết.",
+        },
+        "bulk-remove-best": {
+          title: "Gỡ Best các bài đã chọn",
+          body: "Các bài viết sẽ bị gỡ khỏi danh sách Best.",
+          done: "Đã gỡ Best.",
+        },
+        "bulk-restore": {
+          title: "Khôi phục các bài viết đã chọn",
+          body: "Các bài viết sẽ được khôi phục về danh sách hoạt động.",
+          done: "Đã khôi phục bài viết.",
+        },
+        "bulk-restore-hidden": {
+          title: "Khôi phục các bài đã ẩn",
+          body: "Các bài viết sẽ được hiện lại trên feed và trang chủ.",
+          done: "Đã khôi phục bài viết.",
+        },
+        "bulk-delete-comment": {
+          title: "Xóa các bình luận đã chọn",
+          body: "Các bình luận sẽ được chuyển sang 'Bình luận đã xóa'.",
+          done: "Đã xóa các bình luận.",
+        },
+        "bulk-restore-comment": {
+          title: "Khôi phục các bình luận đã chọn",
+          body: "Các bình luận sẽ được khôi phục về danh sách bình luận.",
+          done: "Đã khôi phục bình luận.",
+        },
+      };
+      function openActionModal(type, id) {
+        const cfg = actionModalMap[type];
+        if (!cfg) return;
+        pendingAction = { type, id: id || null };
+        document.getElementById("action-modal-title").textContent = cfg.title;
+        document.getElementById("action-modal-body").textContent = cfg.body;
+        document.getElementById("action-modal-backdrop").classList.add("open");
+        closeAllMenus();
+      }
+      function closeActionModal() {
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
+        pendingAction = { type: null, id: null };
+      }
+      function confirmActionModal() {
+        const cfg = actionModalMap[pendingAction.type];
+        if (pendingAction.type === "delete-reason" && pendingAction.id) {
+          const idx = deleteReasons.findIndex((r) => r.id === pendingAction.id);
+          if (idx >= 0) deleteReasons.splice(idx, 1);
+          if (editingReasonId === pendingAction.id) resetReasonEditor();
+          else renderReasonTable();
+        }
+        if (cfg) alert(cfg.done);
+        closeActionModal();
+      }
+
+      function bulkAction(target, kind) {
+        const count = selectedIds[target].size;
+        if (count === 0) {
+          const noun =
+            target === "comments" || target === "cdeleted"
+              ? "bình luận"
+              : "bài viết";
+          alert(`Vui lòng chọn ít nhất 1 ${noun}.`);
+          return;
+        }
+        const map = {
+          delete: "bulk-delete",
+          "remove-best": "bulk-remove-best",
+          restore: target === "hidden" ? "bulk-restore-hidden" : "bulk-restore",
+          "delete-comment": "bulk-delete-comment",
+          "restore-comment": "bulk-restore-comment",
+        };
+        const type = map[kind];
+        if (type) openActionModal(type, null);
+      }
+
+      /* ====== CHANGE CATEGORY MODAL ====== */
+      function openBulkChangeCategoryModal(target) {
+        const ids = Array.from(selectedIds[target]);
+        if (ids.length === 0) {
+          alert("Vui lòng chọn ít nhất 1 bài viết.");
+          return;
+        }
+        pendingChangeCat = { target, ids };
+        document.getElementById("change-cat-title").textContent =
+          `Thay đổi danh mục (${ids.length} bài)`;
+        openChangeCategoryModalCore();
+      }
+      function openSingleChangeCategoryModal(target, id) {
+        pendingChangeCat = { target, ids: [id] };
+        document.getElementById("change-cat-title").textContent =
+          `Thay đổi danh mục bài ${id}`;
+        openChangeCategoryModalCore();
+        closeAllMenus();
+      }
+      function openChangeCategoryModalCore() {
+        pendingMain = null;
+        pendingSub = null;
+        document.getElementById("change-main-label").textContent =
+          "Chọn danh mục";
+        document.getElementById("change-sub-label").textContent =
+          "Chọn danh mục phụ";
+        document.getElementById("change-sub-menu").innerHTML = "";
+        const mainMenu = document.getElementById("change-main-menu");
+        mainMenu.innerHTML = Object.keys(postCategoryMap)
+          .map(
+            (m) =>
+              `<button class="change-cat-opt" onclick="selectChangeMain('${escText(m)}')">${escText(m)}</button>`,
+          )
+          .join("");
+        document
+          .getElementById("change-category-modal-backdrop")
+          .classList.add("open");
+      }
+      function closeChangeCategoryModal() {
+        document
+          .getElementById("change-category-modal-backdrop")
+          .classList.remove("open");
+        document.getElementById("change-main-col").classList.remove("open");
+        document.getElementById("change-sub-col").classList.remove("open");
+        pendingChangeCat = { target: null, ids: [] };
+      }
+      function toggleChangeCat(which, e) {
+        e.stopPropagation();
+        const col = document.getElementById("change-" + which + "-col");
+        const other = document.getElementById(
+          "change-" + (which === "main" ? "sub" : "main") + "-col",
+        );
+        other?.classList.remove("open");
+        col?.classList.toggle("open");
+      }
+      function selectChangeMain(main) {
+        pendingMain = main;
+        pendingSub = null;
+        document.getElementById("change-main-label").textContent = main;
+        document.getElementById("change-main-col").classList.remove("open");
+        document.getElementById("change-sub-label").textContent =
+          "Chọn danh mục phụ";
+        const subMenu = document.getElementById("change-sub-menu");
+        subMenu.innerHTML = (postCategoryMap[main] || [])
+          .map(
+            (s) =>
+              `<button class="change-cat-opt" onclick="selectChangeSub('${escText(s).replace(/'/g, "&#39;")}')">${escText(s)}</button>`,
+          )
+          .join("");
+      }
+      function selectChangeSub(sub) {
+        pendingSub = sub;
+        document.getElementById("change-sub-label").textContent = sub;
+        document.getElementById("change-sub-col").classList.remove("open");
+      }
+      function confirmChangeCategory() {
+        if (!pendingMain) {
+          alert("Vui lòng chọn danh mục chính.");
+          return;
+        }
+        if (!pendingSub) {
+          alert("Vui lòng chọn danh mục phụ.");
+          return;
+        }
+        const { target, ids } = pendingChangeCat;
+        const arr =
+          target === "best"
+            ? postsBest
+            : target === "deleted"
+              ? postsDeleted
+              : postsReal;
+        arr.forEach((p) => {
+          if (ids.includes(p.id)) {
+            p.mainCat = pendingMain;
+            p.subCat = pendingSub;
+          }
+        });
+        if (target === "real") renderTableReal();
+        else if (target === "best") renderTableBest();
+        else renderTableDeleted();
+        closeChangeCategoryModal();
+        alert("Đã thay đổi danh mục.");
+      }
+
+      /* ====== HIDDEN POSTS (page 4) ====== */
+      const postsHiddenSuspended = [
+        {
+          id: "PH001",
+          topic: "Review",
+          mainCat: "Làn da",
+          subCat: "Mỹ phẩm",
+          title: "Toner C nguyên chất 25% - có nên thử?",
+          content: "Bài viết bị tạm ẩn do nội dung cần kiểm duyệt thêm.",
+          author: "maimai",
+          ip: "113.165.12.45",
+          handler: "Admin A",
+          reason: "Có dấu hiệu quảng cáo trá hình",
+          datePosted: "18-06-2025 10:00",
+          dateHidden: "20-06-2025 14:25",
+        },
+        {
+          id: "PH002",
+          topic: "Hỏi đáp",
+          mainCat: "Răng miệng",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "Niềng răng mắc cài tự buộc có hiệu quả?",
+          content: "Bài viết bị tạm ẩn do trùng nội dung với bài khác.",
+          author: "Khanh.clinic.talk",
+          ip: "203.205.40.218",
+          handler: "chikihong",
+          reason: "Trùng nội dung",
+          datePosted: "16-06-2025 09:30",
+          dateHidden: "18-06-2025 11:15",
+        },
+        {
+          id: "PH003",
+          topic: "Chia sẻ",
+          mainCat: "Mắt/ Lông mi",
+          subCat: "Mỹ phẩm",
+          title: "Thử thách 30 ngày tẩy trang sạch",
+          content: "Bài viết bị tạm ẩn vì hình ảnh quá lớn, hệ thống tự lọc.",
+          author: "haiyen.beauty",
+          ip: "27.79.155.91",
+          handler: "Admin B",
+          reason: "Vi phạm kích thước media",
+          datePosted: "12-06-2025 22:10",
+          dateHidden: "13-06-2025 07:55",
+        },
+        {
+          id: "PH004",
+          topic: "Tán gẫu",
+          mainCat: "Khác",
+          subCat: "Khác",
+          title: "Cuối tuần các bạn skincare gì",
+          content: "Bài viết bị tạm ẩn do ngôn ngữ chưa phù hợp.",
+          author: "bobalove",
+          ip: "115.79.122.30",
+          handler: "Admin A",
+          reason: "Ngôn từ chưa phù hợp",
+          datePosted: "10-06-2025 19:45",
+          dateHidden: "11-06-2025 09:00",
+        },
+      ];
+
+      const postsHiddenUnfeatured = [
+        {
+          id: "PU001",
+          topic: "Review",
+          mainCat: "Da đầu/ Lông tóc",
+          subCat: "Mỹ phẩm",
+          title: "Dầu xả phục hồi cho tóc nhuộm",
+          content: "Đã gỡ khỏi trang chủ do hết thời gian nổi bật.",
+          author: "hairlove.vn",
+          ip: "117.4.245.18",
+          handler: "Admin A",
+          reason: "Hết hạn nổi bật",
+          datePosted: "01-06-2025 11:30",
+          dateUnfeatured: "15-06-2025 00:00",
+        },
+        {
+          id: "PU002",
+          topic: "Hướng dẫn",
+          mainCat: "Chiều cao/ Vóc dáng",
+          subCat: "Thể thao/ Giảm cân",
+          title: "5 bài tập eo thon cho dân văn phòng",
+          content: "Đã gỡ khỏi trang chủ do tương tác giảm.",
+          author: "yoga.everyday",
+          ip: "171.255.42.66",
+          handler: "chikihong",
+          reason: "Tương tác giảm",
+          datePosted: "28-05-2025 06:30",
+          dateUnfeatured: "10-06-2025 12:00",
+        },
+        {
+          id: "PU003",
+          topic: "Cảnh báo",
+          mainCat: "Mũi",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "Cần thận với silicon kém chất lượng",
+          content: "Đã gỡ khỏi trang chủ để rà soát thông tin chuyên môn.",
+          author: "drAnh.skin.vn",
+          ip: "115.78.231.150",
+          handler: "Admin B",
+          reason: "Rà soát thông tin",
+          datePosted: "20-05-2025 14:00",
+          dateUnfeatured: "05-06-2025 08:30",
+        },
+        {
+          id: "PU004",
+          topic: "Chia sẻ",
+          mainCat: "Làn da",
+          subCat: "TPCN/ Dược phẩm",
+          title: "Hành trình trị mụn 1 năm",
+          content: "Đã gỡ khỏi trang chủ theo yêu cầu của người viết.",
+          author: "Thu.skin.journal",
+          ip: "171.232.18.7",
+          handler: "Admin A",
+          reason: "Yêu cầu của người viết",
+          datePosted: "12-05-2025 21:20",
+          dateUnfeatured: "01-06-2025 10:10",
+        },
+      ];
+
+      function renderAuthorMenuHidden(post) {
+        return `<div class="cell-menu">
+          <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(post.author)}</button>
+          <div class="menu-list">
+            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+            <button class="menu-item" onclick="openActionModal('suspend-author','${post.id}')">Tạm khóa hoạt động</button>
+            <button class="menu-item" onclick="openActionModal('force-leave-author','${post.id}')">Buộc rời bỏ</button>
+            <button class="menu-item" onclick="openActionModal('cancel-upgrade','${post.id}')">Hủy nâng cấp tự động</button>
+            <button class="menu-item" onclick="openActionModal('notify-author','${post.id}')">Gửi thông báo đẩy</button>
+          </div>
+        </div>`;
+      }
+
+      function renderTitleMenuHidden(post) {
+        return `<div class="cell-menu">
+          <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(post.title)}">${escText(post.title)}</button>
+          <div class="menu-list">
+            <button class="menu-item" onclick="viewPost('${post.id}')">Xem bài viết</button>
+            <button class="menu-item" onclick="openActionModal('restore-hidden','${post.id}')">Khôi phục</button>
+          </div>
+        </div>`;
+      }
+
+      function renderTableHidden() {
+        const tbody = document.getElementById("tbody-hidden");
+        if (!tbody) return;
+        const data =
+          currentHiddenSub === "suspended"
+            ? postsHiddenSuspended
+            : postsHiddenUnfeatured;
+        const dateKey =
+          currentHiddenSub === "suspended" ? "dateHidden" : "dateUnfeatured";
+        tbody.innerHTML = data
+          .map(
+            (p) => `
+              <tr>
+                <td><input type="checkbox" data-id="${escText(p.id)}" onchange="toggleRow(this,'hidden','${escText(p.id)}')"/></td>
+                <td class="td-left">${escText(p.topic)}</td>
+                <td class="td-left">${escText(p.mainCat)} - ${escText(p.subCat)}</td>
+                <td class="td-left">${renderAuthorMenuHidden(p)}</td>
+                <td class="td-left">${renderTitleMenuHidden(p)}</td>
+                <td class="td-left">${renderIpCell(p)}</td>
+                <td>${escText(p.handler)}</td>
+                <td>${escText(p.reason)}</td>
+                <td>${escText(p.datePosted)}</td>
+                <td>${escText(p[dateKey])}</td>
+              </tr>`,
+          )
+          .join("");
+      }
+
+      function switchHiddenSub(sub, btn) {
+        currentHiddenSub = sub;
+        document
+          .querySelectorAll("#page-posts-hidden .tab")
+          .forEach((t) => t.classList.remove("active"));
+        if (btn) btn.classList.add("active");
+        selectedIds.hidden.clear();
+        const isSuspended = sub === "suspended";
+        document.getElementById("hidden-date-label").textContent = isSuspended
+          ? "Ngày tạm ẩn:"
+          : "Ngày gỡ bài viết:";
+        document.getElementById("hidden-th-reason").textContent = isSuspended
+          ? "Lý do ẩn"
+          : "Lý do gỡ";
+        document.getElementById("hidden-th-date").textContent = isSuspended
+          ? "Ngày ẩn"
+          : "Ngày gỡ";
+        document.getElementById("hidden-title-text").textContent = isSuspended
+          ? "• Bài viết đã ẩn"
+          : "• Bài viết đã gỡ";
+        document.getElementById("count-hidden").textContent = isSuspended
+          ? "567 bài"
+          : "234 bài";
+        renderTableHidden();
+      }
+
+      /* ====== COMMENTS (page 5) ====== */
+      const commentsList = [
+        {
+          id: "C001",
+          topic: "Review",
+          mainCat: "Làn da",
+          subCat: "Mỹ phẩm",
+          postTitle: "Review serum B5 sau 14 ngày dùng đều",
+          content:
+            "Mình cũng dùng B5 hơn 1 tháng, da đỡ kích ứng hẳn. Cảm ơn bạn đã chia sẻ chi tiết!",
+          author: "ngocanh.skin",
+          ip: "113.165.12.99",
+          date: "22-06-2025 15:00",
+        },
+        {
+          id: "C002",
+          topic: "Hỏi đáp",
+          mainCat: "Răng miệng",
+          subCat: "PTTM/ Tiểu phẫu",
+          postTitle: "Có nên niềng răng ở tuổi 30?",
+          content:
+            "Tuổi 30 vẫn niềng tốt nhé, chỉ là thời gian dài hơn so với khi còn trẻ. Mình mất 2 năm.",
+          author: "Khanh.clinic.talk",
+          ip: "203.205.40.218",
+          date: "21-06-2025 18:45",
+        },
+        {
+          id: "C003",
+          topic: "Hướng dẫn",
+          mainCat: "Mắt/ Lông mi",
+          subCat: "Mỹ phẩm",
+          postTitle: "5 tips kẻ mắt cho mắt một mí",
+          content:
+            "Mình thử cách 2 và 4, ra tiệm makeup khen quá trời. Cảm ơn tips siêu bổ ích!",
+          author: "tuyetnhi.kr",
+          ip: "27.79.99.18",
+          date: "20-06-2025 09:25",
+        },
+        {
+          id: "C004",
+          topic: "Cảnh báo",
+          mainCat: "Mũi",
+          subCat: "PTTM/ Tiểu phẫu",
+          postTitle: "3 dấu hiệu nguy hiểm sau khi nâng mũi",
+          content:
+            "Bác sĩ có thể nói rõ hơn về tình trạng đầu mũi tím đậm? Sau bao lâu thì gọi là bất thường?",
+          author: "linhmiu.qn",
+          ip: "115.78.231.66",
+          date: "19-06-2025 22:30",
+        },
+      ];
+
+      function renderAuthorMenuComment(c) {
+        return `<div class="cell-menu">
+          <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(c.author)}</button>
+          <div class="menu-list">
+            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+            <button class="menu-item" onclick="openActionModal('suspend-author','${c.id}')">Tạm khóa hoạt động</button>
+            <button class="menu-item" onclick="openActionModal('force-leave-author','${c.id}')">Buộc rời bỏ</button>
+            <button class="menu-item" onclick="openActionModal('cancel-upgrade','${c.id}')">Hủy nâng cấp tự động</button>
+            <button class="menu-item" onclick="openActionModal('notify-author','${c.id}')">Gửi thông báo đẩy</button>
+          </div>
+        </div>`;
+      }
+
+      function truncate(s, n) {
+        const str = String(s ?? "");
+        return str.length > n ? str.slice(0, n) + "…" : str;
+      }
+
+      function renderContentMenuComment(c, mode) {
+        const short = truncate(c.content, 50);
+        const items =
+          mode === "deleted"
+            ? `<button class="menu-item" onclick="viewComment('${c.id}')">Xem bình luận</button>
+               <button class="menu-item" onclick="openActionModal('restore-comment','${c.id}')">Khôi phục</button>`
+            : `<button class="menu-item" onclick="viewComment('${c.id}')">Xem bình luận</button>
+               <button class="menu-item" onclick="openActionModal('delete-comment','${c.id}')">Xóa</button>`;
+        return `<div class="cell-menu">
+          <button class="menu-trigger content-ellipsis" onclick="toggleMenu(event,this.parentElement)" title="${escText(c.content)}">${escText(short)}</button>
+          <div class="menu-list">${items}</div>
+        </div>`;
+      }
+
+      function renderTableComments() {
+        const tbody = document.getElementById("tbody-comments");
+        if (!tbody) return;
+        tbody.innerHTML = commentsList
+          .map(
+            (c) => `
+              <tr>
+                <td><input type="checkbox" data-id="${escText(c.id)}" onchange="toggleRow(this,'comments','${escText(c.id)}')"/></td>
+                <td class="td-left">${escText(c.topic)}</td>
+                <td class="td-left">${escText(c.mainCat)} - ${escText(c.subCat)}</td>
+                <td class="td-left">${renderAuthorMenuComment(c)}</td>
+                <td class="td-left">${renderContentMenuComment(c, "active")}</td>
+                <td>${escText(c.date)}</td>
+                <td class="td-left">${renderIpCell(c)}</td>
+              </tr>`,
+          )
+          .join("");
+      }
+
+      /* ====== COMMENTS DELETED (page 6) ====== */
+      const commentsDeleted = [
+        {
+          id: "CD001",
+          topic: "Review",
+          mainCat: "Làn da",
+          subCat: "Mỹ phẩm",
+          postTitle: "Review kem chống nắng SPF50+",
+          content:
+            "Spam: shop em chuyên đổ sỉ, kết bạn zalo 0901xxx để xem báo giá.",
+          author: "shopmypham99",
+          ip: "118.69.45.12",
+          handler: "Admin A",
+          reason: "Spam quảng cáo",
+          dateDeleted: "23-06-2025 10:30",
+        },
+        {
+          id: "CD002",
+          topic: "Hỏi đáp",
+          mainCat: "Răng miệng",
+          subCat: "PTTM/ Tiểu phẫu",
+          postTitle: "Có nên niềng răng ở tuổi 30?",
+          content: "Ngôn từ không phù hợp, đã được admin lọc.",
+          author: "user.unknown",
+          ip: "171.255.180.20",
+          handler: "chikihong",
+          reason: "Ngôn từ phản cảm",
+          dateDeleted: "22-06-2025 17:15",
+        },
+        {
+          id: "CD003",
+          topic: "Hướng dẫn",
+          mainCat: "Mắt/ Lông mi",
+          subCat: "Mỹ phẩm",
+          postTitle: "5 tips kẻ mắt cho mắt một mí",
+          content:
+            "Comment bị tố trùng lặp với bình luận của một tài khoản khác.",
+          author: "bot.fake.acc",
+          ip: "10.0.5.32",
+          handler: "Admin B",
+          reason: "Tài khoản giả mạo",
+          dateDeleted: "21-06-2025 09:00",
+        },
+        {
+          id: "CD004",
+          topic: "Cảnh báo",
+          mainCat: "Mũi",
+          subCat: "PTTM/ Tiểu phẫu",
+          postTitle: "3 dấu hiệu nguy hiểm sau khi nâng mũi",
+          content: "Bình luận có chứa link bên ngoài không kiểm chứng.",
+          author: "tipsy.beauty",
+          ip: "115.78.231.4",
+          handler: "Admin A",
+          reason: "Dẫn link bên ngoài",
+          dateDeleted: "20-06-2025 21:40",
+        },
+      ];
+
+      function renderAuthorMenuCommentDeleted(c) {
+        return `<div class="cell-menu">
+          <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(c.author)}</button>
+          <div class="menu-list">
+            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+            <button class="menu-item" onclick="openActionModal('suspend-author','${c.id}')">Tạm khóa hoạt động</button>
+            <button class="menu-item" onclick="openActionModal('force-leave-author','${c.id}')">Buộc rời bỏ</button>
+            <button class="menu-item" onclick="openActionModal('notify-author','${c.id}')">Gửi thông báo đẩy</button>
+          </div>
+        </div>`;
+      }
+
+      function renderTableCommentsDeleted() {
+        const tbody = document.getElementById("tbody-cdeleted");
+        if (!tbody) return;
+        tbody.innerHTML = commentsDeleted
+          .map(
+            (c) => `
+              <tr>
+                <td><input type="checkbox" data-id="${escText(c.id)}" onchange="toggleRow(this,'cdeleted','${escText(c.id)}')"/></td>
+                <td class="td-left">${escText(c.topic)}</td>
+                <td class="td-left">${escText(c.mainCat)} - ${escText(c.subCat)}</td>
+                <td class="td-left">${renderContentMenuComment(c, "deleted")}</td>
+                <td class="td-left">${renderAuthorMenuCommentDeleted(c)}</td>
+                <td class="td-left">${renderIpCell(c)}</td>
+                <td>${escText(c.handler)}</td>
+                <td>${escText(c.reason)}</td>
+                <td>${escText(c.dateDeleted)}</td>
+              </tr>`,
+          )
+          .join("");
+      }
+
+      function viewComment(id) {
+        const c =
+          commentsList.find((x) => x.id === id) ||
+          commentsDeleted.find((x) => x.id === id);
+        if (!c) return;
+        document.getElementById("view-modal-title").textContent =
+          "Chi tiết bình luận";
+        const grade = memberGrades[c.author] || "—";
+        document.getElementById("view-modal-meta").innerHTML = `
+          <div><strong>ID:</strong> ${escText(c.id)}</div>
+          <div><strong>Người viết:</strong> ${escText(c.author)} (${escText(grade)})</div>
+          <div><strong>Chuyên mục:</strong> ${escText(c.topic)}</div>
+          <div><strong>Danh mục:</strong> ${escText(c.mainCat)} - ${escText(c.subCat)}</div>
+          <div><strong>Ngày viết:</strong> ${escText(c.date || c.dateDeleted || "—")}</div>
+          <div><strong>IP:</strong> ${escText(c.ip)}</div>
+        `;
+        document.getElementById("view-modal-content").innerHTML = `
+          <div style="font-weight:600;color:var(--gray-900);margin-bottom:6px">Trên bài viết: ${escText(c.postTitle)}</div>
+          <div>${escText(c.content)}</div>
+        `;
+        document.getElementById("view-modal-backdrop").classList.add("open");
+      }
+
+      /* ====== DELETE REASONS (page 7) ====== */
+      const deleteReasons = [
+        { id: "R001", reason: "Vi phạm điều lệ cộng đồng", creator: "Admin" },
+        { id: "R002", reason: "Spam quảng cáo", creator: "maimai" },
+        { id: "R003", reason: "Nội dung không phù hợp", creator: "Admin" },
+        { id: "R004", reason: "Dẫn link bên ngoài", creator: "chikihong" },
+      ];
+      let editingReasonId = null;
+
+      function renderReasonTable() {
+        const tbody = document.getElementById("tbody-reason");
+        if (!tbody) return;
+        document.getElementById("count-reason").textContent =
+          `${deleteReasons.length} lý do`;
+        tbody.innerHTML = deleteReasons
+          .map(
+            (r) => `
+              <tr>
+                <td class="td-left" style="padding-left: 16px">
+                  <div class="reason-chip-wrap">
+                    <button class="reason-chip${editingReasonId === r.id ? " editing" : ""}" onclick="editReason('${escText(r.id)}')">${escText(r.reason)}</button>
+                    
+                  </div>
+                </td>
+                <td>
+                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('delete-reason','${escText(r.id)}')">Xóa</button>
+                </td>
+                <td>${escText(r.creator)}</td>
+              </tr>`,
+          )
+          .join("");
+      }
+
+      function editReason(id) {
+        const r = deleteReasons.find((x) => x.id === id);
+        if (!r) return;
+        editingReasonId = id;
+        const input = document.getElementById("reason-input");
+        input.value = r.reason;
+        input.classList.add("editing");
+        input.focus();
+        document.getElementById("reason-submit-btn").textContent = "Cập nhật";
+        renderReasonTable();
+      }
+
+      function resetReasonEditor() {
+        editingReasonId = null;
+        const input = document.getElementById("reason-input");
+        input.value = "";
+        input.classList.remove("editing");
+        document.getElementById("reason-submit-btn").textContent = "Thêm";
+        renderReasonTable();
+      }
+
+      function handleReasonInputChange() {
+        const input = document.getElementById("reason-input");
+        if (editingReasonId && input.value.trim() === "") {
+          resetReasonEditor();
+        }
+      }
+
+      function handleReasonKey(e) {
+        if (e.key === "Escape") {
+          resetReasonEditor();
+        } else if (e.key === "Enter") {
+          submitReason();
+        }
+      }
+
+      function submitReason() {
+        const input = document.getElementById("reason-input");
+        const text = (input.value || "").trim();
+        if (!text) {
+          alert("Vui lòng nhập lý do.");
+          return;
+        }
+        if (editingReasonId) {
+          const r = deleteReasons.find((x) => x.id === editingReasonId);
+          if (r) r.reason = text;
+          alert("Đã cập nhật lý do.");
+          resetReasonEditor();
+        } else {
+          const nextId =
+            "R" +
+            String(
+              Math.max(
+                0,
+                ...deleteReasons.map(
+                  (r) => Number(r.id.replace(/\D/g, "")) || 0,
+                ),
+              ) + 1,
+            ).padStart(3, "0");
+          deleteReasons.unshift({ id: nextId, reason: text, creator: "Admin" });
+          input.value = "";
+          alert("Đã thêm lý do.");
+          renderReasonTable();
+        }
+      }
+
+      /* ====== GLOBAL LISTENERS ====== */
+      document.addEventListener("click", () => {
+        closeAllMenus();
+        document
+          .querySelectorAll(".change-cat-col.open")
+          .forEach((c) => c.classList.remove("open"));
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeActionModal();
+          closeChangeCategoryModal();
+          closeViewModal();
+        }
+      });
+
+      /* ====== HEADER HEIGHT SYNC ====== */
+
+      /* ====== INIT ====== */
+      populateCategoryFilters();
+      ["real", "best", "deleted", "hidden", "comments", "cdeleted"].forEach(
+        renderCriteriaMenu,
+      );
+      renderTableReal();
+      renderTableBest();
+      renderTableDeleted();
+      renderTableHidden();
+      renderTableComments();
+      renderTableCommentsDeleted();
+      renderReasonTable();
+    </script>
+  </body>
+</html>

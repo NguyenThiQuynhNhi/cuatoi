@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống kê - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --success: #16a34a;
+        --success-light: #dcfce7;
+        --warning: #f59e0b;
+        --warning-light: #fef3c7;
+        --info: #2563eb;
+        --info-light: #dbeafe;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --shadow-sm: 0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md: 0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --sidebar-w: 240px;
+        --header-h: 60px;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: "Be Vietnam Pro", sans-serif; background: var(--gray-50); color: var(--gray-900); font-size: 13px; min-height: 100vh; }
+
+      .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; min-height: 60px; background: linear-gradient(135deg, #4a2096 0%, #6c3fc5 60%, #8b5cf6 100%); display: flex; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25); }
+      .header-logo { display: flex; align-items: center; gap: 10px; color: white; font-weight: 700; font-size: 14px; }
+      .header-logo .logo-box { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: white; border: 1.5px solid rgba(255, 255, 255, 0.35); }
+      .header-nav { display: flex; align-items: center; gap: 2px; flex: 1; padding: 0 24px; }
+      .nav-item { padding: 5px 9px; border-radius: 6px; color: rgba(255, 255, 255, 0.75); cursor: pointer; font-size: 11.5px; font-weight: 500; white-space: normal; line-height: 1.2; text-align: center; max-width: 120px; transition: all 0.15s; }
+      .nav-item:hover, .nav-item.active { background: rgba(255, 255, 255, 0.18); color: white; }
+      .nav-item.active { background: rgba(255, 255, 255, 0.22); font-weight: 600; }
+      .nav-item-group { position: relative; }
+      .nav-item-group .nav-dropdown { position: absolute; top: 100%; left: 0; background: white; border: 1px solid var(--gray-200); border-radius: 6px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); min-width: 180px; display: none; z-index: 300; padding: 4px 0; margin-top: 4px; }
+      .nav-item-group:hover .nav-dropdown { display: block; }
+      .nav-dropdown a { display: block; padding: 8px 14px; color: var(--gray-700); text-decoration: none; font-size: 11.5px; font-weight: 500; white-space: nowrap; }
+      .nav-dropdown a:hover { background: var(--gray-100); color: var(--primary); }
+      a.nav-item { text-decoration: none; display: inline-block; }
+      .header-user { display: flex; align-items: center; gap: 8px; color: white; font-size: 12px; }
+      .header-user .avatar { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; border: 1.5px solid rgba(255, 255, 255, 0.4); }
+      .header-user .user-info { text-align: right; }
+      .header-user .user-name { font-weight: 600; font-size: 12px; }
+      .header-user .user-role { font-size: 10.5px; opacity: 0.75; }
+
+      .app-body { display: flex; padding-top: var(--header-h); min-height: 100vh; }
+      .sidebar { width: var(--sidebar-w); flex-shrink: 0; background: white; min-height: calc(100vh - var(--header-h)); border-right: 1px solid var(--gray-200); padding: 12px 8px; position: fixed; top: var(--header-h); left: 0; bottom: 0; overflow-y: auto; }
+      .sidebar-label { font-size: 9.5px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 8px 4px; }
+      .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 8px; cursor: pointer; color: var(--gray-500); font-size: 12px; font-weight: 500; transition: all 0.15s; margin-bottom: 1px; }
+      .sidebar-item:hover { background: var(--gray-100); color: var(--gray-700); }
+      .sidebar-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+      .main { margin-left: var(--sidebar-w); flex: 1; padding: 20px; }
+      .page { display: none; }
+      .page.active { display: block; }
+      .page-title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+      .breadcrumb { font-size: 11.5px; color: var(--gray-500); margin-bottom: 8px; }
+      .breadcrumb .crumb-cur { color: var(--primary); font-weight: 600; }
+
+      .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: 14px; }
+      .card-body { padding: 14px 18px; }
+      .card-head { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--gray-100); }
+      .card-head .card-title { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+
+      .filter-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      .filter-label { font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+      .date-range { display: flex; align-items: center; border: 1.5px solid var(--primary-mid); border-radius: 8px; overflow: hidden; background: white; max-width: 280px; }
+      .date-nav { padding: 6px 12px; background: var(--primary-light); cursor: pointer; color: var(--primary); font-size: 14px; font-weight: 700; border: none; }
+      .date-display { padding: 6px 16px; font-size: 12px; font-weight: 600; color: var(--primary); background: white; white-space: nowrap; text-align: center; min-width: 200px; }
+      .time-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+      .tf-btn { padding: 7px 14px; border-radius: 9px; border: 1px solid #e2e5f1; background: white; color: #677194; font-size: 11.5px; font-weight: 500; cursor: pointer; font-family: inherit; }
+      .tf-btn.active { background: var(--primary); color: white; border-color: transparent; font-weight: 700; }
+
+      /* ====== STAT BOXES ====== */
+      .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+      .stat-box { background: white; border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform 0.15s; }
+      .stat-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+      .stat-box.active { border-color: var(--primary); background: var(--primary-light); }
+      .stat-box .stat-label { font-size: 11px; color: var(--gray-500); font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+      .stat-box .stat-value { font-size: 18px; font-weight: 700; color: var(--gray-900); }
+      .stat-box .stat-delta { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 700; margin-top: 4px; }
+      .stat-box .stat-delta.up { background: var(--success-light); color: var(--success); }
+      .stat-box .stat-delta.down { background: var(--accent-light); color: var(--accent); }
+
+      /* ====== SUB-TABS (within section) ====== */
+      .sub-tabs { display: flex; gap: 4px; flex-wrap: wrap; padding-bottom: 10px; border-bottom: 1px solid var(--gray-200); margin-bottom: 14px; }
+      .sub-tab { padding: 7px 14px; font-size: 11.5px; font-weight: 600; color: var(--gray-500); cursor: pointer; border-radius: 8px 8px 0 0; }
+      .sub-tab:hover { color: var(--primary); background: var(--gray-100); }
+      .sub-tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); margin-bottom: -11px; background: white; }
+
+      /* ====== CHART PLACEHOLDER ====== */
+      .chart-wrap { background: white; border: 1px solid var(--gray-200); border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+      .chart-title { font-size: 12.5px; font-weight: 700; color: var(--gray-900); margin-bottom: 10px; }
+      .chart-box { height: 220px; background: linear-gradient(180deg, var(--gray-50), white); border-radius: 8px; padding: 12px; position: relative; overflow: hidden; }
+      .chart-box svg { width: 100%; height: 100%; }
+
+      .legend-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; font-size: 11px; color: var(--gray-700); }
+      .legend-item { display: inline-flex; align-items: center; gap: 5px; }
+      .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+      .grade-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+      .grade-chip { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-mid); cursor: pointer; }
+      .grade-chip.active { background: var(--primary); color: white; }
+      .grade-chip.kol { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+      .grade-chip.expert { background: var(--warning-light); color: var(--warning); border-color: var(--warning); }
+
+      /* ====== TABLE ====== */
+      .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200); margin-bottom: 14px; background: white; }
+      table { width: 100%; border-collapse: collapse; min-width: 800px; }
+      thead { background: var(--gray-50); }
+      thead th { padding: 9px 10px; text-align: center; font-size: 11.5px; font-weight: 600; color: var(--gray-500); white-space: nowrap; border-bottom: 1.5px solid var(--gray-200); }
+      tbody tr { border-bottom: 1px solid var(--gray-100); }
+      tbody tr:hover { background: var(--gray-50); }
+      tbody td { padding: 9px 10px; text-align: center; font-size: 12px; color: var(--gray-700); vertical-align: middle; }
+      .td-left { text-align: left !important; }
+
+      .select-dropdown { position: relative; display: inline-flex; align-items: center; }
+      .select-dropdown select { appearance: none; padding: 6px 28px 6px 10px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 12px; font-family: inherit; color: var(--gray-700); background: white; cursor: pointer; outline: none; min-width: 150px; }
+      .select-dropdown::after { content: "▾"; position: absolute; right: 10px; pointer-events: none; font-size: 10px; color: var(--gray-400); }
+
+      .btn { padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+      .btn-outline-primary { background: white; border: 1.5px solid var(--primary); color: var(--primary); }
+      .btn-primary { background: var(--primary); color: white; border: 1.5px solid var(--primary); }
+      .btn-sm { padding: 4px 11px; font-size: 11px; }
+
+      .info-box { background: var(--info-light); color: var(--info); border: 1px solid var(--info); border-radius: 8px; padding: 10px 14px; font-size: 11.5px; margin-bottom: 14px; line-height: 1.5; }
+
+      .pagination { display: flex; gap: 4px; justify-content: center; align-items: center; padding: 12px 0; }
+      .pg-btn { min-width: 32px; height: 32px; padding: 0 8px; border: 1px solid var(--gray-300); background: white; border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--gray-700); cursor: pointer; }
+      .pg-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+
+      /* ====== DEMOGRAPHIC GRID ====== */
+      .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+      .demo-card { padding: 12px 14px; background: var(--gray-50); border-radius: 10px; border: 1px solid var(--gray-200); }
+      .demo-card .demo-age { font-size: 12px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+      .demo-card .demo-row { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; padding: 3px 0; color: var(--gray-700); }
+      .demo-card .demo-row .pct { font-weight: 700; color: var(--primary); }
+
+      .rank-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 50%; background: var(--gray-200); color: var(--gray-700); font-size: 11px; font-weight: 700; }
+      .rank-badge.gold { background: linear-gradient(135deg, #f59e0b, #facc15); color: white; }
+      .rank-badge.silver { background: linear-gradient(135deg, #94a3b8, #cbd5e1); color: white; }
+      .rank-badge.bronze { background: linear-gradient(135deg, #d97706, #f59e0b); color: white; }
+
+      .help-link { font-size: 11px; color: var(--primary); cursor: pointer; text-decoration: underline; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">B</div>
+        BEAUTY Admin
+      </div>
+      <nav class="header-nav">
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <div class="nav-item active">Thống kê</div>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+      </nav>
+      <div class="header-user">
+        <div class="user-info">
+          <div class="user-name">Nguyễn Văn Admin</div>
+          <div class="user-role">Quản trị viên cấp 3</div>
+        </div>
+        <div class="avatar">AD</div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="sidebar">
+        <div class="sidebar-label">Tổng quan</div>
+        <div class="sidebar-item active" id="sb-overview" onclick="goSection('overview')">Tổng quan</div>
+        <div class="sidebar-item" id="sb-retention" onclick="goSection('retention')">Tỉ lệ quay lại</div>
+        <div class="sidebar-item" id="sb-rank-views" onclick="goSection('rank-views')">Xếp hạng lượt xem bài viết</div>
+        <div class="sidebar-item" id="sb-video" onclick="goSection('video')">Phân tích video</div>
+
+        <div class="sidebar-label">Phân tích lượt truy cập</div>
+        <div class="sidebar-item" id="sb-views" onclick="goSection('views')">Lượt xem</div>
+        <div class="sidebar-item" id="sb-unique" onclick="goSection('unique')">Số lượng khách truy cập</div>
+        <div class="sidebar-item" id="sb-visits" onclick="goSection('visits')">Số lượt truy cập</div>
+        <div class="sidebar-item" id="sb-avg-visits" onclick="goSection('avg-visits')">Số lượt truy cập trung bình</div>
+        <div class="sidebar-item" id="sb-avg-time" onclick="goSection('avg-time')">Thời gian truy cập trung bình</div>
+        <div class="sidebar-item" id="sb-revisit" onclick="goSection('revisit')">Phân tích lượt truy cập lại</div>
+
+        <div class="sidebar-label">Phân tích người dùng</div>
+        <div class="sidebar-item" id="sb-demo" onclick="goSection('demo')">Phân bố theo giới tính/tuổi</div>
+        <div class="sidebar-item" id="sb-hour" onclick="goSection('hour')">Lượt xem theo thời gian</div>
+        <div class="sidebar-item" id="sb-signup" onclick="goSection('signup')">Trạng thái đăng ký/hủy đăng ký</div>
+        <div class="sidebar-item" id="sb-post-status" onclick="goSection('post-status')">Trạng thái bài viết/bình luận</div>
+        <div class="sidebar-item" id="sb-cat-analyze" onclick="goSection('cat-analyze')">Phân tích danh mục</div>
+
+        <div class="sidebar-label">Xếp hạng</div>
+        <div class="sidebar-item" id="sb-rank-post" onclick="goSection('rank-post')">Xếp hạng bài viết</div>
+        <div class="sidebar-item" id="sb-rank-forum" onclick="goSection('rank-forum')">Xếp hạng diễn đàn</div>
+        <div class="sidebar-item" id="sb-rank-member" onclick="goSection('rank-member')">Xếp hạng thành viên</div>
+        <div class="sidebar-item" id="sb-rank-video" onclick="goSection('rank-video')">Xếp hạng video</div>
+        <div class="sidebar-item" id="sb-rank-keyword" onclick="goSection('rank-keyword')">Xếp hạng từ khóa tìm kiếm</div>
+
+        <div class="sidebar-label">Phân tích tỉ lệ rời bỏ</div>
+        <div class="sidebar-item" id="sb-bounce-rank" onclick="goSection('bounce-rank')">Xếp hạng tỉ lệ rời bỏ</div>
+        <div class="sidebar-item" id="sb-bounce-best" onclick="goSection('bounce-best')">Tỉ lệ rời bỏ của từ khóa Best</div>
+      </aside>
+
+      <main class="main">
+        <!-- ====== HEADER FILTER (shared across pages) ====== -->
+        <div class="card">
+          <div class="card-body">
+            <div class="filter-bar">
+              <span class="filter-label">Theo thời gian:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate(-1)">‹</button>
+                <span class="date-display" id="main-date">23-06-2025 ~ 30-06-2025</span>
+                <button class="date-nav" onclick="shiftDate(1)">›</button>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn">Ngày</button>
+                <button class="tf-btn active">Tuần</button>
+                <button class="tf-btn">Tháng</button>
+                <button class="tf-btn">Năm</button>
+                <button class="tf-btn">Tất cả</button>
+                <button class="tf-btn">Tự chọn</button>
+              </div>
+              <button class="btn btn-outline-primary btn-sm" style="margin-left:auto" onclick="alert('Xuất báo cáo .xlsx (mock).')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Xuất báo cáo
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== OVERVIEW STAT BOXES (shared) ====== -->
+        <div class="stat-grid">
+          <div class="stat-box" onclick="goSection('views')">
+            <div class="stat-label">Lượt xem</div>
+            <div class="stat-value">888</div>
+            <span class="stat-delta up">↑ +10%</span>
+          </div>
+          <div class="stat-box" onclick="goSection('rank-post')">
+            <div class="stat-label">Số bài viết</div>
+            <div class="stat-value">686</div>
+            <span class="stat-delta up">↑ +9%</span>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Số bình luận</div>
+            <div class="stat-value">86</div>
+            <span class="stat-delta up">↑ +2%</span>
+          </div>
+          <div class="stat-box" onclick="goSection('video')">
+            <div class="stat-label">Số lần phát video</div>
+            <div class="stat-value">123</div>
+            <span class="stat-delta down">↓ -7%</span>
+          </div>
+          <div class="stat-box" onclick="goSection('avg-time')">
+            <div class="stat-label">Thời gian sử dụng trung bình</div>
+            <div class="stat-value">2m10s</div>
+            <span class="stat-delta up">↑ +12%</span>
+          </div>
+          <div class="stat-box" onclick="goSection('signup')">
+            <div class="stat-label">Số lượng thành viên</div>
+            <div class="stat-value">666</div>
+            <span class="stat-delta up">↑ +5%</span>
+          </div>
+          <div class="stat-box" onclick="goSection('bounce-rank')">
+            <div class="stat-label">Số thành viên rời bỏ</div>
+            <div class="stat-value">79</div>
+            <span class="stat-delta down">↓ -7%</span>
+          </div>
+        </div>
+
+        <!-- ====== 13.1.1 TỔNG QUAN ====== -->
+        <section class="page active" id="page-overview">
+          <div class="page-title">• Thống kê — Tổng quan</div>
+
+          <div class="sub-tabs">
+            <div class="sub-tab active" onclick="goSection('retention')">Tỉ lệ quay lại</div>
+            <div class="sub-tab" onclick="goSection('rank-views')">Xếp hạng lượt xem bài viết</div>
+            <div class="sub-tab" onclick="goSection('video')">Phân tích video</div>
+          </div>
+
+          <div class="chart-wrap">
+            <div class="chart-title">Tổng quan hoạt động hệ thống (Tháng 06)</div>
+            <div class="chart-box" id="chart-overview"></div>
+            <div class="legend-row">
+              <span class="legend-item"><span class="legend-dot" style="background:var(--primary)"></span>Lượt xem</span>
+              <span class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Bài viết</span>
+              <span class="legend-item"><span class="legend-dot" style="background:var(--success)"></span>Thành viên mới</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== 13.1.2 TỈ LỆ QUAY LẠI ====== -->
+        <section class="page" id="page-retention">
+          <div class="page-title">• Tỉ lệ quay lại</div>
+          <div class="sub-tabs">
+            <div class="sub-tab active">Tỉ lệ quay lại</div>
+            <div class="sub-tab" onclick="goSection('rank-views')">Xếp hạng lượt xem bài viết</div>
+            <div class="sub-tab" onclick="goSection('video')">Phân tích video</div>
+          </div>
+
+          <div class="chart-wrap">
+            <div class="chart-title">Tỉ lệ quay lại: <strong style="color:var(--success)">82% (+12%)</strong></div>
+            <div class="chart-box" id="chart-retention"></div>
+          </div>
+
+          <div class="card-head"><div class="card-title">Chi tiết theo ngày</div><div class="select-dropdown"><select><option>Toàn bộ thành viên</option><option>Theo cấp bậc</option></select></div></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Ngày tháng</th><th>Tỉ lệ quay lại</th><th>Số người quay lại</th><th>So sánh</th></tr></thead>
+              <tbody>
+                <tr><td>30-06-2025</td><td><strong style="color:var(--success)">82%</strong></td><td>98</td><td><span class="stat-delta up">↑ +2% (+10)</span></td></tr>
+                <tr><td>29-06-2025</td><td>80%</td><td>88</td><td><span class="stat-delta down">↓ -4% (-6)</span></td></tr>
+                <tr><td>28-06-2025</td><td>84%</td><td>94</td><td><span class="stat-delta up">↑ +4%</span></td></tr>
+                <tr><td>27-06-2025</td><td>80%</td><td>88</td><td><span class="stat-delta down">↓ -2%</span></td></tr>
+                <tr><td>26-06-2025</td><td>82%</td><td>91</td><td><span class="stat-delta up">↑ +1%</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination"><button class="pg-btn">‹</button><button class="pg-btn active">1</button><button class="pg-btn">2</button><button class="pg-btn">3</button><button class="pg-btn">4</button><button class="pg-btn">›</button></div>
+        </section>
+
+        <!-- ====== 13.1.3 XẾP HẠNG LƯỢT XEM BÀI VIẾT ====== -->
+        <section class="page" id="page-rank-views">
+          <div class="page-title">• Xếp hạng lượt xem bài viết</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('retention')">Tỉ lệ quay lại</div>
+            <div class="sub-tab active">Xếp hạng lượt xem bài viết</div>
+            <div class="sub-tab" onclick="goSection('video')">Phân tích video</div>
+          </div>
+
+          <div class="grade-chips">
+            <span class="grade-chip active">Toàn bộ thành viên thực</span>
+            <span class="grade-chip">Lv.1</span>
+            <span class="grade-chip">Lv.2</span>
+            <span class="grade-chip">Lv.3</span>
+            <span class="grade-chip">Lv.4</span>
+            <span class="grade-chip">Lv.5</span>
+            <span class="grade-chip expert">Chuyên gia</span>
+            <span class="grade-chip kol">Toàn bộ thành viên ảo</span>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>STT</th><th class="td-left">Tiêu đề</th><th>Tên chuyên mục</th><th>Tên danh mục</th><th>Người viết</th><th>Ngày đăng</th><th>Lượt xem</th></tr></thead>
+              <tbody id="tbody-rank-views"></tbody>
+            </table>
+          </div>
+          <div class="pagination"><button class="pg-btn">‹</button><button class="pg-btn active">1</button><button class="pg-btn">2</button><button class="pg-btn">3</button><button class="pg-btn">4</button><button class="pg-btn">›</button></div>
+        </section>
+
+        <!-- ====== 13.1.4 PHÂN TÍCH VIDEO ====== -->
+        <section class="page" id="page-video">
+          <div class="page-title">• Phân tích video</div>
+          <div class="sub-tabs">
+            <div class="sub-tab active" data-tab="play">1. Phát lại</div>
+            <div class="sub-tab" data-tab="gender">2. Phân bố theo giới tính & tuổi</div>
+          </div>
+
+          <div class="chart-wrap">
+            <div class="chart-title">Xếp hạng số lần phát video</div>
+            <div class="chart-box" id="chart-video"></div>
+            <div class="legend-row">
+              <span class="legend-item"><span class="legend-dot" style="background:var(--primary)"></span>Số lượt phát</span>
+              <span class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Tổng thời gian phát</span>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Xếp hạng</th><th class="td-left">Tiêu đề</th><th>Số lượt xem video</th><th>Trung bình thời gian phát</th><th>Lượt xem bài viết</th></tr></thead>
+              <tbody>
+                <tr><td><span class="rank-badge gold">1</span></td><td class="td-left">Giới thiệu một sản phẩm mới</td><td>1,123</td><td>14s</td><td>976</td></tr>
+                <tr><td><span class="rank-badge silver">2</span></td><td class="td-left">Trang điểm ngày nay</td><td>789</td><td>17s</td><td>867</td></tr>
+                <tr><td><span class="rank-badge bronze">3</span></td><td class="td-left">Skincare buổi tối đúng cách</td><td>654</td><td>22s</td><td>720</td></tr>
+                <tr><td><span class="rank-badge">4</span></td><td class="td-left">Review serum X</td><td>478</td><td>11s</td><td>592</td></tr>
+                <tr><td><span class="rank-badge">5</span></td><td class="td-left">Tutorial makeup 5 phút</td><td>432</td><td>26s</td><td>563</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ====== 13.2.1 LƯỢT XEM ====== -->
+        <section class="page" id="page-views">
+          <div class="page-title">• Phân tích lượt truy cập — Lượt xem</div>
+          <div class="sub-tabs">
+            <div class="sub-tab active" onclick="goSection('views')">Lượt xem</div>
+            <div class="sub-tab" onclick="goSection('unique')">Khách duy nhất</div>
+            <div class="sub-tab" onclick="goSection('visits')">Lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-visits')">TB lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-time')">TB thời gian</div>
+            <div class="sub-tab" onclick="goSection('revisit')">Lượt truy cập lại</div>
+          </div>
+
+          <div class="info-box">Phân loại: <strong>Toàn bộ ứng dụng</strong> | Theo từng Chuyên mục — Click để công bố kết quả theo lựa chọn.</div>
+
+          <div class="grade-chips">
+            <span class="grade-chip active">Tất cả thành viên thực</span>
+            <span class="grade-chip">Lv.1</span><span class="grade-chip">Lv.2</span><span class="grade-chip">Lv.3</span>
+            <span class="grade-chip">Lv.4</span><span class="grade-chip">Lv.5</span>
+            <span class="grade-chip expert">Chuyên gia</span>
+          </div>
+
+          <div class="chart-wrap">
+            <div class="chart-title">Lượt xem theo ngày — Tổng: <strong style="color:var(--primary)">1,200 (+1%)</strong></div>
+            <div class="chart-box" id="chart-views"></div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Ngày tháng</th><th>Tất cả</th><th>Lv.1</th><th>Lv.2</th><th>Lv.3</th><th>Lv.4</th><th>Lv.5</th><th>Chuyên gia</th></tr></thead>
+              <tbody>
+                <tr><td>30-06-2025</td><td><strong>1,200</strong></td><td>220</td><td>320</td><td>240</td><td>170</td><td>100</td><td>150</td></tr>
+                <tr><td>29-06-2025</td><td>1,100</td><td>170</td><td>300</td><td>240</td><td>140</td><td>100</td><td>150</td></tr>
+                <tr><td>28-06-2025</td><td>1,050</td><td>180</td><td>280</td><td>220</td><td>130</td><td>110</td><td>130</td></tr>
+                <tr><td>27-06-2025</td><td>980</td><td>160</td><td>260</td><td>210</td><td>120</td><td>100</td><td>130</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ====== 13.2.2 KHÁCH DUY NHẤT ====== -->
+        <section class="page" id="page-unique">
+          <div class="page-title">• Khách truy cập duy nhất</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('views')">Lượt xem</div>
+            <div class="sub-tab active">Khách duy nhất</div>
+            <div class="sub-tab" onclick="goSection('visits')">Lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-visits')">TB lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-time')">TB thời gian</div>
+            <div class="sub-tab" onclick="goSection('revisit')">Lượt truy cập lại</div>
+          </div>
+          <div class="chart-wrap"><div class="chart-title">Số khách truy cập duy nhất — <strong style="color:var(--primary)">1,200 (+1%)</strong></div><div class="chart-box" id="chart-unique"></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Ngày tháng</th><th>Tất cả</th><th>Lv.1</th><th>Lv.2</th><th>Lv.3</th><th>Lv.4</th><th>Lv.5</th><th>Chuyên gia</th></tr></thead><tbody>
+            <tr><td>30-06-2025</td><td>1,200</td><td>220</td><td>320</td><td>240</td><td>170</td><td>100</td><td>150</td></tr>
+            <tr><td>29-06-2025</td><td>1,100</td><td>170</td><td>300</td><td>240</td><td>140</td><td>100</td><td>150</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <!-- ====== 13.2.3 LƯỢT TRUY CẬP ====== -->
+        <section class="page" id="page-visits">
+          <div class="page-title">• Số lượt truy cập</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('views')">Lượt xem</div>
+            <div class="sub-tab" onclick="goSection('unique')">Khách duy nhất</div>
+            <div class="sub-tab active">Lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-visits')">TB lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-time')">TB thời gian</div>
+            <div class="sub-tab" onclick="goSection('revisit')">Lượt truy cập lại</div>
+          </div>
+          <div class="chart-wrap"><div class="chart-title">Số lượt truy cập — <strong style="color:var(--primary)">1,200 (+1%)</strong></div><div class="chart-box" id="chart-visits"></div></div>
+        </section>
+
+        <!-- ====== 13.2.4 LƯỢT TRUY CẬP TB ====== -->
+        <section class="page" id="page-avg-visits">
+          <div class="page-title">• Số lượt truy cập trung bình</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('views')">Lượt xem</div>
+            <div class="sub-tab" onclick="goSection('unique')">Khách duy nhất</div>
+            <div class="sub-tab" onclick="goSection('visits')">Lượt truy cập</div>
+            <div class="sub-tab active">TB lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-time')">TB thời gian</div>
+            <div class="sub-tab" onclick="goSection('revisit')">Lượt truy cập lại</div>
+          </div>
+          <div class="chart-wrap"><div class="chart-title">Số lượt truy cập trung bình: <strong style="color:var(--primary)">4.3 (+1%)</strong></div><div class="chart-box" id="chart-avg-visits"></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Ngày tháng</th><th>Tất cả</th><th>Lv.1</th><th>Lv.2</th><th>Lv.3</th><th>Lv.4</th><th>Lv.5</th><th>Chuyên gia</th></tr></thead><tbody>
+            <tr><td>30-06-2025</td><td>4.3</td><td>2.8</td><td>3.2</td><td>3.3</td><td>4.9</td><td>2.8</td><td>5.6</td></tr>
+            <tr><td>29-06-2025</td><td>4.1</td><td>2.2</td><td>3.1</td><td>3.1</td><td>4.3</td><td>2.7</td><td>5.3</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <!-- ====== 13.2.5 THỜI GIAN TRUY CẬP TB ====== -->
+        <section class="page" id="page-avg-time">
+          <div class="page-title">• Thời gian truy cập trung bình</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('views')">Lượt xem</div>
+            <div class="sub-tab" onclick="goSection('unique')">Khách duy nhất</div>
+            <div class="sub-tab" onclick="goSection('visits')">Lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-visits')">TB lượt truy cập</div>
+            <div class="sub-tab active">TB thời gian</div>
+            <div class="sub-tab" onclick="goSection('revisit')">Lượt truy cập lại</div>
+          </div>
+          <div class="chart-wrap"><div class="chart-title">Thời gian truy cập trung bình: <strong style="color:var(--primary)">10m19s (+1%)</strong></div><div class="chart-box" id="chart-avg-time"></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Ngày tháng</th><th>Tất cả</th><th>Lv.1</th><th>Lv.2</th><th>Lv.3</th><th>Lv.4</th><th>Lv.5</th><th>Chuyên gia</th></tr></thead><tbody>
+            <tr><td>30-06-2025</td><td>10m19s</td><td>8m8s</td><td>7m7s</td><td>6m7s</td><td>8m8s</td><td>9m8s</td><td>9m9s</td></tr>
+            <tr><td>29-06-2025</td><td>10m19s</td><td>8m8s</td><td>7m7s</td><td>6m7s</td><td>8m8s</td><td>9m8s</td><td>9m9s</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <!-- ====== 13.2.6 LƯỢT TRUY CẬP LẠI ====== -->
+        <section class="page" id="page-revisit">
+          <div class="page-title">• Phân tích tỉ lệ quay lại (lượt truy cập lại)</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('views')">Lượt xem</div>
+            <div class="sub-tab" onclick="goSection('unique')">Khách duy nhất</div>
+            <div class="sub-tab" onclick="goSection('visits')">Lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-visits')">TB lượt truy cập</div>
+            <div class="sub-tab" onclick="goSection('avg-time')">TB thời gian</div>
+            <div class="sub-tab active">Lượt truy cập lại</div>
+          </div>
+          <div class="chart-wrap"><div class="chart-title">Tỉ lệ quay lại: <strong style="color:var(--success)">78% (+10%)</strong></div><div class="chart-box" id="chart-revisit"></div></div>
+          <div class="info-box">
+            <span class="help-link" onclick="alert('Hiển thị giải thích chi tiết về thống kê tỉ lệ quay lại.')">Xem giải thích về số liệu thống kê tỉ lệ quay lại</span>
+          </div>
+          <div class="table-wrap"><table><thead>
+            <tr><th rowspan="2">Ngày</th><th colspan="2">Tất cả thành viên</th><th colspan="2">Lv.1</th><th colspan="2">Lv.2</th><th colspan="2">Lv.3</th><th colspan="2">Lv.4</th><th colspan="2">Lv.5</th><th colspan="2">Chuyên gia</th></tr>
+            <tr><th>Tỉ lệ quay lại</th><th>Khách quay lại</th><th>Tỉ lệ</th><th>Khách</th><th>Tỉ lệ</th><th>Khách</th><th>Tỉ lệ</th><th>Khách</th><th>Tỉ lệ</th><th>Khách</th><th>Tỉ lệ</th><th>Khách</th><th>Tỉ lệ</th><th>Khách</th></tr>
+          </thead><tbody>
+            <tr><td>30-06-2025</td><td>82%</td><td>98</td><td>78%</td><td>25</td><td>72%</td><td>17</td><td>87%</td><td>19</td><td>92%</td><td>9</td><td>91%</td><td>29</td><td>99%</td><td>9</td></tr>
+            <tr><td>29-06-2025</td><td>80%</td><td>88</td><td>75%</td><td>22</td><td>66%</td><td>10</td><td>80%</td><td>14</td><td>89%</td><td>15</td><td>90%</td><td>22</td><td>98%</td><td>9</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <!-- ====== 13.3.1 PHÂN BỐ THEO GIỚI TÍNH/TUỔI ====== -->
+        <section class="page" id="page-demo">
+          <div class="page-title">• Phân bố theo giới tính / nhóm tuổi</div>
+          <div class="sub-tabs">
+            <div class="sub-tab active">Phân bố giới tính/tuổi</div>
+            <div class="sub-tab" onclick="goSection('hour')">Lượt xem theo thời gian</div>
+            <div class="sub-tab" onclick="goSection('signup')">Đăng ký/Rời bỏ</div>
+            <div class="sub-tab" onclick="goSection('post-status')">Bài viết/Bình luận</div>
+            <div class="sub-tab" onclick="goSection('cat-analyze')">Phân tích danh mục</div>
+          </div>
+
+          <div class="info-box">Tình trạng thành viên: <strong>1,880 người</strong> (+458) — Phân phối thành viên đã đăng ký theo giới tính & nhóm tuổi.</div>
+
+          <div class="chart-wrap"><div class="chart-title">Phân bố nhóm tuổi & giới tính</div><div class="chart-box" id="chart-demo"></div>
+            <div class="legend-row"><span class="legend-item"><span class="legend-dot" style="background:var(--primary)"></span>Nam</span><span class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Nữ</span><span class="legend-item"><span class="legend-dot" style="background:var(--gray-400)"></span>Khác</span></div>
+          </div>
+
+          <div class="demo-grid" id="demo-grid"></div>
+        </section>
+
+        <!-- ====== 13.3.2 LƯỢT XEM THEO THỜI GIAN ====== -->
+        <section class="page" id="page-hour">
+          <div class="page-title">• Lượt xem theo thời gian (giờ)</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('demo')">Phân bố giới tính/tuổi</div>
+            <div class="sub-tab active">Lượt xem theo thời gian</div>
+            <div class="sub-tab" onclick="goSection('signup')">Đăng ký/Rời bỏ</div>
+            <div class="sub-tab" onclick="goSection('post-status')">Bài viết/Bình luận</div>
+            <div class="sub-tab" onclick="goSection('cat-analyze')">Phân tích danh mục</div>
+          </div>
+          <div class="chart-wrap"><div class="chart-title">Lượt xem theo từng khung giờ trong ngày</div><div class="chart-box" id="chart-hour"></div></div>
+        </section>
+
+        <!-- ====== 13.3.3 ĐĂNG KÝ/HỦY ĐĂNG KÝ ====== -->
+        <section class="page" id="page-signup">
+          <div class="page-title">• Trạng thái đăng ký / Hủy đăng ký (rời bỏ)</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('demo')">Phân bố giới tính/tuổi</div>
+            <div class="sub-tab" onclick="goSection('hour')">Lượt xem theo thời gian</div>
+            <div class="sub-tab active">Đăng ký/Rời bỏ</div>
+            <div class="sub-tab" onclick="goSection('post-status')">Bài viết/Bình luận</div>
+            <div class="sub-tab" onclick="goSection('cat-analyze')">Phân tích danh mục</div>
+          </div>
+          <div class="chart-wrap"><div class="chart-title">Đăng ký mới vs Rời bỏ theo ngày</div><div class="chart-box" id="chart-signup"></div>
+            <div class="legend-row"><span class="legend-item"><span class="legend-dot" style="background:var(--success)"></span>Đăng ký</span><span class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Rời bỏ</span></div>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Ngày</th><th>Đăng ký mới</th><th>Rời bỏ</th><th>Net</th></tr></thead><tbody>
+            <tr><td>30-06-2025</td><td><strong style="color:var(--success)">128</strong></td><td><strong style="color:var(--accent)">12</strong></td><td>+116</td></tr>
+            <tr><td>29-06-2025</td><td>112</td><td>9</td><td>+103</td></tr>
+            <tr><td>28-06-2025</td><td>98</td><td>15</td><td>+83</td></tr>
+            <tr><td>27-06-2025</td><td>104</td><td>10</td><td>+94</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <!-- ====== 13.3.4 BÀI VIẾT/BÌNH LUẬN ====== -->
+        <section class="page" id="page-post-status">
+          <div class="page-title">• Trạng thái bài viết / bình luận</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('demo')">Phân bố giới tính/tuổi</div>
+            <div class="sub-tab" onclick="goSection('hour')">Lượt xem theo thời gian</div>
+            <div class="sub-tab" onclick="goSection('signup')">Đăng ký/Rời bỏ</div>
+            <div class="sub-tab active">Bài viết/Bình luận</div>
+            <div class="sub-tab" onclick="goSection('cat-analyze')">Phân tích danh mục</div>
+          </div>
+          <div class="chart-wrap"><div class="chart-title">Số lượng bài viết & bình luận theo ngày</div><div class="chart-box" id="chart-post-status"></div></div>
+        </section>
+
+        <!-- ====== 13.3.5 PHÂN TÍCH DANH MỤC ====== -->
+        <section class="page" id="page-cat-analyze">
+          <div class="page-title">• Phân tích danh mục</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('demo')">Phân bố giới tính/tuổi</div>
+            <div class="sub-tab" onclick="goSection('hour')">Lượt xem theo thời gian</div>
+            <div class="sub-tab" onclick="goSection('signup')">Đăng ký/Rời bỏ</div>
+            <div class="sub-tab" onclick="goSection('post-status')">Bài viết/Bình luận</div>
+            <div class="sub-tab active">Phân tích danh mục</div>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Tên chuyên mục</th><th>Tên danh mục</th><th>Số bài viết</th><th>Lượt xem</th><th>Số bình luận</th><th>Tỉ trọng</th></tr></thead><tbody>
+            <tr><td class="td-left">Mỹ phẩm</td><td class="td-left">Làn da - Mỹ phẩm</td><td>342</td><td>12,840</td><td>1,124</td><td>28%</td></tr>
+            <tr><td class="td-left">Mỹ phẩm</td><td class="td-left">Tóc - Mỹ phẩm</td><td>218</td><td>8,512</td><td>620</td><td>18%</td></tr>
+            <tr><td class="td-left">Thẩm mỹ</td><td class="td-left">Mặt - Thẩm mỹ</td><td>192</td><td>7,840</td><td>540</td><td>16%</td></tr>
+            <tr><td class="td-left">Thẩm mỹ</td><td class="td-left">Ngực - Thẩm mỹ</td><td>148</td><td>6,200</td><td>312</td><td>12%</td></tr>
+            <tr><td class="td-left">Sức khỏe</td><td class="td-left">Dinh dưỡng - Sức khỏe</td><td>110</td><td>4,300</td><td>220</td><td>9%</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <!-- ====== 13.4 XẾP HẠNG ====== -->
+        <section class="page" id="page-rank-post">
+          <div class="page-title">• Xếp hạng bài viết</div>
+          <div class="sub-tabs">
+            <div class="sub-tab active">Bài viết</div>
+            <div class="sub-tab" onclick="goSection('rank-forum')">Diễn đàn</div>
+            <div class="sub-tab" onclick="goSection('rank-member')">Thành viên</div>
+            <div class="sub-tab" onclick="goSection('rank-video')">Video</div>
+            <div class="sub-tab" onclick="goSection('rank-keyword')">Từ khóa</div>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Xếp hạng</th><th class="td-left">Tiêu đề bài viết</th><th>Tên chuyên mục</th><th>Tên danh mục</th><th>Người viết</th><th>Lượt xem</th><th>Bình luận</th><th>Thích</th></tr></thead><tbody id="tbody-rank-post"></tbody></table></div>
+        </section>
+
+        <section class="page" id="page-rank-forum">
+          <div class="page-title">• Xếp hạng diễn đàn</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('rank-post')">Bài viết</div>
+            <div class="sub-tab active">Diễn đàn</div>
+            <div class="sub-tab" onclick="goSection('rank-member')">Thành viên</div>
+            <div class="sub-tab" onclick="goSection('rank-video')">Video</div>
+            <div class="sub-tab" onclick="goSection('rank-keyword')">Từ khóa</div>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Xếp hạng</th><th class="td-left">Tên diễn đàn</th><th>Số bài viết</th><th>Số bình luận</th><th>Lượt xem</th><th>Số thành viên tham gia</th></tr></thead><tbody>
+            <tr><td><span class="rank-badge gold">1</span></td><td class="td-left">Skincare cộng đồng</td><td>1,242</td><td>4,820</td><td>52,400</td><td>1,820</td></tr>
+            <tr><td><span class="rank-badge silver">2</span></td><td class="td-left">Makeup hàng ngày</td><td>982</td><td>3,640</td><td>38,200</td><td>1,320</td></tr>
+            <tr><td><span class="rank-badge bronze">3</span></td><td class="td-left">Tóc & Phụ kiện</td><td>786</td><td>2,910</td><td>28,400</td><td>980</td></tr>
+            <tr><td><span class="rank-badge">4</span></td><td class="td-left">Thẩm mỹ — chia sẻ kinh nghiệm</td><td>540</td><td>2,120</td><td>21,800</td><td>720</td></tr>
+            <tr><td><span class="rank-badge">5</span></td><td class="td-left">Hỏi đáp bác sĩ</td><td>382</td><td>1,840</td><td>18,200</td><td>620</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <section class="page" id="page-rank-member">
+          <div class="page-title">• Xếp hạng thành viên</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('rank-post')">Bài viết</div>
+            <div class="sub-tab" onclick="goSection('rank-forum')">Diễn đàn</div>
+            <div class="sub-tab active">Thành viên</div>
+            <div class="sub-tab" onclick="goSection('rank-video')">Video</div>
+            <div class="sub-tab" onclick="goSection('rank-keyword')">Từ khóa</div>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Xếp hạng</th><th class="td-left">Thành viên</th><th>Cấp bậc</th><th>Số bài viết</th><th>Lượt xem nhận được</th><th>Lượt thích</th><th>Số bình luận</th></tr></thead><tbody id="tbody-rank-member"></tbody></table></div>
+        </section>
+
+        <section class="page" id="page-rank-video">
+          <div class="page-title">• Xếp hạng video</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('rank-post')">Bài viết</div>
+            <div class="sub-tab" onclick="goSection('rank-forum')">Diễn đàn</div>
+            <div class="sub-tab" onclick="goSection('rank-member')">Thành viên</div>
+            <div class="sub-tab active">Video</div>
+            <div class="sub-tab" onclick="goSection('rank-keyword')">Từ khóa</div>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Xếp hạng</th><th class="td-left">Tiêu đề video</th><th>Tên chuyên mục</th><th>Người đăng</th><th>Số lượt phát</th><th>Trung bình thời gian phát</th></tr></thead><tbody>
+            <tr><td><span class="rank-badge gold">1</span></td><td class="td-left">Giới thiệu một sản phẩm mới</td><td>Mỹ phẩm</td><td>maimai</td><td>2,124</td><td>14s</td></tr>
+            <tr><td><span class="rank-badge silver">2</span></td><td class="td-left">Trang điểm ngày nay</td><td>Mỹ phẩm</td><td>ngocanh</td><td>1,987</td><td>17s</td></tr>
+            <tr><td><span class="rank-badge bronze">3</span></td><td class="td-left">Skincare buổi tối đúng cách</td><td>Mỹ phẩm</td><td>thuylinh</td><td>1,540</td><td>22s</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <section class="page" id="page-rank-keyword">
+          <div class="page-title">• Xếp hạng từ khóa tìm kiếm</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('rank-post')">Bài viết</div>
+            <div class="sub-tab" onclick="goSection('rank-forum')">Diễn đàn</div>
+            <div class="sub-tab" onclick="goSection('rank-member')">Thành viên</div>
+            <div class="sub-tab" onclick="goSection('rank-video')">Video</div>
+            <div class="sub-tab active">Từ khóa</div>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Xếp hạng</th><th class="td-left">Từ khóa</th><th>Số lượt tìm</th><th>Số người tìm duy nhất</th><th>Click-through</th><th>So với tuần trước</th></tr></thead><tbody>
+            <tr><td><span class="rank-badge gold">1</span></td><td class="td-left">serum dưỡng ẩm</td><td>3,420</td><td>2,100</td><td>78%</td><td><span class="stat-delta up">↑ +12%</span></td></tr>
+            <tr><td><span class="rank-badge silver">2</span></td><td class="td-left">trị mụn</td><td>2,840</td><td>1,920</td><td>72%</td><td><span class="stat-delta up">↑ +8%</span></td></tr>
+            <tr><td><span class="rank-badge bronze">3</span></td><td class="td-left">kem chống nắng</td><td>2,380</td><td>1,610</td><td>68%</td><td><span class="stat-delta down">↓ -3%</span></td></tr>
+            <tr><td><span class="rank-badge">4</span></td><td class="td-left">phẫu thuật mũi</td><td>1,920</td><td>1,200</td><td>62%</td><td><span class="stat-delta up">↑ +5%</span></td></tr>
+            <tr><td><span class="rank-badge">5</span></td><td class="td-left">toner trà xanh</td><td>1,680</td><td>1,080</td><td>71%</td><td><span class="stat-delta up">↑ +18%</span></td></tr>
+          </tbody></table></div>
+        </section>
+
+        <!-- ====== 13.5 PHÂN TÍCH TỈ LỆ RỜI BỎ ====== -->
+        <section class="page" id="page-bounce-rank">
+          <div class="page-title">• Xếp hạng tỉ lệ rời bỏ</div>
+          <div class="sub-tabs">
+            <div class="sub-tab active">Xếp hạng tỉ lệ rời bỏ</div>
+            <div class="sub-tab" onclick="goSection('bounce-best')">Tỉ lệ rời bỏ của từ khóa Best</div>
+          </div>
+          <div class="info-box">Phân tích nguyên nhân thành viên rời bỏ — sắp xếp theo tỉ lệ giảm dần.</div>
+          <div class="table-wrap"><table><thead><tr><th>Xếp hạng</th><th class="td-left">Trang/Mục</th><th>Tổng lượt truy cập</th><th>Số rời bỏ</th><th>Tỉ lệ rời bỏ</th><th>So với kỳ trước</th></tr></thead><tbody>
+            <tr><td><span class="rank-badge gold">1</span></td><td class="td-left">Trang đăng ký tài khoản</td><td>4,820</td><td>1,840</td><td><strong style="color:var(--accent)">38.2%</strong></td><td><span class="stat-delta up">↑ +3%</span></td></tr>
+            <tr><td><span class="rank-badge silver">2</span></td><td class="td-left">Trang chi tiết bài viết — Mỹ phẩm</td><td>12,400</td><td>3,560</td><td><strong style="color:var(--accent)">28.7%</strong></td><td><span class="stat-delta down">↓ -2%</span></td></tr>
+            <tr><td><span class="rank-badge bronze">3</span></td><td class="td-left">Trang menu chính</td><td>18,200</td><td>4,820</td><td><strong style="color:var(--accent)">26.5%</strong></td><td><span class="stat-delta up">↑ +1%</span></td></tr>
+            <tr><td><span class="rank-badge">4</span></td><td class="td-left">Trang thanh toán</td><td>2,140</td><td>540</td><td>25.2%</td><td><span class="stat-delta down">↓ -4%</span></td></tr>
+            <tr><td><span class="rank-badge">5</span></td><td class="td-left">Trang hỏi đáp bác sĩ</td><td>3,820</td><td>820</td><td>21.5%</td><td><span class="stat-delta down">↓ -1%</span></td></tr>
+          </tbody></table></div>
+        </section>
+
+        <section class="page" id="page-bounce-best">
+          <div class="page-title">• Tỉ lệ rời bỏ của từ khóa Best</div>
+          <div class="sub-tabs">
+            <div class="sub-tab" onclick="goSection('bounce-rank')">Xếp hạng tỉ lệ rời bỏ</div>
+            <div class="sub-tab active">Tỉ lệ rời bỏ của từ khóa Best</div>
+          </div>
+          <div class="info-box">Phân tích tỉ lệ rời bỏ ngay sau khi nhấp vào các từ khóa được đánh dấu <strong style="color:var(--accent)">Best</strong>.</div>
+          <div class="table-wrap"><table><thead><tr><th>Xếp hạng</th><th class="td-left">Từ khóa Best</th><th>Số lượt click</th><th>Số rời bỏ</th><th>Tỉ lệ rời bỏ</th><th>Thời gian xem TB</th></tr></thead><tbody>
+            <tr><td><span class="rank-badge gold">1</span></td><td class="td-left">#serum-best</td><td>2,840</td><td>820</td><td><strong style="color:var(--accent)">28.9%</strong></td><td>32s</td></tr>
+            <tr><td><span class="rank-badge silver">2</span></td><td class="td-left">#kem-chong-nang-best</td><td>1,920</td><td>520</td><td><strong style="color:var(--accent)">27.1%</strong></td><td>28s</td></tr>
+            <tr><td><span class="rank-badge bronze">3</span></td><td class="td-left">#tri-mun-best</td><td>2,140</td><td>540</td><td><strong style="color:var(--accent)">25.2%</strong></td><td>41s</td></tr>
+            <tr><td><span class="rank-badge">4</span></td><td class="td-left">#toner-best</td><td>1,180</td><td>240</td><td>20.3%</td><td>52s</td></tr>
+            <tr><td><span class="rank-badge">5</span></td><td class="td-left">#duong-am-best</td><td>980</td><td>180</td><td>18.4%</td><td>1m12s</td></tr>
+          </tbody></table></div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      /* ====== DATA ====== */
+      const rankViewsData = [
+        { rank: 1, title: "Thời tiết và làn da: chăm sóc da mùa hè", topic: "Mỹ phẩm", category: "Làn da - Mỹ phẩm", writer: "vyvy123", date: "06-06-2025", views: 988 },
+        { rank: 2, title: "Giúp em với! Mụn lưng nặng quá", topic: "Hỏi đáp", category: "Da liễu - Hỏi đáp", writer: "thanh678", date: "05-06-2025", views: 942 },
+        { rank: 3, title: "Top 5 serum dưỡng ẩm tốt nhất 2025", topic: "Mỹ phẩm", category: "Làn da - Mỹ phẩm", writer: "ngocanh", date: "04-06-2025", views: 876 },
+        { rank: 4, title: "Review phẫu thuật mũi tại BV X", topic: "Thẩm mỹ", category: "Mặt - Thẩm mỹ", writer: "minhthu", date: "03-06-2025", views: 821 },
+        { rank: 5, title: "Skincare buổi sáng đúng cách", topic: "Mỹ phẩm", category: "Làn da - Mỹ phẩm", writer: "maimai", date: "02-06-2025", views: 786 },
+        { rank: 6, title: "Tóc khô xơ và cách phục hồi", topic: "Mỹ phẩm", category: "Tóc - Mỹ phẩm", writer: "lanh_anh", date: "01-06-2025", views: 720 },
+        { rank: 7, title: "Câu chuyện giảm cân của tôi", topic: "Sức khỏe", category: "Dinh dưỡng - Sức khỏe", writer: "haiminh", date: "31-05-2025", views: 698 },
+      ];
+
+      const rankPostData = [
+        { rank: 1, title: "Thời tiết và làn da: chăm sóc da mùa hè", topic: "Mỹ phẩm", category: "Làn da - Mỹ phẩm", writer: "vyvy123", views: 988, comments: 142, likes: 320 },
+        { rank: 2, title: "Top 5 serum dưỡng ẩm tốt nhất 2025", topic: "Mỹ phẩm", category: "Làn da - Mỹ phẩm", writer: "ngocanh", views: 876, comments: 98, likes: 280 },
+        { rank: 3, title: "Review phẫu thuật mũi tại BV X", topic: "Thẩm mỹ", category: "Mặt - Thẩm mỹ", writer: "minhthu", views: 821, comments: 124, likes: 245 },
+        { rank: 4, title: "Skincare buổi sáng đúng cách", topic: "Mỹ phẩm", category: "Làn da - Mỹ phẩm", writer: "maimai", views: 786, comments: 86, likes: 230 },
+        { rank: 5, title: "Tóc khô xơ và cách phục hồi", topic: "Mỹ phẩm", category: "Tóc - Mỹ phẩm", writer: "lanh_anh", views: 720, comments: 64, likes: 198 },
+      ];
+
+      const rankMemberData = [
+        { rank: 1, name: "maimai", grade: "Lv.5", posts: 124, viewsRecv: 12420, likes: 4820, comments: 942 },
+        { rank: 2, name: "ngocanh", grade: "Lv.5", posts: 98, viewsRecv: 9840, likes: 3720, comments: 780 },
+        { rank: 3, name: "minhthu", grade: "KOL", posts: 86, viewsRecv: 8420, likes: 3210, comments: 642 },
+        { rank: 4, name: "doctor_an", grade: "Chuyên gia", posts: 72, viewsRecv: 7240, likes: 2840, comments: 540 },
+        { rank: 5, name: "lanh_anh", grade: "Lv.4", posts: 64, viewsRecv: 6420, likes: 2480, comments: 482 },
+      ];
+
+      const demoData = [
+        { age: "13-18", male: 7820, female: 17623, others: 89, pct: "43.7%" },
+        { age: "19-24", male: 8120, female: 18551, others: 119, pct: "46.3%" },
+        { age: "25-29", male: 4820, female: 10100, others: 79, pct: "10%" },
+        { age: "30-34", male: 240, female: 671, others: 89, pct: "1.9%" },
+        { age: "35-39", male: 320, female: 1693, others: 119, pct: "4.7%" },
+        { age: "40-44", male: 180, female: 432, others: 79, pct: "1.1%" },
+        { age: "45-49", male: 84, female: 89, others: 12, pct: "0.2%" },
+        { age: "50-54", male: 72, female: 119, others: 15, pct: "0.3%" },
+        { age: "60+", male: 48, female: 79, others: 8, pct: "0.1%" },
+      ];
+
+      function rankBadge(r) {
+        if (r === 1) return `<span class="rank-badge gold">${r}</span>`;
+        if (r === 2) return `<span class="rank-badge silver">${r}</span>`;
+        if (r === 3) return `<span class="rank-badge bronze">${r}</span>`;
+        return `<span class="rank-badge">${r}</span>`;
+      }
+      function fmt(n) { return Number(n).toLocaleString("vi-VN"); }
+
+      function renderRankViews() {
+        document.getElementById("tbody-rank-views").innerHTML = rankViewsData.map((r) => `
+          <tr>
+            <td>${r.rank}</td>
+            <td class="td-left"><strong>${r.title}</strong></td>
+            <td>${r.topic}</td>
+            <td>${r.category}</td>
+            <td>${r.writer}</td>
+            <td>${r.date}</td>
+            <td><strong style="color:var(--primary)">${fmt(r.views)}</strong></td>
+          </tr>
+        `).join("");
+      }
+      function renderRankPost() {
+        document.getElementById("tbody-rank-post").innerHTML = rankPostData.map((r) => `
+          <tr>
+            <td>${rankBadge(r.rank)}</td>
+            <td class="td-left"><strong>${r.title}</strong></td>
+            <td>${r.topic}</td>
+            <td>${r.category}</td>
+            <td>${r.writer}</td>
+            <td><strong style="color:var(--primary)">${fmt(r.views)}</strong></td>
+            <td>${fmt(r.comments)}</td>
+            <td>${fmt(r.likes)}</td>
+          </tr>
+        `).join("");
+      }
+      function renderRankMember() {
+        document.getElementById("tbody-rank-member").innerHTML = rankMemberData.map((r) => {
+          const cls = r.grade === "KOL" ? "kol" : (r.grade.includes("Chuyên gia") ? "expert" : "");
+          return `<tr>
+            <td>${rankBadge(r.rank)}</td>
+            <td class="td-left"><strong>${r.name}</strong></td>
+            <td><span class="grade-chip ${cls}">${r.grade}</span></td>
+            <td>${fmt(r.posts)}</td>
+            <td><strong style="color:var(--primary)">${fmt(r.viewsRecv)}</strong></td>
+            <td>${fmt(r.likes)}</td>
+            <td>${fmt(r.comments)}</td>
+          </tr>`;
+        }).join("");
+      }
+      function renderDemo() {
+        document.getElementById("demo-grid").innerHTML = demoData.map((d) => `
+          <div class="demo-card">
+            <div class="demo-age">Nhóm tuổi: ${d.age}</div>
+            <div class="demo-row">Nam: <span class="pct">${fmt(d.male)}</span></div>
+            <div class="demo-row">Nữ: <span class="pct">${fmt(d.female)}</span></div>
+            <div class="demo-row">Khác: <span class="pct">${fmt(d.others)}</span></div>
+            <div class="demo-row" style="border-top:1px solid var(--gray-200);margin-top:5px;padding-top:5px"><strong>Tỉ lệ:</strong> <span class="pct">${d.pct}</span></div>
+          </div>
+        `).join("");
+      }
+
+      /* ====== CHART RENDER (simple SVG) ====== */
+      function lineChart(boxId, series, opts = {}) {
+        const box = document.getElementById(boxId);
+        if (!box) return;
+        const W = 800, H = 200, PAD = 28;
+        const all = series.flatMap((s) => s.data);
+        const maxY = Math.max(...all) * 1.15 || 1;
+        const minY = 0;
+        const points = (data) => data.map((v, i) => {
+          const x = PAD + (i / (data.length - 1)) * (W - PAD * 2);
+          const y = H - PAD - ((v - minY) / (maxY - minY)) * (H - PAD * 2);
+          return `${x.toFixed(1)},${y.toFixed(1)}`;
+        }).join(" ");
+
+        const xLabels = opts.labels || series[0].data.map((_, i) => i + 1);
+        const yTicks = 4;
+        let yGrid = "";
+        for (let i = 0; i <= yTicks; i++) {
+          const y = PAD + (i / yTicks) * (H - PAD * 2);
+          const val = Math.round(maxY - (i / yTicks) * (maxY - minY));
+          yGrid += `<line x1="${PAD}" y1="${y}" x2="${W - PAD}" y2="${y}" stroke="#e2dff0" stroke-width="1" stroke-dasharray="2 4"/>`;
+          yGrid += `<text x="${PAD - 4}" y="${y + 3}" font-size="9" fill="#9b93bf" text-anchor="end">${val}</text>`;
+        }
+        let xLabelsSVG = "";
+        xLabels.forEach((lbl, i) => {
+          const x = PAD + (i / (xLabels.length - 1)) * (W - PAD * 2);
+          xLabelsSVG += `<text x="${x}" y="${H - 6}" font-size="9" fill="#9b93bf" text-anchor="middle">${lbl}</text>`;
+        });
+
+        const colors = ["#6c3fc5", "#e8436a", "#16a34a", "#f59e0b"];
+        const lines = series.map((s, i) => {
+          const c = s.color || colors[i] || "#6c3fc5";
+          const pts = points(s.data);
+          return `<polyline points="${pts}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>` +
+                 s.data.map((v, j) => {
+                   const x = PAD + (j / (s.data.length - 1)) * (W - PAD * 2);
+                   const y = H - PAD - ((v - minY) / (maxY - minY)) * (H - PAD * 2);
+                   return `<circle cx="${x}" cy="${y}" r="3" fill="${c}"/>`;
+                 }).join("");
+        }).join("");
+
+        box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${yGrid}${xLabelsSVG}${lines}</svg>`;
+      }
+
+      function barChart(boxId, labels, data, color = "#6c3fc5") {
+        const box = document.getElementById(boxId);
+        if (!box) return;
+        const W = 800, H = 200, PAD = 28;
+        const maxY = Math.max(...data) * 1.15 || 1;
+        const bw = (W - PAD * 2) / data.length * 0.6;
+        let bars = "";
+        data.forEach((v, i) => {
+          const x = PAD + (i / data.length) * (W - PAD * 2) + ((W - PAD * 2) / data.length - bw) / 2;
+          const h = (v / maxY) * (H - PAD * 2);
+          const y = H - PAD - h;
+          bars += `<rect x="${x}" y="${y}" width="${bw}" height="${h}" fill="${color}" rx="3"/>`;
+          bars += `<text x="${x + bw / 2}" y="${H - 6}" font-size="9" fill="#9b93bf" text-anchor="middle">${labels[i]}</text>`;
+        });
+        box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${bars}</svg>`;
+      }
+
+      function stackChart(boxId, labels, male, female, others) {
+        const box = document.getElementById(boxId);
+        if (!box) return;
+        const W = 800, H = 200, PAD = 28;
+        const totals = labels.map((_, i) => male[i] + female[i] + others[i]);
+        const maxY = Math.max(...totals) * 1.15 || 1;
+        const bw = (W - PAD * 2) / labels.length * 0.55;
+        let bars = "";
+        labels.forEach((lbl, i) => {
+          const x = PAD + (i / labels.length) * (W - PAD * 2) + ((W - PAD * 2) / labels.length - bw) / 2;
+          const yBase = H - PAD;
+          const mH = (male[i] / maxY) * (H - PAD * 2);
+          const fH = (female[i] / maxY) * (H - PAD * 2);
+          const oH = (others[i] / maxY) * (H - PAD * 2);
+          bars += `<rect x="${x}" y="${yBase - mH}" width="${bw}" height="${mH}" fill="#6c3fc5"/>`;
+          bars += `<rect x="${x}" y="${yBase - mH - fH}" width="${bw}" height="${fH}" fill="#e8436a"/>`;
+          bars += `<rect x="${x}" y="${yBase - mH - fH - oH}" width="${bw}" height="${oH}" fill="#9b93bf"/>`;
+          bars += `<text x="${x + bw / 2}" y="${H - 6}" font-size="9" fill="#9b93bf" text-anchor="middle">${lbl}</text>`;
+        });
+        box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${bars}</svg>`;
+      }
+
+      /* ====== NAV ====== */
+      function goSection(section) {
+        document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
+        document.querySelectorAll(".sidebar-item").forEach((s) => s.classList.remove("active"));
+        const pg = document.getElementById(`page-${section}`);
+        const sb = document.getElementById(`sb-${section}`);
+        if (pg) pg.classList.add("active");
+        if (sb) sb.classList.add("active");
+        window.scrollTo(0, 0);
+      }
+      function shiftDate(dir) {
+        const el = document.getElementById("main-date");
+        el.style.color = "var(--accent)";
+        setTimeout(() => (el.style.color = ""), 250);
+      }
+
+      /* ====== INIT ====== */
+      const labels = ["17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"];
+
+      renderRankViews();
+      renderRankPost();
+      renderRankMember();
+      renderDemo();
+
+      lineChart("chart-overview", [
+        { data: [820, 890, 910, 870, 920, 950, 980, 1020, 1060, 1100, 1080, 1120, 1180, 1200] },
+        { data: [580, 620, 640, 600, 660, 680, 700, 720, 740, 760, 750, 780, 820, 840] },
+        { data: [80, 90, 110, 100, 120, 130, 128, 140, 138, 150, 148, 160, 158, 170] },
+      ], { labels });
+
+      lineChart("chart-retention", [
+        { data: [78, 76, 80, 82, 79, 81, 83, 80, 82, 84, 81, 83, 82, 82], color: "#16a34a" },
+      ], { labels });
+
+      barChart("chart-video", labels, [80, 92, 105, 88, 120, 132, 145, 138, 152, 165, 158, 178, 185, 188]);
+      barChart("chart-views", labels, [820, 890, 910, 870, 920, 950, 980, 1020, 1060, 1100, 1080, 1120, 1180, 1200]);
+      barChart("chart-unique", labels, [580, 620, 640, 600, 660, 680, 700, 720, 740, 760, 750, 780, 820, 840]);
+      barChart("chart-visits", labels, [620, 660, 680, 640, 700, 720, 740, 760, 780, 800, 790, 820, 860, 880]);
+      lineChart("chart-avg-visits", [{ data: [3.8, 3.9, 4.0, 4.0, 4.1, 4.0, 4.1, 4.2, 4.2, 4.2, 4.1, 4.3, 4.3, 4.3] }], { labels });
+      lineChart("chart-avg-time", [{ data: [580, 595, 605, 598, 610, 615, 620, 615, 618, 619, 622, 619, 619, 619] }], { labels });
+      lineChart("chart-revisit", [{ data: [70, 72, 74, 73, 75, 76, 78, 77, 78, 80, 79, 80, 80, 78], color: "#16a34a" }], { labels });
+      lineChart("chart-hour", [{ data: [40, 60, 80, 100, 180, 280, 320, 380, 420, 480, 460, 380, 320, 280] }], { labels: ["00h", "02h", "04h", "06h", "08h", "10h", "12h", "14h", "16h", "18h", "20h", "21h", "22h", "23h"] });
+      lineChart("chart-post-status", [
+        { data: [420, 450, 480, 460, 490, 510, 520, 540, 560, 580, 570, 600, 620, 686] },
+        { data: [42, 48, 50, 46, 52, 55, 58, 60, 64, 68, 65, 72, 78, 86], color: "#e8436a" },
+      ], { labels });
+      lineChart("chart-signup", [
+        { data: [82, 94, 88, 102, 110, 118, 124, 116, 122, 130, 124, 132, 138, 128], color: "#16a34a" },
+        { data: [12, 14, 11, 16, 13, 14, 12, 15, 11, 13, 10, 14, 12, 12], color: "#e8436a" },
+      ], { labels });
+
+      stackChart("chart-demo",
+        ["13-18", "19-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "60+"],
+        [7820, 8120, 4820, 240, 320, 180, 84, 72, 48],
+        [17623, 18551, 10100, 671, 1693, 432, 89, 119, 79],
+        [89, 119, 79, 89, 119, 79, 12, 15, 8]
+      );
+    </script>
+  </body>
+</html>

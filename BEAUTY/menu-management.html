@@ -1,0 +1,3263 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Menu - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --success: #16a34a;
+        --success-light: #dcfce7;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --radius-sm: 6px;
+        --sidebar-w: 210px;
+        --header-h: 60px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+
+      /* ====== HEADER ====== */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        min-height: 60px;
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+            .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .nav-dropdown a.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+.nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+      }
+      .header-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 11px;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-user-name {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      .header-user-role {
+        font-size: 10.5px;
+        opacity: 0.8;
+        line-height: 1.2;
+      }
+
+      /* ====== SIDEBAR ====== */
+      .sidebar {
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        width: var(--sidebar-w);
+        background: white;
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 0;
+        overflow-y: auto;
+        z-index: 50;
+      }
+      .sidebar-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gray-500);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        padding: 0 16px 8px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 16px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--gray-700);
+        cursor: pointer;
+        border-left: 3px solid transparent;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-50);
+        color: var(--primary);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+        border-left-color: var(--primary);
+      }
+      .sidebar-item svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* ====== MAIN ====== */
+      .main {
+        margin-left: var(--sidebar-w);
+        margin-top: var(--header-h);
+        padding: 20px;
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .page-title::before {
+        content: "•";
+        color: var(--primary);
+        font-size: 18px;
+      }
+
+      /* ====== CARD ====== */
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        display: flex;
+        flex-direction: column;
+        min-height: 520px;
+      }
+      .card-head {
+        padding: 12px 14px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--gray-900);
+        text-align: center;
+        border-bottom: 1px solid var(--gray-200);
+        background: var(--gray-50);
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+      }
+      .card-body {
+        padding: 12px 14px;
+        flex: 1;
+        overflow-y: auto;
+      }
+      .card-footer {
+        display: flex;
+        gap: 8px;
+        padding: 12px 14px;
+        border-top: 1px solid var(--gray-200);
+        background: var(--gray-50);
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+        justify-content: flex-end;
+      }
+
+      /* ====== LAYOUTS ====== */
+      .three-col-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+      }
+      .two-col-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      /* ====== CAT LIST ====== */
+      .cat-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .cat-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        font-size: 12.5px;
+        color: var(--gray-700);
+        background: white;
+        border: 1px solid var(--gray-200);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .cat-item:hover {
+        background: var(--gray-50);
+        border-color: var(--primary-mid);
+      }
+      .cat-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+        border-color: var(--primary);
+      }
+      .cat-item .cat-arrow {
+        font-size: 14px;
+        color: var(--gray-400);
+      }
+      .cat-item.active .cat-arrow {
+        color: var(--primary);
+      }
+      .cat-item-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+      }
+      .cat-item-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .drag-handle {
+        color: var(--gray-400);
+        cursor: grab;
+        font-size: 14px;
+        line-height: 1;
+        user-select: none;
+      }
+      .cat-item.dragging {
+        opacity: 0.4;
+      }
+      .cat-item.drag-over {
+        border-top: 2px solid var(--primary);
+      }
+
+      /* ====== EMPTY STATE ====== */
+      .cat-empty {
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-500);
+        padding: 30px 10px;
+        font-style: italic;
+      }
+
+      /* ====== HINT BOX ====== */
+      .hint-box {
+        margin-top: 12px;
+        border: 1px dashed var(--gray-300);
+        border-radius: 8px;
+        padding: 10px 12px;
+        background: var(--gray-50);
+        color: var(--gray-500);
+        font-size: 11.5px;
+        line-height: 1.6;
+      }
+      .hint-box p + p {
+        margin-top: 4px;
+      }
+
+      /* ====== BUTTONS ====== */
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-primary:hover {
+        filter: brightness(1.05);
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-ghost:hover {
+        background: var(--gray-200);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
+
+      /* ====== FORM ====== */
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .form-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .form-label .req {
+        color: var(--accent);
+      }
+      .form-input {
+        padding: 8px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        outline: none;
+        color: var(--gray-700);
+        background: white;
+      }
+      .form-input:focus {
+        border-color: var(--primary);
+      }
+      textarea.form-input {
+        resize: vertical;
+        line-height: 1.5;
+        min-height: 80px;
+      }
+
+      /* ====== TOGGLE SWITCH ====== */
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 22px;
+        flex-shrink: 0;
+      }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        inset: 0;
+        background: var(--gray-300);
+        border-radius: 999px;
+        transition: 0.2s;
+      }
+      .toggle-slider::before {
+        content: "";
+        position: absolute;
+        height: 16px;
+        width: 16px;
+        left: 3px;
+        top: 3px;
+        background: white;
+        border-radius: 50%;
+        transition: 0.2s;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+      }
+      .toggle-switch input:checked + .toggle-slider {
+        background: var(--success);
+      }
+      .toggle-switch input:checked + .toggle-slider::before {
+        transform: translateX(18px);
+      }
+      .toggle-help {
+        font-size: 11px;
+        color: var(--gray-500);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .help-icon {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--gray-200);
+        color: var(--gray-500);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: 700;
+        cursor: help;
+      }
+
+      /* ====== ICON UPLOAD ====== */
+      .icon-upload-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .icon-preview {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--gray-100);
+        border: 1px dashed var(--gray-300);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gray-400);
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      /* ====== PERMISSION LINK ====== */
+      .perm-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .perm-link {
+        font-size: 11.5px;
+        color: var(--primary);
+        text-decoration: underline;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      /* ====== GENERIC MODAL (add forms) ====== */
+      .modal-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(30, 26, 53, 0.45);
+        z-index: 260;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-backdrop.open {
+        display: flex;
+      }
+      .modal-box {
+        background: var(--white, #ffffff);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-md);
+        width: 480px;
+        max-width: 95vw;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 24px;
+      }
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+      .modal-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: var(--gray-500);
+        line-height: 1;
+      }
+      .modal-close:hover {
+        color: var(--accent);
+      }
+      .modal-body {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid var(--gray-200);
+      }
+      .form-input.invalid {
+        border-color: var(--accent);
+        background: var(--accent-light);
+      }
+      .error-text {
+        font-size: 11px;
+        color: var(--accent);
+        min-height: 14px;
+      }
+      .toggle-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+      .toggle-wrap input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+      }
+      .toggle-pill {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 22px;
+        background: var(--gray-300);
+        border-radius: 999px;
+        transition: 0.2s;
+      }
+      .toggle-pill::before {
+        content: "";
+        position: absolute;
+        height: 16px;
+        width: 16px;
+        left: 3px;
+        top: 3px;
+        background: white;
+        border-radius: 50%;
+        transition: 0.2s;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+      }
+      .toggle-wrap input:checked + .toggle-pill {
+        background: var(--success);
+      }
+      .toggle-wrap input:checked + .toggle-pill::before {
+        transform: translateX(18px);
+      }
+      .toggle-label {
+        font-size: 12px;
+        color: var(--gray-700);
+        font-weight: 500;
+      }
+
+      /* ====== ACTION MODAL (confirm) ====== */
+      .action-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 360px;
+        min-width: 280px;
+        box-shadow: var(--shadow-md);
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-500);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+
+      /* ====== PERMISSION MODAL ====== */
+      .perm-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 270;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .perm-modal-backdrop.open {
+        display: flex;
+      }
+      .perm-modal {
+        background: white;
+        border-radius: var(--radius);
+        max-width: 900px;
+        width: 100%;
+        max-height: calc(100vh - 40px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: var(--shadow-md);
+      }
+      .perm-modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .perm-modal-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .perm-modal-title-link {
+        font-size: 12px;
+        color: var(--primary);
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .perm-modal-close {
+        width: 30px;
+        height: 30px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 16px;
+        color: var(--gray-700);
+        cursor: pointer;
+        line-height: 1;
+      }
+      .perm-modal-body {
+        padding: 16px 24px;
+        overflow-y: auto;
+        flex: 1;
+      }
+      .perm-modal-foot {
+        padding: 12px 24px;
+        border-top: 1px solid var(--gray-200);
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        background: var(--gray-50);
+      }
+
+      /* ====== PERMISSION TABLE ====== */
+      .perm-table-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+      }
+      table.perm-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 760px;
+      }
+      .perm-table th,
+      .perm-table td {
+        padding: 8px 10px;
+        font-size: 11.5px;
+        border-bottom: 1px solid var(--gray-200);
+        border-right: 1px solid var(--gray-200);
+        text-align: center;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .perm-table th {
+        background: var(--gray-50);
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .perm-table th.qa-group-head {
+        background: var(--primary-light);
+        color: var(--primary);
+      }
+      .perm-table tr.perm-section-row td {
+        background: #f8d7da;
+        font-weight: 600;
+        color: #842029;
+        text-align: left;
+        padding-left: 14px;
+      }
+      .perm-table tr.perm-section-row td.cell-note {
+        font-style: italic;
+        font-weight: 500;
+        text-align: center;
+        padding-left: 8px;
+        font-size: 11px;
+      }
+      .perm-table td.cell-name {
+        text-align: left;
+        font-weight: 600;
+        color: var(--gray-900);
+        white-space: nowrap;
+      }
+      .perm-table td.cell-desc {
+        text-align: left;
+        color: var(--gray-500);
+        font-size: 11px;
+      }
+      .perm-table td.cell-note {
+        font-size: 11px;
+        color: var(--gray-700);
+        font-style: italic;
+      }
+      .perm-toggle {
+        position: relative;
+        display: inline-block;
+        width: 32px;
+        height: 18px;
+      }
+      .perm-toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .perm-toggle .perm-slider {
+        position: absolute;
+        cursor: pointer;
+        inset: 0;
+        background: var(--gray-300);
+        border-radius: 999px;
+        transition: 0.2s;
+      }
+      .perm-toggle .perm-slider::before {
+        content: "";
+        position: absolute;
+        height: 12px;
+        width: 12px;
+        left: 3px;
+        top: 3px;
+        background: white;
+        border-radius: 50%;
+        transition: 0.2s;
+      }
+      .perm-toggle input:checked + .perm-slider {
+        background: var(--success);
+      }
+      .perm-toggle input:checked + .perm-slider::before {
+        transform: translateX(14px);
+      }
+
+      /* ====== DRAG & EDIT MODE ====== */
+      .cat-item {
+        cursor: pointer;
+      }
+      .cat-item.dragging {
+        opacity: 0.4;
+      }
+      .cat-item.drag-over {
+        border-top: 2px solid var(--primary);
+      }
+      .drag-handle {
+        visibility: hidden;
+        cursor: grab;
+        margin-right: 8px;
+        color: var(--gray-400);
+        display: inline-flex;
+        align-items: center;
+      }
+      .drag-handle:active {
+        cursor: grabbing;
+      }
+      .col-footer-edit {
+        display: none;
+      }
+      .col-footer-edit.show {
+        display: flex;
+      }
+      .col-footer.hide {
+        display: none !important;
+      }
+
+      /* ====== ATTR VIEW/EDIT ====== */
+      .form-input-readonly {
+        background: var(--gray-50);
+        color: var(--gray-700);
+        cursor: default;
+      }
+      .form-input-readonly:focus {
+        border-color: var(--gray-200);
+      }
+      .form-input.invalid {
+        border-color: var(--accent);
+        background: var(--accent-light);
+      }
+      .attr-edit-actions {
+        display: none;
+        gap: 10px;
+      }
+      .attr-edit-actions.show {
+        display: flex;
+      }
+      .attr-toggle:disabled + .toggle-slider {
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ====== HEADER ====== -->
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">B</div>
+        BEAUTY Admin
+      </div>
+      <nav class="header-nav">
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item active" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+      </nav>
+      <div class="header-user">
+        <div class="header-avatar">AD</div>
+        <div>
+          <div class="header-user-name">Admin</div>
+          <div class="header-user-role">Quản trị viên</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ====== SIDEBAR ====== -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Quản lý Menu</div>
+      <div
+        class="sidebar-item active"
+        id="sidebar-danhmuc"
+        onclick="goSection('danhmuc')"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+          />
+        </svg>
+        Danh mục
+      </div>
+      <div
+        class="sidebar-item"
+        id="sidebar-chuyenmuc"
+        onclick="goSection('chuyenmuc')"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="8" y1="6" x2="21" y2="6" />
+          <line x1="8" y1="12" x2="21" y2="12" />
+          <line x1="8" y1="18" x2="21" y2="18" />
+          <line x1="3" y1="6" x2="3.01" y2="6" />
+          <line x1="3" y1="12" x2="3.01" y2="12" />
+          <line x1="3" y1="18" x2="3.01" y2="18" />
+        </svg>
+        Chuyên mục
+      </div>
+    </aside>
+
+    <!-- ====== TRANG 1: DANH MỤC ====== -->
+    <main class="main page active" id="page-danhmuc">
+      <div class="page-title">Quản lý danh mục</div>
+
+      <div class="three-col-layout">
+        <!-- Cột 1: Danh mục lớn -->
+        <div class="card">
+          <div class="card-head">Danh mục lớn</div>
+          <div class="card-body">
+            <div class="cat-list" id="main-cat-list"></div>
+          </div>
+          <div class="card-footer col-footer" id="col-footer-main">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              onclick="openAddMainCatModal()"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              Thêm
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              id="btn-edit-main"
+              onclick="toggleEditMode('main')"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                />
+              </svg>
+              Sửa
+            </button>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              onclick="deleteMainCat()"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14H6L5 6" />
+                <path d="M10 11v6" />
+                <path d="M14 11v6" />
+              </svg>
+              Xóa
+            </button>
+          </div>
+          <div class="card-footer col-footer-edit" id="col-footer-edit-main">
+            <button
+              class="btn btn-ghost btn-sm"
+              onclick="cancelEditMode('main')"
+            >
+              Hủy
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="saveOrder('main')">
+              Lưu thứ tự
+            </button>
+          </div>
+        </div>
+
+        <!-- Cột 2: Danh mục phụ -->
+        <div class="card">
+          <div class="card-head">Danh mục phụ</div>
+          <div class="card-body">
+            <div class="cat-list" id="sub-cat-list"></div>
+          </div>
+          <div class="card-footer col-footer" id="col-footer-sub">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              onclick="openAddSubCatModal()"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              Thêm
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              id="btn-edit-sub"
+              onclick="toggleEditMode('sub')"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                />
+              </svg>
+              Sửa
+            </button>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              onclick="deleteSubCat()"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14H6L5 6" />
+                <path d="M10 11v6" />
+                <path d="M14 11v6" />
+              </svg>
+              Xóa
+            </button>
+          </div>
+          <div class="card-footer col-footer-edit" id="col-footer-edit-sub">
+            <button
+              class="btn btn-ghost btn-sm"
+              onclick="cancelEditMode('sub')"
+            >
+              Hủy
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="saveOrder('sub')">
+              Lưu thứ tự
+            </button>
+          </div>
+        </div>
+
+        <!-- Cột 3: Thuộc tính của danh mục -->
+        <div class="card" data-attr="cat">
+          <div class="card-head">Thuộc tính của danh mục</div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label"
+                >Tên danh mục <span class="req">*</span></label
+              >
+              <input
+                id="cat-name"
+                class="form-input attr-input form-input-readonly"
+                placeholder="Nhập tên danh mục"
+                readonly
+              />
+              <div class="error-text" id="err-cat-name"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Lời giải thích</label>
+              <textarea
+                id="cat-desc"
+                class="form-input attr-input form-input-readonly"
+                rows="4"
+                placeholder="Nhập lời giải thích"
+                readonly
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Hiển thị</label>
+              <div class="toggle-row">
+                <label class="toggle-switch">
+                  <input
+                    type="checkbox"
+                    id="cat-visible"
+                    class="attr-toggle"
+                    disabled
+                  />
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Cài đặt icon</label>
+              <div class="icon-upload-row">
+                <div class="icon-preview" id="cat-icon-preview">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="9" cy="9" r="2" />
+                    <path d="M21 15l-5-5L5 21" />
+                  </svg>
+                </div>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  id="cat-icon-upload"
+                  onclick="uploadIcon('cat')"
+                  disabled
+                >
+                  Tải ảnh
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button
+              class="btn btn-outline-primary"
+              id="btn-edit-cat-attr"
+              onclick="enterAttrEditMode('cat')"
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                />
+              </svg>
+              Sửa
+            </button>
+            <div class="attr-edit-actions" id="attr-edit-actions-cat">
+              <button class="btn btn-ghost" onclick="cancelAttrEdit('cat')">
+                Hủy
+              </button>
+              <button class="btn btn-primary" onclick="saveAttr()">Lưu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ====== TRANG 2: CHUYÊN MỤC ====== -->
+    <main class="main page" id="page-chuyenmuc">
+      <div class="page-title">Quản lý chuyên mục</div>
+
+      <div class="two-col-layout">
+        <!-- Cột 1: Chuyên mục -->
+        <div class="card">
+          <div class="card-head">Chuyên mục</div>
+          <div class="card-body">
+            <div class="cat-list" id="topic-list"></div>
+          </div>
+          <div class="card-footer col-footer" id="col-footer-topic">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              onclick="openAddTopicModal()"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              Thêm
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              id="btn-edit-topic"
+              onclick="toggleEditMode('topic')"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                />
+              </svg>
+              Sửa
+            </button>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              onclick="deleteTopic()"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14H6L5 6" />
+                <path d="M10 11v6" />
+                <path d="M14 11v6" />
+              </svg>
+              Xóa
+            </button>
+          </div>
+          <div class="card-footer col-footer-edit" id="col-footer-edit-topic">
+            <button
+              class="btn btn-ghost btn-sm"
+              onclick="cancelEditMode('topic')"
+            >
+              Hủy
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="saveOrder('topic')">
+              Lưu thứ tự
+            </button>
+          </div>
+        </div>
+
+        <!-- Cột 2: Thuộc tính của chuyên mục -->
+        <div class="card" data-attr="topic">
+          <div class="card-head">Thuộc tính của chuyên mục</div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label"
+                >Tên chuyên mục <span class="req">*</span></label
+              >
+              <input
+                id="topic-name"
+                class="form-input attr-input form-input-readonly"
+                placeholder="Nhập tên chuyên mục"
+                readonly
+              />
+              <div class="error-text" id="err-topic-name"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Giải thích</label>
+              <textarea
+                id="topic-desc"
+                class="form-input attr-input form-input-readonly"
+                rows="4"
+                placeholder="Nhập giải thích"
+                readonly
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Hiển thị</label>
+              <div class="toggle-row">
+                <label class="toggle-switch">
+                  <input
+                    type="checkbox"
+                    id="topic-visible"
+                    class="attr-toggle"
+                    disabled
+                  />
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Ghi chú</label>
+              <input
+                id="topic-note"
+                class="form-input attr-input form-input-readonly"
+                placeholder="Nhập nội dung"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Cài đặt icon</label>
+              <div style="display: flex; align-items: center; gap: 12px">
+                <div class="icon-preview" id="topic-icon-preview">
+                  <span id="topic-icon-emoji" style="font-size: 22px"></span>
+                </div>
+                <button
+                  class="btn btn-outline-primary btn-sm attr-icon-upload"
+                  id="topic-icon-upload-btn"
+                  onclick="triggerTopicIconUpload()"
+                  disabled
+                >
+                  Tải ảnh
+                </button>
+                <input
+                  type="file"
+                  id="topic-icon-input"
+                  accept="image/*"
+                  style="display: none"
+                  onchange="previewTopicIcon()"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Cài đặt quyền hạn</label>
+              <div class="perm-row">
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openPermissionModal()"
+                >
+                  Cài đặt
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button
+              class="btn btn-outline-primary"
+              id="btn-edit-topic-attr"
+              onclick="enterAttrEditMode('topic')"
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                />
+              </svg>
+              Sửa
+            </button>
+            <div class="attr-edit-actions" id="attr-edit-actions-topic">
+              <button class="btn btn-ghost" onclick="cancelAttrEdit('topic')">
+                Hủy
+              </button>
+              <button class="btn btn-primary" onclick="saveTopic()">Lưu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ====== MODAL: THÊM DANH MỤC LỚN ====== -->
+    <div
+      class="modal-backdrop"
+      id="modal-add-main-cat-backdrop"
+      onclick="closeModal('add-main-cat')"
+    >
+      <div
+        class="modal-box"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <div class="modal-header">
+          <h3 class="modal-title">Thêm danh mục lớn</h3>
+          <button class="modal-close" onclick="closeModal('add-main-cat')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label"
+              >Tên danh mục <span class="req">*</span></label
+            >
+            <input
+              class="form-input"
+              id="new-main-name"
+              placeholder="Nhập tên danh mục lớn"
+            />
+            <div class="error-text" id="err-main-name"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Lời giải thích</label>
+            <textarea
+              class="form-input"
+              id="new-main-desc"
+              rows="3"
+              placeholder="Nhập mô tả ngắn về danh mục này..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hiển thị</label>
+            <label class="toggle-wrap">
+              <input type="checkbox" id="new-main-visible" checked />
+              <span class="toggle-pill"></span>
+              <span class="toggle-label">Bật</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cài đặt icon</label>
+            <div style="display: flex; align-items: center; gap: 12px">
+              <div class="icon-preview" id="new-main-icon-preview"></div>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="triggerIconUpload('new-main')"
+              >
+                Tải ảnh
+              </button>
+              <input
+                type="file"
+                id="new-main-icon-input"
+                accept="image/*"
+                style="display: none"
+                onchange="previewIcon('new-main')"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('add-main-cat')">
+            Hủy
+          </button>
+          <button class="btn btn-primary" onclick="confirmAddMainCat()">
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== MODAL: THÊM DANH MỤC PHỤ ====== -->
+    <div
+      class="modal-backdrop"
+      id="modal-add-sub-cat-backdrop"
+      onclick="closeModal('add-sub-cat')"
+    >
+      <div
+        class="modal-box"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <div class="modal-header">
+          <h3 class="modal-title" id="modal-add-sub-cat-title">
+            Thêm danh mục phụ
+          </h3>
+          <button class="modal-close" onclick="closeModal('add-sub-cat')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label"
+              >Tên danh mục phụ <span class="req">*</span></label
+            >
+            <input
+              class="form-input"
+              id="new-sub-name"
+              placeholder="Nhập tên danh mục phụ"
+            />
+            <div class="error-text" id="err-sub-name"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Lời giải thích</label>
+            <textarea
+              class="form-input"
+              id="new-sub-desc"
+              rows="3"
+              placeholder="Nhập mô tả ngắn về danh mục phụ..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hiển thị</label>
+            <label class="toggle-wrap">
+              <input type="checkbox" id="new-sub-visible" checked />
+              <span class="toggle-pill"></span>
+              <span class="toggle-label">Bật</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cài đặt icon</label>
+            <div style="display: flex; align-items: center; gap: 12px">
+              <div class="icon-preview" id="new-sub-icon-preview"></div>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="triggerIconUpload('new-sub')"
+              >
+                Tải ảnh
+              </button>
+              <input
+                type="file"
+                id="new-sub-icon-input"
+                accept="image/*"
+                style="display: none"
+                onchange="previewIcon('new-sub')"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('add-sub-cat')">
+            Hủy
+          </button>
+          <button class="btn btn-primary" onclick="confirmAddSubCat()">
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== MODAL: THÊM CHUYÊN MỤC ====== -->
+    <div
+      class="modal-backdrop"
+      id="modal-add-topic-backdrop"
+      onclick="closeModal('add-topic')"
+    >
+      <div
+        class="modal-box"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <div class="modal-header">
+          <h3 class="modal-title">Thêm chuyên mục</h3>
+          <button class="modal-close" onclick="closeModal('add-topic')">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label"
+              >Tên chuyên mục <span class="req">*</span></label
+            >
+            <input
+              class="form-input"
+              id="new-topic-name"
+              placeholder="Nhập tên chuyên mục"
+            />
+            <div class="error-text" id="err-topic-name"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Giải thích</label>
+            <textarea
+              class="form-input"
+              id="new-topic-desc"
+              rows="3"
+              placeholder="Nhập giải thích..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hiển thị</label>
+            <label class="toggle-wrap">
+              <input type="checkbox" id="new-topic-visible" checked />
+              <span class="toggle-pill"></span>
+              <span class="toggle-label">Bật</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cài đặt icon</label>
+            <div style="display: flex; align-items: center; gap: 12px">
+              <div class="icon-preview" id="new-topic-icon-preview"></div>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="triggerNewTopicIconUpload()"
+              >
+                Tải ảnh
+              </button>
+              <input
+                type="file"
+                id="new-topic-icon-input"
+                accept="image/*"
+                style="display: none"
+                onchange="previewNewTopicIcon()"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cài đặt quyền hạn</label>
+            <div class="perm-row">
+              <button
+                class="btn btn-outline-danger btn-sm"
+                onclick="openPermissionModal()"
+              >
+                Cài đặt
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('add-topic')">
+            Hủy
+          </button>
+          <button class="btn btn-primary" onclick="confirmAddTopic()">
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== ACTION MODAL (confirm) ====== -->
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title" id="action-modal-title">
+          Xác nhận hành động
+        </h3>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn muốn thực hiện?
+        </p>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== PERMISSION MODAL ====== -->
+    <div
+      class="perm-modal-backdrop"
+      id="permission-modal-backdrop"
+      onclick="closePermissionModal()"
+    >
+      <div
+        class="perm-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <div class="perm-modal-head">
+          <div class="perm-modal-title" id="permission-modal-title">
+            Cài đặt quyền hạn truy cập
+          </div>
+          <button class="perm-modal-close" onclick="closePermissionModal()">
+            ×
+          </button>
+        </div>
+        <div class="perm-modal-body">
+          <div class="perm-table-wrap">
+            <table class="perm-table" id="perm-table">
+              <thead>
+                <tr>
+                  <th rowspan="2">Tên gọi</th>
+                  <th colspan="5" class="qa-group-head">Quyền hạn</th>
+                </tr>
+                <tr>
+                  <th>Đọc danh sách</th>
+                  <th>Đọc chi tiết</th>
+                  <th>Viết</th>
+                  <th>Bình luận</th>
+                  <th>Xoá</th>
+                </tr>
+              </thead>
+              <tbody id="perm-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="perm-modal-foot">
+          <button class="btn btn-ghost" onclick="closePermissionModal()">
+            Hủy
+          </button>
+          <button class="btn btn-primary" onclick="savePermission()">
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ====== STATE ====== */
+      let activeSection = "danhmuc";
+      let selectedMainCatId = 1;
+      let selectedSubCatId = null;
+      let selectedTopicId = 1;
+      let currentActionType = null;
+
+      /* ====== DATA ====== */
+      let mainCategories = [
+        {
+          id: 1,
+          name: "Chiều cao/hình thể",
+          desc: "Danh mục dành cho các thành viên chia sẻ những lo lắng liên quan đến ngoại hình của mình về chiều cao và hình thể.",
+          visible: true,
+          icon: null,
+          subs: [
+            {
+              id: 11,
+              name: "Phẫu thuật/tiểu phẫu",
+              desc: "Đề cập đến các phương pháp phẫu thuật hoặc thủ thuật y tế nhằm cải thiện chiều cao, hình thể.",
+              visible: true,
+              icon: null,
+            },
+            {
+              id: 12,
+              name: "Thể dục/giảm cân",
+              desc: "Phương pháp tập luyện và giảm cân không xâm lấn.",
+              visible: true,
+              icon: null,
+            },
+            {
+              id: 13,
+              name: "Thời trang",
+              desc: "Mẹo phối đồ giúp cải thiện hình thể.",
+              visible: true,
+              icon: null,
+            },
+            {
+              id: 14,
+              name: "TPCN & dược phẩm",
+              desc: "Sản phẩm hỗ trợ chiều cao, vóc dáng.",
+              visible: false,
+              icon: null,
+            },
+            {
+              id: 15,
+              name: "Khác",
+              desc: "Các nội dung không thuộc nhóm trên.",
+              visible: true,
+              icon: null,
+            },
+          ],
+        },
+        {
+          id: 2,
+          name: "Chân/bắp chân",
+          desc: "Chia sẻ về chăm sóc và cải thiện vùng chân.",
+          visible: true,
+          icon: null,
+          subs: [],
+        },
+        {
+          id: 3,
+          name: "Cổ",
+          desc: "",
+          visible: true,
+          icon: null,
+          subs: [],
+        },
+        {
+          id: 4,
+          name: "Da đầu/lông tóc",
+          desc: "",
+          visible: true,
+          icon: null,
+          subs: [],
+        },
+        {
+          id: 5,
+          name: "Khuôn mặt/V line",
+          desc: "",
+          visible: true,
+          icon: null,
+          subs: [],
+        },
+        {
+          id: 6,
+          name: "Mắt/lông mi",
+          desc: "",
+          visible: true,
+          icon: null,
+          subs: [],
+        },
+        { id: 7, name: "Môi", desc: "", visible: true, icon: null, subs: [] },
+        { id: 8, name: "Mũi", desc: "", visible: true, icon: null, subs: [] },
+        { id: 9, name: "Ngực", desc: "", visible: true, icon: null, subs: [] },
+        {
+          id: 10,
+          name: "Răng miệng",
+          desc: "",
+          visible: true,
+          icon: null,
+          subs: [],
+        },
+        {
+          id: 11,
+          name: "Tay/cánh tay/bàn tay",
+          desc: "",
+          visible: true,
+          icon: null,
+          subs: [],
+        },
+        { id: 12, name: "Trán", desc: "", visible: true, icon: null, subs: [] },
+        {
+          id: 13,
+          name: "Vùng chữ Y",
+          desc: "",
+          visible: true,
+          icon: null,
+          subs: [],
+        },
+        {
+          id: 14,
+          name: "Làn da",
+          desc: "",
+          visible: true,
+          icon: null,
+          subs: [],
+        },
+        { id: 15, name: "Khác", desc: "", visible: true, icon: null, subs: [] },
+      ];
+
+      let topics = [
+        {
+          id: 1,
+          name: "Ảnh Trước/Sau",
+          desc: "",
+          visible: true,
+          note: "",
+          icon: null,
+          iconEmoji: "🖼️",
+          postCount: 0,
+        },
+        {
+          id: 2,
+          name: "Review",
+          desc: "Review cho phép đăng hình ảnh hoặc video kèm theo nội dung viết.",
+          visible: true,
+          note: "",
+          icon: null,
+          iconEmoji: "👍",
+          postCount: 0,
+        },
+        {
+          id: 3,
+          name: "Thông tin chuyên gia",
+          desc: "",
+          visible: true,
+          note: "",
+          icon: null,
+          iconEmoji: "⭐",
+          postCount: 0,
+        },
+        {
+          id: 4,
+          name: "Hỏi đáp",
+          desc: "",
+          visible: true,
+          note: "",
+          icon: null,
+          iconEmoji: "💬",
+          postCount: 0,
+        },
+        {
+          id: 5,
+          name: "Tán gẫu",
+          desc: "",
+          visible: true,
+          note: "",
+          icon: null,
+          iconEmoji: "☕",
+          postCount: 0,
+        },
+      ];
+
+      const permissionRows = [
+        {
+          type: "row",
+          name: "Khách",
+          descLines: ["Không phải là thành viên"],
+          perms: [true, false, false, false, false],
+          deleteNote: null,
+        },
+        {
+          type: "section",
+          label: "Cấp bậc",
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "row",
+          name: "Lv.1",
+          descLines: [
+            "Người dùng vừa đăng ký thành viên.",
+            "Không thể sử dụng tính năng viết bài chỉ dành cho chuyên gia.",
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "row",
+          name: "Lv.2",
+          descLines: [
+            "Không thể sử dụng tính năng viết bài chỉ dành cho chuyên gia.",
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "row",
+          name: "Lv.3",
+          descLines: [
+            "Không thể sử dụng tính năng viết bài chỉ dành cho chuyên gia.",
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "row",
+          name: "Lv.4",
+          descLines: [
+            "Không thể sử dụng tính năng viết bài chỉ dành cho chuyên gia.",
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "row",
+          name: "Lv.5",
+          descLines: [
+            "Không thể sử dụng tính năng viết bài chỉ dành cho chuyên gia.",
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "row",
+          name: "KOL",
+          descLines: ["Là KOL, beauty blogger."],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "section",
+          label: "Chuyên gia",
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "row",
+          name: "Chuyên gia",
+          descLines: [
+            "Thành viên phải thông qua QTV mới được nâng cấp thành Chuyên gia.",
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "row",
+          name: "Bác sĩ",
+          descLines: [
+            "Có tính năng như một thành viên chuyên gia.",
+            "Phải thông qua QTV mới được nâng cấp thành Bác sĩ.",
+            'Bài viết có bình luận của Bác sĩ sẽ được đánh dấu nổi bật "Bác sĩ đã bình luận".',
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của bản thân",
+        },
+        {
+          type: "section",
+          label: "Quản trị viên (QTV)",
+          deleteNote: "Bài viết, bình luận của thành viên",
+        },
+        {
+          type: "row",
+          name: "Support Admin",
+          descLines: [
+            "Nhân viên bán thời gian hỗ trợ vận hành cơ bản.",
+            "Tài khoản được nâng cấp từ tài khoản TVA.",
+            "Quyền hạn bị giới hạn nghiêm ngặt theo danh sách chức năng cụ thể.",
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của thành viên",
+        },
+        {
+          type: "row",
+          name: "Main Admin",
+          descLines: [
+            "Nhân sự trực tiếp vận hành ứng dụng.",
+            'Có gần như toàn bộ quyền quản trị, ngoại trừ module "Quản lý thông tin".',
+            "Có quyền phân quyền / thu hồi quyền của Support Admin.",
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của thành viên",
+        },
+        {
+          type: "row",
+          name: "Super Admin",
+          descLines: [
+            "Cấp cao nhất, sở hữu toàn bộ quyền hạn (Full quyền).",
+            "Có quyền cấp / thu hồi phân quyền cho cả Main Admin và Support Admin.",
+            "Tài khoản bất khả xâm phạm, không thể bị xóa.",
+          ],
+          perms: [true, true, true, true, true],
+          deleteNote: "Bài viết, bình luận của thành viên",
+        },
+      ];
+
+      const actionModalMap = {
+        "hard-delete-main-cat": {
+          title: "Xóa danh mục lớn",
+          body: "Danh mục lớn này và toàn bộ danh mục phụ bên trong sẽ bị xóa vĩnh viễn. Hành động này không thể hoàn tác.",
+        },
+        "hard-delete-sub-cat": {
+          title: "Xóa danh mục phụ",
+          body: "Danh mục phụ này sẽ bị xóa vĩnh viễn khỏi hệ thống. Hành động này không thể hoàn tác.",
+        },
+        "hard-delete-topic": {
+          title: "Xóa chuyên mục",
+          body: "Chuyên mục này sẽ bị xóa vĩnh viễn. Chỉ thực hiện được khi chuyên mục không có bài viết nào.",
+        },
+      };
+
+      /* ====== HELPERS ====== */
+      function escapeHtml(str) {
+        return String(str || "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+
+      function getMainCat(id) {
+        return mainCategories.find((c) => c.id === id) || null;
+      }
+
+      function getSubCat(mainId, subId) {
+        const main = getMainCat(mainId);
+        if (!main) return null;
+        return main.subs.find((s) => s.id === subId) || null;
+      }
+
+      function getTopic(id) {
+        return topics.find((t) => t.id === id) || null;
+      }
+
+      /* ====== SECTION SWITCH ====== */
+      function goSection(name) {
+        activeSection = name;
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById("sidebar-" + name)?.classList.add("active");
+        document
+          .querySelectorAll(".main.page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + name)?.classList.add("active");
+        if (name === "chuyenmuc") {
+          renderTopics();
+          loadTopicAttr(selectedTopicId);
+        } else {
+          renderMainCats();
+          renderSubCats();
+          loadCatAttr();
+        }
+      }
+
+      /* ====== RENDER: MAIN CATS ====== */
+      const DRAG_HANDLE_SVG = `
+        <span class="drag-handle" title="Kéo để sắp xếp">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6"  x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </span>`;
+
+      function renderMainCats() {
+        const wrap = document.getElementById("main-cat-list");
+        if (!wrap) return;
+        wrap.innerHTML = mainCategories
+          .map(
+            (c) => `
+              <div class="cat-item cat-item-main ${c.id === selectedMainCatId ? "active" : ""}"
+                   data-id="${c.id}"
+                   onclick="handleItemClick('main', ${c.id})"
+                   ondblclick="handleItemDblClick('main', ${c.id})">
+                <div class="cat-item-left">
+                  ${DRAG_HANDLE_SVG}
+                  <span class="cat-item-name">${escapeHtml(c.name)}</span>
+                </div>
+                <span class="cat-arrow">›</span>
+              </div>
+            `,
+          )
+          .join("");
+        if (editMode.main) applyEditModeUI("main");
+      }
+
+      function selectMainCat(id) {
+        selectedMainCatId = id;
+        selectedSubCatId = null;
+        renderMainCats();
+        renderSubCats();
+        loadCatAttr();
+      }
+
+      /* ====== RENDER: SUB CATS ====== */
+      function renderSubCats() {
+        const wrap = document.getElementById("sub-cat-list");
+        if (!wrap) return;
+        const main = getMainCat(selectedMainCatId);
+        if (!main || !main.subs.length) {
+          wrap.innerHTML = '<div class="cat-empty">Chưa có danh mục phụ.</div>';
+          return;
+        }
+        wrap.innerHTML = main.subs
+          .map(
+            (s) => `
+              <div class="cat-item cat-item-sub ${s.id === selectedSubCatId ? "active" : ""}"
+                   data-id="${s.id}"
+                   onclick="handleItemClick('sub', ${s.id})"
+                   ondblclick="handleItemDblClick('sub', ${s.id})">
+                <div class="cat-item-left">
+                  ${DRAG_HANDLE_SVG}
+                  <span class="cat-item-name">${escapeHtml(s.name)}</span>
+                </div>
+                <span class="cat-arrow">›</span>
+              </div>
+            `,
+          )
+          .join("");
+        if (editMode.sub) applyEditModeUI("sub");
+      }
+
+      function selectSubCat(id) {
+        selectedSubCatId = id;
+        renderSubCats();
+        loadCatAttr();
+      }
+
+      function handleItemClick(col, id) {
+        if (editMode[col]) return;
+        if (col === "main") selectMainCat(id);
+        else if (col === "sub") selectSubCat(id);
+        else if (col === "topic") selectTopic(id);
+      }
+      function handleItemDblClick(col, id) {
+        if (editMode[col]) return;
+        if (col === "main" || col === "sub") {
+          if (col === "main") selectMainCat(id);
+          else selectSubCat(id);
+          enterAttrEditMode("cat");
+        } else if (col === "topic") {
+          selectTopic(id);
+          enterAttrEditMode("topic");
+        }
+      }
+
+      /* ====== LOAD: CAT ATTR (cột 3) ====== */
+      function loadCatAttr() {
+        const nameInput = document.getElementById("cat-name");
+        const descInput = document.getElementById("cat-desc");
+        const visInput = document.getElementById("cat-visible");
+        if (!nameInput || !descInput || !visInput) return;
+
+        let target;
+        if (selectedSubCatId != null) {
+          target = getSubCat(selectedMainCatId, selectedSubCatId);
+        } else {
+          target = getMainCat(selectedMainCatId);
+        }
+
+        if (!target) {
+          nameInput.value = "";
+          descInput.value = "";
+          visInput.checked = false;
+          return;
+        }
+        nameInput.value = target.name || "";
+        descInput.value = target.desc || "";
+        visInput.checked = !!target.visible;
+      }
+
+      /* ====== RENDER: TOPICS ====== */
+      function renderTopics() {
+        const wrap = document.getElementById("topic-list");
+        if (!wrap) return;
+        wrap.innerHTML = topics
+          .map(
+            (t) => `
+              <div class="cat-item cat-item-topic ${t.id === selectedTopicId ? "active" : ""}"
+                   data-id="${t.id}"
+                   onclick="handleItemClick('topic', ${t.id})"
+                   ondblclick="handleItemDblClick('topic', ${t.id})">
+                <div class="cat-item-left">
+                  ${DRAG_HANDLE_SVG}
+                  <span class="cat-item-name">${escapeHtml(t.name)}</span>
+                </div>
+                <span class="cat-arrow">›</span>
+              </div>
+            `,
+          )
+          .join("");
+        if (editMode.topic) applyEditModeUI("topic");
+      }
+
+      function selectTopic(id) {
+        selectedTopicId = id;
+        renderTopics();
+        loadTopicAttr(id);
+      }
+
+      function loadTopicAttr(id) {
+        const t = getTopic(id);
+        const nameInput = document.getElementById("topic-name");
+        const descInput = document.getElementById("topic-desc");
+        const visInput = document.getElementById("topic-visible");
+        const noteInput = document.getElementById("topic-note");
+        const preview = document.getElementById("topic-icon-preview");
+        if (!nameInput || !descInput || !visInput || !noteInput) return;
+        if (!t) {
+          nameInput.value = "";
+          descInput.value = "";
+          visInput.checked = false;
+          noteInput.value = "";
+          if (preview) preview.innerHTML = "";
+          return;
+        }
+        nameInput.value = t.name || "";
+        descInput.value = t.desc || "";
+        visInput.checked = !!t.visible;
+        noteInput.value = t.note || "";
+        if (preview) {
+          if (t.icon) {
+            preview.innerHTML = `<img src="${t.icon}" style="width:48px;height:48px;border-radius:var(--radius-sm);object-fit:cover" />`;
+          } else {
+            preview.innerHTML = `<span style="font-size:22px">${t.iconEmoji || ""}</span>`;
+          }
+        }
+        pendingTopicIcon = null;
+      }
+
+      /* ====== EDIT MODE (column reorder) ====== */
+      const editMode = { main: false, sub: false, topic: false };
+      const orderBackup = { main: null, sub: null, topic: null };
+      let dragSrc = null;
+
+      function getListEl(col) {
+        return document.getElementById(
+          col === "main"
+            ? "main-cat-list"
+            : col === "sub"
+              ? "sub-cat-list"
+              : "topic-list",
+        );
+      }
+      function getOrderFromDOM(col) {
+        const list = getListEl(col);
+        if (!list) return [];
+        return Array.from(list.querySelectorAll(".cat-item")).map((el) =>
+          Number(el.dataset.id),
+        );
+      }
+      function backupOrder(col) {
+        if (col === "main") orderBackup.main = mainCategories.map((c) => c.id);
+        else if (col === "sub") {
+          const m = getMainCat(selectedMainCatId);
+          orderBackup.sub = m ? m.subs.map((s) => s.id) : [];
+        } else if (col === "topic") orderBackup.topic = topics.map((t) => t.id);
+      }
+      function commitOrder(col) {
+        const ids = getOrderFromDOM(col);
+        const order = (a, b) => ids.indexOf(a.id) - ids.indexOf(b.id);
+        if (col === "main") mainCategories.sort(order);
+        else if (col === "sub") {
+          const m = getMainCat(selectedMainCatId);
+          if (m) m.subs.sort(order);
+        } else if (col === "topic") topics.sort(order);
+      }
+      function applyEditModeUI(col) {
+        const list = getListEl(col);
+        if (!list) return;
+        list.querySelectorAll(".cat-item").forEach((el) => {
+          const handle = el.querySelector(".drag-handle");
+          if (handle) handle.style.visibility = "visible";
+          el.setAttribute("draggable", "true");
+        });
+        wireDragDrop(col);
+      }
+      function clearEditModeUI(col) {
+        const list = getListEl(col);
+        if (!list) return;
+        list.querySelectorAll(".cat-item").forEach((el) => {
+          const handle = el.querySelector(".drag-handle");
+          if (handle) handle.style.visibility = "hidden";
+          el.setAttribute("draggable", "false");
+          el.classList.remove("dragging", "drag-over");
+        });
+      }
+      function toggleEditMode(col) {
+        editMode[col] = true;
+        backupOrder(col);
+        document.getElementById("col-footer-" + col)?.classList.add("hide");
+        document
+          .getElementById("col-footer-edit-" + col)
+          ?.classList.add("show");
+        applyEditModeUI(col);
+      }
+      function cancelEditMode(col) {
+        editMode[col] = false;
+        document.getElementById("col-footer-" + col)?.classList.remove("hide");
+        document
+          .getElementById("col-footer-edit-" + col)
+          ?.classList.remove("show");
+        if (orderBackup[col]) {
+          const ids = orderBackup[col];
+          const order = (a, b) => ids.indexOf(a.id) - ids.indexOf(b.id);
+          if (col === "main") mainCategories.sort(order);
+          else if (col === "sub") {
+            const m = getMainCat(selectedMainCatId);
+            if (m) m.subs.sort(order);
+          } else if (col === "topic") topics.sort(order);
+        }
+        if (col === "main") renderMainCats();
+        else if (col === "sub") renderSubCats();
+        else if (col === "topic") renderTopics();
+        clearEditModeUI(col);
+      }
+      function saveOrder(col) {
+        commitOrder(col);
+        editMode[col] = false;
+        document.getElementById("col-footer-" + col)?.classList.remove("hide");
+        document
+          .getElementById("col-footer-edit-" + col)
+          ?.classList.remove("show");
+        if (col === "main") renderMainCats();
+        else if (col === "sub") renderSubCats();
+        else if (col === "topic") renderTopics();
+        clearEditModeUI(col);
+        alert("Đã lưu thứ tự.");
+      }
+
+      function wireDragDrop(col) {
+        const list = getListEl(col);
+        if (!list) return;
+        const items = list.querySelectorAll(".cat-item");
+        items.forEach((item) => {
+          item.addEventListener("dragstart", (e) => {
+            if (!editMode[col]) return;
+            dragSrc = item;
+            e.dataTransfer.effectAllowed = "move";
+            item.classList.add("dragging");
+          });
+          item.addEventListener("dragend", () => {
+            item.classList.remove("dragging");
+            list
+              .querySelectorAll(".cat-item")
+              .forEach((i) => i.classList.remove("drag-over"));
+          });
+          item.addEventListener("dragover", (e) => {
+            if (!editMode[col]) return;
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+            list
+              .querySelectorAll(".cat-item")
+              .forEach((i) => i.classList.remove("drag-over"));
+            item.classList.add("drag-over");
+          });
+          item.addEventListener("drop", (e) => {
+            if (!editMode[col]) return;
+            e.preventDefault();
+            e.stopPropagation();
+            if (dragSrc && dragSrc !== item) {
+              const parent = item.parentNode;
+              const kids = Array.from(parent.children);
+              const srcIdx = kids.indexOf(dragSrc);
+              const destIdx = kids.indexOf(item);
+              if (srcIdx < destIdx)
+                parent.insertBefore(dragSrc, item.nextSibling);
+              else parent.insertBefore(dragSrc, item);
+            }
+            item.classList.remove("drag-over");
+          });
+        });
+      }
+
+      /* ====== DELETE (hard) ====== */
+      function deleteMainCat() {
+        if (selectedMainCatId == null) {
+          alert("Vui lòng chọn danh mục cần xóa.");
+          return;
+        }
+        openActionModal("hard-delete-main-cat");
+      }
+      function deleteSubCat() {
+        if (selectedSubCatId == null) {
+          alert("Vui lòng chọn danh mục phụ cần xóa.");
+          return;
+        }
+        openActionModal("hard-delete-sub-cat");
+      }
+      function deleteTopic() {
+        if (selectedTopicId == null) {
+          alert("Vui lòng chọn chuyên mục cần xóa.");
+          return;
+        }
+        openActionModal("hard-delete-topic");
+      }
+      function clearAttrCol() {
+        const ids = [
+          "cat-name",
+          "cat-desc",
+          "topic-name",
+          "topic-desc",
+          "topic-note",
+        ];
+        ids.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.value = "";
+        });
+        const cv = document.getElementById("cat-visible");
+        if (cv) cv.checked = false;
+        const tv = document.getElementById("topic-visible");
+        if (tv) tv.checked = false;
+      }
+
+      /* ====== ATTR VIEW / EDIT MODE ====== */
+      const attrBackup = { cat: null, topic: null };
+      let pendingTopicIcon = null;
+
+      function getCurrentAttrValues(kind) {
+        if (kind === "cat") {
+          return {
+            name: document.getElementById("cat-name").value,
+            desc: document.getElementById("cat-desc").value,
+            visible: document.getElementById("cat-visible").checked,
+          };
+        }
+        const t = getTopic(selectedTopicId);
+        return {
+          name: document.getElementById("topic-name").value,
+          desc: document.getElementById("topic-desc").value,
+          visible: document.getElementById("topic-visible").checked,
+          note: document.getElementById("topic-note").value,
+          icon: t?.icon || null,
+          iconEmoji: t?.iconEmoji || "",
+        };
+      }
+      function restoreAttrValues(kind, snapshot) {
+        if (!snapshot) return;
+        if (kind === "cat") {
+          document.getElementById("cat-name").value = snapshot.name || "";
+          document.getElementById("cat-desc").value = snapshot.desc || "";
+          document.getElementById("cat-visible").checked = !!snapshot.visible;
+        } else {
+          document.getElementById("topic-name").value = snapshot.name || "";
+          document.getElementById("topic-desc").value = snapshot.desc || "";
+          document.getElementById("topic-visible").checked = !!snapshot.visible;
+          document.getElementById("topic-note").value = snapshot.note || "";
+          const preview = document.getElementById("topic-icon-preview");
+          if (preview) {
+            if (snapshot.icon) {
+              preview.innerHTML = `<img src="${snapshot.icon}" style="width:48px;height:48px;border-radius:var(--radius-sm);object-fit:cover" />`;
+            } else {
+              preview.innerHTML = `<span style="font-size:22px">${snapshot.iconEmoji || ""}</span>`;
+            }
+          }
+        }
+      }
+
+      /* ====== TOPIC ICON UPLOAD (attr edit) ====== */
+      function triggerTopicIconUpload() {
+        document.getElementById("topic-icon-input")?.click();
+      }
+      function previewTopicIcon() {
+        const input = document.getElementById("topic-icon-input");
+        const file = input?.files?.[0];
+        if (!file) return;
+        const allowed = ["image/jpeg", "image/png", "image/jpg"];
+        if (!allowed.includes(file.type)) {
+          alert("Chỉ chấp nhận file JPG, PNG, JPEG.");
+          input.value = "";
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          alert("Dung lượng file tối đa là 5MB.");
+          input.value = "";
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const preview = document.getElementById("topic-icon-preview");
+          if (preview) {
+            preview.innerHTML = `<img src="${e.target.result}" style="width:48px;height:48px;border-radius:var(--radius-sm);object-fit:cover" />`;
+          }
+          pendingTopicIcon = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+      function setAttrEditable(kind, editable) {
+        const card = document.querySelector(`.card[data-attr="${kind}"]`);
+        if (!card) return;
+        card.querySelectorAll(".attr-input").forEach((el) => {
+          if (editable) {
+            el.removeAttribute("readonly");
+            el.classList.remove("form-input-readonly");
+          } else {
+            el.setAttribute("readonly", "true");
+            el.classList.add("form-input-readonly");
+            el.classList.remove("invalid");
+          }
+        });
+        card.querySelectorAll(".attr-toggle").forEach((el) => {
+          el.disabled = !editable;
+        });
+        const iconBtnId =
+          kind === "cat" ? "cat-icon-upload" : "topic-icon-upload-btn";
+        const iconBtn = document.getElementById(iconBtnId);
+        if (iconBtn) iconBtn.disabled = !editable;
+
+        const editBtn = document.getElementById("btn-edit-" + kind + "-attr");
+        const actions = document.getElementById("attr-edit-actions-" + kind);
+        if (editable) {
+          if (editBtn) editBtn.style.display = "none";
+          if (actions) actions.classList.add("show");
+        } else {
+          if (editBtn) editBtn.style.display = "inline-flex";
+          if (actions) actions.classList.remove("show");
+          const errId = kind === "cat" ? "err-cat-name" : "err-topic-name";
+          const err = document.getElementById(errId);
+          if (err) err.textContent = "";
+        }
+      }
+      function enterAttrEditMode(kind) {
+        attrBackup[kind] = getCurrentAttrValues(kind);
+        if (kind === "topic") pendingTopicIcon = null;
+        setAttrEditable(kind, true);
+        setTimeout(() => {
+          document
+            .getElementById(kind === "cat" ? "cat-name" : "topic-name")
+            ?.focus();
+        }, 30);
+      }
+      function cancelAttrEdit(kind) {
+        restoreAttrValues(kind, attrBackup[kind]);
+        if (kind === "topic") pendingTopicIcon = null;
+        setAttrEditable(kind, false);
+      }
+      function exitAttrEditMode(kind) {
+        setAttrEditable(kind, false);
+        if (kind === "topic") pendingTopicIcon = null;
+      }
+
+      /* ====== SAVE ATTR ====== */
+      function saveAttr() {
+        const nameInput = document.getElementById("cat-name");
+        const errEl = document.getElementById("err-cat-name");
+        const name = nameInput.value.trim();
+        if (!name) {
+          nameInput.classList.add("invalid");
+          if (errEl) errEl.textContent = "Tên không được để trống.";
+          return;
+        }
+        nameInput.classList.remove("invalid");
+        if (errEl) errEl.textContent = "";
+        const desc = document.getElementById("cat-desc").value.trim();
+        const visible = document.getElementById("cat-visible").checked;
+        let target;
+        if (selectedSubCatId != null) {
+          target = getSubCat(selectedMainCatId, selectedSubCatId);
+        } else {
+          target = getMainCat(selectedMainCatId);
+        }
+        if (!target) {
+          alert("Không tìm thấy danh mục để lưu.");
+          return;
+        }
+        target.name = name;
+        target.desc = desc;
+        target.visible = visible;
+        renderMainCats();
+        renderSubCats();
+        exitAttrEditMode("cat");
+        alert("Đã lưu.");
+      }
+
+      function saveTopic() {
+        const nameInput = document.getElementById("topic-name");
+        const errEl = document.getElementById("err-topic-name");
+        const name = nameInput.value.trim();
+        if (!name) {
+          nameInput.classList.add("invalid");
+          if (errEl) errEl.textContent = "Tên không được để trống.";
+          return;
+        }
+        const duplicate = topics.find(
+          (t) =>
+            t.name.toLowerCase() === name.toLowerCase() &&
+            t.id !== selectedTopicId,
+        );
+        if (duplicate) {
+          nameInput.classList.add("invalid");
+          if (errEl)
+            errEl.textContent = "Tên chuyên mục đã tồn tại trong hệ thống.";
+          alert("Tên chuyên mục đã tồn tại trong hệ thống.");
+          return;
+        }
+        nameInput.classList.remove("invalid");
+        if (errEl) errEl.textContent = "";
+        const t = getTopic(selectedTopicId);
+        if (!t) {
+          alert("Không tìm thấy chuyên mục để lưu.");
+          return;
+        }
+        t.name = name;
+        t.desc = document.getElementById("topic-desc").value.trim();
+        t.visible = document.getElementById("topic-visible").checked;
+        t.note = document.getElementById("topic-note").value.trim();
+        if (pendingTopicIcon) {
+          t.icon = pendingTopicIcon;
+          pendingTopicIcon = null;
+        }
+        renderTopics();
+        exitAttrEditMode("topic");
+        alert("Đã lưu.");
+      }
+
+      function cancelAttr() {
+        if (activeSection === "danhmuc") {
+          loadCatAttr();
+          exitAttrEditMode("cat");
+        } else {
+          loadTopicAttr(selectedTopicId);
+          exitAttrEditMode("topic");
+        }
+      }
+
+      /* ====== GENERIC MODAL HELPERS ====== */
+      function openModal(name) {
+        document
+          .getElementById("modal-" + name + "-backdrop")
+          ?.classList.add("open");
+      }
+      function closeModal(name) {
+        document
+          .getElementById("modal-" + name + "-backdrop")
+          ?.classList.remove("open");
+      }
+      function resetModalForm(name) {
+        const backdrop = document.getElementById("modal-" + name + "-backdrop");
+        if (!backdrop) return;
+        backdrop
+          .querySelectorAll(
+            "input[type=text], input[type=file], input:not([type]), textarea",
+          )
+          .forEach((el) => (el.value = ""));
+        backdrop
+          .querySelectorAll("input[type=checkbox]")
+          .forEach((el) => (el.checked = true));
+        backdrop
+          .querySelectorAll(".error-text")
+          .forEach((el) => (el.textContent = ""));
+        backdrop
+          .querySelectorAll(".invalid")
+          .forEach((el) => el.classList.remove("invalid"));
+        backdrop
+          .querySelectorAll(".icon-preview")
+          .forEach((el) => (el.innerHTML = ""));
+        if (name === "add-topic") {
+          const newInput = document.getElementById("new-topic-icon-input");
+          if (newInput) newInput.value = "";
+          newTopicIconData = null;
+        }
+      }
+
+      function triggerIconUpload(prefix) {
+        document.getElementById(prefix + "-icon-input")?.click();
+      }
+      function previewIcon(prefix) {
+        const input = document.getElementById(prefix + "-icon-input");
+        const file = input?.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const target = document.getElementById(prefix + "-icon-preview");
+          if (target) {
+            target.innerHTML = `<img src="${e.target.result}" style="width:48px;height:48px;border-radius:var(--radius-sm);object-fit:cover" />`;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+
+      /* ====== ADD MAIN CAT (modal) ====== */
+      function openAddMainCatModal() {
+        resetModalForm("add-main-cat");
+        openModal("add-main-cat");
+        setTimeout(() => {
+          document.getElementById("new-main-name")?.focus();
+        }, 50);
+      }
+      function confirmAddMainCat() {
+        const nameInput = document.getElementById("new-main-name");
+        const errEl = document.getElementById("err-main-name");
+        const name = nameInput.value.trim();
+        if (!name) {
+          errEl.textContent = "Tên danh mục không được để trống.";
+          nameInput.classList.add("invalid");
+          return;
+        }
+        errEl.textContent = "";
+        nameInput.classList.remove("invalid");
+        const newId = Date.now();
+        mainCategories.push({
+          id: newId,
+          name,
+          subs: [],
+          desc: document.getElementById("new-main-desc").value.trim(),
+          visible: document.getElementById("new-main-visible").checked,
+          icon: null,
+        });
+        selectedMainCatId = newId;
+        selectedSubCatId = null;
+        renderMainCats();
+        renderSubCats();
+        loadCatAttr();
+        closeModal("add-main-cat");
+        resetModalForm("add-main-cat");
+        alert("Đã thêm danh mục lớn.");
+      }
+
+      /* ====== ADD SUB CAT (modal) ====== */
+      function openAddSubCatModal() {
+        if (selectedMainCatId == null) {
+          alert("Vui lòng chọn danh mục lớn trước.");
+          return;
+        }
+        const parent = getMainCat(selectedMainCatId);
+        if (!parent) {
+          alert("Vui lòng chọn danh mục lớn trước.");
+          return;
+        }
+        document.getElementById("modal-add-sub-cat-title").textContent =
+          "Thêm danh mục phụ — " + parent.name;
+        resetModalForm("add-sub-cat");
+        openModal("add-sub-cat");
+        setTimeout(() => {
+          document.getElementById("new-sub-name")?.focus();
+        }, 50);
+      }
+      function confirmAddSubCat() {
+        const nameInput = document.getElementById("new-sub-name");
+        const errEl = document.getElementById("err-sub-name");
+        const name = nameInput.value.trim();
+        if (!name) {
+          errEl.textContent = "Tên danh mục phụ không được để trống.";
+          nameInput.classList.add("invalid");
+          return;
+        }
+        errEl.textContent = "";
+        nameInput.classList.remove("invalid");
+        const parent = getMainCat(selectedMainCatId);
+        if (!parent) {
+          alert("Vui lòng chọn danh mục lớn trước.");
+          closeModal("add-sub-cat");
+          return;
+        }
+        const newId = Date.now();
+        parent.subs.push({
+          id: newId,
+          name,
+          desc: document.getElementById("new-sub-desc").value.trim(),
+          visible: document.getElementById("new-sub-visible").checked,
+          icon: null,
+        });
+        selectedSubCatId = newId;
+        renderSubCats();
+        loadCatAttr();
+        closeModal("add-sub-cat");
+        resetModalForm("add-sub-cat");
+        alert("Đã thêm danh mục phụ.");
+      }
+
+      /* ====== ADD TOPIC (modal) ====== */
+      function openAddTopicModal() {
+        resetModalForm("add-topic");
+        openModal("add-topic");
+        setTimeout(() => {
+          document.getElementById("new-topic-name")?.focus();
+        }, 50);
+      }
+      let newTopicIconData = null;
+      function triggerNewTopicIconUpload() {
+        document.getElementById("new-topic-icon-input")?.click();
+      }
+      function previewNewTopicIcon() {
+        const input = document.getElementById("new-topic-icon-input");
+        const file = input?.files?.[0];
+        if (!file) return;
+        if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
+          alert("Chỉ chấp nhận file JPG, PNG, JPEG.");
+          input.value = "";
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          alert("Dung lượng file tối đa là 5MB.");
+          input.value = "";
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          newTopicIconData = e.target.result;
+          const preview = document.getElementById("new-topic-icon-preview");
+          if (preview) {
+            preview.innerHTML = `<img src="${e.target.result}" style="width:48px;height:48px;border-radius:var(--radius-sm);object-fit:cover" />`;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function confirmAddTopic() {
+        const nameInput = document.getElementById("new-topic-name");
+        const errEl = document.getElementById("err-topic-name");
+        const name = nameInput.value.trim();
+        if (!name) {
+          errEl.textContent = "Tên chuyên mục không được để trống.";
+          nameInput.classList.add("invalid");
+          return;
+        }
+        const duplicate = topics.find(
+          (t) => t.name.toLowerCase() === name.toLowerCase(),
+        );
+        if (duplicate) {
+          errEl.textContent = "Tên chuyên mục đã tồn tại trong hệ thống.";
+          nameInput.classList.add("invalid");
+          alert("Tên chuyên mục đã tồn tại trong hệ thống.");
+          return;
+        }
+        errEl.textContent = "";
+        nameInput.classList.remove("invalid");
+        const newId = Date.now();
+        topics.push({
+          id: newId,
+          name,
+          desc: document.getElementById("new-topic-desc").value.trim(),
+          visible: document.getElementById("new-topic-visible").checked,
+          note: "",
+          icon: newTopicIconData || null,
+          iconEmoji: "",
+          postCount: 0,
+          permissions: defaultTopicPermissions(),
+        });
+        newTopicIconData = null;
+        selectedTopicId = newId;
+        renderTopics();
+        loadTopicAttr(newId);
+        closeModal("add-topic");
+        resetModalForm("add-topic");
+        const newPreview = document.getElementById("new-topic-icon-preview");
+        if (newPreview) newPreview.innerHTML = "";
+        const newInput = document.getElementById("new-topic-icon-input");
+        if (newInput) newInput.value = "";
+        alert("Đã thêm chuyên mục.");
+      }
+
+      function uploadIcon(target) {
+        alert("Mock: tải ảnh icon cho " + target + ".");
+      }
+
+      /* ====== ACTION MODAL ====== */
+      function openActionModal(type) {
+        const cfg = actionModalMap[type];
+        if (!cfg) return;
+        currentActionType = type;
+        document.getElementById("action-modal-title").textContent = cfg.title;
+        document.getElementById("action-modal-body").textContent = cfg.body;
+        document.getElementById("action-modal-backdrop").classList.add("open");
+      }
+      function closeActionModal() {
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
+        currentActionType = null;
+      }
+      function confirmActionModal() {
+        const type = currentActionType;
+        closeActionModal();
+        if (!type) return;
+        switch (type) {
+          case "hard-delete-main-cat": {
+            mainCategories = mainCategories.filter(
+              (c) => c.id !== selectedMainCatId,
+            );
+            selectedMainCatId = mainCategories[0]?.id ?? null;
+            selectedSubCatId = null;
+            renderMainCats();
+            renderSubCats();
+            loadCatAttr();
+            exitAttrEditMode("cat");
+            alert("Đã xóa danh mục lớn.");
+            return;
+          }
+          case "hard-delete-sub-cat": {
+            const parent = getMainCat(selectedMainCatId);
+            if (parent)
+              parent.subs = parent.subs.filter(
+                (s) => s.id !== selectedSubCatId,
+              );
+            selectedSubCatId = null;
+            renderSubCats();
+            loadCatAttr();
+            exitAttrEditMode("cat");
+            alert("Đã xóa danh mục phụ.");
+            return;
+          }
+          case "hard-delete-topic": {
+            const t = getTopic(selectedTopicId);
+            if (t && t.postCount > 0) {
+              alert("Không thể xóa. Chuyên mục này vẫn còn bài viết.");
+              return;
+            }
+            topics = topics.filter((tp) => tp.id !== selectedTopicId);
+            selectedTopicId = topics[0]?.id ?? null;
+            renderTopics();
+            if (selectedTopicId != null) loadTopicAttr(selectedTopicId);
+            else clearAttrCol();
+            exitAttrEditMode("topic");
+            alert("Đã xóa chuyên mục.");
+            return;
+          }
+          default:
+            alert(
+              "Đã thực hiện: " + (actionModalMap[type]?.title || type) + ".",
+            );
+        }
+      }
+
+      /* ====== PERMISSION MODAL ====== */
+      function defaultTopicPermissions() {
+        return permissionRows.map((row) =>
+          row.type === "row" ? [...row.perms] : null,
+        );
+      }
+
+      function ensureTopicPermissions(topic) {
+        if (!topic) return null;
+        if (
+          !Array.isArray(topic.permissions) ||
+          topic.permissions.length !== permissionRows.length
+        ) {
+          topic.permissions = defaultTopicPermissions();
+        }
+        return topic.permissions;
+      }
+
+      function renderPermissionTable(perms) {
+        const tbody = document.getElementById("perm-tbody");
+        if (!tbody) return;
+        tbody.innerHTML = permissionRows
+          .map((row, idx) => {
+            if (row.type === "section") {
+              const noteCell = row.deleteNote
+                ? `<td class="cell-note">${escapeHtml(row.deleteNote)}</td>`
+                : `<td></td>`;
+              return `<tr class="perm-section-row"><td colspan="5">${escapeHtml(row.label)}</td>${noteCell}</tr>`;
+            }
+            const rowPerms = (perms && perms[idx]) || row.perms;
+            const cells = rowPerms
+              .map((on, pIdx) => {
+                return `
+                  <td>
+                    <label class="perm-toggle">
+                      <input type="checkbox" ${on ? "checked" : ""} data-row="${idx}" data-perm="${pIdx}" />
+                      <span class="perm-slider"></span>
+                    </label>
+                  </td>`;
+              })
+              .join("");
+            return `
+              <tr>
+                <td class="cell-name">${escapeHtml(row.name)}</td>
+                ${cells}
+              </tr>
+            `;
+          })
+          .join("");
+      }
+
+      function openPermissionModal() {
+        const addTopicOpen = document
+          .getElementById("modal-add-topic-backdrop")
+          ?.classList.contains("open");
+
+        let topicName = "";
+        let perms = null;
+
+        if (addTopicOpen) {
+          topicName =
+            (
+              document.getElementById("new-topic-name")?.value || ""
+            ).trim() || "Chuyên mục mới";
+          perms = defaultTopicPermissions();
+        } else {
+          if (selectedTopicId == null) {
+            alert("Vui lòng chọn chuyên mục trước.");
+            return;
+          }
+          const topic = topics.find((t) => t.id === selectedTopicId);
+          if (!topic) return;
+          topicName = topic.name || "Chuyên mục";
+          perms = ensureTopicPermissions(topic);
+        }
+
+        const titleEl = document.getElementById("permission-modal-title");
+        if (titleEl) {
+          titleEl.textContent = `Cài đặt quyền hạn truy cập — ${topicName}`;
+        }
+
+        renderPermissionTable(perms);
+        document
+          .getElementById("permission-modal-backdrop")
+          .classList.add("open");
+      }
+      function closePermissionModal() {
+        document
+          .getElementById("permission-modal-backdrop")
+          .classList.remove("open");
+      }
+      function savePermission() {
+        const topic = topics.find((t) => t.id === selectedTopicId);
+        if (!topic) {
+          closePermissionModal();
+          return;
+        }
+        const perms = ensureTopicPermissions(topic);
+        const tbody = document.getElementById("perm-tbody");
+        if (tbody) {
+          tbody.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+            const r = Number(cb.dataset.row);
+            const p = Number(cb.dataset.perm);
+            if (!Number.isNaN(r) && !Number.isNaN(p) && perms[r]) {
+              perms[r][p] = cb.checked;
+            }
+          });
+        }
+        closePermissionModal();
+        alert("Đã lưu cấu hình quyền hạn.");
+      }
+
+      /* ====== INIT ====== */
+      document.addEventListener("DOMContentLoaded", () => {
+        renderMainCats();
+        renderSubCats();
+        loadCatAttr();
+        renderTopics();
+        loadTopicAttr(selectedTopicId);
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          ["add-main-cat", "add-sub-cat", "add-topic"].forEach(closeModal);
+          closeActionModal();
+          closePermissionModal();
+        }
+      });
+</script>
+  </body>
+</html>

@@ -31,7 +31,7 @@
           0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
         --radius: 10px;
         --sidebar-w: 210px;
-        --header-h: 52px;
+        --header-h: 60px;
       }
 
       * {
@@ -54,7 +54,7 @@
         left: 0;
         right: 0;
         z-index: 100;
-        height: var(--header-h);
+        min-height: 60px;
         background: linear-gradient(
           135deg,
           #4a2096 0%,
@@ -64,7 +64,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 20px;
+        padding-left: 20px;
+        padding-right: 20px;
         box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
       }
       .header-logo {
@@ -102,7 +103,10 @@
         cursor: pointer;
         font-size: 11.5px;
         font-weight: 500;
-        white-space: nowrap;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
         transition: all 0.15s;
       }
       .nav-item:hover,
@@ -110,7 +114,49 @@
         background: rgba(255, 255, 255, 0.18);
         color: white;
       }
-      .nav-item.active {
+            .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .nav-dropdown a.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+.nav-item.active {
         background: rgba(255, 255, 255, 0.22);
         font-weight: 600;
       }
@@ -892,6 +938,197 @@
         grid-column: 1 / -1;
       }
 
+      .form-inline-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 20px;
+      }
+
+      .category-builder {
+        display: grid;
+        gap: 10px;
+      }
+      .category-picker-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+        gap: 10px;
+      }
+      .category-selected-box {
+        border: 1px dashed var(--gray-300);
+        border-radius: 10px;
+        background: var(--gray-50);
+        padding: 12px;
+        min-height: 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .category-selected-empty {
+        color: var(--gray-500);
+        font-size: 12px;
+        font-style: italic;
+      }
+      .category-main-group {
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 10px 12px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .category-main-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .category-main-row-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .category-main-count {
+        font-size: 11px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
+      .category-sub-label {
+        font-size: 11px;
+        color: var(--gray-500);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .category-sub-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .category-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1;
+      }
+      .category-chip.main {
+        background: var(--primary);
+        color: white;
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      .category-chip.sub {
+        background: var(--primary-light);
+        color: var(--primary);
+        border: 1px solid var(--primary-light);
+      }
+      .category-chip-remove {
+        border: none;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1;
+        padding: 0;
+        opacity: 0.85;
+        transition: opacity 0.15s;
+      }
+      .category-chip-remove:hover {
+        opacity: 1;
+      }
+      .category-sub-empty {
+        font-size: 11px;
+        color: var(--gray-500);
+        font-style: italic;
+      }
+      .category-hint {
+        font-size: 11px;
+        color: var(--gray-500);
+      }
+      .sub-multi-dropdown {
+        position: relative;
+      }
+      .sub-multi-button {
+        width: 100%;
+        text-align: left;
+        background: white;
+        border: 1px solid var(--gray-300);
+        border-radius: 8px;
+        padding: 8px 28px 8px 12px;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        position: relative;
+        min-height: 36px;
+      }
+      .sub-multi-button:disabled {
+        background: var(--gray-50);
+        color: var(--gray-500);
+        cursor: not-allowed;
+      }
+      .sub-multi-button::after {
+        content: "▾";
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 10px;
+        color: var(--gray-500);
+      }
+      .sub-multi-list {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        z-index: 30;
+        max-height: 220px;
+        overflow-y: auto;
+        padding: 6px 0;
+      }
+      .sub-multi-dropdown.open .sub-multi-list {
+        display: block;
+      }
+      .sub-multi-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        user-select: none;
+      }
+      .sub-multi-item:hover {
+        background: var(--gray-50);
+      }
+      .sub-multi-item input[type="checkbox"] {
+        margin: 0;
+      }
+      .sub-multi-item.locked {
+        color: var(--gray-500);
+        cursor: not-allowed;
+      }
+      .sub-multi-item.disabled {
+        color: var(--gray-400);
+        cursor: not-allowed;
+      }
+      .sub-multi-empty {
+        padding: 8px 12px;
+        font-size: 12px;
+        color: var(--gray-500);
+      }
+
       .form-actions {
         display: flex;
         gap: 8px;
@@ -1668,6 +1905,86 @@
         opacity: 0.45;
         cursor: not-allowed;
       }
+      .compose-action-wrap {
+        position: fixed;
+        right: 24px;
+        bottom: 20px;
+        z-index: 250;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .draft-status-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 90px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .draft-status-chip.draft {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .draft-status-chip.pending {
+        background: #fff7e6;
+        color: #b26a00;
+      }
+      .schedule-post-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 280;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .schedule-post-backdrop.open {
+        display: flex;
+      }
+      .schedule-post-modal {
+        background: white;
+        border-radius: 10px;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--gray-200);
+        width: min(420px, calc(100vw - 24px));
+        padding: 16px;
+      }
+      .schedule-post-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+      }
+      .schedule-post-desc {
+        font-size: 12px;
+        color: var(--gray-600);
+        line-height: 1.5;
+        margin-bottom: 12px;
+      }
+      .schedule-post-input {
+        width: 100%;
+        height: 36px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 10px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+      }
+      .schedule-post-input:focus {
+        border-color: var(--primary);
+      }
+      .schedule-post-actions {
+        margin-top: 14px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+      }
       .image-edit-backdrop {
         position: fixed;
         inset: 0;
@@ -1731,6 +2048,9 @@
         .detail-grid {
           grid-template-columns: 1fr;
         }
+        .form-inline-grid {
+          grid-template-columns: 1fr;
+        }
         .write-post-grid {
           grid-template-columns: 1fr;
         }
@@ -1775,6 +2095,11 @@
           right: 16px;
           bottom: 14px;
         }
+        .compose-action-wrap {
+          right: 16px;
+          bottom: 14px;
+          left: 16px;
+        }
       }
     </style>
   </head>
@@ -1785,21 +2110,28 @@
         <span>Quản lý hệ thống BEAUTY</span>
       </div>
       <nav class="header-nav">
-        <div class="nav-item">Trang chủ</div>
-        <div class="nav-item">Quản lý thông tin</div>
-        <div class="nav-item active">Thành viên ảo</div>
-        <div class="nav-item">Thành viên thực, staff</div>
-        <div class="nav-item">Cấp bậc</div>
-        <div class="nav-item">Bác sĩ</div>
-        <div class="nav-item">Bệnh viện</div>
-        <div class="nav-item">Đối tác</div>
-        <div class="nav-item">Menu</div>
-        <div class="nav-item">Bài viết &amp; BL</div>
-        <div class="nav-item">Thẻ</div>
-        <div class="nav-item">Spam/Báo cáo</div>
-        <div class="nav-item">Banner</div>
-        <div class="nav-item">Điểm thưởng</div>
-        <div class="nav-item">Thống kê</div>
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item active" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -1813,9 +2145,27 @@
     <div class="app-body">
       <aside class="sidebar">
         <div class="sidebar-label">Danh mục quản lý</div>
-        <div class="sidebar-item active">Quản lý TVA</div>
-        <div class="sidebar-item">Bài viết TVA</div>
-        <div class="sidebar-item">Bình luận TVA</div>
+        <div
+          class="sidebar-item active"
+          id="sidebar-tva"
+          onclick="goSection('tva')"
+        >
+          Quản lý TVA
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-tva-posts"
+          onclick="goSection('tva-posts')"
+        >
+          QL bài viết của TVA
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-tva-comments"
+          onclick="goSection('tva-comments')"
+        >
+          QL bình luận của TVA
+        </div>
       </aside>
 
       <main class="main page active" id="page-list">
@@ -1947,9 +2297,9 @@
                   </button>
                   <button
                     class="criteria-option"
-                    onclick="selectCriteria('Nickname')"
+                    onclick="selectCriteria('Tên hiển thị')"
                   >
-                    Nickname
+                    Tên hiển thị
                   </button>
                 </div>
               </div>
@@ -1958,6 +2308,22 @@
                 id="search-input"
                 placeholder="Nhập từ khóa tìm kiếm..."
               />
+              <select
+                class="form-input"
+                id="filter-grade"
+                style="width: 140px"
+                onchange="executeSearch()"
+              >
+                <option value="">Tất cả cấp bậc</option>
+                <option value="lv1">Lv.1</option>
+                <option value="lv2">Lv.2</option>
+                <option value="lv3">Lv.3</option>
+                <option value="lv4">Lv.4</option>
+                <option value="lv5">Lv.5</option>
+                <option value="kol">KOL</option>
+                <option value="expert">Chuyên gia</option>
+                <option value="doctor">Bác sĩ</option>
+              </select>
               <button class="btn btn-outline-primary" onclick="executeSearch()">
                 Tìm
               </button>
@@ -1999,9 +2365,26 @@
                   </button>
                   <button
                     class="btn btn-outline-primary btn-sm"
+                    onclick="openChangeLevelModal()"
+                  >
+                    Thay đổi cấp bậc
+                  </button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
                     onclick="openActionModal('notify')"
                   >
-                    Gửi thông báo đẩy
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                    Gửi thông báo
                   </button>
                 </div>
                 <div class="table-actions-right">
@@ -2027,11 +2410,13 @@
                         />
                       </th>
                       <th>ID</th>
-                      <th>Nickname</th>
-                      <th>Tên họ</th>
+                      <th>Tên hiển thị</th>
+                      <th>Khu Vực</th>
+                      <th>Độ tuổi</th>
                       <th>Giới tính</th>
-                      <th>Ngày tạo</th>
-                      <th>Người tạo</th>
+                      <th>Cấp bậc</th>
+                      <th>Lượng bài viết</th>
+                      <th>Lượng bình luận</th>
                       <th>Ghi chú</th>
                     </tr>
                   </thead>
@@ -2104,11 +2489,14 @@
                         />
                       </th>
                       <th>ID</th>
-                      <th>Nickname</th>
-                      <th>Tên họ</th>
+                      <th>Tên hiển thị</th>
+                      <th>Khu Vực</th>
+                      <th>Độ tuổi</th>
                       <th>Giới tính</th>
-                      <th>Ngày tạo</th>
-                      <th>Người tạo</th>
+                      <th>Cấp bậc</th>
+                      <th>Lượng bài viết</th>
+                      <th>Lượng bình luận</th>
+                      <th>Người xóa</th>
                       <th>Ngày xóa</th>
                       <th>Ghi chú</th>
                     </tr>
@@ -2175,8 +2563,9 @@
                     <span class="meta-badge" id="detail-badge-id"
                       >ID: VM001</span
                     >
-                    <span class="meta-badge" id="detail-badge-level"></span>
-                    <span class="meta-badge" id="detail-badge-nickname"> </span>
+                    <span class="meta-badge" id="detail-badge-level"
+                      >Thành viên ảo</span
+                    >
                   </div>
                 </div>
               </div>
@@ -2195,32 +2584,29 @@
                   Chỉnh sửa thông tin
                 </button>
                 <button
+                  class="btn btn-outline-primary"
+                  onclick="openChangeLevelModal()"
+                >
+                  Thay đổi cấp bậc
+                </button>
+                <button
                   class="btn btn-primary"
                   onclick="openActionModal('notify')"
                 >
                   <svg
                     width="12"
                     height="12"
-                    viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
                   >
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M9 11l3 3L22 4" />
+                    <path
+                      d="M20.88 9.12a1 1 0 0 0-1.24 1.24l5.18 5.18a1 1 0 0 0 1.24-1.24l-5.18-5.18zM6.5 3a2.5 2.5 0 0 1 2.5 2.5v8.5a2.5 2.5 0 1 1-5 0V5.5A2.5 2.5 0 0 1 6.5 3z"
+                    />
+                    <path d="M9 11l-5 5" />
                   </svg>
-                  Gửi thông báo
-                </button>
-                <button
-                  class="btn btn-outline-danger"
-                  onclick="openActionModal('suspend')"
-                >
-                  Tạm khóa
-                </button>
-                <button
-                  class="btn btn-danger"
-                  onclick="openActionModal('force-leave')"
-                >
-                  Buộc rời bỏ
+                  Gửi thông báo đẩy
                 </button>
               </div>
             </div>
@@ -2262,6 +2648,13 @@
               >
                 Bình luận
               </div>
+              <div
+                class="tab"
+                id="tab-drafts"
+                onclick="switchDetailTab('drafts')"
+              >
+                Bài viết nháp
+              </div>
             </div>
             <div id="panel-posts">
               <div
@@ -2273,57 +2666,134 @@
                   placeholder="Tìm kiếm bài viết..."
                   style="flex: 0 1 300px"
                 />
+                <div class="date-section" style="flex: 0 1 auto">
+                  <div class="date-range">
+                    <button
+                      class="date-nav"
+                      id="detail-posts-date-prev"
+                      onclick="shiftDetailDateRange('posts', -1)"
+                    >
+                      ‹
+                    </button>
+                    <span
+                      class="date-display"
+                      id="detail-posts-date-display"
+                    ></span>
+                    <button
+                      class="date-nav"
+                      id="detail-posts-date-next"
+                      onclick="shiftDetailDateRange('posts', 1)"
+                    >
+                      ›
+                    </button>
+                  </div>
+                  <div
+                    class="date-picker-wrap"
+                    id="detail-posts-date-picker-wrap"
+                  >
+                    <button
+                      class="date-picker-toggle"
+                      onclick="toggleDetailDatePicker(event, 'posts')"
+                      title="Chọn khoảng ngày"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect
+                          x="3"
+                          y="4"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                    </button>
+                    <div
+                      class="date-picker-popover"
+                      onclick="event.stopPropagation()"
+                    >
+                      <div class="date-picker-grid">
+                        <label class="date-picker-field"
+                          >Từ ngày
+                          <input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-posts-date-start-input"
+                        /></label>
+                        <label class="date-picker-field"
+                          >Đến ngày
+                          <input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-posts-date-end-input"
+                        /></label>
+                      </div>
+                      <div class="date-picker-actions">
+                        <button
+                          class="btn btn-primary btn-sm"
+                          onclick="applyDetailDatePicker('posts')"
+                        >
+                          Áp dụng
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="time-filters" data-tab="posts">
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('posts', 'day', this)"
+                  >
+                    Ngày
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('posts', 'week', this)"
+                  >
+                    Tuần
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('posts', 'month', this)"
+                  >
+                    Tháng
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('posts', 'year', this)"
+                  >
+                    Năm
+                  </button>
+                  <button
+                    class="tf-btn active"
+                    onclick="setDetailQuickFilter('posts', 'all', this)"
+                  >
+                    Tất cả
+                  </button>
+                </div>
               </div>
               <div class="table-wrap">
                 <table>
                   <thead>
                     <tr>
                       <th><input type="checkbox" /></th>
-                      <th>Tiêu đề bài viết</th>
-                      <th>Danh mục</th>
+                      <th>Tên chuyên mục</th>
+                      <th>Tên danh mục</th>
+                      <th>Tiêu đề</th>
                       <th>Ngày đăng</th>
                       <th>Lượt xem</th>
-                      <th>Số Bình luận</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text"
-                          >Chăm sóc da mặt trong mùa hè</span
-                        >
-                      </td>
-                      <td>Thẩm mỹ da</td>
-                      <td>22/06/2025</td>
-                      <td>523</td>
-                      <td>48</td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text"
-                          >Bí quyết làm đẹp từ thiên nhiên</span
-                        >
-                      </td>
-                      <td>Thẩm mỹ da</td>
-                      <td>20/06/2025</td>
-                      <td>782</td>
-                      <td>64</td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text"
-                          >Hành trình trở thành creator</span
-                        >
-                      </td>
-                      <td>Kênh tâm sự</td>
-                      <td>18/06/2025</td>
-                      <td>234</td>
-                      <td>21</td>
-                    </tr>
-                  </tbody>
+                  <tbody id="detail-posts-tbody"></tbody>
                 </table>
               </div>
               <div class="table-actions" style="margin-top: 12px">
@@ -2345,6 +2815,120 @@
                   placeholder="Tìm kiếm bình luận..."
                   style="flex: 0 1 300px"
                 />
+                <div class="date-section" style="flex: 0 1 auto">
+                  <div class="date-range">
+                    <button
+                      class="date-nav"
+                      id="detail-comments-date-prev"
+                      onclick="shiftDetailDateRange('comments', -1)"
+                    >
+                      ‹
+                    </button>
+                    <span
+                      class="date-display"
+                      id="detail-comments-date-display"
+                    ></span>
+                    <button
+                      class="date-nav"
+                      id="detail-comments-date-next"
+                      onclick="shiftDetailDateRange('comments', 1)"
+                    >
+                      ›
+                    </button>
+                  </div>
+                  <div
+                    class="date-picker-wrap"
+                    id="detail-comments-date-picker-wrap"
+                  >
+                    <button
+                      class="date-picker-toggle"
+                      onclick="toggleDetailDatePicker(event, 'comments')"
+                      title="Chọn khoảng ngày"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect
+                          x="3"
+                          y="4"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                    </button>
+                    <div
+                      class="date-picker-popover"
+                      onclick="event.stopPropagation()"
+                    >
+                      <div class="date-picker-grid">
+                        <label class="date-picker-field"
+                          >Từ ngày
+                          <input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-comments-date-start-input"
+                        /></label>
+                        <label class="date-picker-field"
+                          >Đến ngày
+                          <input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-comments-date-end-input"
+                        /></label>
+                      </div>
+                      <div class="date-picker-actions">
+                        <button
+                          class="btn btn-primary btn-sm"
+                          onclick="applyDetailDatePicker('comments')"
+                        >
+                          Áp dụng
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="time-filters" data-tab="comments">
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('comments', 'day', this)"
+                  >
+                    Ngày
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('comments', 'week', this)"
+                  >
+                    Tuần
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('comments', 'month', this)"
+                  >
+                    Tháng
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('comments', 'year', this)"
+                  >
+                    Năm
+                  </button>
+                  <button
+                    class="tf-btn active"
+                    onclick="setDetailQuickFilter('comments', 'all', this)"
+                  >
+                    Tất cả
+                  </button>
+                </div>
               </div>
               <div class="table-wrap">
                 <table>
@@ -2356,32 +2940,153 @@
                       <th>Ngày bình luận</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text">Cảm ơn và rất hữu ích!</span>
-                      </td>
-                      <td>Chăm sóc da mặt...</td>
-                      <td>22/06/2025 14:30</td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text"
-                          >Mình sẽ thử phương pháp này ngay</span
-                        >
-                      </td>
-                      <td>Bí quyết làm đẹp...</td>
-                      <td>19/06/2025 10:15</td>
-                    </tr>
-                  </tbody>
+                  <tbody id="detail-comments-tbody"></tbody>
                 </table>
               </div>
               <div class="table-actions" style="margin-top: 12px">
                 <button class="btn btn-outline-danger btn-sm">
                   Ẩn mục chọn
                 </button>
+              </div>
+            </div>
+            <div id="panel-drafts" style="display: none">
+              <div
+                class="search-row"
+                style="margin-top: 12px; margin-bottom: 12px"
+              >
+                <input
+                  class="search-input-lg"
+                  placeholder="Tìm kiếm bài viết nháp..."
+                  style="flex: 0 1 300px"
+                />
+                <div class="date-section" style="flex: 0 1 auto">
+                  <div class="date-range">
+                    <button
+                      class="date-nav"
+                      id="detail-drafts-date-prev"
+                      onclick="shiftDetailDateRange('drafts', -1)"
+                    >
+                      ‹
+                    </button>
+                    <span
+                      class="date-display"
+                      id="detail-drafts-date-display"
+                    ></span>
+                    <button
+                      class="date-nav"
+                      id="detail-drafts-date-next"
+                      onclick="shiftDetailDateRange('drafts', 1)"
+                    >
+                      ›
+                    </button>
+                  </div>
+                  <div
+                    class="date-picker-wrap"
+                    id="detail-drafts-date-picker-wrap"
+                  >
+                    <button
+                      class="date-picker-toggle"
+                      onclick="toggleDetailDatePicker(event, 'drafts')"
+                      title="Chọn khoảng ngày"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect
+                          x="3"
+                          y="4"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                    </button>
+                    <div
+                      class="date-picker-popover"
+                      onclick="event.stopPropagation()"
+                    >
+                      <div class="date-picker-grid">
+                        <label class="date-picker-field"
+                          >Từ ngày
+                          <input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-drafts-date-start-input"
+                        /></label>
+                        <label class="date-picker-field"
+                          >Đến ngày
+                          <input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-drafts-date-end-input"
+                        /></label>
+                      </div>
+                      <div class="date-picker-actions">
+                        <button
+                          class="btn btn-primary btn-sm"
+                          onclick="applyDetailDatePicker('drafts')"
+                        >
+                          Áp dụng
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="time-filters" data-tab="drafts">
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('drafts', 'day', this)"
+                  >
+                    Ngày
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('drafts', 'week', this)"
+                  >
+                    Tuần
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('drafts', 'month', this)"
+                  >
+                    Tháng
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('drafts', 'year', this)"
+                  >
+                    Năm
+                  </button>
+                  <button
+                    class="tf-btn active"
+                    onclick="setDetailQuickFilter('drafts', 'all', this)"
+                  >
+                    Tất cả
+                  </button>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tên chuyên mục</th>
+                      <th>Tên danh mục</th>
+                      <th>Tiêu đề</th>
+                      <th>Cập nhật</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="detail-draft-tbody"></tbody>
+                </table>
               </div>
             </div>
             <div
@@ -2456,7 +3161,7 @@
 
               <div class="form-group">
                 <label class="form-label"
-                  >Nickname <span class="req">*</span></label
+                  >Tên hiển thị <span class="req">*</span></label
                 >
                 <input
                   id="vf-nickname"
@@ -2493,6 +3198,16 @@
                   >Ngày sinh <span class="req">*</span></label
                 >
                 <input id="vf-birth" class="form-input" type="date" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label"
+                  >Giới tính <span class="req">*</span></label
+                >
+                <select id="vf-gender" class="form-input">
+                  <option value="Nữ">Nữ</option>
+                  <option value="Nam">Nam</option>
+                </select>
               </div>
 
               <div class="form-group">
@@ -2533,6 +3248,55 @@
                 </div>
               </div>
 
+              <div class="form-row-full form-inline-grid">
+                <div class="form-group" style="grid-column: 1 / -1">
+                  <label class="form-label"
+                    >Danh mục chính / Danh mục phụ</label
+                  >
+                  <div class="category-builder">
+                    <div class="category-picker-grid">
+                      <select id="vf-main-category-picker" class="form-input">
+                        <option value="">Chọn danh mục chính</option>
+                      </select>
+                      <div
+                        id="vf-sub-category-dropdown"
+                        class="sub-multi-dropdown"
+                      >
+                        <button
+                          type="button"
+                          id="vf-sub-category-picker"
+                          class="sub-multi-button"
+                          onclick="toggleSubCategoryDropdown(event)"
+                          disabled
+                        >
+                          Chọn danh mục phụ
+                        </button>
+                        <div
+                          id="vf-sub-category-list"
+                          class="sub-multi-list"
+                          onclick="event.stopPropagation()"
+                        ></div>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary"
+                        onclick="addFormCategorySelection()"
+                      >
+                        + Thêm
+                      </button>
+                    </div>
+                    <div
+                      id="vf-category-selected-list"
+                      class="category-selected-box"
+                    >
+                      <div class="category-selected-empty">
+                        Chưa chọn danh mục.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label class="form-label"
                   >Mật khẩu <span class="req">*</span></label
@@ -2540,7 +3304,6 @@
                 <input
                   id="vf-password"
                   class="form-input"
-                  type="password"
                   placeholder="Nhập mật khẩu"
                 />
               </div>
@@ -2658,7 +3421,21 @@
           onchange="handleBeforeAfterMediaUpload('after', event)"
         />
 
-        <div class="before-after-submit-wrap">
+        <div class="compose-action-wrap">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            onclick="saveBeforeAfterDraft()"
+          >
+            Lưu nháp
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            type="button"
+            onclick="openScheduleModalForComposer('before-after')"
+          >
+            Cài đặt thời gian hiển thị
+          </button>
           <button
             id="before-after-submit"
             class="btn btn-primary before-after-submit-btn"
@@ -2769,7 +3546,21 @@
           onchange="handleGeneralMediaUpload('video', event)"
         />
 
-        <div class="general-compose-footer">
+        <div class="compose-action-wrap">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            onclick="saveGeneralDraft()"
+          >
+            Lưu nháp
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            type="button"
+            onclick="openScheduleModalForComposer('general')"
+          >
+            Cài đặt thời gian hiển thị
+          </button>
           <button
             id="general-submit-btn"
             class="btn btn-primary"
@@ -2843,7 +3634,21 @@
           onchange="handleTalkMediaUpload('video', event)"
         />
 
-        <div class="talk-submit-wrap">
+        <div class="compose-action-wrap">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            onclick="saveTalkDraft()"
+          >
+            Lưu nháp
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            type="button"
+            onclick="openScheduleModalForComposer('talk')"
+          >
+            Cài đặt thời gian hiển thị
+          </button>
           <button
             id="talk-submit-btn"
             class="btn btn-primary"
@@ -2854,6 +3659,631 @@
           </button>
         </div>
       </main>
+
+      <!-- ====== PAGE: QL BÀI VIẾT CỦA TVA ====== -->
+      <main class="main page" id="page-tva-posts">
+        <div class="page-title"><span>•</span> Quản lý bài viết của TVA</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <div class="date-section">
+                <div
+                  class="card-header"
+                  style="margin-right: 420px"
+                  id="tva-post-date-label"
+                >
+                  Ngày đăng bài viết
+                </div>
+                <div class="date-range">
+                  <button class="date-nav">‹</button>
+                  <span class="date-display">23-06-2025 ~ 30-06-2025</span>
+                  <button class="date-nav">›</button>
+                </div>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn">Ngày</button>
+                <button class="tf-btn active">Tuần</button>
+                <button class="tf-btn">Tháng</button>
+                <button class="tf-btn">Năm</button>
+                <button class="tf-btn">Tất cả</button>
+                <button class="tf-btn">Tự chọn</button>
+              </div>
+            </div>
+
+            <div class="search-row">
+              <div class="card-header" style="margin-right: 12px">Tìm kiếm</div>
+              <div class="criteria-wrap" id="tva-post-criteria-wrap">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleTvaPostCriteriaDropdown(event)"
+                >
+                  <span id="tva-post-criteria-label">ID</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu" id="tva-post-criteria-menu"></div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="tva-post-search-input"
+                placeholder="Nhập thông tin"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              • Số bài viết của thành viên ảo
+              <span class="count" id="tva-post-count">2,345 bài</span>
+            </div>
+            <div class="tabs">
+              <div
+                class="tab active"
+                id="tab-tva-posts"
+                onclick="switchTvaPostTab('posts')"
+              >
+                Bài viết
+              </div>
+              <div
+                class="tab"
+                id="tab-tva-deleted-posts"
+                onclick="switchTvaPostTab('deleted')"
+              >
+                Bài viết đã xóa
+              </div>
+            </div>
+
+            <!-- Panel: Bài viết -->
+            <div id="panel-tva-posts">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="bulkChangeTvaPostCategory()"
+                  >
+                    Đổi danh mục
+                  </button>
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    onclick="bulkDeleteTvaPosts()"
+                  >
+                    Xóa
+                  </button>
+                </div>
+                <div
+                  class="table-actions-right"
+                  style="display: flex; gap: 8px; align-items: center"
+                >
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Danh sách 30</option>
+                      <option>Danh sách 50</option>
+                      <option>Danh sách 100</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table id="table-tva-posts">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          onchange="toggleAllTvaPosts(this, 'tbody-tva-posts')"
+                        />
+                      </th>
+                      <th>Tên hiển thị</th>
+                      <th>Tên chuyên mục</th>
+                      <th>Tên danh mục</th>
+                      <th>Tiêu đề</th>
+                      <th>Người viết</th>
+                      <th>Lượt xem</th>
+                      <th>Lượt thích</th>
+                      <th>Bình luận</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-tva-posts"></tbody>
+                </table>
+              </div>
+
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">3</button>
+                  <button class="pg-btn">4</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+
+            <!-- Panel: Bài viết đã xóa -->
+            <div id="panel-tva-deleted-posts" style="display: none">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button
+                    class="btn btn-danger btn-sm"
+                    onclick="bulkHardDeleteTvaPosts()"
+                  >
+                    Xóa vĩnh viễn
+                  </button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="bulkRestoreTvaPosts()"
+                  >
+                    Khôi phục
+                  </button>
+                </div>
+                <div
+                  class="table-actions-right"
+                  style="display: flex; gap: 8px; align-items: center"
+                >
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Danh sách 30</option>
+                      <option>Danh sách 50</option>
+                      <option>Danh sách 100</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table id="table-tva-deleted-posts">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          onchange="
+                            toggleAllTvaPosts(this, 'tbody-tva-deleted-posts')
+                          "
+                        />
+                      </th>
+                      <th>Tên hiển thị</th>
+                      <th>Tên chuyên mục</th>
+                      <th>Tên danh mục</th>
+                      <th>Tiêu đề</th>
+                      <th>Người xóa</th>
+                      <th>Ngày xóa</th>
+                      <th>Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-tva-deleted-posts"></tbody>
+                </table>
+              </div>
+
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== PAGE: QL BÌNH LUẬN CỦA TVA ====== -->
+      <main class="main page" id="page-tva-comments">
+        <div class="page-title"><span>•</span> Quản lý bình luận của TVA</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="search-row">
+              <div class="date-section">
+                <div
+                  class="card-header"
+                  style="margin-right: 420px"
+                  id="tva-comment-date-label"
+                >
+                  Ngày viết bình luận
+                </div>
+                <div class="date-range">
+                  <button class="date-nav">‹</button>
+                  <span class="date-display">23-06-2025 ~ 30-06-2025</span>
+                  <button class="date-nav">›</button>
+                </div>
+              </div>
+              <div class="time-filters">
+                <button class="tf-btn">Ngày</button>
+                <button class="tf-btn active">Tuần</button>
+                <button class="tf-btn">Tháng</button>
+                <button class="tf-btn">Năm</button>
+                <button class="tf-btn">Tất cả</button>
+                <button class="tf-btn">Tự chọn</button>
+              </div>
+            </div>
+
+            <div class="search-row">
+              <div class="card-header" style="margin-right: 12px">Tìm kiếm</div>
+              <div class="criteria-wrap" id="tva-comment-criteria-wrap">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleTvaCommentCriteriaDropdown(event)"
+                >
+                  <span id="tva-comment-criteria-label">ID</span>
+                  <span>▼</span>
+                </button>
+                <div class="criteria-menu" id="tva-comment-criteria-menu"></div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="tva-comment-search-input"
+                placeholder="Nhập thông tin"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">
+              • Quản lý bình luận của TVA
+              <span class="count" id="tva-comment-count">1,234 bình luận</span>
+            </div>
+            <div class="tabs">
+              <div
+                class="tab active"
+                id="tab-tva-comments"
+                onclick="switchTvaCommentTab('comments')"
+              >
+                Bình luận
+              </div>
+              <div
+                class="tab"
+                id="tab-tva-deleted-comments"
+                onclick="switchTvaCommentTab('deleted')"
+              >
+                Bình luận đã xóa
+              </div>
+            </div>
+
+            <!-- Panel: Bình luận -->
+            <div id="panel-tva-comments">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    onclick="deleteTvaCommentsBulk()"
+                  >
+                    Xóa
+                  </button>
+                </div>
+                <div
+                  class="table-actions-right"
+                  style="display: flex; gap: 8px; align-items: center"
+                >
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Danh sách 30</option>
+                      <option>Danh sách 50</option>
+                      <option>Danh sách 100</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table id="table-tva-comments">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          onchange="
+                            toggleAllTvaComments(this, 'tbody-tva-comments')
+                          "
+                        />
+                      </th>
+                      <th>Tên hiển thị</th>
+                      <th>Tên chuyên mục</th>
+                      <th>Tên danh mục</th>
+                      <th>Tiêu đề</th>
+                      <th>Nội dung bình luận</th>
+                      <th>Người viết</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-tva-comments"></tbody>
+                </table>
+              </div>
+
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">3</button>
+                  <button class="pg-btn">4</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+
+            <!-- Panel: Bình luận đã xóa -->
+            <div id="panel-tva-deleted-comments" style="display: none">
+              <div class="table-actions">
+                <div class="table-actions-left">
+                  <span
+                    style="
+                      font-size: 11.5px;
+                      color: var(--gray-500);
+                      font-weight: 500;
+                    "
+                    >Mục đã chọn:</span
+                  >
+                  <button
+                    class="btn btn-danger btn-sm"
+                    onclick="hardDeleteTvaCommentsBulk()"
+                  >
+                    Xóa vĩnh viễn
+                  </button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="restoreTvaCommentsBulk()"
+                  >
+                    Khôi phục
+                  </button>
+                </div>
+                <div
+                  class="table-actions-right"
+                  style="display: flex; gap: 8px; align-items: center"
+                >
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Danh sách 30</option>
+                      <option>Danh sách 50</option>
+                      <option>Danh sách 100</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table id="table-tva-deleted-comments">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input
+                          type="checkbox"
+                          onchange="
+                            toggleAllTvaComments(
+                              this,
+                              'tbody-tva-deleted-comments',
+                            )
+                          "
+                        />
+                      </th>
+                      <th>Tên hiển thị</th>
+                      <th>Tên chuyên mục</th>
+                      <th>Tên danh mục</th>
+                      <th>Tiêu đề bài viết</th>
+                      <th>Nội dung bình luận</th>
+                      <th>Người viết</th>
+                      <th>Người xóa</th>
+                      <th>Ngày xóa</th>
+                      <th>Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-tva-deleted-comments"></tbody>
+                </table>
+              </div>
+
+              <div class="table-footer">
+                <div></div>
+                <div class="pagination">
+                  <button class="pg-btn">‹</button>
+                  <button class="pg-btn active">1</button>
+                  <button class="pg-btn">2</button>
+                  <button class="pg-btn">3</button>
+                  <button class="pg-btn">4</button>
+                  <button class="pg-btn">›</button>
+                </div>
+                <div style="width: 120px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ====== MODAL: ĐỔI DANH MỤC ====== -->
+    <div
+      class="action-modal-backdrop"
+      id="change-category-modal-backdrop"
+      onclick="closeChangeCategoryModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        style="width: 480px; max-width: 95vw"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title">Đổi danh mục</h3>
+        <div style="padding: 4px 0 12px">
+          <label
+            style="
+              display: block;
+              font-size: 12px;
+              color: var(--gray-700);
+              font-weight: 600;
+              margin-bottom: 8px;
+            "
+            >• Danh mục</label
+          >
+          <div style="display: flex; gap: 8px; align-items: flex-start">
+            <div
+              class="criteria-wrap"
+              id="change-main-cat-wrap"
+              style="flex: 1"
+            >
+              <button
+                class="criteria-btn"
+                style="width: 100%; justify-content: space-between"
+                onclick="toggleChangeCatDropdown(event)"
+              >
+                <span id="change-main-cat-label">Chọn danh mục</span>
+                <span>▼</span>
+              </button>
+              <div
+                class="criteria-menu"
+                id="change-main-cat-menu"
+                style="max-height: 240px; overflow-y: auto"
+              ></div>
+            </div>
+            <div class="criteria-wrap" id="change-sub-cat-wrap" style="flex: 1">
+              <button
+                class="criteria-btn"
+                style="width: 100%; justify-content: space-between"
+                onclick="toggleChangeSubCatDropdown(event)"
+              >
+                <span id="change-sub-cat-label">Chọn danh mục phụ</span>
+                <span>▼</span>
+              </button>
+              <div
+                class="criteria-menu"
+                id="change-sub-cat-menu"
+                style="max-height: 240px; overflow-y: auto"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeChangeCategoryModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmChangeCategory()"
+          >
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== MODAL: ĐIỀU CHỈNH LƯỢT XEM / LƯỢT THÍCH ====== -->
+    <div
+      class="action-modal-backdrop"
+      id="adjust-metric-modal-backdrop"
+      onclick="closeAdjustMetricModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        style="width: 380px; max-width: 95vw"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title" id="adjust-metric-title">
+          Điều chỉnh lượt xem
+        </h3>
+        <div style="padding: 4px 0 12px">
+          <div
+            style="font-size: 12px; color: var(--gray-700); margin-bottom: 12px"
+          >
+            Số hiện tại:
+            <strong id="adjust-metric-current" style="color: var(--gray-900)"
+              >0</strong
+            >
+          </div>
+          <label
+            class="form-label"
+            style="
+              display: block;
+              font-size: 12px;
+              color: var(--gray-700);
+              font-weight: 600;
+              margin-bottom: 6px;
+            "
+            >Số mới <span class="req">*</span></label
+          >
+          <input
+            type="number"
+            id="adjust-metric-input"
+            class="form-input"
+            min="0"
+            placeholder="Nhập số mong muốn"
+            oninput="this.value = Math.abs(parseInt(this.value) || 0)"
+          />
+          <div
+            class="error-text"
+            id="adjust-metric-error"
+            style="
+              font-size: 11px;
+              color: var(--accent);
+              margin-top: 6px;
+              min-height: 14px;
+            "
+          ></div>
+        </div>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeAdjustMetricModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmAdjustMetric()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
     </div>
 
     <div
@@ -2969,7 +4399,7 @@
               disabled
               onclick="completeWritePostSelection()"
             >
-              Hoàn thành (Đã chọn 0)
+              Hoàn thành
             </button>
           </div>
         </div>
@@ -3039,6 +4469,104 @@
       </div>
     </div>
 
+    <div
+      class="schedule-post-backdrop"
+      id="schedule-post-backdrop"
+      onclick="closeSchedulePostModal()"
+    >
+      <div class="schedule-post-modal" onclick="event.stopPropagation()">
+        <div class="schedule-post-title">
+          Cài đặt thời gian hiển thị bài viết
+        </div>
+        <div class="schedule-post-desc">
+          Nếu chọn thời gian quá khứ, bài sẽ đăng ngay và hiển thị mốc thời gian
+          đã chọn.
+        </div>
+        <div class="schedule-post-desc">
+          Nếu chọn thời gian tương lai, bài sẽ được lưu ở trạng thái đã lên lịch
+          và tự động đăng vào thời gian đã chọn.
+        </div>
+        <input
+          id="schedule-post-datetime"
+          class="schedule-post-input"
+          type="datetime-local"
+        />
+        <div class="schedule-post-actions">
+          <button
+            class="btn btn-ghost"
+            type="button"
+            onclick="closeSchedulePostModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="saveScheduledPost()"
+          >
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="action-modal-backdrop"
+      id="change-level-backdrop"
+      onclick="closeChangeLevelModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title">Thay đổi cấp bậc</h3>
+        <div style="margin-bottom: 20px">
+          <label
+            style="
+              display: block;
+              margin-bottom: 8px;
+              font-weight: 600;
+              font-size: 13px;
+            "
+          >
+            Chọn cấp bậc:
+          </label>
+          <select
+            id="change-level-select"
+            class="form-input"
+            style="
+              width: 100%;
+              padding: 8px 12px;
+              border: 1px solid var(--gray-300);
+              border-radius: 6px;
+              font-size: 13px;
+            "
+          >
+            <option value="">-- Chọn cấp bậc --</option>
+            <option value="Thành viên">Thành viên</option>
+            <option value="Cộng tác viên">Cộng tác viên</option>
+            <option value="Quản trị viên">Quản trị viên</option>
+          </select>
+        </div>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeChangeLevelModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmChangeLevel()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script>
       const searchState = {
         criterion: "ID",
@@ -3060,6 +4588,154 @@
       let generalComposeType = "";
       let generalComposeCategoryText = "";
       let talkComposeMediaType = "";
+      let scheduleComposeType = "";
+      let schedulePayload = null;
+      let serverPostIdSeed = 1;
+
+      // Mock server-side store for drafts/scheduled posts in this prototype.
+      const serverPostStore = {
+        posts: [
+          {
+            id: "POST-SAMPLE-001",
+            memberId: "VM001",
+            type: "general",
+            typeLabel: "Review",
+            title: "Review serum B5 sau 14 ngay",
+            content: "Da phuc hoi nhanh, giam kich ung ro rang.",
+            categoryText: "Lan da - My pham",
+            hashtags: ["serum", "B5", "chamsocda"],
+            status: "draft",
+            draftData: {
+              media: [],
+              title: "Review serum B5 sau 14 ngay",
+              content: "Da phuc hoi nhanh, giam kich ung ro rang.",
+              hashtags: ["serum", "B5", "chamsocda"],
+            },
+            createdAt: "2026-04-14T08:15:00.000Z",
+            updatedAt: "2026-04-16T03:20:00.000Z",
+          },
+          {
+            id: "POST-SAMPLE-002",
+            memberId: "VM001",
+            type: "general",
+            typeLabel: "Hỏi đáp",
+            title: "Nen tay da bao nhieu lan moi tuan?",
+            content: "Da dau nen 2 lan/ tuan, da nhay cam 1 lan/ tuan.",
+            categoryText: "Lan da - TPCN/ Duoc pham",
+            hashtags: ["hoidap", "tayda", "routine"],
+            status: "pending",
+            scheduledAt: "2026-04-18T13:30:00.000Z",
+            draftData: {
+              media: [],
+              title: "Nen tay da bao nhieu lan moi tuan?",
+              content: "Da dau nen 2 lan/ tuan, da nhay cam 1 lan/ tuan.",
+              hashtags: ["hoidap", "tayda", "routine"],
+            },
+            createdAt: "2026-04-15T04:40:00.000Z",
+            updatedAt: "2026-04-16T05:10:00.000Z",
+          },
+          {
+            id: "POST-SAMPLE-003",
+            memberId: "VM001",
+            type: "talk",
+            typeLabel: "Tán gẫu",
+            title: "",
+            content: "Sang nay skincare xong thay da glow hon han.",
+            categoryText: "Cổ/Mỹ phẩm",
+            hashtags: ["tangau", "skincare"],
+            status: "draft",
+            draftData: {
+              media: [],
+              content: "Sang nay skincare xong thay da glow hon han.",
+              hashtags: ["tangau", "skincare"],
+            },
+            createdAt: "2026-04-13T10:00:00.000Z",
+            updatedAt: "2026-04-15T09:25:00.000Z",
+          },
+          {
+            id: "POST-SAMPLE-004",
+            memberId: "VM002",
+            type: "general",
+            typeLabel: "Thông tin chuyên gia",
+            title: "3 dau hieu da bi mat nuoc",
+            content:
+              "Cang rang, bong nhe va de kich ung la 3 dau hieu pho bien.",
+            categoryText: "Lan da - My pham",
+            hashtags: ["chuyengia", "matnuoc", "duongam"],
+            status: "draft",
+            draftData: {
+              media: [],
+              title: "3 dau hieu da bi mat nuoc",
+              content:
+                "Cang rang, bong nhe va de kich ung la 3 dau hieu pho bien.",
+              hashtags: ["chuyengia", "matnuoc", "duongam"],
+            },
+            createdAt: "2026-04-12T07:00:00.000Z",
+            updatedAt: "2026-04-16T01:45:00.000Z",
+          },
+          {
+            id: "POST-SAMPLE-005",
+            memberId: "VM001",
+            type: "general",
+            typeLabel: "Review",
+            title: "Review kem chong nang Anessa",
+            content:
+              "Khang nuoc tot, kha nang nang nhe nhung deu o lan da kho.",
+            categoryText: "Lan da - My pham",
+            hashtags: ["chongnang", "anessa", "summer"],
+            status: "draft",
+            draftData: {
+              media: [],
+              title: "Review kem chong nang Anessa",
+              content:
+                "Khang nuoc tot, kha nang nang nhe nhung deu o lan da kho.",
+              hashtags: ["chongnang", "anessa", "summer"],
+            },
+            createdAt: "2025-08-02T03:10:00.000Z",
+            updatedAt: "2025-08-04T11:00:00.000Z",
+          },
+          {
+            id: "POST-SAMPLE-006",
+            memberId: "VM001",
+            type: "general",
+            typeLabel: "Hỏi đáp",
+            title: "Nen uong collagen dang nuoc hay vien?",
+            content:
+              "Dang nuoc hap thu nhanh hon nhung gia thanh cao hon dang vien.",
+            categoryText: "Lan da - TPCN & duoc pham",
+            hashtags: ["collagen", "hoidap"],
+            status: "pending",
+            scheduledAt: "2025-03-12T09:00:00.000Z",
+            draftData: {
+              media: [],
+              title: "Nen uong collagen dang nuoc hay vien?",
+              content:
+                "Dang nuoc hap thu nhanh hon nhung gia thanh cao hon dang vien.",
+              hashtags: ["collagen", "hoidap"],
+            },
+            createdAt: "2025-03-05T08:00:00.000Z",
+            updatedAt: "2025-03-10T15:25:00.000Z",
+          },
+          {
+            id: "POST-SAMPLE-007",
+            memberId: "VM001",
+            type: "talk",
+            typeLabel: "Tán gẫu",
+            title: "",
+            content: "Hom nay troi am, di dao bo cuoi cung cua mua dong.",
+            categoryText: "Khác - Khác",
+            hashtags: ["tangau", "winter"],
+            status: "draft",
+            draftData: {
+              media: [],
+              content: "Hom nay troi am, di dao bo cuoi cung cua mua dong.",
+              hashtags: ["tangau", "winter"],
+            },
+            createdAt: "2024-02-18T07:30:00.000Z",
+            updatedAt: "2024-02-18T07:45:00.000Z",
+          },
+        ],
+      };
 
       const beforeAfterDraft = {
         beforeItems: [],
@@ -3111,9 +4787,9 @@
       };
 
       const writePostTypeMode = {
-        "Ảnh Trước/Sau": "multi",
+        "Ảnh Trước/Sau": "single",
         Review: "single",
-        "Thông tin chuyên gia": "multi",
+        "Thông tin chuyên gia": "single",
         "Hỏi đáp": "single",
         "Tán gẫu": "skip",
       };
@@ -3230,16 +4906,56 @@
           body: "Thành viên sẽ quay lại danh sách đang hoạt động.",
         },
         notify: {
-          title: "Gửi thông báo đẩy",
-          body: "Hệ thống sẽ gửi thông báo đến các thành viên đã chọn.",
+          title: "Gửi thông báo",
+          body: "Gửi thông báo đẩy đến thành viên ảo. Họ sẽ nhận được thông báo trên ứng dụng.",
         },
-        suspend: {
-          title: "Tạm khóa thành viên ảo",
-          body: "Tài khoản TVA sẽ bị tạm khóa cho đến khi được mở lại.",
+        "soft-delete-post": {
+          title: "Xóa bài viết",
+          body: 'Bài viết sẽ được chuyển sang tab "Bài viết đã xóa".',
         },
-        "force-leave": {
-          title: "Buộc rời bỏ hệ thống",
-          body: "Tài khoản TVA sẽ bị ngắt khỏi hệ thống ngay lập tức.",
+        "hard-delete-post": {
+          title: "Xóa vĩnh viễn bài viết",
+          body: "Bài viết sẽ bị xóa hoàn toàn và không thể khôi phục.",
+        },
+        "restore-post": {
+          title: "Khôi phục bài viết",
+          body: "Bài viết sẽ được khôi phục và hiển thị lại trên ứng dụng.",
+        },
+        "hard-delete-posts-bulk": {
+          title: "Xóa vĩnh viễn bài viết đã chọn",
+          body: "Các bài viết được chọn sẽ bị xóa hoàn toàn và không thể khôi phục.",
+        },
+        "restore-posts-bulk": {
+          title: "Khôi phục bài viết đã chọn",
+          body: "Các bài viết được chọn sẽ được khôi phục và hiển thị lại.",
+        },
+        "soft-delete-posts-bulk": {
+          title: "Xóa bài viết đã chọn",
+          body: 'Các bài viết được chọn sẽ được chuyển sang tab "Bài viết đã xóa".',
+        },
+        "soft-delete-comment": {
+          title: "Xóa bình luận",
+          body: 'Bình luận sẽ được chuyển sang tab "Bình luận đã xóa".',
+        },
+        "hard-delete-comment": {
+          title: "Xóa vĩnh viễn bình luận",
+          body: "Bình luận sẽ bị xóa hoàn toàn và không thể khôi phục.",
+        },
+        "restore-comment": {
+          title: "Khôi phục bình luận",
+          body: "Bình luận sẽ được khôi phục và hiển thị lại trên ứng dụng.",
+        },
+        "soft-delete-comments-bulk": {
+          title: "Xóa bình luận đã chọn",
+          body: 'Các bình luận được chọn sẽ được chuyển sang tab "Bình luận đã xóa".',
+        },
+        "hard-delete-comments-bulk": {
+          title: "Xóa vĩnh viễn bình luận đã chọn",
+          body: "Các bình luận được chọn sẽ bị xóa hoàn toàn và không thể khôi phục.",
+        },
+        "restore-comments-bulk": {
+          title: "Khôi phục bình luận đã chọn",
+          body: "Các bình luận được chọn sẽ được khôi phục và hiển thị lại.",
         },
       };
 
@@ -3249,13 +4965,14 @@
           nickname: "maimai",
           fullname: "Lê Ngọc Mai",
           gender: "Nữ",
-          createdDate: "24/06/2025",
+          createdDate: "24-06-2025 08:15",
           creator: "Admin A",
           note: "TVA chuyên đăng bài skincare, tương tác tốt ở khung giờ tối.",
           email: "lotus.member@beauty.vn",
           phone: "0901-321-111",
           birth: "1998-06-12",
           region: "TP. Hồ Chí Minh",
+          grade: "Cộng tác viên",
           intro: "Thành viên ảo định hướng nội dung chăm sóc da.",
         },
         {
@@ -3263,13 +4980,14 @@
           nickname: "drAnh.skin.vn",
           fullname: "Trần Bảo Anh",
           gender: "Nam",
-          createdDate: "25/06/2025",
+          createdDate: "25-06-2025 09:30",
           creator: "Admin B",
           note: "Tập trung bình luận chuyên sâu theo bài chủ đề trị mụn.",
           email: "dr.skin.vn@beauty.vn",
           phone: "0901-321-222",
           birth: "1996-08-19",
           region: "Hà Nội",
+          grade: "Thành viên",
           intro: "Thành viên ảo phong cách tư vấn kỹ thuật.",
         },
         {
@@ -3277,13 +4995,14 @@
           nickname: "haiyen.beauty",
           fullname: "Nguyễn Hải Yến",
           gender: "Nữ",
-          createdDate: "26/06/2025",
+          createdDate: "26-06-2025 10:45",
           creator: "Admin C",
           note: "Nội dung mạnh về trend làm đẹp ngắn hạn.",
           email: "beauty.trend@beauty.vn",
           phone: "0901-321-333",
           birth: "1999-01-03",
           region: "Đà Nẵng",
+          grade: "Cộng tác viên",
           intro: "Thành viên ảo chuyên nội dung trend.",
         },
         {
@@ -3291,13 +5010,14 @@
           nickname: "Khanh.clinic.talk",
           fullname: "Phan Công Khánh",
           gender: "Nam",
-          createdDate: "27/06/2025",
+          createdDate: "27-06-2025 12:20",
           creator: "Admin A",
           note: "Bình luận đều ở bài review dịch vụ.",
           email: "clinic.talk@beauty.vn",
           phone: "0901-321-444",
           birth: "1994-11-11",
           region: "TP. Hồ Chí Minh",
+          grade: "Thành viên",
           intro: "Thành viên ảo tập trung tương tác thảo luận.",
         },
         {
@@ -3305,13 +5025,14 @@
           nickname: "Thu.skin.journal",
           fullname: "Đỗ Minh Thu",
           gender: "Nữ",
-          createdDate: "28/06/2025",
+          createdDate: "28-06-2025 14:05",
           creator: "Admin B",
           note: "Giọng văn trung tính, phù hợp nội dung tư vấn.",
           email: "skin.journal@beauty.vn",
           phone: "0901-321-555",
           birth: "1997-04-20",
           region: "Hà Nội",
+          grade: "Cộng tác viên",
           intro: "Thành viên ảo chia sẻ kiến thức chăm sóc da.",
         },
         {
@@ -3319,13 +5040,14 @@
           nickname: "aesthetic.hub",
           fullname: "Vũ Hoàng Long",
           gender: "Nam",
-          createdDate: "29/06/2025",
+          createdDate: "29-06-2025 15:40",
           creator: "Admin C",
           note: "Phù hợp chiến dịch nhắc lịch và CTA chuyển đổi.",
           email: "aesthetic.hub@beauty.vn",
           phone: "0901-321-666",
           birth: "1995-09-15",
           region: "TP. Hồ Chí Minh",
+          grade: "Thành viên",
           intro: "Thành viên ảo định hướng CTA trong bình luận.",
         },
       ];
@@ -3336,9 +5058,13 @@
           nickname: "old.virtual",
           fullname: "Phạm Thị Linh",
           gender: "Nữ",
-          createdDate: "10/06/2025",
+          createdDate: "10-06-2025 16:55",
           creator: "Admin A",
-          deletedDate: "29/06/2025",
+          deletedDate: "29-06-2025 18:10",
+          deletedBy: "Admin B",
+          birth: "1994-02-14",
+          region: "TP. Hồ Chí Minh",
+          grade: "Thành viên",
           note: "Ngừng sử dụng vì thay đổi chiến dịch.",
         },
         {
@@ -3346,9 +5072,13 @@
           nickname: "inactive.mock",
           fullname: "Lý Khánh Vân",
           gender: "Nữ",
-          createdDate: "12/06/2025",
+          createdDate: "12-06-2025 20:25",
           creator: "Admin B",
-          deletedDate: "30/06/2025",
+          deletedDate: "30-06-2025 21:50",
+          deletedBy: "Admin A",
+          birth: "1996-07-22",
+          region: "Hà Nội",
+          grade: "Thành viên",
           note: "Nội dung lặp, tạm dừng tài khoản.",
         },
         {
@@ -3356,9 +5086,13 @@
           nickname: "old.skin.bot",
           fullname: "Trần Tuấn Kiệt",
           gender: "Nam",
-          createdDate: "13/06/2025",
+          createdDate: "13-06-2025 08:15",
           creator: "Admin A",
-          deletedDate: "30/06/2025",
+          deletedDate: "30-06-2025 09:30",
+          deletedBy: "Admin C",
+          birth: "1993-11-05",
+          region: "Đà Nẵng",
+          grade: "Cộng tác viên",
           note: "Không còn phù hợp định hướng nội dung mới.",
         },
         {
@@ -3366,9 +5100,13 @@
           nickname: "retired.member",
           fullname: "Ngô Thu Hà",
           gender: "Nữ",
-          createdDate: "14/06/2025",
+          createdDate: "14-06-2025 10:45",
           creator: "Admin C",
-          deletedDate: "01/07/2025",
+          deletedDate: "01-07-2025 12:20",
+          deletedBy: "Admin B",
+          birth: "1997-03-18",
+          region: "Đà Nẵng",
+          grade: "Thành viên",
           note: "Dừng chiến dịch khu vực miền Trung.",
         },
         {
@@ -3376,9 +5114,13 @@
           nickname: "legacy.chat",
           fullname: "Bùi Ngọc Khôi",
           gender: "Nam",
-          createdDate: "15/06/2025",
+          createdDate: "15-06-2025 14:05",
           creator: "Admin B",
-          deletedDate: "01/07/2025",
+          deletedDate: "01-07-2025 15:40",
+          deletedBy: "Admin A",
+          birth: "1998-05-10",
+          region: "TP. Hồ Chí Minh",
+          grade: "Thành viên",
           note: "Đổi sang cụm TVA mới để đồng bộ persona.",
         },
         {
@@ -3386,10 +5128,110 @@
           nickname: "old.trend.vn",
           fullname: "Đặng Mỹ Linh",
           gender: "Nữ",
-          createdDate: "16/06/2025",
+          createdDate: "16-06-2025 16:55",
           creator: "Admin A",
-          deletedDate: "02/07/2025",
+          deletedDate: "02-07-2025 18:10",
+          deletedBy: "Admin C",
+          birth: "1999-09-27",
+          region: "Hà Nội",
+          grade: "Cộng tác viên",
           note: "Giảm hiệu quả tương tác theo KPI tháng.",
+        },
+      ];
+
+      const detailHistoryFilterState = (function () {
+        const today = new Date();
+        const weekAgo = new Date(today);
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        const mk = () => ({
+          quickFilter: "all",
+          startDate: new Date(weekAgo),
+          endDate: new Date(today),
+        });
+        return { posts: mk(), comments: mk(), drafts: mk() };
+      })();
+
+      const detailPostsData = [
+        {
+          id: "DP001",
+          category: "Làn da - Mỹ phẩm",
+          title: "Chăm sóc da mặt trong mùa hè",
+          postedAt: "22-06-2025 14:30",
+          views: 1280,
+          type: "Review",
+          isPending: false,
+        },
+        {
+          id: "DP002",
+          category: "Mắt/lông mi - Khác",
+          title: "Bí quyết làm đẹp từ thiên nhiên",
+          postedAt: "20-06-2026 08:30",
+          views: 3640,
+          type: "Thông tin chuyên gia",
+          isPending: true,
+        },
+        {
+          id: "DP003",
+          category: "Răng miệng - Thẩm mỹ",
+          title: "Hành trình trở thành creator",
+          postedAt: "22-06-2026 20:00",
+          views: 2215,
+          type: "Tán gẫu",
+          isPending: true,
+        },
+        {
+          id: "DP004",
+          category: "Làn da - TPCN & dược phẩm",
+          title: "5 sản phẩm chống nắng đáng thử mùa này",
+          postedAt: "15-05-2025 09:00",
+          views: 4870,
+          type: "Review",
+          isPending: false,
+        },
+        {
+          id: "DP007",
+          category: "Tóc - Chăm sóc",
+          title: "Phục hồi tóc hư tổn sau tẩy nhuộm",
+          postedAt: "28-01-2024 19:35",
+          views: 2310,
+          type: "Ảnh trước/sau",
+          isPending: false,
+        },
+        {
+          id: "DP008",
+          category: "Vùng kín - Khác",
+          title: "Hỏi đáp: dị ứng dung dịch vệ sinh thì xử lý sao?",
+          postedAt: "05-11-2023 21:10",
+          views: 980,
+          type: "Hỏi đáp",
+          isPending: false,
+        },
+      ];
+
+      const detailCommentsData = [
+        {
+          id: "DC001",
+          content: "Cảm ơn và rất hữu ích!",
+          onPost: "Chăm sóc da mặt...",
+          commentedAt: "22-06-2025 14:30",
+        },
+        {
+          id: "DC002",
+          content: "Mình sẽ thử phương pháp này ngay",
+          onPost: "Bí quyết làm đẹp...",
+          commentedAt: "19-06-2025 10:15",
+        },
+        {
+          id: "DC007",
+          content: "Đã thử rồi, hiệu quả vượt mong đợi!",
+          onPost: "Cẩn trọng với 3 dấu hiệu sau khi nâng mũi",
+          commentedAt: "07-08-2024 13:00",
+        },
+        {
+          id: "DC008",
+          content: "Cho mình xin link mua hàng với ạ.",
+          onPost: "Hỏi đáp: dị ứng dung dịch vệ sinh thì xử lý sao?",
+          commentedAt: "11-11-2023 11:25",
         },
       ];
 
@@ -3397,7 +5239,7 @@
         const d = String(date.getDate()).padStart(2, "0");
         const m = String(date.getMonth() + 1).padStart(2, "0");
         const y = date.getFullYear();
-        return `${d}/${m}/${y}`;
+        return `${d}-${m}-${y}`;
       }
 
       function toISODate(date) {
@@ -3526,9 +5368,12 @@
         const keyword = (document.getElementById("search-input")?.value || "")
           .trim()
           .toLowerCase();
+        const selectedGrade =
+          document.getElementById("filter-grade")?.value || "";
         const source =
           getCurrentTab() === "info" ? activeMembers : deletedMembers;
         const filtered = source.filter((member) => {
+          if (selectedGrade && member.grade !== selectedGrade) return false;
           if (!keyword) return true;
           if (searchState.criterion === "ID")
             return member.id.toLowerCase().includes(keyword);
@@ -3562,18 +5407,691 @@
           tab === "posts" ? "" : "none";
         document.getElementById("panel-comments").style.display =
           tab === "comments" ? "" : "none";
+        document.getElementById("panel-drafts").style.display =
+          tab === "drafts" ? "" : "none";
         document
           .getElementById("tab-posts")
           .classList.toggle("active", tab === "posts");
         document
           .getElementById("tab-comments")
           .classList.toggle("active", tab === "comments");
+        document
+          .getElementById("tab-drafts")
+          .classList.toggle("active", tab === "drafts");
+
+        if (tab === "posts") renderDetailPostsTable();
+        if (tab === "comments") renderDetailCommentsTable();
+        if (tab === "drafts" && selectedMemberId) {
+          renderDraftPostsForMember(selectedMemberId);
+        }
+      }
+
+      function parseDateStringVN(dateText) {
+        const raw = (dateText || "").trim();
+        if (!raw) return null;
+        const matched = raw.match(
+          /^(\d{2})[-\/](\d{2})[-\/](\d{4})(?:\s+(\d{2}):(\d{2}))?$/,
+        );
+        if (!matched) return null;
+
+        const day = Number.parseInt(matched[1], 10);
+        const month = Number.parseInt(matched[2], 10) - 1;
+        const year = Number.parseInt(matched[3], 10);
+        const hour = Number.parseInt(matched[4] || "0", 10);
+        const minute = Number.parseInt(matched[5] || "0", 10);
+        return new Date(year, month, day, hour, minute, 0, 0);
+      }
+
+      function isInDetailHistoryRange(dateValue, tabKey) {
+        const state = detailHistoryFilterState[tabKey];
+        if (!state) return true;
+        if (state.quickFilter === "all") return true;
+
+        const targetDate =
+          dateValue instanceof Date
+            ? dateValue
+            : typeof dateValue === "string"
+              ? parseDateStringVN(dateValue) || new Date(dateValue)
+              : null;
+        if (!targetDate || Number.isNaN(targetDate.getTime())) return false;
+
+        const fromDate = state.startDate
+          ? new Date(state.startDate.getTime())
+          : null;
+        if (fromDate) fromDate.setHours(0, 0, 0, 0);
+        const toDate = state.endDate ? new Date(state.endDate.getTime()) : null;
+        if (toDate) toDate.setHours(23, 59, 59, 999);
+
+        if (fromDate && targetDate < fromDate) return false;
+        if (toDate && targetDate > toDate) return false;
+        return true;
+      }
+
+      function rerenderDetailTab(tabKey) {
+        if (tabKey === "posts") renderDetailPostsTable();
+        else if (tabKey === "comments") renderDetailCommentsTable();
+        else if (tabKey === "drafts" && selectedMemberId) {
+          renderDraftPostsForMember(selectedMemberId);
+        }
+      }
+
+      function renderDetailDateRange(tabKey) {
+        const state = detailHistoryFilterState[tabKey];
+        const el = document.getElementById(`detail-${tabKey}-date-display`);
+        if (!el || !state) return;
+        if (state.quickFilter === "all") {
+          el.textContent = "Tất cả thời gian";
+        } else {
+          el.textContent = `${formatDateVN(state.startDate)} ~ ${formatDateVN(state.endDate)}`;
+        }
+      }
+
+      function updateDetailDateArrowsState(tabKey) {
+        const state = detailHistoryFilterState[tabKey];
+        const prev = document.getElementById(`detail-${tabKey}-date-prev`);
+        const next = document.getElementById(`detail-${tabKey}-date-next`);
+        const disable =
+          !state ||
+          state.quickFilter === "all" ||
+          state.quickFilter === "custom";
+        if (prev) prev.disabled = disable;
+        if (next) next.disabled = disable;
+      }
+
+      function setDetailQuickFilter(tabKey, key, btn) {
+        const state = detailHistoryFilterState[tabKey];
+        if (!state) return;
+        const wrap = document.querySelector(
+          `.time-filters[data-tab="${tabKey}"]`,
+        );
+        if (wrap) {
+          wrap
+            .querySelectorAll(".tf-btn")
+            .forEach((b) => b.classList.remove("active"));
+        }
+        if (btn) btn.classList.add("active");
+
+        state.quickFilter = key;
+        if (key !== "all" && key !== "custom") {
+          const today = new Date();
+          const start = new Date(today);
+          if (key === "day") start.setDate(start.getDate());
+          else if (key === "week") start.setDate(start.getDate() - 7);
+          else if (key === "month") start.setMonth(start.getMonth() - 1);
+          else if (key === "year") start.setFullYear(start.getFullYear() - 1);
+          state.startDate = start;
+          state.endDate = today;
+        }
+
+        renderDetailDateRange(tabKey);
+        updateDetailDateArrowsState(tabKey);
+        rerenderDetailTab(tabKey);
+      }
+
+      function shiftDetailDateRange(tabKey, direction) {
+        const state = detailHistoryFilterState[tabKey];
+        if (!state) return;
+        if (state.quickFilter === "all" || state.quickFilter === "custom")
+          return;
+
+        const s = new Date(state.startDate);
+        const e = new Date(state.endDate);
+        if (state.quickFilter === "day") {
+          s.setDate(s.getDate() + direction);
+          e.setDate(e.getDate() + direction);
+        } else if (state.quickFilter === "week") {
+          s.setDate(s.getDate() + direction * 7);
+          e.setDate(e.getDate() + direction * 7);
+        } else if (state.quickFilter === "month") {
+          s.setMonth(s.getMonth() + direction);
+          e.setMonth(e.getMonth() + direction);
+        } else if (state.quickFilter === "year") {
+          s.setFullYear(s.getFullYear() + direction);
+          e.setFullYear(e.getFullYear() + direction);
+        }
+        state.startDate = s;
+        state.endDate = e;
+        renderDetailDateRange(tabKey);
+        rerenderDetailTab(tabKey);
+      }
+
+      function syncDetailDatePickerInputs(tabKey) {
+        const state = detailHistoryFilterState[tabKey];
+        const startInput = document.getElementById(
+          `detail-${tabKey}-date-start-input`,
+        );
+        const endInput = document.getElementById(
+          `detail-${tabKey}-date-end-input`,
+        );
+        if (!startInput || !endInput || !state) return;
+        startInput.value = toISODate(state.startDate);
+        endInput.value = toISODate(state.endDate);
+      }
+
+      function closeDetailDatePicker(tabKey) {
+        const id = tabKey ? `detail-${tabKey}-date-picker-wrap` : null;
+        if (id) {
+          document.getElementById(id)?.classList.remove("open");
+          return;
+        }
+        ["posts", "comments", "drafts"].forEach((k) =>
+          document
+            .getElementById(`detail-${k}-date-picker-wrap`)
+            ?.classList.remove("open"),
+        );
+      }
+
+      function toggleDetailDatePicker(event, tabKey) {
+        event.stopPropagation();
+        const wrap = document.getElementById(
+          `detail-${tabKey}-date-picker-wrap`,
+        );
+        if (!wrap) return;
+        const shouldOpen = !wrap.classList.contains("open");
+        closeDetailDatePicker();
+        if (shouldOpen) {
+          wrap.classList.add("open");
+          syncDetailDatePickerInputs(tabKey);
+        }
+      }
+
+      function applyDetailDatePicker(tabKey) {
+        const state = detailHistoryFilterState[tabKey];
+        if (!state) return;
+        const startInput = document.getElementById(
+          `detail-${tabKey}-date-start-input`,
+        );
+        const endInput = document.getElementById(
+          `detail-${tabKey}-date-end-input`,
+        );
+        if (!startInput || !endInput || !startInput.value || !endInput.value)
+          return;
+
+        const startDate = new Date(`${startInput.value}T00:00:00`);
+        const endDate = new Date(`${endInput.value}T00:00:00`);
+        if (startDate > endDate) {
+          alert(
+            "Khoảng ngày không hợp lệ: 'Từ ngày' phải nhỏ hơn hoặc bằng 'Đến ngày'.",
+          );
+          return;
+        }
+        state.startDate = startDate;
+        state.endDate = endDate;
+        state.quickFilter = "custom";
+        const wrap = document.querySelector(
+          `.time-filters[data-tab="${tabKey}"]`,
+        );
+        if (wrap) {
+          wrap
+            .querySelectorAll(".tf-btn")
+            .forEach((b) => b.classList.remove("active"));
+        }
+        renderDetailDateRange(tabKey);
+        updateDetailDateArrowsState(tabKey);
+        closeDetailDatePicker(tabKey);
+        rerenderDetailTab(tabKey);
+      }
+
+      function initDetailHistoryFilters() {
+        ["posts", "comments", "drafts"].forEach((k) => {
+          renderDetailDateRange(k);
+          updateDetailDateArrowsState(k);
+        });
+      }
+
+      function renderDetailPostsTable() {
+        const tbody = document.getElementById("detail-posts-tbody");
+        if (!tbody) return;
+
+        const rows = detailPostsData.filter((item) =>
+          isInDetailHistoryRange(item.postedAt, "posts"),
+        );
+
+        if (!rows.length) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" style="padding: 14px; color: var(--gray-500)">Không có bài viết trong khoảng thời gian đã chọn.</td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = rows
+          .map(
+            (item) => `
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>${item.type}</td>
+                <td>${item.category}</td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)" title="${item.title}">${item.title}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Xem bài viết</button>
+                      <button class="menu-item" onclick="openChangeCategoryModal('${item.id}')">Đổi danh mục</button>
+                      <hr style="margin:4px 0;border:none;border-top:1px solid var(--gray-200)"/>
+                      <button class="menu-item" onclick="openActionModal('soft-delete-post')">Xóa</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${item.postedAt}${item.isPending ? ' <span class="draft-status-chip pending">Đã lên lịch</span>' : ""}</td>
+                <td>${Number(item.views || 0).toLocaleString("vi-VN")}</td>
+              </tr>
+            `,
+          )
+          .join("");
+      }
+
+      function renderDetailCommentsTable() {
+        const tbody = document.getElementById("detail-comments-tbody");
+        if (!tbody) return;
+
+        const rows = detailCommentsData.filter((item) =>
+          isInDetailHistoryRange(item.commentedAt, "comments"),
+        );
+
+        if (!rows.length) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="4" style="padding: 14px; color: var(--gray-500)">Không có bình luận trong khoảng thời gian đã chọn.</td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = rows
+          .map(
+            (item) => `
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)" title="${item.content}">${item.content}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Xem bình luận</button>
+                      <hr style="margin:4px 0;border:none;border-top:1px solid var(--gray-200)"/>
+                      <button class="menu-item" onclick="openActionModal('soft-delete-comment')">Xóa</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${item.onPost}</td>
+                <td>${item.commentedAt}</td>
+              </tr>
+            `,
+          )
+          .join("");
       }
 
       function truncateChars(text, maxChars) {
         const value = (text || "").trim();
         if (value.length <= maxChars) return value;
         return `${value.slice(0, maxChars).trimEnd()} ...`;
+      }
+
+      function calculateAge(birthDate) {
+        if (!birthDate) return "-";
+        const today = new Date();
+        const birth = new Date(birthDate);
+        if (Number.isNaN(birth.getTime())) return "-";
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
+        if (
+          monthDiff < 0 ||
+          (monthDiff === 0 && today.getDate() < birth.getDate())
+        ) {
+          age--;
+        }
+        return age;
+      }
+
+      function getPostCountForMember(memberId) {
+        return serverPostStore.posts.filter(
+          (post) =>
+            post.memberId === memberId &&
+            (post.status === "published" || post.status === "pending"),
+        ).length;
+      }
+
+      function getCommentCountForMember(memberId) {
+        const numericPart = Number.parseInt(memberId.replace(/\D/g, ""), 10);
+        if (Number.isNaN(numericPart)) return 0;
+        return 18 + numericPart * 7;
+      }
+
+      function getMemberMainCategories() {
+        return Object.keys(writePostCategoryMap);
+      }
+
+      let memberCategorySelections = [];
+
+      function normalizeMemberCategorySelections(
+        rawSelections,
+        legacyMain,
+        legacySub,
+      ) {
+        const normalized = [];
+
+        if (Array.isArray(rawSelections)) {
+          rawSelections.forEach((item) => {
+            const main = (item?.main || "").trim();
+            if (!main) return;
+
+            const availableSub = writePostCategoryMap[main] || [];
+            const validSub = Array.from(
+              new Set(
+                (Array.isArray(item?.subs) ? item.subs : [])
+                  .map((sub) => (sub || "").trim())
+                  .filter((sub) => sub && availableSub.includes(sub)),
+              ),
+            ).slice(0, 3);
+
+            normalized.push({ main, subs: validSub });
+          });
+        }
+
+        if (!normalized.length) {
+          const fallbackMain = (legacyMain || "").trim();
+          const fallbackSub = (legacySub || "").trim();
+          if (fallbackMain && writePostCategoryMap[fallbackMain]) {
+            const availableSub = writePostCategoryMap[fallbackMain] || [];
+            const fallbackSubs = fallbackSub
+              ? fallbackSub
+                  .split(/[;,]/)
+                  .map((sub) => sub.trim())
+                  .filter((sub) => availableSub.includes(sub))
+                  .slice(0, 3)
+              : [];
+            normalized.push({ main: fallbackMain, subs: fallbackSubs });
+          }
+        }
+
+        return normalized.slice(0, 3).map((item) => ({
+          main: item.main,
+          subs: item.subs.slice(0, 3),
+        }));
+      }
+
+      function populateMemberMainCategoryOptions(selectedValue = "") {
+        const select = document.getElementById("vf-main-category-picker");
+        if (!select) return;
+
+        const currentValue = selectedValue || select.value || "";
+        select.innerHTML = '<option value="">Chọn danh mục chính</option>';
+
+        getMemberMainCategories().forEach((category) => {
+          const option = document.createElement("option");
+          option.value = category;
+          option.textContent = category;
+          select.appendChild(option);
+        });
+
+        select.value = Array.from(select.options).some(
+          (option) => option.value === currentValue,
+        )
+          ? currentValue
+          : "";
+      }
+
+      let subCategoryDraft = new Set();
+
+      function getSubCategoryElements() {
+        return {
+          dropdown: document.getElementById("vf-sub-category-dropdown"),
+          button: document.getElementById("vf-sub-category-picker"),
+          list: document.getElementById("vf-sub-category-list"),
+        };
+      }
+
+      function getLockedSubsForMain(mainCategory) {
+        const group = memberCategorySelections.find(
+          (item) => item.main === mainCategory,
+        );
+        return group ? group.subs.slice() : [];
+      }
+
+      function updateSubCategoryButtonLabel() {
+        const { button } = getSubCategoryElements();
+        if (!button) return;
+        const mainSelect = document.getElementById("vf-main-category-picker");
+        const main = mainSelect ? mainSelect.value : "";
+        if (!main) {
+          button.textContent = "Chọn danh mục phụ";
+          button.disabled = true;
+          return;
+        }
+        button.disabled = false;
+        const locked = getLockedSubsForMain(main);
+        const total = locked.length + subCategoryDraft.size;
+        if (total === 0) {
+          button.textContent = "Chọn danh mục phụ";
+        } else {
+          button.textContent = `Đã chọn ${total}/3 danh mục phụ`;
+        }
+      }
+
+      function populateMemberSubCategoryOptions(mainCategory = "") {
+        const { list } = getSubCategoryElements();
+        if (!list) return;
+
+        subCategoryDraft = new Set();
+        list.innerHTML = "";
+
+        const options = mainCategory
+          ? writePostCategoryMap[mainCategory] || []
+          : [];
+
+        if (!mainCategory) {
+          list.innerHTML =
+            '<div class="sub-multi-empty">Vui lòng chọn danh mục chính trước.</div>';
+          updateSubCategoryButtonLabel();
+          return;
+        }
+
+        if (!options.length) {
+          list.innerHTML =
+            '<div class="sub-multi-empty">Không có danh mục phụ.</div>';
+          updateSubCategoryButtonLabel();
+          return;
+        }
+
+        const lockedSubs = getLockedSubsForMain(mainCategory);
+
+        options.forEach((sub) => {
+          const isLocked = lockedSubs.includes(sub);
+          const label = document.createElement("label");
+          label.className = "sub-multi-item" + (isLocked ? " locked" : "");
+          const safeSub = sub.replace(/"/g, "&quot;");
+          label.innerHTML = `
+            <input type="checkbox" data-sub="${safeSub}" ${isLocked ? "checked disabled" : ""} onchange="toggleSubCategoryCheckbox(this)" />
+            <span>${sub}${isLocked ? " (đã chọn)" : ""}</span>
+          `;
+          list.appendChild(label);
+        });
+
+        refreshSubCategoryDisabledState();
+        updateSubCategoryButtonLabel();
+      }
+
+      function refreshSubCategoryDisabledState() {
+        const mainSelect = document.getElementById("vf-main-category-picker");
+        const main = mainSelect ? mainSelect.value : "";
+        if (!main) return;
+        const locked = getLockedSubsForMain(main);
+        const total = locked.length + subCategoryDraft.size;
+        const remaining = 3 - total;
+        const { list } = getSubCategoryElements();
+        if (!list) return;
+        list.querySelectorAll(".sub-multi-item").forEach((item) => {
+          const cb = item.querySelector('input[type="checkbox"]');
+          if (!cb || (cb.disabled && cb.checked)) return;
+          if (cb.disabled && !cb.checked) {
+            cb.disabled = false;
+            item.classList.remove("disabled");
+          }
+          if (!cb.checked && remaining <= 0) {
+            cb.disabled = true;
+            item.classList.add("disabled");
+          } else if (!cb.checked) {
+            cb.disabled = false;
+            item.classList.remove("disabled");
+          }
+        });
+      }
+
+      function toggleSubCategoryCheckbox(checkbox) {
+        const sub = checkbox.dataset.sub;
+        if (!sub) return;
+        if (checkbox.checked) {
+          subCategoryDraft.add(sub);
+        } else {
+          subCategoryDraft.delete(sub);
+        }
+        refreshSubCategoryDisabledState();
+        updateSubCategoryButtonLabel();
+      }
+
+      function toggleSubCategoryDropdown(event) {
+        if (event) event.stopPropagation();
+        const { dropdown, button } = getSubCategoryElements();
+        if (!dropdown || !button || button.disabled) return;
+        dropdown.classList.toggle("open");
+      }
+
+      function closeSubCategoryDropdown() {
+        const { dropdown } = getSubCategoryElements();
+        if (dropdown) dropdown.classList.remove("open");
+      }
+
+      function renderMemberCategorySelections() {
+        const container = document.getElementById("vf-category-selected-list");
+        if (!container) return;
+
+        if (!memberCategorySelections.length) {
+          container.innerHTML =
+            '<div class="category-selected-empty">Chưa chọn danh mục.</div>';
+          return;
+        }
+
+        container.innerHTML = memberCategorySelections
+          .map((group) => {
+            const safeMain = group.main.replace(/'/g, "&#39;");
+            const subChips = group.subs.length
+              ? group.subs
+                  .map((sub) => {
+                    const safeSub = sub.replace(/'/g, "&#39;");
+                    return `
+                      <span class="category-chip sub">
+                        ${sub}
+                        <button type="button" class="category-chip-remove" title="Xóa" onclick="removeSubCategorySelection('${safeMain}', '${safeSub}')">×</button>
+                      </span>
+                    `;
+                  })
+                  .join("")
+              : '<span class="category-sub-empty">Chưa có danh mục phụ.</span>';
+            return `
+              <div class="category-main-group">
+                <div class="category-main-row">
+                  <div class="category-main-row-left">
+                    <span class="category-chip main">
+                      ${group.main}
+                      <button type="button" class="category-chip-remove" title="Xóa danh mục" onclick="removeMainCategorySelection('${safeMain}')">×</button>
+                    </span>
+                    <span class="category-main-count">${group.subs.length}/3 danh mục phụ</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="category-sub-label">Danh mục phụ</div>
+                  <div class="category-sub-list">${subChips}</div>
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function setMemberCategorySelections(
+        rawSelections,
+        fallbackMain = "",
+        fallbackSub = "",
+      ) {
+        memberCategorySelections = normalizeMemberCategorySelections(
+          rawSelections,
+          fallbackMain,
+          fallbackSub,
+        );
+        subCategoryDraft = new Set();
+        closeSubCategoryDropdown();
+        renderMemberCategorySelections();
+      }
+
+      function addFormCategorySelection() {
+        const mainSelect = document.getElementById("vf-main-category-picker");
+        if (!mainSelect) return;
+
+        const main = (mainSelect.value || "").trim();
+        if (!main) {
+          alert("Vui lòng chọn danh mục chính.");
+          return;
+        }
+
+        const newSubs = Array.from(subCategoryDraft);
+        let group = memberCategorySelections.find((item) => item.main === main);
+
+        if (!group) {
+          if (memberCategorySelections.length >= 3) {
+            alert("Chỉ được tối đa 3 danh mục chính.");
+            return;
+          }
+          if (!newSubs.length) {
+            alert("Vui lòng chọn danh mục phụ.");
+            return;
+          }
+          group = { main, subs: [] };
+          memberCategorySelections.push(group);
+        } else if (!newSubs.length) {
+          alert("Vui lòng chọn thêm danh mục phụ hoặc đóng dropdown.");
+          return;
+        }
+
+        newSubs.forEach((sub) => {
+          if (!group.subs.includes(sub) && group.subs.length < 3) {
+            group.subs.push(sub);
+          }
+        });
+
+        subCategoryDraft = new Set();
+        closeSubCategoryDropdown();
+        mainSelect.value = "";
+        populateMemberSubCategoryOptions("");
+        renderMemberCategorySelections();
+      }
+
+      function removeMainCategorySelection(mainCategory) {
+        memberCategorySelections = memberCategorySelections.filter(
+          (item) => item.main !== mainCategory,
+        );
+        renderMemberCategorySelections();
+      }
+
+      function removeSubCategorySelection(mainCategory, subCategory) {
+        const group = memberCategorySelections.find(
+          (item) => item.main === mainCategory,
+        );
+        if (!group) return;
+        group.subs = group.subs.filter((sub) => sub !== subCategory);
+        if (!group.subs.length) {
+          memberCategorySelections = memberCategorySelections.filter(
+            (item) => item.main !== mainCategory,
+          );
+        }
+        renderMemberCategorySelections();
+      }
+
+      function getMemberCategorySelectionsSnapshot() {
+        return memberCategorySelections.map((item) => ({
+          main: item.main,
+          subs: [...item.subs],
+        }));
       }
 
       function renderMemberTable(data, tab) {
@@ -3598,7 +6116,8 @@
                 <button class="menu-item" onclick="handleMemberAction('edit', '${member.id}')">Chỉnh sửa thông tin</button>
                 <button class="menu-item" onclick="handleMemberAction('post', '${member.id}')">Viết bài</button>
                 <button class="menu-item" onclick="handleMemberAction('delete', '${member.id}')">Xóa</button>
-                <button class="menu-item" onclick="handleMemberAction('notify', '${member.id}')">Gửi thông báo đẩy</button>
+                <button class="menu-item" onclick="handleMemberAction('changelevel', '${member.id}')">Thay đổi cấp bậc</button>
+                <button class="menu-item" onclick="handleMemberAction('notify', '${member.id}')">Gửi thông báo</button>
               </div>
             </div>
           `
@@ -3606,8 +6125,9 @@
             <div class="cell-menu">
               <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${member.nickname}</button>
               <div class="menu-list">
-                <button class="menu-item" onclick="handleMemberAction('detail', '${member.id}')">Thông tin chi tiết</button>
+                <button class="menu-item" onclick="handleMemberAction('history', '${member.id}')">Lịch sử hoạt động</button>
                 <button class="menu-item" onclick="handleMemberAction('restore', '${member.id}')">Khôi phục</button>
+                <button class="menu-item" onclick="handleMemberAction('permanent-delete', '${member.id}')">Xóa vĩnh viễn</button>
               </div>
             </div>
           `;
@@ -3624,23 +6144,28 @@
           if (tab === "info") {
             tr.innerHTML = `
               <td><input type="checkbox" onchange="toggleRow(this, 'row-${tab}-${member.id}')" /></td>
-              <td><span class="link-text" onclick="handleMemberAction('history', '${member.id}')">${member.id}</span></td>
+              <td>${member.id}</td>
               <td class="td-left">${actionMenuInfo}</td>
-              <td>${member.fullname}</td>
-              <td>${member.gender}</td>
-              <td>${member.createdDate}</td>
-              <td>${member.creator}</td>
+              <td>${member.region || "-"}</td>
+              <td>${calculateAge(member.birth)}</td>
+              <td>${member.gender || "-"}</td>
+              <td>${member.grade || "-"}</td>
+              <td>${getPostCountForMember(member.id)}</td>
+              <td>${getCommentCountForMember(member.id)}</td>
               <td>${noteCell}</td>
             `;
           } else {
             tr.innerHTML = `
               <td><input type="checkbox" onchange="toggleRow(this, 'row-${tab}-${member.id}')" /></td>
-              <td><span class="link-text" onclick="handleMemberAction('history', '${member.id}')">${member.id}</span></td>
+              <td>${member.id}</td>
               <td class="td-left">${actionMenuInfo}</td>
-              <td>${member.fullname}</td>
-              <td>${member.gender}</td>
-              <td>${member.createdDate}</td>
-              <td>${member.creator}</td>
+              <td>${member.region || "-"}</td>
+              <td>${calculateAge(member.birth)}</td>
+              <td>${member.gender || "-"}</td>
+              <td>${member.grade || "-"}</td>
+              <td>${getPostCountForMember(member.id)}</td>
+              <td>${getCommentCountForMember(member.id)}</td>
+              <td>${member.deletedBy || "-"}</td>
               <td>${member.deletedDate || "-"}</td>
               <td>${noteCell}</td>
             `;
@@ -3681,9 +6206,7 @@
 
       function toggleMenu(event, menuEl) {
         event.stopPropagation();
-        const shouldOpen = !menuEl.classList.contains("open");
-        closeAllMenus();
-        if (shouldOpen) menuEl.classList.add("open");
+        menuEl.classList.toggle("open");
       }
 
       function closeAllMenus() {
@@ -3724,10 +6247,15 @@
         if (!member) return;
         setTextIfExists("detail-name", member.fullname);
         setTextIfExists("detail-member-name", member.fullname);
-        setTextIfExists("detail-member-title", member.fullname);
-        setTextIfExists("detail-badge-id", `${member.id}`);
-        setTextIfExists("detail-badge-level", `${member.grade || "Lv1"}`);
-        setTextIfExists("detail-badge-nickname", `${member.nickname || "-"}`);
+        const titleText = member.nickname
+          ? `${member.fullname} (${member.nickname})`
+          : member.fullname;
+        setTextIfExists("detail-member-title", titleText);
+        setTextIfExists("detail-badge-id", `ID: ${member.id}`);
+        setTextIfExists("detail-badge-level", "Thành viên ảo");
+        setTextIfExists("detail-gender", member.gender || "Nữ");
+        setTextIfExists("detail-main-category", member.mainCategory || "-");
+        setTextIfExists("detail-sub-category", member.subCategory || "-");
 
         const initials = (member.fullname || "TV")
           .split(" ")
@@ -3758,6 +6286,386 @@
 
         const noteDisplay = document.getElementById("note-display");
         if (noteDisplay) noteDisplay.textContent = member.note || "-";
+        renderDetailPostsTable();
+        renderDetailCommentsTable();
+        renderDraftPostsForMember(member.id);
+      }
+
+      function formatDateTimeVN(dateLike) {
+        const date = new Date(dateLike);
+        if (Number.isNaN(date.getTime())) return "-";
+        const d = String(date.getDate()).padStart(2, "0");
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const y = date.getFullYear();
+        const hh = String(date.getHours()).padStart(2, "0");
+        const mm = String(date.getMinutes()).padStart(2, "0");
+        return `${d}-${m}-${y} ${hh}:${mm}`;
+      }
+
+      function createServerPost(payload) {
+        return {
+          id: `POST-${String(serverPostIdSeed++).padStart(4, "0")}`,
+          ...payload,
+        };
+      }
+
+      function statusChip(status) {
+        if (status === "pending") {
+          return '<span class="draft-status-chip pending">Đã lên lịch</span>';
+        }
+        return '<span class="draft-status-chip draft">Nháp</span>';
+      }
+
+      function getPostDisplayDate(post) {
+        return (
+          post.displayTimestamp ||
+          post.scheduledAt ||
+          post.publishedAt ||
+          post.updatedAt ||
+          ""
+        );
+      }
+
+      function renderDraftPostsForMember(memberId) {
+        const tbody = document.getElementById("detail-draft-tbody");
+        if (!tbody) return;
+        const items = serverPostStore.posts
+          .filter(
+            (post) =>
+              post.memberId === memberId &&
+              (post.status === "draft" || post.status === "pending"),
+          )
+          .filter((post) => {
+            const dateForFilter = getPostDisplayDate(post) || post.updatedAt;
+            return isInDetailHistoryRange(dateForFilter, "drafts");
+          })
+          .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+        if (!items.length) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="5" style="padding: 14px; color: var(--gray-500)">Chưa có bài nháp.</td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = items
+          .map(
+            (post) => `
+              <tr>
+                <td>${post.typeLabel || "-"}</td>
+                <td class="td-left">${post.categoryText || "-"}</td>
+                <td class="td-left">${post.title || "(Chưa có tiêu đề)"}</td>
+                <td>${formatDateTimeVN(post.updatedAt)}</td>
+                <td>
+                  <button class="btn btn-outline-primary btn-sm" onclick="continueDraft('${post.id}')">Tiếp tục viết</button>
+                  <button class="btn btn-outline-danger btn-sm" onclick="deleteDraft('${post.id}')">Xóa</button>
+                </td>
+              </tr>
+            `,
+          )
+          .join("");
+      }
+
+      function upsertDraftPost(payload, status) {
+        const now = new Date().toISOString();
+        const existing = serverPostStore.posts.find(
+          (post) => post.id === payload.id,
+        );
+        if (existing) {
+          Object.assign(existing, payload, { status, updatedAt: now });
+          return existing;
+        }
+        const created = createServerPost({
+          ...payload,
+          status,
+          createdAt: now,
+          updatedAt: now,
+        });
+        serverPostStore.posts.unshift(created);
+        return created;
+      }
+
+      function publishPostNow(payload, displayAt) {
+        const now = new Date().toISOString();
+        const published = {
+          ...payload,
+          status: "published",
+          publishedAt: now,
+          displayTimestamp: new Date(displayAt).toISOString(),
+          updatedAt: now,
+        };
+        upsertDraftPost(published, "published");
+      }
+
+      function buildBeforeAfterPayload(requireComplete) {
+        if (!selectedMemberId) {
+          alert("Vui lòng chọn TVA trước khi thao tác bài viết.");
+          return null;
+        }
+
+        const title = (
+          document.getElementById("before-after-title")?.value || ""
+        ).trim();
+        const content = (
+          document.getElementById("before-after-content")?.value || ""
+        ).trim();
+
+        if (
+          requireComplete &&
+          (!beforeAfterDraft.beforeItems.length ||
+            !beforeAfterDraft.afterItems.length ||
+            !beforeAfterDraft.beforeCoverId ||
+            !beforeAfterDraft.afterCoverId ||
+            !title ||
+            !content)
+        ) {
+          alert(
+            "Vui lòng hoàn thiện đủ nội dung trước khi đăng hoặc hẹn lịch.",
+          );
+          return null;
+        }
+
+        return {
+          memberId: selectedMemberId,
+          type: "before-after",
+          typeLabel: "Ảnh Trước/Sau",
+          title,
+          content,
+          categoryText: beforeAfterCategoryText,
+          hashtags: [...beforeAfterDraft.hashtags],
+          draftData: {
+            ...beforeAfterDraft,
+            beforeItems: [...beforeAfterDraft.beforeItems],
+            afterItems: [...beforeAfterDraft.afterItems],
+          },
+        };
+      }
+
+      function buildGeneralPayload(requireComplete) {
+        if (!selectedMemberId) {
+          alert("Vui lòng chọn TVA trước khi thao tác bài viết.");
+          return null;
+        }
+        const meta = generalComposeTypeMeta[generalComposeType];
+        if (!meta) {
+          alert("Chưa xác định loại bài viết.");
+          return null;
+        }
+        const title = (
+          document.getElementById("general-title-input")?.value || ""
+        ).trim();
+        const content = (
+          document.getElementById("general-content-input")?.value || ""
+        ).trim();
+        if (requireComplete) {
+          const hasTitle = meta.showTitle ? !!title : true;
+          const hasContent = !!content;
+          if (!hasTitle || !hasContent) {
+            alert(
+              "Vui lòng hoàn thiện đủ nội dung trước khi đăng hoặc hẹn lịch.",
+            );
+            return null;
+          }
+        }
+        return {
+          memberId: selectedMemberId,
+          type: "general",
+          typeLabel: generalComposeType,
+          title,
+          content,
+          categoryText: generalComposeCategoryText,
+          hashtags: [...generalComposeDraft.hashtags],
+          draftData: {
+            ...generalComposeDraft,
+            media: [...generalComposeDraft.media],
+          },
+        };
+      }
+
+      function buildTalkPayload(requireComplete) {
+        if (!selectedMemberId) {
+          alert("Vui lòng chọn TVA trước khi thao tác bài viết.");
+          return null;
+        }
+        const content = (
+          document.getElementById("talk-content-input")?.value || ""
+        ).trim();
+        if (requireComplete && !content) {
+          alert("Vui lòng nhập nội dung trước khi đăng hoặc hẹn lịch.");
+          return null;
+        }
+        return {
+          memberId: selectedMemberId,
+          type: "talk",
+          typeLabel: "Tán gẫu",
+          title: "",
+          content,
+          categoryText: "Tán gẫu",
+          hashtags: [...talkComposeDraft.hashtags],
+          draftData: {
+            ...talkComposeDraft,
+            media: [...talkComposeDraft.media],
+          },
+        };
+      }
+
+      function getComposerPayload(type, requireComplete) {
+        if (type === "before-after")
+          return buildBeforeAfterPayload(requireComplete);
+        if (type === "general") return buildGeneralPayload(requireComplete);
+        return buildTalkPayload(requireComplete);
+      }
+
+      function saveDraftFromComposer(type) {
+        const payload = getComposerPayload(type, false);
+        if (!payload) return;
+        const entry = upsertDraftPost(payload, "draft");
+        alert(`Đã lưu nháp server-side: ${entry.typeLabel}.`);
+        renderDraftPostsForMember(selectedMemberId);
+      }
+
+      function publishFromComposer(type) {
+        const payload = getComposerPayload(type, true);
+        if (!payload) return;
+        publishPostNow(payload, new Date());
+        alert(`Đã đăng bài ${payload.typeLabel}.`);
+        renderDraftPostsForMember(selectedMemberId);
+        goPage("detail");
+      }
+
+      function openScheduleModalForComposer(type) {
+        const payload = getComposerPayload(type, true);
+        if (!payload) return;
+        scheduleComposeType = type;
+        schedulePayload = payload;
+        const input = document.getElementById("schedule-post-datetime");
+        if (input) input.value = "";
+        document
+          .getElementById("schedule-post-backdrop")
+          ?.classList.add("open");
+      }
+
+      function closeSchedulePostModal() {
+        document
+          .getElementById("schedule-post-backdrop")
+          ?.classList.remove("open");
+        scheduleComposeType = "";
+        schedulePayload = null;
+      }
+
+      function saveScheduledPost() {
+        if (!schedulePayload) return;
+        const input = document.getElementById("schedule-post-datetime");
+        const raw = input?.value || "";
+        if (!raw) {
+          alert("Vui lòng chọn ngày và giờ hiển thị.");
+          return;
+        }
+        const pickedTime = new Date(raw);
+        if (Number.isNaN(pickedTime.getTime())) {
+          alert("Thời gian không hợp lệ.");
+          return;
+        }
+
+        const now = new Date();
+        if (pickedTime <= now) {
+          publishPostNow(schedulePayload, pickedTime);
+          alert(
+            "Thời gian đã qua. Bài được đăng ngay, timestamp hiển thị theo mốc đã chọn.",
+          );
+        } else {
+          upsertDraftPost(
+            {
+              ...schedulePayload,
+              scheduledAt: pickedTime.toISOString(),
+            },
+            "pending",
+          );
+          alert("Đã lưu lịch hiển thị bài viết.");
+        }
+
+        closeSchedulePostModal();
+        renderDraftPostsForMember(selectedMemberId);
+        goPage("detail");
+      }
+
+      function processScheduledPosts() {
+        const now = Date.now();
+        serverPostStore.posts.forEach((post) => {
+          if (post.status !== "pending" || !post.scheduledAt) return;
+          const scheduledMs = new Date(post.scheduledAt).getTime();
+          if (!Number.isNaN(scheduledMs) && scheduledMs <= now) {
+            post.status = "published";
+            post.publishedAt = new Date().toISOString();
+            post.displayTimestamp = post.scheduledAt;
+            post.updatedAt = new Date().toISOString();
+          }
+        });
+        if (selectedMemberId) renderDraftPostsForMember(selectedMemberId);
+      }
+
+      function continueDraft(postId) {
+        const post = serverPostStore.posts.find((item) => item.id === postId);
+        if (!post) return;
+        selectedMemberId = post.memberId;
+        const member = getMemberById(post.memberId);
+        if (!member) return;
+        fillDetail(member);
+
+        if (post.type === "before-after") {
+          writePostType = "Ảnh Trước/Sau";
+          beforeAfterCategoryText = post.categoryText || "";
+          Object.assign(beforeAfterDraft, post.draftData || {});
+          document.getElementById("before-after-title").value =
+            post.title || "";
+          document.getElementById("before-after-content").value =
+            post.content || "";
+          renderBeforeAfterMedia("before");
+          renderBeforeAfterMedia("after");
+          renderBeforeAfterHashtags();
+          updateBeforeAfterTitleCount();
+          updateBeforeAfterSubmitState();
+          const categoryPath = document.getElementById(
+            "before-after-category-path",
+          );
+          if (categoryPath)
+            categoryPath.textContent = post.categoryText || "Chưa chọn";
+          goPage("write-before-after");
+          return;
+        }
+
+        if (post.type === "general") {
+          openGeneralComposer(post.typeLabel, post.categoryText || "");
+          Object.assign(generalComposeDraft, post.draftData || {});
+          const titleInput = document.getElementById("general-title-input");
+          const contentInput = document.getElementById("general-content-input");
+          if (titleInput) titleInput.value = post.title || "";
+          if (contentInput) contentInput.value = post.content || "";
+          renderGeneralMedia();
+          renderGeneralHashtags();
+          updateGeneralTitleCount();
+          updateGeneralSubmitState();
+          return;
+        }
+
+        openTalkComposer();
+        Object.assign(talkComposeDraft, post.draftData || {});
+        const talkInput = document.getElementById("talk-content-input");
+        if (talkInput) talkInput.value = post.content || "";
+        renderTalkMedia();
+        renderTalkHashtags();
+        updateTalkSubmitState();
+      }
+
+      function deleteDraft(postId) {
+        const index = serverPostStore.posts.findIndex(
+          (item) => item.id === postId,
+        );
+        if (index < 0) return;
+        serverPostStore.posts.splice(index, 1);
+        renderDraftPostsForMember(selectedMemberId);
       }
 
       function goPage(page) {
@@ -3767,7 +6675,9 @@
         document.getElementById(`page-${page}`)?.classList.add("active");
         closeAllMenus();
         closeDatePicker();
+        closeDetailDatePicker();
         closeCriteriaDropdown();
+        closeSchedulePostModal();
       }
 
       function handleMemberAction(action, id) {
@@ -3785,6 +6695,7 @@
           post: () => goWritePost(),
           delete: () => openActionModal("soft-delete"),
           restore: () => openActionModal("restore"),
+          changelevel: () => openChangeLevelModal(),
           notify: () => openActionModal("notify"),
         };
 
@@ -3805,6 +6716,43 @@
         document
           .getElementById("action-modal-backdrop")
           .classList.remove("open");
+      }
+
+      function openChangeLevelModal() {
+        const selectEl = document.getElementById("change-level-select");
+        if (selectEl) selectEl.value = "";
+        document.getElementById("change-level-backdrop").classList.add("open");
+      }
+
+      function closeChangeLevelModal() {
+        document
+          .getElementById("change-level-backdrop")
+          .classList.remove("open");
+      }
+
+      function confirmChangeLevel() {
+        const selectEl = document.getElementById("change-level-select");
+        const newLevel = selectEl?.value || "";
+        if (!selectedMemberId) {
+          alert("Vui lòng chọn thành viên trước khi đổi cấp bậc.");
+          return;
+        }
+        if (!newLevel) {
+          alert("Vui lòng chọn cấp bậc.");
+          return;
+        }
+
+        const member = getMemberById(selectedMemberId);
+        if (!member) return;
+        member.grade = newLevel;
+        renderTables();
+        if (
+          document.getElementById("page-detail")?.classList.contains("active")
+        ) {
+          fillDetail(member);
+        }
+        closeChangeLevelModal();
+        alert(`Đã thay đổi cấp bậc thành: ${newLevel}`);
       }
 
       function openWritePostModal(preserveState = false) {
@@ -3947,7 +6895,7 @@
         const uploadTile = document.createElement("button");
         uploadTile.className = "media-upload-tile";
         uploadTile.type = "button";
-        uploadTile.textContent = "+ Tải ảnh/video";
+        uploadTile.textContent = "+ Tải ảnh";
         uploadTile.onclick = () => triggerBeforeAfterUpload(side);
         container.appendChild(uploadTile);
 
@@ -4156,17 +7104,11 @@
       }
 
       function submitBeforeAfterPost() {
-        const member = getMemberById(selectedMemberId);
-        if (!member) return;
+        publishFromComposer("before-after");
+      }
 
-        const hashtags = beforeAfterDraft.hashtags.length
-          ? `\nHashtag: ${beforeAfterDraft.hashtags.map((t) => `#${t}`).join(" ")}`
-          : "";
-
-        alert(
-          `Đã đăng bài Ảnh Trước/Sau cho TVA: ${member.nickname} (${member.id}).\nDanh mục: ${beforeAfterCategoryText}\nẢnh Trước: ${beforeAfterDraft.beforeItems.length} (đại diện: ${beforeAfterDraft.beforeCoverId})\nẢnh Sau: ${beforeAfterDraft.afterItems.length} (đại diện: ${beforeAfterDraft.afterCoverId})${hashtags}`,
-        );
-        goPage("detail");
+      function saveBeforeAfterDraft() {
+        saveDraftFromComposer("before-after");
       }
 
       function resetGeneralComposeDraft() {
@@ -4371,24 +7313,11 @@
       }
 
       function submitGeneralPost() {
-        const member = getMemberById(selectedMemberId);
-        const meta = generalComposeTypeMeta[generalComposeType];
-        if (!member || !meta) return;
+        publishFromComposer("general");
+      }
 
-        const mediaSummary = generalComposeDraft.media
-          .map((item) => `${item.kind}:${item.name}`)
-          .join("; ");
-        const hashtags = generalComposeDraft.hashtags.length
-          ? `\nHashtag: ${generalComposeDraft.hashtags.map((tag) => `#${tag}`).join(" ")}`
-          : "";
-        const titleLine = meta.showTitle
-          ? `\nTiêu đề: ${generalComposeDraft.title || "-"}`
-          : "";
-
-        alert(
-          `Đã đăng ${meta.pageTitle.toLowerCase()} cho TVA: ${member.nickname} (${member.id}).\nDanh mục: ${generalComposeCategoryText}${titleLine}\nMedia: ${mediaSummary || "-"}${hashtags}`,
-        );
-        goPage("detail");
+      function saveGeneralDraft() {
+        saveDraftFromComposer("general");
       }
 
       function resetTalkComposeDraft() {
@@ -4557,20 +7486,11 @@
       }
 
       function submitTalkPost() {
-        const member = getMemberById(selectedMemberId);
-        if (!member) return;
+        publishFromComposer("talk");
+      }
 
-        const mediaSummary = talkComposeDraft.media
-          .map((item) => `${item.kind}:${item.name}`)
-          .join("; ");
-        const hashtags = talkComposeDraft.hashtags.length
-          ? `\nHashtag: ${talkComposeDraft.hashtags.map((tag) => `#${tag}`).join(" ")}`
-          : "";
-
-        alert(
-          `Đã đăng bài Tán gẫu cho TVA: ${member.nickname} (${member.id}).\nNội dung: ${talkComposeDraft.content}\nMedia: ${mediaSummary || "-"}${hashtags}`,
-        );
-        goPage("detail");
+      function saveTalkDraft() {
+        saveDraftFromComposer("talk");
       }
 
       function setWritePostStep(step) {
@@ -4620,7 +7540,6 @@
       }
 
       function renderWritePostChildren() {
-        const mode = writePostTypeMode[writePostType] || "single";
         const childList = document.getElementById("write-post-child-list");
         const children = writePostCategoryMap[writePostParent] || [];
         childList.innerHTML = "";
@@ -4634,20 +7553,9 @@
           btn.type = "button";
           btn.onclick = () => {
             const exists = isChildSelected(writePostParent, child);
-            if (mode === "single") {
-              writePostSelections = exists
-                ? []
-                : [{ parent: writePostParent, child }];
-            } else {
-              if (exists) {
-                writePostSelections = writePostSelections.filter(
-                  (item) =>
-                    !(item.parent === writePostParent && item.child === child),
-                );
-              } else {
-                writePostSelections.push({ parent: writePostParent, child });
-              }
-            }
+            writePostSelections = exists
+              ? []
+              : [{ parent: writePostParent, child }];
             renderWritePostChildren();
             updateWritePostCompleteButton();
           };
@@ -4656,15 +7564,9 @@
       }
 
       function updateWritePostCompleteButton() {
-        const mode = writePostTypeMode[writePostType] || "single";
         const btn = document.getElementById("write-post-complete-btn");
-        const count = writePostSelections.length;
-        btn.disabled = count === 0;
-        if (mode === "single") {
-          btn.textContent = `Hoàn thành (Đã chọn ${count > 0 ? 1 : 0})`;
-        } else {
-          btn.textContent = `Hoàn thành (Đã chọn ${count})`;
-        }
+        btn.disabled = writePostSelections.length === 0;
+        btn.textContent = "Hoàn thành";
       }
 
       function chooseWritePostType(typeLabel) {
@@ -4699,7 +7601,7 @@
         if (!writePostSelections.length) return;
 
         const selectedCategoryText = writePostSelections
-          .map((item) => `${item.parent} / ${item.child}`)
+          .map((item) => `${item.parent} - ${item.child}`)
           .join("; ");
 
         closeWritePostModal();
@@ -4728,21 +7630,6 @@
 
       function confirmActionModal() {
         const type = currentActionModalType;
-        if (type === "notify") {
-          alert("Đã gửi thông báo đẩy.");
-          closeActionModal();
-          return;
-        }
-        if (type === "suspend") {
-          alert("Đã tạm khóa tài khoản TVA.");
-          closeActionModal();
-          return;
-        }
-        if (type === "force-leave") {
-          alert("Đã buộc TVA rời khỏi hệ thống.");
-          closeActionModal();
-          return;
-        }
 
         if (!selectedMemberId) {
           closeActionModal();
@@ -4755,7 +7642,8 @@
             const member = activeMembers.splice(idx, 1)[0];
             deletedMembers.unshift({
               ...member,
-              deletedDate: formatDateVN(new Date()),
+              deletedDate: formatDateTimeVN(new Date()),
+              deletedBy: "Admin",
             });
           }
           alert("Đã xóa thành viên ảo.");
@@ -4766,6 +7654,7 @@
           if (idx >= 0) {
             const member = deletedMembers.splice(idx, 1)[0];
             delete member.deletedDate;
+            delete member.deletedBy;
             activeMembers.unshift(member);
           }
           alert("Đã khôi phục thành viên ảo.");
@@ -4783,7 +7672,7 @@
       }
 
       function todayVN() {
-        return formatDateVN(new Date());
+        return formatDateTimeVN(new Date());
       }
 
       function getFormFields() {
@@ -4793,8 +7682,13 @@
           fullname: document.getElementById("vf-fullname"),
           email: document.getElementById("vf-email"),
           birth: document.getElementById("vf-birth"),
+          gender: document.getElementById("vf-gender"),
           region: document.getElementById("vf-region"),
           grade: document.getElementById("vf-grade"),
+          mainCategoryPicker: document.getElementById(
+            "vf-main-category-picker",
+          ),
+          subCategoryPicker: document.getElementById("vf-sub-category-picker"),
           password: document.getElementById("vf-password"),
           note: document.getElementById("vf-note"),
           avatarFile: document.getElementById("vf-avatar-file"),
@@ -4803,13 +7697,23 @@
 
       function fillForm(member) {
         const f = getFormFields();
+        populateMemberMainCategoryOptions("");
+        populateMemberSubCategoryOptions("");
+        setMemberCategorySelections(
+          member?.categorySelections,
+          member?.mainCategory || "",
+          member?.subCategory || "",
+        );
         f.id.value = member?.id || "";
         f.nickname.value = member?.nickname || "";
         f.fullname.value = member?.fullname || "";
         f.email.value = member?.email || "";
         f.birth.value = member?.birth || "";
+        if (f.gender) f.gender.value = member?.gender || "Nữ";
         f.region.value = member?.region || "";
         f.grade.value = member?.grade || "";
+        if (f.mainCategoryPicker) f.mainCategoryPicker.value = "";
+        if (f.subCategoryPicker) f.subCategoryPicker.value = "";
         f.password.value = member?.password || "";
         f.note.value = member?.note || "";
         f.avatarFile.value = member?.avatar || "";
@@ -4881,10 +7785,11 @@
         const f = getFormFields();
         const required = [
           { el: f.id, label: "ID" },
-          { el: f.nickname, label: "Nickname" },
+          { el: f.nickname, label: "Tên hiển thị" },
           { el: f.fullname, label: "Họ và tên" },
           { el: f.email, label: "Email" },
           { el: f.birth, label: "Ngày sinh" },
+          { el: f.gender, label: "Giới tính" },
           { el: f.grade, label: "Cấp bậc" },
           { el: f.password, label: "Mật khẩu" },
         ];
@@ -4911,20 +7816,31 @@
           return;
         }
 
+        const categorySelections = getMemberCategorySelectionsSnapshot();
+        const selectedMainCategories = categorySelections.map(
+          (item) => item.main,
+        );
+        const selectedSubCategories = categorySelections
+          .map((item) => `${item.main}: ${item.subs.join(", ")}`)
+          .filter((item) => item && !item.endsWith(": "));
+
         const payload = {
           id: f.id.value.trim(),
           nickname: f.nickname.value.trim(),
           fullname: f.fullname.value.trim(),
           email: f.email.value.trim(),
           birth: f.birth.value,
+          gender: f.gender?.value || "Nữ",
           region: f.region.value,
           grade: f.grade.value,
+          mainCategory: selectedMainCategories.join("; "),
+          subCategory: selectedSubCategories.join("; "),
+          categorySelections,
           password: f.password.value.trim(),
           avatar: f.avatarFile.value.trim(),
           createdDate: todayVN(),
           creator: "Admin",
           note: f.note.value.trim(),
-          gender: "-",
         };
 
         if (currentFormMode === "add") {
@@ -5004,11 +7920,37 @@
           input.value = "";
         });
 
-      document.addEventListener("click", () => {
+      document
+        .getElementById("vf-main-category-picker")
+        ?.addEventListener("change", (e) => {
+          const main = (e.target.value || "").trim();
+          if (
+            main &&
+            memberCategorySelections.length >= 3 &&
+            !memberCategorySelections.some((item) => item.main === main)
+          ) {
+            alert("Chỉ được tối đa 3 danh mục chính.");
+            e.target.value = "";
+            populateMemberSubCategoryOptions("");
+            return;
+          }
+          populateMemberSubCategoryOptions(main);
+          if (main) {
+            const { dropdown } = getSubCategoryElements();
+            if (dropdown) dropdown.classList.add("open");
+          }
+        });
+
+      document.addEventListener("click", (e) => {
         closeAllMenus();
         closeDatePicker();
+        closeDetailDatePicker();
         closeCriteriaDropdown();
         closeMediaContextMenu();
+        const subDropdown = document.getElementById("vf-sub-category-dropdown");
+        if (subDropdown && !subDropdown.contains(e.target)) {
+          closeSubCategoryDropdown();
+        }
       });
 
       document.addEventListener("keydown", (e) => {
@@ -5016,6 +7958,7 @@
         if (e.key === "Escape") closeWritePostModal();
         if (e.key === "Escape") closeImageEditModal();
         if (e.key === "Escape") closeMediaContextMenu();
+        if (e.key === "Escape") closeSchedulePostModal();
       });
 
       document
@@ -5028,7 +7971,903 @@
       syncDatePickerInputs();
       updateDateArrowsState();
       renderTables();
+      initDetailHistoryFilters();
+      renderDetailPostsTable();
+      renderDetailCommentsTable();
       setFormMode("add");
-    </script>
+      setInterval(processScheduledPosts, 15000);
+
+      /* ====== TVA POSTS PAGE ====== */
+      const tvaPosts = [
+        {
+          id: "P001",
+          nickname: "maimai",
+          topic: "Ảnh trước/sau",
+          category: "Làn da - Mỹ phẩm",
+          title: "Ngày hôm nay dưỡng da thế nào",
+          author: "maimai",
+          date: "16-04-2026 10:20",
+          views: 1002,
+          likes: 125,
+          comments: 999,
+        },
+        {
+          id: "P002",
+          nickname: "drAnh.skin.vn",
+          topic: "Review",
+          category: "Chiều cao/hình thể - Phẫu thuật",
+          title: "Review phòng khám XYZ",
+          author: "drAnh.skin.vn",
+          date: "15-04-2026 09:45",
+          views: 850,
+          likes: 340,
+          comments: 120,
+        },
+        {
+          id: "P003",
+          nickname: "haiyen.beauty",
+          topic: "Chuyên gia",
+          category: "Mắt/lông mi - Khác",
+          title: "5 tips kẻ mắt cho mắt một mí",
+          author: "haiyen.beauty",
+          date: "14-04-2026 16:12",
+          views: 2300,
+          likes: 890,
+          comments: 450,
+        },
+        {
+          id: "P004",
+          nickname: "Khanh.clinic.talk",
+          topic: "Hỏi đáp",
+          category: "Răng miệng - Thẩm mỹ",
+          title: "Có nên niềng răng ở tuổi 30?",
+          author: "Khanh.clinic.talk",
+          date: "12-04-2026 11:30",
+          views: 560,
+          likes: 78,
+          comments: 230,
+        },
+        {
+          id: "P005",
+          nickname: "Thu.skin.journal",
+          topic: "Review",
+          category: "Làn da - TPCN & dược phẩm",
+          title: "Collagen uống có thực sự hiệu quả?",
+          author: "Thu.skin.journal",
+          date: "10-04-2026 20:05",
+          views: 3100,
+          likes: 1200,
+          comments: 670,
+        },
+      ];
+
+      const tvaDeletedPosts = [
+        {
+          id: "P010",
+          nickname: "hi1234",
+          topic: "Ảnh trước/sau",
+          category: "Makeup - Khác",
+          title: "Today's beauty",
+          author: "maimai",
+          deletedBy: "chikihong",
+          deletedDate: "23-06-2025 14:30",
+          note: "",
+          deletedNote: "",
+        },
+        {
+          id: "P011",
+          nickname: "maimai",
+          topic: "Review",
+          category: "Làn da - Mỹ phẩm",
+          title: "Review kem chống nắng",
+          author: "maimai",
+          deletedBy: "Admin A",
+          deletedDate: "22-06-2025 10:15",
+          note: "Vi phạm nội dung",
+          deletedNote: "Vi phạm nội dung",
+        },
+        {
+          id: "P012",
+          nickname: "haiyen.beauty",
+          topic: "Chuyên gia",
+          category: "Mắt/lông mi - Khác",
+          title: "Lông mi giả hay thật?",
+          author: "haiyen.beauty",
+          deletedBy: "Admin B",
+          deletedDate: "21-06-2025 15:45",
+          note: "",
+          deletedNote: "",
+        },
+      ];
+
+      const postMainCategories = [
+        {
+          name: "Chiều cao/hình thể",
+          subs: [
+            "Phẫu thuật/ tiểu phẫu",
+            "Thể dục/ giảm cân",
+            "Thời trang",
+            "TPCN & dược phẩm",
+            "Khác",
+          ],
+        },
+        { name: "Chân/bắp chân", subs: ["Khác"] },
+        { name: "Cổ", subs: ["Khác"] },
+        { name: "Da đầu/lông tóc", subs: ["Khác"] },
+        { name: "Khuôn mặt/ V line", subs: ["Khác"] },
+        {
+          name: "Làn da",
+          subs: ["Mỹ phẩm", "TPCN & dược phẩm", "Khác"],
+        },
+        { name: "Mắt/lông mi", subs: ["Khác"] },
+        { name: "Môi", subs: ["Khác"] },
+        { name: "Mũi", subs: ["Khác"] },
+        { name: "Ngực", subs: ["Khác"] },
+        { name: "Răng miệng", subs: ["Khác"] },
+        { name: "Tay/cánh tay/bàn tay", subs: ["Khác"] },
+        { name: "Trán", subs: ["Khác"] },
+        { name: "Vùng chữ Y", subs: ["Khác"] },
+        { name: "Khác", subs: ["Khác"] },
+      ];
+
+      const tvaPostSearchOptions = {
+        posts: ["ID", "Tên hiển thị", "Tiêu đề", "Nội dung bài viết"],
+        deleted: ["ID", "Tên hiển thị", "Tiêu đề", "Nội dung bài viết"],
+      };
+
+      let currentTvaPostTab = "posts";
+      let selectedTvaPostIds = [];
+      let changingPostId = null;
+      let selectedMainCatForChange = null;
+      let selectedSubCatForChange = null;
+
+      function goSection(section) {
+        ["sidebar-tva", "sidebar-tva-posts", "sidebar-tva-comments"].forEach(
+          (id) => {
+            const el = document.getElementById(id);
+            if (el) el.classList.remove("active");
+          },
+        );
+        if (section === "tva") {
+          document.getElementById("sidebar-tva")?.classList.add("active");
+          goPage("list");
+        } else if (section === "tva-posts") {
+          document.getElementById("sidebar-tva-posts")?.classList.add("active");
+          goPage("tva-posts");
+          renderTvaPostSearchCriteria();
+          renderTvaPostTable();
+        } else if (section === "tva-comments") {
+          document
+            .getElementById("sidebar-tva-comments")
+            ?.classList.add("active");
+          goPage("tva-comments");
+          renderTvaCommentSearchCriteria();
+          renderTvaCommentTable();
+        }
+      }
+
+      function renderTvaPostSearchCriteria() {
+        const opts = tvaPostSearchOptions[currentTvaPostTab] || [];
+        const menu = document.getElementById("tva-post-criteria-menu");
+        if (!menu) return;
+        menu.innerHTML = opts
+          .map(
+            (o) =>
+              `<button class="criteria-option" onclick="selectTvaPostCriteria('${o.replace(/'/g, "\\'")}')">${o}</button>`,
+          )
+          .join("");
+        const label = document.getElementById("tva-post-criteria-label");
+        if (label && opts.length) label.textContent = opts[0];
+      }
+
+      function toggleTvaPostCriteriaDropdown(e) {
+        e.stopPropagation();
+        document
+          .getElementById("tva-post-criteria-wrap")
+          ?.classList.toggle("open");
+      }
+
+      function selectTvaPostCriteria(opt) {
+        const label = document.getElementById("tva-post-criteria-label");
+        if (label) label.textContent = opt;
+        document
+          .getElementById("tva-post-criteria-wrap")
+          ?.classList.remove("open");
+      }
+
+      function switchTvaPostTab(tab) {
+        currentTvaPostTab = tab;
+        selectedTvaPostIds = [];
+        document
+          .getElementById("tab-tva-posts")
+          .classList.toggle("active", tab === "posts");
+        document
+          .getElementById("tab-tva-deleted-posts")
+          .classList.toggle("active", tab === "deleted");
+        document.getElementById("panel-tva-posts").style.display =
+          tab === "posts" ? "" : "none";
+        document.getElementById("panel-tva-deleted-posts").style.display =
+          tab === "deleted" ? "" : "none";
+        document.getElementById("tva-post-date-label").textContent =
+          tab === "posts" ? "Ngày đăng bài viết" : "Ngày xóa bài viết";
+        document.getElementById("tva-post-count").textContent =
+          tab === "posts" ? "2,345 bài" : "125 bài";
+        renderTvaPostSearchCriteria();
+        renderTvaPostTable();
+      }
+
+      function escTvaText(s) {
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function renderTvaPostTable() {
+        if (currentTvaPostTab === "posts") {
+          const tbody = document.getElementById("tbody-tva-posts");
+          if (!tbody) return;
+          tbody.innerHTML = tvaPosts
+            .map((p) => {
+              const titleShort =
+                p.title.length > 50 ? p.title.substring(0, 50) + "…" : p.title;
+              return `
+              <tr>
+                <td><input type="checkbox" data-id="${escTvaText(p.id)}" onchange="toggleTvaPost(this,'${escTvaText(p.id)}')"/></td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${escTvaText(p.nickname)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-left">${escTvaText(p.topic || "-")}</td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${escTvaText(p.category)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="openChangeCategoryModal('${escTvaText(p.id)}')">Đổi danh mục</button>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)" title="${escTvaText(p.title)}">${escTvaText(titleShort)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Xem bài viết</button>
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Đánh dấu bài viết best</button>
+                      <button class="menu-item" onclick="openActionModal('soft-delete-post')">Xóa</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${escTvaText(p.author || "-")}</td>
+                <td
+                  ondblclick="openAdjustMetricModal('${escTvaText(p.id)}','views',${p.views})"
+                  title="Nhấn đúp để điều chỉnh lượt xem"
+                  style="cursor:pointer;text-decoration:underline dotted"
+                >${p.views.toLocaleString("vi-VN")}</td>
+                <td
+                  ondblclick="openAdjustMetricModal('${escTvaText(p.id)}','likes',${p.likes})"
+                  title="Nhấn đúp để điều chỉnh lượt thích"
+                  style="cursor:pointer;text-decoration:underline dotted"
+                >${p.likes.toLocaleString("vi-VN")}</td>
+                <td>${p.comments.toLocaleString("vi-VN")}</td>
+              </tr>`;
+            })
+            .join("");
+        } else {
+          const tbody = document.getElementById("tbody-tva-deleted-posts");
+          if (!tbody) return;
+          tbody.innerHTML = tvaDeletedPosts
+            .map(
+              (p) => `
+              <tr>
+                <td><input type="checkbox" data-id="${escTvaText(p.id)}" onchange="toggleTvaPost(this,'${escTvaText(p.id)}')"/></td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${escTvaText(p.nickname)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-left">${escTvaText(p.topic || "-")}</td>
+                <td class="td-left">${escTvaText(p.category)}</td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)" title="${escTvaText(p.title)}">${escTvaText(p.title)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="openActionModal('restore-post')">Khôi phục</button>
+                      <button class="menu-item" onclick="openActionModal('hard-delete-post')">Xóa vĩnh viễn</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${escTvaText(p.deletedBy)}</td>
+                <td>${escTvaText(p.deletedDate)}</td>
+                <td class="td-left">
+                  <span class="deleted-note-text" ondblclick="enterDeletedNoteEdit(this, '${escTvaText(p.id)}', 'post')" style="cursor:pointer;min-width:80px;display:inline-block;color:var(--gray-600)" title="Nhấn đúp để chỉnh sửa">${escTvaText(p.deletedNote || "—")}</span>
+                </td>
+              </tr>`,
+            )
+            .join("");
+        }
+      }
+
+      function getDeletedNoteSource(type) {
+        return type === "post" ? tvaDeletedPosts : tvaDeletedComments;
+      }
+
+      function rerenderDeletedNote(type) {
+        if (type === "post") renderTvaPostTable();
+        else renderTvaCommentTable();
+      }
+
+      function enterDeletedNoteEdit(el, id, type) {
+        const source = getDeletedNoteSource(type);
+        const item = source.find((x) => x.id === id);
+        if (!item) return;
+        const td = el.closest("td");
+        if (!td) return;
+        td.innerHTML = `
+          <div style="display:flex;gap:4px;align-items:center">
+            <input type="text" class="form-input deleted-note-input" value="${escTvaText(item.deletedNote || "")}" style="flex:1;font-size:11.5px;padding:4px 6px" />
+            <button class="btn btn-primary btn-sm" onclick="saveDeletedNote('${escTvaText(id)}', '${type}', this.parentElement.querySelector('input').value)">Lưu</button>
+            <button class="btn btn-ghost btn-sm" onclick="cancelDeletedNoteEdit(this, '${escTvaText(id)}', '${type}')">Hủy</button>
+          </div>
+        `;
+        td.querySelector("input")?.focus();
+      }
+
+      function saveDeletedNote(id, type, value) {
+        const source = getDeletedNoteSource(type);
+        const item = source.find((x) => x.id === id);
+        if (item) item.deletedNote = (value || "").trim();
+        rerenderDeletedNote(type);
+      }
+
+      function cancelDeletedNoteEdit(el, id, type) {
+        rerenderDeletedNote(type);
+      }
+
+      function toggleTvaPost(chk, id) {
+        if (chk.checked) {
+          if (!selectedTvaPostIds.includes(id)) selectedTvaPostIds.push(id);
+        } else {
+          selectedTvaPostIds = selectedTvaPostIds.filter((x) => x !== id);
+        }
+      }
+
+      function toggleAllTvaPosts(chk, tbodyId) {
+        const boxes = document.querySelectorAll(
+          `#${tbodyId} input[type=checkbox]`,
+        );
+        boxes.forEach((b) => {
+          b.checked = chk.checked;
+          const id = b.getAttribute("data-id");
+          if (id) {
+            if (chk.checked) {
+              if (!selectedTvaPostIds.includes(id)) selectedTvaPostIds.push(id);
+            } else {
+              selectedTvaPostIds = selectedTvaPostIds.filter((x) => x !== id);
+            }
+          }
+        });
+      }
+
+      function bulkChangeTvaPostCategory() {
+        if (selectedTvaPostIds.length === 0) {
+          alert("Vui lòng chọn ít nhất 1 bài viết.");
+          return;
+        }
+        openChangeCategoryModal(null);
+      }
+
+      function bulkDeleteTvaPosts() {
+        if (selectedTvaPostIds.length === 0) {
+          alert("Vui lòng chọn ít nhất 1 bài viết.");
+          return;
+        }
+        openActionModal("soft-delete-posts-bulk");
+      }
+
+      function bulkHardDeleteTvaPosts() {
+        if (selectedTvaPostIds.length === 0) {
+          alert("Vui lòng chọn ít nhất 1 bài viết.");
+          return;
+        }
+        openActionModal("hard-delete-posts-bulk");
+      }
+
+      function bulkRestoreTvaPosts() {
+        if (selectedTvaPostIds.length === 0) {
+          alert("Vui lòng chọn ít nhất 1 bài viết.");
+          return;
+        }
+        openActionModal("restore-posts-bulk");
+      }
+
+      function openChangeCategoryModal(postId) {
+        changingPostId = postId;
+        selectedMainCatForChange = null;
+        selectedSubCatForChange = null;
+        document.getElementById("change-main-cat-label").textContent =
+          "Chọn danh mục";
+        document.getElementById("change-sub-cat-label").textContent =
+          "Chọn danh mục phụ";
+        const menu = document.getElementById("change-main-cat-menu");
+        menu.innerHTML = postMainCategories
+          .map(
+            (c, i) =>
+              `<button class="criteria-option" onclick="selectMainCatForChange(${i})">${escTvaText(c.name)}</button>`,
+          )
+          .join("");
+        document.getElementById("change-sub-cat-menu").innerHTML = "";
+        document
+          .getElementById("change-category-modal-backdrop")
+          .classList.add("open");
+      }
+
+      function closeChangeCategoryModal() {
+        document
+          .getElementById("change-category-modal-backdrop")
+          .classList.remove("open");
+        document
+          .getElementById("change-main-cat-wrap")
+          ?.classList.remove("open");
+        document
+          .getElementById("change-sub-cat-wrap")
+          ?.classList.remove("open");
+      }
+
+      function toggleChangeCatDropdown(e) {
+        e.stopPropagation();
+        document
+          .getElementById("change-main-cat-wrap")
+          ?.classList.toggle("open");
+        document
+          .getElementById("change-sub-cat-wrap")
+          ?.classList.remove("open");
+      }
+
+      function toggleChangeSubCatDropdown(e) {
+        e.stopPropagation();
+        document
+          .getElementById("change-sub-cat-wrap")
+          ?.classList.toggle("open");
+        document
+          .getElementById("change-main-cat-wrap")
+          ?.classList.remove("open");
+      }
+
+      function selectMainCatForChange(idx) {
+        const cat = postMainCategories[idx];
+        selectedMainCatForChange = cat.name;
+        selectedSubCatForChange = null;
+        document.getElementById("change-main-cat-label").textContent = cat.name;
+        document
+          .getElementById("change-main-cat-wrap")
+          .classList.remove("open");
+        const subMenu = document.getElementById("change-sub-cat-menu");
+        subMenu.innerHTML = cat.subs
+          .map(
+            (s) =>
+              `<button class="criteria-option" onclick="selectSubCatForChange('${s.replace(/'/g, "\\'")}')">${escTvaText(s)}</button>`,
+          )
+          .join("");
+        document.getElementById("change-sub-cat-label").textContent =
+          "Chọn danh mục phụ";
+      }
+
+      function selectSubCatForChange(subName) {
+        selectedSubCatForChange = subName;
+        document.getElementById("change-sub-cat-label").textContent = subName;
+        document.getElementById("change-sub-cat-wrap").classList.remove("open");
+      }
+
+      function confirmChangeCategory() {
+        if (!selectedMainCatForChange) {
+          alert("Vui lòng chọn danh mục.");
+          return;
+        }
+        const newCat = selectedSubCatForChange
+          ? `${selectedMainCatForChange} - ${selectedSubCatForChange}`
+          : selectedMainCatForChange;
+        if (changingPostId == null) {
+          tvaPosts.forEach((p) => {
+            if (selectedTvaPostIds.includes(p.id)) p.category = newCat;
+          });
+        } else {
+          const post = tvaPosts.find((p) => p.id === changingPostId);
+          if (post) post.category = newCat;
+        }
+        renderTvaPostTable();
+        closeChangeCategoryModal();
+        alert("Đã đổi danh mục.");
+      }
+
+      let adjustMetricPostId = null;
+      let adjustMetricField = null;
+
+      function openAdjustMetricModal(postId, field, currentValue) {
+        adjustMetricPostId = postId;
+        adjustMetricField = field;
+        const label = field === "views" ? "lượt xem" : "lượt thích";
+        document.getElementById("adjust-metric-title").textContent =
+          `Điều chỉnh ${label}`;
+        document.getElementById("adjust-metric-current").textContent = Number(
+          currentValue || 0,
+        ).toLocaleString("vi-VN");
+        const input = document.getElementById("adjust-metric-input");
+        input.value = "";
+        document.getElementById("adjust-metric-error").textContent = "";
+        document
+          .getElementById("adjust-metric-modal-backdrop")
+          .classList.add("open");
+        setTimeout(() => input.focus(), 50);
+      }
+
+      function closeAdjustMetricModal() {
+        document
+          .getElementById("adjust-metric-modal-backdrop")
+          .classList.remove("open");
+        adjustMetricPostId = null;
+        adjustMetricField = null;
+      }
+
+      function confirmAdjustMetric() {
+        const raw = document.getElementById("adjust-metric-input").value.trim();
+        const errEl = document.getElementById("adjust-metric-error");
+        if (raw === "") {
+          errEl.textContent = "Vui lòng nhập số.";
+          return;
+        }
+        const newValue = parseInt(raw, 10);
+        if (isNaN(newValue) || newValue < 0) {
+          errEl.textContent = "Số không hợp lệ. Vui lòng nhập số nguyên ≥ 0.";
+          return;
+        }
+        const post = tvaPosts.find((p) => p.id === adjustMetricPostId);
+        if (post) {
+          post[adjustMetricField] = newValue;
+          renderTvaPostTable();
+        }
+        const fieldLabel =
+          adjustMetricField === "views" ? "lượt xem" : "lượt thích";
+        closeAdjustMetricModal();
+        alert(`Đã cập nhật ${fieldLabel}.`);
+      }
+
+      document.addEventListener("click", (e) => {
+        const cw = document.getElementById("tva-post-criteria-wrap");
+        if (cw && !cw.contains(e.target)) cw.classList.remove("open");
+        const mw = document.getElementById("change-main-cat-wrap");
+        if (mw && !mw.contains(e.target)) mw.classList.remove("open");
+        const sw = document.getElementById("change-sub-cat-wrap");
+        if (sw && !sw.contains(e.target)) sw.classList.remove("open");
+        const cc = document.getElementById("tva-comment-criteria-wrap");
+        if (cc && !cc.contains(e.target)) cc.classList.remove("open");
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeChangeCategoryModal();
+          closeAdjustMetricModal();
+        }
+      });
+
+      renderTvaPostSearchCriteria();
+      renderTvaPostTable();
+
+      /* ====== TVA COMMENTS PAGE ====== */
+      const tvaComments = [
+        {
+          id: "C001",
+          nickname: "thanhtuyen",
+          topic: "Chia sẻ",
+          category: "Mỹ phẩm - Khác",
+          postTitle: "Ngày hôm nay",
+          content: "ng đẹp j ơi cho m...",
+          manager: "maimai",
+          author: "maimai",
+          authorType: "web",
+        },
+        {
+          id: "C002",
+          nickname: "maimai",
+          topic: "Review",
+          category: "Làn da - Mỹ phẩm",
+          postTitle: "Review kem chống nắng SPF50",
+          content:
+            "Mình dùng cái này được 2 tháng rồi, da không bị bít lỗ chân lông.",
+          manager: "maimai",
+          author: "",
+          authorType: "app",
+        },
+        {
+          id: "C003",
+          nickname: "drAnh.skin.vn",
+          topic: "Hỏi đáp",
+          category: "Chiều cao/hình thể - Phẫu thuật",
+          postTitle: "Có nên niềng răng ở tuổi 30?",
+          content: "Bạn nên tham khảo ý kiến bác sĩ trước khi quyết định nhé.",
+          manager: "drAnh.skin.vn",
+          author: "drAnh.skin.vn",
+          authorType: "web",
+        },
+        {
+          id: "C004",
+          nickname: "haiyen.beauty",
+          topic: "Hướng dẫn",
+          category: "Mắt/lông mi - Khác",
+          postTitle: "5 tips kẻ mắt cho mắt một mí",
+          content: "Mình thử cách này rồi, hiệu quả lắm bạn ơi!",
+          manager: "haiyen.beauty",
+          author: "",
+          authorType: "app",
+        },
+      ];
+
+      const tvaDeletedComments = [
+        {
+          id: "C010",
+          nickname: "thanhtuyen",
+          topic: "Chia sẻ",
+          category: "Mỹ phẩm - Khác",
+          postTitle: "Ngày hôm nay",
+          content: "Người đầu đẹp ziii",
+          author: "maimai",
+          authorType: "web",
+          deletedBy: "chikihong",
+          deletedDate: "25-06-2025 10:00 ",
+          deletedNote: "",
+        },
+        {
+          id: "C011",
+          nickname: "maimai",
+          topic: "Review",
+          category: "Làn da - Mỹ phẩm",
+          postTitle: "Review kem chống nắng SPF50",
+          content: "Bình luận vi phạm cộng đồng.",
+          author: "",
+          authorType: "app",
+          deletedBy: "Admin A",
+          deletedDate: "24-06-2025 14:15",
+          deletedNote: "Spam quảng cáo",
+        },
+        {
+          id: "C012",
+          nickname: "haiyen.beauty",
+          topic: "Hướng dẫn",
+          category: "Mắt/lông mi - Khác",
+          postTitle: "5 tips kẻ mắt cho mắt một mí",
+          content: "Spam quảng cáo sản phẩm không rõ.",
+          author: "haiyen.beauty",
+          authorType: "web",
+          deletedBy: "Admin B",
+          deletedDate: "23-06-2025 12:30",
+          deletedNote: "",
+        },
+      ];
+
+      const tvaCommentSearchOptions = [
+        "ID",
+        "Tên hiển thị",
+        "Tiêu đề",
+        "Nội dung bài viết",
+        "Nội dung bình luận",
+      ];
+
+      let currentTvaCommentTab = "comments";
+      let selectedTvaCommentIds = [];
+
+      function renderTvaCommentSearchCriteria() {
+        const menu = document.getElementById("tva-comment-criteria-menu");
+        if (!menu) return;
+        menu.innerHTML = tvaCommentSearchOptions
+          .map(
+            (o) =>
+              `<button class="criteria-option" onclick="selectTvaCommentCriteria('${o.replace(/'/g, "\\'")}')">${o}</button>`,
+          )
+          .join("");
+      }
+
+      function toggleTvaCommentCriteriaDropdown(e) {
+        e.stopPropagation();
+        document
+          .getElementById("tva-comment-criteria-wrap")
+          ?.classList.toggle("open");
+      }
+
+      function selectTvaCommentCriteria(opt) {
+        const label = document.getElementById("tva-comment-criteria-label");
+        if (label) label.textContent = opt;
+        document
+          .getElementById("tva-comment-criteria-wrap")
+          ?.classList.remove("open");
+      }
+
+      function switchTvaCommentTab(tab) {
+        currentTvaCommentTab = tab;
+        selectedTvaCommentIds = [];
+        document
+          .getElementById("tab-tva-comments")
+          .classList.toggle("active", tab === "comments");
+        document
+          .getElementById("tab-tva-deleted-comments")
+          .classList.toggle("active", tab === "deleted");
+        document.getElementById("panel-tva-comments").style.display =
+          tab === "comments" ? "" : "none";
+        document.getElementById("panel-tva-deleted-comments").style.display =
+          tab === "deleted" ? "" : "none";
+        document.getElementById("tva-comment-date-label").textContent =
+          tab === "comments" ? "Ngày viết bình luận" : "Ngày xóa bình luận";
+        document.getElementById("tva-comment-count").textContent =
+          tab === "comments" ? "1,234 bình luận" : "268 bình luận";
+        renderTvaCommentTable();
+      }
+
+      function renderTvaCommentTable() {
+        if (currentTvaCommentTab === "comments") {
+          const tbody = document.getElementById("tbody-tva-comments");
+          if (!tbody) return;
+          tbody.innerHTML = tvaComments
+            .map((c) => {
+              const titleShort =
+                c.postTitle.length > 40
+                  ? c.postTitle.substring(0, 40) + "…"
+                  : c.postTitle;
+              const contentShort =
+                c.content.length > 50
+                  ? c.content.substring(0, 50) + "…"
+                  : c.content;
+              const authorText =
+                c.authorType === "web" ? c.author : "Không xác định";
+              return `
+              <tr>
+                <td><input type="checkbox" data-id="${escTvaText(c.id)}" onchange="toggleTvaComment(this,'${escTvaText(c.id)}')"/></td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${escTvaText(c.nickname)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-left">${escTvaText(c.topic || "-")}</td>
+                <td class="td-left">${escTvaText(c.category)}</td>
+                <td class="td-left">
+                  <div class="tooltip-wrap">
+                    <span class="note-ellipsis">${escTvaText(titleShort)}</span>
+                    <div class="tooltip">${escTvaText(c.postTitle)}</div>
+                  </div>
+                </td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)" title="${escTvaText(c.content)}">${escTvaText(contentShort)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Xem bình luận</button>
+                      <button class="menu-item" onclick="openActionModal('soft-delete-comment')">Xóa</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${escTvaText(authorText)}</td>
+              </tr>`;
+            })
+            .join("");
+        } else {
+          const tbody = document.getElementById("tbody-tva-deleted-comments");
+          if (!tbody) return;
+          tbody.innerHTML = tvaDeletedComments
+            .map((c) => {
+              const titleShort =
+                c.postTitle.length > 40
+                  ? c.postTitle.substring(0, 40) + "…"
+                  : c.postTitle;
+              const contentShort =
+                c.content.length > 50
+                  ? c.content.substring(0, 50) + "…"
+                  : c.content;
+              const authorText =
+                c.authorType === "web" ? c.author : "Không xác định";
+              return `
+              <tr>
+                <td><input type="checkbox" data-id="${escTvaText(c.id)}" onchange="toggleTvaComment(this,'${escTvaText(c.id)}')"/></td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)">${escTvaText(c.nickname)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-left">${escTvaText(c.topic || "-")}</td>
+                <td class="td-left">${escTvaText(c.category)}</td>
+                <td class="td-left">
+                  <div class="tooltip-wrap">
+                    <span class="note-ellipsis">${escTvaText(titleShort)}</span>
+                    <div class="tooltip">${escTvaText(c.postTitle)}</div>
+                  </div>
+                </td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event, this.parentElement)" title="${escTvaText(c.content)}">${escTvaText(contentShort)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Xem bình luận</button>
+                      <button class="menu-item" onclick="openActionModal('hard-delete-comment')">Xóa vĩnh viễn</button>
+                      <button class="menu-item" onclick="openActionModal('restore-comment')">Khôi phục</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${escTvaText(authorText)}</td>
+                <td>${escTvaText(c.deletedBy)}</td>
+                <td>${escTvaText(c.deletedDate)}</td>
+                <td class="td-left">
+                  <span class="deleted-note-text" ondblclick="enterDeletedNoteEdit(this, '${escTvaText(c.id)}', 'comment')" style="cursor:pointer;min-width:80px;display:inline-block;color:var(--gray-600)" title="Nhấn đúp để chỉnh sửa">${escTvaText(c.deletedNote || "—")}</span>
+                </td>
+              </tr>`;
+            })
+            .join("");
+        }
+      }
+
+      function toggleTvaComment(chk, id) {
+        if (chk.checked) {
+          if (!selectedTvaCommentIds.includes(id))
+            selectedTvaCommentIds.push(id);
+        } else {
+          selectedTvaCommentIds = selectedTvaCommentIds.filter((x) => x !== id);
+        }
+      }
+
+      function toggleAllTvaComments(chk, tbodyId) {
+        const boxes = document.querySelectorAll(
+          `#${tbodyId} input[type=checkbox]`,
+        );
+        boxes.forEach((b) => {
+          b.checked = chk.checked;
+          const id = b.getAttribute("data-id");
+          if (id) {
+            if (chk.checked) {
+              if (!selectedTvaCommentIds.includes(id))
+                selectedTvaCommentIds.push(id);
+            } else {
+              selectedTvaCommentIds = selectedTvaCommentIds.filter(
+                (x) => x !== id,
+              );
+            }
+          }
+        });
+      }
+
+      function deleteTvaCommentsBulk() {
+        if (selectedTvaCommentIds.length === 0) {
+          alert("Vui lòng chọn ít nhất 1 bình luận.");
+          return;
+        }
+        openActionModal("soft-delete-comments-bulk");
+      }
+
+      function hardDeleteTvaCommentsBulk() {
+        if (selectedTvaCommentIds.length === 0) {
+          alert("Vui lòng chọn ít nhất 1 bình luận.");
+          return;
+        }
+        openActionModal("hard-delete-comments-bulk");
+      }
+
+      function restoreTvaCommentsBulk() {
+        if (selectedTvaCommentIds.length === 0) {
+          alert("Vui lòng chọn ít nhất 1 bình luận.");
+          return;
+        }
+        openActionModal("restore-comments-bulk");
+      }
+
+      renderTvaCommentSearchCriteria();
+      renderTvaCommentTable();
+</script>
   </body>
 </html>

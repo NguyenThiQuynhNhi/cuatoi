@@ -31,7 +31,7 @@
         --radius: 10px;
         --radius-sm: 6px;
         --sidebar-w: 210px;
-        --header-h: 52px;
+        --header-h: 60px;
       }
 
       * {
@@ -54,7 +54,7 @@
         left: 0;
         right: 0;
         z-index: 100;
-        height: var(--header-h);
+        min-height: 60px;
         background: linear-gradient(
           135deg,
           #4a2096 0%,
@@ -64,7 +64,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 20px;
+        padding-left: 20px;
+        padding-right: 20px;
         box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
       }
       .header-logo {
@@ -103,7 +104,10 @@
         cursor: pointer;
         font-size: 11.5px;
         font-weight: 500;
-        white-space: nowrap;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
         transition: all 0.15s;
       }
       .nav-item:hover,
@@ -111,7 +115,49 @@
         background: rgba(255, 255, 255, 0.18);
         color: white;
       }
-      .nav-item.active {
+            .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .nav-dropdown a.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+.nav-item.active {
         background: rgba(255, 255, 255, 0.22);
         font-weight: 600;
       }
@@ -1522,19 +1568,28 @@
         <span>Quản lý hệ thống BEAUTY</span>
       </div>
       <nav class="header-nav">
-        <div class="nav-item">Trang chủ</div>
-        <div class="nav-item">Quản lý thông tin</div>
-        <div class="nav-item">Thành viên ảo</div>
-        <div class="nav-item">Thành viên thực, staff</div>
-        <div class="nav-item">Cấp bậc</div>
-        <div class="nav-item active">Bác sĩ &amp; BV</div>
-        <div class="nav-item">Menu</div>
-        <div class="nav-item">Bài viết &amp; BL</div>
-        <div class="nav-item">Thẻ</div>
-        <div class="nav-item">Spam/Báo cáo</div>
-        <div class="nav-item">Banner</div>
-        <div class="nav-item">Điểm thưởng</div>
-        <div class="nav-item">Thống kê</div>
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group active">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="active" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -1656,7 +1711,7 @@
                     ‹
                   </button>
                   <span class="date-display" id="date-display"
-                    >23/06/2025 ~ 30/06/2025</span
+                    >23-06-2025 ~ 30-06-2025</span
                   >
                   <button
                     class="date-nav"
@@ -2640,7 +2695,7 @@
                         </div>
                       </td>
                       <td>0903-555-666</td>
-                      <td>12/06/2025</td>
+                      <td>12-06-2025 08:15</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -2725,7 +2780,7 @@
                         </div>
                       </td>
                       <td>0905-112-889</td>
-                      <td>18/06/2025</td>
+                      <td>18-06-2025 09:30</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -2814,7 +2869,7 @@
                         </div>
                       </td>
                       <td>0907-223-514</td>
-                      <td>20/06/2025</td>
+                      <td>20-06-2025 10:45</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -2896,7 +2951,7 @@
                         </div>
                       </td>
                       <td>0911-908-776</td>
-                      <td>02/07/2025</td>
+                      <td>02-07-2025 12:20</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -2985,7 +3040,7 @@
                         </div>
                       </td>
                       <td>0938-440-912</td>
-                      <td>05/07/2025</td>
+                      <td>05-07-2025 14:05</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -3078,7 +3133,7 @@
                         </div>
                       </td>
                       <td>0904-882-300</td>
-                      <td>08/07/2025</td>
+                      <td>08-07-2025 15:40</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -3801,7 +3856,7 @@
         const d = String(date.getDate()).padStart(2, "0");
         const m = String(date.getMonth() + 1).padStart(2, "0");
         const y = date.getFullYear();
-        return `${d}/${m}/${y}`;
+        return `${d}-${m}-${y}`;
       }
 
       function toISODate(date) {
@@ -4383,6 +4438,6 @@
       syncDatePickerInputs();
       updateDateArrowsState();
       setHospitalFormMode("add");
-    </script>
+</script>
   </body>
 </html>

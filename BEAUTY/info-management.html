@@ -1,0 +1,1396 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý thông tin - BEAUTY Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c3fc5;
+        --primary-light: #ede9f8;
+        --primary-mid: #c4b0ec;
+        --accent: #e8436a;
+        --accent-light: #fde8ed;
+        --success: #16a34a;
+        --success-light: #dcfce7;
+        --warning: #f59e0b;
+        --warning-light: #fef3c7;
+        --gray-50: #f8f7fc;
+        --gray-100: #f0eef8;
+        --gray-200: #e2dff0;
+        --gray-300: #c9c4e0;
+        --gray-400: #9b93bf;
+        --gray-500: #6b6390;
+        --gray-700: #3d3660;
+        --gray-900: #1e1a35;
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --radius: 10px;
+        --sidebar-w: 230px;
+        --header-h: 60px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        min-height: 60px;
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+      }
+      .header-user .avatar {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
+
+      .app-body {
+        display: flex;
+        padding-top: var(--header-h);
+        min-height: 100vh;
+      }
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: white;
+        min-height: calc(100vh - var(--header-h));
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 10px;
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+      }
+      .sidebar-label {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 4px 8px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+        font-size: 12.5px;
+        font-weight: 500;
+        transition: all 0.15s;
+        margin-bottom: 1px;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .sidebar-note {
+        margin-top: 12px;
+        padding: 10px;
+        font-size: 10.5px;
+        color: var(--warning);
+        background: var(--warning-light);
+        border: 1px solid var(--warning);
+        border-radius: 8px;
+        line-height: 1.4;
+        font-weight: 500;
+      }
+
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 20px;
+      }
+
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+      }
+
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-body {
+        padding: 18px 20px;
+      }
+      .card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 16px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .card-head-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-primary:hover {
+        opacity: 0.92;
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
+
+      /* ====== KEY-VALUE LIST ====== */
+      .kv-list {
+        display: grid;
+        gap: 14px;
+      }
+      .kv-row {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .kv-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-500);
+        padding-top: 8px;
+      }
+      .kv-label .req {
+        color: var(--accent);
+      }
+      .kv-value {
+        font-size: 13px;
+        color: var(--gray-900);
+        font-weight: 600;
+        padding: 8px 12px;
+        background: var(--gray-50);
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        min-height: 36px;
+        word-break: break-word;
+      }
+      .kv-value.muted {
+        color: var(--gray-400);
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 13px;
+        font-family: inherit;
+        color: var(--gray-900);
+        background: white;
+        outline: none;
+      }
+      .form-input:focus {
+        border-color: var(--primary);
+      }
+      .form-input.invalid {
+        border-color: var(--accent);
+        background: var(--accent-light);
+      }
+      textarea.form-input {
+        resize: vertical;
+        min-height: 120px;
+      }
+      .error-text {
+        font-size: 11px;
+        color: var(--accent);
+        min-height: 14px;
+        margin-top: 4px;
+      }
+
+      .social-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .social-row .form-input {
+        flex: 1;
+      }
+      .icon-btn {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: 1.5px solid var(--gray-200);
+        background: white;
+        color: var(--accent);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        line-height: 1;
+        font-weight: 700;
+        font-family: inherit;
+      }
+      .icon-btn:hover {
+        background: var(--accent-light);
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid var(--gray-200);
+      }
+
+      /* ====== TABS / TERMS ====== */
+      .tabs {
+        display: flex;
+        gap: 0;
+        border-bottom: 2px solid var(--gray-200);
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+      .tab {
+        padding: 8px 14px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--gray-400);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        font-family: inherit;
+        background: none;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        white-space: nowrap;
+      }
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+        font-weight: 600;
+      }
+
+      .terms-content {
+        min-height: 240px;
+        padding: 14px 16px;
+        background: var(--gray-50);
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12.5px;
+        color: var(--gray-700);
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
+      .terms-content.editing {
+        background: white;
+      }
+      textarea.terms-content {
+        font-family: inherit;
+        outline: none;
+        resize: vertical;
+      }
+
+      /* ====== TOGGLE ====== */
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        background: var(--gray-50);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        margin-bottom: 16px;
+      }
+      .toggle-info {
+        flex: 1;
+      }
+      .toggle-info .label {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+      .toggle-info .status {
+        margin-top: 4px;
+        font-size: 12px;
+        color: var(--gray-500);
+      }
+      .toggle-status-chip {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .toggle-status-chip.on {
+        background: var(--success-light);
+        color: var(--success);
+      }
+      .toggle-status-chip.off {
+        background: var(--accent-light);
+        color: var(--accent);
+      }
+      .toggle-switch {
+        position: relative;
+        width: 56px;
+        height: 30px;
+        border-radius: 30px;
+        background: var(--gray-300);
+        cursor: pointer;
+        transition: background 0.2s;
+        flex-shrink: 0;
+      }
+      .toggle-switch::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: white;
+        transition: transform 0.2s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      }
+      .toggle-switch.on {
+        background: var(--accent);
+      }
+      .toggle-switch.on::before {
+        transform: translateX(26px);
+      }
+
+      .info-note {
+        margin: 0 0 14px;
+        padding: 10px 14px;
+        font-size: 11.5px;
+        color: var(--warning);
+        background: var(--warning-light);
+        border: 1px solid var(--warning);
+        border-radius: 8px;
+        font-weight: 500;
+      }
+
+      /* ====== ACTION MODAL ====== */
+      .action-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 420px;
+        width: 95vw;
+        box-shadow: var(--shadow-md);
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-600);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+      .action-modal-btn-confirm.is-primary {
+        background: var(--primary);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-box">B</div>
+        BEAUTY Admin
+      </div>
+      <nav class="header-nav">
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <div class="nav-item active">Quản lý thông tin</div>
+        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+      </nav>
+      <div class="header-user">
+        <div class="user-info">
+          <div class="user-name">Nguyễn Văn Admin</div>
+          <div class="user-role">Quản trị viên cấp 3</div>
+        </div>
+        <div class="avatar">AD</div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="sidebar">
+        <div class="sidebar-label">Quản lý thông tin</div>
+        <div class="sidebar-item active" id="sidebar-business-info" onclick="goSection('business-info')">
+          Thay đổi thông tin doanh nghiệp
+        </div>
+        <div class="sidebar-item" id="sidebar-terms" onclick="goSection('terms')">
+          Thay đổi điều khoản
+        </div>
+        <div class="sidebar-item" id="sidebar-slogan" onclick="goSection('slogan')">
+          Thay đổi slogan
+        </div>
+        <div class="sidebar-item" id="sidebar-welcome" onclick="goSection('welcome')">
+          Thay đổi Thông báo hoàn tất đăng ký
+        </div>
+        <div class="sidebar-item" id="sidebar-pause" onclick="goSection('pause')">
+          Tạm dừng. Hủy tạm dừng
+        </div>
+        <div class="sidebar-note">
+          ⚠ Chỉ Quản trị viên cấp 3 mới có quyền truy cập menu này.
+        </div>
+      </aside>
+
+      <!-- ====== TRANG 1: THÔNG TIN DOANH NGHIỆP ====== -->
+      <main class="main page active" id="page-business-info">
+        <div class="page-title">Thay đổi thông tin doanh nghiệp</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card-head">
+              <div class="card-head-title">Thông tin doanh nghiệp</div>
+              <div id="biz-action-view">
+                <button class="btn btn-outline-primary" onclick="enterEditBiz()">
+                  Chỉnh sửa
+                </button>
+              </div>
+            </div>
+
+            <!-- View mode -->
+            <div id="biz-view" class="kv-list">
+              <div class="kv-row">
+                <div class="kv-label">Mã số đăng ký kinh doanh</div>
+                <div class="kv-value" id="view-biz-code">12345</div>
+              </div>
+              <div class="kv-row">
+                <div class="kv-label">Tên công ty</div>
+                <div class="kv-value" id="view-biz-name">IMB KOREA</div>
+              </div>
+              <div class="kv-row">
+                <div class="kv-label">Địa chỉ</div>
+                <div class="kv-value" id="view-biz-address">Seoul, Gangnam</div>
+              </div>
+              <div class="kv-row">
+                <div class="kv-label">Thông tin liên hệ</div>
+                <div class="kv-value" id="view-biz-contact">010-1234-5678</div>
+              </div>
+              <div class="kv-row">
+                <div class="kv-label">Copyright</div>
+                <div class="kv-value" id="view-biz-copyright">IMB KOREA</div>
+              </div>
+              <div class="kv-row">
+                <div class="kv-label">Liên kết mạng xã hội</div>
+                <div id="view-biz-social"></div>
+              </div>
+            </div>
+
+            <!-- Edit mode -->
+            <div id="biz-edit" style="display: none">
+              <div class="info-note">
+                Tất cả các trường đều bắt buộc, trừ Liên kết mạng xã hội.
+              </div>
+              <div class="kv-list">
+                <div class="kv-row">
+                  <div class="kv-label">Mã số đăng ký kinh doanh <span class="req">*</span></div>
+                  <div>
+                    <input class="form-input" id="bf-code" />
+                    <div class="error-text" id="err-code"></div>
+                  </div>
+                </div>
+                <div class="kv-row">
+                  <div class="kv-label">Tên công ty <span class="req">*</span></div>
+                  <div>
+                    <input class="form-input" id="bf-name" />
+                    <div class="error-text" id="err-name"></div>
+                  </div>
+                </div>
+                <div class="kv-row">
+                  <div class="kv-label">Địa chỉ <span class="req">*</span></div>
+                  <div>
+                    <input class="form-input" id="bf-address" />
+                    <div class="error-text" id="err-address"></div>
+                  </div>
+                </div>
+                <div class="kv-row">
+                  <div class="kv-label">Thông tin liên hệ <span class="req">*</span></div>
+                  <div>
+                    <input class="form-input" id="bf-contact" />
+                    <div class="error-text" id="err-contact"></div>
+                  </div>
+                </div>
+                <div class="kv-row">
+                  <div class="kv-label">Copyright <span class="req">*</span></div>
+                  <div>
+                    <input class="form-input" id="bf-copyright" />
+                    <div class="error-text" id="err-copyright"></div>
+                  </div>
+                </div>
+                <div class="kv-row">
+                  <div class="kv-label">Liên kết mạng xã hội</div>
+                  <div>
+                    <div id="bf-social-list"></div>
+                    <button class="btn btn-outline-primary btn-sm" onclick="addSocialRow()" type="button">
+                      + Add more
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-outline-danger" onclick="cancelEditBiz()">Hủy</button>
+                <button class="btn btn-primary" onclick="saveBiz()">Lưu</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 2: ĐIỀU KHOẢN ====== -->
+      <main class="main page" id="page-terms">
+        <div class="page-title">Thay đổi điều khoản</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card-head">
+              <div class="card-head-title">Điều khoản</div>
+              <div id="terms-action-view">
+                <button class="btn btn-outline-primary" onclick="enterEditTerms()">
+                  Chỉnh sửa
+                </button>
+              </div>
+            </div>
+
+            <div class="tabs" id="terms-tabs"></div>
+
+            <!-- View mode -->
+            <div id="terms-view" class="terms-content"></div>
+
+            <!-- Edit mode -->
+            <div id="terms-edit" style="display: none">
+              <textarea class="terms-content editing" id="terms-textarea"></textarea>
+              <div class="form-actions">
+                <button class="btn btn-outline-danger" onclick="cancelEditTerms()">Hủy</button>
+                <button class="btn btn-primary" onclick="saveTerms()">Lưu</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 3: SLOGAN ====== -->
+      <main class="main page" id="page-slogan">
+        <div class="page-title">Thay đổi Slogan</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card-head">
+              <div class="card-head-title">Slogan</div>
+              <div id="slogan-action-view">
+                <button class="btn btn-outline-primary" onclick="enterEditSlogan()">
+                  Chỉnh sửa
+                </button>
+              </div>
+            </div>
+
+            <div id="slogan-view" class="kv-list">
+              <div class="kv-row">
+                <div class="kv-label">Slogan</div>
+                <div class="kv-value" id="view-slogan">Làm đẹp cùng Macaron</div>
+              </div>
+            </div>
+
+            <div id="slogan-edit" style="display: none">
+              <div class="kv-list">
+                <div class="kv-row">
+                  <div class="kv-label">Slogan <span class="req">*</span></div>
+                  <div>
+                    <input class="form-input" id="sf-slogan" />
+                    <div class="error-text" id="err-slogan"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-outline-danger" onclick="cancelEditSlogan()">Hủy</button>
+                <button class="btn btn-primary" onclick="saveSlogan()">Lưu</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 4: THÔNG BÁO HOÀN TẤT ĐĂNG KÝ ====== -->
+      <main class="main page" id="page-welcome">
+        <div class="page-title">Thay đổi Thông báo hoàn tất đăng ký</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card-head">
+              <div class="card-head-title">Thông báo hoàn tất đăng ký</div>
+              <div id="welcome-action-view">
+                <button class="btn btn-outline-primary" onclick="enterEditWelcome()">
+                  Chỉnh sửa
+                </button>
+              </div>
+            </div>
+
+            <div id="welcome-view" class="kv-list">
+              <div class="kv-row">
+                <div class="kv-label">Thông báo</div>
+                <div class="kv-value" id="view-welcome">
+                  Chào mừng bạn đến với Macaron
+                </div>
+              </div>
+            </div>
+
+            <div id="welcome-edit" style="display: none">
+              <div class="kv-list">
+                <div class="kv-row">
+                  <div class="kv-label">Thông báo <span class="req">*</span></div>
+                  <div>
+                    <input class="form-input" id="wf-welcome" />
+                    <div class="error-text" id="err-welcome"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-outline-danger" onclick="cancelEditWelcome()">Hủy</button>
+                <button class="btn btn-primary" onclick="saveWelcome()">Lưu</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG 5: TẠM DỪNG / HỦY TẠM DỪNG ====== -->
+      <main class="main page" id="page-pause">
+        <div class="page-title">Tạm dừng. Hủy tạm dừng</div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="info-note">
+              Khi bật chế độ tạm dừng, người dùng cuối sẽ không thể truy cập ứng dụng. Hãy ghi rõ lý do.
+            </div>
+
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <div class="label">Trạng thái dịch vụ</div>
+                <div class="status">
+                  Hiện tại:
+                  <span class="toggle-status-chip on" id="pause-chip">Đang hoạt động</span>
+                </div>
+              </div>
+              <div class="toggle-switch" id="pause-toggle" onclick="requestTogglePause()"></div>
+            </div>
+
+            <div class="kv-list">
+              <div class="kv-row">
+                <div class="kv-label">Lý do</div>
+                <div>
+                  <textarea
+                    class="form-input"
+                    id="pause-reason"
+                    placeholder="Viết lý do tạm dừng / Hủy tạm dừng"
+                  ></textarea>
+                  <div class="error-text" id="err-pause"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ====== ACTION MODAL ====== -->
+    <div class="action-modal-backdrop" id="action-modal-backdrop" onclick="closeActionModal()">
+      <div class="action-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+        <h3 class="action-modal-title" id="action-modal-title">Xác nhận</h3>
+        <p class="action-modal-body" id="action-modal-body">Bạn có chắc chắn?</p>
+        <div class="action-modal-actions">
+          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeActionModal()">Hủy</button>
+          <button class="action-modal-btn action-modal-btn-confirm" id="action-modal-confirm" onclick="confirmActionModal()">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ====== STATE ====== */
+      const businessInfo = {
+        code: "12345",
+        name: "IMB KOREA",
+        address: "Seoul, Gangnam",
+        contact: "010-1234-5678",
+        copyright: "IMB KOREA",
+        socials: ["https://facebook.com/macaron.beauty"],
+      };
+
+      const termsData = [
+        {
+          key: "use",
+          label: "Điều khoản sử dụng",
+          content:
+            "Người dùng đồng ý tuân thủ các quy định khi sử dụng ứng dụng Macaron. Hành vi vi phạm sẽ bị xử lý theo chính sách cộng đồng.",
+        },
+        {
+          key: "privacy",
+          label: "Chính sách bảo mật thông tin cá nhân",
+          content:
+            "Macaron cam kết bảo mật mọi thông tin cá nhân của người dùng theo Luật bảo vệ thông tin cá nhân.",
+        },
+        {
+          key: "copyright",
+          label: "Bản quyền chính chứa",
+          content:
+            "Mọi nội dung, hình ảnh, video do người dùng đăng tải thuộc quyền sở hữu trí tuệ của người đăng. Macaron có quyền hiển thị, phân phối nội dung theo quy định.",
+        },
+        {
+          key: "voice",
+          label: "Quyền giọng nói",
+          content:
+            "Khi sử dụng tính năng ghi âm/voice, người dùng đồng ý cấp quyền giọng nói cho Macaron để xử lý nội dung trong phạm vi ứng dụng.",
+        },
+        {
+          key: "agreement",
+          label: "Điều khoản người đã sử dụng",
+          content:
+            "Người dùng đã đồng ý các điều khoản kể từ khi đăng ký. Các thay đổi điều khoản sẽ được thông báo trước 7 ngày.",
+        },
+      ];
+      let activeTermsKey = termsData[0].key;
+      const slogan = { value: "Làm đẹp cùng Macaron" };
+      const welcomeMsg = { value: "Chào mừng bạn đến với Macaron" };
+      const pauseState = { on: false, reason: "" };
+      let pendingPause = null; // bool — target state
+
+      /* ====== HELPERS ====== */
+      function escText(s) {
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      /* ====== NAVIGATION ====== */
+      function goSection(section) {
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById("sidebar-" + section)?.classList.add("active");
+        document
+          .querySelectorAll(".main.page")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById("page-" + section)?.classList.add("active");
+        // reset edit modes when switching
+        exitAllEdits();
+      }
+
+      function exitAllEdits() {
+        cancelEditBiz(true);
+        cancelEditTerms(true);
+        cancelEditSlogan(true);
+        cancelEditWelcome(true);
+      }
+
+      /* ====== BUSINESS INFO ====== */
+      function renderBizView() {
+        document.getElementById("view-biz-code").textContent = businessInfo.code;
+        document.getElementById("view-biz-name").textContent = businessInfo.name;
+        document.getElementById("view-biz-address").textContent = businessInfo.address;
+        document.getElementById("view-biz-contact").textContent = businessInfo.contact;
+        document.getElementById("view-biz-copyright").textContent = businessInfo.copyright;
+        const social = document.getElementById("view-biz-social");
+        if (businessInfo.socials.length === 0) {
+          social.innerHTML = `<div class="kv-value muted">Chưa có liên kết</div>`;
+        } else {
+          social.innerHTML = businessInfo.socials
+            .map((s) => `<div class="kv-value" style="margin-bottom:6px">${escText(s)}</div>`)
+            .join("");
+        }
+      }
+
+      function enterEditBiz() {
+        document.getElementById("biz-view").style.display = "none";
+        document.getElementById("biz-action-view").style.display = "none";
+        document.getElementById("biz-edit").style.display = "block";
+        document.getElementById("bf-code").value = businessInfo.code;
+        document.getElementById("bf-name").value = businessInfo.name;
+        document.getElementById("bf-address").value = businessInfo.address;
+        document.getElementById("bf-contact").value = businessInfo.contact;
+        document.getElementById("bf-copyright").value = businessInfo.copyright;
+        renderSocialEditList();
+        clearBizErrors();
+      }
+
+      function cancelEditBiz(silent) {
+        document.getElementById("biz-view").style.display = "";
+        document.getElementById("biz-action-view").style.display = "";
+        document.getElementById("biz-edit").style.display = "none";
+        clearBizErrors();
+        if (!silent) renderBizView();
+      }
+
+      function clearBizErrors() {
+        ["code", "name", "address", "contact", "copyright"].forEach((k) => {
+          const el = document.getElementById("err-" + k);
+          if (el) el.textContent = "";
+          const inp = document.getElementById("bf-" + k);
+          if (inp) inp.classList.remove("invalid");
+        });
+      }
+
+      function renderSocialEditList() {
+        const list = document.getElementById("bf-social-list");
+        const arr = businessInfo.socials.length ? businessInfo.socials : [""];
+        list.innerHTML = arr
+          .map(
+            (s, i) => `
+              <div class="social-row">
+                <input class="form-input" data-i="${i}" value="${escText(s)}" placeholder="Http/..." />
+                <button class="icon-btn" onclick="removeSocialRow(${i})" type="button" title="Xóa">×</button>
+              </div>`,
+          )
+          .join("");
+      }
+
+      function readSocialEditList() {
+        const inputs = document
+          .getElementById("bf-social-list")
+          .querySelectorAll("input");
+        return Array.from(inputs)
+          .map((i) => i.value.trim())
+          .filter((v) => v !== "");
+      }
+
+      function addSocialRow() {
+        businessInfo._draftSocials = readSocialEditList();
+        businessInfo._draftSocials.push("");
+        const list = document.getElementById("bf-social-list");
+        list.innerHTML = businessInfo._draftSocials
+          .map(
+            (s, i) => `
+              <div class="social-row">
+                <input class="form-input" data-i="${i}" value="${escText(s)}" placeholder="Http/..." />
+                <button class="icon-btn" onclick="removeSocialRow(${i})" type="button" title="Xóa">×</button>
+              </div>`,
+          )
+          .join("");
+      }
+
+      function removeSocialRow(idx) {
+        const current = readSocialEditList();
+        current.splice(idx, 1);
+        businessInfo._draftSocials = current;
+        const list = document.getElementById("bf-social-list");
+        const arr = current.length ? current : [""];
+        list.innerHTML = arr
+          .map(
+            (s, i) => `
+              <div class="social-row">
+                <input class="form-input" data-i="${i}" value="${escText(s)}" placeholder="Http/..." />
+                <button class="icon-btn" onclick="removeSocialRow(${i})" type="button" title="Xóa">×</button>
+              </div>`,
+          )
+          .join("");
+      }
+
+      function saveBiz() {
+        clearBizErrors();
+        const fields = [
+          { id: "code",      label: "Mã số đăng ký kinh doanh" },
+          { id: "name",      label: "Tên công ty" },
+          { id: "address",   label: "Địa chỉ" },
+          { id: "contact",   label: "Thông tin liên hệ" },
+          { id: "copyright", label: "Copyright" },
+        ];
+        let firstInvalid = null;
+        let valid = true;
+        fields.forEach((f) => {
+          const inp = document.getElementById("bf-" + f.id);
+          if (!inp.value.trim()) {
+            inp.classList.add("invalid");
+            document.getElementById("err-" + f.id).textContent =
+              `${f.label} không được để trống.`;
+            valid = false;
+            if (!firstInvalid) firstInvalid = inp;
+          }
+        });
+        if (!valid) {
+          firstInvalid?.focus();
+          return;
+        }
+        businessInfo.code = document.getElementById("bf-code").value.trim();
+        businessInfo.name = document.getElementById("bf-name").value.trim();
+        businessInfo.address = document.getElementById("bf-address").value.trim();
+        businessInfo.contact = document.getElementById("bf-contact").value.trim();
+        businessInfo.copyright = document.getElementById("bf-copyright").value.trim();
+        businessInfo.socials = readSocialEditList();
+        delete businessInfo._draftSocials;
+        renderBizView();
+        cancelEditBiz(true);
+        alert("Đã lưu thông tin doanh nghiệp.");
+      }
+
+      /* ====== TERMS ====== */
+      function renderTermsTabs() {
+        const wrap = document.getElementById("terms-tabs");
+        wrap.innerHTML = termsData
+          .map(
+            (t) =>
+              `<button class="tab ${t.key === activeTermsKey ? "active" : ""}" onclick="switchTermsTab('${t.key}')">${escText(t.label)}</button>`,
+          )
+          .join("");
+      }
+
+      function switchTermsTab(key) {
+        activeTermsKey = key;
+        renderTermsTabs();
+        // exit edit mode when changing tab
+        document.getElementById("terms-view").style.display = "";
+        document.getElementById("terms-action-view").style.display = "";
+        document.getElementById("terms-edit").style.display = "none";
+        renderTermsView();
+      }
+
+      function renderTermsView() {
+        const t = termsData.find((x) => x.key === activeTermsKey);
+        document.getElementById("terms-view").textContent =
+          t?.content || "(Trống)";
+      }
+
+      function enterEditTerms() {
+        const t = termsData.find((x) => x.key === activeTermsKey);
+        document.getElementById("terms-view").style.display = "none";
+        document.getElementById("terms-action-view").style.display = "none";
+        document.getElementById("terms-edit").style.display = "block";
+        document.getElementById("terms-textarea").value = t?.content || "";
+      }
+
+      function cancelEditTerms(silent) {
+        document.getElementById("terms-view").style.display = "";
+        document.getElementById("terms-action-view").style.display = "";
+        document.getElementById("terms-edit").style.display = "none";
+        if (!silent) renderTermsView();
+      }
+
+      function saveTerms() {
+        const t = termsData.find((x) => x.key === activeTermsKey);
+        if (!t) return;
+        const val = document.getElementById("terms-textarea").value.trim();
+        if (!val) {
+          alert("Nội dung điều khoản không được để trống.");
+          return;
+        }
+        t.content = val;
+        renderTermsView();
+        cancelEditTerms(true);
+        alert("Đã lưu điều khoản.");
+      }
+
+      /* ====== SLOGAN ====== */
+      function renderSloganView() {
+        document.getElementById("view-slogan").textContent = slogan.value;
+      }
+      function enterEditSlogan() {
+        document.getElementById("slogan-view").style.display = "none";
+        document.getElementById("slogan-action-view").style.display = "none";
+        document.getElementById("slogan-edit").style.display = "block";
+        document.getElementById("sf-slogan").value = slogan.value;
+        document.getElementById("err-slogan").textContent = "";
+        document.getElementById("sf-slogan").classList.remove("invalid");
+      }
+      function cancelEditSlogan(silent) {
+        document.getElementById("slogan-view").style.display = "";
+        document.getElementById("slogan-action-view").style.display = "";
+        document.getElementById("slogan-edit").style.display = "none";
+      }
+      function saveSlogan() {
+        const inp = document.getElementById("sf-slogan");
+        const val = inp.value.trim();
+        if (!val) {
+          inp.classList.add("invalid");
+          document.getElementById("err-slogan").textContent =
+            "Slogan không được để trống.";
+          inp.focus();
+          return;
+        }
+        slogan.value = val;
+        renderSloganView();
+        cancelEditSlogan(true);
+        alert("Đã lưu slogan.");
+      }
+
+      /* ====== WELCOME MESSAGE ====== */
+      function renderWelcomeView() {
+        document.getElementById("view-welcome").textContent = welcomeMsg.value;
+      }
+      function enterEditWelcome() {
+        document.getElementById("welcome-view").style.display = "none";
+        document.getElementById("welcome-action-view").style.display = "none";
+        document.getElementById("welcome-edit").style.display = "block";
+        document.getElementById("wf-welcome").value = welcomeMsg.value;
+        document.getElementById("err-welcome").textContent = "";
+        document.getElementById("wf-welcome").classList.remove("invalid");
+      }
+      function cancelEditWelcome(silent) {
+        document.getElementById("welcome-view").style.display = "";
+        document.getElementById("welcome-action-view").style.display = "";
+        document.getElementById("welcome-edit").style.display = "none";
+      }
+      function saveWelcome() {
+        const inp = document.getElementById("wf-welcome");
+        const val = inp.value.trim();
+        if (!val) {
+          inp.classList.add("invalid");
+          document.getElementById("err-welcome").textContent =
+            "Thông báo không được để trống.";
+          inp.focus();
+          return;
+        }
+        welcomeMsg.value = val;
+        renderWelcomeView();
+        cancelEditWelcome(true);
+        alert("Đã lưu thông báo hoàn tất đăng ký.");
+      }
+
+      /* ====== PAUSE / RESUME ====== */
+      function renderPause() {
+        const toggle = document.getElementById("pause-toggle");
+        const chip = document.getElementById("pause-chip");
+        toggle.classList.toggle("on", pauseState.on);
+        if (pauseState.on) {
+          chip.textContent = "Đang tạm dừng";
+          chip.classList.remove("on");
+          chip.classList.add("off");
+        } else {
+          chip.textContent = "Đang hoạt động";
+          chip.classList.remove("off");
+          chip.classList.add("on");
+        }
+        document.getElementById("pause-reason").value = pauseState.reason;
+      }
+
+      function requestTogglePause() {
+        const reason = document.getElementById("pause-reason").value.trim();
+        if (!reason) {
+          alert("Vui lòng nhập lý do trước khi thay đổi trạng thái.");
+          document.getElementById("pause-reason").focus();
+          return;
+        }
+        pendingPause = !pauseState.on;
+        const willPause = pendingPause === true;
+        openActionModal({
+          title: willPause ? "Tạm dừng dịch vụ" : "Hủy tạm dừng",
+          body: willPause
+            ? "Dịch vụ sẽ bị tạm dừng và người dùng cuối sẽ không thể truy cập. Bạn có chắc chắn?"
+            : "Dịch vụ sẽ được khôi phục về trạng thái hoạt động. Tiếp tục?",
+          variant: willPause ? "danger" : "primary",
+          onConfirm: () => {
+            pauseState.on = pendingPause;
+            pauseState.reason = reason;
+            renderPause();
+            alert(
+              pauseState.on
+                ? "Đã tạm dừng dịch vụ."
+                : "Đã hủy tạm dừng, dịch vụ hoạt động bình thường.",
+            );
+          },
+        });
+      }
+
+      /* ====== ACTION MODAL ====== */
+      let pendingActionFn = null;
+      function openActionModal({ title, body, variant, onConfirm }) {
+        document.getElementById("action-modal-title").textContent = title;
+        document.getElementById("action-modal-body").textContent = body;
+        const btn = document.getElementById("action-modal-confirm");
+        btn.classList.toggle("is-primary", variant === "primary");
+        pendingActionFn = onConfirm || null;
+        document.getElementById("action-modal-backdrop").classList.add("open");
+      }
+      function closeActionModal() {
+        document.getElementById("action-modal-backdrop").classList.remove("open");
+        pendingActionFn = null;
+        pendingPause = null;
+      }
+      function confirmActionModal() {
+        const fn = pendingActionFn;
+        closeActionModal();
+        if (typeof fn === "function") fn();
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeActionModal();
+      });
+
+      /* ====== INIT ====== */
+      renderBizView();
+      renderTermsTabs();
+      renderTermsView();
+      renderSloganView();
+      renderWelcomeView();
+      renderPause();
+    </script>
+  </body>
+</html>

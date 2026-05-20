@@ -31,7 +31,7 @@
         --radius: 10px;
         --radius-sm: 6px;
         --sidebar-w: 210px;
-        --header-h: 52px;
+        --header-h: 60px;
       }
 
       * {
@@ -55,7 +55,7 @@
         left: 0;
         right: 0;
         z-index: 100;
-        height: var(--header-h);
+        min-height: 60px;
         background: linear-gradient(
           135deg,
           #4a2096 0%,
@@ -65,7 +65,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 20px;
+        padding-left: 20px;
+        padding-right: 20px;
         box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
       }
       .header-logo {
@@ -104,7 +105,10 @@
         cursor: pointer;
         font-size: 11.5px;
         font-weight: 500;
-        white-space: nowrap;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
         transition: all 0.15s;
       }
       .nav-item:hover,
@@ -112,7 +116,49 @@
         background: rgba(255, 255, 255, 0.18);
         color: white;
       }
-      .nav-item.active {
+            .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .nav-dropdown a.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+.nav-item.active {
         background: rgba(255, 255, 255, 0.22);
         font-weight: 600;
       }
@@ -1309,19 +1355,28 @@
         <span>Quản lý hệ thống BEAUTY</span>
       </div>
       <nav class="header-nav">
-        <div class="nav-item">Trang chủ</div>
-        <div class="nav-item">Quản lý thông tin</div>
-        <div class="nav-item">Thành viên ảo</div>
-        <div class="nav-item">Thành viên thực, staff</div>
-        <div class="nav-item">Cấp bậc</div>
-        <div class="nav-item active">Bác sĩ &amp; BV</div>
-        <div class="nav-item">Menu</div>
-        <div class="nav-item">Số Bài viết &amp; BL</div>
-        <div class="nav-item">Thẻ</div>
-        <div class="nav-item">Spam/Báo cáo</div>
-        <div class="nav-item">Banner</div>
-        <div class="nav-item">Điểm thưởng</div>
-        <div class="nav-item">Thống kê</div>
+        <a class="nav-item" href="home-management.html">Trang chủ</a>
+        <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
+        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
+        <div class="nav-item nav-item-group active">
+          Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
+          <div class="nav-dropdown">
+            <a class="active" href="doctor-management.html">Bác sĩ</a>
+            <a class="" href="hospital-management.html">Bệnh viện</a>
+            <a class="" href="partner-management.html">Đối tác</a>
+            <a class="" href="product-management.html">Sản phẩm</a>
+          </div>
+        </div>
+        <a class="nav-item" href="menu-management.html">Menu</a>
+        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
+        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="statistics-management.html">Thống kê</a>
+        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -1446,7 +1501,7 @@
                     ‹
                   </button>
                   <span class="date-display" id="date-display"
-                    >23/06/2025 ~ 30/06/2025</span
+                    >23-06-2025 ~ 30-06-2025</span
                   >
                   <button
                     class="date-nav"
@@ -1548,7 +1603,7 @@
                     class="criteria-option"
                     onclick="selectCriteria('Nickname')"
                   >
-                    Nickname
+                    Tên hiển thị
                   </button>
                 </div>
               </div>
@@ -1671,7 +1726,7 @@
                         />
                       </th>
                       <th>ID</th>
-                      <th>Nickname</th>
+                      <th>Tên hiển thị</th>
                       <th>Ngày đăng nhập cuối</th>
                       <th>Số lần truy cập</th>
                       <th>Số Bài viết</th>
@@ -1728,12 +1783,12 @@
                           </div>
                         </div>
                       </td>
-                      <td>22/06/2025</td>
+                      <td>22-06-2025 10:30</td>
                       <td>1,245</td>
                       <td>48</td>
                       <td>312</td>
                       <td>Nam</td>
-                      <td>15/03/2025</td>
+                      <td>15-03-2025 09:00</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -1793,12 +1848,12 @@
                           </div>
                         </div>
                       </td>
-                      <td>21/06/2025</td>
+                      <td>21-06-2025 14:00</td>
                       <td>892</td>
                       <td>35</td>
                       <td>256</td>
                       <td>Nam</td>
-                      <td>20/02/2025</td>
+                      <td>20-02-2025 10:00</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -1858,12 +1913,12 @@
                           </div>
                         </div>
                       </td>
-                      <td>20/06/2025</td>
+                      <td>20-06-2025 10:30</td>
                       <td>567</td>
                       <td>28</td>
                       <td>189</td>
                       <td>Nữ</td>
-                      <td>10/01/2025</td>
+                      <td>10-01-2025 09:00</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -1922,12 +1977,12 @@
                           </div>
                         </div>
                       </td>
-                      <td>19/06/2025</td>
+                      <td>19-06-2025 14:00</td>
                       <td>1,523</td>
                       <td>52</td>
                       <td>428</td>
                       <td>Nam</td>
-                      <td>05/12/2024</td>
+                      <td>05-12-2024 10:00</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -1987,12 +2042,12 @@
                           </div>
                         </div>
                       </td>
-                      <td>18/06/2025</td>
+                      <td>18-06-2025 14:00</td>
                       <td>734</td>
                       <td>31</td>
                       <td>276</td>
                       <td>Nữ</td>
-                      <td>28/11/2024</td>
+                      <td>28-11-2024 10:00</td>
                       <td>Admin</td>
                       <td style="color: var(--gray-400); font-size: 11px">—</td>
                     </tr>
@@ -2102,7 +2157,7 @@
                         />
                       </th>
                       <th>ID</th>
-                      <th>Nickname</th>
+                      <th>Tên hiển thị</th>
                       <th>Số lần truy cập</th>
                       <th>Số Bài viết</th>
                       <th>Số Bình luận</th>
@@ -2150,7 +2205,7 @@
                       <td>18</td>
                       <td>134</td>
                       <td>Nam</td>
-                      <td>10/06/2025</td>
+                      <td>10-06-2025 06:00</td>
                       <td>Admin</td>
                       <td style="color: var(--gray-400); font-size: 11px">—</td>
                     </tr>
@@ -2191,7 +2246,7 @@
                       <td>12</td>
                       <td>98</td>
                       <td>Nữ</td>
-                      <td>05/06/2025</td>
+                      <td>05-06-2025 10:30</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -2241,7 +2296,7 @@
                       <td>8</td>
                       <td>67</td>
                       <td>Nam</td>
-                      <td>01/06/2025</td>
+                      <td>01-06-2025 10:30</td>
                       <td>Admin</td>
                       <td style="color: var(--gray-400); font-size: 11px">—</td>
                     </tr>
@@ -2282,7 +2337,7 @@
                       <td>22</td>
                       <td>156</td>
                       <td>Nữ</td>
-                      <td>28/05/2025</td>
+                      <td>28-05-2025 10:30</td>
                       <td>Admin</td>
                       <td>
                         <div class="tooltip-wrap">
@@ -2333,7 +2388,7 @@
                       <td>41</td>
                       <td>289</td>
                       <td>Nam</td>
-                      <td>20/05/2025</td>
+                      <td>20-05-2025 08:15</td>
                       <td>Admin</td>
                       <td style="color: var(--gray-400); font-size: 11px">—</td>
                     </tr>
@@ -2397,7 +2452,7 @@
                   >
                     <span class="meta-badge">Doctor</span>
                     <span class="meta-badge">ID: DOC001</span>
-                    <span class="meta-badge">Nam</span>
+                    <span class="meta-badge" id="detail-gender">Giới tính: Nữ</span>
                   </div>
                   
                 </div>
@@ -2491,16 +2546,116 @@
                   style="flex: 0 1 300px"
                 />
                 <div class="date-section" style="flex: 0 1 auto">
-                  <span class="date-label">Ngày:</span>
                   <div class="date-range">
-                    <button class="date-nav" onclick="shiftDateRange(-1)">
+                    <button
+                      class="date-nav"
+                      id="detail-posts-date-prev"
+                      onclick="shiftDetailDateRange('posts',-1)"
+                    >
                       ‹
                     </button>
-                    <span class="date-display">23/06/2025 ~ 30/06/2025</span>
-                    <button class="date-nav" onclick="shiftDateRange(1)">
+                    <span
+                      class="date-display"
+                      id="detail-posts-date-display"
+                    ></span>
+                    <button
+                      class="date-nav"
+                      id="detail-posts-date-next"
+                      onclick="shiftDetailDateRange('posts',1)"
+                    >
                       ›
                     </button>
                   </div>
+                  <div
+                    class="date-picker-wrap"
+                    id="detail-posts-date-picker-wrap"
+                  >
+                    <button
+                      class="date-picker-toggle"
+                      onclick="toggleDetailDatePicker(event,'posts')"
+                      title="Chọn khoảng ngày"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect
+                          x="3"
+                          y="4"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                    </button>
+                    <div
+                      class="date-picker-popover"
+                      onclick="event.stopPropagation()"
+                    >
+                      <div class="date-picker-grid">
+                        <label class="date-picker-field"
+                          >Từ ngày<input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-posts-date-start-input"
+                        /></label>
+                        <label class="date-picker-field"
+                          >Đến ngày<input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-posts-date-end-input"
+                        /></label>
+                      </div>
+                      <div class="date-picker-actions">
+                        <button
+                          class="btn btn-primary btn-sm"
+                          onclick="applyDetailDatePicker('posts')"
+                        >
+                          Áp dụng
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="time-filters" data-tab="posts">
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('posts','day',this)"
+                  >
+                    Ngày
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('posts','week',this)"
+                  >
+                    Tuần
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('posts','month',this)"
+                  >
+                    Tháng
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('posts','year',this)"
+                  >
+                    Năm
+                  </button>
+                  <button
+                    class="tf-btn active"
+                    onclick="setDetailQuickFilter('posts','all',this)"
+                  >
+                    Tất cả
+                  </button>
                 </div>
               </div>
 
@@ -2509,51 +2664,15 @@
                   <thead>
                     <tr>
                       <th><input type="checkbox" /></th>
-                      <th>Tiêu đề bài viết</th>
-                      <th>Danh mục</th>
+                      <th>Tên chuyên mục</th>
+                      <th>Tên danh mục</th>
+                      <th>Tiêu đề</th>
                       <th>Ngày đăng</th>
                       <th>Lượt xem</th>
-                      <th>Số Bình luận</th>
+                      <th>Số bình luận</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text"
-                          >Chăm sóc da mặt trong mùa hè</span
-                        >
-                      </td>
-                      <td>Thẩm mỹ da</td>
-                      <td>22/06/2025</td>
-                      <td>523</td>
-                      <td>48</td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text"
-                          >Bí quyết làm đẹp từ thiên nhiên</span
-                        >
-                      </td>
-                      <td>Thẩm mỹ da</td>
-                      <td>20/06/2025</td>
-                      <td>782</td>
-                      <td>64</td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text"
-                          >Hành trình trở thành bác sĩ chuyên khoa</span
-                        >
-                      </td>
-                      <td>Thẩm mỹ da</td>
-                      <td>18/06/2025</td>
-                      <td>234</td>
-                      <td>21</td>
-                    </tr>
-                  </tbody>
+                  <tbody id="detail-posts-tbody"></tbody>
                 </table>
               </div>
 
@@ -2576,16 +2695,116 @@
                   style="flex: 0 1 300px"
                 />
                 <div class="date-section" style="flex: 0 1 auto">
-                  <span class="date-label">Ngày:</span>
                   <div class="date-range">
-                    <button class="date-nav" onclick="shiftDateRange(-1)">
+                    <button
+                      class="date-nav"
+                      id="detail-comments-date-prev"
+                      onclick="shiftDetailDateRange('comments',-1)"
+                    >
                       ‹
                     </button>
-                    <span class="date-display">23/06/2025 ~ 30/06/2025</span>
-                    <button class="date-nav" onclick="shiftDateRange(1)">
+                    <span
+                      class="date-display"
+                      id="detail-comments-date-display"
+                    ></span>
+                    <button
+                      class="date-nav"
+                      id="detail-comments-date-next"
+                      onclick="shiftDetailDateRange('comments',1)"
+                    >
                       ›
                     </button>
                   </div>
+                  <div
+                    class="date-picker-wrap"
+                    id="detail-comments-date-picker-wrap"
+                  >
+                    <button
+                      class="date-picker-toggle"
+                      onclick="toggleDetailDatePicker(event,'comments')"
+                      title="Chọn khoảng ngày"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect
+                          x="3"
+                          y="4"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                    </button>
+                    <div
+                      class="date-picker-popover"
+                      onclick="event.stopPropagation()"
+                    >
+                      <div class="date-picker-grid">
+                        <label class="date-picker-field"
+                          >Từ ngày<input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-comments-date-start-input"
+                        /></label>
+                        <label class="date-picker-field"
+                          >Đến ngày<input
+                            class="date-picker-input"
+                            type="date"
+                            id="detail-comments-date-end-input"
+                        /></label>
+                      </div>
+                      <div class="date-picker-actions">
+                        <button
+                          class="btn btn-primary btn-sm"
+                          onclick="applyDetailDatePicker('comments')"
+                        >
+                          Áp dụng
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="time-filters" data-tab="comments">
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('comments','day',this)"
+                  >
+                    Ngày
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('comments','week',this)"
+                  >
+                    Tuần
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('comments','month',this)"
+                  >
+                    Tháng
+                  </button>
+                  <button
+                    class="tf-btn"
+                    onclick="setDetailQuickFilter('comments','year',this)"
+                  >
+                    Năm
+                  </button>
+                  <button
+                    class="tf-btn active"
+                    onclick="setDetailQuickFilter('comments','all',this)"
+                  >
+                    Tất cả
+                  </button>
                 </div>
               </div>
 
@@ -2599,28 +2818,7 @@
                       <th>Ngày bình luận</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text"
-                          >Cảm ơn bác sĩ vì lời khuyên hữu ích!</span
-                        >
-                      </td>
-                      <td>Chăm sóc da mặt...</td>
-                      <td>22/06/2025 14:30</td>
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox" /></td>
-                      <td>
-                        <span class="link-text"
-                          >Mình sẽ thử phương pháp này ngay</span
-                        >
-                      </td>
-                      <td>Bí quyết làm đẹp...</td>
-                      <td>19/06/2025 10:15</td>
-                    </tr>
-                  </tbody>
+                  <tbody id="detail-comments-tbody"></tbody>
                 </table>
               </div>
 
@@ -2709,7 +2907,7 @@
                 <input id="f-id" class="form-input" placeholder="DOC001" />
               </div>
               <div class="form-group">
-                <label class="form-label">Nickname <span class="req">*</span></label>
+                <label class="form-label">Tên hiển thị <span class="req">*</span></label>
                 <input id="f-nickname" class="form-input" placeholder="doctor.a123" />
               </div>
 
@@ -2902,7 +3100,7 @@
         email: "doctor.a@beauty.com",
         phone: "0901-234567",
         birth: "1988-10-12",
-        gender: "Nam",
+        gender: "Nữ",
         id: "DOC001",
         nickname: "doctor.a123",
         region: "TP. Hồ Chí Minh",
@@ -2951,7 +3149,40 @@
         const day = String(d.getDate()).padStart(2, "0");
         const month = String(d.getMonth() + 1).padStart(2, "0");
         const year = d.getFullYear();
-        return `${day}/${month}/${year}`;
+        const hh = String(d.getHours()).padStart(2, "0");
+        const mm = String(d.getMinutes()).padStart(2, "0");
+        return `${day}-${month}-${year} ${hh}:${mm}`;
+      }
+
+      function formatDateOnlyVN(date) {
+        const d = new Date(date);
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = d.getFullYear();
+        return `${day}-${month}-${year}`;
+      }
+
+      function toISODate(date) {
+        const d = new Date(date);
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = d.getFullYear();
+        return `${year}-${month}-${day}`;
+      }
+
+      function parseDateStringVN(dateText) {
+        const raw = (dateText || "").trim();
+        if (!raw) return null;
+        const matched = raw.match(
+          /^(\d{2})[-\/](\d{2})[-\/](\d{4})(?:\s+(\d{2}):(\d{2}))?$/,
+        );
+        if (!matched) return null;
+        const day = Number.parseInt(matched[1], 10);
+        const month = Number.parseInt(matched[2], 10) - 1;
+        const year = Number.parseInt(matched[3], 10);
+        const hour = Number.parseInt(matched[4] || "0", 10);
+        const minute = Number.parseInt(matched[5] || "0", 10);
+        return new Date(year, month, day, hour, minute, 0, 0);
       }
 
       function renderDateRange() {
@@ -2959,7 +3190,349 @@
         const start = new Date(today);
         start.setDate(start.getDate() - 7);
         document.getElementById("date-display").textContent =
-          `${formatDateVN(start)} ~ ${formatDateVN(today)}`;
+          `${formatDateOnlyVN(start)} ~ ${formatDateOnlyVN(today)}`;
+      }
+
+      /* ===== DETAIL PAGE: ACTIVITY HISTORY DATA + FILTER ===== */
+      const detailDoctorPostsData = [
+        {
+          id: "DRP001",
+          topic: "Thông tin chuyên gia",
+          category: "Thẩm mỹ da - Trẻ hóa da",
+          title: "Chăm sóc da mặt trong mùa hè",
+          postedAt: "22-06-2025 09:20",
+          views: 523,
+          comments: 48,
+        },
+        {
+          id: "DRP004",
+          topic: "Review",
+          category: "Thẩm mỹ da - Thiết bị",
+          title: "Máy soi da thế hệ mới có thực sự cần thiết?",
+          postedAt: "05-05-2025 10:15",
+          views: 1450,
+          comments: 132,
+        },
+        {
+          id: "DRP005",
+          topic: "Ảnh trước/sau",
+          category: "Răng miệng - Thẩm mỹ",
+          title: "3 sai lầm thường gặp khi tự niềng răng tại nhà",
+          postedAt: "12-02-2025 08:00",
+          views: 2150,
+          comments: 240,
+        },
+        {
+          id: "DRP006",
+          topic: "Hỏi đáp",
+          category: "Mắt/lông mi - Khác",
+          title: "Cắt mí có cần kiêng gì không?",
+          postedAt: "30-11-2024 21:35",
+          views: 980,
+          comments: 76,
+        },
+      ];
+
+      const detailDoctorCommentsData = [
+        {
+          id: "DRC003",
+          content: "Bác sĩ có thể tư vấn thêm về liệu trình không ạ?",
+          onPost: "Máy soi da thế hệ mới...",
+          commentedAt: "06-05-2025 17:25",
+        },
+        {
+          id: "DRC004",
+          content: "Bài viết rất chi tiết, cảm ơn bác sĩ đã chia sẻ.",
+          onPost: "3 sai lầm thường gặp...",
+          commentedAt: "14-02-2025 09:42",
+        },
+        {
+          id: "DRC005",
+          content: "Em xin link đặt lịch khám với bác sĩ ạ.",
+          onPost: "Cắt mí có cần kiêng gì...",
+          commentedAt: "02-12-2024 20:11",
+        },
+      ];
+
+      const detailHistoryFilterState = (function () {
+        const today = new Date();
+        const weekAgo = new Date(today);
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        const mk = () => ({
+          quickFilter: "all",
+          startDate: new Date(weekAgo),
+          endDate: new Date(today),
+        });
+        return { posts: mk(), comments: mk() };
+      })();
+
+      function isInDetailHistoryRange(dateValue, tabKey) {
+        const state = detailHistoryFilterState[tabKey];
+        if (!state) return true;
+        if (state.quickFilter === "all") return true;
+        const target =
+          dateValue instanceof Date
+            ? dateValue
+            : typeof dateValue === "string"
+              ? parseDateStringVN(dateValue) || new Date(dateValue)
+              : null;
+        if (!target || Number.isNaN(target.getTime())) return false;
+        const from = new Date(state.startDate.getTime());
+        from.setHours(0, 0, 0, 0);
+        const to = new Date(state.endDate.getTime());
+        to.setHours(23, 59, 59, 999);
+        if (target < from) return false;
+        if (target > to) return false;
+        return true;
+      }
+
+      function rerenderDetailTab(tabKey) {
+        if (tabKey === "posts") renderDetailDoctorPostsTable();
+        else if (tabKey === "comments") renderDetailDoctorCommentsTable();
+      }
+
+      function renderDetailDateRange(tabKey) {
+        const el = document.getElementById(`detail-${tabKey}-date-display`);
+        const state = detailHistoryFilterState[tabKey];
+        if (!el || !state) return;
+        if (state.quickFilter === "all") {
+          el.textContent = "Tất cả thời gian";
+        } else {
+          el.textContent = `${formatDateOnlyVN(state.startDate)} ~ ${formatDateOnlyVN(state.endDate)}`;
+        }
+      }
+
+      function updateDetailDateArrowsState(tabKey) {
+        const state = detailHistoryFilterState[tabKey];
+        const prev = document.getElementById(`detail-${tabKey}-date-prev`);
+        const next = document.getElementById(`detail-${tabKey}-date-next`);
+        const disable =
+          !state ||
+          state.quickFilter === "all" ||
+          state.quickFilter === "custom";
+        if (prev) prev.disabled = disable;
+        if (next) next.disabled = disable;
+      }
+
+      function setDetailQuickFilter(tabKey, key, btn) {
+        const state = detailHistoryFilterState[tabKey];
+        if (!state) return;
+        const wrap = document.querySelector(
+          `.time-filters[data-tab="${tabKey}"]`,
+        );
+        if (wrap) {
+          wrap
+            .querySelectorAll(".tf-btn")
+            .forEach((b) => b.classList.remove("active"));
+        }
+        if (btn) btn.classList.add("active");
+        state.quickFilter = key;
+        if (key !== "all" && key !== "custom") {
+          const today = new Date();
+          const start = new Date(today);
+          if (key === "day") start.setDate(start.getDate());
+          else if (key === "week") start.setDate(start.getDate() - 7);
+          else if (key === "month") start.setMonth(start.getMonth() - 1);
+          else if (key === "year") start.setFullYear(start.getFullYear() - 1);
+          state.startDate = start;
+          state.endDate = today;
+        }
+        renderDetailDateRange(tabKey);
+        updateDetailDateArrowsState(tabKey);
+        rerenderDetailTab(tabKey);
+      }
+
+      function shiftDetailDateRange(tabKey, direction) {
+        const state = detailHistoryFilterState[tabKey];
+        if (!state) return;
+        if (state.quickFilter === "all" || state.quickFilter === "custom")
+          return;
+        const s = new Date(state.startDate);
+        const e = new Date(state.endDate);
+        if (state.quickFilter === "day") {
+          s.setDate(s.getDate() + direction);
+          e.setDate(e.getDate() + direction);
+        } else if (state.quickFilter === "week") {
+          s.setDate(s.getDate() + direction * 7);
+          e.setDate(e.getDate() + direction * 7);
+        } else if (state.quickFilter === "month") {
+          s.setMonth(s.getMonth() + direction);
+          e.setMonth(e.getMonth() + direction);
+        } else if (state.quickFilter === "year") {
+          s.setFullYear(s.getFullYear() + direction);
+          e.setFullYear(e.getFullYear() + direction);
+        }
+        state.startDate = s;
+        state.endDate = e;
+        renderDetailDateRange(tabKey);
+        rerenderDetailTab(tabKey);
+      }
+
+      function syncDetailDatePickerInputs(tabKey) {
+        const state = detailHistoryFilterState[tabKey];
+        const startInput = document.getElementById(
+          `detail-${tabKey}-date-start-input`,
+        );
+        const endInput = document.getElementById(
+          `detail-${tabKey}-date-end-input`,
+        );
+        if (!startInput || !endInput || !state) return;
+        startInput.value = toISODate(state.startDate);
+        endInput.value = toISODate(state.endDate);
+      }
+
+      function closeDetailDatePicker(tabKey) {
+        if (tabKey) {
+          document
+            .getElementById(`detail-${tabKey}-date-picker-wrap`)
+            ?.classList.remove("open");
+          return;
+        }
+        ["posts", "comments"].forEach((k) =>
+          document
+            .getElementById(`detail-${k}-date-picker-wrap`)
+            ?.classList.remove("open"),
+        );
+      }
+
+      function toggleDetailDatePicker(event, tabKey) {
+        event.stopPropagation();
+        const wrap = document.getElementById(
+          `detail-${tabKey}-date-picker-wrap`,
+        );
+        if (!wrap) return;
+        const shouldOpen = !wrap.classList.contains("open");
+        closeDetailDatePicker();
+        if (shouldOpen) {
+          wrap.classList.add("open");
+          syncDetailDatePickerInputs(tabKey);
+        }
+      }
+
+      function applyDetailDatePicker(tabKey) {
+        const state = detailHistoryFilterState[tabKey];
+        if (!state) return;
+        const startInput = document.getElementById(
+          `detail-${tabKey}-date-start-input`,
+        );
+        const endInput = document.getElementById(
+          `detail-${tabKey}-date-end-input`,
+        );
+        if (!startInput || !endInput || !startInput.value || !endInput.value)
+          return;
+        const startDate = new Date(`${startInput.value}T00:00:00`);
+        const endDate = new Date(`${endInput.value}T00:00:00`);
+        if (startDate > endDate) {
+          alert(
+            "Khoảng ngày không hợp lệ: 'Từ ngày' phải nhỏ hơn hoặc bằng 'Đến ngày'.",
+          );
+          return;
+        }
+        state.startDate = startDate;
+        state.endDate = endDate;
+        state.quickFilter = "custom";
+        const wrap = document.querySelector(
+          `.time-filters[data-tab="${tabKey}"]`,
+        );
+        if (wrap) {
+          wrap
+            .querySelectorAll(".tf-btn")
+            .forEach((b) => b.classList.remove("active"));
+        }
+        renderDetailDateRange(tabKey);
+        updateDetailDateArrowsState(tabKey);
+        closeDetailDatePicker(tabKey);
+        rerenderDetailTab(tabKey);
+      }
+
+      function escDetailText(s) {
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function renderDetailDoctorPostsTable() {
+        const tbody = document.getElementById("detail-posts-tbody");
+        if (!tbody) return;
+        const rows = detailDoctorPostsData.filter((item) =>
+          isInDetailHistoryRange(item.postedAt, "posts"),
+        );
+        if (!rows.length) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" style="padding:14px;color:var(--gray-500)">Không có bài viết trong khoảng thời gian đã chọn.</td>
+            </tr>`;
+          return;
+        }
+        tbody.innerHTML = rows
+          .map(
+            (item) => `
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>${escDetailText(item.topic || "-")}</td>
+                <td>${escDetailText(item.category || "-")}</td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escDetailText(item.title)}">${escDetailText(item.title)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Xem bài viết</button>
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Đánh dấu bài viết nổi bật</button>
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Xóa</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${escDetailText(item.postedAt)}</td>
+                <td>${Number(item.views || 0).toLocaleString("vi-VN")}</td>
+                <td>${Number(item.comments || 0).toLocaleString("vi-VN")}</td>
+              </tr>`,
+          )
+          .join("");
+      }
+
+      function renderDetailDoctorCommentsTable() {
+        const tbody = document.getElementById("detail-comments-tbody");
+        if (!tbody) return;
+        const rows = detailDoctorCommentsData.filter((item) =>
+          isInDetailHistoryRange(item.commentedAt, "comments"),
+        );
+        if (!rows.length) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="4" style="padding:14px;color:var(--gray-500)">Không có bình luận trong khoảng thời gian đã chọn.</td>
+            </tr>`;
+          return;
+        }
+        tbody.innerHTML = rows
+          .map(
+            (item) => `
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td class="td-left">
+                  <div class="cell-menu">
+                    <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escDetailText(item.content)}">${escDetailText(item.content)}</button>
+                    <div class="menu-list">
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Xem bình luận</button>
+                      <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Xóa</button>
+                    </div>
+                  </div>
+                </td>
+                <td>${escDetailText(item.onPost)}</td>
+                <td>${escDetailText(item.commentedAt)}</td>
+              </tr>`,
+          )
+          .join("");
+      }
+
+      function initDetailHistoryFilters() {
+        ["posts", "comments"].forEach((k) => {
+          renderDetailDateRange(k);
+          updateDetailDateArrowsState(k);
+        });
+        renderDetailDoctorPostsTable();
+        renderDetailDoctorCommentsTable();
       }
 
       function setQuickFilter(buttonEl, key) {
@@ -3019,6 +3592,7 @@
         document.getElementById("page-" + page).classList.add("active");
         closeAllMenus();
         closeDatePicker();
+        closeDetailDatePicker();
       }
 
       function goDetail() {
@@ -3118,6 +3692,7 @@
         setFormValue("f-phone", data.phone);
         setFormValue("f-birth", data.birth);
         setFormValue("f-gender", data.gender);
+        setUploadPreview("detail-gender", `Giới tính: ${data.gender || "Nữ"}`);
         setFormValue("f-id", data.id);
         setFormValue("f-nickname", data.nickname);
         setFormValue("f-region", data.region);
@@ -3155,7 +3730,7 @@
             email: "",
             phone: "",
             birth: "",
-            gender: "",
+            gender: "Nữ",
             id: "",
             nickname: "",
             region: "",
@@ -3232,6 +3807,8 @@
           document
             .getElementById("tab-comments")
             .classList.toggle("active", tab === "comments");
+          if (tab === "posts") renderDetailDoctorPostsTable();
+          if (tab === "comments") renderDetailDoctorCommentsTable();
         }
       }
 
@@ -3420,6 +3997,7 @@
       document.addEventListener("click", () => {
         closeAllMenus();
         closeDatePicker();
+        closeDetailDatePicker();
         closeCriteriaDropdown();
       });
 
@@ -3432,8 +4010,9 @@
       });
 
       renderDateRange();
+      initDetailHistoryFilters();
       setFormMode("edit");
       bindNoteEditEvents();
-    </script>
+</script>
   </body>
 </html>
