@@ -750,6 +750,94 @@
         background: var(--primary);
       }
 
+      /* ====== LARGE MODAL (suspend / force-leave) ====== */
+      .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 270;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-backdrop.open {
+        display: flex;
+      }
+      .modal-box {
+        background: white;
+        border-radius: 10px;
+        padding: 0;
+        max-width: 95vw;
+        max-height: 92vh;
+        overflow: auto;
+        box-shadow: var(--shadow-md);
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin: 0;
+      }
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 22px;
+        line-height: 1;
+        color: var(--gray-500);
+        cursor: pointer;
+        padding: 0 4px;
+      }
+      .modal-close:hover {
+        color: var(--gray-900);
+      }
+      .modal-body {
+        padding: 16px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .modal-body .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .modal-body .form-label {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 12px 18px 16px;
+        border-top: 1px solid var(--gray-200);
+      }
+      .radio-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+        cursor: pointer;
+      }
+      .radio-row input[type="radio"] {
+        margin-top: 2px;
+        accent-color: var(--primary);
+        flex-shrink: 0;
+      }
+
       .change-cat-row {
         display: flex;
         gap: 10px;
@@ -1037,7 +1125,9 @@
         <a class="nav-item" href="virtual-member-management.html"
           >Thành viên ảo</a
         >
-        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="real-member-staff.html"
+          >Thành viên thực, staff</a
+        >
         <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
         <div class="nav-item nav-item-group">
           Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
@@ -1055,9 +1145,13 @@
           >Từ cấm. Spam. Báo cáo</a
         >
         <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
-        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="reward-badge-management.html"
+          >Điểm thưởng. Huy hiệu</a
+        >
         <a class="nav-item" href="statistics-management.html">Thống kê</a>
-        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+        <a class="nav-item" href="push-notification-management.html"
+          >Thông báo đẩy</a
+        >
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -1097,7 +1191,7 @@
           id="sidebar-posts-hidden"
           onclick="goSection('posts-hidden')"
         >
-          Bài viết đã ẩn
+          Bài viết đã ẩn/gỡ
         </div>
         <div
           class="sidebar-item"
@@ -1118,7 +1212,7 @@
           id="sidebar-delete-reason"
           onclick="goSection('delete-reason')"
         >
-          Lý do xóa
+          Lý do xoá/ẩn/report
         </div>
       </aside>
 
@@ -1426,12 +1520,12 @@
                     </th>
                     <th>Tên chuyên mục</th>
                     <th>Tên danh mục</th>
-                    <th>Lượt thích</th>
                     <th>Tiêu đề</th>
-                    <th>Bình luận</th>
                     <th>Người viết</th>
-                    <th>Địa chỉ IP</th>
+                    <th>Lượt thích</th>
                     <th>Lượt xem</th>
+                    <th>Bình luận</th>
+                    <th>Địa chỉ IP</th>
                   </tr>
                 </thead>
                 <tbody id="tbody-best"></tbody>
@@ -1589,8 +1683,8 @@
                     </th>
                     <th>Tên chuyên mục</th>
                     <th>Tên danh mục</th>
-                    <th>Người viết</th>
                     <th>Tiêu đề</th>
+                    <th>Người viết</th>
                     <th>Địa chỉ IP</th>
                     <th>Người xử lý</th>
                     <th>Lý do xóa</th>
@@ -1615,9 +1709,9 @@
         </div>
       </main>
 
-      <!-- ====== TRANG 4: BÀI VIẾT ĐÃ ẨN ====== -->
+      <!-- ====== TRANG 4: BÀI VIẾT ĐÃ ẨN/GỠ ====== -->
       <main class="main page" id="page-posts-hidden">
-        <div class="page-title"><span>•</span> Bài viết đã ẩn</div>
+        <div class="page-title"><span>•</span> Bài viết đã ẩn/gỡ</div>
 
         <div class="card">
           <div class="card-body">
@@ -1769,8 +1863,8 @@
                     </th>
                     <th>Tên chuyên mục</th>
                     <th>Tên danh mục</th>
-                    <th>Người viết</th>
                     <th>Tiêu đề</th>
+                    <th>Người viết</th>
                     <th>Địa chỉ IP</th>
                     <th>Người xử lý</th>
                     <th id="hidden-th-reason">Lý do ẩn</th>
@@ -1936,8 +2030,9 @@
                     </th>
                     <th>Tên chuyên mục</th>
                     <th>Tên danh mục</th>
-                    <th>Người viết</th>
+                    <th>Tiêu đề</th>
                     <th>Nội dung</th>
+                    <th>Người viết</th>
                     <th>Ngày viết</th>
                     <th>Địa chỉ IP</th>
                   </tr>
@@ -2096,11 +2191,11 @@
                     </th>
                     <th>Tên chuyên mục</th>
                     <th>Tên danh mục</th>
+                    <th>Tiêu đề</th>
                     <th>Nội dung bình luận</th>
                     <th>Người viết</th>
                     <th>Địa chỉ IP</th>
                     <th>Người xử lý</th>
-                    <th>Lý do xóa</th>
                     <th>Ngày xóa</th>
                   </tr>
                 </thead>
@@ -2123,7 +2218,7 @@
 
       <!-- ====== TRANG 7: LÝ DO XÓA ====== -->
       <main class="main page" id="page-delete-reason">
-        <div class="page-title"><span>•</span> Lý do xoá</div>
+        <div class="page-title"><span>•</span> Lý do xoá/ẩn/report</div>
 
         <div class="card">
           <div class="card-body">
@@ -2292,6 +2387,217 @@
         </div>
         <div class="view-modal-meta" id="view-modal-meta"></div>
         <div class="view-modal-content" id="view-modal-content"></div>
+      </div>
+    </div>
+
+    <!-- ====== SUSPEND MODAL (Tạm khóa hoạt động) ====== -->
+    <div
+      class="modal-backdrop"
+      id="suspend-modal-backdrop"
+      onclick="closeSuspendModal()"
+    >
+      <div
+        class="modal-box"
+        style="width:520px"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <div class="modal-header">
+          <h3 class="modal-title">Tạm khóa hoạt động</h3>
+          <button class="modal-close" onclick="closeSuspendModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">
+              Thành viên bị tạm khóa hoạt động
+              <span
+                style="color:var(--accent);font-weight:600;margin-left:4px"
+                id="suspend-member-count"
+              >1</span>
+            </label>
+            <div
+              id="suspend-member-list"
+              style="border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;min-height:64px;background:var(--gray-50);display:flex;flex-wrap:wrap;gap:6px"
+            ></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Lý do tạm khóa hoạt động</label>
+            <label class="radio-row">
+              <input
+                type="radio"
+                name="suspend-reason"
+                value="vi_pham"
+                checked
+                onchange="handleSuspendReasonChange()"
+              />
+              Vi phạm tiêu chuẩn cộng đồng
+            </label>
+            <label class="radio-row">
+              <input
+                type="radio"
+                name="suspend-reason"
+                value="spam"
+                onchange="handleSuspendReasonChange()"
+              />
+              Spam, đăng bài liên tục
+            </label>
+            <label class="radio-row">
+              <input
+                type="radio"
+                name="suspend-reason"
+                value="quang_cao"
+                onchange="handleSuspendReasonChange()"
+              />
+              Quảng cáo, lăng mạ, chửi tục
+            </label>
+            <label class="radio-row" style="align-items:center;gap:8px">
+              <input
+                type="radio"
+                name="suspend-reason"
+                value="khac"
+                onchange="handleSuspendReasonChange()"
+              />
+              Khác:
+              <input
+                type="text"
+                id="suspend-reason-other"
+                class="form-input"
+                style="flex:1;height:32px"
+                placeholder="nhập lý do"
+                disabled
+                oninput="document.querySelector('input[name=suspend-reason][value=khac]').checked=true;handleSuspendReasonChange();"
+              />
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Thời gian tạm khóa hoạt động</label>
+            <select
+              id="suspend-duration"
+              class="form-input"
+              style="width:200px"
+            >
+              <option value="1">1 ngày</option>
+              <option value="3">3 ngày</option>
+              <option value="7" selected>7 ngày</option>
+              <option value="14">14 ngày</option>
+              <option value="30">30 ngày</option>
+              <option value="0">Vĩnh viễn</option>
+            </select>
+          </div>
+
+          <div
+            style="border-top:1px solid var(--gray-200);padding-top:14px;font-size:13px;color:var(--gray-700)"
+          >
+            Tạm khóa hoạt động của thành viên trên?
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeSuspendModal()">
+            Hủy
+          </button>
+          <button class="btn btn-primary" onclick="confirmSuspend()">
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== FORCE LEAVE MODAL (Buộc rời bỏ) ====== -->
+    <div
+      class="modal-backdrop"
+      id="force-leave-modal-backdrop"
+      onclick="closeForceLeaveModal()"
+    >
+      <div
+        class="modal-box"
+        style="width:520px"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <div class="modal-header">
+          <h3 class="modal-title">Buộc rời bỏ</h3>
+          <button class="modal-close" onclick="closeForceLeaveModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">
+              Buộc rời bỏ
+              <span
+                style="color:var(--accent);font-weight:600;margin-left:4px"
+                id="force-leave-member-count"
+              >1</span>
+            </label>
+            <div
+              id="force-leave-member-list"
+              style="border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;min-height:64px;background:var(--gray-50);display:flex;flex-wrap:wrap;gap:6px"
+            ></div>
+            <div
+              style="font-size:12px;color:var(--gray-500);margin-top:6px;border:1px solid var(--gray-200);padding:8px 10px;border-radius:6px;background:var(--gray-50)"
+            >
+              Thành viên bị buộc rời khỏi hệ thống sẽ không thể đăng ký lại.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Lý do rời bỏ</label>
+            <label class="radio-row">
+              <input
+                type="radio"
+                name="force-leave-reason"
+                value="vi_pham"
+                checked
+                onchange="handleForceLeaveReasonChange()"
+              />
+              Vi phạm tiêu chuẩn cộng đồng
+            </label>
+            <label class="radio-row">
+              <input
+                type="radio"
+                name="force-leave-reason"
+                value="spam"
+                onchange="handleForceLeaveReasonChange()"
+              />
+              Spam, đăng bài liên tục
+            </label>
+            <label class="radio-row">
+              <input
+                type="radio"
+                name="force-leave-reason"
+                value="quang_cao"
+                onchange="handleForceLeaveReasonChange()"
+              />
+              Quảng cáo, lăng mạ, chửi tục
+            </label>
+            <label class="radio-row">
+              <input
+                type="radio"
+                name="force-leave-reason"
+                value="khac"
+                onchange="handleForceLeaveReasonChange()"
+              />
+              Khác
+            </label>
+            <input
+              type="text"
+              id="force-leave-reason-other"
+              class="form-input"
+              style="margin-top:8px;display:none"
+              placeholder="nhập lý do"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeForceLeaveModal()">
+            Hủy
+          </button>
+          <button class="btn btn-primary" onclick="confirmForceLeave()">
+            Xác nhận
+          </button>
+        </div>
       </div>
     </div>
 
@@ -2785,34 +3091,42 @@
       }
 
       function renderIpCell(post) {
+        const s = getIpActionState(post.ip);
+        const item = s.blocked
+          ? `<button class="menu-item" onclick="openActionModal('unblock-ip','${escText(post.id)}')">Hủy chặn IP</button>`
+          : `<button class="menu-item" onclick="openActionModal('block-ip','${escText(post.id)}')">Chặn IP</button>`;
         return `<div class="cell-menu">
           <button class="menu-trigger ip-text" onclick="toggleMenu(event,this.parentElement)">${escText(post.ip)}</button>
           <div class="menu-list">
-            <button class="menu-item" onclick="openActionModal('block-ip','${escText(post.id)}')">Chặn IP</button>
+            ${item}
           </div>
         </div>`;
       }
 
       function renderTitleMenu(post, page) {
-        const items =
-          page === "best"
-            ? `
-              <button class="menu-item" onclick="viewPost('${post.id}')">Xem bài viết</button>
-              <button class="menu-item" onclick="openActionModal('remove-best','${post.id}')">Gỡ Best</button>
-              <button class="menu-item" onclick="openActionModal('hide-post','${post.id}')">Tạm ẩn bài viết</button>
-              <button class="menu-item" onclick="openActionModal('unfeature-post','${post.id}')">Gỡ khỏi trang chủ</button>
-              <hr class="menu-divider"/>
-              <button class="menu-item" onclick="openActionModal('delete-post','${post.id}')">Xóa</button>`
-            : `
-              <button class="menu-item" onclick="viewPost('${post.id}')">Xem bài viết</button>
-              <button class="menu-item" onclick="openActionModal('mark-best','${post.id}')">Đánh dấu bài viết Best</button>
-              <button class="menu-item" onclick="openActionModal('hide-post','${post.id}')">Tạm ẩn bài viết</button>
-              <button class="menu-item" onclick="openActionModal('unfeature-post','${post.id}')">Gỡ khỏi trang chủ</button>
-              <hr class="menu-divider"/>
-              <button class="menu-item" onclick="openActionModal('delete-post','${post.id}')">Xóa</button>`;
+        const s = getPostActionState(post.id);
+        const bestItem = s.best
+          ? `<button class="menu-item" onclick="openActionModal('remove-best','${post.id}')">Gỡ Best</button>`
+          : `<button class="menu-item" onclick="openActionModal('mark-best','${post.id}')">Gắn Best</button>`;
+        const hideItem = s.hidden
+          ? `<button class="menu-item" onclick="openActionModal('show-post','${post.id}')">Hiện bài viết</button>`
+          : `<button class="menu-item" onclick="openActionModal('hide-post','${post.id}')">Tạm ẩn bài viết</button>`;
+        const unfeatureItem = s.unfeatured
+          ? `<button class="menu-item" onclick="openActionModal('feature-home','${post.id}')">Hiện lại trang chủ</button>`
+          : `<button class="menu-item" onclick="openActionModal('unfeature-post','${post.id}')">Gỡ khỏi trang chủ</button>`;
+        const deleteItem = s.deleted
+          ? `<button class="menu-item" onclick="openActionModal('restore-deleted-post','${post.id}')">Khôi phục</button>`
+          : `<button class="menu-item" onclick="openActionModal('delete-post','${post.id}')">Xóa bài viết</button>`;
         return `<div class="cell-menu">
           <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(post.title)}">${escText(post.title)}</button>
-          <div class="menu-list">${items}</div>
+          <div class="menu-list">
+            <button class="menu-item" onclick="viewPost('${post.id}')">Xem bài viết</button>
+            ${bestItem}
+            ${hideItem}
+            ${unfeatureItem}
+            <hr class="menu-divider"/>
+            ${deleteItem}
+          </div>
         </div>`;
       }
 
@@ -2824,9 +3138,7 @@
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Chỉnh sửa thông tin</button>
             <hr class="menu-divider"/>
-            <button class="menu-item" onclick="openActionModal('suspend-author','${post.id}')">Tạm khóa hoạt động</button>
-            <button class="menu-item" onclick="openActionModal('force-leave-author','${post.id}')">Buộc rời bỏ</button>
-            <button class="menu-item" onclick="openActionModal('cancel-upgrade','${post.id}')">Hủy nâng cấp tự động</button>
+            ${renderUserActionItems(post.id, post.author, true)}
             <button class="menu-item" onclick="openActionModal('notify-author','${post.id}')">Gửi thông báo đẩy</button>
           </div>
         </div>`;
@@ -2864,12 +3176,12 @@
                 <td><input type="checkbox" data-id="${escText(p.id)}" onchange="toggleRow(this,'best','${escText(p.id)}')"/></td>
                 <td class="td-left">${escText(p.topic)}</td>
                 <td class="td-left">${renderCategoryCell(p, "best")}</td>
-                <td>${fmtNum(p.likes)}</td>
                 <td class="td-left">${renderTitleMenu(p, "best")}</td>
-                <td>${fmtNum(p.comments)}</td>
                 <td class="td-left">${renderAuthorMenu(p)}</td>
-                <td class="td-left">${renderIpCell(p)}</td>
+                <td>${fmtNum(p.likes)}</td>
                 <td>${fmtNum(p.views)}</td>
+                <td>${fmtNum(p.comments)}</td>
+                <td class="td-left">${renderIpCell(p)}</td>
               </tr>`,
           )
           .join("");
@@ -2885,16 +3197,8 @@
                 <td><input type="checkbox" data-id="${escText(p.id)}" onchange="toggleRow(this,'deleted','${escText(p.id)}')"/></td>
                 <td class="td-left">${escText(p.topic)}</td>
                 <td class="td-left">${escText(p.mainCat)} - ${escText(p.subCat)}</td>
+                <td class="td-left">${renderTitleMenu(p, "deleted")}</td>
                 <td class="td-left">${renderAuthorMenu(p)}</td>
-                <td class="td-left">
-                  <div class="cell-menu">
-                    <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(p.title)}">${escText(p.title)}</button>
-                    <div class="menu-list">
-                      <button class="menu-item" onclick="viewPost('${escText(p.id)}')">Xem bài viết</button>
-                      <button class="menu-item" onclick="openActionModal('restore-post','${escText(p.id)}')">Khôi phục</button>
-                    </div>
-                  </div>
-                </td>
                 <td class="td-left">${renderIpCell(p)}</td>
                 <td>${escText(p.handler)}</td>
                 <td>${escText(p.reason)}</td>
@@ -2938,6 +3242,89 @@
         document.getElementById("view-modal-backdrop").classList.remove("open");
       }
 
+      /* ====== ACTION TOGGLE STATE ====== */
+      const userActionState = {};
+      const postActionState = {};
+      const ipActionState = {};
+      function getUserActionState(author) {
+        if (!userActionState[author])
+          userActionState[author] = { suspended: false, forceLeft: false, upgradeCanceled: false };
+        return userActionState[author];
+      }
+      function getPostActionState(id) {
+        if (!postActionState[id])
+          postActionState[id] = { hidden: false, unfeatured: false, deleted: false, best: false };
+        return postActionState[id];
+      }
+      function getIpActionState(ip) {
+        if (!ipActionState[ip]) ipActionState[ip] = { blocked: false };
+        return ipActionState[ip];
+      }
+      function findItemAnywhere(id) {
+        return (
+          postsReal.find((p) => p.id === id) ||
+          postsBest.find((p) => p.id === id) ||
+          postsDeleted.find((p) => p.id === id) ||
+          postsHiddenSuspended.find((p) => p.id === id) ||
+          postsHiddenUnfeatured.find((p) => p.id === id) ||
+          commentsList.find((c) => c.id === id) ||
+          commentsDeleted.find((c) => c.id === id) ||
+          null
+        );
+      }
+      function applyActionToggle(type, id) {
+        const item = findItemAnywhere(id);
+        if (!item) return;
+        const u = item.author ? getUserActionState(item.author) : null;
+        const p = getPostActionState(item.id);
+        const i = item.ip ? getIpActionState(item.ip) : null;
+        switch (type) {
+          case "suspend-author": if (u) u.suspended = true; break;
+          case "unsuspend-author": if (u) u.suspended = false; break;
+          case "force-leave-author": if (u) u.forceLeft = true; break;
+          case "restore-account": if (u) u.forceLeft = false; break;
+          case "cancel-upgrade": if (u) u.upgradeCanceled = true; break;
+          case "restore-upgrade": if (u) u.upgradeCanceled = false; break;
+          case "block-ip": if (i) i.blocked = true; break;
+          case "unblock-ip": if (i) i.blocked = false; break;
+          case "hide-post": p.hidden = true; break;
+          case "show-post": p.hidden = false; break;
+          case "unfeature-post": p.unfeatured = true; break;
+          case "feature-home": p.unfeatured = false; break;
+          case "delete-post": p.deleted = true; break;
+          case "restore-deleted-post":
+          case "restore-post":
+          case "restore-hidden":
+            p.deleted = false; p.hidden = false; p.unfeatured = false; break;
+          case "mark-best": p.best = true; break;
+          case "remove-best": p.best = false; break;
+        }
+      }
+      function renderUserActionItems(id, author, includeCancelUpgrade) {
+        const s = getUserActionState(author);
+        let html = "";
+        html += s.suspended
+          ? `<button class="menu-item" onclick="openActionModal('unsuspend-author','${id}')">Gỡ tạm khóa</button>`
+          : `<button class="menu-item" onclick="openSuspendModal('${id}')">Tạm khóa hoạt động</button>`;
+        html += s.forceLeft
+          ? `<button class="menu-item" onclick="openActionModal('restore-account','${id}')">Khôi phục tài khoản</button>`
+          : `<button class="menu-item" onclick="openForceLeaveModal('${id}')">Buộc rời bỏ</button>`;
+        if (includeCancelUpgrade) {
+          html += s.upgradeCanceled
+            ? `<button class="menu-item" onclick="openActionModal('restore-upgrade','${id}')">Khôi phục nâng cấp tự động</button>`
+            : `<button class="menu-item" onclick="openActionModal('cancel-upgrade','${id}')">Hủy nâng cấp tự động</button>`;
+        }
+        return html;
+      }
+      function renderAllTables() {
+        renderTableReal();
+        renderTableBest();
+        renderTableDeleted();
+        renderTableHidden();
+        renderTableComments();
+        renderTableCommentsDeleted();
+      }
+
       /* ====== ACTION MODAL ====== */
       const actionModalMap = {
         "delete-post": {
@@ -2946,7 +3333,7 @@
           done: "Đã xóa bài viết.",
         },
         "mark-best": {
-          title: "Đánh dấu bài viết Best",
+          title: "Gắn Best",
           body: "Bài viết sẽ được thêm vào danh sách Best.",
           done: "Đã đánh dấu Best.",
         },
@@ -2989,16 +3376,6 @@
           title: "Chặn địa chỉ IP",
           body: "Mọi truy cập từ IP này sẽ bị chặn cho đến khi được mở lại.",
           done: "Đã chặn IP.",
-        },
-        "suspend-author": {
-          title: "Tạm khóa hoạt động",
-          body: "Tài khoản người viết sẽ bị tạm khóa cho đến khi được mở lại.",
-          done: "Đã tạm khóa người viết.",
-        },
-        "force-leave-author": {
-          title: "Buộc rời bỏ hệ thống",
-          body: "Người viết sẽ bị buộc rời khỏi hệ thống ngay lập tức.",
-          done: "Đã buộc rời bỏ.",
         },
         "cancel-upgrade": {
           title: "Hủy nâng cấp tự động",
@@ -3045,6 +3422,41 @@
           body: "Các bình luận sẽ được khôi phục về danh sách bình luận.",
           done: "Đã khôi phục bình luận.",
         },
+        "unsuspend-author": {
+          title: "Gỡ tạm khóa",
+          body: "Tài khoản người viết sẽ được khôi phục hoạt động bình thường.",
+          done: "Đã gỡ tạm khóa.",
+        },
+        "restore-account": {
+          title: "Khôi phục tài khoản",
+          body: "Tài khoản đã buộc rời bỏ sẽ được khôi phục lại hệ thống.",
+          done: "Đã khôi phục tài khoản.",
+        },
+        "restore-upgrade": {
+          title: "Khôi phục nâng cấp tự động",
+          body: "Tài khoản sẽ được tự động nâng cấp cấp bậc theo điều kiện hệ thống.",
+          done: "Đã khôi phục nâng cấp tự động.",
+        },
+        "unblock-ip": {
+          title: "Hủy chặn IP",
+          body: "Mọi truy cập từ địa chỉ IP này sẽ được cho phép trở lại.",
+          done: "Đã hủy chặn IP.",
+        },
+        "show-post": {
+          title: "Hiện bài viết",
+          body: "Bài viết sẽ được hiện lại trên feed người dùng.",
+          done: "Đã hiện lại bài viết.",
+        },
+        "feature-home": {
+          title: "Hiện lại trang chủ",
+          body: "Bài viết sẽ xuất hiện lại trên trang chủ.",
+          done: "Đã hiện lại trên trang chủ.",
+        },
+        "restore-deleted-post": {
+          title: "Khôi phục bài viết",
+          body: "Bài viết sẽ được khôi phục về danh sách hoạt động.",
+          done: "Đã khôi phục bài viết.",
+        },
       };
       function openActionModal(type, id) {
         const cfg = actionModalMap[type];
@@ -3063,11 +3475,15 @@
       }
       function confirmActionModal() {
         const cfg = actionModalMap[pendingAction.type];
-        if (pendingAction.type === "delete-reason" && pendingAction.id) {
-          const idx = deleteReasons.findIndex((r) => r.id === pendingAction.id);
+        const { type, id } = pendingAction;
+        if (type === "delete-reason" && id) {
+          const idx = deleteReasons.findIndex((r) => r.id === id);
           if (idx >= 0) deleteReasons.splice(idx, 1);
-          if (editingReasonId === pendingAction.id) resetReasonEditor();
+          if (editingReasonId === id) resetReasonEditor();
           else renderReasonTable();
+        } else if (id) {
+          applyActionToggle(type, id);
+          renderAllTables();
         }
         if (cfg) alert(cfg.done);
         closeActionModal();
@@ -3323,22 +3739,14 @@
           <div class="menu-list">
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
-            <button class="menu-item" onclick="openActionModal('suspend-author','${post.id}')">Tạm khóa hoạt động</button>
-            <button class="menu-item" onclick="openActionModal('force-leave-author','${post.id}')">Buộc rời bỏ</button>
-            <button class="menu-item" onclick="openActionModal('cancel-upgrade','${post.id}')">Hủy nâng cấp tự động</button>
+            ${renderUserActionItems(post.id, post.author, true)}
             <button class="menu-item" onclick="openActionModal('notify-author','${post.id}')">Gửi thông báo đẩy</button>
           </div>
         </div>`;
       }
 
       function renderTitleMenuHidden(post) {
-        return `<div class="cell-menu">
-          <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(post.title)}">${escText(post.title)}</button>
-          <div class="menu-list">
-            <button class="menu-item" onclick="viewPost('${post.id}')">Xem bài viết</button>
-            <button class="menu-item" onclick="openActionModal('restore-hidden','${post.id}')">Khôi phục</button>
-          </div>
-        </div>`;
+        return renderTitleMenu(post, "hidden");
       }
 
       function renderTableHidden() {
@@ -3357,11 +3765,11 @@
                 <td><input type="checkbox" data-id="${escText(p.id)}" onchange="toggleRow(this,'hidden','${escText(p.id)}')"/></td>
                 <td class="td-left">${escText(p.topic)}</td>
                 <td class="td-left">${escText(p.mainCat)} - ${escText(p.subCat)}</td>
-                <td class="td-left">${renderAuthorMenuHidden(p)}</td>
                 <td class="td-left">${renderTitleMenuHidden(p)}</td>
+                <td class="td-left">${renderAuthorMenuHidden(p)}</td>
                 <td class="td-left">${renderIpCell(p)}</td>
                 <td>${escText(p.handler)}</td>
-                <td>${escText(p.reason)}</td>
+                ${currentHiddenSub === "suspended" ? `<td>${escText(p.reason)}</td>` : ""}
                 <td>${escText(p.datePosted)}</td>
                 <td>${escText(p[dateKey])}</td>
               </tr>`,
@@ -3383,6 +3791,9 @@
         document.getElementById("hidden-th-reason").textContent = isSuspended
           ? "Lý do ẩn"
           : "Lý do gỡ";
+        document.getElementById("hidden-th-reason").style.display = isSuspended
+          ? ""
+          : "none";
         document.getElementById("hidden-th-date").textContent = isSuspended
           ? "Ngày ẩn"
           : "Ngày gỡ";
@@ -3453,9 +3864,7 @@
           <div class="menu-list">
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
-            <button class="menu-item" onclick="openActionModal('suspend-author','${c.id}')">Tạm khóa hoạt động</button>
-            <button class="menu-item" onclick="openActionModal('force-leave-author','${c.id}')">Buộc rời bỏ</button>
-            <button class="menu-item" onclick="openActionModal('cancel-upgrade','${c.id}')">Hủy nâng cấp tự động</button>
+            ${renderUserActionItems(c.id, c.author, true)}
             <button class="menu-item" onclick="openActionModal('notify-author','${c.id}')">Gửi thông báo đẩy</button>
           </div>
         </div>`;
@@ -3490,8 +3899,9 @@
                 <td><input type="checkbox" data-id="${escText(c.id)}" onchange="toggleRow(this,'comments','${escText(c.id)}')"/></td>
                 <td class="td-left">${escText(c.topic)}</td>
                 <td class="td-left">${escText(c.mainCat)} - ${escText(c.subCat)}</td>
-                <td class="td-left">${renderAuthorMenuComment(c)}</td>
+                <td class="td-left" title="${escText(c.postTitle)}">${escText(c.postTitle)}</td>
                 <td class="td-left">${renderContentMenuComment(c, "active")}</td>
+                <td class="td-left">${renderAuthorMenuComment(c)}</td>
                 <td>${escText(c.date)}</td>
                 <td class="td-left">${renderIpCell(c)}</td>
               </tr>`,
@@ -3563,8 +3973,7 @@
           <div class="menu-list">
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
-            <button class="menu-item" onclick="openActionModal('suspend-author','${c.id}')">Tạm khóa hoạt động</button>
-            <button class="menu-item" onclick="openActionModal('force-leave-author','${c.id}')">Buộc rời bỏ</button>
+            ${renderUserActionItems(c.id, c.author, false)}
             <button class="menu-item" onclick="openActionModal('notify-author','${c.id}')">Gửi thông báo đẩy</button>
           </div>
         </div>`;
@@ -3580,11 +3989,11 @@
                 <td><input type="checkbox" data-id="${escText(c.id)}" onchange="toggleRow(this,'cdeleted','${escText(c.id)}')"/></td>
                 <td class="td-left">${escText(c.topic)}</td>
                 <td class="td-left">${escText(c.mainCat)} - ${escText(c.subCat)}</td>
+                <td class="td-left" title="${escText(c.postTitle)}">${escText(c.postTitle)}</td>
                 <td class="td-left">${renderContentMenuComment(c, "deleted")}</td>
                 <td class="td-left">${renderAuthorMenuCommentDeleted(c)}</td>
                 <td class="td-left">${renderIpCell(c)}</td>
                 <td>${escText(c.handler)}</td>
-                <td>${escText(c.reason)}</td>
                 <td>${escText(c.dateDeleted)}</td>
               </tr>`,
           )
@@ -3725,8 +4134,145 @@
           closeActionModal();
           closeChangeCategoryModal();
           closeViewModal();
+          closeSuspendModal();
+          closeForceLeaveModal();
         }
       });
+
+      /* ====== SUSPEND / FORCE LEAVE MODALS ====== */
+      let suspendTargetId = null;
+      let forceLeaveTargetId = null;
+
+      function resolveAuthorName(id) {
+        const all = [
+          ...postsReal,
+          ...postsBest,
+          ...postsDeleted,
+          ...postsHiddenSuspended,
+          ...postsHiddenUnfeatured,
+          ...commentsList,
+          ...commentsDeleted,
+        ];
+        const item = all.find((x) => x.id === id);
+        return item ? item.author : id;
+      }
+      function renderMemberChip(name) {
+        const safe = escText(name);
+        const initial = (safe || "?").charAt(0).toUpperCase();
+        return `
+          <div style="display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid var(--gray-200);border-radius:20px;padding:4px 12px 4px 4px;font-size:13px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">${initial}</div>
+            <span>${safe}</span>
+          </div>`;
+      }
+
+      function openSuspendModal(id) {
+        suspendTargetId = id;
+        document.querySelector(
+          'input[name="suspend-reason"][value="vi_pham"]',
+        ).checked = true;
+        document.getElementById("suspend-reason-other").value = "";
+        document.getElementById("suspend-reason-other").disabled = true;
+        document.getElementById("suspend-duration").value = "7";
+        const name = resolveAuthorName(id);
+        document.getElementById("suspend-member-count").textContent = "1";
+        document.getElementById("suspend-member-list").innerHTML =
+          renderMemberChip(name);
+        document
+          .getElementById("suspend-modal-backdrop")
+          .classList.add("open");
+        closeAllMenus();
+      }
+      function closeSuspendModal() {
+        document
+          .getElementById("suspend-modal-backdrop")
+          .classList.remove("open");
+        suspendTargetId = null;
+      }
+      function handleSuspendReasonChange() {
+        const selected = document.querySelector(
+          'input[name="suspend-reason"]:checked',
+        ).value;
+        const otherInput = document.getElementById("suspend-reason-other");
+        otherInput.disabled = selected !== "khac";
+        if (selected === "khac") otherInput.focus();
+      }
+      function confirmSuspend() {
+        const selected = document.querySelector(
+          'input[name="suspend-reason"]:checked',
+        ).value;
+        if (selected === "khac") {
+          const r = document
+            .getElementById("suspend-reason-other")
+            .value.trim();
+          if (!r) {
+            alert("Vui lòng nhập lý do tạm khóa.");
+            return;
+          }
+        }
+        if (suspendTargetId) {
+          const author = resolveAuthorName(suspendTargetId);
+          const u = getUserActionState(author);
+          u.suspended = true;
+        }
+        closeSuspendModal();
+        renderAllTables();
+        alert("Đã tạm khóa hoạt động thành viên.");
+      }
+
+      function openForceLeaveModal(id) {
+        forceLeaveTargetId = id;
+        document.querySelector(
+          'input[name="force-leave-reason"][value="vi_pham"]',
+        ).checked = true;
+        document.getElementById("force-leave-reason-other").value = "";
+        document.getElementById("force-leave-reason-other").style.display =
+          "none";
+        const name = resolveAuthorName(id);
+        document.getElementById("force-leave-member-count").textContent = "1";
+        document.getElementById("force-leave-member-list").innerHTML =
+          renderMemberChip(name);
+        document
+          .getElementById("force-leave-modal-backdrop")
+          .classList.add("open");
+        closeAllMenus();
+      }
+      function closeForceLeaveModal() {
+        document
+          .getElementById("force-leave-modal-backdrop")
+          .classList.remove("open");
+        forceLeaveTargetId = null;
+      }
+      function handleForceLeaveReasonChange() {
+        const selected = document.querySelector(
+          'input[name="force-leave-reason"]:checked',
+        ).value;
+        const otherInput = document.getElementById("force-leave-reason-other");
+        otherInput.style.display = selected === "khac" ? "block" : "none";
+        if (selected === "khac") otherInput.focus();
+      }
+      function confirmForceLeave() {
+        const selected = document.querySelector(
+          'input[name="force-leave-reason"]:checked',
+        ).value;
+        if (selected === "khac") {
+          const r = document
+            .getElementById("force-leave-reason-other")
+            .value.trim();
+          if (!r) {
+            alert("Vui lòng nhập lý do buộc rời bỏ.");
+            return;
+          }
+        }
+        if (forceLeaveTargetId) {
+          const author = resolveAuthorName(forceLeaveTargetId);
+          const u = getUserActionState(author);
+          u.forceLeft = true;
+        }
+        closeForceLeaveModal();
+        renderAllTables();
+        alert("Đã buộc rời bỏ thành viên.");
+      }
 
       /* ====== HEADER HEIGHT SYNC ====== */
 
@@ -3735,6 +4281,10 @@
       ["real", "best", "deleted", "hidden", "comments", "cdeleted"].forEach(
         renderCriteriaMenu,
       );
+      postsBest.forEach((p) => (getPostActionState(p.id).best = true));
+      postsHiddenSuspended.forEach((p) => (getPostActionState(p.id).hidden = true));
+      postsHiddenUnfeatured.forEach((p) => (getPostActionState(p.id).unfeatured = true));
+      postsDeleted.forEach((p) => (getPostActionState(p.id).deleted = true));
       renderTableReal();
       renderTableBest();
       renderTableDeleted();

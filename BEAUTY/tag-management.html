@@ -27,142 +27,729 @@
         --gray-500: #6b6390;
         --gray-700: #3d3660;
         --gray-900: #1e1a35;
-        --shadow-sm: 0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
-        --shadow-md: 0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
         --radius: 10px;
         --sidebar-w: 210px;
         --header-h: 60px;
       }
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: "Be Vietnam Pro", sans-serif; background: var(--gray-50); color: var(--gray-900); font-size: 13px; min-height: 100vh; }
-      .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; min-height: 60px; background: linear-gradient(135deg, #4a2096 0%, #6c3fc5 60%, #8b5cf6 100%); display: flex; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25); }
-      .header-logo { display: flex; align-items: center; gap: 10px; color: white; font-weight: 700; font-size: 14px; }
-      .header-logo .logo-box { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: white; border: 1.5px solid rgba(255, 255, 255, 0.35); }
-      .header-nav { display: flex; align-items: center; gap: 2px; flex: 1; padding: 0 24px; }
-      .nav-item { padding: 5px 9px; border-radius: 6px; color: rgba(255, 255, 255, 0.75); cursor: pointer; font-size: 11.5px; font-weight: 500; white-space: normal; line-height: 1.2; text-align: center; max-width: 120px; transition: all 0.15s; }
-      .nav-item:hover, .nav-item.active { background: rgba(255, 255, 255, 0.18); color: white; }
-      .nav-item.active { background: rgba(255, 255, 255, 0.22); font-weight: 600; }
-      .nav-item-group { position: relative; }
-      .nav-item-group .nav-dropdown { position: absolute; top: 100%; left: 0; background: white; border: 1px solid var(--gray-200); border-radius: 6px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); min-width: 180px; display: none; z-index: 300; padding: 4px 0; margin-top: 4px; }
-      .nav-item-group:hover .nav-dropdown { display: block; }
-      .nav-dropdown a { display: block; padding: 8px 14px; color: var(--gray-700); text-decoration: none; font-size: 11.5px; font-weight: 500; white-space: nowrap; }
-      .nav-dropdown a:hover { background: var(--gray-100); color: var(--primary); }
-      a.nav-item { text-decoration: none; display: inline-block; }
-      .header-user { display: flex; align-items: center; gap: 8px; color: white; font-size: 12px; }
-      .header-user .avatar { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; border: 1.5px solid rgba(255, 255, 255, 0.4); }
-      .header-user .user-info { text-align: right; }
-      .header-user .user-name { font-weight: 600; font-size: 12px; }
-      .header-user .user-role { font-size: 10.5px; opacity: 0.75; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        min-height: 60px;
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+      }
+      .header-user .avatar {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
 
-      .app-body { display: flex; padding-top: var(--header-h); min-height: 100vh; }
-      .sidebar { width: var(--sidebar-w); flex-shrink: 0; background: white; min-height: calc(100vh - var(--header-h)); border-right: 1px solid var(--gray-200); padding: 16px 10px; position: fixed; top: var(--header-h); left: 0; bottom: 0; overflow-y: auto; }
-      .sidebar-label { font-size: 9.5px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 8px; }
-      .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; cursor: pointer; color: var(--gray-500); font-size: 12.5px; font-weight: 500; transition: all 0.15s; margin-bottom: 1px; }
-      .sidebar-item:hover { background: var(--gray-100); color: var(--gray-700); }
-      .sidebar-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
-      .sidebar-note { margin-top: 12px; padding: 10px; font-size: 10.5px; color: var(--warning); background: var(--warning-light); border: 1px solid var(--warning); border-radius: 8px; line-height: 1.4; font-weight: 500; }
+      .app-body {
+        display: flex;
+        padding-top: var(--header-h);
+        min-height: 100vh;
+      }
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: white;
+        min-height: calc(100vh - var(--header-h));
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 10px;
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+      }
+      .sidebar-label {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 6px 8px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+        font-size: 12.5px;
+        font-weight: 500;
+        transition: all 0.15s;
+        margin-bottom: 1px;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .sidebar-note {
+        margin-top: 12px;
+        padding: 10px;
+        font-size: 10.5px;
+        color: var(--warning);
+        background: var(--warning-light);
+        border: 1px solid var(--warning);
+        border-radius: 8px;
+        line-height: 1.4;
+        font-weight: 500;
+      }
 
-      .main { margin-left: var(--sidebar-w); flex: 1; padding: 20px; }
-      .page { display: none; }
-      .page.active { display: block; }
-      .page-title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 20px;
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+      }
 
-      .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: 14px; }
-      .card-body { padding: 14px 18px; }
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-body {
+        padding: 14px 18px;
+      }
 
-      .search-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-      .search-row + .search-row { margin-top: 10px; }
-      .filter-label { font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .search-row + .search-row {
+        margin-top: 10px;
+      }
+      .filter-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        white-space: nowrap;
+      }
 
-      .date-range { display: flex; align-items: center; border: 1.5px solid var(--primary-mid); border-radius: 8px; overflow: hidden; background: white; max-width: 280px; }
-      .date-nav { padding: 6px 12px; background: var(--primary-light); cursor: pointer; color: var(--primary); font-size: 14px; font-weight: 700; border: none; }
-      .date-display { padding: 6px 16px; font-size: 12px; font-weight: 600; color: var(--primary); background: white; white-space: nowrap; text-align: center; min-width: 200px; }
-      .time-filters { display: flex; gap: 6px; flex-wrap: wrap; }
-      .tf-btn { padding: 7px 14px; min-height: 32px; border-radius: 9px; border: 1px solid #e2e5f1; background: white; color: #677194; font-size: 11.5px; font-weight: 500; cursor: pointer; font-family: inherit; }
-      .tf-btn.active { background: var(--primary); color: white; border-color: transparent; font-weight: 700; }
+      .date-range {
+        display: flex;
+        align-items: center;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        max-width: 280px;
+      }
+      .date-nav {
+        padding: 6px 12px;
+        background: var(--primary-light);
+        cursor: pointer;
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+      }
+      .date-display {
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        white-space: nowrap;
+        text-align: center;
+        min-width: 200px;
+      }
+      .time-filters {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .tf-btn {
+        padding: 7px 14px;
+        min-height: 32px;
+        border-radius: 9px;
+        border: 1px solid #e2e5f1;
+        background: white;
+        color: #677194;
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .tf-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: transparent;
+        font-weight: 700;
+      }
 
-      .criteria-wrap { position: relative; }
-      .criteria-btn { height: 34px; min-width: 150px; border: 1.5px solid var(--gray-200); border-radius: 8px; background: white; font-size: 12px; font-weight: 600; color: var(--gray-700); font-family: inherit; padding: 0 10px; cursor: pointer; display: inline-flex; align-items: center; justify-content: space-between; gap: 10px; }
-      .criteria-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 160px; background: white; border: 1px solid var(--gray-200); border-radius: 8px; padding: 4px; box-shadow: var(--shadow-md); z-index: 260; }
-      .criteria-wrap.open .criteria-menu { display: block; }
-      .criteria-option { width: 100%; border: none; background: transparent; text-align: left; border-radius: 6px; padding: 7px 9px; font-size: 11.5px; color: var(--gray-700); cursor: pointer; font-family: inherit; }
-      .criteria-option:hover { background: var(--gray-100); color: var(--primary); }
-      .search-input-lg { flex: 1; min-width: 240px; height: 34px; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 0 11px; font-size: 12px; color: var(--gray-700); font-family: inherit; outline: none; }
+      .criteria-wrap {
+        position: relative;
+      }
+      .criteria-btn {
+        height: 34px;
+        min-width: 150px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        font-family: inherit;
+        padding: 0 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .criteria-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 160px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        z-index: 260;
+      }
+      .criteria-wrap.open .criteria-menu {
+        display: block;
+      }
+      .criteria-option {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .criteria-option:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .search-input-lg {
+        flex: 1;
+        min-width: 240px;
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 11px;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
+      }
 
-      .btn { padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-      .btn-outline-primary { background: white; border: 1.5px solid var(--primary); color: var(--primary); }
-      .btn-outline-primary:hover { background: var(--primary-light); }
-      .btn-outline-danger { background: white; border: 1.5px solid var(--accent); color: var(--accent); }
-      .btn-outline-danger:hover { background: var(--accent-light); }
-      .btn-primary { background: var(--primary); color: white; border: 1.5px solid var(--primary); }
-      .btn-danger { background: var(--accent); color: white; border: 1.5px solid var(--accent); }
-      .btn-ghost { background: var(--gray-100); border: 1.5px solid var(--gray-200); color: var(--gray-500); }
-      .btn-sm { padding: 4px 11px; font-size: 11px; }
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
 
-      .table-title { font-size: 13px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-      .table-title .count { font-size: 11px; background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 20px; font-weight: 600; }
-      .table-actions { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
-      .table-actions-left, .table-actions-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-      .table-actions-left span { font-size: 11.5px; color: var(--gray-500); font-weight: 500; }
+      .table-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .table-title .count {
+        font-size: 11px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+      .table-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left,
+      .table-actions-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left span {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
 
-      .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200); }
-      table { width: 100%; border-collapse: collapse; min-width: 900px; }
-      thead { background: var(--gray-50); }
-      thead th { padding: 9px 10px; text-align: center; font-size: 11.5px; font-weight: 600; color: var(--gray-500); white-space: nowrap; border-bottom: 1.5px solid var(--gray-200); }
-      thead th.sortable { cursor: pointer; user-select: none; }
-      thead th.sortable:hover { color: var(--primary); }
-      thead th .sort-arrow { font-size: 10px; margin-left: 4px; color: var(--gray-400); }
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 900px;
+      }
+      thead {
+        background: var(--gray-50);
+      }
+      thead th {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        white-space: nowrap;
+        border-bottom: 1.5px solid var(--gray-200);
+      }
+      thead th.sortable {
+        cursor: pointer;
+        user-select: none;
+      }
+      thead th.sortable:hover {
+        color: var(--primary);
+      }
+      thead th .sort-arrow {
+        font-size: 10px;
+        margin-left: 4px;
+        color: var(--gray-400);
+      }
       thead th.sorted-asc .sort-arrow,
-      thead th.sorted-desc .sort-arrow { color: var(--primary); }
-      tbody tr { border-bottom: 1px solid var(--gray-100); }
-      tbody tr:hover { background: var(--gray-50); }
-      tbody td { padding: 9px 10px; text-align: center; font-size: 12px; color: var(--gray-700); vertical-align: middle; }
-      .td-left { text-align: left !important; }
+      thead th.sorted-desc .sort-arrow {
+        color: var(--primary);
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--gray-100);
+      }
+      tbody tr:hover {
+        background: var(--gray-50);
+      }
+      tbody td {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .td-left {
+        text-align: left !important;
+      }
 
-      .cell-menu { position: relative; display: inline-block; }
-      .menu-trigger { background: none; border: none; padding: 0; font: inherit; color: var(--primary); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: 12px; }
-      .menu-list { position: absolute; top: calc(100% + 2px); left: 0; background: white; border: 1px solid var(--gray-200); border-radius: 8px; box-shadow: var(--shadow-md); z-index: 40; min-width: 200px; display: none; flex-direction: column; padding: 4px 0; }
-      .cell-menu.open .menu-list { display: flex; }
-      .menu-item { padding: 7px 12px; background: none; border: none; text-align: left; font-size: 12px; color: var(--gray-700); cursor: pointer; font-family: inherit; }
-      .menu-item:hover { background: var(--gray-100); color: var(--primary); }
+      .cell-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .menu-trigger {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .menu-list {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        z-index: 40;
+        min-width: 200px;
+        display: none;
+        flex-direction: column;
+        padding: 4px 0;
+      }
+      .cell-menu.open .menu-list {
+        display: flex;
+      }
+      .menu-item {
+        padding: 7px 12px;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .menu-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
 
-      .table-footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--gray-200); background: white; }
-      .pagination { display: flex; gap: 4px; justify-content: center; align-items: center; }
-      .pg-btn { min-width: 32px; height: 32px; padding: 0 8px; border: 1px solid var(--gray-300); background: white; border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--gray-700); cursor: pointer; }
-      .pg-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+      .table-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--gray-200);
+        background: white;
+      }
+      .pagination {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+      }
+      .pg-btn {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid var(--gray-300);
+        background: white;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        cursor: pointer;
+      }
+      .pg-btn.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
 
-      .select-dropdown { position: relative; display: inline-flex; align-items: center; }
-      .select-dropdown select { appearance: none; padding: 6px 28px 6px 10px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 12px; font-family: inherit; color: var(--gray-700); background: white; cursor: pointer; outline: none; min-width: 150px; }
-      .select-dropdown::after { content: "▾"; position: absolute; right: 10px; pointer-events: none; font-size: 10px; color: var(--gray-400); }
+      .select-dropdown {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+      .select-dropdown select {
+        appearance: none;
+        padding: 6px 28px 6px 10px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        background: white;
+        cursor: pointer;
+        outline: none;
+        min-width: 150px;
+      }
+      .select-dropdown::after {
+        content: "▾";
+        position: absolute;
+        right: 10px;
+        pointer-events: none;
+        font-size: 10px;
+        color: var(--gray-400);
+      }
 
       /* ====== TAG CHIP ====== */
       .tag-chip {
-        display: inline-flex; align-items: center;
-        padding: 4px 10px; border-radius: 999px;
-        background: var(--primary-light); color: var(--primary);
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--primary-light);
+        color: var(--primary);
         border: 1px solid var(--primary-mid);
-        font-size: 12px; font-weight: 600; font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        font-family: inherit;
       }
-      .tag-chip.best { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+      .tag-chip.best {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
       .tag-chip.is-best-mark::after {
-        content: "★"; font-size: 10px; margin-left: 4px; color: var(--accent);
+        content: "★";
+        font-size: 10px;
+        margin-left: 4px;
+        color: var(--accent);
       }
       .tag-trigger {
-        background: none; border: none; padding: 0; font: inherit;
-        color: inherit; cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
       }
 
       /* ====== ACTION MODAL ====== */
-      .action-modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 260; display: none; align-items: center; justify-content: center; }
-      .action-modal-backdrop.open { display: flex; }
-      .action-modal { background: white; border-radius: 10px; padding: 20px; max-width: 440px; width: 95vw; box-shadow: var(--shadow-md); }
-      .action-modal-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
-      .action-modal-body { font-size: 12px; color: var(--gray-600); line-height: 1.5; margin-bottom: 16px; }
-      .action-modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
-      .action-modal-btn { padding: 8px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
-      .action-modal-btn-cancel { background: var(--gray-200); color: var(--gray-700); }
-      .action-modal-btn-confirm { background: var(--accent); color: white; }
-      .action-modal-btn-confirm.is-primary { background: var(--primary); }
+      .action-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 440px;
+        width: 95vw;
+        box-shadow: var(--shadow-md);
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-600);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+      .action-modal-btn-confirm.is-primary {
+        background: var(--primary);
+      }
     </style>
   </head>
   <body>
@@ -174,8 +761,12 @@
       <nav class="header-nav">
         <a class="nav-item" href="home-management.html">Trang chủ</a>
         <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
-        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
-        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="virtual-member-management.html"
+          >Thành viên ảo</a
+        >
+        <a class="nav-item" href="real-member-staff.html"
+          >Thành viên thực, staff</a
+        >
         <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
         <div class="nav-item nav-item-group">
           Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
@@ -187,13 +778,21 @@
           </div>
         </div>
         <a class="nav-item" href="menu-management.html">Menu</a>
-        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="post-comment-management.html"
+          >Bài viết. Bình luận</a
+        >
         <div class="nav-item active">Thẻ</div>
-        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="report-management.html"
+          >Từ cấm. Spam. Báo cáo</a
+        >
         <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
-        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="reward-badge-management.html"
+          >Điểm thưởng. Huy hiệu</a
+        >
         <a class="nav-item" href="statistics-management.html">Thống kê</a>
-        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+        <a class="nav-item" href="push-notification-management.html"
+          >Thông báo đẩy</a
+        >
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -207,10 +806,15 @@
     <div class="app-body">
       <aside class="sidebar">
         <div class="sidebar-label">Thẻ</div>
-        <div class="sidebar-item active" id="sidebar-list" onclick="goSection('list')">Danh sách thẻ</div>
-        <div class="sidebar-item" id="sidebar-best" onclick="goSection('best')">Thẻ Best</div>
-        <div class="sidebar-note">
-          Thẻ được tạo bởi thành viên khi viết bài. Quản trị viên không thể tạo hoặc chỉnh sửa nội dung thẻ.
+        <div
+          class="sidebar-item active"
+          id="sidebar-list"
+          onclick="goSection('list')"
+        >
+          Danh sách thẻ
+        </div>
+        <div class="sidebar-item" id="sidebar-best" onclick="goSection('best')">
+          Thẻ Best
         </div>
       </aside>
 
@@ -223,9 +827,15 @@
             <div class="search-row">
               <span class="filter-label">Ngày sử dụng:</span>
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('list',-1)">‹</button>
-                <span class="date-display" id="list-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('list',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('list', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="list-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('list', 1)">
+                  ›
+                </button>
               </div>
               <div class="time-filters">
                 <button class="tf-btn">Ngày</button>
@@ -238,16 +848,24 @@
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-list">
-                <button class="criteria-btn" onclick="toggleCriteria('list',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('list', event)"
+                >
                   <span id="criteria-label-list">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
-              <input class="search-input-lg" placeholder="Nhập #thẻ hoặc ID/Tên hiển thị..." />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
-            </div>
-            <div style="margin-top: 8px; font-size: 11.5px; color: var(--gray-500); font-style: italic">
-              Khi nhập vào #thẻ, hệ thống sẽ tự động tìm kiếm và hiển thị danh sách bài viết chứa từ khóa đó.
+              <input
+                class="search-input-lg"
+                placeholder="Nhập #thẻ hoặc ID/Người tạo..."
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
@@ -260,12 +878,25 @@
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Thẻ đã chọn:</span>
-                <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-delete')">Xóa</button>
-                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('bulk-mark-best')">Gắn Best</button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openActionModal('bulk-delete')"
+                >
+                  Xóa
+                </button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openActionModal('bulk-mark-best')"
+                >
+                  Gắn Best
+                </button>
               </div>
               <div class="table-actions-right">
                 <div class="select-dropdown">
-                  <select id="sort-by-list" onchange="onSortChange('list', this.value)">
+                  <select
+                    id="sort-by-list"
+                    onchange="onSortChange('list', this.value)"
+                  >
                     <option value="usedDesc">Số lần sử dụng (giảm dần)</option>
                     <option value="usedAsc">Số lần sử dụng (tăng dần)</option>
                     <option value="newDesc">Ngày tạo mới nhất</option>
@@ -285,13 +916,33 @@
               <table>
                 <thead>
                   <tr>
-                    <th><input type="checkbox" onchange="toggleAll(this,'tbody-list')" /></th>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-list')"
+                      />
+                    </th>
                     <th>Tên thẻ</th>
-                    <th class="sortable" onclick="toggleSort('list','used')">Số lần sử dụng <span class="sort-arrow" id="sa-list-used">▼</span></th>
+                    <th class="sortable" onclick="toggleSort('list', 'used')">
+                      Số lần sử dụng
+                      <span class="sort-arrow" id="sa-list-used">▼</span>
+                    </th>
                     <th>Người tạo</th>
                     <th>Cấp bậc</th>
-                    <th class="sortable" onclick="toggleSort('list','created')">Ngày tạo <span class="sort-arrow" id="sa-list-created"></span></th>
-                    <th class="sortable" onclick="toggleSort('list','used-date')">Lần cuối sử dụng <span class="sort-arrow" id="sa-list-used-date"></span></th>
+                    <th
+                      class="sortable"
+                      onclick="toggleSort('list', 'created')"
+                    >
+                      Ngày tạo
+                      <span class="sort-arrow" id="sa-list-created"></span>
+                    </th>
+                    <th
+                      class="sortable"
+                      onclick="toggleSort('list', 'used-date')"
+                    >
+                      Lần cuối sử dụng
+                      <span class="sort-arrow" id="sa-list-used-date"></span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody id="tbody-list"></tbody>
@@ -322,9 +973,15 @@
             <div class="search-row">
               <span class="filter-label">Ngày sử dụng:</span>
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('best',-1)">‹</button>
-                <span class="date-display" id="best-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('best',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('best', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="best-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('best', 1)">
+                  ›
+                </button>
               </div>
               <div class="time-filters">
                 <button class="tf-btn">Ngày</button>
@@ -337,13 +994,24 @@
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-best">
-                <button class="criteria-btn" onclick="toggleCriteria('best',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('best', event)"
+                >
                   <span id="criteria-label-best">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
-              <input class="search-input-lg" placeholder="Nhập #thẻ hoặc ID/Tên hiển thị..." />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <input
+                class="search-input-lg"
+                placeholder="Nhập #thẻ hoặc ID/Người tạo..."
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
@@ -351,16 +1019,25 @@
         <div class="card">
           <div class="card-body">
             <div class="table-title">
-              • Quản lý thẻ Best <span class="count" id="best-count">0 thẻ</span>
+              • Quản lý thẻ Best
+              <span class="count" id="best-count">0 thẻ</span>
             </div>
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Thẻ đã chọn:</span>
-                <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-unmark-best')">Gỡ Best (trở về thẻ thường)</button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openActionModal('bulk-unmark-best')"
+                >
+                  Gỡ Best (trở về thẻ thường)
+                </button>
               </div>
               <div class="table-actions-right">
                 <div class="select-dropdown">
-                  <select id="sort-by-best" onchange="onSortChange('best', this.value)">
+                  <select
+                    id="sort-by-best"
+                    onchange="onSortChange('best', this.value)"
+                  >
                     <option value="usedDesc">Số lần sử dụng (giảm dần)</option>
                     <option value="usedAsc">Số lần sử dụng (tăng dần)</option>
                     <option value="newDesc">Ngày tạo mới nhất</option>
@@ -380,13 +1057,33 @@
               <table>
                 <thead>
                   <tr>
-                    <th><input type="checkbox" onchange="toggleAll(this,'tbody-best')" /></th>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-best')"
+                      />
+                    </th>
                     <th>Tên thẻ</th>
-                    <th class="sortable" onclick="toggleSort('best','used')">Số lần sử dụng <span class="sort-arrow" id="sa-best-used">▼</span></th>
+                    <th class="sortable" onclick="toggleSort('best', 'used')">
+                      Số lần sử dụng
+                      <span class="sort-arrow" id="sa-best-used">▼</span>
+                    </th>
                     <th>Người tạo</th>
                     <th>Cấp bậc</th>
-                    <th class="sortable" onclick="toggleSort('best','created')">Ngày tạo <span class="sort-arrow" id="sa-best-created"></span></th>
-                    <th class="sortable" onclick="toggleSort('best','used-date')">Lần cuối sử dụng <span class="sort-arrow" id="sa-best-used-date"></span></th>
+                    <th
+                      class="sortable"
+                      onclick="toggleSort('best', 'created')"
+                    >
+                      Ngày tạo
+                      <span class="sort-arrow" id="sa-best-created"></span>
+                    </th>
+                    <th
+                      class="sortable"
+                      onclick="toggleSort('best', 'used-date')"
+                    >
+                      Lần cuối sử dụng
+                      <span class="sort-arrow" id="sa-best-used-date"></span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody id="tbody-best"></tbody>
@@ -409,13 +1106,34 @@
     </div>
 
     <!-- ====== ACTION MODAL ====== -->
-    <div class="action-modal-backdrop" id="action-modal-backdrop" onclick="closeActionModal()">
-      <div class="action-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
         <h3 class="action-modal-title" id="action-modal-title">Xác nhận</h3>
-        <p class="action-modal-body" id="action-modal-body">Bạn có chắc chắn?</p>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn?
+        </p>
         <div class="action-modal-actions">
-          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeActionModal()">Hủy</button>
-          <button class="action-modal-btn action-modal-btn-confirm" onclick="confirmActionModal()">Xác nhận</button>
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
         </div>
       </div>
     </div>
@@ -423,32 +1141,150 @@
     <script>
       /* ====== DATA ====== */
       let tags = [
-        { id: "T001", name: "#giảm cân",      used: 788, creator: "tuongvy", grade: "Lv.3", created: "10-06-2025", lastUsed: "23-06-2025", isBest: true  },
-        { id: "T002", name: "#thuốc giảm cân", used: 712, creator: "vyvy",    grade: "Lv.1", created: "20-06-2025", lastUsed: "24-06-2025", isBest: true  },
-        { id: "T003", name: "#giảm mỡ",       used: 668, creator: "mymy",    grade: "Lv.2", created: "10-06-2025", lastUsed: "30-06-2025", isBest: true  },
-        { id: "T004", name: "#ăn kiêng",      used: 478, creator: "haihai",  grade: "Lv.2", created: "10-06-2025", lastUsed: "30-06-2025", isBest: false },
-        { id: "T005", name: "#skincare",      used: 932, creator: "ngocanh", grade: "Lv.3", created: "05-05-2025", lastUsed: "30-07-2025", isBest: false },
-        { id: "T006", name: "#serum B5",      used: 215, creator: "maimai",  grade: "Lv.1", created: "22-06-2025", lastUsed: "29-07-2025", isBest: false },
-        { id: "T007", name: "#chống nắng",    used: 1240, creator: "kosmetik.lab", grade: "KOL", created: "01-05-2025", lastUsed: "30-07-2025", isBest: true  },
-        { id: "T008", name: "#trị mụn",       used: 845, creator: "Thu.skin", grade: "Chuyên gia", created: "12-04-2025", lastUsed: "28-07-2025", isBest: false },
-        { id: "T009", name: "#niềng răng",    used: 410, creator: "Khanh.clinic", grade: "Chuyên gia", created: "20-05-2025", lastUsed: "25-07-2025", isBest: false },
-        { id: "T010", name: "#botox",         used: 320, creator: "drAnh.skin", grade: "Bác sĩ", created: "15-06-2025", lastUsed: "30-07-2025", isBest: false },
-        { id: "T011", name: "#nâng mũi",      used: 285, creator: "drAnh.skin", grade: "Bác sĩ", created: "10-06-2025", lastUsed: "29-07-2025", isBest: false },
-        { id: "T012", name: "#peel da",       used: 198, creator: "haiyen.beauty", grade: "KOL", created: "18-06-2025", lastUsed: "28-07-2025", isBest: false },
+        {
+          id: "T001",
+          name: "#giảm cân",
+          used: 788,
+          creator: "tuongvy",
+          grade: "Lv.3",
+          created: "10-06-2025 16:53",
+          lastUsed: "23-06-2025 09:34",
+          isBest: true,
+        },
+        {
+          id: "T002",
+          name: "#thuốc giảm cân",
+          used: 712,
+          creator: "vyvy",
+          grade: "Lv.1",
+          created: "20-06-2025 16:43",
+          lastUsed: "24-06-2025 16:51",
+          isBest: true,
+        },
+        {
+          id: "T003",
+          name: "#giảm mỡ",
+          used: 668,
+          creator: "mymy",
+          grade: "Lv.2",
+          created: "10-06-2025 16:53",
+          lastUsed: "30-06-2025 16:33",
+          isBest: true,
+        },
+        {
+          id: "T004",
+          name: "#ăn kiêng",
+          used: 478,
+          creator: "haihai",
+          grade: "Lv.2",
+          created: "10-06-2025 16:53",
+          lastUsed: "30-06-2025 16:33",
+          isBest: false,
+        },
+        {
+          id: "T005",
+          name: "#skincare",
+          used: 932,
+          creator: "ngocanh",
+          grade: "Lv.3",
+          created: "05-05-2025 10:05",
+          lastUsed: "30-07-2025 15:56",
+          isBest: false,
+        },
+        {
+          id: "T006",
+          name: "#serum B5",
+          used: 215,
+          creator: "maimai",
+          grade: "Lv.1",
+          created: "22-06-2025 16:17",
+          lastUsed: "29-07-2025 08:39",
+          isBest: false,
+        },
+        {
+          id: "T007",
+          name: "#chống nắng",
+          used: 1240,
+          creator: "kosmetik.lab",
+          grade: "KOL",
+          created: "01-05-2025 10:57",
+          lastUsed: "30-07-2025 15:56",
+          isBest: true,
+        },
+        {
+          id: "T008",
+          name: "#trị mụn",
+          used: 845,
+          creator: "Thu.skin",
+          grade: "Chuyên gia",
+          created: "12-04-2025 18:41",
+          lastUsed: "28-07-2025 15:22",
+          isBest: false,
+        },
+        {
+          id: "T009",
+          name: "#niềng răng",
+          used: 410,
+          creator: "Khanh.clinic",
+          grade: "Chuyên gia",
+          created: "20-05-2025 17:20",
+          lastUsed: "25-07-2025 08:31",
+          isBest: false,
+        },
+        {
+          id: "T010",
+          name: "#botox",
+          used: 320,
+          creator: "drAnh.skin",
+          grade: "Bác sĩ",
+          created: "15-06-2025 09:18",
+          lastUsed: "30-07-2025 15:56",
+          isBest: false,
+        },
+        {
+          id: "T011",
+          name: "#nâng mũi",
+          used: 285,
+          creator: "drAnh.skin",
+          grade: "Bác sĩ",
+          created: "10-06-2025 16:53",
+          lastUsed: "29-07-2025 08:39",
+          isBest: false,
+        },
+        {
+          id: "T012",
+          name: "#peel da",
+          used: 198,
+          creator: "haiyen.beauty",
+          grade: "KOL",
+          created: "18-06-2025 16:09",
+          lastUsed: "28-07-2025 15:22",
+          isBest: false,
+        },
       ];
 
-      const SEARCH_CRITERIA = ["ID", "Tên hiển thị", "Thẻ"];
+      const SEARCH_CRITERIA = ["ID", "Người tạo", "Thẻ"];
       let currentSection = "list";
       let sortBy = { list: "usedDesc", best: "usedDesc" };
-      let sortColumn = { list: { col: "used", dir: "desc" }, best: { col: "used", dir: "desc" } };
+      let sortColumn = {
+        list: { col: "used", dir: "desc" },
+        best: { col: "used", dir: "desc" },
+      };
       let selectedIds = { list: new Set(), best: new Set() };
       let pendingAction = null;
 
       /* ====== HELPERS ====== */
       function escText(s) {
-        return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
       }
-      function fmtNum(n) { return Number(n || 0).toLocaleString("vi-VN"); }
+      function fmtNum(n) {
+        return Number(n || 0).toLocaleString("vi-VN");
+      }
       function parseDate(s) {
         const m = String(s || "").match(/^(\d{2})-(\d{2})-(\d{4})$/);
         if (!m) return new Date(0);
@@ -458,27 +1294,40 @@
       /* ====== NAVIGATION ====== */
       function goSection(section) {
         currentSection = section;
-        document.querySelectorAll(".sidebar-item").forEach((el) => el.classList.remove("active"));
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((el) => el.classList.remove("active"));
         document.getElementById("sidebar-" + section)?.classList.add("active");
-        document.querySelectorAll(".main.page").forEach((el) => el.classList.remove("active"));
+        document
+          .querySelectorAll(".main.page")
+          .forEach((el) => el.classList.remove("active"));
         document.getElementById("page-" + section)?.classList.add("active");
         closeAllMenus();
       }
 
-      function shiftDate(target, dir) { alert("Chuyển khoảng thời gian: " + (dir > 0 ? "tiếp theo" : "trước đó")); }
+      function shiftDate(target, dir) {
+        alert(
+          "Chuyển khoảng thời gian: " + (dir > 0 ? "tiếp theo" : "trước đó"),
+        );
+      }
 
       /* ====== CRITERIA ====== */
       function renderCriteriaMenu(target) {
-        const menu = document.querySelector(`#criteria-${target} .criteria-menu`);
+        const menu = document.querySelector(
+          `#criteria-${target} .criteria-menu`,
+        );
         if (!menu) return;
-        menu.innerHTML = SEARCH_CRITERIA
-          .map((opt) => `<button class="criteria-option" onclick="selectCriteria('${target}','${escText(opt)}')">${escText(opt)}</button>`)
-          .join("");
+        menu.innerHTML = SEARCH_CRITERIA.map(
+          (opt) =>
+            `<button class="criteria-option" onclick="selectCriteria('${target}','${escText(opt)}')">${escText(opt)}</button>`,
+        ).join("");
       }
       function toggleCriteria(target, e) {
         e.stopPropagation();
         const wrap = document.getElementById("criteria-" + target);
-        document.querySelectorAll(".criteria-wrap.open").forEach((w) => { if (w !== wrap) w.classList.remove("open"); });
+        document.querySelectorAll(".criteria-wrap.open").forEach((w) => {
+          if (w !== wrap) w.classList.remove("open");
+        });
         wrap?.classList.toggle("open");
       }
       function selectCriteria(target, label) {
@@ -493,8 +1342,12 @@
         menuEl.classList.toggle("open");
       }
       function closeAllMenus() {
-        document.querySelectorAll(".cell-menu.open").forEach((m) => m.classList.remove("open"));
-        document.querySelectorAll(".criteria-wrap.open").forEach((w) => w.classList.remove("open"));
+        document
+          .querySelectorAll(".cell-menu.open")
+          .forEach((m) => m.classList.remove("open"));
+        document
+          .querySelectorAll(".criteria-wrap.open")
+          .forEach((w) => w.classList.remove("open"));
       }
 
       /* ====== SORT ====== */
@@ -504,16 +1357,22 @@
         const sign = dir === "asc" ? 1 : -1;
         return [...arr].sort((a, b) => {
           if (col === "used") return sign * (a.used - b.used);
-          if (col === "created") return sign * (parseDate(a.created) - parseDate(b.created));
-          if (col === "used-date") return sign * (parseDate(a.lastUsed) - parseDate(b.lastUsed));
+          if (col === "created")
+            return sign * (parseDate(a.created) - parseDate(b.created));
+          if (col === "used-date")
+            return sign * (parseDate(a.lastUsed) - parseDate(b.lastUsed));
           return 0;
         });
       }
 
       function toggleSort(target, col) {
         const s = sortColumn[target];
-        if (s.col === col) { s.dir = s.dir === "asc" ? "desc" : "asc"; }
-        else { s.col = col; s.dir = "desc"; }
+        if (s.col === col) {
+          s.dir = s.dir === "asc" ? "desc" : "asc";
+        } else {
+          s.col = col;
+          s.dir = "desc";
+        }
         renderArrows(target);
         if (target === "list") renderListTable();
         else renderBestTable();
@@ -526,16 +1385,27 @@
           const el = document.getElementById(`sa-${target}-${c}`);
           if (!el) return;
           el.textContent = s.col === c ? (s.dir === "asc" ? "▲" : "▼") : "";
-          el.parentElement.classList.toggle("sorted-asc", s.col === c && s.dir === "asc");
-          el.parentElement.classList.toggle("sorted-desc", s.col === c && s.dir === "desc");
+          el.parentElement.classList.toggle(
+            "sorted-asc",
+            s.col === c && s.dir === "asc",
+          );
+          el.parentElement.classList.toggle(
+            "sorted-desc",
+            s.col === c && s.dir === "desc",
+          );
         });
       }
 
       function onSortChange(target, value) {
-        if (value === "usedDesc")      { sortColumn[target] = { col: "used", dir: "desc" }; }
-        else if (value === "usedAsc")  { sortColumn[target] = { col: "used", dir: "asc" }; }
-        else if (value === "newDesc")  { sortColumn[target] = { col: "created", dir: "desc" }; }
-        else if (value === "newAsc")   { sortColumn[target] = { col: "created", dir: "asc" }; }
+        if (value === "usedDesc") {
+          sortColumn[target] = { col: "used", dir: "desc" };
+        } else if (value === "usedAsc") {
+          sortColumn[target] = { col: "used", dir: "asc" };
+        } else if (value === "newDesc") {
+          sortColumn[target] = { col: "created", dir: "desc" };
+        } else if (value === "newAsc") {
+          sortColumn[target] = { col: "created", dir: "asc" };
+        }
         renderArrows(target);
         if (target === "list") renderListTable();
         else renderBestTable();
@@ -548,7 +1418,9 @@
       }
       function toggleAll(chk, tbodyId) {
         const target = tbodyId.replace("tbody-", "");
-        const boxes = document.querySelectorAll(`#${tbodyId} input[type=checkbox]`);
+        const boxes = document.querySelectorAll(
+          `#${tbodyId} input[type=checkbox]`,
+        );
         boxes.forEach((b) => {
           b.checked = chk.checked;
           const id = b.getAttribute("data-id");
@@ -564,8 +1436,11 @@
         const tbody = document.getElementById("tbody-list");
         if (!tbody) return;
         const sorted = sortTags(tags, "list");
-        document.getElementById("list-count").textContent = `${sorted.length} thẻ`;
-        tbody.innerHTML = sorted.map((t) => `
+        document.getElementById("list-count").textContent =
+          `${sorted.length} thẻ`;
+        tbody.innerHTML = sorted
+          .map(
+            (t) => `
           <tr>
             <td><input type="checkbox" data-id="${escText(t.id)}" onchange="toggleRow(this,'list','${escText(t.id)}')"/></td>
             <td class="td-left">
@@ -574,10 +1449,12 @@
                   <span class="tag-chip ${t.isBest ? "best is-best-mark" : ""}">${escText(t.name)}</span>
                 </button>
                 <div class="menu-list">
-                  <button class="menu-item" onclick="alert('Tìm bài viết chứa thẻ ${escText(t.name).replace(/'/g,"&#39;")} (đang phát triển).')">Tìm bài viết chứa thẻ này</button>
-                  ${t.isBest
-                    ? `<button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ Best</button>`
-                    : `<button class="menu-item" onclick="openTagAction('mark-best','${escText(t.id)}')">Đánh Best</button>`}
+                  <button class="menu-item" onclick="alert('Tìm bài viết chứa thẻ ${escText(t.name).replace(/'/g, "&#39;")} (đang phát triển).')">Tìm bài viết chứa thẻ này</button>
+                  ${
+                    t.isBest
+                      ? `<button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ Best</button>`
+                      : `<button class="menu-item" onclick="openTagAction('mark-best','${escText(t.id)}')">Đánh Best</button>`
+                  }
                   <button class="menu-item" onclick="openTagAction('delete-tag','${escText(t.id)}')">Xóa thẻ</button>
                 </div>
               </div>
@@ -587,7 +1464,9 @@
             <td>${escText(t.grade)}</td>
             <td>${escText(t.created)}</td>
             <td>${escText(t.lastUsed)}</td>
-          </tr>`).join("");
+          </tr>`,
+          )
+          .join("");
       }
 
       /* ====== RENDER BEST TABLE (9.2) ====== */
@@ -596,8 +1475,11 @@
         if (!tbody) return;
         const onlyBest = tags.filter((t) => t.isBest);
         const sorted = sortTags(onlyBest, "best");
-        document.getElementById("best-count").textContent = `${sorted.length} thẻ`;
-        tbody.innerHTML = sorted.map((t) => `
+        document.getElementById("best-count").textContent =
+          `${sorted.length} thẻ`;
+        tbody.innerHTML = sorted
+          .map(
+            (t) => `
           <tr>
             <td><input type="checkbox" data-id="${escText(t.id)}" onchange="toggleRow(this,'best','${escText(t.id)}')"/></td>
             <td class="td-left">
@@ -606,7 +1488,7 @@
                   <span class="tag-chip best is-best-mark">${escText(t.name)}</span>
                 </button>
                 <div class="menu-list">
-                  <button class="menu-item" onclick="alert('Tìm bài viết chứa thẻ ${escText(t.name).replace(/'/g,"&#39;")} (đang phát triển).')">Tìm bài viết chứa thẻ này</button>
+                  <button class="menu-item" onclick="alert('Tìm bài viết chứa thẻ ${escText(t.name).replace(/'/g, "&#39;")} (đang phát triển).')">Tìm bài viết chứa thẻ này</button>
                   <button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ Best</button>
                 </div>
               </div>
@@ -616,17 +1498,45 @@
             <td>${escText(t.grade)}</td>
             <td>${escText(t.created)}</td>
             <td>${escText(t.lastUsed)}</td>
-          </tr>`).join("");
+          </tr>`,
+          )
+          .join("");
       }
 
       /* ====== ACTION MODAL ====== */
       const actionMap = {
-        "mark-best": { title: "Đánh dấu thẻ Best", body: "Thẻ sẽ được thêm vào mục Thẻ Best.", done: "Đã đánh Best.", primary: true },
-        "unmark-best": { title: "Gỡ Best", body: "Thẻ sẽ bị gỡ khỏi Thẻ Best, trở về thẻ thường.", done: "Đã gỡ Best." },
-        "delete-tag": { title: "Xóa thẻ", body: "Thẻ sẽ bị xóa khỏi hệ thống và không còn dùng được trong bài viết.", done: "Đã xóa thẻ." },
-        "bulk-mark-best": { title: "Gắn Best các thẻ đã chọn", body: "Các thẻ sẽ được thêm vào mục Thẻ Best.", done: "Đã đánh Best.", primary: true },
-        "bulk-delete": { title: "Xóa các thẻ đã chọn", body: "Các thẻ sẽ bị xóa khỏi hệ thống.", done: "Đã xóa các thẻ." },
-        "bulk-unmark-best": { title: "Gỡ Best các thẻ đã chọn", body: "Các thẻ sẽ trở về thẻ thường.", done: "Đã gỡ Best." },
+        "mark-best": {
+          title: "Đánh dấu thẻ Best",
+          body: "Thẻ sẽ được thêm vào mục Thẻ Best.",
+          done: "Đã đánh Best.",
+          primary: true,
+        },
+        "unmark-best": {
+          title: "Gỡ Best",
+          body: "Thẻ sẽ bị gỡ khỏi Thẻ Best, trở về thẻ thường.",
+          done: "Đã gỡ Best.",
+        },
+        "delete-tag": {
+          title: "Xóa thẻ",
+          body: "Thẻ sẽ bị xóa khỏi hệ thống và không còn dùng được trong bài viết.",
+          done: "Đã xóa thẻ.",
+        },
+        "bulk-mark-best": {
+          title: "Gắn Best các thẻ đã chọn",
+          body: "Các thẻ sẽ được thêm vào mục Thẻ Best.",
+          done: "Đã đánh Best.",
+          primary: true,
+        },
+        "bulk-delete": {
+          title: "Xóa các thẻ đã chọn",
+          body: "Các thẻ sẽ bị xóa khỏi hệ thống.",
+          done: "Đã xóa các thẻ.",
+        },
+        "bulk-unmark-best": {
+          title: "Gỡ Best các thẻ đã chọn",
+          body: "Các thẻ sẽ trở về thẻ thường.",
+          done: "Đã gỡ Best.",
+        },
       };
 
       function openTagAction(type, id) {
@@ -639,7 +1549,12 @@
       function openActionModal(type) {
         const cfg = actionMap[type];
         if (!cfg) return;
-        const target = type.includes("best") && !type.includes("unmark") ? "list" : (type === "bulk-unmark-best" ? "best" : "list");
+        const target =
+          type.includes("best") && !type.includes("unmark")
+            ? "list"
+            : type === "bulk-unmark-best"
+              ? "best"
+              : "list";
         const count = selectedIds[target].size;
         if (count === 0) {
           alert("Vui lòng chọn ít nhất 1 thẻ.");
@@ -651,12 +1566,16 @@
       function openActionModalCore(cfg) {
         document.getElementById("action-modal-title").textContent = cfg.title;
         document.getElementById("action-modal-body").textContent = cfg.body;
-        const btn = document.querySelector("#action-modal-backdrop .action-modal-btn-confirm");
+        const btn = document.querySelector(
+          "#action-modal-backdrop .action-modal-btn-confirm",
+        );
         btn.classList.toggle("is-primary", !!cfg.primary);
         document.getElementById("action-modal-backdrop").classList.add("open");
       }
       function closeActionModal() {
-        document.getElementById("action-modal-backdrop").classList.remove("open");
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
         pendingAction = null;
       }
       function confirmActionModal() {
@@ -673,13 +1592,17 @@
         } else if (type === "delete-tag" && id) {
           tags = tags.filter((x) => x.id !== id);
         } else if (type === "bulk-mark-best") {
-          tags.forEach((t) => { if (selectedIds.list.has(t.id)) t.isBest = true; });
+          tags.forEach((t) => {
+            if (selectedIds.list.has(t.id)) t.isBest = true;
+          });
           selectedIds.list.clear();
         } else if (type === "bulk-delete") {
           tags = tags.filter((t) => !selectedIds.list.has(t.id));
           selectedIds.list.clear();
         } else if (type === "bulk-unmark-best") {
-          tags.forEach((t) => { if (selectedIds.best.has(t.id)) t.isBest = false; });
+          tags.forEach((t) => {
+            if (selectedIds.best.has(t.id)) t.isBest = false;
+          });
           selectedIds.best.clear();
         }
         renderListTable();

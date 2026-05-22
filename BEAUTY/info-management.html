@@ -567,17 +567,6 @@
         transform: translateX(26px);
       }
 
-      .info-note {
-        margin: 0 0 14px;
-        padding: 10px 14px;
-        font-size: 11.5px;
-        color: var(--warning);
-        background: var(--warning-light);
-        border: 1px solid var(--warning);
-        border-radius: 8px;
-        font-weight: 500;
-      }
-
       /* ====== ACTION MODAL ====== */
       .action-modal-backdrop {
         position: fixed;
@@ -650,8 +639,12 @@
       <nav class="header-nav">
         <a class="nav-item" href="home-management.html">Trang chủ</a>
         <div class="nav-item active">Quản lý thông tin</div>
-        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
-        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="virtual-member-management.html"
+          >Thành viên ảo</a
+        >
+        <a class="nav-item" href="real-member-staff.html"
+          >Thành viên thực, staff</a
+        >
         <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
         <div class="nav-item nav-item-group">
           Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
@@ -663,13 +656,21 @@
           </div>
         </div>
         <a class="nav-item" href="menu-management.html">Menu</a>
-        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="post-comment-management.html"
+          >Bài viết. Bình luận</a
+        >
         <a class="nav-item" href="tag-management.html">Thẻ</a>
-        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="report-management.html"
+          >Từ cấm. Spam. Báo cáo</a
+        >
         <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
-        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="reward-badge-management.html"
+          >Điểm thưởng. Huy hiệu</a
+        >
         <a class="nav-item" href="statistics-management.html">Thống kê</a>
-        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+        <a class="nav-item" href="push-notification-management.html"
+          >Thông báo đẩy</a
+        >
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -683,23 +684,40 @@
     <div class="app-body">
       <aside class="sidebar">
         <div class="sidebar-label">Quản lý thông tin</div>
-        <div class="sidebar-item active" id="sidebar-business-info" onclick="goSection('business-info')">
+        <div
+          class="sidebar-item active"
+          id="sidebar-business-info"
+          onclick="goSection('business-info')"
+        >
           Thay đổi thông tin doanh nghiệp
         </div>
-        <div class="sidebar-item" id="sidebar-terms" onclick="goSection('terms')">
+        <div
+          class="sidebar-item"
+          id="sidebar-terms"
+          onclick="goSection('terms')"
+        >
           Thay đổi điều khoản
         </div>
-        <div class="sidebar-item" id="sidebar-slogan" onclick="goSection('slogan')">
+        <div
+          class="sidebar-item"
+          id="sidebar-slogan"
+          onclick="goSection('slogan')"
+        >
           Thay đổi slogan
         </div>
-        <div class="sidebar-item" id="sidebar-welcome" onclick="goSection('welcome')">
+        <div
+          class="sidebar-item"
+          id="sidebar-welcome"
+          onclick="goSection('welcome')"
+        >
           Thay đổi Thông báo hoàn tất đăng ký
         </div>
-        <div class="sidebar-item" id="sidebar-pause" onclick="goSection('pause')">
+        <div
+          class="sidebar-item"
+          id="sidebar-pause"
+          onclick="goSection('pause')"
+        >
           Tạm dừng. Hủy tạm dừng
-        </div>
-        <div class="sidebar-note">
-          ⚠ Chỉ Quản trị viên cấp 3 mới có quyền truy cập menu này.
         </div>
       </aside>
 
@@ -712,7 +730,10 @@
             <div class="card-head">
               <div class="card-head-title">Thông tin doanh nghiệp</div>
               <div id="biz-action-view">
-                <button class="btn btn-outline-primary" onclick="enterEditBiz()">
+                <button
+                  class="btn btn-outline-primary"
+                  onclick="enterEditBiz()"
+                >
                   Chỉnh sửa
                 </button>
               </div>
@@ -748,19 +769,20 @@
 
             <!-- Edit mode -->
             <div id="biz-edit" style="display: none">
-              <div class="info-note">
-                Tất cả các trường đều bắt buộc, trừ Liên kết mạng xã hội.
-              </div>
               <div class="kv-list">
                 <div class="kv-row">
-                  <div class="kv-label">Mã số đăng ký kinh doanh <span class="req">*</span></div>
+                  <div class="kv-label">
+                    Mã số đăng ký kinh doanh <span class="req">*</span>
+                  </div>
                   <div>
                     <input class="form-input" id="bf-code" />
                     <div class="error-text" id="err-code"></div>
                   </div>
                 </div>
                 <div class="kv-row">
-                  <div class="kv-label">Tên công ty <span class="req">*</span></div>
+                  <div class="kv-label">
+                    Tên công ty <span class="req">*</span>
+                  </div>
                   <div>
                     <input class="form-input" id="bf-name" />
                     <div class="error-text" id="err-name"></div>
@@ -774,14 +796,18 @@
                   </div>
                 </div>
                 <div class="kv-row">
-                  <div class="kv-label">Thông tin liên hệ <span class="req">*</span></div>
+                  <div class="kv-label">
+                    Thông tin liên hệ <span class="req">*</span>
+                  </div>
                   <div>
                     <input class="form-input" id="bf-contact" />
                     <div class="error-text" id="err-contact"></div>
                   </div>
                 </div>
                 <div class="kv-row">
-                  <div class="kv-label">Copyright <span class="req">*</span></div>
+                  <div class="kv-label">
+                    Copyright <span class="req">*</span>
+                  </div>
                   <div>
                     <input class="form-input" id="bf-copyright" />
                     <div class="error-text" id="err-copyright"></div>
@@ -791,14 +817,23 @@
                   <div class="kv-label">Liên kết mạng xã hội</div>
                   <div>
                     <div id="bf-social-list"></div>
-                    <button class="btn btn-outline-primary btn-sm" onclick="addSocialRow()" type="button">
+                    <button
+                      class="btn btn-outline-primary btn-sm"
+                      onclick="addSocialRow()"
+                      type="button"
+                    >
                       + Add more
                     </button>
                   </div>
                 </div>
               </div>
               <div class="form-actions">
-                <button class="btn btn-outline-danger" onclick="cancelEditBiz()">Hủy</button>
+                <button
+                  class="btn btn-outline-danger"
+                  onclick="cancelEditBiz()"
+                >
+                  Hủy
+                </button>
                 <button class="btn btn-primary" onclick="saveBiz()">Lưu</button>
               </div>
             </div>
@@ -815,7 +850,10 @@
             <div class="card-head">
               <div class="card-head-title">Điều khoản</div>
               <div id="terms-action-view">
-                <button class="btn btn-outline-primary" onclick="enterEditTerms()">
+                <button
+                  class="btn btn-outline-primary"
+                  onclick="enterEditTerms()"
+                >
                   Chỉnh sửa
                 </button>
               </div>
@@ -828,10 +866,20 @@
 
             <!-- Edit mode -->
             <div id="terms-edit" style="display: none">
-              <textarea class="terms-content editing" id="terms-textarea"></textarea>
+              <textarea
+                class="terms-content editing"
+                id="terms-textarea"
+              ></textarea>
               <div class="form-actions">
-                <button class="btn btn-outline-danger" onclick="cancelEditTerms()">Hủy</button>
-                <button class="btn btn-primary" onclick="saveTerms()">Lưu</button>
+                <button
+                  class="btn btn-outline-danger"
+                  onclick="cancelEditTerms()"
+                >
+                  Hủy
+                </button>
+                <button class="btn btn-primary" onclick="saveTerms()">
+                  Lưu
+                </button>
               </div>
             </div>
           </div>
@@ -847,7 +895,10 @@
             <div class="card-head">
               <div class="card-head-title">Slogan</div>
               <div id="slogan-action-view">
-                <button class="btn btn-outline-primary" onclick="enterEditSlogan()">
+                <button
+                  class="btn btn-outline-primary"
+                  onclick="enterEditSlogan()"
+                >
                   Chỉnh sửa
                 </button>
               </div>
@@ -856,7 +907,9 @@
             <div id="slogan-view" class="kv-list">
               <div class="kv-row">
                 <div class="kv-label">Slogan</div>
-                <div class="kv-value" id="view-slogan">Làm đẹp cùng Macaron</div>
+                <div class="kv-value" id="view-slogan">
+                  Làm đẹp cùng Macaron
+                </div>
               </div>
             </div>
 
@@ -871,8 +924,15 @@
                 </div>
               </div>
               <div class="form-actions">
-                <button class="btn btn-outline-danger" onclick="cancelEditSlogan()">Hủy</button>
-                <button class="btn btn-primary" onclick="saveSlogan()">Lưu</button>
+                <button
+                  class="btn btn-outline-danger"
+                  onclick="cancelEditSlogan()"
+                >
+                  Hủy
+                </button>
+                <button class="btn btn-primary" onclick="saveSlogan()">
+                  Lưu
+                </button>
               </div>
             </div>
           </div>
@@ -888,7 +948,10 @@
             <div class="card-head">
               <div class="card-head-title">Thông báo hoàn tất đăng ký</div>
               <div id="welcome-action-view">
-                <button class="btn btn-outline-primary" onclick="enterEditWelcome()">
+                <button
+                  class="btn btn-outline-primary"
+                  onclick="enterEditWelcome()"
+                >
                   Chỉnh sửa
                 </button>
               </div>
@@ -906,7 +969,9 @@
             <div id="welcome-edit" style="display: none">
               <div class="kv-list">
                 <div class="kv-row">
-                  <div class="kv-label">Thông báo <span class="req">*</span></div>
+                  <div class="kv-label">
+                    Thông báo <span class="req">*</span>
+                  </div>
                   <div>
                     <input class="form-input" id="wf-welcome" />
                     <div class="error-text" id="err-welcome"></div>
@@ -914,8 +979,15 @@
                 </div>
               </div>
               <div class="form-actions">
-                <button class="btn btn-outline-danger" onclick="cancelEditWelcome()">Hủy</button>
-                <button class="btn btn-primary" onclick="saveWelcome()">Lưu</button>
+                <button
+                  class="btn btn-outline-danger"
+                  onclick="cancelEditWelcome()"
+                >
+                  Hủy
+                </button>
+                <button class="btn btn-primary" onclick="saveWelcome()">
+                  Lưu
+                </button>
               </div>
             </div>
           </div>
@@ -928,19 +1000,21 @@
 
         <div class="card">
           <div class="card-body">
-            <div class="info-note">
-              Khi bật chế độ tạm dừng, người dùng cuối sẽ không thể truy cập ứng dụng. Hãy ghi rõ lý do.
-            </div>
-
             <div class="toggle-row">
               <div class="toggle-info">
                 <div class="label">Trạng thái dịch vụ</div>
                 <div class="status">
                   Hiện tại:
-                  <span class="toggle-status-chip on" id="pause-chip">Đang hoạt động</span>
+                  <span class="toggle-status-chip on" id="pause-chip"
+                    >Đang hoạt động</span
+                  >
                 </div>
               </div>
-              <div class="toggle-switch" id="pause-toggle" onclick="requestTogglePause()"></div>
+              <div
+                class="toggle-switch"
+                id="pause-toggle"
+                onclick="requestTogglePause()"
+              ></div>
             </div>
 
             <div class="kv-list">
@@ -962,13 +1036,35 @@
     </div>
 
     <!-- ====== ACTION MODAL ====== -->
-    <div class="action-modal-backdrop" id="action-modal-backdrop" onclick="closeActionModal()">
-      <div class="action-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
         <h3 class="action-modal-title" id="action-modal-title">Xác nhận</h3>
-        <p class="action-modal-body" id="action-modal-body">Bạn có chắc chắn?</p>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn?
+        </p>
         <div class="action-modal-actions">
-          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeActionModal()">Hủy</button>
-          <button class="action-modal-btn action-modal-btn-confirm" id="action-modal-confirm" onclick="confirmActionModal()">Xác nhận</button>
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            id="action-modal-confirm"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
         </div>
       </div>
     </div>
@@ -1055,17 +1151,25 @@
 
       /* ====== BUSINESS INFO ====== */
       function renderBizView() {
-        document.getElementById("view-biz-code").textContent = businessInfo.code;
-        document.getElementById("view-biz-name").textContent = businessInfo.name;
-        document.getElementById("view-biz-address").textContent = businessInfo.address;
-        document.getElementById("view-biz-contact").textContent = businessInfo.contact;
-        document.getElementById("view-biz-copyright").textContent = businessInfo.copyright;
+        document.getElementById("view-biz-code").textContent =
+          businessInfo.code;
+        document.getElementById("view-biz-name").textContent =
+          businessInfo.name;
+        document.getElementById("view-biz-address").textContent =
+          businessInfo.address;
+        document.getElementById("view-biz-contact").textContent =
+          businessInfo.contact;
+        document.getElementById("view-biz-copyright").textContent =
+          businessInfo.copyright;
         const social = document.getElementById("view-biz-social");
         if (businessInfo.socials.length === 0) {
           social.innerHTML = `<div class="kv-value muted">Chưa có liên kết</div>`;
         } else {
           social.innerHTML = businessInfo.socials
-            .map((s) => `<div class="kv-value" style="margin-bottom:6px">${escText(s)}</div>`)
+            .map(
+              (s) =>
+                `<div class="kv-value" style="margin-bottom:6px">${escText(s)}</div>`,
+            )
             .join("");
         }
       }
@@ -1158,10 +1262,10 @@
       function saveBiz() {
         clearBizErrors();
         const fields = [
-          { id: "code",      label: "Mã số đăng ký kinh doanh" },
-          { id: "name",      label: "Tên công ty" },
-          { id: "address",   label: "Địa chỉ" },
-          { id: "contact",   label: "Thông tin liên hệ" },
+          { id: "code", label: "Mã số đăng ký kinh doanh" },
+          { id: "name", label: "Tên công ty" },
+          { id: "address", label: "Địa chỉ" },
+          { id: "contact", label: "Thông tin liên hệ" },
           { id: "copyright", label: "Copyright" },
         ];
         let firstInvalid = null;
@@ -1182,9 +1286,15 @@
         }
         businessInfo.code = document.getElementById("bf-code").value.trim();
         businessInfo.name = document.getElementById("bf-name").value.trim();
-        businessInfo.address = document.getElementById("bf-address").value.trim();
-        businessInfo.contact = document.getElementById("bf-contact").value.trim();
-        businessInfo.copyright = document.getElementById("bf-copyright").value.trim();
+        businessInfo.address = document
+          .getElementById("bf-address")
+          .value.trim();
+        businessInfo.contact = document
+          .getElementById("bf-contact")
+          .value.trim();
+        businessInfo.copyright = document
+          .getElementById("bf-copyright")
+          .value.trim();
         businessInfo.socials = readSocialEditList();
         delete businessInfo._draftSocials;
         renderBizView();
@@ -1370,7 +1480,9 @@
         document.getElementById("action-modal-backdrop").classList.add("open");
       }
       function closeActionModal() {
-        document.getElementById("action-modal-backdrop").classList.remove("open");
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
         pendingActionFn = null;
         pendingPause = null;
       }

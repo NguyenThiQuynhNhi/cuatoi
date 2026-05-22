@@ -114,7 +114,7 @@
         background: rgba(255, 255, 255, 0.18);
         color: white;
       }
-            .nav-item-group {
+      .nav-item-group {
         position: relative;
       }
       .nav-item-group .nav-dropdown {
@@ -156,7 +156,7 @@
         text-decoration: none;
         display: inline-block;
       }
-.nav-item.active {
+      .nav-item.active {
         background: rgba(255, 255, 255, 0.22);
         font-weight: 600;
       }
@@ -234,12 +234,6 @@
       .sidebar-item svg {
         width: 16px;
         height: 16px;
-      }
-      .sidebar-group-label {
-        font-size: 11.5px;
-        color: var(--gray-500);
-        font-style: italic;
-        padding: 12px 16px 4px;
       }
       .sidebar-item.sub {
         padding-left: 32px;
@@ -732,6 +726,32 @@
         font-size: 12px;
         cursor: default;
       }
+      .note-edit-area {
+        width: 100%;
+        min-height: 56px;
+        resize: vertical;
+        border: 1.5px solid var(--primary);
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+        margin-bottom: 6px;
+        box-sizing: border-box;
+      }
+      .note-edit-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        justify-content: flex-end;
+      }
+      td.note-cell {
+        cursor: pointer;
+      }
+      td.note-cell.editing {
+        background: var(--primary-light);
+      }
 
       /* ====== STATUS SELECT (per-row) ====== */
       .status-select {
@@ -812,6 +832,35 @@
         border-color: var(--primary);
         color: white;
         font-weight: 700;
+      }
+
+      /* ====== SUB-TABS ====== */
+      .sub-tabs {
+        display: flex;
+        gap: 0;
+        border-bottom: 1.5px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .sub-tab {
+        padding: 10px 20px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1.5px;
+        background: none;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        font-family: inherit;
+      }
+      .sub-tab:hover {
+        color: var(--gray-700);
+      }
+      .sub-tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
       }
 
       /* ====== HINT BOX ====== */
@@ -905,6 +954,53 @@
         background: var(--accent);
         color: white;
       }
+
+      /* ====== LARGE MODAL (suspend / force-leave) ====== */
+      .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 270;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-backdrop.open { display: flex; }
+      .modal-box {
+        background: white;
+        border-radius: 10px;
+        max-width: 95vw;
+        max-height: 92vh;
+        overflow: auto;
+        box-shadow: var(--shadow-md);
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .modal-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin: 0; }
+      .modal-close { background: none; border: none; font-size: 22px; line-height: 1; color: var(--gray-500); cursor: pointer; padding: 0 4px; }
+      .modal-close:hover { color: var(--gray-900); }
+      .modal-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; }
+      .modal-body .form-group { display: flex; flex-direction: column; gap: 6px; }
+      .modal-body .form-label { font-size: 12.5px; font-weight: 600; color: var(--gray-700); }
+      .modal-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 18px 16px; border-top: 1px solid var(--gray-200); }
+      .radio-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+        cursor: pointer;
+      }
+      .radio-row input[type="radio"] { margin-top: 2px; accent-color: var(--primary); flex-shrink: 0; }
     </style>
   </head>
   <body>
@@ -917,8 +1013,12 @@
       <nav class="header-nav">
         <a class="nav-item" href="home-management.html">Trang chủ</a>
         <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
-        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
-        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="virtual-member-management.html"
+          >Thành viên ảo</a
+        >
+        <a class="nav-item" href="real-member-staff.html"
+          >Thành viên thực, staff</a
+        >
         <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
         <div class="nav-item nav-item-group">
           Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
@@ -930,13 +1030,21 @@
           </div>
         </div>
         <a class="nav-item" href="menu-management.html">Menu</a>
-        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="post-comment-management.html"
+          >Bài viết. Bình luận</a
+        >
         <a class="nav-item" href="tag-management.html">Thẻ</a>
-        <a class="nav-item active" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item active" href="report-management.html"
+          >Từ cấm. Spam. Báo cáo</a
+        >
         <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
-        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="reward-badge-management.html"
+          >Điểm thưởng. Huy hiệu</a
+        >
         <a class="nav-item" href="statistics-management.html">Thống kê</a>
-        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+        <a class="nav-item" href="push-notification-management.html"
+          >Thông báo đẩy</a
+        >
       </nav>
       <div class="header-user">
         <div class="header-avatar">AD</div>
@@ -955,33 +1063,12 @@
         id="sidebar-tucam"
         onclick="goSection('tucam')"
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
-        </svg>
         Từ cấm
       </div>
-      <div
-        class="sidebar-item"
-        id="sidebar-spam"
-        onclick="goSection('spam')"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z" />
-        </svg>
+      <div class="sidebar-item" id="sidebar-spam" onclick="goSection('spam')">
         Spam
       </div>
-      <div class="sidebar-group-label">Báo cáo</div>
+      <div class="sidebar-item">Báo cáo</div>
       <div
         class="sidebar-item sub"
         id="sidebar-baocao-baiviet"
@@ -993,7 +1080,9 @@
           stroke="currentColor"
           stroke-width="2"
         >
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <path
+            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+          />
           <polyline points="14 2 14 8 20 8" />
         </svg>
         Bài viết. bình luận
@@ -1031,15 +1120,6 @@
               style="flex: 1; min-width: 240px"
               placeholder="Nhập từ cấm"
             />
-            <select
-              id="banned-add-type"
-              class="form-input"
-              style="width: 160px"
-            >
-              <option value="all">Tất cả</option>
-              <option value="content">Nội dung</option>
-              <option value="nickname">Tên hiển thị/ID</option>
-            </select>
             <button class="btn btn-primary" onclick="addBannedWord()">
               Thêm
             </button>
@@ -1047,75 +1127,44 @@
         </div>
       </div>
 
-      <!-- Section B: Quản lý từ cấm -->
+      <!-- Section B: Quản lý từ cấm (filter/search) -->
       <div class="card">
         <div class="card-body">
-          <div class="section-head">
-            <div class="section-title">Quản lý từ cấm</div>
-            <div class="filter-row">
-              <div class="date-range">
-                <button class="date-nav" onclick="shiftDate(-1)">◄</button>
-                <div class="date-display">23-06-2025 ~ 30-06-2025</div>
-                <button class="date-nav" onclick="shiftDate(1)">►</button>
-              </div>
-              <div class="quick-filters">
-                <button class="qf-btn" onclick="setQuickFilter(this)">
-                  Ngày
-                </button>
-                <button class="qf-btn active" onclick="setQuickFilter(this)">
-                  Tuần
-                </button>
-                <button class="qf-btn" onclick="setQuickFilter(this)">
-                  Tháng
-                </button>
-                <button class="qf-btn" onclick="setQuickFilter(this)">
-                  Năm
-                </button>
-                <button class="qf-btn" onclick="setQuickFilter(this)">
-                  Tất cả
-                </button>
-                <button class="qf-btn" onclick="setQuickFilter(this)">
-                  Tự chọn
-                </button>
-              </div>
+          <div class="page-title">Quản lý từ cấm</div>
+
+          <div class="filter-row" style="margin-bottom: 12px">
+            <div class="date-range">
+              <button class="date-nav" onclick="shiftDate(-1)">◄</button>
+              <div class="date-display">23-06-2025 ~ 30-06-2025</div>
+              <button class="date-nav" onclick="shiftDate(1)">►</button>
+            </div>
+            <div class="quick-filters">
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Ngày
+              </button>
+              <button class="qf-btn active" onclick="setQuickFilter(this)">
+                Tuần
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tháng
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">Năm</button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tất cả
+              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">
+                Tự chọn
+              </button>
             </div>
           </div>
 
-          <div class="search-row" style="margin-bottom: 14px">
+          <div class="search-row">
             <span class="search-label">Tìm kiếm</span>
             <div class="criteria-wrap" id="banned-criteria">
-              <button
-                class="criteria-btn"
-                onclick="toggleCriteria(event,'banned-criteria')"
-              >
+              <button class="criteria-btn">
                 <span id="banned-criteria-label">Từ cấm</span>
-                <span>▾</span>
               </button>
-              <div class="criteria-menu">
-                <button
-                  class="criteria-option"
-                  onclick="pickCriteria('banned-criteria','Từ cấm')"
-                >
-                  Từ cấm
-                </button>
-                <button
-                  class="criteria-option"
-                  onclick="pickCriteria('banned-criteria','Người tạo')"
-                >
-                  Người tạo
-                </button>
-              </div>
             </div>
-            <select
-              id="banned-filter-type"
-              class="form-input"
-              style="width: 150px"
-              onchange="filterBannedByType(this.value)"
-            >
-              <option value="all">Tất cả</option>
-              <option value="content">Nội dung</option>
-              <option value="nickname">Tên hiển thị/ID</option>
-            </select>
             <input
               class="search-input-lg"
               placeholder="Thanh nhập"
@@ -1125,7 +1174,12 @@
               Tìm
             </button>
           </div>
+        </div>
+      </div>
 
+      <!-- Section C: Bảng Từ cấm -->
+      <div class="card">
+        <div class="card-body">
           <div class="section-head">
             <div class="section-title">
               Từ cấm <span class="count" id="banned-count">0 từ</span>
@@ -1152,19 +1206,19 @@
           </div>
 
           <div class="table-wrap">
-            <table id="table-banned" style="min-width: 900px">
+            <table id="table-banned" style="min-width: 720px">
               <thead>
                 <tr>
-                  <th style="width: 40px">#</th>
                   <th style="width: 40px">
                     <input
                       type="checkbox"
                       id="chk-all-banned"
-                      onchange="toggleAllInTable(this,'table-banned','banned')"
+                      onchange="
+                        toggleAllInTable(this, 'table-banned', 'banned')
+                      "
                     />
                   </th>
                   <th>Từ cấm</th>
-                  <th>Loại</th>
                   <th>Ngày tạo</th>
                   <th>Ghi chú</th>
                   <th>Người tạo</th>
@@ -1192,8 +1246,9 @@
     <main class="main page" id="page-spam">
       <div class="card">
         <div class="card-body">
-          <div class="filter-row">
-            <span class="now-tag">Theo thời gian hiện tại</span>
+          <div class="page-title">Tìm kiếm</div>
+
+          <div class="filter-row" style="margin-bottom: 12px">
             <div class="date-range">
               <button class="date-nav" onclick="shiftDate(-1)">◄</button>
               <div class="date-display">23-06-2025 ~ 30-06-2025</div>
@@ -1209,9 +1264,7 @@
               <button class="qf-btn" onclick="setQuickFilter(this)">
                 Tháng
               </button>
-              <button class="qf-btn" onclick="setQuickFilter(this)">
-                Năm
-              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">Năm</button>
               <button class="qf-btn" onclick="setQuickFilter(this)">
                 Tất cả
               </button>
@@ -1220,34 +1273,41 @@
               </button>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-body">
-          <div class="page-title">Tìm kiếm</div>
           <div class="search-row">
             <span class="search-label">Tìm kiếm</span>
             <div class="criteria-wrap" id="spam-criteria">
               <button
                 class="criteria-btn"
-                onclick="toggleCriteria(event,'spam-criteria')"
+                onclick="toggleCriteria(event, 'spam-criteria')"
               >
-                <span id="spam-criteria-label">ID/ Tên hiển thị</span>
+                <span id="spam-criteria-label">ID</span>
                 <span>▾</span>
               </button>
               <div class="criteria-menu">
                 <button
                   class="criteria-option"
-                  onclick="pickCriteria('spam-criteria','ID/ Tên hiển thị')"
+                  onclick="pickCriteria('spam-criteria', 'ID')"
                 >
-                  ID/ Tên hiển thị
+                  ID
                 </button>
                 <button
                   class="criteria-option"
-                  onclick="pickCriteria('spam-criteria','Tiêu đề/ nội dung bài viết')"
+                  onclick="pickCriteria('spam-criteria', 'Tên hiển thị')"
                 >
-                  Tiêu đề/ nội dung bài viết
+                  Tên hiển thị
+                </button>
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('spam-criteria', 'Tiêu đề')"
+                >
+                  Tiêu đề
+                </button>
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('spam-criteria', 'Nội dung bài viết')"
+                >
+                  Nội dung bài viết
                 </button>
               </div>
             </div>
@@ -1265,13 +1325,6 @@
             <div class="section-title">
               Bài spam <span class="count" id="spam-count">0 bài</span>
             </div>
-            <div class="head-note">Toàn bộ
-Bài viết
-Bình luận</div>
-          </div>
-
-          <div class="hint-box" style="margin-top: 0; margin-bottom: 10px">
-            Bài bị đánh dấu spam sẽ không được hiển thị
           </div>
 
           <div class="table-actions">
@@ -1292,6 +1345,7 @@ Bình luận</div>
             </div>
             <div class="table-actions-right">
               <select class="form-input" style="width: 130px">
+                <option>Toàn bộ</option>
                 <option>Bài viết</option>
                 <option>Bình luận</option>
               </select>
@@ -1311,12 +1365,12 @@ Bình luận</div>
                     <input
                       type="checkbox"
                       id="chk-all-spam"
-                      onchange="toggleAllInTable(this,'table-spam','spam')"
+                      onchange="toggleAllInTable(this, 'table-spam', 'spam')"
                     />
                   </th>
                   <th>Tiêu đề</th>
                   <th>Nội dung</th>
-                  <th>Lý do</th>
+                  <th>Lý do spam</th>
                   <th>Người đăng</th>
                   <th>Ngày đăng</th>
                   <th>Ghi chú</th>
@@ -1344,8 +1398,9 @@ Bình luận</div>
     <main class="main page" id="page-baocao-baiviet">
       <div class="card">
         <div class="card-body">
-          <div class="filter-row">
-            <span class="now-tag">Theo thời gian hiện tại</span>
+          <div class="page-title">Tìm kiếm</div>
+
+          <div class="filter-row" style="margin-bottom: 12px">
             <div class="date-range">
               <button class="date-nav" onclick="shiftDate(-1)">◄</button>
               <div class="date-display">23-06-2025 ~ 30-06-2025</div>
@@ -1361,9 +1416,7 @@ Bình luận</div>
               <button class="qf-btn" onclick="setQuickFilter(this)">
                 Tháng
               </button>
-              <button class="qf-btn" onclick="setQuickFilter(this)">
-                Năm
-              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">Năm</button>
               <button class="qf-btn" onclick="setQuickFilter(this)">
                 Tất cả
               </button>
@@ -1372,38 +1425,49 @@ Bình luận</div>
               </button>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-body">
-          <div class="page-title">Tìm kiếm</div>
           <div class="search-row">
             <span class="search-label">Tìm kiếm</span>
             <div class="criteria-wrap" id="report-post-criteria">
               <button
                 class="criteria-btn"
-                onclick="toggleCriteria(event,'report-post-criteria')"
+                onclick="toggleCriteria(event, 'report-post-criteria')"
               >
-                <span id="report-post-criteria-label">ID/ Tên hiển thị</span>
+                <span id="report-post-criteria-label">ID</span>
                 <span>▾</span>
               </button>
               <div class="criteria-menu">
                 <button
                   class="criteria-option"
-                  onclick="pickCriteria('report-post-criteria','ID/ Tên hiển thị')"
+                  onclick="pickCriteria('report-post-criteria', 'ID')"
                 >
-                  ID/ Tên hiển thị
+                  ID
                 </button>
                 <button
                   class="criteria-option"
-                  onclick="pickCriteria('report-post-criteria','Tiêu đề/ nội dung bài viết')"
+                  onclick="pickCriteria('report-post-criteria', 'Tên hiển thị')"
                 >
-                  Tiêu đề/ nội dung bài viết
+                  Tên hiển thị
                 </button>
                 <button
                   class="criteria-option"
-                  onclick="pickCriteria('report-post-criteria','Nội dung bình luận')"
+                  onclick="pickCriteria('report-post-criteria', 'Tiêu đề')"
+                >
+                  Tiêu đề
+                </button>
+                <button
+                  class="criteria-option"
+                  onclick="
+                    pickCriteria('report-post-criteria', 'Nội dung bài viết')
+                  "
+                >
+                  Nội dung bài viết
+                </button>
+                <button
+                  class="criteria-option"
+                  onclick="
+                    pickCriteria('report-post-criteria', 'Nội dung bình luận')
+                  "
                 >
                   Nội dung bình luận
                 </button>
@@ -1419,14 +1483,28 @@ Bình luận</div>
 
       <div class="card">
         <div class="card-body">
+          <div class="sub-tabs">
+            <button
+              class="sub-tab active"
+              id="report-post-subtab-post"
+              onclick="switchReportPostTab('post')"
+            >
+              Bài viết
+            </button>
+            <button
+              class="sub-tab"
+              id="report-post-subtab-comment"
+              onclick="switchReportPostTab('comment')"
+            >
+              Bình luận
+            </button>
+          </div>
+
           <div class="section-head">
             <div class="section-title">
-              Bài bị báo cáo
+              <span id="report-post-section-title">Bài viết bị báo cáo</span>
               <span class="count" id="report-post-count">0 bài</span>
             </div>
-            <div class="head-note">Toàn bộ
-Bài viết
-Bình luận</div>
           </div>
 
           <div class="table-actions">
@@ -1441,10 +1519,6 @@ Bình luận</div>
             </div>
             <div class="table-actions-right">
               <select class="form-input" style="width: 130px">
-                <option>Bài viết</option>
-                <option>Bình luận</option>
-              </select>
-              <select class="form-input" style="width: 130px">
                 <option>Danh sách 30</option>
                 <option>Danh sách 50</option>
                 <option>Danh sách 100</option>
@@ -1454,34 +1528,9 @@ Bình luận</div>
 
           <div class="table-wrap">
             <table id="table-report-post" style="min-width: 1300px">
-              <thead>
-                <tr>
-                  <th style="width: 40px">
-                    <input
-                      type="checkbox"
-                      id="chk-all-report-post"
-                      onchange="toggleAllInTable(this,'table-report-post','report-post')"
-                    />
-                  </th>
-                  <th>Tiêu đề</th>
-                  <th>Nội dung</th>
-                  <th>Người báo cáo</th>
-                  <th>Người bị báo cáo</th>
-                  <th>Lý do báo cáo</th>
-                  <th>Người xử lý</th>
-                  <th>Tình trạng</th>
-                  <th>Ghi chú</th>
-                </tr>
-              </thead>
+              <thead id="thead-report-post"></thead>
               <tbody id="tbody-report-post"></tbody>
             </table>
-          </div>
-
-          <div class="hint-box">
-            Giá trị mặc định là 'Trước khi xử lý'. Sau khi quản trị viên xử lý,
-            trạng thái sẽ được thay đổi thủ công. Danh sách trạng thái: Đang
-            xem xét / Đã xóa bài viết / Tài khoản bị tạm ngưng / Thành viên bị
-            buộc rời khỏi hệ thống / Đã gửi tin nhắn.
           </div>
 
           <div class="table-footer">
@@ -1502,8 +1551,9 @@ Bình luận</div>
     <main class="main page" id="page-baocao-thanhvien">
       <div class="card">
         <div class="card-body">
-          <div class="filter-row">
-            <span class="now-tag">Theo thời gian hiện tại</span>
+          <div class="page-title">Tìm kiếm</div>
+
+          <div class="filter-row" style="margin-bottom: 12px">
             <div class="date-range">
               <button class="date-nav" onclick="shiftDate(-1)">◄</button>
               <div class="date-display">23-06-2025 ~ 30-06-2025</div>
@@ -1519,9 +1569,7 @@ Bình luận</div>
               <button class="qf-btn" onclick="setQuickFilter(this)">
                 Tháng
               </button>
-              <button class="qf-btn" onclick="setQuickFilter(this)">
-                Năm
-              </button>
+              <button class="qf-btn" onclick="setQuickFilter(this)">Năm</button>
               <button class="qf-btn" onclick="setQuickFilter(this)">
                 Tất cả
               </button>
@@ -1530,33 +1578,37 @@ Bình luận</div>
               </button>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-body">
-          <div class="page-title">Tìm kiếm</div>
           <div class="search-row">
             <span class="search-label">Tìm kiếm</span>
             <div class="criteria-wrap" id="report-mem-criteria">
               <button
                 class="criteria-btn"
-                onclick="toggleCriteria(event,'report-mem-criteria')"
+                onclick="toggleCriteria(event, 'report-mem-criteria')"
               >
-                <span id="report-mem-criteria-label">ID/ Tên hiển thị</span>
+                <span id="report-mem-criteria-label">ID</span>
                 <span>▾</span>
               </button>
               <div class="criteria-menu">
                 <button
                   class="criteria-option"
-                  onclick="pickCriteria('report-mem-criteria','ID/ Tên hiển thị')"
+                  onclick="pickCriteria('report-mem-criteria', 'ID')"
                 >
-                  ID/ Tên hiển thị
+                  ID
+                </button>
+                <button
+                  class="criteria-option"
+                  onclick="pickCriteria('report-mem-criteria', 'Tên hiển thị')"
+                >
+                  Tên hiển thị
                 </button>
               </div>
             </div>
             <input class="search-input-lg" placeholder="Thanh nhập" />
-            <button class="btn btn-primary btn-sm" onclick="searchReportMember()">
+            <button
+              class="btn btn-primary btn-sm"
+              onclick="searchReportMember()"
+            >
               Tìm
             </button>
           </div>
@@ -1570,8 +1622,6 @@ Bình luận</div>
               Thành viên bị báo cáo
               <span class="count" id="report-mem-count">0 người</span>
             </div>
-            <div class="head-note">Chọn cấp bậc
-thành viên</div>
           </div>
 
           <div class="table-actions">
@@ -1581,7 +1631,7 @@ thành viên</div>
                 class="btn btn-outline-danger btn-sm"
                 onclick="bulkSuspend()"
               >
-                Tạm khóa
+                Tạm khóa hoạt động
               </button>
               <button
                 class="btn btn-outline-danger btn-sm"
@@ -1604,7 +1654,7 @@ thành viên</div>
             </div>
             <div class="table-actions-right">
               <select class="form-input" style="width: 140px">
-                <option>Tất cả</option>
+                <option>Tất cả cấp bậc</option>
                 <option>Lv.1</option>
                 <option>Lv.2</option>
                 <option>Lv.3</option>
@@ -1633,7 +1683,13 @@ thành viên</div>
                         <input
                           type="checkbox"
                           id="chk-all-report-mem"
-                          onchange="toggleAllInTable(this,'table-report-mem','report-mem')"
+                          onchange="
+                            toggleAllInTable(
+                              this,
+                              'table-report-mem',
+                              'report-mem',
+                            )
+                          "
                         />
                       </th>
                       <th>Người báo cáo</th>
@@ -1648,9 +1704,6 @@ thành viên</div>
                   <tbody id="tbody-report-mem"></tbody>
                 </table>
               </div>
-            </div>
-            <div class="side-label-vertical">
-              Đã xử lý&nbsp;&nbsp;/&nbsp;&nbsp;Chưa xử lý
             </div>
           </div>
 
@@ -1703,6 +1756,109 @@ thành viên</div>
       </div>
     </div>
 
+    <!-- ====== SUSPEND MODAL ====== -->
+    <div class="modal-backdrop" id="suspend-modal-backdrop" onclick="closeSuspendModal()">
+      <div class="modal-box" style="width:520px" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h3 class="modal-title">Tạm khóa hoạt động</h3>
+          <button class="modal-close" onclick="closeSuspendModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">
+              Thành viên bị tạm khóa hoạt động
+              <span style="color:var(--accent);font-weight:600;margin-left:4px" id="suspend-member-count">1</span>
+            </label>
+            <div id="suspend-member-list" style="border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;min-height:64px;background:var(--gray-50);display:flex;flex-wrap:wrap;gap:6px"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Lý do tạm khóa hoạt động</label>
+            <label class="radio-row">
+              <input type="radio" name="suspend-reason" value="vi_pham" checked onchange="handleSuspendReasonChange()"/>
+              Vi phạm tiêu chuẩn cộng đồng
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="suspend-reason" value="spam" onchange="handleSuspendReasonChange()"/>
+              Spam, đăng bài liên tục
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="suspend-reason" value="quang_cao" onchange="handleSuspendReasonChange()"/>
+              Quảng cáo, lăng mạ, chửi tục
+            </label>
+            <label class="radio-row" style="align-items:center;gap:8px">
+              <input type="radio" name="suspend-reason" value="khac" onchange="handleSuspendReasonChange()"/>
+              Khác:
+              <input type="text" id="suspend-reason-other" class="search-input-lg" style="flex:1;height:32px" placeholder="nhập lý do" disabled oninput="document.querySelector('input[name=suspend-reason][value=khac]').checked=true;handleSuspendReasonChange();"/>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Thời gian tạm khóa hoạt động</label>
+            <select id="suspend-duration" class="search-input-lg" style="width:200px;height:34px">
+              <option value="1">1 ngày</option>
+              <option value="3">3 ngày</option>
+              <option value="7" selected>7 ngày</option>
+              <option value="14">14 ngày</option>
+              <option value="30">30 ngày</option>
+              <option value="0">Vĩnh viễn</option>
+            </select>
+          </div>
+          <div style="border-top:1px solid var(--gray-200);padding-top:14px;font-size:13px;color:var(--gray-700)">
+            Tạm khóa hoạt động của thành viên trên?
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeSuspendModal()">Hủy</button>
+          <button class="btn btn-primary" onclick="confirmSuspend()">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== FORCE LEAVE MODAL ====== -->
+    <div class="modal-backdrop" id="force-leave-modal-backdrop" onclick="closeForceLeaveModal()">
+      <div class="modal-box" style="width:520px" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h3 class="modal-title">Buộc rời bỏ</h3>
+          <button class="modal-close" onclick="closeForceLeaveModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">
+              Buộc rời bỏ
+              <span style="color:var(--accent);font-weight:600;margin-left:4px" id="force-leave-member-count">1</span>
+            </label>
+            <div id="force-leave-member-list" style="border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;min-height:64px;background:var(--gray-50);display:flex;flex-wrap:wrap;gap:6px"></div>
+            <div style="font-size:12px;color:var(--gray-500);margin-top:6px;border:1px solid var(--gray-200);padding:8px 10px;border-radius:6px;background:var(--gray-50)">
+              Thành viên bị buộc rời khỏi hệ thống sẽ không thể đăng ký lại.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Lý do rời bỏ</label>
+            <label class="radio-row">
+              <input type="radio" name="force-leave-reason" value="vi_pham" checked onchange="handleForceLeaveReasonChange()"/>
+              Vi phạm tiêu chuẩn cộng đồng
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="force-leave-reason" value="spam" onchange="handleForceLeaveReasonChange()"/>
+              Spam, đăng bài liên tục
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="force-leave-reason" value="quang_cao" onchange="handleForceLeaveReasonChange()"/>
+              Quảng cáo, lăng mạ, chửi tục
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="force-leave-reason" value="khac" onchange="handleForceLeaveReasonChange()"/>
+              Khác
+            </label>
+            <input type="text" id="force-leave-reason-other" class="search-input-lg" style="margin-top:8px;display:none;height:34px" placeholder="nhập lý do"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeForceLeaveModal()">Hủy</button>
+          <button class="btn btn-primary" onclick="confirmForceLeave()">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
     <script>
       /* ====== STATE ====== */
       let activeSection = "tucam";
@@ -1716,46 +1872,430 @@ thành viên</div>
 
       /* ====== DATA ====== */
       const bannedWords = [
-        { id: 1, word: "Bệnh viện A", type: "content", date: "23-06-2025 08:15", note: "", creator: "Như Mai" },
-        { id: 2, word: "Bác sĩ ABC", type: "content", date: "23-06-2025 09:30", note: "", creator: "Như Mai" },
-        { id: 3, word: "Thuốc A", type: "nickname", date: "23-06-2025 10:45", note: "", creator: "Như Mai" },
-        { id: 4, word: "spa123", type: "all", date: "22-06-2025 12:20", note: "Spam quảng cáo", creator: "Admin" },
-        { id: 5, word: "khoedep.vn", type: "content", date: "21-06-2025 14:05", note: "", creator: "Như Mai" },
-        { id: 6, word: "clinic_fake", type: "nickname", date: "20-06-2025 15:40", note: "", creator: "Admin" },
+        {
+          id: 1,
+          word: "Bệnh viện A",
+          type: "content",
+          date: "23-06-2025 08:15",
+          note: "",
+          creator: "Như Mai",
+        },
+        {
+          id: 2,
+          word: "Bác sĩ ABC",
+          type: "content",
+          date: "23-06-2025 09:30",
+          note: "",
+          creator: "Như Mai",
+        },
+        {
+          id: 3,
+          word: "Thuốc A",
+          type: "nickname",
+          date: "23-06-2025 10:45",
+          note: "",
+          creator: "Như Mai",
+        },
+        {
+          id: 4,
+          word: "spa123",
+          type: "all",
+          date: "22-06-2025 12:20",
+          note: "Spam quảng cáo",
+          creator: "Admin",
+        },
+        {
+          id: 5,
+          word: "khoedep.vn",
+          type: "content",
+          date: "21-06-2025 14:05",
+          note: "",
+          creator: "Như Mai",
+        },
+        {
+          id: 6,
+          word: "clinic_fake",
+          type: "nickname",
+          date: "20-06-2025 15:40",
+          note: "",
+          creator: "Admin",
+        },
       ];
 
       const spamPosts = [
-        { id: 1, title: "Các chị ơi", content: "cho em hỏi là bệnh viện này làm có đẹp không, em đang phân vân quá", reason: "dùng từ cấm", author: "hihihi11", date: "24-06-2025 16:55", note: "Nghi ngờ MKT" },
-        { id: 2, title: "Em làm mũi rùi ne", content: "cả nhà ơi em mới làm mũi xong nè, khoe nhẹ ạ", reason: "đăng liên tục", author: "bobalove", date: "23-06-2025 18:10", note: "" },
-        { id: 3, title: "Review spa X", content: "dịch vụ tốt lắm, các bạn nên đến đây", reason: "spam quảng cáo", author: "user123", date: "22-06-2025 20:25", note: "" },
+        {
+          id: 1,
+          title: "Các chị ơi",
+          content:
+            "cho em hỏi là bệnh viện này làm có đẹp không, em đang phân vân quá",
+          reason: "Dùng từ cấm",
+          author: "hihihi11",
+          date: "24-06-2025 16:55",
+          note: "Nghi ngờ MKT",
+        },
+        {
+          id: 2,
+          title: "Em làm mũi rùi ne",
+          content: "cả nhà ơi em mới làm mũi xong nè, khoe nhẹ ạ",
+          reason: "Đăng liên tục",
+          author: "bobalove",
+          date: "23-06-2025 18:10",
+          note: "",
+        },
+        {
+          id: 3,
+          title: "Review spa X — uy tín ko các bạn?",
+          content:
+            "dịch vụ tốt lắm, các bạn nên đến đây, mình đã đến nhiều lần, kết bạn zalo 0902xxx để được tư vấn",
+          reason: "Spam quảng cáo",
+          author: "shopmypham99",
+          date: "22-06-2025 20:25",
+          note: "Có link liên hệ Zalo",
+        },
+        {
+          id: 4,
+          title: "Giảm giá serum cuối tháng",
+          content:
+            "ưu đãi cực sốc, inbox em để có giá rẻ nhất thị trường, chỉ trong hôm nay!!!",
+          reason: "Spam quảng cáo",
+          author: "fake.review.acc",
+          date: "21-06-2025 09:15",
+          note: "Đăng cùng nội dung ở 5 chuyên mục khác nhau",
+        },
+        {
+          id: 5,
+          title: "Mời gọi bạn bè tham gia chương trình",
+          content:
+            "Anh em ai có nhu cầu kiếm tiền tại nhà thì comment 'có' nhé, không cần kinh nghiệm",
+          reason: "Spam đa cấp",
+          author: "rival.brand",
+          date: "20-06-2025 13:42",
+          note: "Mô hình kim tự tháp",
+        },
+        {
+          id: 6,
+          title: "Bài viết test thử bot",
+          content: "asdjkl asdjkl ahsdkjhasdkj — nội dung không có nghĩa",
+          reason: "Tài khoản bot",
+          author: "bot.fake.acc",
+          date: "19-06-2025 22:30",
+          note: "Tài khoản tự động đăng nhiều bài rác",
+        },
       ];
 
       const reportedPosts = [
-        { id: 1, title: "chào mng a", content: "chào mng a, mọi người cho mình hỏi địa chỉ làm đẹp uy tín với", reporter: "hihihi11", reported: "bobalove", reason: "Vi phạm điều luật cộng đồng", handler: "Như Mai", status: "reviewing", note: "" },
-        { id: 2, title: "Review X", content: "dịch vụ ở đây rất tệ, không nên đi", reporter: "user99", reported: "spa_fake", reason: "Spam quảng cáo", handler: "", status: "deleted", note: "" },
+        {
+          id: 1,
+          type: "post",
+          topic: "Review",
+          mainCat: "Làn da",
+          subCat: "Mỹ phẩm",
+          title: "Review serum B5 sau 14 ngày dùng đều",
+          reporter: "hihihi11",
+          author: "ngocanh.skin",
+          reason: "Spam quảng cáo",
+          handler: "",
+          status: "pending",
+          note: "",
+        },
+        {
+          id: 2,
+          type: "post",
+          topic: "Hướng dẫn",
+          mainCat: "Mắt/ Lông mi",
+          subCat: "Mỹ phẩm",
+          title: "5 tips kẻ mắt cho mắt một mí",
+          reporter: "user99",
+          author: "tipsy.beauty",
+          reason: "Vi phạm điều luật cộng đồng",
+          handler: "Như Mai",
+          status: "reviewing",
+          note: "Đang xem xét nội dung",
+        },
+        {
+          id: 3,
+          type: "post",
+          topic: "Cảnh báo",
+          mainCat: "Mũi",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "3 dấu hiệu nguy hiểm sau khi nâng mũi",
+          reporter: "bobalove",
+          author: "spa_fake",
+          reason: "Spam quảng cáo",
+          handler: "Như Mai",
+          status: "deleted",
+          note: "Đã xóa, spam liên tục",
+        },
+        {
+          id: 4,
+          type: "post",
+          topic: "Review",
+          mainCat: "Răng miệng",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "Niềng răng ở 3 nha khoa nổi tiếng — so sánh",
+          reporter: "ngocanh.skin",
+          author: "shopmypham99",
+          reason: "Nghi ngờ giả mạo",
+          handler: "",
+          status: "pending",
+          note: "",
+        },
+        {
+          id: 5,
+          type: "post",
+          topic: "Hỏi đáp",
+          mainCat: "Tóc",
+          subCat: "Mỹ phẩm",
+          title: "Cách phục hồi tóc khô xơ sau uốn",
+          reporter: "Khanh.clinic.talk",
+          author: "user.unknown",
+          reason: "Ngôn từ phản cảm",
+          handler: "Như Mai",
+          status: "suspended",
+          note: "Tài khoản tái phạm nhiều lần",
+        },
+        {
+          id: 6,
+          type: "post",
+          topic: "Cảnh báo",
+          mainCat: "Cằm/ Hàm",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "Cảnh giác với spa làm cằm tại nhà",
+          reporter: "linhmiu.qn",
+          author: "fake.review.acc",
+          reason: "Tài khoản giả mạo",
+          handler: "Như Mai",
+          status: "forced",
+          note: "Đã buộc rời hệ thống",
+        },
+        {
+          id: 7,
+          type: "comment",
+          topic: "Review",
+          mainCat: "Làn da",
+          subCat: "Mỹ phẩm",
+          title: "Review kem chống nắng SPF50+",
+          commentContent:
+            "Spam: shop em chuyên đổ sỉ, kết bạn zalo 0901xxx để xem báo giá.",
+          reporter: "ngocanh.skin",
+          author: "shopmypham99",
+          reason: "Spam quảng cáo",
+          handler: "",
+          status: "pending",
+          note: "",
+        },
+        {
+          id: 8,
+          type: "comment",
+          topic: "Hỏi đáp",
+          mainCat: "Răng miệng",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "Có nên niềng răng ở tuổi 30?",
+          commentContent: "Ngôn từ không phù hợp, đã được admin lọc.",
+          reporter: "Khanh.clinic.talk",
+          author: "user.unknown",
+          reason: "Ngôn từ phản cảm",
+          handler: "Như Mai",
+          status: "deleted",
+          note: "Đã xóa bình luận chứa từ cấm",
+        },
+        {
+          id: 9,
+          type: "comment",
+          topic: "Hướng dẫn",
+          mainCat: "Mắt/ Lông mi",
+          subCat: "Mỹ phẩm",
+          title: "5 tips kẻ mắt cho mắt một mí",
+          commentContent:
+            "Bình luận có chứa link bên ngoài không kiểm chứng — kéo về web khác.",
+          reporter: "tipsy.beauty",
+          author: "bot.fake.acc",
+          reason: "Dẫn link bên ngoài",
+          handler: "",
+          status: "pending",
+          note: "",
+        },
+        {
+          id: 10,
+          type: "comment",
+          topic: "Cảnh báo",
+          mainCat: "Mũi",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "3 dấu hiệu nguy hiểm sau khi nâng mũi",
+          commentContent:
+            "Bác sĩ ơi cho em xin số zalo tư vấn riêng được không ạ?",
+          reporter: "bobalove",
+          author: "spam_acc_99",
+          reason: "Vi phạm điều luật cộng đồng",
+          handler: "Như Mai",
+          status: "message",
+          note: "Đã nhắn tin nhắc nhở",
+        },
+        {
+          id: 11,
+          type: "comment",
+          topic: "Review",
+          mainCat: "Tóc",
+          subCat: "Mỹ phẩm",
+          title: "Cách phục hồi tóc khô xơ sau uốn",
+          commentContent:
+            "Sản phẩm này không hiệu quả, đừng mua nha mọi người!!!",
+          reporter: "user99",
+          author: "rival.brand",
+          reason: "Cạnh tranh không lành mạnh",
+          handler: "",
+          status: "pending",
+          note: "",
+        },
+        {
+          id: 12,
+          type: "comment",
+          topic: "Hỏi đáp",
+          mainCat: "Cằm/ Hàm",
+          subCat: "PTTM/ Tiểu phẫu",
+          title: "Cảnh giác với spa làm cằm tại nhà",
+          commentContent: "Cũng có thể tự làm tại nhà, em đã thử rồi.",
+          reporter: "linhmiu.qn",
+          author: "anon.danger",
+          reason: "Thông tin sai lệch nguy hiểm",
+          handler: "Như Mai",
+          status: "suspended",
+          note: "Lan truyền thông tin sai về thủ thuật y khoa",
+        },
       ];
 
       const reportedMembers = [
-        { id: 1, reporter: "hihihi11", reported: "bobalove", reason: "Vi phạm điều luật cộng đồng", count: 5, note: "", status: "pending", handler: "Như Mai" },
-        { id: 2, reporter: "maimai", reported: "vyyy", reason: "Vi phạm điều luật cộng đồng", count: 3, note: "", status: "deleted", handler: "" },
-        { id: 3, reporter: "user99", reported: "spa_xyz", reason: "Spam quảng cáo", count: 8, note: "", status: "suspended", handler: "Admin" },
+        {
+          id: 1,
+          reporter: "hihihi11",
+          reported: "bobalove",
+          reason: "Vi phạm điều luật cộng đồng",
+          count: 5,
+          note: "",
+          status: "pending",
+          handler: "",
+        },
+        {
+          id: 2,
+          reporter: "maimai",
+          reported: "vyyy",
+          reason: "Vi phạm điều luật cộng đồng",
+          count: 3,
+          note: "Đang điều tra thêm thông tin",
+          status: "reviewing",
+          handler: "Như Mai",
+        },
+        {
+          id: 3,
+          reporter: "user99",
+          reported: "spa_xyz",
+          reason: "Spam quảng cáo",
+          count: 8,
+          note: "Spam liên tục nhiều tài khoản khác",
+          status: "suspended",
+          handler: "Như Mai",
+        },
+        {
+          id: 4,
+          reporter: "ngocanh.skin",
+          reported: "shopmypham99",
+          reason: "Tài khoản giả mạo bác sĩ",
+          count: 12,
+          note: "Đã xác nhận giả mạo",
+          status: "forced",
+          handler: "Như Mai",
+        },
+        {
+          id: 5,
+          reporter: "linhmiu.qn",
+          reported: "rival.brand",
+          reason: "Cạnh tranh không lành mạnh",
+          count: 4,
+          note: "",
+          status: "pending",
+          handler: "",
+        },
+        {
+          id: 6,
+          reporter: "Khanh.clinic.talk",
+          reported: "anon.danger",
+          reason: "Lan truyền thông tin sai lệch y khoa",
+          count: 7,
+          note: "Đã nhắn tin cảnh báo",
+          status: "notify",
+          handler: "Như Mai",
+        },
       ];
 
       const actionModalMap = {
-        "delete-banned": { title: "Xóa từ cấm", body: "Từ cấm này sẽ bị xóa vĩnh viễn khỏi hệ thống." },
-        "delete-spam": { title: "Xóa vĩnh viễn bài spam", body: "Bài viết sẽ bị xóa vĩnh viễn, không thể khôi phục." },
-        "restore-spam": { title: "Khôi phục bài spam", body: "Bài viết sẽ được khôi phục và hiển thị lại." },
-        "delete-report": { title: "Xóa bài bị báo cáo", body: "Hành động này không thể hoàn tác." },
-        "suspend-member": { title: "Tạm khóa thành viên", body: "Tài khoản sẽ bị tạm ngưng hoạt động." },
-        "force-leave": { title: "Buộc rời bỏ", body: "Thành viên sẽ bị buộc rời khỏi hệ thống." },
-        "cancel-upgrade": { title: "Hủy nâng cấp tự động", body: "Quy trình nâng cấp tự động của thành viên sẽ bị hủy." },
-        notify: { title: "Gửi thông báo đẩy", body: "Gửi thông báo đẩy đến thành viên được chọn." },
-        "suspend-single": { title: "Tạm khóa hoạt động", body: "Tài khoản thành viên này sẽ bị tạm ngưng hoạt động." },
-        "force-leave-single": { title: "Buộc rời bỏ", body: "Thành viên sẽ bị buộc rời khỏi hệ thống. Không thể hoàn tác." },
-        "cancel-upgrade-single": { title: "Hủy nâng cấp tự động", body: "Quy trình nâng cấp tự động của thành viên này sẽ bị hủy." },
-        "notify-single": { title: "Gửi thông báo đẩy", body: "Gửi thông báo đẩy đến thành viên này." },
-        "delete-spam-single": { title: "Xóa vĩnh viễn bài spam", body: "Bài viết này sẽ bị xóa vĩnh viễn, không thể khôi phục." },
-        "delete-report-single": { title: "Xóa bài bị báo cáo", body: "Bài viết này sẽ bị xóa. Xác nhận tiếp tục?" },
+        "delete-banned": {
+          title: "Xóa từ cấm",
+          body: "Từ cấm này sẽ bị xóa vĩnh viễn khỏi hệ thống.",
+        },
+        "delete-spam": {
+          title: "Xóa vĩnh viễn bài spam",
+          body: "Bài viết sẽ bị xóa vĩnh viễn, không thể khôi phục.",
+        },
+        "restore-spam": {
+          title: "Khôi phục bài spam",
+          body: "Bài viết sẽ được khôi phục và hiển thị lại.",
+        },
+        "delete-report": {
+          title: "Xóa bài bị báo cáo",
+          body: "Hành động này không thể hoàn tác.",
+        },
+        "suspend-member": {
+          title: "Tạm khóa thành viên",
+          body: "Tài khoản sẽ bị tạm ngưng hoạt động.",
+        },
+        "force-leave": {
+          title: "Buộc rời bỏ",
+          body: "Thành viên sẽ bị buộc rời khỏi hệ thống.",
+        },
+        "cancel-upgrade": {
+          title: "Hủy nâng cấp tự động",
+          body: "Quy trình nâng cấp tự động của thành viên sẽ bị hủy.",
+        },
+        notify: {
+          title: "Gửi thông báo đẩy",
+          body: "Gửi thông báo đẩy đến thành viên được chọn.",
+        },
+        "suspend-single": {
+          title: "Tạm khóa hoạt động",
+          body: "Tài khoản thành viên này sẽ bị tạm ngưng hoạt động.",
+        },
+        "force-leave-single": {
+          title: "Buộc rời bỏ",
+          body: "Thành viên sẽ bị buộc rời khỏi hệ thống. Không thể hoàn tác.",
+        },
+        "cancel-upgrade-single": {
+          title: "Hủy nâng cấp tự động",
+          body: "Quy trình nâng cấp tự động của thành viên này sẽ bị hủy.",
+        },
+        "notify-single": {
+          title: "Gửi thông báo đẩy",
+          body: "Gửi thông báo đẩy đến thành viên này.",
+        },
+        "delete-spam-single": {
+          title: "Xóa vĩnh viễn bài spam",
+          body: "Bài viết này sẽ bị xóa vĩnh viễn, không thể khôi phục.",
+        },
+        "delete-report-single": {
+          title: "Xóa bài bị báo cáo",
+          body: "Bài viết này sẽ bị xóa. Xác nhận tiếp tục?",
+        },
+        "unsuspend-single": {
+          title: "Gỡ tạm khóa",
+          body: "Tài khoản sẽ được khôi phục hoạt động bình thường.",
+        },
+        "restore-account-single": {
+          title: "Khôi phục tài khoản",
+          body: "Tài khoản đã buộc rời bỏ sẽ được khôi phục lại hệ thống.",
+        },
+        "restore-upgrade-single": {
+          title: "Khôi phục nâng cấp tự động",
+          body: "Tài khoản sẽ được tự động nâng cấp cấp bậc theo điều kiện hệ thống.",
+        },
       };
 
       const TYPE_LABEL = {
@@ -1765,12 +2305,57 @@ thành viên</div>
       };
 
       const STATUS_OPTIONS_POST = [
+        { v: "pending", label: "Trước xử lý", cls: "s-pending" },
         { v: "reviewing", label: "Đang xem xét", cls: "s-reviewing" },
         { v: "deleted", label: "Đã xóa bài viết", cls: "s-deleted" },
         { v: "suspended", label: "Tài khoản bị tạm ngưng", cls: "s-suspended" },
-        { v: "forced", label: "Thành viên bị buộc rời khỏi hệ thống", cls: "s-forced" },
+        {
+          v: "forced",
+          label: "Thành viên bị buộc rời khỏi hệ thống",
+          cls: "s-forced",
+        },
         { v: "message", label: "Đã gửi tin nhắn", cls: "s-message" },
       ];
+      const CURRENT_ADMIN = "Như Mai";
+
+      /* ====== USER / IP ACTION TOGGLE STATE ====== */
+      const userActionState = {};
+      const ipActionState = {};
+      function getUserActionState(author) {
+        if (!userActionState[author])
+          userActionState[author] = {
+            suspended: false,
+            forceLeft: false,
+            upgradeCanceled: false,
+          };
+        return userActionState[author];
+      }
+      function getIpActionState(ip) {
+        if (!ipActionState[ip]) ipActionState[ip] = { blocked: false };
+        return ipActionState[ip];
+      }
+      function findUserAuthorById(id) {
+        const s = spamPosts.find((x) => x.id === id);
+        if (s) return s.author;
+        const r = reportedPosts.find((x) => x.id === id);
+        if (r) return r.author || r.reported;
+        const m = reportedMembers.find((x) => x.id === id);
+        if (m) return m.reported;
+        return null;
+      }
+      function renderUserActionMenu(id, author) {
+        const u = getUserActionState(author);
+        const sus = u.suspended
+          ? `<button class="menu-item" onclick="handleRowAction('unsuspend-member',${id})">Gỡ tạm khóa</button>`
+          : `<button class="menu-item" onclick="openSuspendModal(${id})">Tạm khóa hoạt động</button>`;
+        const force = u.forceLeft
+          ? `<button class="menu-item" onclick="handleRowAction('restore-account',${id})">Khôi phục tài khoản</button>`
+          : `<button class="menu-item" onclick="openForceLeaveModal(${id})">Buộc rời bỏ</button>`;
+        const cancel = u.upgradeCanceled
+          ? `<button class="menu-item" onclick="handleRowAction('restore-upgrade',${id})">Khôi phục nâng cấp tự động</button>`
+          : `<button class="menu-item" onclick="handleRowAction('cancel-upgrade',${id})">Hủy nâng cấp tự động</button>`;
+        return sus + force + cancel;
+      }
 
       const STATUS_OPTIONS_MEMBER = [
         { v: "pending", label: "Chưa xử lý", cls: "s-pending" },
@@ -1836,36 +2421,37 @@ thành viên</div>
       function renderBannedTable() {
         const tbody = document.getElementById("tbody-banned");
         if (!tbody) return;
+        cancelBannedNoteEdit();
         const list = getFilteredBanned();
         document.getElementById("banned-count").textContent =
           list.length + " từ";
         tbody.innerHTML = list
-          .map((b, idx) => {
+          .map((b) => {
             const checked = selectedBannedIds.includes(b.id);
             return `
               <tr id="row-banned-${b.id}" class="${checked ? "row-checked" : ""}">
-                <td>${idx + 1}</td>
                 <td>
                   <input type="checkbox" ${checked ? "checked" : ""}
                          onchange="toggleSelected('banned',${b.id},this.checked)" />
                 </td>
-                <td class="td-left" style="color:var(--gray-900);font-weight:600">
-                  ${escapeHtml(b.word)}
-                </td>
-                <td>
-                  <span class="type-badge ${b.type}">${TYPE_LABEL[b.type] || "Tất cả"}</span>
-                </td>
+                <td class="td-left">${escapeHtml(b.word)}</td>
                 <td>${escapeHtml(b.date)}</td>
-                <td>
-                  <input class="inline-input" placeholder="Nhập nội dung"
-                         value="${escapeHtml(b.note)}"
-                         onchange="updateBannedNote(${b.id}, this.value)" />
+                <td class="note-cell" data-banned-id="${b.id}">
+                  ${renderBannedNoteHtml(b.note)}
                 </td>
                 <td>${escapeHtml(b.creator)}</td>
               </tr>
             `;
           })
           .join("");
+        bindBannedNoteEdit();
+      }
+      function renderBannedNoteHtml(text) {
+        const clean = (text || "").trim();
+        if (!clean)
+          return '<span style="color:var(--gray-400);font-size:11px">—</span>';
+        const display = clean.length > 58 ? clean.slice(0, 55) + "…" : clean;
+        return `<div class="tooltip-wrap"><span class="note-ellipsis">${escapeHtml(display)}</span><div class="tooltip">${escapeHtml(clean)}</div></div>`;
       }
       function filterBannedByType(type) {
         selectedWordType = type;
@@ -1875,9 +2461,138 @@ thành viên</div>
         const item = bannedWords.find((b) => b.id === id);
         if (item) item.note = value;
       }
+
+      /* ====== BANNED NOTE EDIT (double-click) — buttons in-cell ====== */
+      let currentBannedNoteEdit = null;
+      function enterBannedNoteEdit(cell) {
+        if (!cell || currentBannedNoteEdit) return;
+        const id = Number(cell.getAttribute("data-banned-id"));
+        const item = bannedWords.find((b) => b.id === id);
+        if (!item) return;
+        const originalText = item.note || "";
+        currentBannedNoteEdit = { cell, id, originalText };
+        cell.classList.add("editing");
+        cell.innerHTML = `
+          <textarea class="note-edit-area" placeholder="Nhập ghi chú..."></textarea>
+          <div class="note-edit-actions" style="display:flex">
+            <button class="btn btn-primary btn-sm" onclick="saveBannedNoteEdit(event)">Lưu</button>
+            <button class="btn btn-ghost btn-sm" onclick="cancelBannedNoteEdit(event)">Hủy</button>
+          </div>`;
+        const input = cell.querySelector("textarea");
+        if (input) {
+          input.value = originalText;
+          input.focus();
+          input.setSelectionRange(input.value.length, input.value.length);
+        }
+      }
+      function saveBannedNoteEdit(ev) {
+        if (ev) ev.stopPropagation();
+        if (!currentBannedNoteEdit) return;
+        const { cell, id } = currentBannedNoteEdit;
+        const input = cell.querySelector("textarea");
+        const value = input ? input.value : "";
+        const item = bannedWords.find((b) => b.id === id);
+        if (item) item.note = value;
+        if (cell.isConnected) {
+          cell.classList.remove("editing");
+          cell.innerHTML = renderBannedNoteHtml(value);
+        }
+        currentBannedNoteEdit = null;
+      }
+      function cancelBannedNoteEdit(ev) {
+        if (ev) ev.stopPropagation();
+        if (!currentBannedNoteEdit) return;
+        const { cell, originalText } = currentBannedNoteEdit;
+        if (cell.isConnected) {
+          cell.classList.remove("editing");
+          cell.innerHTML = renderBannedNoteHtml(originalText);
+        }
+        currentBannedNoteEdit = null;
+      }
+      function bindBannedNoteEdit() {
+        const tbody = document.getElementById("tbody-banned");
+        if (!tbody || tbody.dataset.dblbound) return;
+        tbody.dataset.dblbound = "1";
+        tbody.addEventListener("dblclick", (e) => {
+          const cell = e.target.closest("td.note-cell");
+          if (!cell) return;
+          if (currentBannedNoteEdit) return;
+          enterBannedNoteEdit(cell);
+        });
+      }
+
+      /* ====== GENERIC NOTE EDIT — buttons in-cell ====== */
+      const noteEditStates = {};
+      function renderNoteHtml(text) {
+        return renderBannedNoteHtml(text);
+      }
+      function enterNoteEdit(tableKey, dataArr, cell, id) {
+        if (!cell || noteEditStates[tableKey]) return;
+        const item = dataArr.find((x) => x.id === id);
+        if (!item) return;
+        const originalText = item.note || "";
+        noteEditStates[tableKey] = {
+          cell,
+          id,
+          originalText,
+          dataArr,
+          tableKey,
+        };
+        cell.classList.add("editing");
+        cell.innerHTML = `
+          <textarea class="note-edit-area" placeholder="Nhập ghi chú..."></textarea>
+          <div class="note-edit-actions" style="display:flex">
+            <button class="btn btn-primary btn-sm" onclick="saveNoteEditFor('${tableKey}', event)">Lưu</button>
+            <button class="btn btn-ghost btn-sm" onclick="cancelNoteEditFor('${tableKey}', event)">Hủy</button>
+          </div>`;
+        const input = cell.querySelector("textarea");
+        if (input) {
+          input.value = originalText;
+          input.focus();
+          input.setSelectionRange(input.value.length, input.value.length);
+        }
+      }
+      function saveNoteEditFor(tableKey, ev) {
+        if (ev) ev.stopPropagation();
+        const st = noteEditStates[tableKey];
+        if (!st) return;
+        const { cell, id, dataArr } = st;
+        const input = cell.querySelector("textarea");
+        const value = input ? input.value : "";
+        const item = dataArr.find((x) => x.id === id);
+        if (item) item.note = value;
+        if (cell.isConnected) {
+          cell.classList.remove("editing");
+          cell.innerHTML = renderNoteHtml(value);
+        }
+        noteEditStates[tableKey] = null;
+      }
+      function cancelNoteEditFor(tableKey, ev) {
+        if (ev) ev.stopPropagation();
+        const st = noteEditStates[tableKey];
+        if (!st) return;
+        const { cell, originalText } = st;
+        if (cell.isConnected) {
+          cell.classList.remove("editing");
+          cell.innerHTML = renderNoteHtml(originalText);
+        }
+        noteEditStates[tableKey] = null;
+      }
+      function bindNoteEdit(tableKey, tbodyId, dataArr) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody || tbody.dataset.dblbound) return;
+        tbody.dataset.dblbound = "1";
+        tbody.addEventListener("dblclick", (e) => {
+          const cell = e.target.closest("td.note-cell");
+          if (!cell) return;
+          if (noteEditStates[tableKey]) return;
+          const id = Number(cell.dataset.rowId);
+          enterNoteEdit(tableKey, dataArr, cell, id);
+        });
+      }
+
       function addBannedWord() {
         const input = document.getElementById("banned-input");
-        const typeSel = document.getElementById("banned-add-type");
         const word = (input.value || "").trim();
         if (!word) {
           alert("Vui lòng nhập từ cấm.");
@@ -1893,7 +2608,6 @@ thành viên</div>
         bannedWords.unshift({
           id: Date.now(),
           word,
-          type: typeSel.value,
           date: (() => {
             const d = new Date();
             const dd = String(d.getDate()).padStart(2, "0");
@@ -1928,6 +2642,7 @@ thành viên</div>
       function renderSpamTable() {
         const tbody = document.getElementById("tbody-spam");
         if (!tbody) return;
+        cancelNoteEditFor("spam");
         document.getElementById("spam-count").textContent =
           spamPosts.length + " bài";
         tbody.innerHTML = spamPosts
@@ -1947,8 +2662,7 @@ thành viên</div>
                     <div class="menu-list">
                       <button class="menu-item" onclick="handleRowAction('detail-post',${p.id})">Chi tiết thông tin</button>
                       <button class="menu-item" onclick="handleRowAction('history-post',${p.id})">Lịch sử hoạt động</button>
-                      <button class="menu-item" onclick="handleRowAction('suspend-member',${p.id})">Tạm khóa hoạt động</button>
-                      <button class="menu-item" onclick="handleRowAction('force-leave',${p.id})">Buộc rời bỏ</button>
+                      ${renderUserActionMenu(p.id, p.author)}
                       <button class="menu-item" onclick="handleRowAction('notify',${p.id})">Gửi thông báo đẩy</button>
                     </div>
                   </div>
@@ -1959,18 +2673,17 @@ thành viên</div>
                     <div class="tooltip">${escapeHtml(p.content)}</div>
                   </div>
                 </td>
-                <td><span class="reason-badge">${escapeHtml(p.reason)}</span></td>
+                <td class="td-left">${escapeHtml(p.reason)}</td>
                 <td>${escapeHtml(p.author)}</td>
                 <td>${escapeHtml(p.date)}</td>
-                <td>
-                  <input class="inline-input" placeholder="Nhập nội dung"
-                         value="${escapeHtml(p.note)}"
-                         onchange="updateSpamNote(${p.id}, this.value)" />
+                <td class="note-cell" data-row-id="${p.id}">
+                  ${renderNoteHtml(p.note)}
                 </td>
               </tr>
             `;
           })
           .join("");
+        bindNoteEdit("spam", "tbody-spam", spamPosts);
       }
       function updateSpamNote(id, value) {
         const item = spamPosts.find((b) => b.id === id);
@@ -2001,12 +2714,54 @@ thành viên</div>
       }
 
       /* ====== REPORT POST ====== */
+      let reportPostSubTab = "post";
+      function switchReportPostTab(type) {
+        if (reportPostSubTab === type) return;
+        reportPostSubTab = type;
+        document
+          .getElementById("report-post-subtab-post")
+          .classList.toggle("active", type === "post");
+        document
+          .getElementById("report-post-subtab-comment")
+          .classList.toggle("active", type === "comment");
+        document.getElementById("report-post-section-title").textContent =
+          type === "post" ? "Bài viết bị báo cáo" : "Bình luận bị báo cáo";
+        selectedReportIds = [];
+        uncheckAllHeader("chk-all-report-post");
+        renderReportPostTable();
+      }
+      function renderReportPostHead() {
+        const thead = document.getElementById("thead-report-post");
+        if (!thead) return;
+        const isPost = reportPostSubTab === "post";
+        thead.innerHTML = `
+          <tr>
+            <th style="width: 40px">
+              <input type="checkbox" id="chk-all-report-post"
+                onchange="toggleAllInTable(this, 'table-report-post', 'report-post')" />
+            </th>
+            <th>Tên chuyên mục</th>
+            <th>Tên danh mục</th>
+            <th>Tiêu đề</th>
+            ${isPost ? "" : "<th>Nội dung bình luận</th>"}
+            <th>Người báo cáo</th>
+            <th>Người viết</th>
+            <th>Lý do report</th>
+            <th>Người xử lý</th>
+            <th>Tình trạng</th>
+            <th>Ghi chú</th>
+          </tr>`;
+      }
       function renderReportPostTable() {
         const tbody = document.getElementById("tbody-report-post");
         if (!tbody) return;
+        cancelNoteEditFor("report-post");
+        renderReportPostHead();
+        const list = reportedPosts.filter((r) => r.type === reportPostSubTab);
         document.getElementById("report-post-count").textContent =
-          reportedPosts.length + " bài";
-        tbody.innerHTML = reportedPosts
+          list.length + (reportPostSubTab === "post" ? " bài" : " bình luận");
+        const isPost = reportPostSubTab === "post";
+        tbody.innerHTML = list
           .map((r) => {
             const checked = selectedReportIds.includes(r.id);
             const statusOptions = STATUS_OPTIONS_POST.map(
@@ -2015,66 +2770,70 @@ thành viên</div>
             ).join("");
             const cls =
               STATUS_OPTIONS_POST.find((s) => s.v === r.status)?.cls || "";
+            const commentCell = isPost
+              ? ""
+              : `<td class="td-left">
+                  <div class="tooltip-wrap">
+                    <span class="note-ellipsis">${escapeHtml(truncate(r.commentContent || "", 60))}</span>
+                    <div class="tooltip">${escapeHtml(r.commentContent || "")}</div>
+                  </div>
+                </td>`;
+            const handlerCell = r.handler
+              ? escapeHtml(r.handler)
+              : `<span style="color:var(--gray-400);font-size:11px">—</span>`;
             return `
               <tr id="row-report-post-${r.id}" class="${checked ? "row-checked" : ""}">
                 <td>
                   <input type="checkbox" ${checked ? "checked" : ""}
                          onchange="toggleSelected('report-post',${r.id},this.checked)" />
                 </td>
-                <td class="td-left" style="font-weight:600;color:var(--gray-900)">
-                  ${escapeHtml(r.title)}
-                </td>
-                <td class="td-left">
-                  <div class="tooltip-wrap">
-                    <span class="note-ellipsis">${escapeHtml(truncate(r.content, 60))}</span>
-                    <div class="tooltip">${escapeHtml(r.content)}</div>
-                  </div>
-                </td>
+                <td class="td-left">${escapeHtml(r.topic)}</td>
+                <td class="td-left">${escapeHtml(r.mainCat)} - ${escapeHtml(r.subCat)}</td>
+                <td class="td-left">${escapeHtml(r.title)}</td>
+                ${commentCell}
                 <td>${escapeHtml(r.reporter)}</td>
                 <td class="td-left">
                   <div class="cell-menu">
                     <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">
-                      ${escapeHtml(r.reported)}
+                      ${escapeHtml(r.author)}
                     </button>
                     <div class="menu-list">
                       <button class="menu-item" onclick="handleRowAction('detail-member',${r.id})">Thông tin chi tiết</button>
                       <button class="menu-item" onclick="handleRowAction('history-member',${r.id})">Lịch sử hoạt động</button>
-                      <button class="menu-item" onclick="handleRowAction('suspend-member',${r.id})">Tạm khóa hoạt động</button>
-                      <button class="menu-item" onclick="handleRowAction('force-leave',${r.id})">Buộc rời bỏ</button>
-                      <button class="menu-item" onclick="handleRowAction('cancel-upgrade',${r.id})">Hủy nâng cấp tự động</button>
+                      ${renderUserActionMenu(r.id, r.author)}
                       <button class="menu-item" onclick="handleRowAction('notify',${r.id})">Gửi thông báo đẩy</button>
                     </div>
                   </div>
                 </td>
-                <td>${escapeHtml(r.reason)}</td>
-                <td>
-                  <input class="inline-input sm" placeholder="Thanh nhập"
-                         value="${escapeHtml(r.handler)}"
-                         onchange="updateReportPostHandler(${r.id}, this.value)" />
-                </td>
+                <td class="td-left">${escapeHtml(r.reason)}</td>
+                <td>${handlerCell}</td>
                 <td>
                   <select class="status-select ${cls}"
                           onchange="updateReportPostStatus(${r.id}, this)">
                     ${statusOptions}
                   </select>
                 </td>
-                <td>
-                  <input class="inline-input" placeholder="Nhập nội dung"
-                         value="${escapeHtml(r.note)}"
-                         onchange="updateReportPostNote(${r.id}, this.value)" />
+                <td class="note-cell" data-row-id="${r.id}">
+                  ${renderNoteHtml(r.note)}
                 </td>
               </tr>
             `;
           })
           .join("");
+        bindNoteEdit("report-post", "tbody-report-post", reportedPosts);
       }
       function updateReportPostStatus(id, sel) {
         const r = reportedPosts.find((x) => x.id === id);
         if (!r) return;
+        const wasPending = r.status === "pending";
         r.status = sel.value;
         const cls =
           STATUS_OPTIONS_POST.find((s) => s.v === sel.value)?.cls || "";
         sel.className = "status-select " + cls;
+        if (wasPending && sel.value !== "pending" && !r.handler) {
+          r.handler = CURRENT_ADMIN;
+          renderReportPostTable();
+        }
       }
       function updateReportPostNote(id, v) {
         const r = reportedPosts.find((x) => x.id === id);
@@ -2102,6 +2861,7 @@ thành viên</div>
       function renderReportMemberTable() {
         const tbody = document.getElementById("tbody-report-mem");
         if (!tbody) return;
+        cancelNoteEditFor("report-mem");
         document.getElementById("report-mem-count").textContent =
           reportedMembers.length + " người";
         tbody.innerHTML = reportedMembers
@@ -2113,13 +2873,10 @@ thành viên</div>
             ).join("");
             const cls =
               STATUS_OPTIONS_MEMBER.find((s) => s.v === m.status)?.cls || "";
-            const handled = HANDLED_STATUSES.has(m.status);
-            const trClasses = [
-              checked ? "row-checked" : "",
-              handled ? "row-handled" : "",
-            ]
-              .filter(Boolean)
-              .join(" ");
+            const trClasses = checked ? "row-checked" : "";
+            const handlerCell = m.handler
+              ? escapeHtml(m.handler)
+              : `<span style="color:var(--gray-400);font-size:11px">—</span>`;
             return `
               <tr id="row-report-mem-${m.id}" class="${trClasses}">
                 <td>
@@ -2135,19 +2892,15 @@ thành viên</div>
                     <div class="menu-list">
                       <button class="menu-item" onclick="handleRowAction('detail-member',${m.id})">Thông tin chi tiết</button>
                       <button class="menu-item" onclick="handleRowAction('history-member',${m.id})">Lịch sử hoạt động</button>
-                      <button class="menu-item" onclick="handleRowAction('suspend-member',${m.id})">Tạm khóa hoạt động</button>
-                      <button class="menu-item" onclick="handleRowAction('force-leave',${m.id})">Buộc rời bỏ</button>
-                      <button class="menu-item" onclick="handleRowAction('cancel-upgrade',${m.id})">Hủy nâng cấp tự động</button>
+                      ${renderUserActionMenu(m.id, m.reported)}
                       <button class="menu-item" onclick="handleRowAction('notify',${m.id})">Gửi thông báo đẩy</button>
                     </div>
                   </div>
                 </td>
                 <td>${escapeHtml(m.reason)}</td>
-                <td style="font-weight:600;color:var(--gray-900)">${m.count}</td>
-                <td>
-                  <input class="inline-input" placeholder="Thanh nhập"
-                         value="${escapeHtml(m.note)}"
-                         onchange="updateReportMemNote(${m.id}, this.value)" />
+                <td>${m.count}</td>
+                <td class="note-cell" data-row-id="${m.id}">
+                  ${renderNoteHtml(m.note)}
                 </td>
                 <td>
                   <select class="status-select ${cls}"
@@ -2155,20 +2908,21 @@ thành viên</div>
                     ${statusOptions}
                   </select>
                 </td>
-                <td>
-                  <input class="inline-input sm" placeholder="Thanh nhập"
-                         value="${escapeHtml(m.handler)}"
-                         onchange="updateReportMemHandler(${m.id}, this.value)" />
-                </td>
+                <td>${handlerCell}</td>
               </tr>
             `;
           })
           .join("");
+        bindNoteEdit("report-mem", "tbody-report-mem", reportedMembers);
       }
       function updateReportMemStatus(id, sel) {
         const m = reportedMembers.find((x) => x.id === id);
         if (!m) return;
+        const wasPending = m.status === "pending";
         m.status = sel.value;
+        if (wasPending && sel.value !== "pending" && !m.handler) {
+          m.handler = CURRENT_ADMIN;
+        }
         renderReportMemberTable();
       }
       function updateReportMemNote(id, v) {
@@ -2334,8 +3088,11 @@ thành viên</div>
         }
         const singleMap = {
           "suspend-member": "suspend-single",
+          "unsuspend-member": "unsuspend-single",
           "force-leave": "force-leave-single",
+          "restore-account": "restore-account-single",
           "cancel-upgrade": "cancel-upgrade-single",
+          "restore-upgrade": "restore-upgrade-single",
           notify: "notify-single",
           "delete-spam": "delete-spam-single",
           "delete-report": "delete-report-single",
@@ -2368,9 +3125,8 @@ thành viên</div>
       function confirmActionModal() {
         const type = currentActionType;
         const targetId = currentTargetId;
-        const titleText = document.getElementById(
-          "action-modal-title",
-        ).textContent;
+        const titleText =
+          document.getElementById("action-modal-title").textContent;
         closeActionModal();
         if (!type) return;
 
@@ -2441,10 +3197,27 @@ thành viên</div>
         }
         if (
           type === "suspend-single" ||
+          type === "unsuspend-single" ||
           type === "force-leave-single" ||
+          type === "restore-account-single" ||
           type === "cancel-upgrade-single" ||
+          type === "restore-upgrade-single" ||
           type === "notify-single"
         ) {
+          const author = findUserAuthorById(targetId);
+          if (author) {
+            const u = getUserActionState(author);
+            if (type === "suspend-single") u.suspended = true;
+            else if (type === "unsuspend-single") u.suspended = false;
+            else if (type === "force-leave-single") u.forceLeft = true;
+            else if (type === "restore-account-single") u.forceLeft = false;
+            else if (type === "cancel-upgrade-single") u.upgradeCanceled = true;
+            else if (type === "restore-upgrade-single")
+              u.upgradeCanceled = false;
+          }
+          renderSpamTable();
+          renderReportPostTable();
+          renderReportMemberTable();
           alert(`Đã thực hiện: ${titleText}.`);
           return;
         }
@@ -2477,9 +3250,110 @@ thành viên</div>
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           closeActionModal();
+          closeSuspendModal();
+          closeForceLeaveModal();
           closeAllMenus();
         }
       });
-</script>
+
+      /* ====== SUSPEND / FORCE LEAVE MODALS ====== */
+      let suspendTargetId = null;
+      let forceLeaveTargetId = null;
+
+      function resolveReportAuthorName(id) {
+        const s = spamPosts.find((x) => x.id === id);
+        if (s) return s.author;
+        const r = reportedPosts.find((x) => x.id === id);
+        if (r) return r.author || r.reported;
+        const m = reportedMembers.find((x) => x.id === id);
+        if (m) return m.reported;
+        return String(id);
+      }
+      function renderMemberChip(name) {
+        const safe = escapeHtml(name);
+        const initial = (safe || "?").charAt(0).toUpperCase();
+        return `<div style="display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid var(--gray-200);border-radius:20px;padding:4px 12px 4px 4px;font-size:13px">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">${initial}</div>
+          <span>${safe}</span>
+        </div>`;
+      }
+
+      function openSuspendModal(id) {
+        suspendTargetId = id;
+        document.querySelector('input[name="suspend-reason"][value="vi_pham"]').checked = true;
+        document.getElementById("suspend-reason-other").value = "";
+        document.getElementById("suspend-reason-other").disabled = true;
+        document.getElementById("suspend-duration").value = "7";
+        const name = resolveReportAuthorName(id);
+        document.getElementById("suspend-member-count").textContent = "1";
+        document.getElementById("suspend-member-list").innerHTML = renderMemberChip(name);
+        document.getElementById("suspend-modal-backdrop").classList.add("open");
+        closeAllMenus();
+      }
+      function closeSuspendModal() {
+        document.getElementById("suspend-modal-backdrop").classList.remove("open");
+        suspendTargetId = null;
+      }
+      function handleSuspendReasonChange() {
+        const sel = document.querySelector('input[name="suspend-reason"]:checked').value;
+        const oth = document.getElementById("suspend-reason-other");
+        oth.disabled = sel !== "khac";
+        if (sel === "khac") oth.focus();
+      }
+      function confirmSuspend() {
+        const sel = document.querySelector('input[name="suspend-reason"]:checked').value;
+        if (sel === "khac") {
+          const r = document.getElementById("suspend-reason-other").value.trim();
+          if (!r) { alert("Vui lòng nhập lý do tạm khóa."); return; }
+        }
+        if (suspendTargetId != null) {
+          const author = resolveReportAuthorName(suspendTargetId);
+          getUserActionState(author).suspended = true;
+        }
+        closeSuspendModal();
+        renderSpamTable();
+        renderReportPostTable();
+        renderReportMemberTable();
+        alert("Đã tạm khóa hoạt động thành viên.");
+      }
+
+      function openForceLeaveModal(id) {
+        forceLeaveTargetId = id;
+        document.querySelector('input[name="force-leave-reason"][value="vi_pham"]').checked = true;
+        document.getElementById("force-leave-reason-other").value = "";
+        document.getElementById("force-leave-reason-other").style.display = "none";
+        const name = resolveReportAuthorName(id);
+        document.getElementById("force-leave-member-count").textContent = "1";
+        document.getElementById("force-leave-member-list").innerHTML = renderMemberChip(name);
+        document.getElementById("force-leave-modal-backdrop").classList.add("open");
+        closeAllMenus();
+      }
+      function closeForceLeaveModal() {
+        document.getElementById("force-leave-modal-backdrop").classList.remove("open");
+        forceLeaveTargetId = null;
+      }
+      function handleForceLeaveReasonChange() {
+        const sel = document.querySelector('input[name="force-leave-reason"]:checked').value;
+        const oth = document.getElementById("force-leave-reason-other");
+        oth.style.display = sel === "khac" ? "block" : "none";
+        if (sel === "khac") oth.focus();
+      }
+      function confirmForceLeave() {
+        const sel = document.querySelector('input[name="force-leave-reason"]:checked').value;
+        if (sel === "khac") {
+          const r = document.getElementById("force-leave-reason-other").value.trim();
+          if (!r) { alert("Vui lòng nhập lý do buộc rời bỏ."); return; }
+        }
+        if (forceLeaveTargetId != null) {
+          const author = resolveReportAuthorName(forceLeaveTargetId);
+          getUserActionState(author).forceLeft = true;
+        }
+        closeForceLeaveModal();
+        renderSpamTable();
+        renderReportPostTable();
+        renderReportMemberTable();
+        alert("Đã buộc rời bỏ thành viên.");
+      }
+    </script>
   </body>
 </html>

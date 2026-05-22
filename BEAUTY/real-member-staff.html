@@ -35,7 +35,11 @@
         --sidebar-w: 230px;
         --header-h: 60px;
       }
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
       body {
         font-family: "Be Vietnam Pro", sans-serif;
         background: var(--gray-50);
@@ -44,293 +48,870 @@
         min-height: 100vh;
       }
       .header {
-        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
         min-height: 60px;
-        background: linear-gradient(135deg, #4a2096 0%, #6c3fc5 60%, #8b5cf6 100%);
-        display: flex; align-items: center; justify-content: space-between;
-        padding-left: 20px; padding-right: 20px;
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
         box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
       }
-      .header-logo { display: flex; align-items: center; gap: 10px; color: white; font-weight: 700; font-size: 14px; }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+      }
       .header-logo .logo-box {
-        width: 30px; height: 30px; background: rgba(255, 255, 255, 0.2);
-        border-radius: 8px; display: flex; align-items: center; justify-content: center;
-        font-weight: 800; font-size: 13px; color: white;
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
         border: 1.5px solid rgba(255, 255, 255, 0.35);
       }
-      .header-nav { display: flex; align-items: center; gap: 2px; flex: 1; padding: 0 24px; }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
       .nav-item {
-        padding: 5px 9px; border-radius: 6px;
-        color: rgba(255, 255, 255, 0.75); cursor: pointer;
-        font-size: 11.5px; font-weight: 500;
-        white-space: normal; line-height: 1.2; text-align: center;
-        max-width: 120px; transition: all 0.15s;
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
+        transition: all 0.15s;
       }
-      .nav-item:hover, .nav-item.active { background: rgba(255, 255, 255, 0.18); color: white; }
-      .nav-item.active { background: rgba(255, 255, 255, 0.22); font-weight: 600; }
-      .nav-item-group { position: relative; }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .nav-item-group {
+        position: relative;
+      }
       .nav-item-group .nav-dropdown {
-        position: absolute; top: 100%; left: 0; background: white;
-        border: 1px solid var(--gray-200); border-radius: 6px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        min-width: 180px; display: none; z-index: 300; padding: 4px 0; margin-top: 4px;
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
       }
-      .nav-item-group:hover .nav-dropdown { display: block; }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
       .nav-dropdown a {
-        display: block; padding: 8px 14px; color: var(--gray-700);
-        text-decoration: none; font-size: 11.5px; font-weight: 500; white-space: nowrap;
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
       }
-      .nav-dropdown a:hover { background: var(--gray-100); color: var(--primary); }
-      a.nav-item { text-decoration: none; display: inline-block; }
-      .header-user { display: flex; align-items: center; gap: 8px; color: white; font-size: 12px; }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+      }
       .header-user .avatar {
-        width: 30px; height: 30px; background: rgba(255, 255, 255, 0.25);
-        border-radius: 50%; display: flex; align-items: center; justify-content: center;
-        font-weight: 700; font-size: 12px; border: 1.5px solid rgba(255, 255, 255, 0.4);
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
       }
-      .header-user .user-info { text-align: right; }
-      .header-user .user-name { font-weight: 600; font-size: 12px; }
-      .header-user .user-role { font-size: 10.5px; opacity: 0.75; }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
 
-      .app-body { display: flex; padding-top: var(--header-h); min-height: 100vh; }
+      .app-body {
+        display: flex;
+        padding-top: var(--header-h);
+        min-height: 100vh;
+      }
       .sidebar {
-        width: var(--sidebar-w); flex-shrink: 0; background: white;
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: white;
         min-height: calc(100vh - var(--header-h));
         border-right: 1px solid var(--gray-200);
         padding: 16px 10px;
-        position: fixed; top: var(--header-h); left: 0; bottom: 0;
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
         overflow-y: auto;
       }
       .sidebar-label {
-        font-size: 9.5px; font-weight: 700; color: var(--gray-400);
-        letter-spacing: 0.08em; text-transform: uppercase;
-        padding: 6px 8px; margin-top: 10px;
+        font-size: 9.5px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 6px 8px;
+        margin-top: 10px;
       }
-      .sidebar-label:first-child { margin-top: 0; }
+      .sidebar-label:first-child {
+        margin-top: 0;
+      }
       .sidebar-item {
-        display: flex; align-items: center; gap: 8px;
-        padding: 7px 10px; border-radius: 8px; cursor: pointer;
-        color: var(--gray-500); font-size: 12.5px; font-weight: 500;
-        transition: all 0.15s; margin-bottom: 1px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+        font-size: 12.5px;
+        font-weight: 500;
+        transition: all 0.15s;
+        margin-bottom: 1px;
       }
-      .sidebar-item:hover { background: var(--gray-100); color: var(--gray-700); }
-      .sidebar-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+      .sidebar-item:hover {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
 
-      .main { margin-left: var(--sidebar-w); flex: 1; padding: 20px; }
-      .page { display: none; }
-      .page.active { display: block; }
-      .page-title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 20px;
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+      }
 
-      .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: 14px; }
-      .card-body { padding: 14px 18px; }
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-body {
+        padding: 14px 18px;
+      }
 
-      .search-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-      .search-row + .search-row { margin-top: 10px; }
-      .filter-label { font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .search-row + .search-row {
+        margin-top: 10px;
+      }
+      .filter-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        white-space: nowrap;
+      }
 
       .date-range {
-        display: flex; align-items: center;
-        border: 1.5px solid var(--primary-mid); border-radius: 8px;
-        overflow: hidden; background: white; max-width: 280px;
+        display: flex;
+        align-items: center;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        max-width: 280px;
       }
       .date-nav {
-        padding: 6px 12px; background: var(--primary-light);
-        cursor: pointer; color: var(--primary);
-        font-size: 14px; font-weight: 700; border: none;
+        padding: 6px 12px;
+        background: var(--primary-light);
+        cursor: pointer;
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
       }
-      .date-display { padding: 6px 16px; font-size: 12px; font-weight: 600; color: var(--primary); background: white; white-space: nowrap; text-align: center; min-width: 200px; }
+      .date-display {
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        white-space: nowrap;
+        text-align: center;
+        min-width: 200px;
+      }
 
-      .time-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+      .time-filters {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
       .tf-btn {
-        padding: 7px 14px; min-height: 32px; border-radius: 9px;
-        border: 1px solid #e2e5f1; background: white; color: #677194;
-        font-size: 11.5px; font-weight: 500; cursor: pointer; font-family: inherit;
+        padding: 7px 14px;
+        min-height: 32px;
+        border-radius: 9px;
+        border: 1px solid #e2e5f1;
+        background: white;
+        color: #677194;
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
       }
-      .tf-btn.active { background: var(--primary); color: white; border-color: transparent; font-weight: 700; }
+      .tf-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: transparent;
+        font-weight: 700;
+      }
 
-      .criteria-wrap { position: relative; }
+      .criteria-wrap {
+        position: relative;
+      }
       .criteria-btn {
-        height: 34px; min-width: 150px;
-        border: 1.5px solid var(--gray-200); border-radius: 8px; background: white;
-        font-size: 12px; font-weight: 600; color: var(--gray-700);
-        font-family: inherit; padding: 0 10px; cursor: pointer;
-        display: inline-flex; align-items: center; justify-content: space-between; gap: 10px;
+        height: 34px;
+        min-width: 150px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        font-family: inherit;
+        padding: 0 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
       }
       .criteria-menu {
-        display: none; position: absolute; top: calc(100% + 6px); left: 0;
-        min-width: 160px; background: white; border: 1px solid var(--gray-200);
-        border-radius: 8px; padding: 4px; box-shadow: var(--shadow-md); z-index: 260;
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 160px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        z-index: 260;
       }
-      .criteria-wrap.open .criteria-menu { display: block; }
+      .criteria-wrap.open .criteria-menu {
+        display: block;
+      }
       .criteria-option {
-        width: 100%; border: none; background: transparent; text-align: left;
-        border-radius: 6px; padding: 7px 9px; font-size: 11.5px; color: var(--gray-700);
-        cursor: pointer; font-family: inherit;
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
       }
-      .criteria-option:hover { background: var(--gray-100); color: var(--primary); }
+      .criteria-option:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
 
       .search-input-lg {
-        flex: 1; min-width: 240px; height: 34px;
-        border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 0 11px;
-        font-size: 12px; color: var(--gray-700); font-family: inherit; outline: none;
+        flex: 1;
+        min-width: 240px;
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 11px;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
       }
 
       .btn {
-        padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600;
-        cursor: pointer; border: none; font-family: inherit; transition: all 0.15s;
-        display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
       }
-      .btn-outline-primary { background: white; border: 1.5px solid var(--primary); color: var(--primary); }
-      .btn-outline-primary:hover { background: var(--primary-light); }
-      .btn-outline-danger { background: white; border: 1.5px solid var(--accent); color: var(--accent); }
-      .btn-outline-danger:hover { background: var(--accent-light); }
-      .btn-primary { background: var(--primary); color: white; border: 1.5px solid var(--primary); }
-      .btn-danger { background: var(--accent); color: white; border: 1.5px solid var(--accent); }
-      .btn-ghost { background: var(--gray-100); border: 1.5px solid var(--gray-200); color: var(--gray-500); }
-      .btn-sm { padding: 4px 11px; font-size: 11px; }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
 
-      .tabs { display: flex; border-bottom: 2px solid var(--gray-200); margin-bottom: 14px; flex-wrap: wrap; }
+      .tabs {
+        display: flex;
+        border-bottom: 2px solid var(--gray-200);
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
       .tab {
-        padding: 8px 16px; font-size: 12.5px; font-weight: 500;
-        color: var(--gray-400); cursor: pointer;
-        border-bottom: 2px solid transparent; margin-bottom: -2px;
-        font-family: inherit; background: none; border-left: none; border-right: none; border-top: none;
+        padding: 8px 16px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--gray-400);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        font-family: inherit;
+        background: none;
+        border-left: none;
+        border-right: none;
+        border-top: none;
       }
-      .tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+        font-weight: 600;
+      }
 
-      .table-title { font-size: 13px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-      .table-title .count { font-size: 11px; background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+      .table-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .table-title .count {
+        font-size: 11px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
 
-      .table-actions { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
-      .table-actions-left, .table-actions-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-      .table-actions-left span { font-size: 11.5px; color: var(--gray-500); font-weight: 500; }
+      .table-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left,
+      .table-actions-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left span {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
 
-      .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200); }
-      table { width: 100%; border-collapse: collapse; min-width: 1200px; }
-      thead { background: var(--gray-50); }
-      thead th { padding: 9px 10px; text-align: center; font-size: 11.5px; font-weight: 600; color: var(--gray-500); white-space: nowrap; border-bottom: 1.5px solid var(--gray-200); }
-      tbody tr { border-bottom: 1px solid var(--gray-100); }
-      tbody tr:hover { background: var(--gray-50); }
-      tbody td { padding: 9px 10px; text-align: center; font-size: 12px; color: var(--gray-700); vertical-align: middle; }
-      .td-left { text-align: left !important; }
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1200px;
+      }
+      thead {
+        background: var(--gray-50);
+      }
+      thead th {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        white-space: nowrap;
+        border-bottom: 1.5px solid var(--gray-200);
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--gray-100);
+      }
+      tbody tr:hover {
+        background: var(--gray-50);
+      }
+      tbody td {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .td-left {
+        text-align: left !important;
+      }
 
-      .cell-menu { position: relative; display: inline-block; }
+      .cell-menu {
+        position: relative;
+        display: inline-block;
+      }
       .menu-trigger {
-        background: none; border: none; padding: 0; font: inherit;
-        color: var(--primary); font-weight: 600; text-decoration: underline;
-        cursor: pointer; font-size: 12px;
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
       }
       .menu-list {
-        position: absolute; top: calc(100% + 2px); left: 0; background: white;
-        border: 1px solid var(--gray-200); border-radius: 8px; box-shadow: var(--shadow-md);
-        z-index: 40; min-width: 200px; display: none; flex-direction: column; padding: 4px 0;
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        z-index: 40;
+        min-width: 200px;
+        display: none;
+        flex-direction: column;
+        padding: 4px 0;
       }
-      .cell-menu.open .menu-list { display: flex; }
+      .cell-menu.open .menu-list {
+        display: flex;
+      }
       .menu-item {
-        padding: 7px 12px; background: none; border: none; text-align: left;
-        font-size: 12px; color: var(--gray-700); cursor: pointer; font-family: inherit;
+        padding: 7px 12px;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
       }
-      .menu-item:hover { background: var(--gray-100); color: var(--primary); }
-      .menu-divider { margin: 4px 0; border: none; border-top: 1px solid var(--gray-200); }
+      .menu-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .menu-divider {
+        margin: 4px 0;
+        border: none;
+        border-top: 1px solid var(--gray-200);
+      }
 
-      .table-footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--gray-200); background: white; }
-      .pagination { display: flex; gap: 4px; justify-content: center; align-items: center; }
+      .table-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--gray-200);
+        background: white;
+      }
+      .pagination {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+      }
       .pg-btn {
-        min-width: 32px; height: 32px; padding: 0 8px;
-        border: 1px solid var(--gray-300); background: white; border-radius: 6px;
-        font-size: 12px; font-weight: 600; color: var(--gray-700); cursor: pointer;
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid var(--gray-300);
+        background: white;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        cursor: pointer;
       }
-      .pg-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+      .pg-btn.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
 
-      .select-dropdown { position: relative; display: inline-flex; align-items: center; }
+      .select-dropdown {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
       .select-dropdown select {
-        appearance: none; padding: 6px 28px 6px 10px;
-        border: 1.5px solid var(--gray-200); border-radius: 8px;
-        font-size: 12px; font-family: inherit; color: var(--gray-700);
-        background: white; cursor: pointer; outline: none; min-width: 150px;
+        appearance: none;
+        padding: 6px 28px 6px 10px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        background: white;
+        cursor: pointer;
+        outline: none;
+        min-width: 150px;
       }
       .select-dropdown::after {
-        content: "▾"; position: absolute; right: 10px; pointer-events: none;
-        font-size: 10px; color: var(--gray-400);
+        content: "▾";
+        position: absolute;
+        right: 10px;
+        pointer-events: none;
+        font-size: 10px;
+        color: var(--gray-400);
       }
 
-      .info-note {
-        margin: 0 0 14px; padding: 10px 14px; font-size: 11.5px;
-        color: var(--warning); background: var(--warning-light);
-        border: 1px solid var(--warning); border-radius: 8px; font-weight: 500;
+      .ip-text {
+        font-family: ui-monospace, SFMono-Regular, monospace;
+        font-size: 11.5px;
+        color: var(--gray-700);
       }
-
-      .ip-text { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 11.5px; color: var(--gray-700); }
 
       /* ====== ACTION MODAL ====== */
       .action-modal-backdrop {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.5); z-index: 260;
-        display: none; align-items: center; justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
       }
-      .action-modal-backdrop.open { display: flex; }
-      .action-modal { background: white; border-radius: 10px; padding: 20px; max-width: 460px; width: 95vw; box-shadow: var(--shadow-md); }
-      .action-modal-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
-      .action-modal-body { font-size: 12px; color: var(--gray-600); line-height: 1.5; margin-bottom: 16px; }
-      .action-modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
-      .action-modal-btn { padding: 8px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
-      .action-modal-btn-cancel { background: var(--gray-200); color: var(--gray-700); }
-      .action-modal-btn-confirm { background: var(--accent); color: white; }
-      .action-modal-btn-confirm.is-primary { background: var(--primary); }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 460px;
+        width: 95vw;
+        box-shadow: var(--shadow-md);
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-600);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+      .action-modal-btn-confirm.is-primary {
+        background: var(--primary);
+      }
 
-      .reason-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+      .reason-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
       .reason-radio {
-        display: flex; align-items: center; gap: 8px;
-        padding: 8px 10px; border: 1.5px solid var(--gray-200); border-radius: 8px;
-        cursor: pointer; font-size: 12px; color: var(--gray-700);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 12px;
+        color: var(--gray-700);
       }
-      .reason-radio input { margin: 0; }
-      .reason-radio:has(input:checked) { border-color: var(--primary); background: var(--primary-light); color: var(--primary); font-weight: 600; }
+      .reason-radio input {
+        margin: 0;
+      }
+      .reason-radio:has(input:checked) {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
       .reason-other-input {
-        margin-top: 6px; width: 100%; padding: 8px 12px;
-        border: 1.5px solid var(--gray-200); border-radius: 8px;
-        font-size: 12px; font-family: inherit; outline: none;
+        margin-top: 6px;
+        width: 100%;
+        padding: 8px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        outline: none;
       }
-      .reason-other-input:focus { border-color: var(--primary); }
+      .reason-other-input:focus {
+        border-color: var(--primary);
+      }
       .reason-duration {
-        margin-top: 8px; padding: 10px 12px;
-        background: var(--gray-50); border: 1px solid var(--gray-200);
-        border-radius: 8px; display: flex; align-items: center; gap: 10px;
+        margin-top: 8px;
+        padding: 10px 12px;
+        background: var(--gray-50);
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
-      .reason-duration .label { font-size: 12px; font-weight: 600; color: var(--gray-700); }
+      .reason-duration .label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
       .reason-duration select {
-        padding: 5px 26px 5px 10px; appearance: none;
-        border: 1.5px solid var(--gray-200); border-radius: 6px;
-        font-size: 12px; color: var(--gray-700); background: white; cursor: pointer;
+        padding: 5px 26px 5px 10px;
+        appearance: none;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 6px;
+        font-size: 12px;
+        color: var(--gray-700);
+        background: white;
+        cursor: pointer;
       }
 
       /* ====== REASON CHIP EDITOR (4.1.4) ====== */
-      .reason-input-row { display: flex; align-items: center; gap: 10px; }
+      .reason-input-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
       .reason-input {
-        flex: 1; height: 38px;
-        border: 1.5px solid var(--success); background: var(--success-light);
-        border-radius: 10px; padding: 0 14px;
-        font-size: 12.5px; color: var(--gray-900); font-family: inherit; outline: none;
+        flex: 1;
+        height: 38px;
+        border: 1.5px solid var(--success);
+        background: var(--success-light);
+        border-radius: 10px;
+        padding: 0 14px;
+        font-size: 12.5px;
+        color: var(--gray-900);
+        font-family: inherit;
+        outline: none;
       }
-      .reason-input:focus { border-color: var(--primary); background: white; }
-      .reason-input.editing { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+      .reason-input:focus {
+        border-color: var(--primary);
+        background: white;
+      }
+      .reason-input.editing {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        color: var(--primary);
+      }
       .reason-chip {
-        display: inline-flex; align-items: center;
-        padding: 6px 14px; border: 1.5px solid var(--primary-mid);
-        background: var(--primary-light); color: var(--primary);
-        border-radius: 999px; font-size: 12px; font-weight: 600;
-        cursor: pointer; font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 14px;
+        border: 1.5px solid var(--primary-mid);
+        background: var(--primary-light);
+        color: var(--primary);
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
       }
-      .reason-chip:hover, .reason-chip.editing { background: var(--primary); color: white; border-color: var(--primary); }
+      .reason-chip:hover,
+      .reason-chip.editing {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
 
       /* ====== MINI BAR CHART (4.1.5-2 placeholder) ====== */
-      .bars-row { display: flex; align-items: flex-end; gap: 6px; height: 80px; padding: 4px 0; }
-      .bar {
-        flex: 1; background: var(--primary); border-radius: 4px 4px 0 0;
-        position: relative; min-height: 8px; transition: background 0.15s;
+      .bars-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 80px;
+        padding: 4px 0;
       }
-      .bar:hover { background: var(--accent); }
-      .bar-label { font-size: 10px; color: var(--gray-500); text-align: center; margin-top: 4px; }
+      .bar {
+        flex: 1;
+        background: var(--primary);
+        border-radius: 4px 4px 0 0;
+        position: relative;
+        min-height: 8px;
+        transition: background 0.15s;
+      }
+      .bar:hover {
+        background: var(--accent);
+      }
+      .bar-label {
+        font-size: 10px;
+        color: var(--gray-500);
+        text-align: center;
+        margin-top: 4px;
+      }
+
+      /* ====== DETAIL / EDIT PAGES ====== */
+      .breadcrumb { font-size: 11.5px; color: var(--gray-500); margin-bottom: 10px; }
+      .bc-link { color: var(--primary); cursor: pointer; font-weight: 600; }
+      .bc-sep { margin: 0 6px; color: var(--gray-400); }
+      .bc-current { color: var(--gray-700); font-weight: 600; }
+
+      .detail-header { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+      .detail-header-title { display: flex; gap: 12px; align-items: center; }
+      .doctor-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
+      .detail-title { font-size: 16px; font-weight: 700; color: var(--gray-900); }
+      .meta-badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--primary-light); color: var(--primary); }
+
+      .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 16px; }
+      .stat-box { padding: 10px 8px; background: var(--gray-100); border-radius: 8px; text-align: center; }
+      .stat-label { font-size: 11px; color: var(--gray-600); font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
+      .stat-value { font-size: 18px; font-weight: 700; color: var(--primary); }
+
+      .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; }
+      .form-group { display: flex; flex-direction: column; gap: 5px; }
+      .form-row-full { grid-column: 1 / -1; }
+      .form-label { font-size: 12px; font-weight: 600; color: var(--gray-700); }
+      .form-label .req { color: var(--accent); }
+      .form-input, .form-textarea, .form-select { border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 8px 11px; font-size: 12px; font-family: inherit; color: var(--gray-700); outline: none; background: white; }
+      .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--primary); }
+      .form-textarea { min-height: 70px; resize: vertical; }
+      .form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--gray-200); }
+
+      .cat-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+      .cat-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-mid); border-radius: 999px; font-size: 11.5px; font-weight: 600; }
+      .cat-chip .x { cursor: pointer; opacity: 0.6; }
+      .cat-chip .x:hover { opacity: 1; }
+      .cat-add-row { display: flex; gap: 8px; align-items: center; }
+
+      .read-only-field { background: var(--gray-50); color: var(--gray-700); padding: 8px 11px; border-radius: 8px; border: 1.5px solid var(--gray-200); font-size: 12px; }
+      #page-real-edit.view-mode .form-input,
+      #page-real-edit.view-mode .form-textarea,
+      #page-real-edit.view-mode .form-select { background: var(--gray-50); color: var(--gray-700); pointer-events: none; }
+      #page-real-edit.view-mode .cat-add-row { display: none; }
+      #page-real-edit.view-mode .cat-chip .x { display: none; }
     </style>
   </head>
   <body>
@@ -342,7 +923,9 @@
       <nav class="header-nav">
         <a class="nav-item" href="home-management.html">Trang chủ</a>
         <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
-        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
+        <a class="nav-item" href="virtual-member-management.html"
+          >Thành viên ảo</a
+        >
         <div class="nav-item active">Thành viên thực, staff</div>
         <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
         <div class="nav-item nav-item-group">
@@ -355,13 +938,21 @@
           </div>
         </div>
         <a class="nav-item" href="menu-management.html">Menu</a>
-        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="post-comment-management.html"
+          >Bài viết. Bình luận</a
+        >
         <a class="nav-item" href="tag-management.html">Thẻ</a>
-        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="report-management.html"
+          >Từ cấm. Spam. Báo cáo</a
+        >
         <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
-        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="reward-badge-management.html"
+          >Điểm thưởng. Huy hiệu</a
+        >
         <a class="nav-item" href="statistics-management.html">Thống kê</a>
-        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+        <a class="nav-item" href="push-notification-management.html"
+          >Thông báo đẩy</a
+        >
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -375,15 +966,57 @@
     <div class="app-body">
       <aside class="sidebar">
         <div class="sidebar-label">Quản lý thành viên thực</div>
-        <div class="sidebar-item active" id="sidebar-real" onclick="goSection('real')">Thành viên thực</div>
-        <div class="sidebar-item" id="sidebar-suspended" onclick="goSection('suspended')">Thành viên bị tạm khóa</div>
-        <div class="sidebar-item" id="sidebar-leave" onclick="goSection('leave')">QL thành viên rời bỏ</div>
-        <div class="sidebar-item" id="sidebar-leave-reason" onclick="goSection('leave-reason')">QL lý do rời bỏ</div>
-        <div class="sidebar-item" id="sidebar-no-access" onclick="goSection('no-access')">Thành viên không truy cập</div>
+        <div
+          class="sidebar-item active"
+          id="sidebar-real"
+          onclick="goSection('real')"
+        >
+          Thành viên thực
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-suspended"
+          onclick="goSection('suspended')"
+        >
+          Thành viên bị tạm khóa
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-leave"
+          onclick="goSection('leave')"
+        >
+          QL thành viên rời bỏ
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-leave-reason"
+          onclick="goSection('leave-reason')"
+        >
+          QL lý do rời bỏ
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-no-access"
+          onclick="goSection('no-access')"
+        >
+          Thành viên không truy cập
+        </div>
 
         <div class="sidebar-label">Staff</div>
-        <div class="sidebar-item" id="sidebar-add-staff" onclick="goSection('add-staff')">Thêm staff</div>
-        <div class="sidebar-item" id="sidebar-manage-staff" onclick="goSection('manage-staff')">Quản lý staff</div>
+        <div
+          class="sidebar-item"
+          id="sidebar-add-staff"
+          onclick="goSection('add-staff')"
+        >
+          Thêm staff
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-manage-staff"
+          onclick="goSection('manage-staff')"
+        >
+          Quản lý staff
+        </div>
       </aside>
 
       <!-- ====== 4.1.1 THÀNH VIÊN THỰC ====== -->
@@ -395,48 +1028,129 @@
             <div class="search-row">
               <span class="filter-label">Ngày đăng ký:</span>
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('real',-1)">‹</button>
-                <span class="date-display" id="real-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('real',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('real', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="real-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('real', 1)">
+                  ›
+                </button>
               </div>
               <div class="time-filters">
-                <button class="tf-btn" onclick="setQuickFilter('real','day',this)">Ngày</button>
-                <button class="tf-btn active" onclick="setQuickFilter('real','week',this)">Tuần</button>
-                <button class="tf-btn" onclick="setQuickFilter('real','month',this)">Tháng</button>
-                <button class="tf-btn" onclick="setQuickFilter('real','year',this)">Năm</button>
-                <button class="tf-btn" onclick="setQuickFilter('real','all',this)">Tất cả</button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('real', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('real', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('real', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('real', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('real', 'all', this)"
+                >
+                  Tất cả
+                </button>
               </div>
             </div>
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-real">
-                <button class="criteria-btn" onclick="toggleCriteria('real',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('real', event)"
+                >
                   <span id="criteria-label-real">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
               <input class="search-input-lg" placeholder="Nhập thông tin" />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
 
         <div class="card">
           <div class="card-body">
-            <div class="table-title">• Thành viên thực <span class="count">2,678 người</span></div>
+            <div class="table-title">
+              • Thành viên thực <span class="count">2,678 người</span>
+            </div>
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Mục đã chọn:</span>
-                <div class="select-dropdown"><select><option>Chọn cấp bậc</option><option>Lv.1</option><option>Lv.2</option><option>Lv.3</option><option>KOL</option><option>Chuyên gia</option><option>Bác sĩ</option></select></div>
-                <button class="btn btn-outline-primary btn-sm" onclick="alert('Đã thay đổi cấp bậc.')">Thay đổi</button>
-                <button class="btn btn-outline-danger btn-sm" onclick="openSuspendModal()">Tạm khóa</button>
-                <button class="btn btn-danger btn-sm" onclick="openForceLeaveModal()">Buộc rời bỏ</button>
-                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('cancel-upgrade')">Hủy nâng cấp tự động</button>
-                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('send-email')">Gửi Email</button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openRealChangeLevelModal()"
+                >
+                  Thay đổi cấp bậc
+                </button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openSuspendModal()"
+                >
+                  Tạm khóa
+                </button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  onclick="openForceLeaveModal()"
+                >
+                  Buộc rời bỏ
+                </button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openActionModal('cancel-upgrade')"
+                >
+                  Hủy nâng cấp tự động
+                </button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openActionModal('send-email')"
+                >
+                  Gửi Email
+                </button>
               </div>
               <div class="table-actions-right">
-                <div class="select-dropdown"><select><option>Tất cả cấp bậc</option><option>Lv.1</option><option>Lv.2</option><option>Lv.3</option><option>KOL</option><option>Chuyên gia</option><option>Bác sĩ</option></select></div>
-                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option><option>Danh sách 100</option></select></div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Tất cả cấp bậc</option>
+                    <option>Lv.1</option>
+                    <option>Lv.2</option>
+                    <option>Lv.3</option>
+                    <option>KOL</option>
+                    <option>Chuyên gia</option>
+                    <option>Bác sĩ</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                    <option>Danh sách 100</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="table-wrap">
@@ -484,42 +1198,93 @@
             <div class="search-row">
               <span class="filter-label">Ngày tạm khóa:</span>
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('suspended',-1)">‹</button>
-                <span class="date-display" id="suspended-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('suspended',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('suspended', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="suspended-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('suspended', 1)">
+                  ›
+                </button>
               </div>
               <div class="time-filters">
-                <button class="tf-btn" onclick="setQuickFilter('suspended','day',this)">Ngày</button>
-                <button class="tf-btn active" onclick="setQuickFilter('suspended','week',this)">Tuần</button>
-                <button class="tf-btn" onclick="setQuickFilter('suspended','month',this)">Tháng</button>
-                <button class="tf-btn" onclick="setQuickFilter('suspended','year',this)">Năm</button>
-                <button class="tf-btn" onclick="setQuickFilter('suspended','all',this)">Tất cả</button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('suspended', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('suspended', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('suspended', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('suspended', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('suspended', 'all', this)"
+                >
+                  Tất cả
+                </button>
               </div>
             </div>
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-suspended">
-                <button class="criteria-btn" onclick="toggleCriteria('suspended',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('suspended', event)"
+                >
                   <span id="criteria-label-suspended">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
               <input class="search-input-lg" placeholder="Nhập thông tin" />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
 
         <div class="card">
           <div class="card-body">
-            <div class="table-title">• Thành viên bị tạm khóa <span class="count">9 người</span></div>
+            <div class="table-title">
+              • Thành viên bị tạm khóa <span class="count">9 người</span>
+            </div>
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Mục đã chọn:</span>
-                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('unsuspend')">Gỡ tạm khóa</button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openActionModal('unsuspend')"
+                >
+                  Gỡ tạm khóa
+                </button>
               </div>
               <div class="table-actions-right">
-                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="table-wrap">
@@ -560,30 +1325,71 @@
         <div class="card">
           <div class="card-body">
             <div class="search-row">
-              <span class="filter-label" id="leave-date-label">Ngày rời bỏ:</span>
+              <span class="filter-label" id="leave-date-label"
+                >Ngày rời bỏ:</span
+              >
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('leave',-1)">‹</button>
-                <span class="date-display" id="leave-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('leave',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('leave', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="leave-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('leave', 1)">
+                  ›
+                </button>
               </div>
               <div class="time-filters">
-                <button class="tf-btn" onclick="setQuickFilter('leave','day',this)">Ngày</button>
-                <button class="tf-btn active" onclick="setQuickFilter('leave','week',this)">Tuần</button>
-                <button class="tf-btn" onclick="setQuickFilter('leave','month',this)">Tháng</button>
-                <button class="tf-btn" onclick="setQuickFilter('leave','year',this)">Năm</button>
-                <button class="tf-btn" onclick="setQuickFilter('leave','all',this)">Tất cả</button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('leave', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('leave', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('leave', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('leave', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('leave', 'all', this)"
+                >
+                  Tất cả
+                </button>
               </div>
             </div>
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-leave">
-                <button class="criteria-btn" onclick="toggleCriteria('leave',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('leave', event)"
+                >
                   <span id="criteria-label-leave">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
               <input class="search-input-lg" placeholder="Nhập thông tin" />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
@@ -596,19 +1402,41 @@
             </div>
 
             <div class="tabs">
-              <div class="tab active" id="tab-leave-banned" onclick="switchLeaveSub('banned',this)">Thành viên bị cấm đăng ký lại</div>
-              <div class="tab" id="tab-leave-self" onclick="switchLeaveSub('self',this)">Thành viên tự rời bỏ</div>
+              <div
+                class="tab active"
+                id="tab-leave-banned"
+                onclick="switchLeaveSub('banned', this)"
+              >
+                Thành viên bị cấm đăng ký lại
+              </div>
+              <div
+                class="tab"
+                id="tab-leave-self"
+                onclick="switchLeaveSub('self', this)"
+              >
+                Thành viên tự rời bỏ
+              </div>
             </div>
 
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Mục đã chọn:</span>
                 <div id="leave-bulk-actions">
-                  <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('unban-register')">Gỡ chặn cấm đăng ký</button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="openActionModal('unban-register')"
+                  >
+                    Gỡ chặn cấm đăng ký
+                  </button>
                 </div>
               </div>
               <div class="table-actions-right">
-                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -639,24 +1467,34 @@
         <div class="card">
           <div class="card-body">
             <div class="reason-input-row">
-              <input type="text" id="lr-input" class="reason-input" placeholder="Nhập lý do rời bỏ (tối đa 20 từ)"
-                oninput="handleLRInput()" onkeydown="handleLRKey(event)" />
-              <button class="btn btn-primary" id="lr-btn" onclick="submitLR()">Thêm</button>
-            </div>
-            <div class="info-note" style="margin-top: 12px">
-              Hướng dẫn: Phần nào khiến bạn bất tiện vậy? — Viết lý do trên 20 từ.
+              <input
+                type="text"
+                id="lr-input"
+                class="reason-input"
+                placeholder="Nhập lý do rời bỏ (tối đa 20 từ)"
+                oninput="handleLRInput()"
+                onkeydown="handleLRKey(event)"
+              />
+              <button class="btn btn-primary" id="lr-btn" onclick="submitLR()">
+                Thêm
+              </button>
             </div>
           </div>
         </div>
 
         <div class="card">
           <div class="card-body">
-            <div class="table-title">• Danh sách lý do rời bỏ <span class="count" id="lr-count">0 lý do</span></div>
+            <div class="table-title">
+              • Danh sách lý do rời bỏ
+              <span class="count" id="lr-count">0 lý do</span>
+            </div>
             <div class="table-wrap">
               <table>
                 <thead>
                   <tr>
-                    <th class="td-left" style="padding-left: 16px">Lý do rời bỏ</th>
+                    <th class="td-left" style="padding-left: 16px">
+                      Lý do rời bỏ
+                    </th>
                     <th style="width: 140px">Người tạo</th>
                     <th style="width: 140px">Ngày</th>
                     <th style="width: 100px">Quản lý</th>
@@ -672,7 +1510,15 @@
           <div class="card-body">
             <div class="table-title">• Thống kê lý do rời bỏ</div>
             <div class="search-row" style="margin-bottom: 12px">
-              <div class="select-dropdown"><select><option>Tất cả cấp bậc</option><option>Lv.1</option><option>Lv.2</option><option>Lv.3</option><option>Chuyên gia</option></select></div>
+              <div class="select-dropdown">
+                <select>
+                  <option>Tất cả cấp bậc</option>
+                  <option>Lv.1</option>
+                  <option>Lv.2</option>
+                  <option>Lv.3</option>
+                  <option>Chuyên gia</option>
+                </select>
+              </div>
               <div class="time-filters">
                 <button class="tf-btn">Ngày</button>
                 <button class="tf-btn active">Tuần</button>
@@ -682,7 +1528,10 @@
               </div>
             </div>
             <div class="bars-row" id="lr-stats-bars"></div>
-            <div style="display:flex;gap:6px;margin-top:8px" id="lr-stats-labels"></div>
+            <div
+              style="display: flex; gap: 6px; margin-top: 8px"
+              id="lr-stats-labels"
+            ></div>
           </div>
         </div>
       </main>
@@ -696,9 +1545,13 @@
             <div class="search-row">
               <span class="filter-label">Lần cuối đăng nhập:</span>
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('na',-1)">‹</button>
-                <span class="date-display" id="na-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('na',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('na', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="na-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('na', 1)">›</button>
               </div>
               <div class="time-filters">
                 <button class="tf-btn">Ngày</button>
@@ -711,13 +1564,21 @@
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-na">
-                <button class="criteria-btn" onclick="toggleCriteria('na',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('na', event)"
+                >
                   <span id="criteria-label-na">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
               <input class="search-input-lg" placeholder="Nhập thông tin" />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
@@ -730,20 +1591,53 @@
             </div>
 
             <div class="tabs">
-              <div class="tab active" id="tab-na-list" onclick="switchNoAccess('list',this)">Quản lý thành viên không truy cập</div>
-              <div class="tab" id="tab-na-stats" onclick="switchNoAccess('stats',this)">Thống kê lượng thành viên không truy cập</div>
+              <div
+                class="tab active"
+                id="tab-na-list"
+                onclick="switchNoAccess('list', this)"
+              >
+                Quản lý thành viên không truy cập
+              </div>
+              <div
+                class="tab"
+                id="tab-na-stats"
+                onclick="switchNoAccess('stats', this)"
+              >
+                Thống kê lượng thành viên không truy cập
+              </div>
             </div>
 
             <div id="na-panel-list">
               <div class="table-actions">
                 <div class="table-actions-left">
                   <span>Mục đã chọn:</span>
-                  <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('push-notify')">Gửi thông báo đẩy</button>
-                  <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('send-email')">Gửi Email</button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="openActionModal('push-notify')"
+                  >
+                    Gửi thông báo đẩy
+                  </button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="openActionModal('send-email')"
+                  >
+                    Gửi Email
+                  </button>
                 </div>
                 <div class="table-actions-right">
-                  <div class="select-dropdown"><select><option>Tất cả cấp bậc</option><option>Lv.1</option><option>Lv.2</option></select></div>
-                  <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Tất cả cấp bậc</option>
+                      <option>Lv.1</option>
+                      <option>Lv.2</option>
+                    </select>
+                  </div>
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Danh sách 30</option>
+                      <option>Danh sách 50</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <div class="table-wrap">
@@ -766,9 +1660,6 @@
             </div>
 
             <div id="na-panel-stats" style="display: none">
-              <div class="info-note">
-                Bảng thống kê theo cấp bậc và tuần. Số lượng thành viên không đăng nhập trong khoảng thời gian.
-              </div>
               <div class="table-wrap">
                 <table>
                   <thead>
@@ -786,19 +1677,43 @@
                   <tbody>
                     <tr>
                       <td class="td-left">Tuần 02/06/2025 - 09/06/2025</td>
-                      <td>320</td><td>180</td><td>95</td><td>20</td><td>10</td><td>5</td><td>10</td>
+                      <td>320</td>
+                      <td>180</td>
+                      <td>95</td>
+                      <td>20</td>
+                      <td>10</td>
+                      <td>5</td>
+                      <td>10</td>
                     </tr>
                     <tr>
                       <td class="td-left">Tuần 09/06/2025 - 16/06/2025</td>
-                      <td>345</td><td>192</td><td>104</td><td>21</td><td>9</td><td>5</td><td>14</td>
+                      <td>345</td>
+                      <td>192</td>
+                      <td>104</td>
+                      <td>21</td>
+                      <td>9</td>
+                      <td>5</td>
+                      <td>14</td>
                     </tr>
                     <tr>
                       <td class="td-left">Tuần 16/06/2025 - 23/06/2025</td>
-                      <td>352</td><td>198</td><td>108</td><td>20</td><td>10</td><td>5</td><td>11</td>
+                      <td>352</td>
+                      <td>198</td>
+                      <td>108</td>
+                      <td>20</td>
+                      <td>10</td>
+                      <td>5</td>
+                      <td>11</td>
                     </tr>
                     <tr>
                       <td class="td-left">Tuần 23/06/2025 - 30/06/2025</td>
-                      <td>361</td><td>201</td><td>112</td><td>22</td><td>10</td><td>5</td><td>11</td>
+                      <td>361</td>
+                      <td>201</td>
+                      <td>112</td>
+                      <td>22</td>
+                      <td>10</td>
+                      <td>5</td>
+                      <td>11</td>
                     </tr>
                   </tbody>
                 </table>
@@ -814,34 +1729,57 @@
 
         <div class="card">
           <div class="card-body">
-            <div class="info-note">
-              Tìm thành viên thực để cấp quyền staff. Sau khi thêm QTV (staff), thông tin sẽ được hiển thị trong menu "Quản lý staff".
-            </div>
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-as">
-                <button class="criteria-btn" onclick="toggleCriteria('as',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('as', event)"
+                >
                   <span id="criteria-label-as">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
               <input class="search-input-lg" placeholder="mai" value="mai" />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
 
         <div class="card">
           <div class="card-body">
-            <div class="table-title">• Danh sách kết quả <span class="count" id="as-count">2 người</span></div>
+            <div class="table-title">
+              • Danh sách kết quả
+              <span class="count" id="as-count">2 người</span>
+            </div>
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Mục đã chọn:</span>
-                <div class="select-dropdown"><select><option>Chọn cấp bậc</option><option>Quản trị viên 1</option><option>Quản trị viên 2</option></select></div>
-                <button class="btn btn-primary btn-sm" onclick="openActionModal('add-staff')">Thêm</button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openStaffChangeLevelModal()"
+                >
+                  Thay đổi cấp bậc
+                </button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  onclick="openActionModal('add-staff')"
+                >
+                  Thêm
+                </button>
               </div>
               <div class="table-actions-right">
-                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="table-wrap">
@@ -874,15 +1812,16 @@
 
         <div class="card">
           <div class="card-body">
-            <div class="info-note">
-              QTV1 không có quyền truy cập trang này. Đây là màn hình của QTV3. QTV2 chỉ có thể quản lý QTV1.
-            </div>
             <div class="search-row">
               <span class="filter-label">Ngày tạo:</span>
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('ms',-1)">‹</button>
-                <span class="date-display" id="ms-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('ms',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('ms', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="ms-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('ms', 1)">›</button>
               </div>
               <div class="time-filters">
                 <button class="tf-btn">Ngày</button>
@@ -895,29 +1834,60 @@
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-ms">
-                <button class="criteria-btn" onclick="toggleCriteria('ms',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('ms', event)"
+                >
                   <span id="criteria-label-ms">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
               <input class="search-input-lg" placeholder="Nhập thông tin" />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
 
         <div class="card">
           <div class="card-body">
-            <div class="table-title">• Quản lý staff <span class="count">100 người</span></div>
+            <div class="table-title">
+              • Quản lý staff <span class="count">100 người</span>
+            </div>
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Mục đã chọn:</span>
-                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('change-staff-grade')">Đổi cấp bậc</button>
-                <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('remove-staff')">Xóa</button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openActionModal('change-staff-grade')"
+                >
+                  Đổi cấp bậc
+                </button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openActionModal('remove-staff')"
+                >
+                  Xóa
+                </button>
               </div>
               <div class="table-actions-right">
-                <div class="select-dropdown"><select><option>Toàn bộ</option><option>QTV 1</option><option>QTV 2</option></select></div>
-                <div class="select-dropdown"><select><option>Danh sách 30</option><option>Danh sách 50</option></select></div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Toàn bộ</option>
+                    <option>QTV 1</option>
+                    <option>QTV 2</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
+                    <option>Danh sách 30</option>
+                    <option>Danh sách 50</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="table-wrap">
@@ -949,27 +1919,363 @@
           </div>
         </div>
       </main>
+
+      <!-- ====== TRANG: THÔNG TIN VÀ HOẠT ĐỘNG (real-detail/history) ====== -->
+      <main class="main page" id="page-real-detail">
+        <div class="breadcrumb">
+          <span class="bc-link" onclick="goSection('real')">Danh sách thành viên thực</span>
+          <span class="bc-sep">/</span>
+          <span class="bc-current" id="real-detail-name">Chi tiết thành viên</span>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div style="margin-bottom:12px">
+              <button class="btn btn-ghost" onclick="goSection('real')">‹ Danh sách thành viên thực</button>
+            </div>
+            <div style="margin-bottom:12px;font-size:16px;font-weight:600;text-transform:uppercase">
+              Thông tin và Hoạt động
+            </div>
+
+            <div class="detail-header">
+              <div class="detail-header-title">
+                <div class="doctor-avatar" id="real-detail-avatar">MM</div>
+                <div>
+                  <div class="detail-title" id="real-detail-title">Tên hiển thị</div>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+                    <span class="meta-badge" id="real-detail-badge-id">ID: M001</span>
+                    <span class="meta-badge" id="real-detail-badge-level">Lv.1</span>
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap">
+                <button class="btn btn-outline-danger" onclick="openSuspendModal()">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                  Tạm khóa hoạt động
+                </button>
+                <button class="btn btn-outline-danger" onclick="openForceLeaveModal()">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="8.5" cy="7" r="4"/>
+                    <line x1="18" y1="8" x2="23" y2="13"/>
+                    <line x1="23" y1="8" x2="18" y2="13"/>
+                  </svg>
+                  Buộc rời bỏ
+                </button>
+                <button class="btn btn-outline-primary" onclick="openRealChangeLevelModal()">
+                  Thay đổi cấp bậc
+                </button>
+                <button class="btn btn-primary" onclick="openActionModal('push-notify')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                  </svg>
+                  Gửi thông báo đẩy
+                </button>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-box">
+                <div class="stat-label">Số lần truy cập</div>
+                <div class="stat-value" id="real-stat-visits">0</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Số Bài viết</div>
+                <div class="stat-value" id="real-stat-posts">0</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Số Bình luận</div>
+                <div class="stat-value" id="real-stat-comments">0</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Báo cáo</div>
+                <div class="stat-value" id="real-stat-reports">0</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Đang theo dõi</div>
+                <div class="stat-value" id="real-stat-following">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-title">Lịch sử hoạt động</div>
+            <div class="tabs">
+              <div class="tab active" id="real-tab-posts" onclick="switchRealDetailTab('posts')">Bài viết</div>
+              <div class="tab" id="real-tab-comments" onclick="switchRealDetailTab('comments')">Bình luận</div>
+            </div>
+
+            <div id="real-panel-posts">
+              <div class="search-row" style="margin-bottom:10px">
+                <input class="search-input-lg" placeholder="Tìm kiếm bài viết..." style="flex:0 1 300px" />
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" /></th>
+                      <th>Tên chuyên mục</th>
+                      <th>Tên danh mục</th>
+                      <th>Tiêu đề</th>
+                      <th>Ngày đăng</th>
+                      <th>Lượt xem</th>
+                    </tr>
+                  </thead>
+                  <tbody id="real-detail-posts-tbody"></tbody>
+                </table>
+              </div>
+              <div class="table-actions" style="margin-top:12px">
+                <button class="btn btn-outline-danger btn-sm">Xóa mục chọn</button>
+              </div>
+            </div>
+
+            <div id="real-panel-comments" style="display:none">
+              <div class="search-row" style="margin-bottom:10px">
+                <input class="search-input-lg" placeholder="Tìm kiếm bình luận..." style="flex:0 1 300px" />
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" /></th>
+                      <th>Tên chuyên mục</th>
+                      <th>Tên danh mục</th>
+                      <th>Tiêu đề bài viết</th>
+                      <th>Nội dung bình luận</th>
+                      <th>Ngày đăng</th>
+                    </tr>
+                  </thead>
+                  <tbody id="real-detail-comments-tbody"></tbody>
+                </table>
+              </div>
+              <div class="table-actions" style="margin-top:12px">
+                <button class="btn btn-outline-danger btn-sm">Xóa mục chọn</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ====== TRANG: CHỈNH SỬA CHI TIẾT (real-edit) ====== -->
+      <main class="main page" id="page-real-edit">
+        <div class="breadcrumb">
+          <span class="bc-link" onclick="goSection('real')">Danh sách thành viên thực</span>
+          <span class="bc-sep">/</span>
+          <span class="bc-current" id="rf-breadcrumb-current">Chỉnh sửa thông tin</span>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div style="margin-bottom:12px">
+              <button class="btn btn-ghost" onclick="goSection('real')">‹ Danh sách thành viên thực</button>
+            </div>
+            <div id="rf-page-title" style="margin-bottom:14px;font-size:16px;font-weight:600;text-transform:uppercase">
+              Chỉnh sửa thông tin thành viên thực
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">ID</label>
+                <div class="read-only-field" id="rf-id">M001</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Tên hiển thị <span class="req">*</span></label>
+                <input class="form-input" id="rf-nickname" placeholder="Nhập tên hiển thị" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Họ tên thật</label>
+                <input class="form-input" id="rf-fullname" placeholder="Nhập họ tên thật" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="form-input" id="rf-email" type="email" placeholder="abc@email.com" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Giới tính</label>
+                <select class="form-input" id="rf-gender">
+                  <option>Nữ</option>
+                  <option>Nam</option>
+                  <option>Khác</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Cấp bậc</label>
+                <select class="form-input" id="rf-grade">
+                  <option>Lv.1</option>
+                  <option>Lv.2</option>
+                  <option>Lv.3</option>
+                  <option>Lv.4</option>
+                  <option>Lv.5</option>
+                  <option>KOL</option>
+                  <option>Chuyên gia</option>
+                  <option>Bác sĩ</option>
+                </select>
+              </div>
+
+              <div class="form-row-full">
+                <label class="form-label">Danh mục chính (tối đa 3)</label>
+                <div class="cat-row" id="rf-cat-chips"></div>
+                <div class="cat-add-row">
+                  <select class="form-input" id="rf-cat-select" style="flex:0 1 260px">
+                    <option value="">— Chọn danh mục chính —</option>
+                    <option>Làn da</option>
+                    <option>Tóc</option>
+                    <option>Răng miệng</option>
+                    <option>Mắt/ Lông mi</option>
+                    <option>Mũi</option>
+                    <option>Cằm/ Hàm</option>
+                    <option>Ngực</option>
+                    <option>Sức khỏe</option>
+                    <option>Dinh dưỡng</option>
+                  </select>
+                  <button class="btn btn-outline-primary btn-sm" onclick="addRealCategory()">+ Thêm</button>
+                </div>
+              </div>
+
+              <div class="form-row-full">
+                <label class="form-label">Ghi chú</label>
+                <textarea class="form-textarea" id="rf-note" placeholder="Nhập ghi chú..."></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions" id="rf-actions-view" style="display:none">
+              <button class="btn btn-ghost" onclick="goSection('real')">Đóng</button>
+              <button class="btn btn-primary" onclick="switchToEditMode()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                Chỉnh sửa
+              </button>
+            </div>
+            <div class="form-actions" id="rf-actions-edit">
+              <button class="btn btn-ghost" onclick="goSection('real')">Hủy</button>
+              <button class="btn btn-primary" onclick="saveRealMember()">Lưu</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ====== CHANGE LEVEL MODAL (TVA pattern) ====== -->
+    <div
+      class="action-modal-backdrop"
+      id="change-level-backdrop"
+      onclick="closeChangeLevelModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title">Thay đổi cấp bậc</h3>
+        <div style="margin-bottom: 20px">
+          <label
+            style="
+              display: block;
+              margin-bottom: 8px;
+              font-weight: 600;
+              font-size: 13px;
+            "
+          >
+            Chọn cấp bậc:
+          </label>
+          <select
+            id="change-level-select"
+            class="form-input"
+            style="
+              width: 100%;
+              padding: 8px 12px;
+              border: 1px solid var(--gray-300);
+              border-radius: 6px;
+              font-size: 13px;
+            "
+          >
+            <option value="">-- Chọn cấp bậc --</option>
+          </select>
+        </div>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeChangeLevelModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmChangeLevel()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- ====== ACTION MODAL (generic) ====== -->
-    <div class="action-modal-backdrop" id="action-modal-backdrop" onclick="closeActionModal()">
-      <div class="action-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
         <h3 class="action-modal-title" id="action-modal-title">Xác nhận</h3>
-        <p class="action-modal-body" id="action-modal-body">Bạn có chắc chắn?</p>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn?
+        </p>
         <div class="action-modal-actions">
-          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeActionModal()">Hủy</button>
-          <button class="action-modal-btn action-modal-btn-confirm is-primary" onclick="confirmActionModal()">Xác nhận</button>
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm is-primary"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
         </div>
       </div>
     </div>
 
     <!-- ====== SUSPEND MODAL ====== -->
-    <div class="action-modal-backdrop" id="suspend-modal-backdrop" onclick="closeSuspendModal()">
-      <div class="action-modal" role="dialog" aria-modal="true" style="max-width: 480px" onclick="event.stopPropagation()">
+    <div
+      class="action-modal-backdrop"
+      id="suspend-modal-backdrop"
+      onclick="closeSuspendModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        style="max-width: 480px"
+        onclick="event.stopPropagation()"
+      >
         <h3 class="action-modal-title">Tạm khóa hoạt động</h3>
-        <p class="action-modal-body">Chọn lý do tạm khóa hoạt động cho thành viên đã chọn.</p>
+        <p class="action-modal-body">
+          Chọn lý do tạm khóa hoạt động cho thành viên đã chọn.
+        </p>
         <div class="reason-list" id="suspend-reasons"></div>
-        <input type="text" id="suspend-other" class="reason-other-input" placeholder="Nhập lý do khác..." style="display: none" />
+        <input
+          type="text"
+          id="suspend-other"
+          class="reason-other-input"
+          placeholder="Nhập lý do khác..."
+          style="display: none"
+        />
         <div class="reason-duration">
           <span class="label">Thời gian tạm khóa:</span>
           <select id="suspend-duration">
@@ -981,24 +2287,61 @@
           </select>
         </div>
         <div class="action-modal-actions" style="margin-top: 16px">
-          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeSuspendModal()">Hủy</button>
-          <button class="action-modal-btn action-modal-btn-confirm" onclick="confirmSuspend()">Xác nhận</button>
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeSuspendModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmSuspend()"
+          >
+            Xác nhận
+          </button>
         </div>
       </div>
     </div>
 
     <!-- ====== FORCE LEAVE MODAL ====== -->
-    <div class="action-modal-backdrop" id="force-leave-modal-backdrop" onclick="closeForceLeaveModal()">
-      <div class="action-modal" role="dialog" aria-modal="true" style="max-width: 480px" onclick="event.stopPropagation()">
+    <div
+      class="action-modal-backdrop"
+      id="force-leave-modal-backdrop"
+      onclick="closeForceLeaveModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        style="max-width: 480px"
+        onclick="event.stopPropagation()"
+      >
         <h3 class="action-modal-title">Buộc rời bỏ hệ thống</h3>
         <p class="action-modal-body">
-          Thành viên bị buộc rời khỏi hệ thống sẽ không thể đăng ký lại. Chọn lý do trước khi xác nhận.
+          Thành viên bị buộc rời khỏi hệ thống sẽ không thể đăng ký lại. Chọn lý
+          do trước khi xác nhận.
         </p>
         <div class="reason-list" id="force-leave-reasons"></div>
-        <input type="text" id="force-leave-other" class="reason-other-input" placeholder="Nhập lý do khác..." style="display: none" />
+        <input
+          type="text"
+          id="force-leave-other"
+          class="reason-other-input"
+          placeholder="Nhập lý do khác..."
+          style="display: none"
+        />
         <div class="action-modal-actions" style="margin-top: 16px">
-          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeForceLeaveModal()">Hủy</button>
-          <button class="action-modal-btn action-modal-btn-confirm" onclick="confirmForceLeave()">Xác nhận</button>
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeForceLeaveModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmForceLeave()"
+          >
+            Xác nhận
+          </button>
         </div>
       </div>
     </div>
@@ -1006,55 +2349,291 @@
     <script>
       /* ====== DATA ====== */
       const realMembers = [
-        { id: "M001", nickname: "maimai",      grade: "Lv.1",        regDate: "30-06-2025", lastSeen: "30-07-2025", visits: 23, posts: 12, comments: 26, gender: "Nữ", ip: "113.165.12.45", note: "" },
-        { id: "M002", nickname: "thanhtuyen",  grade: "Lv.3",        regDate: "12-05-2025", lastSeen: "29-07-2025", visits: 48, posts: 30, comments: 88, gender: "Nữ", ip: "203.205.40.218", note: "VIP" },
-        { id: "M003", nickname: "drAnh.skin",  grade: "Bác sĩ",      regDate: "01-04-2025", lastSeen: "30-07-2025", visits: 110, posts: 56, comments: 230, gender: "Nam", ip: "27.79.155.91", note: "Chuyên khoa da" },
-        { id: "M004", nickname: "haiyen.beauty", grade: "KOL",       regDate: "20-03-2025", lastSeen: "28-07-2025", visits: 89, posts: 41, comments: 192, gender: "Nữ", ip: "171.232.18.7", note: "" },
-        { id: "M005", nickname: "Thu.skin.journal", grade: "Chuyên gia", regDate: "12-02-2025", lastSeen: "25-07-2025", visits: 67, posts: 22, comments: 130, gender: "Nữ", ip: "115.78.231.150", note: "" },
+        {
+          id: "M001",
+          fullname: "Lê Ngọc Mai",
+          nickname: "maimai",
+          email: "maimai@gmail.com",
+          grade: "Lv.1",
+          regDate: "30-06-2025 16:33",
+          lastSeen: "30-07-2025 15:56",
+          visits: 23,
+          posts: 12,
+          comments: 26,
+          gender: "Nữ",
+          ip: "113.165.12.45",
+          note: "",
+        },
+        {
+          id: "M002",
+          fullname: "Nguyễn Thanh Tuyền",
+          nickname: "thanhtuyen",
+          email: "thanhtuyen@gmail.com",
+          grade: "Lv.3",
+          regDate: "12-05-2025 17:04",
+          lastSeen: "29-07-2025 08:39",
+          visits: 48,
+          posts: 30,
+          comments: 88,
+          gender: "Nữ",
+          ip: "203.205.40.218",
+          note: "VIP",
+        },
+        {
+          id: "M003",
+          fullname: "Trần Quốc Anh",
+          nickname: "drAnh.skin",
+          email: "dr.an@beauty.vn",
+          grade: "Bác sĩ",
+          regDate: "01-04-2025 11:34",
+          lastSeen: "30-07-2025 15:56",
+          visits: 110,
+          posts: 56,
+          comments: 230,
+          gender: "Nam",
+          ip: "27.79.155.91",
+          note: "Chuyên khoa da",
+        },
+        {
+          id: "M004",
+          fullname: "Phạm Hải Yến",
+          nickname: "haiyen.beauty",
+          email: "haiyen@gmail.com",
+          grade: "KOL",
+          regDate: "20-03-2025 19:34",
+          lastSeen: "28-07-2025 15:22",
+          visits: 89,
+          posts: 41,
+          comments: 192,
+          gender: "Nữ",
+          ip: "171.232.18.7",
+          note: "",
+        },
+        {
+          id: "M005",
+          fullname: "Đỗ Thu Hà",
+          nickname: "Thu.skin.journal",
+          email: "thuha.skin@beauty.vn",
+          grade: "Chuyên gia",
+          regDate: "12-02-2025 20:55",
+          lastSeen: "25-07-2025 08:31",
+          visits: 67,
+          posts: 22,
+          comments: 130,
+          gender: "Nữ",
+          ip: "115.78.231.150",
+          note: "",
+        },
       ];
 
       const suspendedMembers = [
-        { id: "M101", nickname: "vyvii",   reason: "Vi phạm luật",       date: "03-08-2025", handler: "maimai",    ip: "123456",  note: "" },
-        { id: "M102", nickname: "spamx99", reason: "Spam quảng cáo",     date: "30-07-2025", handler: "chikihong", ip: "118.69.45.12", note: "Lần thứ 2" },
-        { id: "M103", nickname: "trolluser", reason: "Lăng mạ chửi tục", date: "28-07-2025", handler: "Admin A",   ip: "171.255.180.20", note: "" },
+        {
+          id: "M101",
+          nickname: "vyvii",
+          reason: "Vi phạm luật",
+          date: "03-08-2025 07:40",
+          handler: "maimai",
+          ip: "123456",
+          note: "",
+        },
+        {
+          id: "M102",
+          nickname: "spamx99",
+          reason: "Spam quảng cáo",
+          date: "30-07-2025 15:56",
+          handler: "chikihong",
+          ip: "118.69.45.12",
+          note: "Lần thứ 2",
+        },
+        {
+          id: "M103",
+          nickname: "trolluser",
+          reason: "Lăng mạ chửi tục",
+          date: "28-07-2025 15:22",
+          handler: "Admin A",
+          ip: "171.255.180.20",
+          note: "",
+        },
       ];
 
       const leaveBanned = [
-        { id: "M201", nickname: "vyvii",     reason: "Vi phạm luật",         date: "03-08-2025", handler: "maimai", ip: "123456", note: "" },
-        { id: "M202", nickname: "fakeacc55", reason: "Spam, đăng bài liên tục", date: "01-08-2025", handler: "chikihong", ip: "10.0.5.32", note: "" },
-        { id: "M203", nickname: "abuse_x",   reason: "Quảng cáo, lăng mạ",   date: "29-07-2025", handler: "Admin B", ip: "115.78.231.4", note: "Tài khoản giả" },
+        {
+          id: "M201",
+          nickname: "vyvii",
+          reason: "Vi phạm luật",
+          date: "03-08-2025 07:40",
+          handler: "maimai",
+          ip: "123456",
+          note: "",
+        },
+        {
+          id: "M202",
+          nickname: "fakeacc55",
+          reason: "Spam, đăng bài liên tục",
+          date: "01-08-2025 07:06",
+          handler: "chikihong",
+          ip: "10.0.5.32",
+          note: "",
+        },
+        {
+          id: "M203",
+          nickname: "abuse_x",
+          reason: "Quảng cáo, lăng mạ",
+          date: "29-07-2025 08:39",
+          handler: "Admin B",
+          ip: "115.78.231.4",
+          note: "Tài khoản giả",
+        },
       ];
 
       const leaveSelf = [
-        { id: "M301", nickname: "maimai",  reason: "Sử dụng app bất tiện (UI/UX)", note2: "Không có cách (UI/UX)", ip: "123456", remark: "" },
-        { id: "M302", nickname: "linhmiu", reason: "Quá nhiều thông báo",          note2: "App push quá nhiều",      ip: "27.79.99.18", remark: "" },
-        { id: "M303", nickname: "ngocanh", reason: "Khác",                          note2: "Không hợp gu cá nhân",   ip: "113.165.12.99", remark: "" },
+        {
+          id: "M301",
+          nickname: "maimai",
+          reason: "Sử dụng app bất tiện (UI/UX)",
+          note2: "Không có cách (UI/UX)",
+          ip: "123456",
+          remark: "",
+        },
+        {
+          id: "M302",
+          nickname: "linhmiu",
+          reason: "Quá nhiều thông báo",
+          note2: "App push quá nhiều",
+          ip: "27.79.99.18",
+          remark: "",
+        },
+        {
+          id: "M303",
+          nickname: "ngocanh",
+          reason: "Khác",
+          note2: "Không hợp gu cá nhân",
+          ip: "113.165.12.99",
+          remark: "",
+        },
       ];
 
       const noAccessMembers = [
-        { id: "M401", nickname: "maimai",      regDate: "10-06-2025", lastLogin: "20-06-2025", daysAway: 10, grade: "Lv.1", lastNotify: "30-06-2025" },
-        { id: "M402", nickname: "ngocanh.skin", regDate: "05-05-2025", lastLogin: "15-06-2025", daysAway: 15, grade: "Lv.2", lastNotify: "28-06-2025" },
-        { id: "M403", nickname: "tuyetnhi.kr", regDate: "20-04-2025", lastLogin: "01-06-2025", daysAway: 28, grade: "Lv.3", lastNotify: "—" },
+        {
+          id: "M401",
+          nickname: "maimai",
+          regDate: "10-06-2025 16:53",
+          lastLogin: "20-06-2025 16:43",
+          daysAway: 10,
+          grade: "Lv.1",
+          lastNotify: "30-06-2025 16:33",
+        },
+        {
+          id: "M402",
+          nickname: "ngocanh.skin",
+          regDate: "05-05-2025 10:05",
+          lastLogin: "15-06-2025 09:18",
+          daysAway: 15,
+          grade: "Lv.2",
+          lastNotify: "28-06-2025 16:59",
+        },
+        {
+          id: "M403",
+          nickname: "tuyetnhi.kr",
+          regDate: "20-04-2025 18:57",
+          lastLogin: "01-06-2025 09:20",
+          daysAway: 28,
+          grade: "Lv.3",
+          lastNotify: "—",
+        },
       ];
 
       const leaveReasons = [
-        { id: "LR001", reason: "Sử dụng app bất tiện (UI/UX)", creator: "maimai", date: "30-06-2025" },
-        { id: "LR002", reason: "Quá nhiều thông báo",         creator: "maimai", date: "30-06-2025" },
-        { id: "LR003", reason: "Chuyển sang dùng app khác",   creator: "maimai", date: "29-06-2025" },
-        { id: "LR004", reason: "Phần nào khiến bạn bất tiện vậy?", creator: "maimai", date: "28-06-2025" },
-        { id: "LR005", reason: "Có thể cho tụi mình biết bạn dùng app nào không?", creator: "maimai", date: "28-06-2025" },
-        { id: "LR006", reason: "Còn lý do nào khác mà tụi mình chưa liệt kê không?", creator: "maimai", date: "27-06-2025" },
+        {
+          id: "LR001",
+          reason: "Sử dụng app bất tiện (UI/UX)",
+          creator: "maimai",
+          date: "30-06-2025 16:33",
+        },
+        {
+          id: "LR002",
+          reason: "Quá nhiều thông báo",
+          creator: "maimai",
+          date: "30-06-2025 16:33",
+        },
+        {
+          id: "LR003",
+          reason: "Chuyển sang dùng app khác",
+          creator: "maimai",
+          date: "29-06-2025 09:16",
+        },
+        {
+          id: "LR004",
+          reason: "Phần nào khiến bạn bất tiện vậy?",
+          creator: "maimai",
+          date: "28-06-2025 16:59",
+        },
+        {
+          id: "LR005",
+          reason: "Có thể cho tụi mình biết bạn dùng app nào không?",
+          creator: "maimai",
+          date: "28-06-2025 16:59",
+        },
+        {
+          id: "LR006",
+          reason: "Còn lý do nào khác mà tụi mình chưa liệt kê không?",
+          creator: "maimai",
+          date: "27-06-2025 09:42",
+        },
       ];
 
       const addStaffCandidates = [
-        { id: "M001", nickname: "maimai", grade: "Lv.1", regDate: "06-06-2025", lastLogin: "30-06-2025", posts: 5, comments: 25, gender: "Nữ", ip: "123456", note: "" },
-        { id: "M002", nickname: "maindn", grade: "Lv.2", regDate: "04-05-2025", lastLogin: "28-06-2025", posts: 12, comments: 45, gender: "Nữ", ip: "457897", note: "" },
+        {
+          id: "M001",
+          nickname: "maimai",
+          grade: "Lv.1",
+          regDate: "06-06-2025 16:45",
+          lastLogin: "30-06-2025 16:33",
+          posts: 5,
+          comments: 25,
+          gender: "Nữ",
+          ip: "123456",
+          note: "",
+        },
+        {
+          id: "M002",
+          nickname: "maindn",
+          grade: "Lv.2",
+          regDate: "04-05-2025 17:48",
+          lastLogin: "28-06-2025 16:59",
+          posts: 12,
+          comments: 45,
+          gender: "Nữ",
+          ip: "457897",
+          note: "",
+        },
       ];
 
       const manageStaff = [
-        { id: "S001", nickname: "quynh",  createdAt: "29-06-2025", creator: "maimai",    grade: "Lv.1", lastAction: "30-06-2025" },
-        { id: "S002", nickname: "nguyen", createdAt: "29-06-2025", creator: "maimai",    grade: "Lv.1", lastAction: "01-07-2025" },
-        { id: "S003", nickname: "mai",    createdAt: "20-06-2025", creator: "chikihong", grade: "Lv.2", lastAction: "02-07-2025" },
+        {
+          id: "S001",
+          nickname: "quynh",
+          createdAt: "29-06-2025 09:16",
+          creator: "maimai",
+          grade: "Lv.1",
+          lastAction: "30-06-2025 16:33",
+        },
+        {
+          id: "S002",
+          nickname: "nguyen",
+          createdAt: "29-06-2025 09:16",
+          creator: "maimai",
+          grade: "Lv.1",
+          lastAction: "01-07-2025 08:43",
+        },
+        {
+          id: "S003",
+          nickname: "mai",
+          createdAt: "20-06-2025 16:43",
+          creator: "chikihong",
+          grade: "Lv.2",
+          lastAction: "02-07-2025 15:00",
+        },
       ];
 
       const SEARCH_CRITERIA = ["ID", "Tên hiển thị"];
@@ -1079,38 +2658,324 @@
 
       /* ====== HELPERS ====== */
       function escText(s) {
-        return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
       }
 
       /* ====== NAVIGATION ====== */
       function goSection(section) {
         currentSection = section;
-        document.querySelectorAll(".sidebar-item").forEach((el) => el.classList.remove("active"));
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((el) => el.classList.remove("active"));
         document.getElementById("sidebar-" + section)?.classList.add("active");
-        document.querySelectorAll(".main.page").forEach((el) => el.classList.remove("active"));
+        document
+          .querySelectorAll(".main.page")
+          .forEach((el) => el.classList.remove("active"));
         document.getElementById("page-" + section)?.classList.add("active");
         closeAllMenus();
+        window.scrollTo(0, 0);
       }
 
-      function shiftDate(target, dir) { alert("Chuyển khoảng thời gian: " + (dir > 0 ? "tiếp theo" : "trước đó")); }
+      /* ====== REAL MEMBER DETAIL / EDIT NAVIGATION ====== */
+      let currentRealMemberId = null;
+      let realFormCategories = [];
+
+      function goRealPage(name) {
+        document
+          .querySelectorAll(".main.page")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById("page-" + name)?.classList.add("active");
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById("sidebar-real")?.classList.add("active");
+        closeAllMenus();
+        window.scrollTo(0, 0);
+      }
+      function findAnyMember(id) {
+        const sources = [
+          realMembers,
+          typeof suspendedMembers !== "undefined" ? suspendedMembers : [],
+          typeof leaveBanned !== "undefined" ? leaveBanned : [],
+          typeof leaveSelf !== "undefined" ? leaveSelf : [],
+          typeof noAccessMembers !== "undefined" ? noAccessMembers : [],
+          typeof addStaffCandidates !== "undefined" ? addStaffCandidates : [],
+        ];
+        for (const arr of sources) {
+          const found = arr.find((x) => x.id === id);
+          if (found) return found;
+        }
+        return null;
+      }
+      function goRealHistory(id) {
+        const m = findAnyMember(id);
+        if (!m) return;
+        currentRealMemberId = id;
+        fillRealDetail(m);
+        switchRealDetailTab("posts");
+        goRealPage("real-detail");
+      }
+      function setRealFormMode(mode) {
+        const page = document.getElementById("page-real-edit");
+        if (!page) return;
+        page.classList.toggle("view-mode", mode === "view");
+        document.getElementById("rf-actions-view").style.display =
+          mode === "view" ? "flex" : "none";
+        document.getElementById("rf-actions-edit").style.display =
+          mode === "edit" ? "flex" : "none";
+        const titleEl = document.getElementById("rf-page-title");
+        const bcEl = document.getElementById("rf-breadcrumb-current");
+        if (mode === "view") {
+          if (titleEl) titleEl.textContent = "Thông tin chi tiết thành viên";
+          if (bcEl) bcEl.textContent = "Thông tin chi tiết";
+        } else {
+          if (titleEl)
+            titleEl.textContent = "Chỉnh sửa thông tin thành viên thực";
+          if (bcEl) bcEl.textContent = "Chỉnh sửa thông tin";
+        }
+      }
+      function goRealDetail(id) {
+        const m = findAnyMember(id);
+        if (!m) return;
+        currentRealMemberId = id;
+        fillRealEdit(m);
+        setRealFormMode("view");
+        goRealPage("real-edit");
+      }
+      function goRealEdit(id) {
+        const m = findAnyMember(id);
+        if (!m) return;
+        currentRealMemberId = id;
+        fillRealEdit(m);
+        setRealFormMode("edit");
+        goRealPage("real-edit");
+      }
+      function switchToEditMode() {
+        setRealFormMode("edit");
+      }
+      function fillRealDetail(m) {
+        const initials = (m.fullname || m.nickname || "TV")
+          .split(" ")
+          .filter(Boolean)
+          .slice(-2)
+          .map((w) => w[0])
+          .join("")
+          .toUpperCase() || "TV";
+        document.getElementById("real-detail-avatar").textContent = initials;
+        const titleText = m.fullname
+          ? `${m.fullname} (${m.nickname})`
+          : m.nickname;
+        document.getElementById("real-detail-title").textContent = titleText;
+        document.getElementById("real-detail-name").textContent = titleText;
+        document.getElementById("real-detail-badge-id").textContent =
+          "ID: " + m.id;
+        document.getElementById("real-detail-badge-level").textContent =
+          m.grade || "Thành viên";
+        const seed = (m.id || "").charCodeAt(2) || 0;
+        document.getElementById("real-stat-visits").textContent =
+          m.visits != null ? m.visits : (seed * 3) % 200;
+        document.getElementById("real-stat-posts").textContent =
+          m.posts != null ? m.posts : (seed * 2) % 60;
+        document.getElementById("real-stat-comments").textContent =
+          m.comments != null ? m.comments : (seed * 5) % 150;
+        document.getElementById("real-stat-reports").textContent = seed % 5;
+        document.getElementById("real-stat-following").textContent =
+          (seed * 7) % 120;
+        renderRealDetailPosts(m);
+        renderRealDetailComments(m);
+      }
+      function renderRealDetailPosts(m) {
+        const tbody = document.getElementById("real-detail-posts-tbody");
+        if (!tbody) return;
+        const samples = [
+          { topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review serum B5 sau 14 ngày", date: "22-06-2025 14:30", views: 420 },
+          { topic: "Hướng dẫn", main: "Tóc", sub: "Mỹ phẩm", title: "5 bước phục hồi tóc khô xơ", date: "18-06-2025 09:45", views: 287 },
+          { topic: "Cảnh báo", main: "Mũi", sub: "PTTM/ Tiểu phẫu", title: "3 dấu hiệu nguy hiểm sau nâng mũi", date: "12-06-2025 21:12", views: 645 },
+        ];
+        const n = Math.min(samples.length, Math.max(1, (m.posts || 0) % 4));
+        tbody.innerHTML = samples.slice(0, n).map((p) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="td-left">${escText(p.topic)}</td>
+            <td class="td-left">${escText(p.main)} - ${escText(p.sub)}</td>
+            <td class="td-left">${escText(p.title)}</td>
+            <td>${escText(p.date)}</td>
+            <td>${p.views}</td>
+          </tr>
+        `).join("");
+      }
+      function renderRealDetailComments(m) {
+        const tbody = document.getElementById("real-detail-comments-tbody");
+        if (!tbody) return;
+        const samples = [
+          { topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review kem chống nắng SPF50+", content: "Mình dùng được 2 tuần, da đỡ kích ứng hẳn", date: "20-06-2025 11:20" },
+          { topic: "Hỏi đáp", main: "Răng miệng", sub: "PTTM", title: "Có nên niềng răng tuổi 30?", content: "Tuổi 30 vẫn niềng được nhé, mình mất 2 năm", date: "15-06-2025 18:05" },
+          { topic: "Cảnh báo", main: "Mũi", sub: "PTTM", title: "3 dấu hiệu nguy hiểm sau nâng mũi", content: "Bác sĩ nói rõ hơn về tình trạng đầu mũi tím?", date: "10-06-2025 09:30" },
+        ];
+        const n = Math.min(samples.length, Math.max(1, (m.comments || 0) % 4));
+        tbody.innerHTML = samples.slice(0, n).map((c) => `
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td class="td-left">${escText(c.topic)}</td>
+            <td class="td-left">${escText(c.main)} - ${escText(c.sub)}</td>
+            <td class="td-left">${escText(c.title)}</td>
+            <td class="td-left">${escText(c.content)}</td>
+            <td>${escText(c.date)}</td>
+          </tr>
+        `).join("");
+      }
+      function switchRealDetailTab(tab) {
+        document.querySelectorAll("#page-real-detail .tab").forEach((t) => t.classList.remove("active"));
+        document.getElementById("real-tab-" + tab)?.classList.add("active");
+        document.getElementById("real-panel-posts").style.display = tab === "posts" ? "" : "none";
+        document.getElementById("real-panel-comments").style.display = tab === "comments" ? "" : "none";
+      }
+      function fillRealEdit(m) {
+        document.getElementById("rf-id").textContent = m.id;
+        document.getElementById("rf-nickname").value = m.nickname || "";
+        document.getElementById("rf-fullname").value = m.fullname || "";
+        document.getElementById("rf-email").value = m.email || "";
+        document.getElementById("rf-gender").value = m.gender || "Nữ";
+        document.getElementById("rf-grade").value = m.grade || "Lv.1";
+        document.getElementById("rf-note").value = m.note || "";
+        realFormCategories = Array.isArray(m.categories) ? [...m.categories] : [];
+        renderRealCategoryChips();
+      }
+      function renderRealCategoryChips() {
+        const wrap = document.getElementById("rf-cat-chips");
+        if (!wrap) return;
+        if (!realFormCategories.length) {
+          wrap.innerHTML = '<span style="color:var(--gray-400);font-size:11px">Chưa có danh mục.</span>';
+          return;
+        }
+        wrap.innerHTML = realFormCategories.map((c, i) => `
+          <span class="cat-chip">${escText(c)}<span class="x" onclick="removeRealCategory(${i})">×</span></span>
+        `).join("");
+      }
+      function addRealCategory() {
+        const sel = document.getElementById("rf-cat-select");
+        const v = (sel.value || "").trim();
+        if (!v) {
+          alert("Vui lòng chọn danh mục chính.");
+          return;
+        }
+        if (realFormCategories.includes(v)) {
+          alert("Danh mục này đã được thêm.");
+          return;
+        }
+        if (realFormCategories.length >= 3) {
+          alert("Chỉ được tối đa 3 danh mục chính.");
+          return;
+        }
+        realFormCategories.push(v);
+        sel.value = "";
+        renderRealCategoryChips();
+      }
+      function removeRealCategory(i) {
+        realFormCategories.splice(i, 1);
+        renderRealCategoryChips();
+      }
+      function saveRealMember() {
+        const nick = document.getElementById("rf-nickname").value.trim();
+        if (!nick) {
+          alert("Vui lòng nhập tên hiển thị.");
+          return;
+        }
+        const m = realMembers.find((x) => x.id === currentRealMemberId);
+        if (m) {
+          m.nickname = nick;
+          m.fullname = document.getElementById("rf-fullname").value.trim();
+          m.email = document.getElementById("rf-email").value.trim();
+          m.gender = document.getElementById("rf-gender").value;
+          m.grade = document.getElementById("rf-grade").value;
+          m.note = document.getElementById("rf-note").value.trim();
+          m.categories = [...realFormCategories];
+        }
+        renderRealMembers();
+        alert("Đã lưu thông tin thành viên.");
+        goSection("real");
+      }
+
+      /* ====== CHANGE LEVEL MODAL ====== */
+      const MEMBER_LEVELS = [
+        "Lv.1",
+        "Lv.2",
+        "Lv.3",
+        "Lv.4",
+        "Lv.5",
+        "KOL",
+        "Chuyên gia",
+        "Bác sĩ",
+      ];
+      const STAFF_LEVELS = ["Quản trị viên 1", "Quản trị viên 2", "Quản trị viên 3"];
+      let currentLevelContext = "real";
+      function fillLevelOptions(levels) {
+        const sel = document.getElementById("change-level-select");
+        sel.innerHTML =
+          '<option value="">-- Chọn cấp bậc --</option>' +
+          levels.map((l) => `<option value="${l}">${l}</option>`).join("");
+      }
+      function openRealChangeLevelModal() {
+        currentLevelContext = "real";
+        fillLevelOptions(MEMBER_LEVELS);
+        document.getElementById("change-level-backdrop").classList.add("open");
+      }
+      function openStaffChangeLevelModal() {
+        currentLevelContext = "staff";
+        fillLevelOptions(STAFF_LEVELS);
+        document.getElementById("change-level-backdrop").classList.add("open");
+      }
+      function closeChangeLevelModal() {
+        document
+          .getElementById("change-level-backdrop")
+          .classList.remove("open");
+      }
+      function confirmChangeLevel() {
+        const sel = document.getElementById("change-level-select");
+        const v = sel.value;
+        if (!v) {
+          alert("Vui lòng chọn cấp bậc.");
+          return;
+        }
+        closeChangeLevelModal();
+        alert(`Đã thay đổi cấp bậc thành: ${v}.`);
+      }
+
+      function shiftDate(target, dir) {
+        alert(
+          "Chuyển khoảng thời gian: " + (dir > 0 ? "tiếp theo" : "trước đó"),
+        );
+      }
       function setQuickFilter(target, key, btn) {
         const wrap = btn.parentElement;
-        wrap.querySelectorAll(".tf-btn").forEach((b) => b.classList.remove("active"));
+        wrap
+          .querySelectorAll(".tf-btn")
+          .forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
       }
 
       /* ====== CRITERIA ====== */
       function renderCriteriaMenu(target) {
-        const menu = document.querySelector(`#criteria-${target} .criteria-menu`);
+        const menu = document.querySelector(
+          `#criteria-${target} .criteria-menu`,
+        );
         if (!menu) return;
-        menu.innerHTML = SEARCH_CRITERIA
-          .map((opt) => `<button class="criteria-option" onclick="selectCriteria('${target}','${escText(opt)}')">${escText(opt)}</button>`)
-          .join("");
+        menu.innerHTML = SEARCH_CRITERIA.map(
+          (opt) =>
+            `<button class="criteria-option" onclick="selectCriteria('${target}','${escText(opt)}')">${escText(opt)}</button>`,
+        ).join("");
       }
       function toggleCriteria(target, e) {
         e.stopPropagation();
         const wrap = document.getElementById("criteria-" + target);
-        document.querySelectorAll(".criteria-wrap.open").forEach((w) => { if (w !== wrap) w.classList.remove("open"); });
+        document.querySelectorAll(".criteria-wrap.open").forEach((w) => {
+          if (w !== wrap) w.classList.remove("open");
+        });
         wrap?.classList.toggle("open");
       }
       function selectCriteria(target, label) {
@@ -1125,15 +2990,21 @@
         menuEl.classList.toggle("open");
       }
       function closeAllMenus() {
-        document.querySelectorAll(".cell-menu.open").forEach((m) => m.classList.remove("open"));
-        document.querySelectorAll(".criteria-wrap.open").forEach((w) => w.classList.remove("open"));
+        document
+          .querySelectorAll(".cell-menu.open")
+          .forEach((m) => m.classList.remove("open"));
+        document
+          .querySelectorAll(".criteria-wrap.open")
+          .forEach((w) => w.classList.remove("open"));
       }
 
       /* ====== RENDER: REAL MEMBERS ====== */
       function renderRealMembers() {
         const tbody = document.getElementById("tbody-real");
         if (!tbody) return;
-        tbody.innerHTML = realMembers.map((m) => `
+        tbody.innerHTML = realMembers
+          .map(
+            (m) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td>${escText(m.id)}</td>
@@ -1141,13 +3012,11 @@
               <div class="cell-menu">
                 <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
                 <div class="menu-list">
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Chỉnh sửa thông tin</button>
+                  <button class="menu-item" onclick="goRealDetail('${escText(m.id)}')">Thông tin chi tiết</button>
+                  <button class="menu-item" onclick="goRealHistory('${escText(m.id)}')">Lịch sử hoạt động</button>
+                  <button class="menu-item" onclick="goRealEdit('${escText(m.id)}')">Chỉnh sửa thông tin</button>
                   <hr class="menu-divider"/>
-                  <button class="menu-item" onclick="openSuspendModal()">Tạm khóa hoạt động</button>
-                  <button class="menu-item" onclick="openForceLeaveModal()">Buộc rời bỏ</button>
-                  <button class="menu-item" onclick="openActionModal('cancel-upgrade')">Hủy nâng cấp tự động</button>
+                  ${renderMemberActionItems(m.id, true)}
                   <button class="menu-item" onclick="openActionModal('send-email')">Gửi Email</button>
                   <button class="menu-item" onclick="openActionModal('push-notify')">Gửi thông báo đẩy</button>
                 </div>
@@ -1160,16 +3029,97 @@
             <td>${m.posts}</td>
             <td>${m.comments}</td>
             <td>${escText(m.gender)}</td>
-            <td><span class="ip-text">${escText(m.ip)}</span></td>
+            <td>${renderIpCellMenu(m.ip)}</td>
             <td class="td-left">${escText(m.note || "—")}</td>
-          </tr>`).join("");
+          </tr>`,
+          )
+          .join("");
+      }
+
+      /* ====== IP CELL TOGGLE (Chặn IP ↔ Hủy chặn IP) ====== */
+      const ipBlockedState = {};
+      function isIpBlocked(ip) {
+        return !!ipBlockedState[ip];
+      }
+      function renderIpCellMenu(ip) {
+        const blocked = isIpBlocked(ip);
+        const item = blocked
+          ? `<button class="menu-item" onclick="toggleIpBlock('${escText(ip)}')">Hủy chặn IP</button>`
+          : `<button class="menu-item" onclick="toggleIpBlock('${escText(ip)}')">Chặn IP</button>`;
+        return `<div class="cell-menu">
+          <button class="menu-trigger ip-text" onclick="toggleMenu(event,this.parentElement)">${escText(ip)}</button>
+          <div class="menu-list">${item}</div>
+        </div>`;
+      }
+      function toggleIpBlock(ip) {
+        ipBlockedState[ip] = !ipBlockedState[ip];
+        closeAllMenus();
+        alert(
+          ipBlockedState[ip] ? `Đã chặn IP ${ip}.` : `Đã hủy chặn IP ${ip}.`,
+        );
+        renderRealMembers();
+      }
+
+      /* ====== MEMBER ACTION TOGGLE (cell-menu) ====== */
+      const memberActionState = {};
+      let pendingMemberActionId = null;
+      function getMemberActionState(id) {
+        if (!memberActionState[id])
+          memberActionState[id] = {
+            suspended: false,
+            forceLeft: false,
+            upgradeCanceled: false,
+          };
+        return memberActionState[id];
+      }
+      function renderMemberActionItems(id, includeUpgrade = true) {
+        const s = getMemberActionState(id);
+        const safeId = escText(id);
+        const sus = s.suspended
+          ? `<button class="menu-item" onclick="toggleMemberAction('${safeId}','unsuspend')">Gỡ tạm khóa</button>`
+          : `<button class="menu-item" onclick="startMemberAction('${safeId}','suspend')">Tạm khóa hoạt động</button>`;
+        const force = s.forceLeft
+          ? `<button class="menu-item" onclick="toggleMemberAction('${safeId}','restore-account')">Khôi phục tài khoản</button>`
+          : `<button class="menu-item" onclick="startMemberAction('${safeId}','force-leave')">Buộc rời bỏ</button>`;
+        let cancel = "";
+        if (includeUpgrade) {
+          cancel = s.upgradeCanceled
+            ? `<button class="menu-item" onclick="toggleMemberAction('${safeId}','restore-upgrade')">Khôi phục nâng cấp tự động</button>`
+            : `<button class="menu-item" onclick="toggleMemberAction('${safeId}','cancel-upgrade')">Hủy nâng cấp tự động</button>`;
+        }
+        return sus + force + cancel;
+      }
+      function startMemberAction(id, action) {
+        pendingMemberActionId = id;
+        if (action === "suspend") openSuspendModal();
+        else if (action === "force-leave") openForceLeaveModal();
+      }
+      function toggleMemberAction(id, action) {
+        const s = getMemberActionState(id);
+        if (action === "unsuspend") {
+          s.suspended = false;
+          alert(`Đã gỡ tạm khóa cho ${id}.`);
+        } else if (action === "restore-account") {
+          s.forceLeft = false;
+          alert(`Đã khôi phục tài khoản ${id}.`);
+        } else if (action === "cancel-upgrade") {
+          s.upgradeCanceled = true;
+          alert(`Đã hủy nâng cấp tự động cho ${id}.`);
+        } else if (action === "restore-upgrade") {
+          s.upgradeCanceled = false;
+          alert(`Đã khôi phục nâng cấp tự động cho ${id}.`);
+        }
+        closeAllMenus();
+        renderRealMembers();
       }
 
       /* ====== RENDER: SUSPENDED ====== */
       function renderSuspended() {
         const tbody = document.getElementById("tbody-suspended");
         if (!tbody) return;
-        tbody.innerHTML = suspendedMembers.map((m) => `
+        tbody.innerHTML = suspendedMembers
+          .map(
+            (m) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td>${escText(m.id)}</td>
@@ -1177,7 +3127,8 @@
               <div class="cell-menu">
                 <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
                 <div class="menu-list">
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+                  <button class="menu-item" onclick="goRealDetail('${escText(m.id)}')">Thông tin chi tiết</button>
+                  <button class="menu-item" onclick="goRealHistory('${escText(m.id)}')">Lịch sử hoạt động</button>
                   <button class="menu-item" onclick="openActionModal('unsuspend')">Gỡ chặn tạm khóa</button>
                 </div>
               </div>
@@ -1187,7 +3138,9 @@
             <td>${escText(m.handler)}</td>
             <td><span class="ip-text">${escText(m.ip)}</span></td>
             <td class="td-left">${escText(m.note || "—")}</td>
-          </tr>`).join("");
+          </tr>`,
+          )
+          .join("");
       }
 
       /* ====== RENDER: LEAVE (2 sub-tabs) ====== */
@@ -1207,7 +3160,9 @@
             <th>Địa chỉ IP</th>
             <th>Ghi chú</th>
           </tr>`;
-          tbody.innerHTML = leaveBanned.map((m) => `
+          tbody.innerHTML = leaveBanned
+            .map(
+              (m) => `
             <tr>
               <td><input type="checkbox" /></td>
               <td>${escText(m.id)}</td>
@@ -1215,7 +3170,8 @@
                 <div class="cell-menu">
                   <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
                   <div class="menu-list">
-                    <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+                    <button class="menu-item" onclick="goRealDetail('${escText(m.id)}')">Thông tin chi tiết</button>
+                    <button class="menu-item" onclick="goRealHistory('${escText(m.id)}')">Lịch sử hoạt động</button>
                     <button class="menu-item" onclick="openActionModal('unban-register')">Gỡ chặn cấm đăng ký</button>
                   </div>
                 </div>
@@ -1225,7 +3181,9 @@
               <td>${escText(m.handler)}</td>
               <td><span class="ip-text">${escText(m.ip)}</span></td>
               <td class="td-left">${escText(m.note || "—")}</td>
-            </tr>`).join("");
+            </tr>`,
+            )
+            .join("");
         } else {
           thead.innerHTML = `<tr>
             <th><input type="checkbox" /></th>
@@ -1236,7 +3194,9 @@
             <th>Địa chỉ IP</th>
             <th>Ghi chú</th>
           </tr>`;
-          tbody.innerHTML = leaveSelf.map((m) => `
+          tbody.innerHTML = leaveSelf
+            .map(
+              (m) => `
             <tr>
               <td><input type="checkbox" /></td>
               <td>${escText(m.id)}</td>
@@ -1244,7 +3204,8 @@
                 <div class="cell-menu">
                   <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
                   <div class="menu-list">
-                    <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
+                    <button class="menu-item" onclick="goRealDetail('${escText(m.id)}')">Thông tin chi tiết</button>
+                    <button class="menu-item" onclick="goRealHistory('${escText(m.id)}')">Lịch sử hoạt động</button>
                     <button class="menu-item" onclick="openBanRegisterModal('${escText(m.id)}')">Cấm đăng ký lại</button>
                   </div>
                 </div>
@@ -1253,13 +3214,17 @@
               <td class="td-left">${escText(m.note2 || "—")}</td>
               <td><span class="ip-text">${escText(m.ip)}</span></td>
               <td class="td-left">${escText(m.remark || "—")}</td>
-            </tr>`).join("");
+            </tr>`,
+            )
+            .join("");
         }
       }
 
       function switchLeaveSub(sub, btn) {
         currentLeaveSub = sub;
-        document.querySelectorAll("#page-leave .tab").forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll("#page-leave .tab")
+          .forEach((t) => t.classList.remove("active"));
         btn?.classList.add("active");
         // Update title/count/bulk actions
         const title = document.getElementById("leave-title");
@@ -1284,7 +3249,9 @@
       function renderNoAccess() {
         const tbody = document.getElementById("tbody-na");
         if (!tbody) return;
-        tbody.innerHTML = noAccessMembers.map((m) => `
+        tbody.innerHTML = noAccessMembers
+          .map(
+            (m) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td>${escText(m.id)}</td>
@@ -1292,8 +3259,8 @@
               <div class="cell-menu">
                 <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
                 <div class="menu-list">
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
+                  <button class="menu-item" onclick="goRealDetail('${escText(m.id)}')">Thông tin chi tiết</button>
+                  <button class="menu-item" onclick="goRealHistory('${escText(m.id)}')">Lịch sử hoạt động</button>
                   <button class="menu-item" onclick="openActionModal('push-notify')">Gửi thông báo đẩy</button>
                   <button class="menu-item" onclick="openActionModal('send-email')">Gửi Email</button>
                 </div>
@@ -1304,25 +3271,36 @@
             <td>${m.daysAway} ngày</td>
             <td>${escText(m.grade)}</td>
             <td>${escText(m.lastNotify)}</td>
-          </tr>`).join("");
+          </tr>`,
+          )
+          .join("");
       }
 
       function switchNoAccess(sub, btn) {
         currentNoAccess = sub;
-        document.querySelectorAll("#page-no-access .tab").forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll("#page-no-access .tab")
+          .forEach((t) => t.classList.remove("active"));
         btn?.classList.add("active");
-        document.getElementById("na-panel-list").style.display = sub === "list" ? "" : "none";
-        document.getElementById("na-panel-stats").style.display = sub === "stats" ? "" : "none";
+        document.getElementById("na-panel-list").style.display =
+          sub === "list" ? "" : "none";
+        document.getElementById("na-panel-stats").style.display =
+          sub === "stats" ? "" : "none";
         document.getElementById("na-title").textContent =
-          sub === "list" ? "• Quản lý thành viên không truy cập" : "• Thống kê lượng thành viên không truy cập";
+          sub === "list"
+            ? "• Quản lý thành viên không truy cập"
+            : "• Thống kê lượng thành viên không truy cập";
       }
 
       /* ====== RENDER: LEAVE REASONS (4.1.4) ====== */
       function renderLR() {
         const tbody = document.getElementById("tbody-lr");
         if (!tbody) return;
-        document.getElementById("lr-count").textContent = leaveReasons.length + " lý do";
-        tbody.innerHTML = leaveReasons.map((r) => `
+        document.getElementById("lr-count").textContent =
+          leaveReasons.length + " lý do";
+        tbody.innerHTML = leaveReasons
+          .map(
+            (r) => `
           <tr>
             <td class="td-left" style="padding-left: 16px">
               <button class="reason-chip${editingLRId === r.id ? " editing" : ""}" onclick="editLR('${escText(r.id)}')">${escText(r.reason)}</button>
@@ -1332,7 +3310,9 @@
             <td>
               <button class="btn btn-outline-danger btn-sm" onclick="deleteLR('${escText(r.id)}')">Xóa</button>
             </td>
-          </tr>`).join("");
+          </tr>`,
+          )
+          .join("");
       }
 
       function editLR(id) {
@@ -1369,17 +3349,34 @@
       function submitLR() {
         const inp = document.getElementById("lr-input");
         const text = (inp.value || "").trim();
-        if (!text) { alert("Vui lòng nhập lý do."); return; }
+        if (!text) {
+          alert("Vui lòng nhập lý do.");
+          return;
+        }
         if (editingLRId) {
           const r = leaveReasons.find((x) => x.id === editingLRId);
           if (r) r.reason = text;
           alert("Đã cập nhật lý do rời bỏ.");
           resetLR();
         } else {
-          const nextId = "LR" + String(Math.max(0, ...leaveReasons.map((r) => Number(r.id.replace(/\D/g, "")) || 0)) + 1).padStart(3, "0");
+          const nextId =
+            "LR" +
+            String(
+              Math.max(
+                0,
+                ...leaveReasons.map(
+                  (r) => Number(r.id.replace(/\D/g, "")) || 0,
+                ),
+              ) + 1,
+            ).padStart(3, "0");
           const today = new Date();
-          const date = `${String(today.getDate()).padStart(2,"0")}-${String(today.getMonth()+1).padStart(2,"0")}-${today.getFullYear()}`;
-          leaveReasons.unshift({ id: nextId, reason: text, creator: "Admin", date });
+          const date = `${String(today.getDate()).padStart(2, "0")}-${String(today.getMonth() + 1).padStart(2, "0")}-${today.getFullYear()}`;
+          leaveReasons.unshift({
+            id: nextId,
+            reason: text,
+            creator: "Admin",
+            date,
+          });
           inp.value = "";
           alert("Đã thêm lý do rời bỏ.");
           renderLR();
@@ -1408,19 +3405,27 @@
         const bars = document.getElementById("lr-stats-bars");
         const labels = document.getElementById("lr-stats-labels");
         if (!bars || !labels) return;
-        bars.innerHTML = data.map((d) =>
-          `<div class="bar" style="height:${(d.value / max) * 100}%" title="${escText(d.label)}: ${d.value}"></div>`
-        ).join("");
-        labels.innerHTML = data.map((d) =>
-          `<div class="bar-label" style="flex:1">${escText(d.label)}</div>`
-        ).join("");
+        bars.innerHTML = data
+          .map(
+            (d) =>
+              `<div class="bar" style="height:${(d.value / max) * 100}%" title="${escText(d.label)}: ${d.value}"></div>`,
+          )
+          .join("");
+        labels.innerHTML = data
+          .map(
+            (d) =>
+              `<div class="bar-label" style="flex:1">${escText(d.label)}</div>`,
+          )
+          .join("");
       }
 
       /* ====== RENDER: ADD STAFF ====== */
       function renderAddStaff() {
         const tbody = document.getElementById("tbody-as");
         if (!tbody) return;
-        tbody.innerHTML = addStaffCandidates.map((m) => `
+        tbody.innerHTML = addStaffCandidates
+          .map(
+            (m) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td>${escText(m.id)}</td>
@@ -1428,9 +3433,9 @@
               <div class="cell-menu">
                 <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
                 <div class="menu-list">
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Chi tiết thông tin</button>
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Chỉnh sửa thông tin</button>
+                  <button class="menu-item" onclick="goRealDetail('${escText(m.id)}')">Thông tin chi tiết</button>
+                  <button class="menu-item" onclick="goRealHistory('${escText(m.id)}')">Lịch sử hoạt động</button>
+                  <button class="menu-item" onclick="goRealEdit('${escText(m.id)}')">Chỉnh sửa thông tin</button>
                   <button class="menu-item" onclick="openActionModal('push-notify')">Gửi thông báo đẩy</button>
                 </div>
               </div>
@@ -1443,14 +3448,18 @@
             <td>${escText(m.gender)}</td>
             <td><span class="ip-text">${escText(m.ip)}</span></td>
             <td class="td-left">${escText(m.note || "—")}</td>
-          </tr>`).join("");
+          </tr>`,
+          )
+          .join("");
       }
 
       /* ====== RENDER: MANAGE STAFF ====== */
       function renderManageStaff() {
         const tbody = document.getElementById("tbody-ms");
         if (!tbody) return;
-        tbody.innerHTML = manageStaff.map((s) => `
+        tbody.innerHTML = manageStaff
+          .map(
+            (s) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td>${escText(s.id)}</td>
@@ -1467,20 +3476,58 @@
             <td>${escText(s.creator)}</td>
             <td>${escText(s.grade)}</td>
             <td>${escText(s.lastAction)}</td>
-          </tr>`).join("");
+          </tr>`,
+          )
+          .join("");
       }
 
       /* ====== ACTION MODAL (generic) ====== */
       const actionMap = {
-        "unsuspend": { title: "Gỡ tạm khóa", body: "Thành viên sẽ được gỡ tạm khóa và hoạt động bình thường.", done: "Đã gỡ tạm khóa." },
-        "unban-register": { title: "Gỡ chặn cấm đăng ký", body: "Thành viên sẽ được phép đăng ký lại tài khoản.", done: "Đã gỡ chặn cấm đăng ký." },
-        "cancel-upgrade": { title: "Hủy nâng cấp tự động", body: "Tài khoản sẽ ngừng tự động nâng cấp cấp bậc.", done: "Đã hủy nâng cấp tự động." },
-        "send-email": { title: "Gửi Email", body: "Gửi Email tới các thành viên đã chọn.", done: "Đã gửi Email." },
-        "push-notify": { title: "Gửi thông báo đẩy", body: "Gửi thông báo đẩy tới các thành viên đã chọn.", done: "Đã gửi thông báo đẩy." },
-        "add-staff": { title: "Thêm Staff", body: "Thành viên được chọn sẽ được cấp quyền quản trị viên.", done: "Đã thêm staff." },
-        "remove-staff": { title: "Xóa Staff", body: "Staff sẽ trở về thành viên ảo và mất toàn bộ quyền quản trị.", done: "Đã xóa staff." },
-        "change-staff-grade": { title: "Đổi cấp bậc Staff", body: "Cấp bậc staff sẽ được cập nhật.", done: "Đã đổi cấp bậc staff." },
-        "delete-leave-reason": { title: "Xóa lý do", body: "Lý do này sẽ bị xóa khỏi hệ thống.", done: "Đã xóa lý do." },
+        unsuspend: {
+          title: "Gỡ tạm khóa",
+          body: "Thành viên sẽ được gỡ tạm khóa và hoạt động bình thường.",
+          done: "Đã gỡ tạm khóa.",
+        },
+        "unban-register": {
+          title: "Gỡ chặn cấm đăng ký",
+          body: "Thành viên sẽ được phép đăng ký lại tài khoản.",
+          done: "Đã gỡ chặn cấm đăng ký.",
+        },
+        "cancel-upgrade": {
+          title: "Hủy nâng cấp tự động",
+          body: "Tài khoản sẽ ngừng tự động nâng cấp cấp bậc.",
+          done: "Đã hủy nâng cấp tự động.",
+        },
+        "send-email": {
+          title: "Gửi Email",
+          body: "Gửi Email tới các thành viên đã chọn.",
+          done: "Đã gửi Email.",
+        },
+        "push-notify": {
+          title: "Gửi thông báo đẩy",
+          body: "Gửi thông báo đẩy tới các thành viên đã chọn.",
+          done: "Đã gửi thông báo đẩy.",
+        },
+        "add-staff": {
+          title: "Thêm Staff",
+          body: "Thành viên được chọn sẽ được cấp quyền quản trị viên.",
+          done: "Đã thêm staff.",
+        },
+        "remove-staff": {
+          title: "Xóa Staff",
+          body: "Staff sẽ trở về thành viên ảo và mất toàn bộ quyền quản trị.",
+          done: "Đã xóa staff.",
+        },
+        "change-staff-grade": {
+          title: "Đổi cấp bậc Staff",
+          body: "Cấp bậc staff sẽ được cập nhật.",
+          done: "Đã đổi cấp bậc staff.",
+        },
+        "delete-leave-reason": {
+          title: "Xóa lý do",
+          body: "Lý do này sẽ bị xóa khỏi hệ thống.",
+          done: "Đã xóa lý do.",
+        },
       };
 
       function openActionModal(type) {
@@ -1493,11 +3540,16 @@
         closeAllMenus();
       }
       function closeActionModal() {
-        document.getElementById("action-modal-backdrop").classList.remove("open");
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
         pendingAction = null;
       }
       function confirmActionModal() {
-        if (!pendingAction) { closeActionModal(); return; }
+        if (!pendingAction) {
+          closeActionModal();
+          return;
+        }
         const cfg = actionMap[pendingAction.type];
         if (pendingAction.type === "delete-leave-reason" && pendingAction.id) {
           const idx = leaveReasons.findIndex((r) => r.id === pendingAction.id);
@@ -1512,32 +3564,54 @@
       /* ====== SUSPEND MODAL ====== */
       function openSuspendModal() {
         const list = document.getElementById("suspend-reasons");
-        list.innerHTML = reasonOptionsSuspend.map((r, i) => `
+        list.innerHTML = reasonOptionsSuspend
+          .map(
+            (r, i) => `
           <label class="reason-radio">
             <input type="radio" name="suspend-reason" value="${escText(r)}" ${i === 0 ? "checked" : ""} onchange="onSuspendReasonChange()" />
             <span>${escText(r)}</span>
-          </label>`).join("");
+          </label>`,
+          )
+          .join("");
         document.getElementById("suspend-other").value = "";
         document.getElementById("suspend-other").style.display = "none";
         document.getElementById("suspend-modal-backdrop").classList.add("open");
         closeAllMenus();
       }
       function closeSuspendModal() {
-        document.getElementById("suspend-modal-backdrop").classList.remove("open");
+        document
+          .getElementById("suspend-modal-backdrop")
+          .classList.remove("open");
       }
       function onSuspendReasonChange() {
-        const selected = document.querySelector("input[name='suspend-reason']:checked");
+        const selected = document.querySelector(
+          "input[name='suspend-reason']:checked",
+        );
         const other = document.getElementById("suspend-other");
-        other.style.display = selected && selected.value === "Khác" ? "block" : "none";
+        other.style.display =
+          selected && selected.value === "Khác" ? "block" : "none";
       }
       function confirmSuspend() {
-        const selected = document.querySelector("input[name='suspend-reason']:checked");
-        if (!selected) { alert("Vui lòng chọn lý do."); return; }
+        const selected = document.querySelector(
+          "input[name='suspend-reason']:checked",
+        );
+        if (!selected) {
+          alert("Vui lòng chọn lý do.");
+          return;
+        }
         if (selected.value === "Khác") {
           const other = document.getElementById("suspend-other").value.trim();
-          if (!other) { alert("Vui lòng nhập lý do."); return; }
+          if (!other) {
+            alert("Vui lòng nhập lý do.");
+            return;
+          }
         }
         const duration = document.getElementById("suspend-duration").value;
+        if (pendingMemberActionId) {
+          getMemberActionState(pendingMemberActionId).suspended = true;
+          pendingMemberActionId = null;
+          renderRealMembers();
+        }
         closeSuspendModal();
         alert(`Đã tạm khóa hoạt động (${duration}).`);
       }
@@ -1545,30 +3619,56 @@
       /* ====== FORCE LEAVE MODAL ====== */
       function openForceLeaveModal() {
         const list = document.getElementById("force-leave-reasons");
-        list.innerHTML = reasonOptionsForceLeave.map((r, i) => `
+        list.innerHTML = reasonOptionsForceLeave
+          .map(
+            (r, i) => `
           <label class="reason-radio">
             <input type="radio" name="fl-reason" value="${escText(r)}" ${i === 0 ? "checked" : ""} onchange="onFLReasonChange()" />
             <span>${escText(r)}</span>
-          </label>`).join("");
+          </label>`,
+          )
+          .join("");
         document.getElementById("force-leave-other").value = "";
         document.getElementById("force-leave-other").style.display = "none";
-        document.getElementById("force-leave-modal-backdrop").classList.add("open");
+        document
+          .getElementById("force-leave-modal-backdrop")
+          .classList.add("open");
         closeAllMenus();
       }
       function closeForceLeaveModal() {
-        document.getElementById("force-leave-modal-backdrop").classList.remove("open");
+        document
+          .getElementById("force-leave-modal-backdrop")
+          .classList.remove("open");
       }
       function onFLReasonChange() {
-        const selected = document.querySelector("input[name='fl-reason']:checked");
+        const selected = document.querySelector(
+          "input[name='fl-reason']:checked",
+        );
         const other = document.getElementById("force-leave-other");
-        other.style.display = selected && selected.value === "Khác" ? "block" : "none";
+        other.style.display =
+          selected && selected.value === "Khác" ? "block" : "none";
       }
       function confirmForceLeave() {
-        const selected = document.querySelector("input[name='fl-reason']:checked");
-        if (!selected) { alert("Vui lòng chọn lý do."); return; }
+        const selected = document.querySelector(
+          "input[name='fl-reason']:checked",
+        );
+        if (!selected) {
+          alert("Vui lòng chọn lý do.");
+          return;
+        }
         if (selected.value === "Khác") {
-          const other = document.getElementById("force-leave-other").value.trim();
-          if (!other) { alert("Vui lòng nhập lý do."); return; }
+          const other = document
+            .getElementById("force-leave-other")
+            .value.trim();
+          if (!other) {
+            alert("Vui lòng nhập lý do.");
+            return;
+          }
+        }
+        if (pendingMemberActionId) {
+          getMemberActionState(pendingMemberActionId).forceLeft = true;
+          pendingMemberActionId = null;
+          renderRealMembers();
         }
         closeForceLeaveModal();
         alert("Đã buộc thành viên rời bỏ hệ thống.");
@@ -1577,18 +3677,28 @@
       /* ====== BAN REGISTER MODAL (alias of force-leave with custom title) ====== */
       function openBanRegisterModal(id) {
         const list = document.getElementById("force-leave-reasons");
-        list.innerHTML = reasonOptionsForceLeave.map((r, i) => `
+        list.innerHTML = reasonOptionsForceLeave
+          .map(
+            (r, i) => `
           <label class="reason-radio">
             <input type="radio" name="fl-reason" value="${escText(r)}" ${i === 0 ? "checked" : ""} onchange="onFLReasonChange()" />
             <span>${escText(r)}</span>
-          </label>`).join("");
+          </label>`,
+          )
+          .join("");
         document.getElementById("force-leave-other").value = "";
         document.getElementById("force-leave-other").style.display = "none";
-        const modal = document.querySelector("#force-leave-modal-backdrop .action-modal-title");
+        const modal = document.querySelector(
+          "#force-leave-modal-backdrop .action-modal-title",
+        );
         modal.textContent = "Cấm đăng ký lại";
-        document.querySelectorAll("#force-leave-modal-backdrop .action-modal-body")[0].textContent =
+        document.querySelectorAll(
+          "#force-leave-modal-backdrop .action-modal-body",
+        )[0].textContent =
           "Thành viên này sẽ bị cấm đăng ký lại với tài khoản đã rời bỏ. Chọn lý do trước khi xác nhận.";
-        document.getElementById("force-leave-modal-backdrop").classList.add("open");
+        document
+          .getElementById("force-leave-modal-backdrop")
+          .classList.add("open");
         closeAllMenus();
       }
 
@@ -1603,7 +3713,9 @@
       });
 
       /* ====== INIT ====== */
-      ["real", "suspended", "leave", "na", "as", "ms"].forEach(renderCriteriaMenu);
+      ["real", "suspended", "leave", "na", "as", "ms"].forEach(
+        renderCriteriaMenu,
+      );
       renderRealMembers();
       renderSuspended();
       renderLeaveTable();

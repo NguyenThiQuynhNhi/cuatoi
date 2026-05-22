@@ -27,167 +27,921 @@
         --gray-500: #6b6390;
         --gray-700: #3d3660;
         --gray-900: #1e1a35;
-        --shadow-sm: 0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
-        --shadow-md: 0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
         --radius: 10px;
         --sidebar-w: 230px;
         --header-h: 60px;
       }
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: "Be Vietnam Pro", sans-serif; background: var(--gray-50); color: var(--gray-900); font-size: 13px; min-height: 100vh; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
 
-      .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; min-height: 60px; background: linear-gradient(135deg, #4a2096 0%, #6c3fc5 60%, #8b5cf6 100%); display: flex; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25); }
-      .header-logo { display: flex; align-items: center; gap: 10px; color: white; font-weight: 700; font-size: 14px; }
-      .header-logo .logo-box { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: white; border: 1.5px solid rgba(255, 255, 255, 0.35); }
-      .header-nav { display: flex; align-items: center; gap: 2px; flex: 1; padding: 0 24px; }
-      .nav-item { padding: 5px 9px; border-radius: 6px; color: rgba(255, 255, 255, 0.75); cursor: pointer; font-size: 11.5px; font-weight: 500; white-space: normal; line-height: 1.2; text-align: center; max-width: 120px; transition: all 0.15s; }
-      .nav-item:hover, .nav-item.active { background: rgba(255, 255, 255, 0.18); color: white; }
-      .nav-item.active { background: rgba(255, 255, 255, 0.22); font-weight: 600; }
-      .nav-item-group { position: relative; }
-      .nav-item-group .nav-dropdown { position: absolute; top: 100%; left: 0; background: white; border: 1px solid var(--gray-200); border-radius: 6px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); min-width: 180px; display: none; z-index: 300; padding: 4px 0; margin-top: 4px; }
-      .nav-item-group:hover .nav-dropdown { display: block; }
-      .nav-dropdown a { display: block; padding: 8px 14px; color: var(--gray-700); text-decoration: none; font-size: 11.5px; font-weight: 500; white-space: nowrap; }
-      .nav-dropdown a:hover { background: var(--gray-100); color: var(--primary); }
-      a.nav-item { text-decoration: none; display: inline-block; }
-      .header-user { display: flex; align-items: center; gap: 8px; color: white; font-size: 12px; }
-      .header-user .avatar { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; border: 1.5px solid rgba(255, 255, 255, 0.4); }
-      .header-user .user-info { text-align: right; }
-      .header-user .user-name { font-weight: 600; font-size: 12px; }
-      .header-user .user-role { font-size: 10.5px; opacity: 0.75; }
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        min-height: 60px;
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+      }
+      .header-user .avatar {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
 
-      .app-body { display: flex; padding-top: var(--header-h); min-height: 100vh; }
-      .sidebar { width: var(--sidebar-w); flex-shrink: 0; background: white; min-height: calc(100vh - var(--header-h)); border-right: 1px solid var(--gray-200); padding: 16px 10px; position: fixed; top: var(--header-h); left: 0; bottom: 0; overflow-y: auto; }
-      .sidebar-label { font-size: 9.5px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 8px 4px; }
-      .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; cursor: pointer; color: var(--gray-500); font-size: 12.5px; font-weight: 500; transition: all 0.15s; margin-bottom: 1px; }
-      .sidebar-item:hover { background: var(--gray-100); color: var(--gray-700); }
-      .sidebar-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+      .app-body {
+        display: flex;
+        padding-top: var(--header-h);
+        min-height: 100vh;
+      }
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: white;
+        min-height: calc(100vh - var(--header-h));
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 10px;
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+      }
+      .sidebar-label {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 10px 8px 4px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+        font-size: 12.5px;
+        font-weight: 500;
+        transition: all 0.15s;
+        margin-bottom: 1px;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
 
-      .main { margin-left: var(--sidebar-w); flex: 1; padding: 20px; }
-      .page { display: none; }
-      .page.active { display: block; }
-      .page-title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 20px;
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+      }
 
-      .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: 14px; }
-      .card-body { padding: 14px 18px; }
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-body {
+        padding: 14px 18px;
+      }
 
-      .search-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-      .search-row + .search-row { margin-top: 10px; }
-      .filter-label { font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .search-row + .search-row {
+        margin-top: 10px;
+      }
+      .filter-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        white-space: nowrap;
+      }
 
-      .date-range { display: flex; align-items: center; border: 1.5px solid var(--primary-mid); border-radius: 8px; overflow: hidden; background: white; max-width: 280px; }
-      .date-nav { padding: 6px 12px; background: var(--primary-light); cursor: pointer; color: var(--primary); font-size: 14px; font-weight: 700; border: none; }
-      .date-display { padding: 6px 16px; font-size: 12px; font-weight: 600; color: var(--primary); background: white; white-space: nowrap; text-align: center; min-width: 200px; }
-      .time-filters { display: flex; gap: 6px; flex-wrap: wrap; }
-      .tf-btn { padding: 7px 14px; min-height: 32px; border-radius: 9px; border: 1px solid #e2e5f1; background: white; color: #677194; font-size: 11.5px; font-weight: 500; cursor: pointer; font-family: inherit; }
-      .tf-btn.active { background: var(--primary); color: white; border-color: transparent; font-weight: 700; }
+      .date-range {
+        display: flex;
+        align-items: center;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        max-width: 280px;
+      }
+      .date-nav {
+        padding: 6px 12px;
+        background: var(--primary-light);
+        cursor: pointer;
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+      }
+      .date-display {
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        white-space: nowrap;
+        text-align: center;
+        min-width: 200px;
+      }
+      .time-filters {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .tf-btn {
+        padding: 7px 14px;
+        min-height: 32px;
+        border-radius: 9px;
+        border: 1px solid #e2e5f1;
+        background: white;
+        color: #677194;
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .tf-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: transparent;
+        font-weight: 700;
+      }
 
-      .criteria-wrap { position: relative; }
-      .criteria-btn { height: 34px; min-width: 150px; border: 1.5px solid var(--gray-200); border-radius: 8px; background: white; font-size: 12px; font-weight: 600; color: var(--gray-700); font-family: inherit; padding: 0 10px; cursor: pointer; display: inline-flex; align-items: center; justify-content: space-between; gap: 10px; }
-      .criteria-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 180px; background: white; border: 1px solid var(--gray-200); border-radius: 8px; padding: 4px; box-shadow: var(--shadow-md); z-index: 260; }
-      .criteria-wrap.open .criteria-menu { display: block; }
-      .criteria-option { width: 100%; border: none; background: transparent; text-align: left; border-radius: 6px; padding: 7px 9px; font-size: 11.5px; color: var(--gray-700); cursor: pointer; font-family: inherit; }
-      .criteria-option:hover { background: var(--gray-100); color: var(--primary); }
-      .search-input-lg { flex: 1; min-width: 240px; height: 34px; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 0 11px; font-size: 12px; color: var(--gray-700); font-family: inherit; outline: none; }
+      .criteria-wrap {
+        position: relative;
+      }
+      .criteria-btn {
+        height: 34px;
+        min-width: 150px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        font-family: inherit;
+        padding: 0 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .criteria-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 180px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        z-index: 260;
+      }
+      .criteria-wrap.open .criteria-menu {
+        display: block;
+      }
+      .criteria-option {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .criteria-option:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .search-input-lg {
+        flex: 1;
+        min-width: 240px;
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 11px;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
+      }
 
-      .btn { padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-      .btn-outline-primary { background: white; border: 1.5px solid var(--primary); color: var(--primary); }
-      .btn-outline-primary:hover { background: var(--primary-light); }
-      .btn-outline-danger { background: white; border: 1.5px solid var(--accent); color: var(--accent); }
-      .btn-outline-danger:hover { background: var(--accent-light); }
-      .btn-primary { background: var(--primary); color: white; border: 1.5px solid var(--primary); }
-      .btn-danger { background: var(--accent); color: white; border: 1.5px solid var(--accent); }
-      .btn-ghost { background: var(--gray-100); border: 1.5px solid var(--gray-200); color: var(--gray-500); }
-      .btn-sm { padding: 4px 11px; font-size: 11px; }
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
 
-      .table-title { font-size: 13px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-      .table-title .count { font-size: 11px; background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 20px; font-weight: 600; }
-      .table-actions { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
-      .table-actions-left, .table-actions-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-      .table-actions-left span { font-size: 11.5px; color: var(--gray-500); font-weight: 500; }
+      .table-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .table-title .count {
+        font-size: 11px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+      .table-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left,
+      .table-actions-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left span {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
 
-      .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200); }
-      table { width: 100%; border-collapse: collapse; min-width: 1100px; background: white; }
-      thead { background: var(--gray-50); }
-      thead th { padding: 9px 10px; text-align: center; font-size: 11.5px; font-weight: 600; color: var(--gray-500); white-space: nowrap; border-bottom: 1.5px solid var(--gray-200); }
-      tbody tr { border-bottom: 1px solid var(--gray-100); }
-      tbody tr:hover { background: var(--gray-50); }
-      tbody td { padding: 9px 10px; text-align: center; font-size: 12px; color: var(--gray-700); vertical-align: middle; }
-      .td-left { text-align: left !important; }
-      .editable-input { width: 100%; border: 1px solid transparent; background: transparent; border-radius: 6px; padding: 4px 7px; font-size: 12px; font-family: inherit; text-align: center; color: var(--gray-700); outline: none; }
-      .editable-input:hover { border-color: var(--gray-200); }
-      .editable-input:focus { border-color: var(--primary); background: white; }
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1100px;
+        background: white;
+      }
+      thead {
+        background: var(--gray-50);
+      }
+      thead th {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        white-space: nowrap;
+        border-bottom: 1.5px solid var(--gray-200);
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--gray-100);
+      }
+      tbody tr:hover {
+        background: var(--gray-50);
+      }
+      tbody td {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .td-left {
+        text-align: left !important;
+      }
+      .editable-input {
+        width: 100%;
+        border: 1px solid transparent;
+        background: transparent;
+        border-radius: 6px;
+        padding: 4px 7px;
+        font-size: 12px;
+        font-family: inherit;
+        text-align: center;
+        color: var(--gray-700);
+        outline: none;
+      }
+      .editable-input:hover {
+        border-color: var(--gray-200);
+      }
+      .editable-input:focus {
+        border-color: var(--primary);
+        background: white;
+      }
 
-      .cell-menu { position: relative; display: inline-block; }
-      .menu-trigger { background: none; border: none; padding: 0; font: inherit; color: var(--primary); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: 12px; }
-      .menu-list { position: absolute; top: calc(100% + 2px); left: 0; background: white; border: 1px solid var(--gray-200); border-radius: 8px; box-shadow: var(--shadow-md); z-index: 40; min-width: 200px; display: none; flex-direction: column; padding: 4px 0; }
-      .cell-menu.open .menu-list { display: flex; }
-      .menu-item { padding: 7px 12px; background: none; border: none; text-align: left; font-size: 12px; color: var(--gray-700); cursor: pointer; font-family: inherit; }
-      .menu-item:hover { background: var(--gray-100); color: var(--primary); }
-      .menu-item.danger { color: var(--accent); }
+      .cell-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .menu-trigger {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .menu-list {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        z-index: 40;
+        min-width: 200px;
+        display: none;
+        flex-direction: column;
+        padding: 4px 0;
+      }
+      .cell-menu.open .menu-list {
+        display: flex;
+      }
+      .menu-item {
+        padding: 7px 12px;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .menu-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .menu-item.danger {
+        color: var(--accent);
+      }
 
-      .table-footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--gray-200); background: white; }
-      .pagination { display: flex; gap: 4px; justify-content: center; align-items: center; }
-      .pg-btn { min-width: 32px; height: 32px; padding: 0 8px; border: 1px solid var(--gray-300); background: white; border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--gray-700); cursor: pointer; }
-      .pg-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+      .table-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--gray-200);
+        background: white;
+      }
+      .pagination {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+      }
+      .pg-btn {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid var(--gray-300);
+        background: white;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        cursor: pointer;
+      }
+      .pg-btn.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
 
-      .select-dropdown { position: relative; display: inline-flex; align-items: center; }
-      .select-dropdown select { appearance: none; padding: 6px 28px 6px 10px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 12px; font-family: inherit; color: var(--gray-700); background: white; cursor: pointer; outline: none; min-width: 150px; }
-      .select-dropdown::after { content: "▾"; position: absolute; right: 10px; pointer-events: none; font-size: 10px; color: var(--gray-400); }
+      .select-dropdown {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+      .select-dropdown select {
+        appearance: none;
+        padding: 6px 28px 6px 10px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        background: white;
+        cursor: pointer;
+        outline: none;
+        min-width: 150px;
+      }
+      .select-dropdown::after {
+        content: "▾";
+        position: absolute;
+        right: 10px;
+        pointer-events: none;
+        font-size: 10px;
+        color: var(--gray-400);
+      }
 
-      .id-name { display: flex; flex-direction: column; gap: 2px; }
-      .id-name .name { font-weight: 600; color: var(--gray-900); font-size: 12px; }
-      .id-name .id { color: var(--gray-500); font-size: 11px; }
+      .id-name {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .id-name .name {
+        font-weight: 600;
+        color: var(--gray-900);
+        font-size: 12px;
+      }
+      .id-name .id {
+        color: var(--gray-500);
+        font-size: 11px;
+      }
 
-      .grade-chip { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-mid); }
-      .grade-chip.kol { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
-      .grade-chip.expert { background: var(--warning-light); color: var(--warning); border-color: var(--warning); }
+      .grade-chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 600;
+        background: var(--primary-light);
+        color: var(--primary);
+        border: 1px solid var(--primary-mid);
+      }
+      .grade-chip.kol {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .grade-chip.expert {
+        background: var(--warning-light);
+        color: var(--warning);
+        border-color: var(--warning);
+      }
 
-      .badge-icon { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; font-size: 13px; font-weight: 700; }
-      .badge-name { font-size: 12px; font-weight: 600; color: var(--gray-900); }
+      .badge-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .badge-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-900);
+      }
 
-      .points-cell { font-weight: 700; color: var(--primary); }
-      .points-cell.negative { color: var(--accent); }
+      .points-cell {
+        font-weight: 700;
+        color: var(--primary);
+      }
+      .points-cell.negative {
+        color: var(--accent);
+      }
 
-      .info-note { font-size: 11.5px; color: var(--warning); background: var(--warning-light); border: 1px solid var(--warning); border-radius: 8px; padding: 8px 12px; margin-bottom: 10px; font-style: italic; }
-
-      .note-ellipsis { display: inline-block; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle; color: var(--gray-500); font-size: 11.5px; font-style: italic; }
+      .note-ellipsis {
+        display: inline-block;
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+        color: var(--gray-500);
+        font-size: 11.5px;
+        font-style: italic;
+      }
+      td.note-cell {
+        cursor: pointer;
+      }
+      td.note-cell.editing {
+        background: var(--primary-light);
+      }
+      .note-edit-area {
+        width: 100%;
+        min-height: 56px;
+        resize: vertical;
+        border: 1.5px solid var(--primary);
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+        margin-bottom: 6px;
+        box-sizing: border-box;
+      }
+      .note-edit-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        justify-content: flex-end;
+      }
 
       /* ====== ACTION MODAL ====== */
-      .action-modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 260; display: none; align-items: center; justify-content: center; }
-      .action-modal-backdrop.open { display: flex; }
-      .action-modal { background: white; border-radius: 10px; padding: 20px; max-width: 440px; width: 95vw; box-shadow: var(--shadow-md); }
-      .action-modal-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
-      .action-modal-body { font-size: 12px; color: var(--gray-500); line-height: 1.5; margin-bottom: 16px; }
-      .action-modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
-      .action-modal-btn { padding: 8px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
-      .action-modal-btn-cancel { background: var(--gray-200); color: var(--gray-700); }
-      .action-modal-btn-confirm { background: var(--accent); color: white; }
-      .action-modal-btn-confirm.is-primary { background: var(--primary); }
+      .action-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 440px;
+        width: 95vw;
+        box-shadow: var(--shadow-md);
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-500);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+      .action-modal-btn-confirm.is-primary {
+        background: var(--primary);
+      }
 
       /* ====== BIG MODAL (give badge, edit badge, history) ====== */
-      .big-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); z-index: 270; display: none; align-items: center; justify-content: center; }
-      .big-backdrop.open { display: flex; }
-      .big-modal { background: white; border-radius: 12px; padding: 22px; max-width: 640px; width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-md); }
-      .big-modal h3 { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; }
-      .big-modal .form-row { display: grid; grid-template-columns: 130px 1fr; gap: 10px 14px; align-items: center; margin-bottom: 10px; }
-      .big-modal .form-row label { font-size: 12.5px; font-weight: 600; color: var(--gray-700); }
-      .big-modal .form-row input, .big-modal .form-row select, .big-modal .form-row textarea { width: 100%; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 7px 10px; font-size: 12px; font-family: inherit; color: var(--gray-700); outline: none; background: white; }
-      .big-modal .form-row textarea { min-height: 60px; resize: vertical; }
-      .big-modal .form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
-      .badge-pick-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-height: 240px; overflow-y: auto; padding: 4px; }
-      .badge-pick-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1.5px solid var(--gray-200); border-radius: 8px; cursor: pointer; }
-      .badge-pick-item:hover { background: var(--gray-50); }
-      .badge-pick-item.selected { border-color: var(--primary); background: var(--primary-light); }
-      .badge-pick-item .pick-name { font-size: 12px; font-weight: 600; color: var(--gray-900); }
-      .badge-pick-item .pick-desc { font-size: 10.5px; color: var(--gray-500); }
+      .big-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 270;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .big-backdrop.open {
+        display: flex;
+      }
+      .big-modal {
+        background: white;
+        border-radius: 12px;
+        padding: 22px;
+        max-width: 640px;
+        width: 95vw;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: var(--shadow-md);
+      }
+      .big-modal h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+      }
+      .big-modal .form-row {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 10px 14px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .big-modal .form-row label {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .big-modal .form-row input,
+      .big-modal .form-row select,
+      .big-modal .form-row textarea {
+        width: 100%;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 7px 10px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+        background: white;
+      }
+      .big-modal .form-row textarea {
+        min-height: 60px;
+        resize: vertical;
+      }
+      .big-modal .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 14px;
+      }
+      .badge-pick-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        max-height: 240px;
+        overflow-y: auto;
+        padding: 4px;
+      }
+      .badge-pick-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .badge-pick-item:hover {
+        background: var(--gray-50);
+      }
+      .badge-pick-item.selected {
+        border-color: var(--primary);
+        background: var(--primary-light);
+      }
+      .badge-pick-item .pick-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-900);
+      }
+      .badge-pick-item .pick-desc {
+        font-size: 10.5px;
+        color: var(--gray-500);
+      }
 
       /* ====== HISTORY ====== */
-      .hist-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid var(--gray-100); font-size: 12px; }
-      .hist-row:last-child { border-bottom: none; }
-      .hist-row .h-act { color: var(--gray-700); }
-      .hist-row .h-pts { font-weight: 700; color: var(--success); }
-      .hist-row .h-pts.minus { color: var(--accent); }
-      .hist-row .h-time { color: var(--gray-500); font-size: 11px; }
+      .hist-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--gray-100);
+        font-size: 12px;
+      }
+      .hist-row:last-child {
+        border-bottom: none;
+      }
+      .hist-row .h-act {
+        color: var(--gray-700);
+      }
+      .hist-row .h-pts {
+        font-weight: 700;
+        color: var(--success);
+      }
+      .hist-row .h-pts.minus {
+        color: var(--accent);
+      }
+      .hist-row .h-time {
+        color: var(--gray-500);
+        font-size: 11px;
+      }
     </style>
   </head>
   <body>
@@ -199,8 +953,12 @@
       <nav class="header-nav">
         <a class="nav-item" href="home-management.html">Trang chủ</a>
         <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
-        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
-        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="virtual-member-management.html"
+          >Thành viên ảo</a
+        >
+        <a class="nav-item" href="real-member-staff.html"
+          >Thành viên thực, staff</a
+        >
         <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
         <div class="nav-item nav-item-group">
           Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
@@ -212,13 +970,19 @@
           </div>
         </div>
         <a class="nav-item" href="menu-management.html">Menu</a>
-        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="post-comment-management.html"
+          >Bài viết. Bình luận</a
+        >
         <a class="nav-item" href="tag-management.html">Thẻ</a>
-        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="report-management.html"
+          >Từ cấm. Spam. Báo cáo</a
+        >
         <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
         <div class="nav-item active">Điểm thưởng. Huy hiệu</div>
         <a class="nav-item" href="statistics-management.html">Thống kê</a>
-        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+        <a class="nav-item" href="push-notification-management.html"
+          >Thông báo đẩy</a
+        >
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -232,11 +996,35 @@
     <div class="app-body">
       <aside class="sidebar">
         <div class="sidebar-label">Điểm thưởng</div>
-        <div class="sidebar-item active" id="sidebar-condition" onclick="goSection('condition')">Quản lý điều kiện tích điểm</div>
-        <div class="sidebar-item" id="sidebar-points" onclick="goSection('points')">Quản lý điểm thưởng</div>
+        <div
+          class="sidebar-item active"
+          id="sidebar-condition"
+          onclick="goSection('condition')"
+        >
+          Quản lý điều kiện tích điểm
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-points"
+          onclick="goSection('points')"
+        >
+          Quản lý điểm thưởng
+        </div>
         <div class="sidebar-label">Huy hiệu</div>
-        <div class="sidebar-item" id="sidebar-member-badge" onclick="goSection('member-badge')">Quản lý thành viên đạt huy hiệu</div>
-        <div class="sidebar-item" id="sidebar-badge" onclick="goSection('badge')">Quản lý huy hiệu</div>
+        <div
+          class="sidebar-item"
+          id="sidebar-member-badge"
+          onclick="goSection('member-badge')"
+        >
+          Quản lý thành viên đạt huy hiệu
+        </div>
+        <div
+          class="sidebar-item"
+          id="sidebar-badge"
+          onclick="goSection('badge')"
+        >
+          Quản lý huy hiệu
+        </div>
       </aside>
 
       <!-- ====== 12.1.1 QUẢN LÝ ĐIỀU KIỆN TÍCH ĐIỂM ====== -->
@@ -245,12 +1033,15 @@
 
         <div class="card">
           <div class="card-body">
-            <div class="info-note">Có thể tùy chỉnh điều kiện của bảng này khi nhấn double-click vào ô nhập liệu.</div>
-
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Mục đã chọn:</span>
-                <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-delete-condition')">Xóa</button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openActionModal('bulk-delete-condition')"
+                >
+                  Xóa
+                </button>
               </div>
               <div class="table-actions-right">
                 <div class="select-dropdown">
@@ -264,10 +1055,15 @@
             </div>
 
             <div class="table-wrap">
-              <table style="min-width:1200px">
+              <table style="min-width: 1200px">
                 <thead>
                   <tr>
-                    <th><input type="checkbox" onchange="toggleAll(this,'tbody-condition')" /></th>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-condition')"
+                      />
+                    </th>
                     <th class="td-left">Hoạt động</th>
                     <th>Điều kiện cộng điểm</th>
                     <th>Điểm thưởng</th>
@@ -283,7 +1079,17 @@
             <div class="table-footer">
               <div>
                 <button class="btn btn-primary" onclick="addCondition()">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
                   Thêm điều kiện
                 </button>
               </div>
@@ -307,9 +1113,15 @@
             <div class="search-row">
               <span class="filter-label">Ngày hiện tại:</span>
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('points',-1)">‹</button>
-                <span class="date-display" id="points-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('points',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('points', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="points-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('points', 1)">
+                  ›
+                </button>
               </div>
               <div class="time-filters">
                 <button class="tf-btn">Ngày</button>
@@ -323,13 +1135,25 @@
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-points">
-                <button class="criteria-btn" onclick="toggleCriteria('points',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('points', event)"
+                >
                   <span id="criteria-label-points">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
-              <input class="search-input-lg" id="search-points" placeholder="Nhập từ khóa..." />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <input
+                class="search-input-lg"
+                id="search-points"
+                placeholder="Nhập từ khóa..."
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
@@ -337,19 +1161,31 @@
         <div class="card">
           <div class="card-body">
             <div class="table-title">
-              • Quản lý điểm thưởng của thành viên <span class="count" id="points-count">0 thành viên</span>
+              • Quản lý điểm thưởng của thành viên
+              <span class="count" id="points-count">0 thành viên</span>
             </div>
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Mục đã chọn:</span>
-                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('bulk-adjust-points')">Điều chỉnh điểm</button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openActionModal('bulk-adjust-points')"
+                >
+                  Điều chỉnh điểm
+                </button>
               </div>
               <div class="table-actions-right">
                 <div class="select-dropdown">
                   <select>
                     <option>Tất cả cấp bậc</option>
-                    <option>Lv.1</option><option>Lv.2</option><option>Lv.3</option><option>Lv.4</option><option>Lv.5</option>
-                    <option>KOL</option><option>Chuyên gia</option><option>Bác sĩ</option>
+                    <option>Lv.1</option>
+                    <option>Lv.2</option>
+                    <option>Lv.3</option>
+                    <option>Lv.4</option>
+                    <option>Lv.5</option>
+                    <option>KOL</option>
+                    <option>Chuyên gia</option>
+                    <option>Bác sĩ</option>
                   </select>
                 </div>
                 <div class="select-dropdown">
@@ -366,7 +1202,12 @@
               <table>
                 <thead>
                   <tr>
-                    <th><input type="checkbox" onchange="toggleAll(this,'tbody-points')" /></th>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-points')"
+                      />
+                    </th>
                     <th class="td-left">Thành viên</th>
                     <th>Cấp bậc</th>
                     <th>Điểm hoạt động</th>
@@ -406,9 +1247,13 @@
             <div class="search-row">
               <span class="filter-label">Ngày hiện tại:</span>
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('mb',-1)">‹</button>
-                <span class="date-display" id="mb-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('mb',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('mb', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="mb-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('mb', 1)">›</button>
               </div>
               <div class="time-filters">
                 <button class="tf-btn">Ngày</button>
@@ -422,13 +1267,25 @@
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-mb">
-                <button class="criteria-btn" onclick="toggleCriteria('mb',event)">
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('mb', event)"
+                >
                   <span id="criteria-label-mb">ID</span><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
-              <input class="search-input-lg" id="search-mb" placeholder="Nhập từ khóa..." />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <input
+                class="search-input-lg"
+                id="search-mb"
+                placeholder="Nhập từ khóa..."
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
@@ -436,16 +1293,42 @@
         <div class="card">
           <div class="card-body">
             <div class="table-title">
-              • Thành viên nhận được huy hiệu <span class="count" id="mb-count">2,124 người</span>
+              • Thành viên nhận được huy hiệu
+              <span class="count" id="mb-count">2,124 người</span>
             </div>
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Mục đã chọn:</span>
-                <button class="btn btn-outline-primary btn-sm" onclick="openGiveBadgeModal()">Tặng huy hiệu</button>
-                <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-remove-badge')">Xóa huy hiệu</button>
-                <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-suspend')">Tạm khóa hoạt động</button>
-                <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-force-leave')">Buộc rời bỏ</button>
-                <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('bulk-notify')">Gửi thông báo đẩy</button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openGiveBadgeModal()"
+                >
+                  Tặng huy hiệu
+                </button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openActionModal('bulk-remove-badge')"
+                >
+                  Xóa huy hiệu
+                </button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openActionModal('bulk-suspend')"
+                >
+                  Tạm khóa hoạt động
+                </button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openActionModal('bulk-force-leave')"
+                >
+                  Buộc rời bỏ
+                </button>
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="openActionModal('bulk-notify')"
+                >
+                  Gửi thông báo đẩy
+                </button>
               </div>
               <div class="table-actions-right">
                 <div class="select-dropdown">
@@ -471,7 +1354,12 @@
               <table>
                 <thead>
                   <tr>
-                    <th><input type="checkbox" onchange="toggleAll(this,'tbody-mb')" /></th>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-mb')"
+                      />
+                    </th>
                     <th class="td-left">Thành viên</th>
                     <th>Cấp bậc</th>
                     <th>Tên huy hiệu</th>
@@ -508,9 +1396,15 @@
             <div class="search-row">
               <span class="filter-label">Ngày hiện tại:</span>
               <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('badge',-1)">‹</button>
-                <span class="date-display" id="badge-date">23-06-2025 ~ 30-06-2025</span>
-                <button class="date-nav" onclick="shiftDate('badge',1)">›</button>
+                <button class="date-nav" onclick="shiftDate('badge', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="badge-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('badge', 1)">
+                  ›
+                </button>
               </div>
               <div class="time-filters">
                 <button class="tf-btn">Ngày</button>
@@ -524,28 +1418,45 @@
             <div class="search-row">
               <span class="filter-label">Tìm kiếm:</span>
               <div class="criteria-wrap" id="criteria-badge">
-                <button class="criteria-btn" onclick="toggleCriteria('badge',event)">
-                  <span id="criteria-label-badge">Tên huy hiệu</span><span>▼</span>
+                <button
+                  class="criteria-btn"
+                  onclick="toggleCriteria('badge', event)"
+                >
+                  <span id="criteria-label-badge">Tên huy hiệu</span
+                  ><span>▼</span>
                 </button>
                 <div class="criteria-menu"></div>
               </div>
-              <input class="search-input-lg" id="search-badge" placeholder="Nhập từ khóa..." />
-              <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+              <input
+                class="search-input-lg"
+                id="search-badge"
+                placeholder="Nhập từ khóa..."
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="alert('Chức năng đang phát triển.')"
+              >
+                Tìm
+              </button>
             </div>
           </div>
         </div>
 
         <div class="card">
           <div class="card-body">
-            <div class="info-note">Tham khảo mục 12.2.4 — Có thể chỉnh sửa giải thích điều kiện đạt huy hiệu bằng thanh nhập khi bấm vào từng huy hiệu.</div>
-
             <div class="table-title">
-              • Quản lý huy hiệu <span class="count" id="badge-count">0 huy hiệu</span>
+              • Quản lý huy hiệu
+              <span class="count" id="badge-count">0 huy hiệu</span>
             </div>
             <div class="table-actions">
               <div class="table-actions-left">
                 <span>Mục đã chọn:</span>
-                <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-delete-badge')">Xóa huy hiệu</button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="openActionModal('bulk-delete-badge')"
+                >
+                  Xóa huy hiệu
+                </button>
               </div>
               <div class="table-actions-right">
                 <div class="select-dropdown">
@@ -558,10 +1469,15 @@
             </div>
 
             <div class="table-wrap">
-              <table style="min-width:1000px">
+              <table style="min-width: 1000px">
                 <thead>
                   <tr>
-                    <th><input type="checkbox" onchange="toggleAll(this,'tbody-badge')" /></th>
+                    <th>
+                      <input
+                        type="checkbox"
+                        onchange="toggleAll(this, 'tbody-badge')"
+                      />
+                    </th>
                     <th>Icon</th>
                     <th class="td-left">Tên huy hiệu</th>
                     <th class="td-left">Giải thích điều kiện đạt huy hiệu</th>
@@ -576,7 +1492,17 @@
             <div class="table-footer">
               <div>
                 <button class="btn btn-primary" onclick="openAddBadgeModal()">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
                   Thêm huy hiệu
                 </button>
               </div>
@@ -593,56 +1519,143 @@
     </div>
 
     <!-- ====== ACTION MODAL ====== -->
-    <div class="action-modal-backdrop" id="action-modal-backdrop" onclick="closeActionModal()">
-      <div class="action-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
         <h3 class="action-modal-title" id="action-modal-title">Xác nhận</h3>
-        <p class="action-modal-body" id="action-modal-body">Bạn có chắc chắn?</p>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn?
+        </p>
         <div class="action-modal-actions">
-          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeActionModal()">Hủy</button>
-          <button class="action-modal-btn action-modal-btn-confirm" id="action-modal-confirm" onclick="confirmActionModal()">Xác nhận</button>
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            id="action-modal-confirm"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
         </div>
       </div>
     </div>
 
     <!-- ====== GIVE BADGE MODAL (12.2.2 popup) ====== -->
-    <div class="big-backdrop" id="give-badge-backdrop" onclick="closeBig('give-badge')">
-      <div class="big-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div
+      class="big-backdrop"
+      id="give-badge-backdrop"
+      onclick="closeBig('give-badge')"
+    >
+      <div
+        class="big-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
         <h3>Tặng huy hiệu cho thành viên đã chọn</h3>
-        <div style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;font-style:italic">Chọn huy hiệu (sắp xếp xem theo cấp độ của huy hiệu)</div>
+        <div
+          style="
+            font-size: 11.5px;
+            color: var(--gray-500);
+            margin-bottom: 10px;
+            font-style: italic;
+          "
+        >
+          Chọn huy hiệu (sắp xếp xem theo cấp độ của huy hiệu)
+        </div>
         <div class="badge-pick-list" id="badge-pick-list"></div>
         <div class="form-actions">
-          <button class="btn btn-ghost" onclick="closeBig('give-badge')">Hủy</button>
-          <button class="btn btn-primary" onclick="confirmGiveBadge()">Lưu</button>
+          <button class="btn btn-ghost" onclick="closeBig('give-badge')">
+            Hủy
+          </button>
+          <button class="btn btn-primary" onclick="confirmGiveBadge()">
+            Lưu
+          </button>
         </div>
       </div>
     </div>
 
     <!-- ====== ADD/EDIT BADGE MODAL (12.2.4) ====== -->
-    <div class="big-backdrop" id="add-badge-backdrop" onclick="closeBig('add-badge')">
-      <div class="big-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div
+      class="big-backdrop"
+      id="add-badge-backdrop"
+      onclick="closeBig('add-badge')"
+    >
+      <div
+        class="big-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
         <h3 id="add-badge-title">Thêm huy hiệu</h3>
-        <div class="form-row"><label>Icon (emoji/text)</label><input id="bf-icon" placeholder="VD: ⭐" /></div>
-        <div class="form-row"><label>Tên huy hiệu <span style="color:var(--accent)">*</span></label><input id="bf-name" placeholder="Nhập tên huy hiệu..." /></div>
-        <div class="form-row"><label>Giải thích điều kiện <span style="color:var(--accent)">*</span></label><textarea id="bf-desc" placeholder="Mô tả điều kiện đạt huy hiệu..."></textarea></div>
-        <div class="form-row"><label>Cấp độ</label>
+        <div class="form-row">
+          <label>Icon (emoji/text)</label
+          ><input id="bf-icon" placeholder="VD: ⭐" />
+        </div>
+        <div class="form-row">
+          <label>Tên huy hiệu <span style="color: var(--accent)">*</span></label
+          ><input id="bf-name" placeholder="Nhập tên huy hiệu..." />
+        </div>
+        <div class="form-row">
+          <label
+            >Giải thích điều kiện
+            <span style="color: var(--accent)">*</span></label
+          ><textarea
+            id="bf-desc"
+            placeholder="Mô tả điều kiện đạt huy hiệu..."
+          ></textarea>
+        </div>
+        <div class="form-row">
+          <label>Cấp độ</label>
           <select id="bf-level">
-            <option>Lv.1</option><option>Lv.2</option><option>Lv.3</option><option>Lv.4</option><option>Lv.5</option>
+            <option>Lv.1</option>
+            <option>Lv.2</option>
+            <option>Lv.3</option>
+            <option>Lv.4</option>
+            <option>Lv.5</option>
           </select>
         </div>
         <div class="form-actions">
-          <button class="btn btn-ghost" onclick="closeBig('add-badge')">Hủy</button>
-          <button class="btn btn-primary" onclick="confirmAddBadge()">Lưu</button>
+          <button class="btn btn-ghost" onclick="closeBig('add-badge')">
+            Hủy
+          </button>
+          <button class="btn btn-primary" onclick="confirmAddBadge()">
+            Lưu
+          </button>
         </div>
       </div>
     </div>
 
     <!-- ====== HISTORY MODAL ====== -->
-    <div class="big-backdrop" id="history-backdrop" onclick="closeBig('history')">
-      <div class="big-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div
+      class="big-backdrop"
+      id="history-backdrop"
+      onclick="closeBig('history')"
+    >
+      <div
+        class="big-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
         <h3 id="history-title">Lịch sử tích điểm</h3>
         <div id="history-body"></div>
         <div class="form-actions">
-          <button class="btn btn-ghost" onclick="closeBig('history')">Đóng</button>
+          <button class="btn btn-ghost" onclick="closeBig('history')">
+            Đóng
+          </button>
         </div>
       </div>
     </div>
@@ -650,47 +1663,312 @@
     <script>
       /* ====== DATA ====== */
       const conditions = [
-        { id: 1, act: "Đăng nhập hàng ngày", plusCond: "1 lần/ngày", plus: 10, minusCond: "—", minus: 0, note: "Áp dụng cho mọi cấp bậc." },
-        { id: 2, act: "Viết bài mới", plusCond: "Bài được duyệt", plus: 50, minusCond: "Bài bị xóa", minus: 50, note: "" },
-        { id: 3, act: "Viết bình luận", plusCond: "1 bình luận hợp lệ", plus: 5, minusCond: "Bình luận bị xóa", minus: 10, note: "Tối đa 50 điểm/ngày." },
-        { id: 4, act: "Nhận lượt thích bài viết", plusCond: "Mỗi 10 lượt thích", plus: 5, minusCond: "—", minus: 0, note: "" },
-        { id: 5, act: "Mời bạn bè đăng ký", plusCond: "Bạn mới hoàn tất đăng ký", plus: 100, minusCond: "—", minus: 0, note: "" },
-        { id: 6, act: "Hoàn thành hồ sơ", plusCond: "1 lần duy nhất", plus: 30, minusCond: "—", minus: 0, note: "" },
-        { id: 7, act: "Tham gia sự kiện", plusCond: "1 sự kiện", plus: 20, minusCond: "—", minus: 0, note: "Sự kiện do quản trị viên duyệt." },
-        { id: 8, act: "Báo cáo nội dung vi phạm", plusCond: "Báo cáo hợp lệ", plus: 15, minusCond: "Báo cáo sai", minus: 5, note: "" },
-        { id: 9, act: "Vi phạm quy định", plusCond: "—", plus: 0, minusCond: "Mỗi lần vi phạm", minus: 100, note: "Quản trị viên xác nhận." },
+        {
+          id: 1,
+          act: "Đăng nhập hàng ngày",
+          plusCond: "1 lần/ngày",
+          plus: 10,
+          minusCond: "—",
+          minus: 0,
+          note: "Áp dụng cho mọi cấp bậc.",
+        },
+        {
+          id: 2,
+          act: "Viết bài mới",
+          plusCond: "Bài được duyệt",
+          plus: 50,
+          minusCond: "Bài bị xóa",
+          minus: 50,
+          note: "",
+        },
+        {
+          id: 3,
+          act: "Viết bình luận",
+          plusCond: "1 bình luận hợp lệ",
+          plus: 5,
+          minusCond: "Bình luận bị xóa",
+          minus: 10,
+          note: "Tối đa 50 điểm/ngày.",
+        },
+        {
+          id: 4,
+          act: "Nhận lượt thích bài viết",
+          plusCond: "Mỗi 10 lượt thích",
+          plus: 5,
+          minusCond: "—",
+          minus: 0,
+          note: "",
+        },
+        {
+          id: 5,
+          act: "Mời bạn bè đăng ký",
+          plusCond: "Bạn mới hoàn tất đăng ký",
+          plus: 100,
+          minusCond: "—",
+          minus: 0,
+          note: "",
+        },
+        {
+          id: 6,
+          act: "Hoàn thành hồ sơ",
+          plusCond: "1 lần duy nhất",
+          plus: 30,
+          minusCond: "—",
+          minus: 0,
+          note: "",
+        },
+        {
+          id: 7,
+          act: "Tham gia sự kiện",
+          plusCond: "1 sự kiện",
+          plus: 20,
+          minusCond: "—",
+          minus: 0,
+          note: "Sự kiện do quản trị viên duyệt.",
+        },
+        {
+          id: 8,
+          act: "Báo cáo nội dung vi phạm",
+          plusCond: "Báo cáo hợp lệ",
+          plus: 15,
+          minusCond: "Báo cáo sai",
+          minus: 5,
+          note: "",
+        },
+        {
+          id: 9,
+          act: "Vi phạm quy định",
+          plusCond: "—",
+          plus: 0,
+          minusCond: "Mỗi lần vi phạm",
+          minus: 100,
+          note: "Quản trị viên xác nhận.",
+        },
       ];
 
       const memberPoints = [
-        { id: "U001", name: "maimai", grade: "Lv.3", active: 800, gained: 10000, used: 2000, deducted: 0, expired: 0, note: "" },
-        { id: "U002", name: "ngocanh", grade: "Lv.5", active: 1200, gained: 18500, used: 5400, deducted: 200, expired: 100, note: "" },
-        { id: "U003", name: "ducanh", grade: "Lv.2", active: 320, gained: 4200, used: 1100, deducted: 50, expired: 0, note: "Hay đăng bài." },
-        { id: "U004", name: "minhthu", grade: "KOL", active: 5400, gained: 86000, used: 12000, deducted: 0, expired: 200, note: "KOL hoạt động mạnh." },
-        { id: "U005", name: "doctor_an", grade: "Chuyên gia", active: 3200, gained: 42000, used: 8000, deducted: 0, expired: 100, note: "" },
-        { id: "U006", name: "lanh_anh", grade: "Lv.4", active: 980, gained: 12600, used: 3200, deducted: 100, expired: 0, note: "" },
-        { id: "U007", name: "thuylinh", grade: "Lv.1", active: 80, gained: 800, used: 200, deducted: 0, expired: 0, note: "Mới đăng ký." },
-        { id: "U008", name: "haiminh", grade: "Lv.3", active: 720, gained: 8400, used: 1600, deducted: 50, expired: 0, note: "" },
+        {
+          id: "U001",
+          name: "maimai",
+          grade: "Lv.3",
+          active: 800,
+          gained: 10000,
+          used: 2000,
+          deducted: 0,
+          expired: 0,
+          note: "",
+        },
+        {
+          id: "U002",
+          name: "ngocanh",
+          grade: "Lv.5",
+          active: 1200,
+          gained: 18500,
+          used: 5400,
+          deducted: 200,
+          expired: 100,
+          note: "",
+        },
+        {
+          id: "U003",
+          name: "ducanh",
+          grade: "Lv.2",
+          active: 320,
+          gained: 4200,
+          used: 1100,
+          deducted: 50,
+          expired: 0,
+          note: "Hay đăng bài.",
+        },
+        {
+          id: "U004",
+          name: "minhthu",
+          grade: "KOL",
+          active: 5400,
+          gained: 86000,
+          used: 12000,
+          deducted: 0,
+          expired: 200,
+          note: "KOL hoạt động mạnh.",
+        },
+        {
+          id: "U005",
+          name: "doctor_an",
+          grade: "Chuyên gia",
+          active: 3200,
+          gained: 42000,
+          used: 8000,
+          deducted: 0,
+          expired: 100,
+          note: "",
+        },
+        {
+          id: "U006",
+          name: "lanh_anh",
+          grade: "Lv.4",
+          active: 980,
+          gained: 12600,
+          used: 3200,
+          deducted: 100,
+          expired: 0,
+          note: "",
+        },
+        {
+          id: "U007",
+          name: "thuylinh",
+          grade: "Lv.1",
+          active: 80,
+          gained: 800,
+          used: 200,
+          deducted: 0,
+          expired: 0,
+          note: "Mới đăng ký.",
+        },
+        {
+          id: "U008",
+          name: "haiminh",
+          grade: "Lv.3",
+          active: 720,
+          gained: 8400,
+          used: 1600,
+          deducted: 50,
+          expired: 0,
+          note: "",
+        },
       ];
 
       const memberBadges = [
-        { id: "U001", name: "maimai", grade: "Lv.3", badge: "Khách mới +3", icon: "+3", date: "28-06-2025", note: "" },
-        { id: "U002", name: "ngocanh", grade: "Lv.5", badge: "Ngôi sao mới", icon: "★", date: "27-06-2025", note: "" },
-        { id: "U003", name: "ducanh", grade: "Lv.2", badge: "Tập sự thử nghiệm", icon: "🌱", date: "25-06-2025", note: "" },
-        { id: "U004", name: "minhthu", grade: "KOL", badge: "Theo dõi ngầm", icon: "👀", date: "20-06-2025", note: "Đạt mốc 10K follow." },
-        { id: "U005", name: "doctor_an", grade: "Chuyên gia", badge: "Ngôi sao mới", icon: "★", date: "18-06-2025", note: "" },
-        { id: "U006", name: "lanh_anh", grade: "Lv.4", badge: "Khách mới +3", icon: "+3", date: "15-06-2025", note: "" },
-        { id: "U007", name: "thuylinh", grade: "Lv.1", badge: "Tập sự thử nghiệm", icon: "🌱", date: "12-06-2025", note: "Mới." },
-        { id: "U008", name: "haiminh", grade: "Lv.3", badge: "Theo dõi ngầm", icon: "👀", date: "10-06-2025", note: "" },
+        {
+          id: "U001",
+          name: "maimai",
+          grade: "Lv.3",
+          badge: "Khách mới +3",
+          icon: "+3",
+          date: "28-06-2025 16:59",
+          note: "",
+        },
+        {
+          id: "U002",
+          name: "ngocanh",
+          grade: "Lv.5",
+          badge: "Ngôi sao mới",
+          icon: "★",
+          date: "27-06-2025 09:42",
+          note: "",
+        },
+        {
+          id: "U003",
+          name: "ducanh",
+          grade: "Lv.2",
+          badge: "Tập sự thử nghiệm",
+          icon: "🌱",
+          date: "25-06-2025 09:08",
+          note: "",
+        },
+        {
+          id: "U004",
+          name: "minhthu",
+          grade: "KOL",
+          badge: "Theo dõi ngầm",
+          icon: "👀",
+          date: "20-06-2025 16:43",
+          note: "Đạt mốc 10K follow.",
+        },
+        {
+          id: "U005",
+          name: "doctor_an",
+          grade: "Chuyên gia",
+          badge: "Ngôi sao mới",
+          icon: "★",
+          date: "18-06-2025 16:09",
+          note: "",
+        },
+        {
+          id: "U006",
+          name: "lanh_anh",
+          grade: "Lv.4",
+          badge: "Khách mới +3",
+          icon: "+3",
+          date: "15-06-2025 09:18",
+          note: "",
+        },
+        {
+          id: "U007",
+          name: "thuylinh",
+          grade: "Lv.1",
+          badge: "Tập sự thử nghiệm",
+          icon: "🌱",
+          date: "12-06-2025 16:27",
+          note: "Mới.",
+        },
+        {
+          id: "U008",
+          name: "haiminh",
+          grade: "Lv.3",
+          badge: "Theo dõi ngầm",
+          icon: "👀",
+          date: "10-06-2025 16:53",
+          note: "",
+        },
       ];
 
       const badges = [
-        { id: 1, icon: "+3", name: "Khách mới +3", desc: "Đăng ký tài khoản trên 3 ngày và hoàn tất hồ sơ.", count: 482, created: "01-01-2025" },
-        { id: 2, icon: "🌱", name: "Tập sự thử nghiệm", desc: "Viết bài đầu tiên được duyệt và nhận trên 10 lượt thích.", count: 215, created: "05-01-2025" },
-        { id: 3, icon: "★", name: "Ngôi sao mới", desc: "Đạt cấp bậc Lv.3 trong vòng 30 ngày sau khi đăng ký.", count: 132, created: "10-01-2025" },
-        { id: 4, icon: "👀", name: "Theo dõi ngầm", desc: "Có trên 100 người theo dõi nhưng đăng ít hơn 5 bài.", count: 78, created: "15-01-2025" },
-        { id: 5, icon: "🏆", name: "Top bài viết tháng", desc: "Có bài viết nằm trong top 10 lượt xem của tháng.", count: 30, created: "01-02-2025" },
-        { id: 6, icon: "💬", name: "Người bình luận", desc: "Có trên 500 bình luận hợp lệ.", count: 95, created: "10-02-2025" },
-        { id: 7, icon: "❤", name: "Người được yêu thích", desc: "Tổng lượt thích trên 1000 trong 30 ngày.", count: 60, created: "15-02-2025" },
+        {
+          id: 1,
+          icon: "+3",
+          name: "Khách mới +3",
+          desc: "Đăng ký tài khoản trên 3 ngày và hoàn tất hồ sơ.",
+          count: 482,
+          created: "01-01-2025 14:25",
+        },
+        {
+          id: 2,
+          icon: "🌱",
+          name: "Tập sự thử nghiệm",
+          desc: "Viết bài đầu tiên được duyệt và nhận trên 10 lượt thích.",
+          count: 215,
+          created: "05-01-2025 14:33",
+        },
+        {
+          id: 3,
+          icon: "★",
+          name: "Ngôi sao mới",
+          desc: "Đạt cấp bậc Lv.3 trong vòng 30 ngày sau khi đăng ký.",
+          count: 132,
+          created: "10-01-2025 07:58",
+        },
+        {
+          id: 4,
+          icon: "👀",
+          name: "Theo dõi ngầm",
+          desc: "Có trên 100 người theo dõi nhưng đăng ít hơn 5 bài.",
+          count: 78,
+          created: "15-01-2025 14:23",
+        },
+        {
+          id: 5,
+          icon: "🏆",
+          name: "Top bài viết tháng",
+          desc: "Có bài viết nằm trong top 10 lượt xem của tháng.",
+          count: 30,
+          created: "01-02-2025 13:48",
+        },
+        {
+          id: 6,
+          icon: "💬",
+          name: "Người bình luận",
+          desc: "Có trên 500 bình luận hợp lệ.",
+          count: 95,
+          created: "10-02-2025 20:21",
+        },
+        {
+          id: 7,
+          icon: "❤",
+          name: "Người được yêu thích",
+          desc: "Tổng lượt thích trên 1000 trong 30 ngày.",
+          count: 60,
+          created: "15-02-2025 13:46",
+        },
       ];
 
       const sampleHistory = [
@@ -698,28 +1976,49 @@
         { act: "Viết bài mới (được duyệt)", pts: 50, time: "29-06-2025 21:30" },
         { act: "Bình luận (15 lần)", pts: 50, time: "29-06-2025 18:00" },
         { act: "Sử dụng đổi quà voucher", pts: -200, time: "28-06-2025 11:00" },
-        { act: "Mời bạn bè đăng ký (1 bạn)", pts: 100, time: "27-06-2025 14:20" },
-        { act: "Nhận lượt thích bài viết (50 lượt)", pts: 25, time: "27-06-2025 10:00" },
+        {
+          act: "Mời bạn bè đăng ký (1 bạn)",
+          pts: 100,
+          time: "27-06-2025 14:20",
+        },
+        {
+          act: "Nhận lượt thích bài viết (50 lượt)",
+          pts: 25,
+          time: "27-06-2025 10:00",
+        },
       ];
 
       /* ====== RENDER 12.1.1 ====== */
       function renderCondition() {
         const tb = document.getElementById("tbody-condition");
-        tb.innerHTML = conditions.map((c) => `
+        tb.innerHTML = conditions
+          .map(
+            (c) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td class="td-left"><input class="editable-input" style="text-align:left" value="${escapeAttr(c.act)}" ondblclick="this.focus()" /></td>
             <td><input class="editable-input" value="${escapeAttr(c.plusCond)}" ondblclick="this.focus()" /></td>
             <td><input class="editable-input points-cell" value="+${c.plus}" ondblclick="this.focus()" /></td>
             <td><input class="editable-input" value="${escapeAttr(c.minusCond)}" ondblclick="this.focus()" /></td>
-            <td><input class="editable-input points-cell negative" value="${c.minus > 0 ? '-' + c.minus : '0'}" ondblclick="this.focus()" /></td>
-            <td class="td-left"><input class="editable-input" style="text-align:left" value="${escapeAttr(c.note)}" placeholder="Ghi chú..." ondblclick="this.focus()" /></td>
+            <td><input class="editable-input points-cell negative" value="${c.minus > 0 ? "-" + c.minus : "0"}" ondblclick="this.focus()" /></td>
+            <td class="td-left note-cell" data-row-id="${c.id}" data-kind="condition">${noteCell(c.note)}</td>
           </tr>
-        `).join("");
+        `,
+          )
+          .join("");
+        bindRewardNoteEdit("tbody-condition");
       }
 
       function addCondition() {
-        conditions.push({ id: Date.now(), act: "Hoạt động mới", plusCond: "—", plus: 0, minusCond: "—", minus: 0, note: "" });
+        conditions.push({
+          id: Date.now(),
+          act: "Hoạt động mới",
+          plusCond: "—",
+          plus: 0,
+          minusCond: "—",
+          minus: 0,
+          note: "",
+        });
         renderCondition();
         alert("Đã thêm 1 dòng điều kiện. Double-click để chỉnh sửa.");
       }
@@ -727,7 +2026,9 @@
       /* ====== RENDER 12.1.2 ====== */
       function renderPoints() {
         const tb = document.getElementById("tbody-points");
-        tb.innerHTML = memberPoints.map((p) => `
+        tb.innerHTML = memberPoints
+          .map(
+            (p) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td class="td-left">
@@ -740,19 +2041,25 @@
             <td class="points-cell">${fmt(p.active)}</td>
             <td class="points-cell">${fmt(p.gained)}</td>
             <td>${fmt(p.used)}</td>
-            <td class="points-cell ${p.deducted > 0 ? 'negative' : ''}">${p.deducted > 0 ? '-' + fmt(p.deducted) : '0'}</td>
+            <td class="points-cell ${p.deducted > 0 ? "negative" : ""}">${p.deducted > 0 ? "-" + fmt(p.deducted) : "0"}</td>
             <td>${fmt(p.expired)}</td>
-            <td class="td-left">${noteCell(p.note)}</td>
+            <td class="td-left note-cell" data-row-id="${p.id}" data-kind="points">${noteCell(p.note)}</td>
             <td><button class="btn btn-outline-primary btn-sm" onclick="openHistory('${p.id}','${escapeAttr(p.name)}')">Xem lịch sử</button></td>
           </tr>
-        `).join("");
-        document.getElementById("points-count").textContent = `${memberPoints.length} thành viên`;
+        `,
+          )
+          .join("");
+        document.getElementById("points-count").textContent =
+          `${memberPoints.length} thành viên`;
+        bindRewardNoteEdit("tbody-points");
       }
 
       /* ====== RENDER 12.2.1 ====== */
       function renderMemberBadge() {
         const tb = document.getElementById("tbody-mb");
-        tb.innerHTML = memberBadges.map((m) => `
+        tb.innerHTML = memberBadges
+          .map(
+            (m) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td class="td-left">
@@ -761,9 +2068,7 @@
                 <div class="menu-list">
                   <button class="menu-item" onclick="alert('Đi đến thông tin chi tiết của ${escapeAttr(m.name)}.')">Thông tin chi tiết</button>
                   <button class="menu-item" onclick="alert('Đi đến lịch sử hoạt động của ${escapeAttr(m.name)}.')">Lịch sử hoạt động</button>
-                  <button class="menu-item" onclick="openActionModal('suspend','${m.id}')">Tạm khóa hoạt động</button>
-                  <button class="menu-item danger" onclick="openActionModal('force-leave','${m.id}')">Buộc rời bỏ</button>
-                  <button class="menu-item danger" onclick="openActionModal('cancel-upgrade','${m.id}')">Hủy nâng cấp tự động</button>
+                  ${renderMemberActionItems(m.id)}
                   <button class="menu-item" onclick="openActionModal('notify','${m.id}')">Gửi thông báo đẩy</button>
                 </div>
               </div>
@@ -773,16 +2078,22 @@
             <td><span class="badge-name">${m.badge}</span></td>
             <td><span class="badge-icon">${m.icon}</span></td>
             <td>${m.date}</td>
-            <td class="td-left">${noteCell(m.note)}</td>
+            <td class="td-left note-cell" data-row-id="${m.id}" data-kind="mb">${noteCell(m.note)}</td>
           </tr>
-        `).join("");
-        document.getElementById("mb-count").textContent = `${memberBadges.length.toLocaleString()} người (tổng 2,124 người)`;
+        `,
+          )
+          .join("");
+        document.getElementById("mb-count").textContent =
+          `${memberBadges.length.toLocaleString()} người (tổng 2,124 người)`;
+        bindRewardNoteEdit("tbody-mb");
       }
 
       /* ====== RENDER 12.2.3 ====== */
       function renderBadge() {
         const tb = document.getElementById("tbody-badge");
-        tb.innerHTML = badges.map((b) => `
+        tb.innerHTML = badges
+          .map(
+            (b) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td><span class="badge-icon">${b.icon}</span></td>
@@ -797,11 +2108,14 @@
               </div>
             </td>
             <td class="td-left"><span style="font-size:11.5px;color:var(--gray-700)">${b.desc}</span></td>
-            <td><strong style="color:var(--primary)">${fmt(b.count)}</strong></td>
+            <td><span style="color:var(--primary)">${fmt(b.count)}</span></td>
             <td>${b.created}</td>
           </tr>
-        `).join("");
-        document.getElementById("badge-count").textContent = `${badges.length} huy hiệu`;
+        `,
+          )
+          .join("");
+        document.getElementById("badge-count").textContent =
+          `${badges.length} huy hiệu`;
       }
 
       /* ====== UTILS ====== */
@@ -810,18 +2124,94 @@
         if (g.includes("Chuyên gia") || g.includes("Bác sĩ")) return "expert";
         return "";
       }
-      function fmt(n) { return Number(n).toLocaleString("vi-VN"); }
+      function fmt(n) {
+        return Number(n).toLocaleString("vi-VN");
+      }
       function noteCell(n) {
-        if (!n) return '<span style="color:var(--gray-400);font-size:11px">—</span>';
+        if (!n)
+          return '<span style="color:var(--gray-400);font-size:11px">—</span>';
         const short = n.length > 28 ? n.slice(0, 28) + "…" : n;
         return `<span class="note-ellipsis" title="${escapeAttr(n)}">${short}</span>`;
       }
-      function escapeAttr(s) { return String(s).replace(/'/g, "&#39;").replace(/"/g, "&quot;"); }
+      function escapeAttr(s) {
+        return String(s).replace(/'/g, "&#39;").replace(/"/g, "&quot;");
+      }
+
+      /* ====== NOTE EDIT (double-click) — buttons in-cell ====== */
+      let currentRewardNoteEdit = null;
+      const noteDataMap = {
+        condition: () => conditions,
+        points: () => memberPoints,
+        mb: () => memberBadges,
+      };
+      function enterRewardNoteEdit(cell) {
+        if (!cell || currentRewardNoteEdit) return;
+        const kind = cell.dataset.kind;
+        const id = isNaN(Number(cell.dataset.rowId))
+          ? cell.dataset.rowId
+          : Number(cell.dataset.rowId);
+        const arr = (noteDataMap[kind] || (() => []))();
+        const item = arr.find((x) => x.id === id);
+        if (!item) return;
+        const originalText = item.note || "";
+        currentRewardNoteEdit = { cell, item, originalText };
+        cell.classList.add("editing");
+        cell.innerHTML = `
+          <textarea class="note-edit-area" placeholder="Nhập ghi chú..."></textarea>
+          <div class="note-edit-actions">
+            <button class="btn btn-primary btn-sm" onclick="saveRewardNoteEdit(event)">Lưu</button>
+            <button class="btn btn-ghost btn-sm" onclick="cancelRewardNoteEdit(event)">Hủy</button>
+          </div>`;
+        const ta = cell.querySelector("textarea");
+        if (ta) {
+          ta.value = originalText;
+          ta.focus();
+          ta.setSelectionRange(ta.value.length, ta.value.length);
+        }
+      }
+      function saveRewardNoteEdit(ev) {
+        if (ev) ev.stopPropagation();
+        if (!currentRewardNoteEdit) return;
+        const { cell, item } = currentRewardNoteEdit;
+        const ta = cell.querySelector("textarea");
+        const value = ta ? ta.value : "";
+        item.note = value;
+        if (cell.isConnected) {
+          cell.classList.remove("editing");
+          cell.innerHTML = noteCell(value);
+        }
+        currentRewardNoteEdit = null;
+      }
+      function cancelRewardNoteEdit(ev) {
+        if (ev) ev.stopPropagation();
+        if (!currentRewardNoteEdit) return;
+        const { cell, originalText } = currentRewardNoteEdit;
+        if (cell.isConnected) {
+          cell.classList.remove("editing");
+          cell.innerHTML = noteCell(originalText);
+        }
+        currentRewardNoteEdit = null;
+      }
+      function bindRewardNoteEdit(tbodyId) {
+        const tb = document.getElementById(tbodyId);
+        if (!tb || tb.dataset.dblbound) return;
+        tb.dataset.dblbound = "1";
+        tb.addEventListener("dblclick", (e) => {
+          const cell = e.target.closest("td.note-cell");
+          if (!cell) return;
+          if (currentRewardNoteEdit) return;
+          enterRewardNoteEdit(cell);
+        });
+      }
 
       /* ====== NAV ====== */
       function goSection(section) {
-        document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
-        document.querySelectorAll(".sidebar-item").forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((s) => s.classList.remove("active"));
         document.getElementById(`page-${section}`).classList.add("active");
         document.getElementById(`sidebar-${section}`).classList.add("active");
         window.scrollTo(0, 0);
@@ -836,7 +2226,12 @@
       function buildCriteriaMenu(key) {
         const wrap = document.getElementById(`criteria-${key}`);
         const menu = wrap.querySelector(".criteria-menu");
-        menu.innerHTML = criteriaOptions[key].map((o) => `<button class="criteria-option" onclick="selectCriteria('${key}','${o}')">${o}</button>`).join("");
+        menu.innerHTML = criteriaOptions[key]
+          .map(
+            (o) =>
+              `<button class="criteria-option" onclick="selectCriteria('${key}','${o}')">${o}</button>`,
+          )
+          .join("");
       }
       function toggleCriteria(key, ev) {
         ev.stopPropagation();
@@ -850,7 +2245,9 @@
         closeAllCriteria();
       }
       function closeAllCriteria() {
-        document.querySelectorAll(".criteria-wrap").forEach((w) => w.classList.remove("open"));
+        document
+          .querySelectorAll(".criteria-wrap")
+          .forEach((w) => w.classList.remove("open"));
       }
 
       /* ====== CELL MENU ====== */
@@ -859,7 +2256,9 @@
         el.classList.toggle("open");
       }
       function closeAllMenus() {
-        document.querySelectorAll(".cell-menu.open").forEach((m) => m.classList.remove("open"));
+        document
+          .querySelectorAll(".cell-menu.open")
+          .forEach((m) => m.classList.remove("open"));
       }
 
       /* ====== DATE NAV ====== */
@@ -869,24 +2268,130 @@
         setTimeout(() => (el.style.color = ""), 250);
       }
       function toggleAll(chk, tbodyId) {
-        document.querySelectorAll(`#${tbodyId} input[type="checkbox"]`).forEach((c) => (c.checked = chk.checked));
+        document
+          .querySelectorAll(`#${tbodyId} input[type="checkbox"]`)
+          .forEach((c) => (c.checked = chk.checked));
       }
 
       /* ====== ACTION MODAL ====== */
       const actionModalMap = {
-        "bulk-delete-condition": { title: "Xóa điều kiện đã chọn", body: "Bạn có chắc muốn xóa các điều kiện tích điểm đã chọn?", btn: "Xóa", danger: true },
-        "bulk-adjust-points": { title: "Điều chỉnh điểm hàng loạt", body: "Mở form điều chỉnh điểm cho thành viên đã chọn?", btn: "Tiếp tục", danger: false },
-        "bulk-remove-badge": { title: "Xóa huy hiệu đã chọn", body: "Xóa huy hiệu của các thành viên đã chọn?", btn: "Xóa", danger: true },
-        "bulk-suspend": { title: "Tạm khóa hoạt động", body: "Tạm khóa hoạt động các thành viên đã chọn?", btn: "Tạm khóa", danger: true },
-        "bulk-force-leave": { title: "Buộc rời bỏ", body: "Buộc các thành viên đã chọn rời bỏ?", btn: "Buộc rời bỏ", danger: true },
-        "bulk-notify": { title: "Gửi thông báo đẩy", body: "Gửi thông báo đẩy đến các thành viên đã chọn?", btn: "Gửi", danger: false },
-        "suspend": { title: "Tạm khóa hoạt động", body: "Tạm khóa hoạt động thành viên này?", btn: "Tạm khóa", danger: true },
-        "force-leave": { title: "Buộc rời bỏ", body: "Buộc thành viên này rời bỏ khỏi hệ thống?", btn: "Buộc rời bỏ", danger: true },
-        "cancel-upgrade": { title: "Hủy nâng cấp tự động", body: "Hủy quyền nâng cấp cấp bậc tự động của thành viên này?", btn: "Hủy nâng cấp", danger: true },
-        "notify": { title: "Gửi thông báo đẩy", body: "Gửi thông báo đẩy đến thành viên này?", btn: "Gửi", danger: false },
-        "delete-badge": { title: "Xóa huy hiệu", body: "Xóa huy hiệu này? Thành viên đã đạt huy hiệu sẽ mất huy hiệu này.", btn: "Xóa", danger: true },
-        "bulk-delete-badge": { title: "Xóa các huy hiệu đã chọn", body: "Xóa các huy hiệu đã chọn? Thành viên đã đạt sẽ mất huy hiệu.", btn: "Xóa", danger: true },
+        "bulk-delete-condition": {
+          title: "Xóa điều kiện đã chọn",
+          body: "Bạn có chắc muốn xóa các điều kiện tích điểm đã chọn?",
+          btn: "Xóa",
+          danger: true,
+        },
+        "bulk-adjust-points": {
+          title: "Điều chỉnh điểm hàng loạt",
+          body: "Mở form điều chỉnh điểm cho thành viên đã chọn?",
+          btn: "Tiếp tục",
+          danger: false,
+        },
+        "bulk-remove-badge": {
+          title: "Xóa huy hiệu đã chọn",
+          body: "Xóa huy hiệu của các thành viên đã chọn?",
+          btn: "Xóa",
+          danger: true,
+        },
+        "bulk-suspend": {
+          title: "Tạm khóa hoạt động",
+          body: "Tạm khóa hoạt động các thành viên đã chọn?",
+          btn: "Tạm khóa",
+          danger: true,
+        },
+        "bulk-force-leave": {
+          title: "Buộc rời bỏ",
+          body: "Buộc các thành viên đã chọn rời bỏ?",
+          btn: "Buộc rời bỏ",
+          danger: true,
+        },
+        "bulk-notify": {
+          title: "Gửi thông báo đẩy",
+          body: "Gửi thông báo đẩy đến các thành viên đã chọn?",
+          btn: "Gửi",
+          danger: false,
+        },
+        suspend: {
+          title: "Tạm khóa hoạt động",
+          body: "Tạm khóa hoạt động thành viên này?",
+          btn: "Tạm khóa",
+          danger: true,
+        },
+        "force-leave": {
+          title: "Buộc rời bỏ",
+          body: "Buộc thành viên này rời bỏ khỏi hệ thống?",
+          btn: "Buộc rời bỏ",
+          danger: true,
+        },
+        "cancel-upgrade": {
+          title: "Hủy nâng cấp tự động",
+          body: "Hủy quyền nâng cấp cấp bậc tự động của thành viên này?",
+          btn: "Hủy nâng cấp",
+          danger: true,
+        },
+        notify: {
+          title: "Gửi thông báo đẩy",
+          body: "Gửi thông báo đẩy đến thành viên này?",
+          btn: "Gửi",
+          danger: false,
+        },
+        "delete-badge": {
+          title: "Xóa huy hiệu",
+          body: "Xóa huy hiệu này? Thành viên đã đạt huy hiệu sẽ mất huy hiệu này.",
+          btn: "Xóa",
+          danger: true,
+        },
+        "bulk-delete-badge": {
+          title: "Xóa các huy hiệu đã chọn",
+          body: "Xóa các huy hiệu đã chọn? Thành viên đã đạt sẽ mất huy hiệu.",
+          btn: "Xóa",
+          danger: true,
+        },
+        unsuspend: {
+          title: "Gỡ tạm khóa",
+          body: "Tài khoản sẽ được khôi phục hoạt động bình thường.",
+          btn: "Gỡ tạm khóa",
+          danger: false,
+        },
+        "restore-account": {
+          title: "Khôi phục tài khoản",
+          body: "Tài khoản đã buộc rời bỏ sẽ được khôi phục lại hệ thống.",
+          btn: "Khôi phục",
+          danger: false,
+        },
+        "restore-upgrade": {
+          title: "Khôi phục nâng cấp tự động",
+          body: "Tài khoản sẽ được tự động nâng cấp cấp bậc theo điều kiện hệ thống.",
+          btn: "Khôi phục",
+          danger: false,
+        },
       };
+
+      /* ====== MEMBER ACTION TOGGLE STATE ====== */
+      const memberActionState = {};
+      function getMemberActionState(id) {
+        if (!memberActionState[id])
+          memberActionState[id] = {
+            suspended: false,
+            forceLeft: false,
+            upgradeCanceled: false,
+          };
+        return memberActionState[id];
+      }
+      function renderMemberActionItems(id) {
+        const s = getMemberActionState(id);
+        const sus = s.suspended
+          ? `<button class="menu-item" onclick="openActionModal('unsuspend','${id}')">Gỡ tạm khóa</button>`
+          : `<button class="menu-item" onclick="openActionModal('suspend','${id}')">Tạm khóa hoạt động</button>`;
+        const force = s.forceLeft
+          ? `<button class="menu-item" onclick="openActionModal('restore-account','${id}')">Khôi phục tài khoản</button>`
+          : `<button class="menu-item danger" onclick="openActionModal('force-leave','${id}')">Buộc rời bỏ</button>`;
+        const cancel = s.upgradeCanceled
+          ? `<button class="menu-item" onclick="openActionModal('restore-upgrade','${id}')">Khôi phục nâng cấp tự động</button>`
+          : `<button class="menu-item danger" onclick="openActionModal('cancel-upgrade','${id}')">Hủy nâng cấp tự động</button>`;
+        return sus + force + cancel;
+      }
+
       let currentActionContext = null;
       function openActionModal(type, ctx) {
         const cfg = actionModalMap[type];
@@ -900,23 +2405,42 @@
         document.getElementById("action-modal-backdrop").classList.add("open");
       }
       function closeActionModal() {
-        document.getElementById("action-modal-backdrop").classList.remove("open");
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
         currentActionContext = null;
       }
       function confirmActionModal() {
         if (!currentActionContext) return closeActionModal();
-        alert(`Đã ${actionModalMap[currentActionContext.type].btn.toLowerCase()}.`);
+        const { type, ctx } = currentActionContext;
+        if (ctx) {
+          const s = getMemberActionState(ctx);
+          if (type === "suspend") s.suspended = true;
+          else if (type === "unsuspend") s.suspended = false;
+          else if (type === "force-leave") s.forceLeft = true;
+          else if (type === "restore-account") s.forceLeft = false;
+          else if (type === "cancel-upgrade") s.upgradeCanceled = true;
+          else if (type === "restore-upgrade") s.upgradeCanceled = false;
+        }
+        alert(`Đã ${actionModalMap[type].btn.toLowerCase()}.`);
         closeActionModal();
+        renderMemberBadge();
       }
 
       /* ====== BIG MODALS ====== */
-      function openBig(key) { document.getElementById(`${key}-backdrop`).classList.add("open"); }
-      function closeBig(key) { document.getElementById(`${key}-backdrop`).classList.remove("open"); }
+      function openBig(key) {
+        document.getElementById(`${key}-backdrop`).classList.add("open");
+      }
+      function closeBig(key) {
+        document.getElementById(`${key}-backdrop`).classList.remove("open");
+      }
 
       let pickedBadgeId = null;
       function openGiveBadgeModal() {
         const list = document.getElementById("badge-pick-list");
-        list.innerHTML = badges.map((b) => `
+        list.innerHTML = badges
+          .map(
+            (b) => `
           <div class="badge-pick-item" data-id="${b.id}" onclick="pickBadge(this, ${b.id})">
             <span class="badge-icon">${b.icon}</span>
             <div>
@@ -924,12 +2448,16 @@
               <div class="pick-desc">${b.desc}</div>
             </div>
           </div>
-        `).join("");
+        `,
+          )
+          .join("");
         pickedBadgeId = null;
         openBig("give-badge");
       }
       function pickBadge(el, id) {
-        document.querySelectorAll(".badge-pick-item").forEach((x) => x.classList.remove("selected"));
+        document
+          .querySelectorAll(".badge-pick-item")
+          .forEach((x) => x.classList.remove("selected"));
         el.classList.add("selected");
         pickedBadgeId = id;
       }
@@ -943,7 +2471,8 @@
       let editingBadgeId = null;
       function openAddBadgeModal() {
         editingBadgeId = null;
-        document.getElementById("add-badge-title").textContent = "Thêm huy hiệu";
+        document.getElementById("add-badge-title").textContent =
+          "Thêm huy hiệu";
         document.getElementById("bf-icon").value = "";
         document.getElementById("bf-name").value = "";
         document.getElementById("bf-desc").value = "";
@@ -954,7 +2483,8 @@
         const b = badges.find((x) => x.id === id);
         if (!b) return;
         editingBadgeId = id;
-        document.getElementById("add-badge-title").textContent = "Chỉnh sửa huy hiệu";
+        document.getElementById("add-badge-title").textContent =
+          "Chỉnh sửa huy hiệu";
         document.getElementById("bf-icon").value = b.icon;
         document.getElementById("bf-name").value = b.name;
         document.getElementById("bf-desc").value = b.desc;
@@ -968,10 +2498,19 @@
         const icon = document.getElementById("bf-icon").value.trim() || "★";
         if (editingBadgeId) {
           const b = badges.find((x) => x.id === editingBadgeId);
-          b.icon = icon; b.name = name; b.desc = desc;
+          b.icon = icon;
+          b.name = name;
+          b.desc = desc;
           alert("Đã cập nhật huy hiệu.");
         } else {
-          badges.push({ id: Date.now(), icon, name, desc, count: 0, created: "30-06-2025" });
+          badges.push({
+            id: Date.now(),
+            icon,
+            name,
+            desc,
+            count: 0,
+            created: "30-06-2025 16:33",
+          });
           alert("Đã thêm huy hiệu.");
         }
         closeBig("add-badge");
@@ -979,14 +2518,19 @@
       }
 
       function openHistory(memberId, memberName) {
-        document.getElementById("history-title").textContent = `Lịch sử tích điểm — ${memberName} (${memberId})`;
-        document.getElementById("history-body").innerHTML = sampleHistory.map((h) => `
+        document.getElementById("history-title").textContent =
+          `Lịch sử tích điểm — ${memberName} (${memberId})`;
+        document.getElementById("history-body").innerHTML = sampleHistory
+          .map(
+            (h) => `
           <div class="hist-row">
             <span class="h-act">${h.act}</span>
-            <span class="h-pts ${h.pts < 0 ? 'minus' : ''}">${h.pts > 0 ? '+' : ''}${h.pts} điểm</span>
+            <span class="h-pts ${h.pts < 0 ? "minus" : ""}">${h.pts > 0 ? "+" : ""}${h.pts} điểm</span>
             <span class="h-time">${h.time}</span>
           </div>
-        `).join("");
+        `,
+          )
+          .join("");
         openBig("history");
       }
 

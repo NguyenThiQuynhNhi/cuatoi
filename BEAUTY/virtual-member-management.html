@@ -2627,6 +2627,10 @@
                 <div class="stat-label">Báo cáo</div>
                 <div class="stat-value" id="detail-stat-reports">0</div>
               </div>
+              <div class="stat-box">
+                <div class="stat-label">Đang theo dõi</div>
+                <div class="stat-value" id="detail-stat-following">0</div>
+              </div>
             </div>
           </div>
         </div>
@@ -6282,6 +6286,10 @@
         setTextIfExists(
           "detail-stat-reports",
           String(member.id.charCodeAt(4) % 4),
+        );
+        setTextIfExists(
+          "detail-stat-following",
+          String((member.id.charCodeAt(2) * 7) % 120),
         );
 
         const noteDisplay = document.getElementById("note-display");

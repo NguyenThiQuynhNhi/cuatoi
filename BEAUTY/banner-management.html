@@ -27,180 +27,1032 @@
         --gray-500: #6b6390;
         --gray-700: #3d3660;
         --gray-900: #1e1a35;
-        --shadow-sm: 0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
-        --shadow-md: 0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
+        --shadow-sm:
+          0 1px 3px rgba(108, 63, 197, 0.08), 0 1px 2px rgba(108, 63, 197, 0.04);
+        --shadow-md:
+          0 4px 16px rgba(108, 63, 197, 0.1), 0 2px 4px rgba(108, 63, 197, 0.06);
         --radius: 10px;
         --sidebar-w: 210px;
         --header-h: 60px;
       }
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: "Be Vietnam Pro", sans-serif; background: var(--gray-50); color: var(--gray-900); font-size: 13px; min-height: 100vh; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-900);
+        font-size: 13px;
+        min-height: 100vh;
+      }
 
-      .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; min-height: 60px; background: linear-gradient(135deg, #4a2096 0%, #6c3fc5 60%, #8b5cf6 100%); display: flex; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25); }
-      .header-logo { display: flex; align-items: center; gap: 10px; color: white; font-weight: 700; font-size: 14px; }
-      .header-logo .logo-box { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: white; border: 1.5px solid rgba(255, 255, 255, 0.35); }
-      .header-nav { display: flex; align-items: center; gap: 2px; flex: 1; padding: 0 24px; }
-      .nav-item { padding: 5px 9px; border-radius: 6px; color: rgba(255, 255, 255, 0.75); cursor: pointer; font-size: 11.5px; font-weight: 500; white-space: normal; line-height: 1.2; text-align: center; max-width: 120px; transition: all 0.15s; }
-      .nav-item:hover, .nav-item.active { background: rgba(255, 255, 255, 0.18); color: white; }
-      .nav-item.active { background: rgba(255, 255, 255, 0.22); font-weight: 600; }
-      .nav-item-group { position: relative; }
-      .nav-item-group .nav-dropdown { position: absolute; top: 100%; left: 0; background: white; border: 1px solid var(--gray-200); border-radius: 6px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); min-width: 180px; display: none; z-index: 300; padding: 4px 0; margin-top: 4px; }
-      .nav-item-group:hover .nav-dropdown { display: block; }
-      .nav-dropdown a { display: block; padding: 8px 14px; color: var(--gray-700); text-decoration: none; font-size: 11.5px; font-weight: 500; white-space: nowrap; }
-      .nav-dropdown a:hover { background: var(--gray-100); color: var(--primary); }
-      a.nav-item { text-decoration: none; display: inline-block; }
-      .header-user { display: flex; align-items: center; gap: 8px; color: white; font-size: 12px; }
-      .header-user .avatar { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; border: 1.5px solid rgba(255, 255, 255, 0.4); }
-      .header-user .user-info { text-align: right; }
-      .header-user .user-name { font-weight: 600; font-size: 12px; }
-      .header-user .user-role { font-size: 10.5px; opacity: 0.75; }
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        min-height: 60px;
+        background: linear-gradient(
+          135deg,
+          #4a2096 0%,
+          #6c3fc5 60%,
+          #8b5cf6 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
+      }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .header-logo .logo-box {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+        color: white;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+        padding: 0 24px;
+      }
+      .nav-item {
+        padding: 5px 9px;
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+        max-width: 120px;
+        transition: all 0.15s;
+      }
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.22);
+        font-weight: 600;
+      }
+      .nav-item-group {
+        position: relative;
+      }
+      .nav-item-group .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        min-width: 180px;
+        display: none;
+        z-index: 300;
+        padding: 4px 0;
+        margin-top: 4px;
+      }
+      .nav-item-group:hover .nav-dropdown {
+        display: block;
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 8px 14px;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 11.5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .nav-dropdown a:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      a.nav-item {
+        text-decoration: none;
+        display: inline-block;
+      }
+      .header-user {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+      }
+      .header-user .avatar {
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+      }
+      .header-user .user-info {
+        text-align: right;
+      }
+      .header-user .user-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .header-user .user-role {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
 
-      .app-body { display: flex; padding-top: var(--header-h); min-height: 100vh; }
-      .sidebar { width: var(--sidebar-w); flex-shrink: 0; background: white; min-height: calc(100vh - var(--header-h)); border-right: 1px solid var(--gray-200); padding: 16px 10px; position: fixed; top: var(--header-h); left: 0; bottom: 0; overflow-y: auto; }
-      .sidebar-label { font-size: 9.5px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 8px; }
-      .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; cursor: pointer; color: var(--gray-500); font-size: 12.5px; font-weight: 500; transition: all 0.15s; margin-bottom: 1px; }
-      .sidebar-item:hover { background: var(--gray-100); color: var(--gray-700); }
-      .sidebar-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+      .app-body {
+        display: flex;
+        padding-top: var(--header-h);
+        min-height: 100vh;
+      }
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: white;
+        min-height: calc(100vh - var(--header-h));
+        border-right: 1px solid var(--gray-200);
+        padding: 16px 10px;
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+      }
+      .sidebar-label {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 6px 8px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--gray-500);
+        font-size: 12.5px;
+        font-weight: 500;
+        transition: all 0.15s;
+        margin-bottom: 1px;
+      }
+      .sidebar-item:hover {
+        background: var(--gray-100);
+        color: var(--gray-700);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+      }
 
-      .main { margin-left: var(--sidebar-w); flex: 1; padding: 20px; }
-      .page { display: none; }
-      .page.active { display: block; }
-      .page-title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 20px;
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+      .page-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+      }
 
-      .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); margin-bottom: 14px; }
-      .card-body { padding: 14px 18px; }
+      .card {
+        background: white;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .card-body {
+        padding: 14px 18px;
+      }
 
-      .search-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-      .search-row + .search-row { margin-top: 10px; }
-      .filter-label { font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .search-row + .search-row {
+        margin-top: 10px;
+      }
+      .filter-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        white-space: nowrap;
+      }
 
-      .date-range { display: flex; align-items: center; border: 1.5px solid var(--primary-mid); border-radius: 8px; overflow: hidden; background: white; max-width: 280px; }
-      .date-nav { padding: 6px 12px; background: var(--primary-light); cursor: pointer; color: var(--primary); font-size: 14px; font-weight: 700; border: none; }
-      .date-display { padding: 6px 16px; font-size: 12px; font-weight: 600; color: var(--primary); background: white; white-space: nowrap; text-align: center; min-width: 200px; }
-      .time-filters { display: flex; gap: 6px; flex-wrap: wrap; }
-      .tf-btn { padding: 7px 14px; min-height: 32px; border-radius: 9px; border: 1px solid #e2e5f1; background: white; color: #677194; font-size: 11.5px; font-weight: 500; cursor: pointer; font-family: inherit; }
-      .tf-btn.active { background: var(--primary); color: white; border-color: transparent; font-weight: 700; }
+      .date-range {
+        display: flex;
+        align-items: center;
+        border: 1.5px solid var(--primary-mid);
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+        max-width: 280px;
+      }
+      .date-nav {
+        padding: 6px 12px;
+        background: var(--primary-light);
+        cursor: pointer;
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+      }
+      .date-display {
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        white-space: nowrap;
+        text-align: center;
+        min-width: 200px;
+      }
+      .time-filters {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .tf-btn {
+        padding: 7px 14px;
+        min-height: 32px;
+        border-radius: 9px;
+        border: 1px solid #e2e5f1;
+        background: white;
+        color: #677194;
+        font-size: 11.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .tf-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: transparent;
+        font-weight: 700;
+      }
 
-      .criteria-wrap { position: relative; }
-      .criteria-btn { height: 34px; min-width: 160px; border: 1.5px solid var(--gray-200); border-radius: 8px; background: white; font-size: 12px; font-weight: 600; color: var(--gray-700); font-family: inherit; padding: 0 10px; cursor: pointer; display: inline-flex; align-items: center; justify-content: space-between; gap: 10px; }
-      .criteria-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 180px; background: white; border: 1px solid var(--gray-200); border-radius: 8px; padding: 4px; box-shadow: var(--shadow-md); z-index: 260; }
-      .criteria-wrap.open .criteria-menu { display: block; }
-      .criteria-option { width: 100%; border: none; background: transparent; text-align: left; border-radius: 6px; padding: 7px 9px; font-size: 11.5px; color: var(--gray-700); cursor: pointer; font-family: inherit; }
-      .criteria-option:hover { background: var(--gray-100); color: var(--primary); }
-      .search-input-lg { flex: 1; min-width: 240px; height: 34px; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 0 11px; font-size: 12px; color: var(--gray-700); font-family: inherit; outline: none; }
+      .criteria-wrap {
+        position: relative;
+      }
+      .criteria-btn {
+        height: 34px;
+        min-width: 160px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        font-family: inherit;
+        padding: 0 10px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .criteria-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        min-width: 180px;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        z-index: 260;
+      }
+      .criteria-wrap.open .criteria-menu {
+        display: block;
+      }
+      .criteria-option {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-size: 11.5px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .criteria-option:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
+      .search-input-lg {
+        flex: 1;
+        min-width: 240px;
+        height: 34px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 0 11px;
+        font-size: 12px;
+        color: var(--gray-700);
+        font-family: inherit;
+        outline: none;
+      }
 
-      .btn { padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-      .btn-outline-primary { background: white; border: 1.5px solid var(--primary); color: var(--primary); }
-      .btn-outline-primary:hover { background: var(--primary-light); }
-      .btn-outline-danger { background: white; border: 1.5px solid var(--accent); color: var(--accent); }
-      .btn-outline-danger:hover { background: var(--accent-light); }
-      .btn-primary { background: var(--primary); color: white; border: 1.5px solid var(--primary); }
-      .btn-danger { background: var(--accent); color: white; border: 1.5px solid var(--accent); }
-      .btn-ghost { background: var(--gray-100); border: 1.5px solid var(--gray-200); color: var(--gray-500); }
-      .btn-sm { padding: 4px 11px; font-size: 11px; }
+      .btn {
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .btn-outline-primary {
+        background: white;
+        border: 1.5px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline-primary:hover {
+        background: var(--primary-light);
+      }
+      .btn-outline-danger {
+        background: white;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+      }
+      .btn-outline-danger:hover {
+        background: var(--accent-light);
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        border: 1.5px solid var(--primary);
+      }
+      .btn-danger {
+        background: var(--accent);
+        color: white;
+        border: 1.5px solid var(--accent);
+      }
+      .btn-ghost {
+        background: var(--gray-100);
+        border: 1.5px solid var(--gray-200);
+        color: var(--gray-500);
+      }
+      .btn-sm {
+        padding: 4px 11px;
+        font-size: 11px;
+      }
 
-      .tabs { display: flex; gap: 0; border-bottom: 1.5px solid var(--gray-200); margin-bottom: 14px; }
-      .tab { padding: 10px 20px; font-size: 12.5px; font-weight: 600; color: var(--gray-500); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1.5px; }
-      .tab:hover { color: var(--gray-700); }
-      .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+      .tabs {
+        display: flex;
+        gap: 0;
+        border-bottom: 1.5px solid var(--gray-200);
+        margin-bottom: 14px;
+      }
+      .tab {
+        padding: 10px 20px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1.5px;
+      }
+      .tab:hover {
+        color: var(--gray-700);
+      }
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+      }
 
-      .table-title { font-size: 13px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-      .table-title .count { font-size: 11px; background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 20px; font-weight: 600; }
-      .table-actions { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
-      .table-actions-left, .table-actions-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-      .table-actions-left span { font-size: 11.5px; color: var(--gray-500); font-weight: 500; }
+      .table-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .table-title .count {
+        font-size: 11px;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+      .table-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left,
+      .table-actions-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .table-actions-left span {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
 
-      .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200); }
-      table { width: 100%; border-collapse: collapse; min-width: 1200px; background: white; }
-      thead { background: var(--gray-50); }
-      thead th { padding: 9px 10px; text-align: center; font-size: 11.5px; font-weight: 600; color: var(--gray-500); white-space: nowrap; border-bottom: 1.5px solid var(--gray-200); }
-      tbody tr { border-bottom: 1px solid var(--gray-100); }
-      tbody tr:hover { background: var(--gray-50); }
-      tbody td { padding: 9px 10px; text-align: center; font-size: 12px; color: var(--gray-700); vertical-align: middle; }
-      .td-left { text-align: left !important; }
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 8px;
+        border: 1px solid var(--gray-200);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1200px;
+        background: white;
+      }
+      thead {
+        background: var(--gray-50);
+      }
+      thead th {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--gray-500);
+        white-space: nowrap;
+        border-bottom: 1.5px solid var(--gray-200);
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--gray-100);
+      }
+      tbody tr:hover {
+        background: var(--gray-50);
+      }
+      tbody td {
+        padding: 9px 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--gray-700);
+        vertical-align: middle;
+      }
+      .td-left {
+        text-align: left !important;
+      }
 
-      .cell-menu { position: relative; display: inline-block; }
-      .menu-trigger { background: none; border: none; padding: 0; font: inherit; color: var(--primary); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: 12px; }
-      .menu-list { position: absolute; top: calc(100% + 2px); left: 0; background: white; border: 1px solid var(--gray-200); border-radius: 8px; box-shadow: var(--shadow-md); z-index: 40; min-width: 200px; display: none; flex-direction: column; padding: 4px 0; }
-      .cell-menu.open .menu-list { display: flex; }
-      .menu-item { padding: 7px 12px; background: none; border: none; text-align: left; font-size: 12px; color: var(--gray-700); cursor: pointer; font-family: inherit; }
-      .menu-item:hover { background: var(--gray-100); color: var(--primary); }
+      .cell-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .menu-trigger {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .menu-list {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        z-index: 40;
+        min-width: 200px;
+        display: none;
+        flex-direction: column;
+        padding: 4px 0;
+      }
+      .cell-menu.open .menu-list {
+        display: flex;
+      }
+      .menu-item {
+        padding: 7px 12px;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 12px;
+        color: var(--gray-700);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .menu-item:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+      }
 
-      .table-footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--gray-200); background: white; }
-      .pagination { display: flex; gap: 4px; justify-content: center; align-items: center; }
-      .pg-btn { min-width: 32px; height: 32px; padding: 0 8px; border: 1px solid var(--gray-300); background: white; border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--gray-700); cursor: pointer; }
-      .pg-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+      .table-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--gray-200);
+        background: white;
+      }
+      .pagination {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+      }
+      .pg-btn {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid var(--gray-300);
+        background: white;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        cursor: pointer;
+      }
+      .pg-btn.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
 
-      .select-dropdown { position: relative; display: inline-flex; align-items: center; }
-      .select-dropdown select { appearance: none; padding: 6px 28px 6px 10px; border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 12px; font-family: inherit; color: var(--gray-700); background: white; cursor: pointer; outline: none; min-width: 150px; }
-      .select-dropdown::after { content: "▾"; position: absolute; right: 10px; pointer-events: none; font-size: 10px; color: var(--gray-400); }
+      .select-dropdown {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+      .select-dropdown select {
+        appearance: none;
+        padding: 6px 28px 6px 10px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        background: white;
+        cursor: pointer;
+        outline: none;
+        min-width: 150px;
+      }
+      .select-dropdown::after {
+        content: "▾";
+        position: absolute;
+        right: 10px;
+        pointer-events: none;
+        font-size: 10px;
+        color: var(--gray-400);
+      }
 
       /* ====== STATUS BADGE ====== */
-      .status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-      .status-badge.show { background: var(--success-light); color: var(--success); border: 1px solid var(--success); }
-      .status-badge.hide { background: var(--gray-100); color: var(--gray-500); border: 1px solid var(--gray-300); }
-      .status-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .status-badge.show {
+        background: var(--success-light);
+        color: var(--success);
+        border: 1px solid var(--success);
+      }
+      .status-badge.hide {
+        background: var(--gray-100);
+        color: var(--gray-500);
+        border: 1px solid var(--gray-300);
+      }
+      .status-badge .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
 
       /* ====== BANNER THUMB ====== */
-      .banner-thumb { width: 96px; height: 36px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); border: 1px solid var(--gray-200); display: inline-flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gray-500); font-weight: 600; overflow: hidden; }
+      .banner-thumb {
+        width: 96px;
+        height: 36px;
+        border-radius: 6px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-light),
+          var(--accent-light)
+        );
+        border: 1px solid var(--gray-200);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: var(--gray-500);
+        font-weight: 600;
+        overflow: hidden;
+      }
 
       /* ====== POSITION TAG ====== */
-      .pos-tag { display: inline-block; padding: 2px 8px; border-radius: 6px; background: var(--primary-light); color: var(--primary); font-size: 10.5px; font-weight: 600; margin: 1px 2px; }
-      .pos-tag.center { background: var(--warning-light); color: var(--warning); }
-      .pos-tag.bottom { background: var(--accent-light); color: var(--accent); }
+      .pos-tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 6px;
+        background: var(--primary-light);
+        color: var(--primary);
+        font-size: 10.5px;
+        font-weight: 600;
+        margin: 1px 2px;
+      }
+      .pos-tag.center {
+        background: var(--warning-light);
+        color: var(--warning);
+      }
+      .pos-tag.bottom {
+        background: var(--accent-light);
+        color: var(--accent);
+      }
 
       /* ====== FORM ====== */
-      .form-grid { display: grid; grid-template-columns: 200px 1fr; gap: 14px 18px; align-items: start; }
-      .form-label { font-size: 12.5px; font-weight: 600; color: var(--gray-700); padding-top: 8px; }
-      .form-label .req { color: var(--accent); }
-      .form-input, .form-textarea, .form-select { width: 100%; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 8px 11px; font-size: 12px; font-family: inherit; color: var(--gray-700); outline: none; background: white; }
-      .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--primary); }
-      .form-textarea { min-height: 70px; resize: vertical; }
-      .form-help { font-size: 11px; color: var(--gray-500); margin-top: 4px; font-style: italic; }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 14px 18px;
+        align-items: start;
+      }
+      .form-label {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--gray-700);
+        padding-top: 8px;
+      }
+      .form-label .req {
+        color: var(--accent);
+      }
+      .form-input,
+      .form-textarea,
+      .form-select {
+        width: 100%;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 8px 11px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+        background: white;
+      }
+      .form-input:focus,
+      .form-textarea:focus,
+      .form-select:focus {
+        border-color: var(--primary);
+      }
+      .form-textarea {
+        min-height: 70px;
+        resize: vertical;
+      }
 
-      .upload-box { display: flex; align-items: center; gap: 14px; padding: 14px; border: 1.5px dashed var(--primary-mid); border-radius: 10px; background: var(--gray-50); }
-      .upload-preview { width: 160px; height: 60px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); display: flex; align-items: center; justify-content: center; color: var(--gray-500); font-size: 11px; flex-shrink: 0; border: 1px solid var(--gray-200); }
-      .upload-box .upload-info { flex: 1; }
-      .upload-box .upload-info .upload-name { font-size: 12px; font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
-      .upload-box .upload-info .upload-spec { font-size: 11px; color: var(--gray-500); }
+      .upload-box {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px;
+        border: 1.5px dashed var(--primary-mid);
+        border-radius: 10px;
+        background: var(--gray-50);
+      }
+      .upload-preview {
+        width: 160px;
+        height: 60px;
+        border-radius: 6px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-light),
+          var(--accent-light)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gray-500);
+        font-size: 11px;
+        flex-shrink: 0;
+        border: 1px solid var(--gray-200);
+      }
+      .upload-box .upload-info {
+        flex: 1;
+      }
+      .upload-box .upload-info .upload-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+        margin-bottom: 4px;
+      }
+      .upload-box .upload-info .upload-spec {
+        font-size: 11px;
+        color: var(--gray-500);
+      }
 
-      .pos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-      .pos-card { padding: 10px 12px; border: 1.5px solid var(--gray-200); border-radius: 8px; background: white; cursor: pointer; }
-      .pos-card.selected { border-color: var(--primary); background: var(--primary-light); }
-      .pos-card .pos-card-title { font-size: 12px; font-weight: 700; color: var(--gray-900); display: flex; align-items: center; gap: 6px; }
-      .pos-card .pos-card-sub { font-size: 11px; color: var(--gray-500); margin-top: 3px; }
-      .pos-card label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
-      .pos-card .order-row { margin-top: 8px; display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-500); }
-      .pos-card .order-input { width: 56px; border: 1px solid var(--gray-200); border-radius: 6px; padding: 4px 7px; font-size: 11.5px; font-family: inherit; outline: none; text-align: center; }
-      .pos-card.selected .order-input { border-color: var(--primary); }
+      .pos-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .pos-card {
+        padding: 10px 12px;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+      }
+      .pos-card.selected {
+        border-color: var(--primary);
+        background: var(--primary-light);
+      }
+      .pos-card .pos-card-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--gray-900);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .pos-card .pos-card-sub {
+        font-size: 11px;
+        color: var(--gray-500);
+        margin-top: 3px;
+      }
+      .pos-card label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+      }
+      .pos-card .order-row {
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: var(--gray-500);
+      }
+      .pos-card .order-input {
+        width: 56px;
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        padding: 4px 7px;
+        font-size: 11.5px;
+        font-family: inherit;
+        outline: none;
+        text-align: center;
+      }
+      .pos-card.selected .order-input {
+        border-color: var(--primary);
+      }
 
-      .time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-      .form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+      .time-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .dt-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .dt-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--gray-500);
+      }
+      .dt-field input[type="datetime-local"] {
+        font-family: inherit;
+        color-scheme: light;
+      }
+      .form-help {
+        font-size: 11px;
+        color: var(--primary);
+        margin-top: 6px;
+        font-weight: 600;
+      }
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 18px;
+      }
 
       /* ====== ACTION MODAL ====== */
-      .action-modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 260; display: none; align-items: center; justify-content: center; }
-      .action-modal-backdrop.open { display: flex; }
-      .action-modal { background: white; border-radius: 10px; padding: 20px; max-width: 440px; width: 95vw; box-shadow: var(--shadow-md); }
-      .action-modal-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
-      .action-modal-body { font-size: 12px; color: var(--gray-500); line-height: 1.5; margin-bottom: 16px; }
-      .action-modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
-      .action-modal-btn { padding: 8px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
-      .action-modal-btn-cancel { background: var(--gray-200); color: var(--gray-700); }
-      .action-modal-btn-confirm { background: var(--accent); color: white; }
-      .action-modal-btn-confirm.is-primary { background: var(--primary); }
+      .action-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-modal-backdrop.open {
+        display: flex;
+      }
+      .action-modal {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 440px;
+        width: 95vw;
+        box-shadow: var(--shadow-md);
+      }
+      .action-modal-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 8px;
+      }
+      .action-modal-body {
+        font-size: 12px;
+        color: var(--gray-500);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .action-modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .action-modal-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .action-modal-btn-cancel {
+        background: var(--gray-200);
+        color: var(--gray-700);
+      }
+      .action-modal-btn-confirm {
+        background: var(--accent);
+        color: white;
+      }
+      .action-modal-btn-confirm.is-primary {
+        background: var(--primary);
+      }
 
       /* ====== PREVIEW MODAL ====== */
-      .preview-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); z-index: 270; display: none; align-items: center; justify-content: center; }
-      .preview-backdrop.open { display: flex; }
-      .preview-modal { background: white; border-radius: 12px; padding: 22px; max-width: 720px; width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-md); }
-      .preview-modal h3 { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; }
-      .preview-banner { width: 100%; height: 160px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; margin-bottom: 12px; }
-      .preview-meta { display: grid; grid-template-columns: 130px 1fr; gap: 8px 14px; font-size: 12px; }
-      .preview-meta .k { color: var(--gray-500); font-weight: 600; }
-      .preview-meta .v { color: var(--gray-900); font-weight: 500; }
-      .preview-actions { display: flex; justify-content: flex-end; margin-top: 14px; }
+      .preview-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 270;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .preview-backdrop.open {
+        display: flex;
+      }
+      .preview-modal {
+        background: white;
+        border-radius: 12px;
+        padding: 22px;
+        max-width: 720px;
+        width: 95vw;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: var(--shadow-md);
+      }
+      .preview-modal h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+      }
+      .preview-banner {
+        width: 100%;
+        height: 160px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .preview-meta {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 8px 14px;
+        font-size: 12px;
+      }
+      .preview-meta .k {
+        color: var(--gray-500);
+        font-weight: 600;
+      }
+      .preview-meta .v {
+        color: var(--gray-900);
+        font-weight: 500;
+      }
+      .preview-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 14px;
+      }
 
-      .note-ellipsis { display: inline-block; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle; color: var(--gray-500); font-size: 11.5px; font-style: italic; }
+      td.note-cell {
+        cursor: pointer;
+      }
+      td.note-cell.editing {
+        background: var(--primary-light);
+      }
+      .note-edit-area {
+        width: 100%;
+        min-height: 56px;
+        resize: vertical;
+        border: 1.5px solid var(--primary);
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+        margin-bottom: 6px;
+        box-sizing: border-box;
+      }
+      .note-edit-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        justify-content: flex-end;
+      }
+      .note-ellipsis {
+        display: inline-block;
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+        color: var(--gray-500);
+        font-size: 11.5px;
+        font-style: italic;
+      }
     </style>
   </head>
   <body>
@@ -212,8 +1064,12 @@
       <nav class="header-nav">
         <a class="nav-item" href="home-management.html">Trang chủ</a>
         <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
-        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
-        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="virtual-member-management.html"
+          >Thành viên ảo</a
+        >
+        <a class="nav-item" href="real-member-staff.html"
+          >Thành viên thực, staff</a
+        >
         <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
         <div class="nav-item nav-item-group">
           Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
@@ -225,13 +1081,21 @@
           </div>
         </div>
         <a class="nav-item" href="menu-management.html">Menu</a>
-        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="post-comment-management.html"
+          >Bài viết. Bình luận</a
+        >
         <a class="nav-item" href="tag-management.html">Thẻ</a>
-        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="report-management.html"
+          >Từ cấm. Spam. Báo cáo</a
+        >
         <div class="nav-item active">Banner quảng cáo</div>
-        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="reward-badge-management.html"
+          >Điểm thưởng. Huy hiệu</a
+        >
         <a class="nav-item" href="statistics-management.html">Thống kê</a>
-        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+        <a class="nav-item" href="push-notification-management.html"
+          >Thông báo đẩy</a
+        >
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -245,8 +1109,16 @@
     <div class="app-body">
       <aside class="sidebar">
         <div class="sidebar-label">Banner quảng cáo</div>
-        <div class="sidebar-item" id="sidebar-add" onclick="goSection('add')">Thêm banner</div>
-        <div class="sidebar-item active" id="sidebar-list" onclick="goSection('list')">Quản lý banner</div>
+        <div class="sidebar-item" id="sidebar-add" onclick="goSection('add')">
+          Thêm banner
+        </div>
+        <div
+          class="sidebar-item active"
+          id="sidebar-list"
+          onclick="goSection('list')"
+        >
+          Quản lý banner
+        </div>
       </aside>
 
       <!-- ====== 11.2 QUẢN LÝ BANNER ====== -->
@@ -254,8 +1126,12 @@
         <div class="page-title">• Quản lý banner quảng cáo</div>
 
         <div class="tabs">
-          <div class="tab active" id="tab-active" onclick="switchTab('active')">Banner quảng cáo</div>
-          <div class="tab" id="tab-deleted" onclick="switchTab('deleted')">Banner đã xóa</div>
+          <div class="tab active" id="tab-active" onclick="switchTab('active')">
+            Banner quảng cáo
+          </div>
+          <div class="tab" id="tab-deleted" onclick="switchTab('deleted')">
+            Banner đã xóa
+          </div>
         </div>
 
         <!-- ----- Banner đang quản lý ----- -->
@@ -265,9 +1141,15 @@
               <div class="search-row">
                 <span class="filter-label">Theo thời gian:</span>
                 <div class="date-range">
-                  <button class="date-nav" onclick="shiftDate('active',-1)">‹</button>
-                  <span class="date-display" id="active-date">23-06-2025 ~ 30-06-2025</span>
-                  <button class="date-nav" onclick="shiftDate('active',1)">›</button>
+                  <button class="date-nav" onclick="shiftDate('active', -1)">
+                    ‹
+                  </button>
+                  <span class="date-display" id="active-date"
+                    >23-06-2025 ~ 30-06-2025</span
+                  >
+                  <button class="date-nav" onclick="shiftDate('active', 1)">
+                    ›
+                  </button>
                 </div>
                 <div class="time-filters">
                   <button class="tf-btn">Ngày</button>
@@ -281,13 +1163,26 @@
               <div class="search-row">
                 <span class="filter-label">Tìm kiếm:</span>
                 <div class="criteria-wrap" id="criteria-active">
-                  <button class="criteria-btn" onclick="toggleCriteria('active',event)">
-                    <span id="criteria-label-active">Tiêu đề quảng cáo</span><span>▼</span>
+                  <button
+                    class="criteria-btn"
+                    onclick="toggleCriteria('active', event)"
+                  >
+                    <span id="criteria-label-active">Tiêu đề</span
+                    ><span>▼</span>
                   </button>
                   <div class="criteria-menu"></div>
                 </div>
-                <input class="search-input-lg" id="search-active" placeholder="Nhập từ khóa..." />
-                <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+                <input
+                  class="search-input-lg"
+                  id="search-active"
+                  placeholder="Nhập từ khóa..."
+                />
+                <button
+                  class="btn btn-primary btn-sm"
+                  onclick="alert('Chức năng đang phát triển.')"
+                >
+                  Tìm
+                </button>
               </div>
             </div>
           </div>
@@ -295,12 +1190,18 @@
           <div class="card">
             <div class="card-body">
               <div class="table-title">
-                • Danh sách banner quảng cáo <span class="count" id="active-count">0 banner</span>
+                • Danh sách banner quảng cáo
+                <span class="count" id="active-count">0 banner</span>
               </div>
               <div class="table-actions">
                 <div class="table-actions-left">
                   <span>Mục đã chọn:</span>
-                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-delete')">Xóa</button>
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    onclick="openActionModal('bulk-delete')"
+                  >
+                    Xóa
+                  </button>
                 </div>
                 <div class="table-actions-right">
                   <div class="select-dropdown">
@@ -331,7 +1232,12 @@
                 <table>
                   <thead>
                     <tr>
-                      <th><input type="checkbox" onchange="toggleAll(this,'tbody-active')" /></th>
+                      <th>
+                        <input
+                          type="checkbox"
+                          onchange="toggleAll(this, 'tbody-active')"
+                        />
+                      </th>
                       <th>STT</th>
                       <th class="td-left">Tiêu đề</th>
                       <th>Hình ảnh</th>
@@ -362,15 +1268,21 @@
         </div>
 
         <!-- ----- Banner đã xóa ----- -->
-        <div id="panel-deleted" style="display:none">
+        <div id="panel-deleted" style="display: none">
           <div class="card">
             <div class="card-body">
               <div class="search-row">
                 <span class="filter-label">Ngày xóa:</span>
                 <div class="date-range">
-                  <button class="date-nav" onclick="shiftDate('deleted',-1)">‹</button>
-                  <span class="date-display" id="deleted-date">23-06-2025 ~ 30-06-2025</span>
-                  <button class="date-nav" onclick="shiftDate('deleted',1)">›</button>
+                  <button class="date-nav" onclick="shiftDate('deleted', -1)">
+                    ‹
+                  </button>
+                  <span class="date-display" id="deleted-date"
+                    >23-06-2025 ~ 30-06-2025</span
+                  >
+                  <button class="date-nav" onclick="shiftDate('deleted', 1)">
+                    ›
+                  </button>
                 </div>
                 <div class="time-filters">
                   <button class="tf-btn">Ngày</button>
@@ -384,13 +1296,26 @@
               <div class="search-row">
                 <span class="filter-label">Tìm kiếm:</span>
                 <div class="criteria-wrap" id="criteria-deleted">
-                  <button class="criteria-btn" onclick="toggleCriteria('deleted',event)">
-                    <span id="criteria-label-deleted">Tiêu đề quảng cáo</span><span>▼</span>
+                  <button
+                    class="criteria-btn"
+                    onclick="toggleCriteria('deleted', event)"
+                  >
+                    <span id="criteria-label-deleted">Tiêu đề</span
+                    ><span>▼</span>
                   </button>
                   <div class="criteria-menu"></div>
                 </div>
-                <input class="search-input-lg" id="search-deleted" placeholder="Nhập từ khóa..." />
-                <button class="btn btn-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Tìm</button>
+                <input
+                  class="search-input-lg"
+                  id="search-deleted"
+                  placeholder="Nhập từ khóa..."
+                />
+                <button
+                  class="btn btn-primary btn-sm"
+                  onclick="alert('Chức năng đang phát triển.')"
+                >
+                  Tìm
+                </button>
               </div>
             </div>
           </div>
@@ -398,13 +1323,24 @@
           <div class="card">
             <div class="card-body">
               <div class="table-title">
-                • Banner đã xóa <span class="count" id="deleted-count">0 banner</span>
+                • Banner đã xóa
+                <span class="count" id="deleted-count">0 banner</span>
               </div>
               <div class="table-actions">
                 <div class="table-actions-left">
                   <span>Mục đã chọn:</span>
-                  <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('bulk-restore')">Khôi phục</button>
-                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('bulk-hard-delete')">Xóa vĩnh viễn</button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="openActionModal('bulk-restore')"
+                  >
+                    Khôi phục
+                  </button>
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    onclick="openActionModal('bulk-hard-delete')"
+                  >
+                    Xóa vĩnh viễn
+                  </button>
                 </div>
                 <div class="table-actions-right">
                   <div class="select-dropdown">
@@ -420,7 +1356,12 @@
                 <table>
                   <thead>
                     <tr>
-                      <th><input type="checkbox" onchange="toggleAll(this,'tbody-deleted')" /></th>
+                      <th>
+                        <input
+                          type="checkbox"
+                          onchange="toggleAll(this, 'tbody-deleted')"
+                        />
+                      </th>
                       <th class="td-left">Tiêu đề</th>
                       <th>Hình ảnh</th>
                       <th>Vị trí hiển thị</th>
@@ -455,24 +1396,40 @@
         <div class="card">
           <div class="card-body">
             <div class="form-grid">
-              <div class="form-label">Tiêu đề Banner <span class="req">*</span></div>
+              <div class="form-label">
+                Tiêu đề Banner <span class="req">*</span>
+              </div>
               <div>
-                <input class="form-input" id="bf-title" placeholder="Nhập tiêu đề banner..." />
+                <input
+                  class="form-input"
+                  id="bf-title"
+                  placeholder="Nhập tiêu đề banner..."
+                />
               </div>
 
               <div class="form-label">Tải ảnh <span class="req">*</span></div>
               <div>
                 <div class="upload-box">
-                  <div class="upload-preview" id="bf-preview-thumb">Chưa có ảnh</div>
+                  <div class="upload-preview" id="bf-preview-thumb">
+                    Chưa có ảnh
+                  </div>
                   <div class="upload-info">
                     <div class="upload-name">Kéo thả ảnh hoặc bấm để chọn</div>
-                    <div class="upload-spec">Kích thước hình ảnh tối ưu: chiều ngang 1080px, chiều dọc từ 50 đến 340px.</div>
-                    <button class="btn btn-outline-primary btn-sm" style="margin-top:8px" onclick="alert('Chức năng đang phát triển.')">Tải ảnh lên</button>
+
+                    <button
+                      class="btn btn-outline-primary btn-sm"
+                      style="margin-top: 8px"
+                      onclick="alert('Chức năng đang phát triển.')"
+                    >
+                      Tải ảnh lên
+                    </button>
                   </div>
                 </div>
               </div>
 
-              <div class="form-label">Vị trí hiển thị <span class="req">*</span></div>
+              <div class="form-label">
+                Vị trí hiển thị <span class="req">*</span>
+              </div>
               <div>
                 <div class="pos-grid">
                   <div class="pos-card selected" onclick="togglePos(this)">
@@ -482,7 +1439,13 @@
                     </label>
                     <div class="pos-card-sub">Phía trên giao diện</div>
                     <div class="order-row">
-                      Thứ tự: <input class="order-input" type="number" min="1" value="1" />
+                      Thứ tự:
+                      <input
+                        class="order-input"
+                        type="number"
+                        min="1"
+                        value="1"
+                      />
                     </div>
                   </div>
                   <div class="pos-card" onclick="togglePos(this)">
@@ -492,7 +1455,13 @@
                     </label>
                     <div class="pos-card-sub">Trung tâm giao diện</div>
                     <div class="order-row">
-                      Thứ tự: <input class="order-input" type="number" min="1" value="1" />
+                      Thứ tự:
+                      <input
+                        class="order-input"
+                        type="number"
+                        min="1"
+                        value="1"
+                      />
                     </div>
                   </div>
                   <div class="pos-card" onclick="togglePos(this)">
@@ -502,38 +1471,77 @@
                     </label>
                     <div class="pos-card-sub">Phía dưới giao diện</div>
                     <div class="order-row">
-                      Thứ tự: <input class="order-input" type="number" min="1" value="1" />
+                      Thứ tự:
+                      <input
+                        class="order-input"
+                        type="number"
+                        min="1"
+                        value="1"
+                      />
                     </div>
                   </div>
                 </div>
-                <div class="form-help">Có thể chọn đồng loạt nhiều vị trí. Thứ tự hiển thị tính riêng cho từng vị trí.</div>
               </div>
 
-              <div class="form-label">Thời gian hiển thị <span class="req">*</span></div>
+              <div class="form-label">
+                Thời gian hiển thị <span class="req">*</span>
+              </div>
               <div>
                 <div class="time-grid">
-                  <input class="form-input" id="bf-start" value="01-07-2025 00:00" placeholder="dd-mm-yyyy hh:mm" />
-                  <input class="form-input" id="bf-end" value="30-07-2025 00:00" placeholder="dd-mm-yyyy hh:mm" />
+                  <label class="dt-field">
+                    <span class="dt-label">Bắt đầu</span>
+                    <input
+                      class="form-input"
+                      type="datetime-local"
+                      id="bf-start"
+                      value="2025-07-01T00:00"
+                      onchange="updateTimeDisplay()"
+                      oninput="updateTimeDisplay()"
+                    />
+                  </label>
+                  <label class="dt-field">
+                    <span class="dt-label">Kết thúc</span>
+                    <input
+                      class="form-input"
+                      type="datetime-local"
+                      id="bf-end"
+                      value="2025-07-30T00:00"
+                      onchange="updateTimeDisplay()"
+                      oninput="updateTimeDisplay()"
+                    />
+                  </label>
                 </div>
-                <div class="form-help">Định dạng dd-mm-yyyy hh:mm. Ví dụ: 00 giờ ngày 01-07-2025 ~ 00 giờ ngày 30-07-2025.</div>
               </div>
 
               <div class="form-label">Đường dẫn liên kết</div>
               <div>
-                <input class="form-input" id="bf-link" placeholder="https://..." />
-                <div class="form-help">URL link chuyển đến đường dẫn khi thành viên nhấp vào.</div>
+                <input
+                  class="form-input"
+                  id="bf-link"
+                  placeholder="https://..."
+                />
               </div>
 
               <div class="form-label">Ghi chú</div>
               <div>
-                <textarea class="form-textarea" id="bf-note" placeholder="Ví dụ: tất cả thành viên đều có thể tham gia."></textarea>
+                <textarea
+                  class="form-textarea"
+                  id="bf-note"
+                  placeholder="Ví dụ: tất cả thành viên đều có thể tham gia."
+                ></textarea>
               </div>
             </div>
 
             <div class="form-actions">
-              <button class="btn btn-ghost" onclick="goSection('list')">Hủy</button>
-              <button class="btn btn-outline-primary" onclick="openPreview()">Xem trước</button>
-              <button class="btn btn-primary" onclick="applyBanner()">Áp dụng</button>
+              <button class="btn btn-ghost" onclick="goSection('list')">
+                Hủy
+              </button>
+              <button class="btn btn-outline-primary" onclick="openPreview()">
+                Xem trước
+              </button>
+              <button class="btn btn-primary" onclick="applyBanner()">
+                Áp dụng
+              </button>
             </div>
           </div>
         </div>
@@ -541,28 +1549,64 @@
     </div>
 
     <!-- ====== ACTION MODAL ====== -->
-    <div class="action-modal-backdrop" id="action-modal-backdrop" onclick="closeActionModal()">
-      <div class="action-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div
+      class="action-modal-backdrop"
+      id="action-modal-backdrop"
+      onclick="closeActionModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
         <h3 class="action-modal-title" id="action-modal-title">Xác nhận</h3>
-        <p class="action-modal-body" id="action-modal-body">Bạn có chắc chắn?</p>
+        <p class="action-modal-body" id="action-modal-body">
+          Bạn có chắc chắn?
+        </p>
         <div class="action-modal-actions">
-          <button class="action-modal-btn action-modal-btn-cancel" onclick="closeActionModal()">Hủy</button>
-          <button class="action-modal-btn action-modal-btn-confirm" id="action-modal-confirm" onclick="confirmActionModal()">Xác nhận</button>
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeActionModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            id="action-modal-confirm"
+            onclick="confirmActionModal()"
+          >
+            Xác nhận
+          </button>
         </div>
       </div>
     </div>
 
     <!-- ====== PREVIEW MODAL ====== -->
-    <div class="preview-backdrop" id="preview-backdrop" onclick="closePreview()">
-      <div class="preview-modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div
+      class="preview-backdrop"
+      id="preview-backdrop"
+      onclick="closePreview()"
+    >
+      <div
+        class="preview-modal"
+        role="dialog"
+        aria-modal="true"
+        onclick="event.stopPropagation()"
+      >
         <h3>Xem trước banner</h3>
         <div class="preview-banner" id="preview-banner-img">Banner Preview</div>
         <div class="preview-meta">
-          <div class="k">Tiêu đề:</div><div class="v" id="pv-title">—</div>
-          <div class="k">Vị trí:</div><div class="v" id="pv-pos">—</div>
-          <div class="k">Thời gian:</div><div class="v" id="pv-time">—</div>
-          <div class="k">Đường dẫn:</div><div class="v" id="pv-link">—</div>
-          <div class="k">Ghi chú:</div><div class="v" id="pv-note">—</div>
+          <div class="k">Tiêu đề:</div>
+          <div class="v" id="pv-title">—</div>
+          <div class="k">Vị trí:</div>
+          <div class="v" id="pv-pos">—</div>
+          <div class="k">Thời gian:</div>
+          <div class="v" id="pv-time">—</div>
+          <div class="k">Đường dẫn:</div>
+          <div class="v" id="pv-link">—</div>
+          <div class="k">Ghi chú:</div>
+          <div class="v" id="pv-note">—</div>
         </div>
         <div class="preview-actions">
           <button class="btn btn-ghost" onclick="closePreview()">Đóng</button>
@@ -573,49 +1617,254 @@
     <script>
       /* ====== DATA ====== */
       const activeBanners = [
-        { id: 1, title: "Sự kiện Open tháng 7", img: "Banner 1", pos: ["Trang chính"], posKey: ["top"], createdAt: "10-06-2025", createdBy: "maimai", time: "01-07-2025 00:00 ~ 30-07-2025 00:00", status: "show", note: "Tất cả thành viên đều có thể tham gia." },
-        { id: 2, title: "Khuyến mãi mỹ phẩm hè 2025", img: "Banner 2", pos: ["Trang mục lục"], posKey: ["center"], createdAt: "12-06-2025", createdBy: "ngocanh", time: "15-06-2025 00:00 ~ 15-07-2025 23:59", status: "show", note: "Giảm 20% sản phẩm chăm sóc da." },
-        { id: 3, title: "Tuyển dụng KOL beauty", img: "Banner 3", pos: ["Trang chi tiết"], posKey: ["bottom"], createdAt: "15-06-2025", createdBy: "ducanh", time: "20-06-2025 00:00 ~ 20-07-2025 23:59", status: "hide", note: "Chỉ áp dụng cho Lv.3 trở lên." },
-        { id: 4, title: "Combo serum dưỡng ẩm", img: "Banner 4", pos: ["Trang chính", "Trang mục lục"], posKey: ["top", "center"], createdAt: "18-06-2025", createdBy: "maimai", time: "25-06-2025 00:00 ~ 25-07-2025 23:59", status: "show", note: "" },
-        { id: 5, title: "Giới thiệu BS. Nguyễn Văn A", img: "Banner 5", pos: ["Trang chi tiết"], posKey: ["bottom"], createdAt: "20-06-2025", createdBy: "ngocanh", time: "01-07-2025 00:00 ~ 31-07-2025 23:59", status: "show", note: "Banner cho trang chi tiết bác sĩ." },
-        { id: 6, title: "Sự kiện check-in nhận quà", img: "Banner 6", pos: ["Trang chính"], posKey: ["top"], createdAt: "22-06-2025", createdBy: "ducanh", time: "25-06-2025 00:00 ~ 10-07-2025 23:59", status: "hide", note: "Tạm dừng để cập nhật ảnh." },
-        { id: 7, title: "Sản phẩm mới: Toner trà xanh", img: "Banner 7", pos: ["Trang mục lục", "Trang chi tiết"], posKey: ["center", "bottom"], createdAt: "25-06-2025", createdBy: "maimai", time: "01-07-2025 00:00 ~ 31-08-2025 23:59", status: "show", note: "Liên kết tới shop." },
-        { id: 8, title: "Khảo sát người dùng tháng 7", img: "Banner 8", pos: ["Trang chính"], posKey: ["top"], createdAt: "26-06-2025", createdBy: "ngocanh", time: "01-07-2025 00:00 ~ 15-07-2025 23:59", status: "show", note: "Tham gia nhận 500 điểm thưởng." },
+        {
+          id: 1,
+          title: "Sự kiện Open tháng 7",
+          img: "Banner 1",
+          pos: ["Trang chính"],
+          posKey: ["top"],
+          createdAt: "10-06-2025 16:53",
+          createdBy: "maimai",
+          time: "01-07-2025 00:00 ~ 30-07-2025 00:00",
+          status: "show",
+          note: "Tất cả thành viên đều có thể tham gia.",
+        },
+        {
+          id: 2,
+          title: "Khuyến mãi mỹ phẩm hè 2025",
+          img: "Banner 2",
+          pos: ["Trang mục lục"],
+          posKey: ["center"],
+          createdAt: "12-06-2025 16:27",
+          createdBy: "ngocanh",
+          time: "15-06-2025 00:00 ~ 15-07-2025 23:59",
+          status: "show",
+          note: "Giảm 20% sản phẩm chăm sóc da.",
+        },
+        {
+          id: 3,
+          title: "Tuyển dụng KOL beauty",
+          img: "Banner 3",
+          pos: ["Trang chi tiết"],
+          posKey: ["bottom"],
+          createdAt: "15-06-2025 09:18",
+          createdBy: "ducanh",
+          time: "20-06-2025 00:00 ~ 20-07-2025 23:59",
+          status: "hide",
+          note: "Chỉ áp dụng cho Lv.3 trở lên.",
+        },
+        {
+          id: 4,
+          title: "Combo serum dưỡng ẩm",
+          img: "Banner 4",
+          pos: ["Trang chính", "Trang mục lục"],
+          posKey: ["top", "center"],
+          createdAt: "18-06-2025 16:09",
+          createdBy: "maimai",
+          time: "25-06-2025 00:00 ~ 25-07-2025 23:59",
+          status: "show",
+          note: "",
+        },
+        {
+          id: 5,
+          title: "Giới thiệu BS. Nguyễn Văn A",
+          img: "Banner 5",
+          pos: ["Trang chi tiết"],
+          posKey: ["bottom"],
+          createdAt: "20-06-2025 16:43",
+          createdBy: "ngocanh",
+          time: "01-07-2025 00:00 ~ 31-07-2025 23:59",
+          status: "show",
+          note: "Banner cho trang chi tiết bác sĩ.",
+        },
+        {
+          id: 6,
+          title: "Sự kiện check-in nhận quà",
+          img: "Banner 6",
+          pos: ["Trang chính"],
+          posKey: ["top"],
+          createdAt: "22-06-2025 16:17",
+          createdBy: "ducanh",
+          time: "25-06-2025 00:00 ~ 10-07-2025 23:59",
+          status: "hide",
+          note: "Tạm dừng để cập nhật ảnh.",
+        },
+        {
+          id: 7,
+          title: "Sản phẩm mới: Toner trà xanh",
+          img: "Banner 7",
+          pos: ["Trang mục lục", "Trang chi tiết"],
+          posKey: ["center", "bottom"],
+          createdAt: "25-06-2025 09:08",
+          createdBy: "maimai",
+          time: "01-07-2025 00:00 ~ 31-08-2025 23:59",
+          status: "show",
+          note: "Liên kết tới shop.",
+        },
+        {
+          id: 8,
+          title: "Khảo sát người dùng tháng 7",
+          img: "Banner 8",
+          pos: ["Trang chính"],
+          posKey: ["top"],
+          createdAt: "26-06-2025 16:25",
+          createdBy: "ngocanh",
+          time: "01-07-2025 00:00 ~ 15-07-2025 23:59",
+          status: "show",
+          note: "Tham gia nhận 500 điểm thưởng.",
+        },
       ];
 
       const deletedBanners = [
-        { id: 101, title: "Banner sự kiện tháng 5", img: "Banner D1", pos: ["Trang chính"], posKey: ["top"], createdBy: "maimai", time: "01-05-2025 00:00 ~ 31-05-2025 23:59", deletedAt: "01-06-2025", deletedBy: "maimai", note: "Đã hết thời hạn." },
-        { id: 102, title: "Khuyến mãi 30/4", img: "Banner D2", pos: ["Trang mục lục"], posKey: ["center"], createdBy: "ngocanh", time: "25-04-2025 00:00 ~ 02-05-2025 23:59", deletedAt: "05-05-2025", deletedBy: "ducanh", note: "Sự kiện kết thúc." },
-        { id: 103, title: "Banner test giao diện", img: "Banner D3", pos: ["Trang chi tiết"], posKey: ["bottom"], createdBy: "ducanh", time: "10-05-2025 00:00 ~ 20-05-2025 23:59", deletedAt: "21-05-2025", deletedBy: "maimai", note: "Banner thử nghiệm." },
-        { id: 104, title: "Sản phẩm cũ - đã ngừng bán", img: "Banner D4", pos: ["Trang chính", "Trang mục lục"], posKey: ["top", "center"], createdBy: "maimai", time: "01-04-2025 00:00 ~ 30-04-2025 23:59", deletedAt: "01-05-2025", deletedBy: "ngocanh", note: "Sản phẩm ngưng kinh doanh." },
+        {
+          id: 101,
+          title: "Banner sự kiện tháng 5",
+          img: "Banner D1",
+          pos: ["Trang chính"],
+          posKey: ["top"],
+          createdBy: "maimai",
+          time: "01-05-2025 00:00 ~ 31-05-2025 23:59",
+          deletedAt: "01-06-2025 09:20",
+          deletedBy: "maimai",
+          note: "Đã hết thời hạn.",
+        },
+        {
+          id: 102,
+          title: "Khuyến mãi 30/4",
+          img: "Banner D2",
+          pos: ["Trang mục lục"],
+          posKey: ["center"],
+          createdBy: "ngocanh",
+          time: "25-04-2025 00:00 ~ 02-05-2025 23:59",
+          deletedAt: "05-05-2025 10:05",
+          deletedBy: "ducanh",
+          note: "Sự kiện kết thúc.",
+        },
+        {
+          id: 103,
+          title: "Banner test giao diện",
+          img: "Banner D3",
+          pos: ["Trang chi tiết"],
+          posKey: ["bottom"],
+          createdBy: "ducanh",
+          time: "10-05-2025 00:00 ~ 20-05-2025 23:59",
+          deletedAt: "21-05-2025 10:37",
+          deletedBy: "maimai",
+          note: "Banner thử nghiệm.",
+        },
+        {
+          id: 104,
+          title: "Sản phẩm cũ - đã ngừng bán",
+          img: "Banner D4",
+          pos: ["Trang chính", "Trang mục lục"],
+          posKey: ["top", "center"],
+          createdBy: "maimai",
+          time: "01-04-2025 00:00 ~ 30-04-2025 23:59",
+          deletedAt: "01-05-2025 10:57",
+          deletedBy: "ngocanh",
+          note: "Sản phẩm ngưng kinh doanh.",
+        },
       ];
 
       /* ====== POSITION TAG RENDER ====== */
       function posTags(arr, keys) {
-        return arr.map((p, i) => {
-          const k = keys[i];
-          const cls = k === "center" ? "pos-tag center" : k === "bottom" ? "pos-tag bottom" : "pos-tag";
-          return `<span class="${cls}">${p}</span>`;
-        }).join("");
+        return arr
+          .map((p, i) => {
+            const k = keys[i];
+            const cls =
+              k === "center"
+                ? "pos-tag center"
+                : k === "bottom"
+                  ? "pos-tag bottom"
+                  : "pos-tag";
+            return `<span class="${cls}">${p}</span>`;
+          })
+          .join("");
       }
 
       function statusBadge(s) {
-        if (s === "show") return `<span class="status-badge show"><span class="dot"></span>Đang hiển thị</span>`;
+        if (s === "show")
+          return `<span class="status-badge show"><span class="dot"></span>Đang hiển thị</span>`;
         return `<span class="status-badge hide"><span class="dot"></span>Ngừng hiển thị</span>`;
       }
 
       function noteCell(n) {
-        if (!n) return '<span style="color:var(--gray-400);font-size:11px">—</span>';
+        if (!n)
+          return '<span style="color:var(--gray-400);font-size:11px">—</span>';
         const short = n.length > 28 ? n.slice(0, 28) + "…" : n;
         return `<span class="note-ellipsis" title="${escapeAttr(n)}">${short}</span>`;
       }
 
-      function escapeAttr(s) { return String(s).replace(/'/g, "&#39;").replace(/"/g, "&quot;"); }
+      /* ====== NOTE EDIT (double-click) — buttons in-cell ====== */
+      let currentBannerNoteEdit = null;
+      function enterBannerNoteEdit(cell) {
+        if (!cell || currentBannerNoteEdit) return;
+        const id = Number(cell.dataset.rowId);
+        const kind = cell.dataset.kind;
+        const arr = kind === "deleted" ? deletedBanners : activeBanners;
+        const item = arr.find((x) => x.id === id);
+        if (!item) return;
+        const originalText = item.note || "";
+        currentBannerNoteEdit = { cell, item, originalText };
+        cell.classList.add("editing");
+        cell.innerHTML = `
+          <textarea class="note-edit-area" placeholder="Nhập ghi chú..."></textarea>
+          <div class="note-edit-actions">
+            <button class="btn btn-primary btn-sm" onclick="saveBannerNoteEdit(event)">Lưu</button>
+            <button class="btn btn-ghost btn-sm" onclick="cancelBannerNoteEdit(event)">Hủy</button>
+          </div>`;
+        const ta = cell.querySelector("textarea");
+        if (ta) {
+          ta.value = originalText;
+          ta.focus();
+          ta.setSelectionRange(ta.value.length, ta.value.length);
+        }
+      }
+      function saveBannerNoteEdit(ev) {
+        if (ev) ev.stopPropagation();
+        if (!currentBannerNoteEdit) return;
+        const { cell, item } = currentBannerNoteEdit;
+        const ta = cell.querySelector("textarea");
+        const value = ta ? ta.value : "";
+        item.note = value;
+        if (cell.isConnected) {
+          cell.classList.remove("editing");
+          cell.innerHTML = noteCell(value);
+        }
+        currentBannerNoteEdit = null;
+      }
+      function cancelBannerNoteEdit(ev) {
+        if (ev) ev.stopPropagation();
+        if (!currentBannerNoteEdit) return;
+        const { cell, originalText } = currentBannerNoteEdit;
+        if (cell.isConnected) {
+          cell.classList.remove("editing");
+          cell.innerHTML = noteCell(originalText);
+        }
+        currentBannerNoteEdit = null;
+      }
+      function bindBannerNoteEdit(tbodyId) {
+        const tb = document.getElementById(tbodyId);
+        if (!tb || tb.dataset.dblbound) return;
+        tb.dataset.dblbound = "1";
+        tb.addEventListener("dblclick", (e) => {
+          const cell = e.target.closest("td.note-cell");
+          if (!cell) return;
+          if (currentBannerNoteEdit) return;
+          enterBannerNoteEdit(cell);
+        });
+      }
+
+      function escapeAttr(s) {
+        return String(s).replace(/'/g, "&#39;").replace(/"/g, "&quot;");
+      }
 
       /* ====== RENDER ACTIVE ====== */
       function renderActive() {
         const tb = document.getElementById("tbody-active");
-        tb.innerHTML = activeBanners.map((b, i) => `
+        tb.innerHTML = activeBanners
+          .map(
+            (b, i) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td>${i + 1}</td>
@@ -636,15 +1885,21 @@
             <td>${b.createdBy}</td>
             <td style="font-size:11.5px">${b.time}</td>
             <td>${statusBadge(b.status)}</td>
-            <td class="td-left">${noteCell(b.note)}</td>
+            <td class="td-left note-cell" data-row-id="${b.id}" data-kind="active">${noteCell(b.note)}</td>
           </tr>
-        `).join("");
-        document.getElementById("active-count").textContent = `${activeBanners.length} banner`;
+        `,
+          )
+          .join("");
+        document.getElementById("active-count").textContent =
+          `${activeBanners.length} banner`;
+        bindBannerNoteEdit("tbody-active");
       }
 
       function renderDeleted() {
         const tb = document.getElementById("tbody-deleted");
-        tb.innerHTML = deletedBanners.map((b) => `
+        tb.innerHTML = deletedBanners
+          .map(
+            (b) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td class="td-left">
@@ -662,37 +1917,54 @@
             <td style="font-size:11.5px">${b.time}</td>
             <td>${b.deletedAt}</td>
             <td>${b.deletedBy}</td>
-            <td class="td-left">${noteCell(b.note)}</td>
+            <td class="td-left note-cell" data-row-id="${b.id}" data-kind="deleted">${noteCell(b.note)}</td>
           </tr>
-        `).join("");
-        document.getElementById("deleted-count").textContent = `${deletedBanners.length} banner`;
+        `,
+          )
+          .join("");
+        document.getElementById("deleted-count").textContent =
+          `${deletedBanners.length} banner`;
+        bindBannerNoteEdit("tbody-deleted");
       }
 
       /* ====== NAV / TABS ====== */
       function goSection(section) {
-        document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
-        document.querySelectorAll(".sidebar-item").forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((s) => s.classList.remove("active"));
         document.getElementById(`page-${section}`).classList.add("active");
         document.getElementById(`sidebar-${section}`).classList.add("active");
         window.scrollTo(0, 0);
       }
 
       function switchTab(name) {
-        document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
         document.getElementById(`tab-${name}`).classList.add("active");
-        document.getElementById("panel-active").style.display = name === "active" ? "" : "none";
-        document.getElementById("panel-deleted").style.display = name === "deleted" ? "" : "none";
+        document.getElementById("panel-active").style.display =
+          name === "active" ? "" : "none";
+        document.getElementById("panel-deleted").style.display =
+          name === "deleted" ? "" : "none";
       }
 
       /* ====== CRITERIA DROPDOWN ====== */
       const criteriaOptions = {
-        active: ["Tiêu đề quảng cáo", "ID quản trị viên"],
-        deleted: ["Tiêu đề quảng cáo", "ID quản trị viên"],
+        active: ["Tiêu đề", "Người tạo"],
+        deleted: ["Tiêu đề", "Người tạo"],
       };
       function buildCriteriaMenu(key) {
         const wrap = document.getElementById(`criteria-${key}`);
         const menu = wrap.querySelector(".criteria-menu");
-        menu.innerHTML = criteriaOptions[key].map((o) => `<button class="criteria-option" onclick="selectCriteria('${key}','${o}')">${o}</button>`).join("");
+        menu.innerHTML = criteriaOptions[key]
+          .map(
+            (o) =>
+              `<button class="criteria-option" onclick="selectCriteria('${key}','${o}')">${o}</button>`,
+          )
+          .join("");
       }
       function toggleCriteria(key, ev) {
         ev.stopPropagation();
@@ -706,7 +1978,9 @@
         closeAllCriteria();
       }
       function closeAllCriteria() {
-        document.querySelectorAll(".criteria-wrap").forEach((w) => w.classList.remove("open"));
+        document
+          .querySelectorAll(".criteria-wrap")
+          .forEach((w) => w.classList.remove("open"));
       }
 
       /* ====== CELL MENU ====== */
@@ -715,7 +1989,9 @@
         el.classList.toggle("open");
       }
       function closeAllMenus() {
-        document.querySelectorAll(".cell-menu.open").forEach((m) => m.classList.remove("open"));
+        document
+          .querySelectorAll(".cell-menu.open")
+          .forEach((m) => m.classList.remove("open"));
       }
 
       /* ====== DATE NAV ====== */
@@ -728,18 +2004,55 @@
 
       /* ====== TABLE SELECTION ====== */
       function toggleAll(chk, tbodyId) {
-        document.querySelectorAll(`#${tbodyId} input[type="checkbox"]`).forEach((c) => (c.checked = chk.checked));
+        document
+          .querySelectorAll(`#${tbodyId} input[type="checkbox"]`)
+          .forEach((c) => (c.checked = chk.checked));
       }
 
       /* ====== ACTION MODAL ====== */
       const actionModalMap = {
-        "delete": { title: "Xóa banner", body: "Bạn có chắc chắn muốn xóa banner này? Banner sẽ chuyển sang tab 'Banner đã xóa'.", btn: "Xóa", danger: true },
-        "bulk-delete": { title: "Xóa banner đã chọn", body: "Xóa tất cả banner đã chọn? Banner sẽ chuyển sang tab 'Banner đã xóa'.", btn: "Xóa", danger: true },
-        "restore": { title: "Khôi phục banner", body: "Khôi phục banner này về danh sách banner đang quản lý?", btn: "Khôi phục", danger: false },
-        "bulk-restore": { title: "Khôi phục banner đã chọn", body: "Khôi phục tất cả banner đã chọn về danh sách banner đang quản lý?", btn: "Khôi phục", danger: false },
-        "hard-delete": { title: "Xóa vĩnh viễn banner", body: "Banner sẽ bị xóa vĩnh viễn khỏi hệ thống và không thể khôi phục. Tiếp tục?", btn: "Xóa vĩnh viễn", danger: true },
-        "bulk-hard-delete": { title: "Xóa vĩnh viễn banner đã chọn", body: "Banner đã chọn sẽ bị xóa vĩnh viễn khỏi hệ thống và không thể khôi phục. Tiếp tục?", btn: "Xóa vĩnh viễn", danger: true },
-        "toggle-show": { title: "Đổi trạng thái hiển thị", body: "Đổi trạng thái hiển thị của banner này?", btn: "Xác nhận", danger: false },
+        delete: {
+          title: "Xóa banner",
+          body: "Bạn có chắc chắn muốn xóa banner này? Banner sẽ chuyển sang tab 'Banner đã xóa'.",
+          btn: "Xóa",
+          danger: true,
+        },
+        "bulk-delete": {
+          title: "Xóa banner đã chọn",
+          body: "Xóa tất cả banner đã chọn? Banner sẽ chuyển sang tab 'Banner đã xóa'.",
+          btn: "Xóa",
+          danger: true,
+        },
+        restore: {
+          title: "Khôi phục banner",
+          body: "Khôi phục banner này về danh sách banner đang quản lý?",
+          btn: "Khôi phục",
+          danger: false,
+        },
+        "bulk-restore": {
+          title: "Khôi phục banner đã chọn",
+          body: "Khôi phục tất cả banner đã chọn về danh sách banner đang quản lý?",
+          btn: "Khôi phục",
+          danger: false,
+        },
+        "hard-delete": {
+          title: "Xóa vĩnh viễn banner",
+          body: "Banner sẽ bị xóa vĩnh viễn khỏi hệ thống và không thể khôi phục. Tiếp tục?",
+          btn: "Xóa vĩnh viễn",
+          danger: true,
+        },
+        "bulk-hard-delete": {
+          title: "Xóa vĩnh viễn banner đã chọn",
+          body: "Banner đã chọn sẽ bị xóa vĩnh viễn khỏi hệ thống và không thể khôi phục. Tiếp tục?",
+          btn: "Xóa vĩnh viễn",
+          danger: true,
+        },
+        "toggle-show": {
+          title: "Đổi trạng thái hiển thị",
+          body: "Đổi trạng thái hiển thị của banner này?",
+          btn: "Xác nhận",
+          danger: false,
+        },
       };
       let currentActionContext = null;
       function openActionModal(type, ctx) {
@@ -754,25 +2067,59 @@
         document.getElementById("action-modal-backdrop").classList.add("open");
       }
       function closeActionModal() {
-        document.getElementById("action-modal-backdrop").classList.remove("open");
+        document
+          .getElementById("action-modal-backdrop")
+          .classList.remove("open");
         currentActionContext = null;
       }
       function confirmActionModal() {
         if (!currentActionContext) return closeActionModal();
-        alert(`Đã ${actionModalMap[currentActionContext.type].btn.toLowerCase()}.`);
+        alert(
+          `Đã ${actionModalMap[currentActionContext.type].btn.toLowerCase()}.`,
+        );
         closeActionModal();
       }
 
-      function askDelete(id) { openActionModal("delete", id); }
-      function askRestore(id) { openActionModal("restore", id); }
-      function askHardDelete(id) { openActionModal("hard-delete", id); }
-      function toggleShow(id) { openActionModal("toggle-show", id); }
+      function askDelete(id) {
+        openActionModal("delete", id);
+      }
+      function askRestore(id) {
+        openActionModal("restore", id);
+      }
+      function askHardDelete(id) {
+        openActionModal("hard-delete", id);
+      }
+      function toggleShow(id) {
+        openActionModal("toggle-show", id);
+      }
 
       /* ====== FORM ACTIONS ====== */
       function togglePos(el) {
         const chk = el.querySelector('input[type="checkbox"]');
         chk.checked = !chk.checked;
         el.classList.toggle("selected", chk.checked);
+      }
+      /* "01-07-2025 00:00" → "2025-07-01T00:00" */
+      function displayToISO(s) {
+        const m = (s || "").match(
+          /^(\d{2})-(\d{2})-(\d{4})\s+(\d{2}):(\d{2})$/,
+        );
+        if (!m) return "";
+        return `${m[3]}-${m[2]}-${m[1]}T${m[4]}:${m[5]}`;
+      }
+      /* "2025-07-01T00:00" → "01-07-2025 00:00" */
+      function isoToDisplay(s) {
+        const m = (s || "").match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+        if (!m) return "";
+        return `${m[3]}-${m[2]}-${m[1]} ${m[4]}:${m[5]}`;
+      }
+      function updateTimeDisplay() {
+        const s = document.getElementById("bf-start").value;
+        const e = document.getElementById("bf-end").value;
+        const sd = isoToDisplay(s);
+        const ed = isoToDisplay(e);
+        const target = document.getElementById("bf-time-display");
+        if (target) target.textContent = sd && ed ? `${sd} ~ ${ed}` : "—";
       }
       function goEdit(id) {
         const b = activeBanners.find((x) => x.id === id);
@@ -781,8 +2128,9 @@
         document.getElementById("bf-title").value = b.title;
         document.getElementById("bf-note").value = b.note || "";
         const [s, e] = b.time.split(" ~ ");
-        document.getElementById("bf-start").value = s;
-        document.getElementById("bf-end").value = e;
+        document.getElementById("bf-start").value = displayToISO(s);
+        document.getElementById("bf-end").value = displayToISO(e);
+        updateTimeDisplay();
         document.querySelectorAll(".pos-card").forEach((c) => {
           const t = c.querySelector(".pos-card-title").textContent.trim();
           const sel = b.pos.includes(t);
@@ -793,7 +2141,8 @@
       function applyBanner() {
         const title = document.getElementById("bf-title").value.trim();
         if (!title) return alert("Vui lòng nhập tiêu đề banner.");
-        const anyPos = [...document.querySelectorAll(".pos-card.selected")].length > 0;
+        const anyPos =
+          [...document.querySelectorAll(".pos-card.selected")].length > 0;
         if (!anyPos) return alert("Vui lòng chọn ít nhất một vị trí hiển thị.");
         alert("Đã áp dụng banner.");
         goSection("list");
@@ -801,14 +2150,22 @@
 
       /* ====== PREVIEW ====== */
       function openPreview() {
-        const title = document.getElementById("bf-title").value.trim() || "(Chưa có tiêu đề)";
-        const sel = [...document.querySelectorAll(".pos-card.selected")].map((c) => c.querySelector(".pos-card-title").textContent.trim());
-        const start = document.getElementById("bf-start").value;
-        const end = document.getElementById("bf-end").value;
-        const link = document.getElementById("bf-link").value.trim() || "(Chưa có)";
-        const note = document.getElementById("bf-note").value.trim() || "(Trống)";
+        const title =
+          document.getElementById("bf-title").value.trim() ||
+          "(Chưa có tiêu đề)";
+        const sel = [...document.querySelectorAll(".pos-card.selected")].map(
+          (c) => c.querySelector(".pos-card-title").textContent.trim(),
+        );
+        const start = isoToDisplay(document.getElementById("bf-start").value);
+        const end = isoToDisplay(document.getElementById("bf-end").value);
+        const link =
+          document.getElementById("bf-link").value.trim() || "(Chưa có)";
+        const note =
+          document.getElementById("bf-note").value.trim() || "(Trống)";
         document.getElementById("pv-title").textContent = title;
-        document.getElementById("pv-pos").textContent = sel.length ? sel.join(", ") : "(Chưa chọn)";
+        document.getElementById("pv-pos").textContent = sel.length
+          ? sel.join(", ")
+          : "(Chưa chọn)";
         document.getElementById("pv-time").textContent = `${start} ~ ${end}`;
         document.getElementById("pv-link").textContent = link;
         document.getElementById("pv-note").textContent = note;
@@ -826,7 +2183,9 @@
         document.getElementById("preview-banner-img").textContent = b.title;
         document.getElementById("preview-backdrop").classList.add("open");
       }
-      function closePreview() { document.getElementById("preview-backdrop").classList.remove("open"); }
+      function closePreview() {
+        document.getElementById("preview-backdrop").classList.remove("open");
+      }
 
       /* ====== GLOBAL LISTENERS ====== */
       document.addEventListener("click", () => {
@@ -845,6 +2204,7 @@
       buildCriteriaMenu("deleted");
       renderActive();
       renderDeleted();
+      updateTimeDisplay();
     </script>
   </body>
 </html>
