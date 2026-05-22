@@ -115,7 +115,7 @@
         background: rgba(255, 255, 255, 0.18);
         color: white;
       }
-            .nav-item-group {
+      .nav-item-group {
         position: relative;
       }
       .nav-item-group .nav-dropdown {
@@ -157,7 +157,7 @@
         text-decoration: none;
         display: inline-block;
       }
-.nav-item.active {
+      .nav-item.active {
         background: rgba(255, 255, 255, 0.22);
         font-weight: 600;
       }
@@ -997,8 +997,12 @@
       <nav class="header-nav">
         <a class="nav-item" href="home-management.html">Trang chủ</a>
         <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
-        <a class="nav-item" href="virtual-member-management.html">Thành viên ảo</a>
-        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item" href="virtual-member-management.html"
+          >Thành viên ảo</a
+        >
+        <a class="nav-item" href="real-member-staff.html"
+          >Thành viên thực, staff</a
+        >
         <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
         <div class="nav-item nav-item-group">
           Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
@@ -1010,13 +1014,21 @@
           </div>
         </div>
         <a class="nav-item active" href="menu-management.html">Menu</a>
-        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="post-comment-management.html"
+          >Bài viết. Bình luận</a
+        >
         <a class="nav-item" href="tag-management.html">Thẻ</a>
-        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="report-management.html"
+          >Từ cấm. Spam. Báo cáo</a
+        >
         <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
-        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="reward-badge-management.html"
+          >Điểm thưởng. Huy hiệu</a
+        >
         <a class="nav-item" href="statistics-management.html">Thống kê</a>
-        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+        <a class="nav-item" href="push-notification-management.html"
+          >Thông báo đẩy</a
+        >
       </nav>
       <div class="header-user">
         <div class="header-avatar">AD</div>
@@ -1439,6 +1451,16 @@
             </div>
 
             <div class="form-group">
+              <label class="form-label">Layout Template</label>
+              <input
+                id="topic-template"
+                class="form-input form-input-readonly"
+                readonly
+                title="Không thể thay đổi template sau khi đã tạo chuyên mục"
+              />
+            </div>
+
+            <div class="form-group">
               <label class="form-label">Giải thích</label>
               <textarea
                 id="topic-desc"
@@ -1733,6 +1755,20 @@
             <div class="error-text" id="err-topic-name"></div>
           </div>
           <div class="form-group">
+            <label class="form-label"
+              >Chọn Layout Template <span class="req">*</span></label
+            >
+            <select class="form-input" id="new-topic-template">
+              <option value="">— Chọn template —</option>
+              <option value="Ảnh Trước/Sau">Ảnh Trước/Sau</option>
+              <option value="Review/Thông tin">Review/Thông tin</option>
+              <option value="Hỏi Đáp">Hỏi Đáp</option>
+              <option value="Tán Gẫu">Tán Gẫu</option>
+            </select>
+
+            <div class="error-text" id="err-topic-template"></div>
+          </div>
+          <div class="form-group">
             <label class="form-label">Giải thích</label>
             <textarea
               class="form-input"
@@ -2010,6 +2046,12 @@
         { id: 15, name: "Khác", desc: "", visible: true, icon: null, subs: [] },
       ];
 
+      const LAYOUT_TEMPLATES = [
+        "Ảnh Trước/Sau",
+        "Review/Thông tin",
+        "Hỏi Đáp",
+        "Tán Gẫu",
+      ];
       let topics = [
         {
           id: 1,
@@ -2020,6 +2062,7 @@
           icon: null,
           iconEmoji: "🖼️",
           postCount: 0,
+          layoutTemplate: "Ảnh Trước/Sau",
         },
         {
           id: 2,
@@ -2030,6 +2073,7 @@
           icon: null,
           iconEmoji: "👍",
           postCount: 0,
+          layoutTemplate: "Review/Thông tin",
         },
         {
           id: 3,
@@ -2040,6 +2084,7 @@
           icon: null,
           iconEmoji: "⭐",
           postCount: 0,
+          layoutTemplate: "Review/Thông tin",
         },
         {
           id: 4,
@@ -2050,6 +2095,7 @@
           icon: null,
           iconEmoji: "💬",
           postCount: 0,
+          layoutTemplate: "Hỏi Đáp",
         },
         {
           id: 5,
@@ -2060,6 +2106,7 @@
           icon: null,
           iconEmoji: "☕",
           postCount: 0,
+          layoutTemplate: "Tán Gẫu",
         },
       ];
 
@@ -2412,6 +2459,7 @@
         const descInput = document.getElementById("topic-desc");
         const visInput = document.getElementById("topic-visible");
         const noteInput = document.getElementById("topic-note");
+        const tplInput = document.getElementById("topic-template");
         const preview = document.getElementById("topic-icon-preview");
         if (!nameInput || !descInput || !visInput || !noteInput) return;
         if (!t) {
@@ -2419,6 +2467,7 @@
           descInput.value = "";
           visInput.checked = false;
           noteInput.value = "";
+          if (tplInput) tplInput.value = "";
           if (preview) preview.innerHTML = "";
           return;
         }
@@ -2426,6 +2475,7 @@
         descInput.value = t.desc || "";
         visInput.checked = !!t.visible;
         noteInput.value = t.note || "";
+        if (tplInput) tplInput.value = t.layoutTemplate || "—";
         if (preview) {
           if (t.icon) {
             preview.innerHTML = `<img src="${t.icon}" style="width:48px;height:48px;border-radius:var(--radius-sm);object-fit:cover" />`;
@@ -2853,6 +2903,7 @@
         backdrop
           .querySelectorAll("input[type=checkbox]")
           .forEach((el) => (el.checked = true));
+        backdrop.querySelectorAll("select").forEach((el) => (el.value = ""));
         backdrop
           .querySelectorAll(".error-text")
           .forEach((el) => (el.textContent = ""));
@@ -3016,10 +3067,19 @@
       function confirmAddTopic() {
         const nameInput = document.getElementById("new-topic-name");
         const errEl = document.getElementById("err-topic-name");
+        const tplSel = document.getElementById("new-topic-template");
+        const tplErrEl = document.getElementById("err-topic-template");
         const name = nameInput.value.trim();
+        const template = tplSel.value;
         if (!name) {
           errEl.textContent = "Tên chuyên mục không được để trống.";
           nameInput.classList.add("invalid");
+          return;
+        }
+        if (!template) {
+          if (tplErrEl) tplErrEl.textContent = "Vui lòng chọn Layout Template.";
+          tplSel.classList.add("invalid");
+          alert("Vui lòng chọn Layout Template.");
           return;
         }
         const duplicate = topics.find(
@@ -3033,6 +3093,8 @@
         }
         errEl.textContent = "";
         nameInput.classList.remove("invalid");
+        if (tplErrEl) tplErrEl.textContent = "";
+        tplSel.classList.remove("invalid");
         const newId = Date.now();
         topics.push({
           id: newId,
@@ -3043,6 +3105,7 @@
           icon: newTopicIconData || null,
           iconEmoji: "",
           postCount: 0,
+          layoutTemplate: template,
           permissions: defaultTopicPermissions(),
         });
         newTopicIconData = null;
@@ -3191,9 +3254,8 @@
 
         if (addTopicOpen) {
           topicName =
-            (
-              document.getElementById("new-topic-name")?.value || ""
-            ).trim() || "Chuyên mục mới";
+            (document.getElementById("new-topic-name")?.value || "").trim() ||
+            "Chuyên mục mới";
           perms = defaultTopicPermissions();
         } else {
           if (selectedTopicId == null) {
@@ -3258,6 +3320,6 @@
           closePermissionModal();
         }
       });
-</script>
+    </script>
   </body>
 </html>
