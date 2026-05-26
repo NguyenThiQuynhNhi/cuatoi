@@ -2398,7 +2398,7 @@
     >
       <div
         class="modal-box"
-        style="width:520px"
+        style="width: 520px"
         role="dialog"
         aria-modal="true"
         onclick="event.stopPropagation()"
@@ -2412,13 +2412,23 @@
             <label class="form-label">
               Thành viên bị tạm khóa hoạt động
               <span
-                style="color:var(--accent);font-weight:600;margin-left:4px"
+                style="color: var(--accent); font-weight: 600; margin-left: 4px"
                 id="suspend-member-count"
-              >1</span>
+                >1</span
+              >
             </label>
             <div
               id="suspend-member-list"
-              style="border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;min-height:64px;background:var(--gray-50);display:flex;flex-wrap:wrap;gap:6px"
+              style="
+                border: 1px solid var(--gray-200);
+                border-radius: 6px;
+                padding: 10px 12px;
+                min-height: 64px;
+                background: var(--gray-50);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+              "
             ></div>
           </div>
 
@@ -2452,7 +2462,7 @@
               />
               Quảng cáo, lăng mạ, chửi tục
             </label>
-            <label class="radio-row" style="align-items:center;gap:8px">
+            <label class="radio-row" style="align-items: center; gap: 8px">
               <input
                 type="radio"
                 name="suspend-reason"
@@ -2464,10 +2474,15 @@
                 type="text"
                 id="suspend-reason-other"
                 class="form-input"
-                style="flex:1;height:32px"
+                style="flex: 1; height: 32px"
                 placeholder="nhập lý do"
                 disabled
-                oninput="document.querySelector('input[name=suspend-reason][value=khac]').checked=true;handleSuspendReasonChange();"
+                oninput="
+                  document.querySelector(
+                    'input[name=suspend-reason][value=khac]',
+                  ).checked = true;
+                  handleSuspendReasonChange();
+                "
               />
             </label>
           </div>
@@ -2477,7 +2492,7 @@
             <select
               id="suspend-duration"
               class="form-input"
-              style="width:200px"
+              style="width: 200px"
             >
               <option value="1">1 ngày</option>
               <option value="3">3 ngày</option>
@@ -2489,7 +2504,12 @@
           </div>
 
           <div
-            style="border-top:1px solid var(--gray-200);padding-top:14px;font-size:13px;color:var(--gray-700)"
+            style="
+              border-top: 1px solid var(--gray-200);
+              padding-top: 14px;
+              font-size: 13px;
+              color: var(--gray-700);
+            "
           >
             Tạm khóa hoạt động của thành viên trên?
           </div>
@@ -2513,30 +2533,50 @@
     >
       <div
         class="modal-box"
-        style="width:520px"
+        style="width: 520px"
         role="dialog"
         aria-modal="true"
         onclick="event.stopPropagation()"
       >
         <div class="modal-header">
           <h3 class="modal-title">Buộc rời bỏ</h3>
-          <button class="modal-close" onclick="closeForceLeaveModal()">×</button>
+          <button class="modal-close" onclick="closeForceLeaveModal()">
+            ×
+          </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
             <label class="form-label">
               Buộc rời bỏ
               <span
-                style="color:var(--accent);font-weight:600;margin-left:4px"
+                style="color: var(--accent); font-weight: 600; margin-left: 4px"
                 id="force-leave-member-count"
-              >1</span>
+                >1</span
+              >
             </label>
             <div
               id="force-leave-member-list"
-              style="border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;min-height:64px;background:var(--gray-50);display:flex;flex-wrap:wrap;gap:6px"
+              style="
+                border: 1px solid var(--gray-200);
+                border-radius: 6px;
+                padding: 10px 12px;
+                min-height: 64px;
+                background: var(--gray-50);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+              "
             ></div>
             <div
-              style="font-size:12px;color:var(--gray-500);margin-top:6px;border:1px solid var(--gray-200);padding:8px 10px;border-radius:6px;background:var(--gray-50)"
+              style="
+                font-size: 12px;
+                color: var(--gray-500);
+                margin-top: 6px;
+                border: 1px solid var(--gray-200);
+                padding: 8px 10px;
+                border-radius: 6px;
+                background: var(--gray-50);
+              "
             >
               Thành viên bị buộc rời khỏi hệ thống sẽ không thể đăng ký lại.
             </div>
@@ -2585,7 +2625,7 @@
               type="text"
               id="force-leave-reason-other"
               class="form-input"
-              style="margin-top:8px;display:none"
+              style="margin-top: 8px; display: none"
               placeholder="nhập lý do"
             />
           </div>
@@ -3105,27 +3145,51 @@
 
       function renderTitleMenu(post, page) {
         const s = getPostActionState(post.id);
-        const bestItem = s.best
-          ? `<button class="menu-item" onclick="openActionModal('remove-best','${post.id}')">Gỡ Best</button>`
-          : `<button class="menu-item" onclick="openActionModal('mark-best','${post.id}')">Gắn Best</button>`;
-        const hideItem = s.hidden
-          ? `<button class="menu-item" onclick="openActionModal('show-post','${post.id}')">Hiện bài viết</button>`
-          : `<button class="menu-item" onclick="openActionModal('hide-post','${post.id}')">Tạm ẩn bài viết</button>`;
-        const unfeatureItem = s.unfeatured
-          ? `<button class="menu-item" onclick="openActionModal('feature-home','${post.id}')">Hiện lại trang chủ</button>`
-          : `<button class="menu-item" onclick="openActionModal('unfeature-post','${post.id}')">Gỡ khỏi trang chủ</button>`;
-        const deleteItem = s.deleted
-          ? `<button class="menu-item" onclick="openActionModal('restore-deleted-post','${post.id}')">Khôi phục</button>`
-          : `<button class="menu-item" onclick="openActionModal('delete-post','${post.id}')">Xóa bài viết</button>`;
+        let menuItems = [];
+
+        menuItems.push(
+          `<button class="menu-item" onclick="viewPost('${post.id}')">Xem bài viết</button>`,
+        );
+
+        if (page === "deleted") {
+          menuItems.push(
+            `<button class="menu-item" onclick="openActionModal('restore-deleted-post','${post.id}')">Khôi phục</button>`,
+          );
+        } else if (page === "hidden-suspended") {
+          const hideItem = s.hidden
+            ? `<button class="menu-item" onclick="openActionModal('show-post','${post.id}')">Hiện bài viết</button>`
+            : `<button class="menu-item" onclick="openActionModal('hide-post','${post.id}')">Tạm ẩn bài viết</button>`;
+          menuItems.push(hideItem);
+        } else if (page === "hidden-unfeatured") {
+          const unfeatureItem = s.unfeatured
+            ? `<button class="menu-item" onclick="openActionModal('feature-home','${post.id}')">Hiện lại trang chủ</button>`
+            : `<button class="menu-item" onclick="openActionModal('unfeature-post','${post.id}')">Gỡ khỏi trang chủ</button>`;
+          menuItems.push(unfeatureItem);
+        } else {
+          const bestItem = s.best
+            ? `<button class="menu-item" onclick="openActionModal('remove-best','${post.id}')">Gỡ Best</button>`
+            : `<button class="menu-item" onclick="openActionModal('mark-best','${post.id}')">Gắn Best</button>`;
+          const hideItem = s.hidden
+            ? `<button class="menu-item" onclick="openActionModal('show-post','${post.id}')">Hiện bài viết</button>`
+            : `<button class="menu-item" onclick="openActionModal('hide-post','${post.id}')">Tạm ẩn bài viết</button>`;
+          const unfeatureItem = s.unfeatured
+            ? `<button class="menu-item" onclick="openActionModal('feature-home','${post.id}')">Hiện lại trang chủ</button>`
+            : `<button class="menu-item" onclick="openActionModal('unfeature-post','${post.id}')">Gỡ khỏi trang chủ</button>`;
+          const deleteItem = s.deleted
+            ? `<button class="menu-item" onclick="openActionModal('restore-deleted-post','${post.id}')">Khôi phục</button>`
+            : `<button class="menu-item" onclick="openActionModal('delete-post','${post.id}')">Xóa bài viết</button>`;
+
+          menuItems.push(bestItem);
+          menuItems.push(hideItem);
+          menuItems.push(unfeatureItem);
+          menuItems.push('<hr class="menu-divider"/>');
+          menuItems.push(deleteItem);
+        }
+
         return `<div class="cell-menu">
           <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(post.title)}">${escText(post.title)}</button>
           <div class="menu-list">
-            <button class="menu-item" onclick="viewPost('${post.id}')">Xem bài viết</button>
-            ${bestItem}
-            ${hideItem}
-            ${unfeatureItem}
-            <hr class="menu-divider"/>
-            ${deleteItem}
+            ${menuItems.join("")}
           </div>
         </div>`;
       }
@@ -3136,8 +3200,6 @@
           <div class="menu-list">
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
-            <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Chỉnh sửa thông tin</button>
-            <hr class="menu-divider"/>
             ${renderUserActionItems(post.id, post.author, true)}
             <button class="menu-item" onclick="openActionModal('notify-author','${post.id}')">Gửi thông báo đẩy</button>
           </div>
@@ -3248,12 +3310,21 @@
       const ipActionState = {};
       function getUserActionState(author) {
         if (!userActionState[author])
-          userActionState[author] = { suspended: false, forceLeft: false, upgradeCanceled: false };
+          userActionState[author] = {
+            suspended: false,
+            forceLeft: false,
+            upgradeCanceled: false,
+          };
         return userActionState[author];
       }
       function getPostActionState(id) {
         if (!postActionState[id])
-          postActionState[id] = { hidden: false, unfeatured: false, deleted: false, best: false };
+          postActionState[id] = {
+            hidden: false,
+            unfeatured: false,
+            deleted: false,
+            best: false,
+          };
         return postActionState[id];
       }
       function getIpActionState(ip) {
@@ -3279,25 +3350,58 @@
         const p = getPostActionState(item.id);
         const i = item.ip ? getIpActionState(item.ip) : null;
         switch (type) {
-          case "suspend-author": if (u) u.suspended = true; break;
-          case "unsuspend-author": if (u) u.suspended = false; break;
-          case "force-leave-author": if (u) u.forceLeft = true; break;
-          case "restore-account": if (u) u.forceLeft = false; break;
-          case "cancel-upgrade": if (u) u.upgradeCanceled = true; break;
-          case "restore-upgrade": if (u) u.upgradeCanceled = false; break;
-          case "block-ip": if (i) i.blocked = true; break;
-          case "unblock-ip": if (i) i.blocked = false; break;
-          case "hide-post": p.hidden = true; break;
-          case "show-post": p.hidden = false; break;
-          case "unfeature-post": p.unfeatured = true; break;
-          case "feature-home": p.unfeatured = false; break;
-          case "delete-post": p.deleted = true; break;
+          case "suspend-author":
+            if (u) u.suspended = true;
+            break;
+          case "unsuspend-author":
+            if (u) u.suspended = false;
+            break;
+          case "force-leave-author":
+            if (u) u.forceLeft = true;
+            break;
+          case "restore-account":
+            if (u) u.forceLeft = false;
+            break;
+          case "cancel-upgrade":
+            if (u) u.upgradeCanceled = true;
+            break;
+          case "restore-upgrade":
+            if (u) u.upgradeCanceled = false;
+            break;
+          case "block-ip":
+            if (i) i.blocked = true;
+            break;
+          case "unblock-ip":
+            if (i) i.blocked = false;
+            break;
+          case "hide-post":
+            p.hidden = true;
+            break;
+          case "show-post":
+            p.hidden = false;
+            break;
+          case "unfeature-post":
+            p.unfeatured = true;
+            break;
+          case "feature-home":
+            p.unfeatured = false;
+            break;
+          case "delete-post":
+            p.deleted = true;
+            break;
           case "restore-deleted-post":
           case "restore-post":
           case "restore-hidden":
-            p.deleted = false; p.hidden = false; p.unfeatured = false; break;
-          case "mark-best": p.best = true; break;
-          case "remove-best": p.best = false; break;
+            p.deleted = false;
+            p.hidden = false;
+            p.unfeatured = false;
+            break;
+          case "mark-best":
+            p.best = true;
+            break;
+          case "remove-best":
+            p.best = false;
+            break;
         }
       }
       function renderUserActionItems(id, author, includeCancelUpgrade) {
@@ -3739,14 +3843,18 @@
           <div class="menu-list">
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
-            ${renderUserActionItems(post.id, post.author, true)}
+            ${renderUserActionItems(post.id, post.author, false)}
             <button class="menu-item" onclick="openActionModal('notify-author','${post.id}')">Gửi thông báo đẩy</button>
           </div>
         </div>`;
       }
 
       function renderTitleMenuHidden(post) {
-        return renderTitleMenu(post, "hidden");
+        const pageType =
+          currentHiddenSub === "suspended"
+            ? "hidden-suspended"
+            : "hidden-unfeatured";
+        return renderTitleMenu(post, pageType);
       }
 
       function renderTableHidden() {
@@ -3864,7 +3972,7 @@
           <div class="menu-list">
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
             <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
-            ${renderUserActionItems(c.id, c.author, true)}
+            ${renderUserActionItems(c.id, c.author, false)}
             <button class="menu-item" onclick="openActionModal('notify-author','${c.id}')">Gửi thông báo đẩy</button>
           </div>
         </div>`;
@@ -4178,9 +4286,7 @@
         document.getElementById("suspend-member-count").textContent = "1";
         document.getElementById("suspend-member-list").innerHTML =
           renderMemberChip(name);
-        document
-          .getElementById("suspend-modal-backdrop")
-          .classList.add("open");
+        document.getElementById("suspend-modal-backdrop").classList.add("open");
         closeAllMenus();
       }
       function closeSuspendModal() {
@@ -4282,8 +4388,12 @@
         renderCriteriaMenu,
       );
       postsBest.forEach((p) => (getPostActionState(p.id).best = true));
-      postsHiddenSuspended.forEach((p) => (getPostActionState(p.id).hidden = true));
-      postsHiddenUnfeatured.forEach((p) => (getPostActionState(p.id).unfeatured = true));
+      postsHiddenSuspended.forEach(
+        (p) => (getPostActionState(p.id).hidden = true),
+      );
+      postsHiddenUnfeatured.forEach(
+        (p) => (getPostActionState(p.id).unfeatured = true),
+      );
       postsDeleted.forEach((p) => (getPostActionState(p.id).deleted = true));
       renderTableReal();
       renderTableBest();
