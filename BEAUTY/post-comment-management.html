@@ -1819,9 +1819,10 @@
                 <span>Mục đã chọn:</span>
                 <button
                   class="btn btn-outline-primary btn-sm"
+                  id="bulk-hidden-btn"
                   onclick="bulkAction('hidden', 'restore')"
                 >
-                  Khôi phục
+                  Hiện bài viết
                 </button>
               </div>
               <div class="table-actions-right">
@@ -2158,6 +2159,11 @@
                 </button>
               </div>
               <div class="table-actions-right">
+                <div class="select-dropdown">
+                  <select id="filter-cat-cdeleted">
+                    <option value="">Tất cả danh mục</option>
+                  </select>
+                </div>
                 <div class="select-dropdown">
                   <select id="filter-grade-cdeleted">
                     <option value="">Tất cả cấp bậc</option>
@@ -3072,7 +3078,7 @@
       /* ====== CATEGORY FILTER DROPDOWN POPULATE ====== */
       function populateCategoryFilters() {
         const cats = ["", ...Object.keys(postCategoryMap)];
-        ["real", "best", "deleted", "hidden", "comments"].forEach((t) => {
+        ["real", "best", "deleted", "hidden", "comments", "cdeleted"].forEach((t) => {
           const sel = document.getElementById("filter-cat-" + t);
           if (!sel) return;
           sel.innerHTML = cats
@@ -3516,6 +3522,16 @@
           body: "Các bài viết sẽ được hiện lại trên feed và trang chủ.",
           done: "Đã khôi phục bài viết.",
         },
+        "bulk-show-post": {
+          title: "Hiện các bài viết đã chọn",
+          body: "Các bài viết sẽ được hiện lại trên feed người dùng.",
+          done: "Đã hiện lại bài viết.",
+        },
+        "bulk-feature-home": {
+          title: "Hiện lại trang chủ các bài đã chọn",
+          body: "Các bài viết sẽ xuất hiện lại trên trang chủ.",
+          done: "Đã hiện lại trên trang chủ.",
+        },
         "bulk-delete-comment": {
           title: "Xóa các bình luận đã chọn",
           body: "Các bình luận sẽ được chuyển sang 'Bình luận đã xóa'.",
@@ -3603,10 +3619,17 @@
           alert(`Vui lòng chọn ít nhất 1 ${noun}.`);
           return;
         }
+        let restoreType = "bulk-restore";
+        if (target === "hidden") {
+          restoreType =
+            currentHiddenSub === "suspended"
+              ? "bulk-show-post"
+              : "bulk-feature-home";
+        }
         const map = {
           delete: "bulk-delete",
           "remove-best": "bulk-remove-best",
-          restore: target === "hidden" ? "bulk-restore-hidden" : "bulk-restore",
+          restore: restoreType,
           "delete-comment": "bulk-delete-comment",
           "restore-comment": "bulk-restore-comment",
         };
@@ -3911,6 +3934,9 @@
         document.getElementById("count-hidden").textContent = isSuspended
           ? "567 bài"
           : "234 bài";
+        document.getElementById("bulk-hidden-btn").textContent = isSuspended
+          ? "Hiện bài viết"
+          : "Hiện lại trang chủ";
         renderTableHidden();
       }
 
