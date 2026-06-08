@@ -814,7 +814,7 @@
           Danh sách Hashtag
         </div>
         <div class="sidebar-item" id="sidebar-best" onclick="goSection('best')">
-          Hashtag Best
+          Hashtag Phổ biến
         </div>
       </aside>
 
@@ -922,7 +922,7 @@
                       onclick="toggleSort('list', 'used-date')"
                     >
                       Lần cuối sử dụng
-                      <span class="sort-arrow" id="sa-list-used-date"></span>
+                      <span class="sort-arrow" id="sa-list-used-date">⇅</span>
                     </th>
                   </tr>
                 </thead>
@@ -947,7 +947,7 @@
 
       <!-- ====== 9.2 THẺ BEST ====== -->
       <main class="main page" id="page-best">
-        <div class="page-title">• Hashtag Best</div>
+        <div class="page-title">• Hashtag Phổ biến</div>
 
         <div class="card">
           <div class="card-body">
@@ -983,10 +983,7 @@
                 </button>
                 <div class="criteria-menu"></div>
               </div>
-              <input
-                class="search-input-lg"
-                placeholder="Nhập #Hashtag hoặc ID/Người tạo..."
-              />
+              <input class="search-input-lg" placeholder="Nhập từ khóa" />
               <button
                 class="btn btn-primary btn-sm"
                 onclick="alert('Chức năng đang phát triển.')"
@@ -1000,7 +997,7 @@
         <div class="card">
           <div class="card-body">
             <div class="table-title">
-              • Quản lý Hashtag Best
+              • Quản lý Hashtag Phổ biến
               <span class="count" id="best-count">0 Hashtag</span>
             </div>
             <div class="table-actions">
@@ -1010,7 +1007,7 @@
                   class="btn btn-outline-danger btn-sm"
                   onclick="openActionModal('bulk-unmark-best')"
                 >
-                  Gỡ Best
+                  Gỡ phổ biến
                 </button>
               </div>
               <div class="table-actions-right">
@@ -1046,7 +1043,7 @@
                       onclick="toggleSort('best', 'used-date')"
                     >
                       Lần cuối sử dụng
-                      <span class="sort-arrow" id="sa-best-used-date"></span>
+                      <span class="sort-arrow" id="sa-best-used-date">⇅</span>
                     </th>
                   </tr>
                 </thead>
@@ -1348,7 +1345,7 @@
         cols.forEach((c) => {
           const el = document.getElementById(`sa-${target}-${c}`);
           if (!el) return;
-          el.textContent = s.col === c ? (s.dir === "asc" ? "▲" : "▼") : "";
+          el.textContent = s.col === c ? (s.dir === "asc" ? "▲" : "▼") : "⇅";
           el.parentElement.classList.toggle(
             "sorted-asc",
             s.col === c && s.dir === "asc",
@@ -1401,8 +1398,8 @@
                   <button class="menu-item" onclick="alert('Tìm bài viết chứa Hashtag ${escText(t.name).replace(/'/g, "&#39;")} (đang phát triển).')">Tìm bài viết chứa Hashtag này</button>
                   ${
                     t.isBest
-                      ? `<button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ Best</button>`
-                      : `<button class="menu-item" onclick="openTagAction('mark-best','${escText(t.id)}')">Đánh Best</button>`
+                      ? `<button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ phổ biến</button>`
+                      : `<button class="menu-item" onclick="openTagAction('mark-best','${escText(t.id)}')">Gắn phổ biến</button>`
                   }
                   <button class="menu-item" onclick="openTagAction('delete-tag','${escText(t.id)}')">Xóa Hashtag</button>
                 </div>
@@ -1438,7 +1435,7 @@
                 </button>
                 <div class="menu-list">
                   <button class="menu-item" onclick="alert('Tìm bài viết chứa Hashtag ${escText(t.name).replace(/'/g, "&#39;")} (đang phát triển).')">Tìm bài viết chứa Hashtag này</button>
-                  <button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ Best</button>
+                  <button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ phổ biến</button>
                 </div>
               </div>
             </td>
@@ -1455,15 +1452,15 @@
       /* ====== ACTION MODAL ====== */
       const actionMap = {
         "mark-best": {
-          title: "Đánh dấu Hashtag Best",
-          body: "Hashtag sẽ được thêm vào mục Hashtag Best.",
-          done: "Đã đánh Best.",
+          title: "Gắn phổ biến Hashtag",
+          body: "Hashtag sẽ được thêm vào mục Hashtag Phổ biến.",
+          done: "Đã gắn phổ biến.",
           primary: true,
         },
         "unmark-best": {
-          title: "Gỡ Best",
-          body: "Hashtag sẽ bị gỡ khỏi Hashtag Best, trở về Hashtag thường.",
-          done: "Đã gỡ Best.",
+          title: "Gỡ phổ biến",
+          body: "Hashtag sẽ bị gỡ khỏi Hashtag Phổ biến, trở về Hashtag thường.",
+          done: "Đã gỡ phổ biến.",
         },
         "delete-tag": {
           title: "Xóa Hashtag",
@@ -1472,8 +1469,8 @@
         },
         "bulk-mark-best": {
           title: "Gắn phổ biến các Hashtag đã chọn",
-          body: "Các Hashtag sẽ được thêm vào mục Hashtag Best.",
-          done: "Đã đánh Best.",
+          body: "Các Hashtag sẽ được thêm vào mục Hashtag Phổ biến.",
+          done: "Đã gắn phổ biến.",
           primary: true,
         },
         "bulk-delete": {
@@ -1482,9 +1479,9 @@
           done: "Đã xóa các Hashtag.",
         },
         "bulk-unmark-best": {
-          title: "Gỡ Best các Hashtag đã chọn",
+          title: "Gỡ phổ biến các Hashtag đã chọn",
           body: "Các Hashtag sẽ trở về Hashtag thường.",
-          done: "Đã gỡ Best.",
+          done: "Đã gỡ phổ biến.",
         },
       };
 

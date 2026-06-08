@@ -3489,19 +3489,12 @@
                 <button class="btn btn-outline-primary btn-sm" onclick="toggleInactiveHistoryMenu(event, this.parentElement)">
                   Lịch sử gửi thông báo
                 </button>
-                <div class="menu-list" style="width:320px;padding:12px;left:auto;right:0">
-                  <div style="display:flex;justify-content:space-between;font-weight:600;font-size:12px;border-bottom:1px solid var(--gray-200);padding-bottom:6px;margin-bottom:6px">
+                <div class="menu-list" style="width:320px;padding:12px;left:auto;right:0;max-height:240px;overflow-y:auto">
+                  <div style="display:flex;justify-content:space-between;font-weight:600;font-size:12px;border-bottom:1px solid var(--gray-200);padding-bottom:6px;margin-bottom:6px;position:sticky;top:-12px;background:white;padding-top:12px;margin-top:-12px">
                     <span>Ngày</span>
                     <span>Nội dung</span>
                   </div>
                   ${rows}
-                  <div style="display:flex;justify-content:flex-end;margin-top:8px">
-                    <select class="form-input" style="width:100px;height:28px;font-size:12px">
-                      <option>30 người</option>
-                      <option>50 người</option>
-                      <option>100 người</option>
-                    </select>
-                  </div>
                 </div>
               </div>
             </td>
