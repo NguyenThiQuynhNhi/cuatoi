@@ -918,7 +918,7 @@
       .detail-title { font-size: 16px; font-weight: 700; color: var(--gray-900); }
       .meta-badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--primary-light); color: var(--primary); }
 
-      .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 16px; }
+      .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 16px; }
       .stat-box { padding: 10px 8px; background: var(--gray-100); border-radius: 8px; text-align: center; }
       .stat-label { font-size: 11px; color: var(--gray-600); font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
       .stat-value { font-size: 18px; font-weight: 700; color: var(--primary); }
@@ -2189,6 +2189,10 @@
                 <div class="stat-label">Đang theo dõi</div>
                 <div class="stat-value" id="real-stat-following">0</div>
               </div>
+              <div class="stat-box">
+                <div class="stat-label">Người theo dõi</div>
+                <div class="stat-value" id="real-stat-followers">0</div>
+              </div>
             </div>
           </div>
         </div>
@@ -2983,6 +2987,8 @@
         document.getElementById("real-stat-reports").textContent = seed % 5;
         document.getElementById("real-stat-following").textContent =
           (seed * 7) % 120;
+        document.getElementById("real-stat-followers").textContent =
+          (seed * 11) % 200;
         renderRealDetailPosts(m);
         renderRealDetailComments(m);
       }
