@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thẻ - BEAUTY Admin</title>
+    <title>Hashtag - BEAUTY Admin</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -781,7 +781,7 @@
         <a class="nav-item" href="post-comment-management.html"
           >Bài viết. Bình luận</a
         >
-        <div class="nav-item active">Thẻ</div>
+        <div class="nav-item active">Hashtag</div>
         <a class="nav-item" href="report-management.html"
           >Từ cấm. Spam. Báo cáo</a
         >
@@ -805,22 +805,22 @@
 
     <div class="app-body">
       <aside class="sidebar">
-        <div class="sidebar-label">Thẻ</div>
+        <div class="sidebar-label">Hashtag</div>
         <div
           class="sidebar-item active"
           id="sidebar-list"
           onclick="goSection('list')"
         >
-          Danh sách thẻ
+          Danh sách Hashtag
         </div>
         <div class="sidebar-item" id="sidebar-best" onclick="goSection('best')">
-          Thẻ Best
+          Hashtag Best
         </div>
       </aside>
 
       <!-- ====== 9.1 DANH SÁCH THẺ ====== -->
       <main class="main page active" id="page-list">
-        <div class="page-title">• Danh sách thẻ</div>
+        <div class="page-title">• Danh sách Hashtag</div>
 
         <div class="card">
           <div class="card-body">
@@ -856,10 +856,7 @@
                 </button>
                 <div class="criteria-menu"></div>
               </div>
-              <input
-                class="search-input-lg"
-                placeholder="Nhập #thẻ hoặc ID/Người tạo..."
-              />
+              <input class="search-input-lg" placeholder="Nhập từ khóa" />
               <button
                 class="btn btn-primary btn-sm"
                 onclick="alert('Chức năng đang phát triển.')"
@@ -873,11 +870,12 @@
         <div class="card">
           <div class="card-body">
             <div class="table-title">
-              • Quản lý thẻ <span class="count" id="list-count">0 thẻ</span>
+              • Quản lý Hashtag
+              <span class="count" id="list-count">0 Hashtag</span>
             </div>
             <div class="table-actions">
               <div class="table-actions-left">
-                <span>Thẻ đã chọn:</span>
+                <span>Hashtag đã chọn:</span>
                 <button
                   class="btn btn-outline-danger btn-sm"
                   onclick="openActionModal('bulk-delete')"
@@ -888,21 +886,10 @@
                   class="btn btn-outline-primary btn-sm"
                   onclick="openActionModal('bulk-mark-best')"
                 >
-                  Gắn Best
+                  Gắn phổ biến
                 </button>
               </div>
               <div class="table-actions-right">
-                <div class="select-dropdown">
-                  <select
-                    id="sort-by-list"
-                    onchange="onSortChange('list', this.value)"
-                  >
-                    <option value="usedDesc">Số lần sử dụng (giảm dần)</option>
-                    <option value="usedAsc">Số lần sử dụng (tăng dần)</option>
-                    <option value="newDesc">Ngày tạo mới nhất</option>
-                    <option value="newAsc">Ngày tạo cũ nhất</option>
-                  </select>
-                </div>
                 <div class="select-dropdown">
                   <select>
                     <option>Danh sách 30</option>
@@ -922,20 +909,14 @@
                         onchange="toggleAll(this, 'tbody-list')"
                       />
                     </th>
-                    <th>Tên thẻ</th>
+                    <th>Tên Hashtag</th>
                     <th class="sortable" onclick="toggleSort('list', 'used')">
-                      Số lần sử dụng
+                      Hashtag score
                       <span class="sort-arrow" id="sa-list-used">▼</span>
                     </th>
                     <th>Người tạo</th>
                     <th>Cấp bậc</th>
-                    <th
-                      class="sortable"
-                      onclick="toggleSort('list', 'created')"
-                    >
-                      Ngày tạo
-                      <span class="sort-arrow" id="sa-list-created"></span>
-                    </th>
+                    <th>Ngày tạo</th>
                     <th
                       class="sortable"
                       onclick="toggleSort('list', 'used-date')"
@@ -966,7 +947,7 @@
 
       <!-- ====== 9.2 THẺ BEST ====== -->
       <main class="main page" id="page-best">
-        <div class="page-title">• Thẻ Best</div>
+        <div class="page-title">• Hashtag Best</div>
 
         <div class="card">
           <div class="card-body">
@@ -1004,7 +985,7 @@
               </div>
               <input
                 class="search-input-lg"
-                placeholder="Nhập #thẻ hoặc ID/Người tạo..."
+                placeholder="Nhập #Hashtag hoặc ID/Người tạo..."
               />
               <button
                 class="btn btn-primary btn-sm"
@@ -1019,31 +1000,20 @@
         <div class="card">
           <div class="card-body">
             <div class="table-title">
-              • Quản lý thẻ Best
-              <span class="count" id="best-count">0 thẻ</span>
+              • Quản lý Hashtag Best
+              <span class="count" id="best-count">0 Hashtag</span>
             </div>
             <div class="table-actions">
               <div class="table-actions-left">
-                <span>Thẻ đã chọn:</span>
+                <span>Hashtag đã chọn:</span>
                 <button
                   class="btn btn-outline-danger btn-sm"
                   onclick="openActionModal('bulk-unmark-best')"
                 >
-                  Gỡ Best (trở về thẻ thường)
+                  Gỡ Best
                 </button>
               </div>
               <div class="table-actions-right">
-                <div class="select-dropdown">
-                  <select
-                    id="sort-by-best"
-                    onchange="onSortChange('best', this.value)"
-                  >
-                    <option value="usedDesc">Số lần sử dụng (giảm dần)</option>
-                    <option value="usedAsc">Số lần sử dụng (tăng dần)</option>
-                    <option value="newDesc">Ngày tạo mới nhất</option>
-                    <option value="newAsc">Ngày tạo cũ nhất</option>
-                  </select>
-                </div>
                 <div class="select-dropdown">
                   <select>
                     <option>Danh sách 30</option>
@@ -1063,20 +1033,14 @@
                         onchange="toggleAll(this, 'tbody-best')"
                       />
                     </th>
-                    <th>Tên thẻ</th>
+                    <th>Tên Hashtag</th>
                     <th class="sortable" onclick="toggleSort('best', 'used')">
-                      Số lần sử dụng
+                      Hashtag score
                       <span class="sort-arrow" id="sa-best-used">▼</span>
                     </th>
                     <th>Người tạo</th>
                     <th>Cấp bậc</th>
-                    <th
-                      class="sortable"
-                      onclick="toggleSort('best', 'created')"
-                    >
-                      Ngày tạo
-                      <span class="sort-arrow" id="sa-best-created"></span>
-                    </th>
+                    <th>Ngày tạo</th>
                     <th
                       class="sortable"
                       onclick="toggleSort('best', 'used-date')"
@@ -1263,7 +1227,7 @@
         },
       ];
 
-      const SEARCH_CRITERIA = ["ID", "Người tạo", "Thẻ"];
+      const SEARCH_CRITERIA = ["ID", "Người tạo", "Hashtag"];
       let currentSection = "list";
       let sortBy = { list: "usedDesc", best: "usedDesc" };
       let sortColumn = {
@@ -1380,7 +1344,7 @@
 
       function renderArrows(target) {
         const s = sortColumn[target];
-        const cols = ["used", "created", "used-date"];
+        const cols = ["used", "used-date"];
         cols.forEach((c) => {
           const el = document.getElementById(`sa-${target}-${c}`);
           if (!el) return;
@@ -1394,21 +1358,6 @@
             s.col === c && s.dir === "desc",
           );
         });
-      }
-
-      function onSortChange(target, value) {
-        if (value === "usedDesc") {
-          sortColumn[target] = { col: "used", dir: "desc" };
-        } else if (value === "usedAsc") {
-          sortColumn[target] = { col: "used", dir: "asc" };
-        } else if (value === "newDesc") {
-          sortColumn[target] = { col: "created", dir: "desc" };
-        } else if (value === "newAsc") {
-          sortColumn[target] = { col: "created", dir: "asc" };
-        }
-        renderArrows(target);
-        if (target === "list") renderListTable();
-        else renderBestTable();
       }
 
       /* ====== ROW SELECT ====== */
@@ -1437,7 +1386,7 @@
         if (!tbody) return;
         const sorted = sortTags(tags, "list");
         document.getElementById("list-count").textContent =
-          `${sorted.length} thẻ`;
+          `${sorted.length} Hashtag`;
         tbody.innerHTML = sorted
           .map(
             (t) => `
@@ -1449,13 +1398,13 @@
                   <span class="tag-chip ${t.isBest ? "best is-best-mark" : ""}">${escText(t.name)}</span>
                 </button>
                 <div class="menu-list">
-                  <button class="menu-item" onclick="alert('Tìm bài viết chứa thẻ ${escText(t.name).replace(/'/g, "&#39;")} (đang phát triển).')">Tìm bài viết chứa thẻ này</button>
+                  <button class="menu-item" onclick="alert('Tìm bài viết chứa Hashtag ${escText(t.name).replace(/'/g, "&#39;")} (đang phát triển).')">Tìm bài viết chứa Hashtag này</button>
                   ${
                     t.isBest
                       ? `<button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ Best</button>`
                       : `<button class="menu-item" onclick="openTagAction('mark-best','${escText(t.id)}')">Đánh Best</button>`
                   }
-                  <button class="menu-item" onclick="openTagAction('delete-tag','${escText(t.id)}')">Xóa thẻ</button>
+                  <button class="menu-item" onclick="openTagAction('delete-tag','${escText(t.id)}')">Xóa Hashtag</button>
                 </div>
               </div>
             </td>
@@ -1476,7 +1425,7 @@
         const onlyBest = tags.filter((t) => t.isBest);
         const sorted = sortTags(onlyBest, "best");
         document.getElementById("best-count").textContent =
-          `${sorted.length} thẻ`;
+          `${sorted.length} Hashtag`;
         tbody.innerHTML = sorted
           .map(
             (t) => `
@@ -1488,7 +1437,7 @@
                   <span class="tag-chip best is-best-mark">${escText(t.name)}</span>
                 </button>
                 <div class="menu-list">
-                  <button class="menu-item" onclick="alert('Tìm bài viết chứa thẻ ${escText(t.name).replace(/'/g, "&#39;")} (đang phát triển).')">Tìm bài viết chứa thẻ này</button>
+                  <button class="menu-item" onclick="alert('Tìm bài viết chứa Hashtag ${escText(t.name).replace(/'/g, "&#39;")} (đang phát triển).')">Tìm bài viết chứa Hashtag này</button>
                   <button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ Best</button>
                 </div>
               </div>
@@ -1506,35 +1455,35 @@
       /* ====== ACTION MODAL ====== */
       const actionMap = {
         "mark-best": {
-          title: "Đánh dấu thẻ Best",
-          body: "Thẻ sẽ được thêm vào mục Thẻ Best.",
+          title: "Đánh dấu Hashtag Best",
+          body: "Hashtag sẽ được thêm vào mục Hashtag Best.",
           done: "Đã đánh Best.",
           primary: true,
         },
         "unmark-best": {
           title: "Gỡ Best",
-          body: "Thẻ sẽ bị gỡ khỏi Thẻ Best, trở về thẻ thường.",
+          body: "Hashtag sẽ bị gỡ khỏi Hashtag Best, trở về Hashtag thường.",
           done: "Đã gỡ Best.",
         },
         "delete-tag": {
-          title: "Xóa thẻ",
-          body: "Thẻ sẽ bị xóa khỏi hệ thống và không còn dùng được trong bài viết.",
-          done: "Đã xóa thẻ.",
+          title: "Xóa Hashtag",
+          body: "Hashtag sẽ bị xóa khỏi hệ thống và không còn dùng được trong bài viết.",
+          done: "Đã xóa Hashtag.",
         },
         "bulk-mark-best": {
-          title: "Gắn Best các thẻ đã chọn",
-          body: "Các thẻ sẽ được thêm vào mục Thẻ Best.",
+          title: "Gắn phổ biến các Hashtag đã chọn",
+          body: "Các Hashtag sẽ được thêm vào mục Hashtag Best.",
           done: "Đã đánh Best.",
           primary: true,
         },
         "bulk-delete": {
-          title: "Xóa các thẻ đã chọn",
-          body: "Các thẻ sẽ bị xóa khỏi hệ thống.",
-          done: "Đã xóa các thẻ.",
+          title: "Xóa các Hashtag đã chọn",
+          body: "Các Hashtag sẽ bị xóa khỏi hệ thống.",
+          done: "Đã xóa các Hashtag.",
         },
         "bulk-unmark-best": {
-          title: "Gỡ Best các thẻ đã chọn",
-          body: "Các thẻ sẽ trở về thẻ thường.",
+          title: "Gỡ Best các Hashtag đã chọn",
+          body: "Các Hashtag sẽ trở về Hashtag thường.",
           done: "Đã gỡ Best.",
         },
       };
@@ -1557,7 +1506,7 @@
               : "list";
         const count = selectedIds[target].size;
         if (count === 0) {
-          alert("Vui lòng chọn ít nhất 1 thẻ.");
+          alert("Vui lòng chọn ít nhất 1 Hashtag.");
           return;
         }
         pendingAction = { type, id: null };

@@ -852,8 +852,9 @@
         display: flex;
         align-items: flex-end;
         gap: 6px;
-        height: 80px;
+        height: 220px;
         padding: 4px 0;
+        border-bottom: 1px solid var(--gray-200);
       }
       .bar {
         flex: 1;
@@ -866,11 +867,43 @@
       .bar:hover {
         background: var(--accent);
       }
+      .bar-value {
+        position: absolute;
+        top: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--gray-700);
+        white-space: nowrap;
+      }
       .bar-label {
-        font-size: 10px;
-        color: var(--gray-500);
+        font-size: 11px;
+        color: var(--gray-600);
         text-align: center;
         margin-top: 4px;
+        word-break: break-word;
+        line-height: 1.3;
+      }
+      .lr-chart {
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .lr-chart-y {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 11px;
+        color: var(--gray-500);
+        height: 220px;
+        padding-right: 4px;
+        text-align: right;
+        min-width: 36px;
+      }
+      .lr-chart-plot {
+        flex: 1;
+        min-width: 0;
       }
 
       /* ====== DETAIL / EDIT PAGES ====== */
@@ -913,6 +946,7 @@
       #page-real-edit.view-mode .cat-add-row { display: none; }
       #page-real-edit.view-mode .cat-chip .x { display: none; }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   </head>
   <body>
     <header class="header">
@@ -941,7 +975,7 @@
         <a class="nav-item" href="post-comment-management.html"
           >Bài viết. Bình luận</a
         >
-        <a class="nav-item" href="tag-management.html">Thẻ</a>
+        <a class="nav-item" href="tag-management.html">Hashtag</a>
         <a class="nav-item" href="report-management.html"
           >Từ cấm. Spam. Báo cáo</a
         >
@@ -1281,6 +1315,17 @@
               <div class="table-actions-right">
                 <div class="select-dropdown">
                   <select>
+                    <option>Tất cả cấp bậc</option>
+                    <option>Lv.1</option>
+                    <option>Lv.2</option>
+                    <option>Lv.3</option>
+                    <option>KOL</option>
+                    <option>Chuyên gia</option>
+                    <option>Bác sĩ</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
                     <option>Danh sách 30</option>
                     <option>Danh sách 50</option>
                   </select>
@@ -1433,6 +1478,17 @@
               <div class="table-actions-right">
                 <div class="select-dropdown">
                   <select>
+                    <option>Tất cả cấp bậc</option>
+                    <option>Lv.1</option>
+                    <option>Lv.2</option>
+                    <option>Lv.3</option>
+                    <option>KOL</option>
+                    <option>Chuyên gia</option>
+                    <option>Bác sĩ</option>
+                  </select>
+                </div>
+                <div class="select-dropdown">
+                  <select>
                     <option>Danh sách 30</option>
                     <option>Danh sách 50</option>
                   </select>
@@ -1509,6 +1565,52 @@
         <div class="card">
           <div class="card-body">
             <div class="table-title">• Thống kê lý do rời bỏ</div>
+            <div class="search-row">
+              <span class="filter-label">Thời gian:</span>
+              <div class="date-range">
+                <button class="date-nav" onclick="shiftDate('lrstat', -1)">
+                  ‹
+                </button>
+                <span class="date-display" id="lrstat-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button class="date-nav" onclick="shiftDate('lrstat', 1)">
+                  ›
+                </button>
+              </div>
+              <div class="time-filters">
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('lrstat', 'day', this)"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  onclick="setQuickFilter('lrstat', 'week', this)"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('lrstat', 'month', this)"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('lrstat', 'year', this)"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  onclick="setQuickFilter('lrstat', 'all', this)"
+                >
+                  Tất cả
+                </button>
+              </div>
+            </div>
             <div class="search-row" style="margin-bottom: 12px">
               <div class="select-dropdown">
                 <select>
@@ -1516,22 +1618,42 @@
                   <option>Lv.1</option>
                   <option>Lv.2</option>
                   <option>Lv.3</option>
+                  <option>KOL</option>
                   <option>Chuyên gia</option>
+                  <option>Bác sĩ</option>
                 </select>
               </div>
-              <div class="time-filters">
-                <button class="tf-btn">Ngày</button>
-                <button class="tf-btn active">Tuần</button>
-                <button class="tf-btn">Tháng</button>
-                <button class="tf-btn">Năm</button>
-                <button class="tf-btn">Tất cả</button>
+            </div>
+
+            <div class="lr-chart">
+              <div class="lr-chart-y">
+                <span>100%</span>
+                <span>75%</span>
+                <span>50%</span>
+                <span>25%</span>
+                <span>0%</span>
+              </div>
+              <div class="lr-chart-plot">
+                <div class="bars-row" id="lr-stats-bars"></div>
+                <div
+                  style="display: flex; gap: 6px; margin-top: 8px"
+                  id="lr-stats-labels"
+                ></div>
               </div>
             </div>
-            <div class="bars-row" id="lr-stats-bars"></div>
-            <div
-              style="display: flex; gap: 6px; margin-top: 8px"
-              id="lr-stats-labels"
-            ></div>
+
+            <div class="table-wrap" style="margin-top: 20px">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="td-left" style="padding-left: 16px">Lý do</th>
+                    <th style="width: 140px">Lượt chọn</th>
+                    <th style="width: 140px">Tỉ lệ</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-lr-stats"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </main>
@@ -1660,11 +1782,46 @@
             </div>
 
             <div id="na-panel-stats" style="display: none">
+              <div class="search-row" style="margin-bottom: 12px">
+                <span class="filter-label">Cấp bậc:</span>
+                <select
+                  id="filter-inactive-grade"
+                  class="form-input"
+                  style="width: 180px"
+                  onchange="renderInactiveChart();renderInactiveTable()"
+                >
+                  <option value="">Tất cả cấp bậc</option>
+                  <option value="lv1">Lv.1</option>
+                  <option value="lv2">Lv.2</option>
+                  <option value="lv3">Lv.3</option>
+                  <option value="lv4">Lv.4</option>
+                  <option value="lv5">Lv.5</option>
+                  <option value="expert">Chuyên gia</option>
+                </select>
+              </div>
+
+              <div style="margin-bottom: 16px">
+                <canvas id="inactive-chart" style="max-height: 260px"></canvas>
+              </div>
+
+              <div class="table-actions">
+                <div></div>
+                <div class="table-actions-right">
+                  <div class="select-dropdown">
+                    <select class="form-input" style="width: 120px">
+                      <option>30 người</option>
+                      <option>50 người</option>
+                      <option>100 người</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
               <div class="table-wrap">
                 <table>
                   <thead>
                     <tr>
-                      <th>Tuần</th>
+                      <th>Ngày tháng</th>
                       <th>Tổng thành viên</th>
                       <th>Lv.1</th>
                       <th>Lv.2</th>
@@ -1674,7 +1831,7 @@
                       <th>Chuyên gia</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="tbody-inactive-stats">
                     <tr>
                       <td class="td-left">Tuần 02/06/2025 - 09/06/2025</td>
                       <td>320</td>
@@ -1717,6 +1874,18 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="table-footer">
+                  <div></div>
+                  <div class="pagination">
+                    <button class="pg-btn">‹</button>
+                    <button class="pg-btn active">1</button>
+                    <button class="pg-btn">2</button>
+                    <button class="pg-btn">3</button>
+                    <button class="pg-btn">4</button>
+                    <button class="pg-btn">›</button>
+                  </div>
+                  <div style="width: 120px"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -1774,6 +1943,17 @@
                 </button>
               </div>
               <div class="table-actions-right">
+                <div class="select-dropdown">
+                  <select>
+                    <option>Tất cả cấp bậc</option>
+                    <option>Lv.1</option>
+                    <option>Lv.2</option>
+                    <option>Lv.3</option>
+                    <option>KOL</option>
+                    <option>Chuyên gia</option>
+                    <option>Bác sĩ</option>
+                  </select>
+                </div>
                 <div class="select-dropdown">
                   <select>
                     <option>Danh sách 30</option>
@@ -1877,9 +2057,13 @@
               <div class="table-actions-right">
                 <div class="select-dropdown">
                   <select>
-                    <option>Toàn bộ</option>
-                    <option>QTV 1</option>
-                    <option>QTV 2</option>
+                    <option>Tất cả cấp bậc</option>
+                    <option>Lv.1</option>
+                    <option>Lv.2</option>
+                    <option>Lv.3</option>
+                    <option>KOL</option>
+                    <option>Chuyên gia</option>
+                    <option>Bác sĩ</option>
                   </select>
                 </div>
                 <div class="select-dropdown">
@@ -1949,6 +2133,12 @@
                 </div>
               </div>
               <div style="display: flex; gap: 12px; flex-wrap: wrap">
+                <button class="btn btn-outline-primary" onclick="goRealEdit(currentRealMemberId)">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0" />
+                  </svg>
+                  Chỉnh sửa thông tin
+                </button>
                 <button class="btn btn-outline-danger" onclick="openSuspendModal()">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
@@ -2521,7 +2711,11 @@
           lastLogin: "20-06-2025 16:43",
           daysAway: 10,
           grade: "Lv.1",
-          lastNotify: "30-06-2025 16:33",
+          notifHistory: [
+            { date: "30/06/2025", content: "Xin chào" },
+            { date: "28/06/2025", content: "Thư" },
+            { date: "22/06/2025", content: "Bạn vẫn khỏe chứ?" },
+          ],
         },
         {
           id: "M402",
@@ -2530,7 +2724,10 @@
           lastLogin: "15-06-2025 09:18",
           daysAway: 15,
           grade: "Lv.2",
-          lastNotify: "28-06-2025 16:59",
+          notifHistory: [
+            { date: "28/06/2025", content: "Khuyến mãi tháng 6" },
+            { date: "20/06/2025", content: "Cập nhật ứng dụng" },
+          ],
         },
         {
           id: "M403",
@@ -2539,7 +2736,7 @@
           lastLogin: "01-06-2025 09:20",
           daysAway: 28,
           grade: "Lv.3",
-          lastNotify: "—",
+          notifHistory: [],
         },
       ];
 
@@ -3250,8 +3447,19 @@
         const tbody = document.getElementById("tbody-na");
         if (!tbody) return;
         tbody.innerHTML = noAccessMembers
-          .map(
-            (m) => `
+          .map((m) => {
+            const rows = (m.notifHistory || []).length
+              ? m.notifHistory
+                  .map(
+                    (h) => `
+                  <div style="display:flex;justify-content:space-between;font-size:12px;padding:4px 0">
+                    <span>${escText(h.date)}</span>
+                    <span>${escText(h.content)}</span>
+                  </div>`,
+                  )
+                  .join("")
+              : `<div style="font-size:12px;color:var(--gray-500);padding:4px 0;text-align:center">Chưa có thông báo nào</div>`;
+            return `
           <tr>
             <td><input type="checkbox" /></td>
             <td>${escText(m.id)}</td>
@@ -3270,10 +3478,37 @@
             <td>${escText(m.lastLogin)}</td>
             <td>${m.daysAway} ngày</td>
             <td>${escText(m.grade)}</td>
-            <td>${escText(m.lastNotify)}</td>
-          </tr>`,
-          )
+            <td>
+              <div class="cell-menu">
+                <button class="btn btn-outline-primary btn-sm" onclick="toggleInactiveHistoryMenu(event, this.parentElement)">
+                  Lịch sử gửi thông báo
+                </button>
+                <div class="menu-list" style="width:320px;padding:12px;left:auto;right:0">
+                  <div style="display:flex;justify-content:space-between;font-weight:600;font-size:12px;border-bottom:1px solid var(--gray-200);padding-bottom:6px;margin-bottom:6px">
+                    <span>Ngày</span>
+                    <span>Nội dung</span>
+                  </div>
+                  ${rows}
+                  <div style="display:flex;justify-content:flex-end;margin-top:8px">
+                    <select class="form-input" style="width:100px;height:28px;font-size:12px">
+                      <option>30 người</option>
+                      <option>50 người</option>
+                      <option>100 người</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>`;
+          })
           .join("");
+      }
+
+      function toggleInactiveHistoryMenu(event, menuEl) {
+        event.stopPropagation();
+        const isOpen = menuEl.classList.contains("open");
+        closeAllMenus();
+        if (!isOpen) menuEl.classList.add("open");
       }
 
       function switchNoAccess(sub, btn) {
@@ -3290,6 +3525,63 @@
           sub === "list"
             ? "• Quản lý thành viên không truy cập"
             : "• Thống kê lượng thành viên không truy cập";
+        if (sub === "stats") {
+          renderInactiveChart();
+          renderInactiveTable();
+        }
+      }
+
+      /* ====== INACTIVE STATS (4.1.5-2) ====== */
+      const inactiveChartData = {
+        notifications: [12, 45, 28, 18],
+        emails: [10, 48, 32, 15],
+        inactive: [8, 38, 20, 12],
+      };
+      let inactiveChartInstance = null;
+      function renderInactiveChart() {
+        const canvas = document.getElementById("inactive-chart");
+        if (!canvas || typeof Chart === "undefined") return;
+        if (inactiveChartInstance) inactiveChartInstance.destroy();
+        inactiveChartInstance = new Chart(canvas, {
+          type: "bar",
+          data: {
+            labels: ["2/6~9/6", "9/6~16/6", "16/6~23/6", "23/6~30/6"],
+            datasets: [
+              {
+                label: "Thông báo đã gửi",
+                data: inactiveChartData.notifications,
+                backgroundColor: "#7eb3f5",
+              },
+              {
+                label: "Thư đã gửi",
+                data: inactiveChartData.emails,
+                backgroundColor: "#f5a3a3",
+              },
+              {
+                label: "Thành viên không truy cập",
+                data: inactiveChartData.inactive,
+                backgroundColor: "#9b8ec4",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "top",
+                align: "end",
+                labels: { boxWidth: 12, font: { size: 12 } },
+              },
+            },
+            scales: {
+              x: { grid: { display: false } },
+              y: { beginAtZero: true, grid: { color: "#f0f0f0" } },
+            },
+          },
+        });
+      }
+      function renderInactiveTable() {
+        /* placeholder — bảng dùng data mẫu tĩnh, sẽ wire khi có nguồn số liệu */
       }
 
       /* ====== RENDER: LEAVE REASONS (4.1.4) ====== */
@@ -3394,29 +3686,50 @@
       /* ====== LR STATS bars (sample) ====== */
       function renderLRBars() {
         const data = [
-          { label: "UI/UX", value: 32 },
-          { label: "Thông báo nhiều", value: 24 },
-          { label: "Chuyển app khác", value: 18 },
-          { label: "Lý do khác", value: 12 },
-          { label: "Bất tiện", value: 28 },
-          { label: "Khác", value: 9 },
+          { label: "Sử dụng app bất tiện (UI/UX)", value: 32 },
+          { label: "Quá nhiều thông báo", value: 24 },
+          { label: "Chuyển sang dùng app khác", value: 18 },
+          { label: "Nội dung không phù hợp", value: 12 },
+          { label: "Tài khoản bị hạn chế", value: 28 },
+          { label: "Lý do khác", value: 9 },
         ];
-        const max = Math.max(...data.map((d) => d.value));
+        const total = data.reduce((s, d) => s + d.value, 0);
+        const withPct = data.map((d) => ({
+          ...d,
+          pct: total > 0 ? Math.round((d.value / total) * 100) : 0,
+        }));
+        const maxPct = Math.max(...withPct.map((d) => d.pct), 1);
         const bars = document.getElementById("lr-stats-bars");
         const labels = document.getElementById("lr-stats-labels");
-        if (!bars || !labels) return;
-        bars.innerHTML = data
-          .map(
-            (d) =>
-              `<div class="bar" style="height:${(d.value / max) * 100}%" title="${escText(d.label)}: ${d.value}"></div>`,
-          )
-          .join("");
-        labels.innerHTML = data
-          .map(
-            (d) =>
-              `<div class="bar-label" style="flex:1">${escText(d.label)}</div>`,
-          )
-          .join("");
+        const tbody = document.getElementById("tbody-lr-stats");
+        if (bars) {
+          bars.innerHTML = withPct
+            .map(
+              (d) =>
+                `<div class="bar" style="height:${(d.pct / maxPct) * 100}%" title="${escText(d.label)}: ${d.pct}%"><span class="bar-value">${d.pct}%</span></div>`,
+            )
+            .join("");
+        }
+        if (labels) {
+          labels.innerHTML = withPct
+            .map(
+              (d) =>
+                `<div class="bar-label" style="flex:1">${escText(d.label)}</div>`,
+            )
+            .join("");
+        }
+        if (tbody) {
+          tbody.innerHTML = withPct
+            .map(
+              (d) => `
+            <tr>
+              <td class="td-left" style="padding-left: 16px">${escText(d.label)}</td>
+              <td>${d.value}</td>
+              <td>${d.pct}%</td>
+            </tr>`,
+            )
+            .join("");
+        }
       }
 
       /* ====== RENDER: ADD STAFF ====== */
