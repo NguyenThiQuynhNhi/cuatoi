@@ -2311,6 +2311,14 @@
                   <option>Bác sĩ</option>
                 </select>
               </div>
+              <div class="form-group">
+                <label class="form-label">Ngày sinh</label>
+                <input class="form-input" id="rf-birthday" type="date" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">ID người giới thiệu</label>
+                <input class="form-input" id="rf-referrer" placeholder="Nhập ID người giới thiệu" />
+              </div>
 
               <div class="form-row-full">
                 <label class="form-label">Danh mục chính (tối đa 3)</label>
@@ -3045,6 +3053,8 @@
         document.getElementById("rf-email").value = m.email || "";
         document.getElementById("rf-gender").value = m.gender || "Nữ";
         document.getElementById("rf-grade").value = m.grade || "Lv.1";
+        document.getElementById("rf-birthday").value = m.birthday || "";
+        document.getElementById("rf-referrer").value = m.referrerId || "";
         document.getElementById("rf-note").value = m.note || "";
         realFormCategories = Array.isArray(m.categories) ? [...m.categories] : [];
         renderRealCategoryChips();
@@ -3096,6 +3106,8 @@
           m.email = document.getElementById("rf-email").value.trim();
           m.gender = document.getElementById("rf-gender").value;
           m.grade = document.getElementById("rf-grade").value;
+          m.birthday = document.getElementById("rf-birthday").value;
+          m.referrerId = document.getElementById("rf-referrer").value.trim();
           m.note = document.getElementById("rf-note").value.trim();
           m.categories = [...realFormCategories];
         }

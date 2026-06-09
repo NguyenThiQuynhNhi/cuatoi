@@ -1436,6 +1436,7 @@
                 <div class="menu-list">
                   <button class="menu-item" onclick="alert('Tìm bài viết chứa Hashtag ${escText(t.name).replace(/'/g, "&#39;")} (đang phát triển).')">Tìm bài viết chứa Hashtag này</button>
                   <button class="menu-item" onclick="openTagAction('unmark-best','${escText(t.id)}')">Gỡ phổ biến</button>
+                  <button class="menu-item" onclick="openTagAction('delete-tag','${escText(t.id)}')">Xóa Hashtag</button>
                 </div>
               </div>
             </td>
