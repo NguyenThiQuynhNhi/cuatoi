@@ -2252,6 +2252,49 @@
                 <button class="btn btn-outline-danger btn-sm">Xóa mục chọn</button>
               </div>
             </div>
+
+            <div
+              style="
+                margin-top: 20px;
+                padding-top: 20px;
+                border-top: 1px solid var(--gray-200);
+              "
+            >
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 600;
+                  margin-bottom: 12px;
+                  color: var(--gray-700);
+                "
+              >
+                Ghi chú
+              </div>
+              <div
+                id="real-note-wrap"
+                style="
+                  min-height: 60px;
+                  padding: 10px 12px;
+                  background: var(--gray-50);
+                  border: 1px solid var(--gray-200);
+                  border-radius: 4px;
+                  cursor: pointer;
+                  position: relative;
+                "
+                ondblclick="enterRealNoteEdit()"
+                title="Double click để chỉnh sửa"
+              >
+                <span
+                  id="real-note-display"
+                  style="
+                    font-size: 12px;
+                    color: var(--gray-600);
+                    white-space: pre-wrap;
+                  "
+                  >-</span
+                >
+              </div>
+            </div>
           </div>
         </div>
       </main>
@@ -2997,6 +3040,8 @@
           (seed * 7) % 120;
         document.getElementById("real-stat-followers").textContent =
           (seed * 11) % 200;
+        const noteEl = document.getElementById("real-note-display");
+        if (noteEl) noteEl.textContent = m.note && m.note.trim() ? m.note : "-";
         renderRealDetailPosts(m);
         renderRealDetailComments(m);
       }
@@ -3004,17 +3049,31 @@
         const tbody = document.getElementById("real-detail-posts-tbody");
         if (!tbody) return;
         const samples = [
-          { topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review serum B5 sau 14 ngày", date: "22-06-2025 14:30", views: 420 },
-          { topic: "Hướng dẫn", main: "Tóc", sub: "Mỹ phẩm", title: "5 bước phục hồi tóc khô xơ", date: "18-06-2025 09:45", views: 287 },
-          { topic: "Cảnh báo", main: "Mũi", sub: "PTTM/ Tiểu phẫu", title: "3 dấu hiệu nguy hiểm sau nâng mũi", date: "12-06-2025 21:12", views: 645 },
+          { id: "P001", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review serum B5 sau 14 ngày dùng đều", date: "22-06-2025 14:30", views: 420 },
+          { id: "P002", topic: "Hướng dẫn", main: "Tóc", sub: "Mỹ phẩm", title: "5 bước phục hồi tóc khô xơ tại nhà", date: "18-06-2025 09:45", views: 287 },
+          { id: "P003", topic: "Cảnh báo", main: "Mũi", sub: "PTTM/ Tiểu phẫu", title: "3 dấu hiệu nguy hiểm sau nâng mũi cần biết", date: "12-06-2025 21:12", views: 645 },
+          { id: "P004", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Kem chống nắng La Roche-Posay có thực sự hiệu quả?", date: "08-06-2025 10:18", views: 892 },
+          { id: "P005", topic: "Hỏi đáp", main: "Răng miệng", sub: "PTTM/ Tiểu phẫu", title: "Niềng răng trong suốt vs niềng mắc cài cố định", date: "05-06-2025 16:40", views: 533 },
         ];
-        const n = Math.min(samples.length, Math.max(1, (m.posts || 0) % 4));
-        tbody.innerHTML = samples.slice(0, n).map((p) => `
+        tbody.innerHTML = samples.map((p) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td class="td-left">${escText(p.topic)}</td>
             <td class="td-left">${escText(p.main)} - ${escText(p.sub)}</td>
-            <td class="td-left">${escText(p.title)}</td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(p.title)}">${escText(p.title)}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="alert('Xem bài viết (đang phát triển).')">Xem bài viết</button>
+                  <button class="menu-item" onclick="alert('Thay đổi danh mục (đang phát triển).')">Thay đổi danh mục</button>
+                  <button class="menu-item" onclick="alert('Gắn Best (đang phát triển).')">Gắn Best</button>
+                  <button class="menu-item" onclick="alert('Tạm ẩn bài viết (đang phát triển).')">Tạm ẩn bài viết</button>
+                  <button class="menu-item" onclick="alert('Gỡ khỏi trang chủ (đang phát triển).')">Gỡ khỏi trang chủ</button>
+                  <hr style="margin:4px 0;border:none;border-top:1px solid var(--gray-200)"/>
+                  <button class="menu-item" onclick="alert('Xóa bài viết (đang phát triển).')">Xóa bài viết</button>
+                </div>
+              </div>
+            </td>
             <td>${escText(p.date)}</td>
             <td>${p.views}</td>
           </tr>
@@ -3024,21 +3083,43 @@
         const tbody = document.getElementById("real-detail-comments-tbody");
         if (!tbody) return;
         const samples = [
-          { topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review kem chống nắng SPF50+", content: "Mình dùng được 2 tuần, da đỡ kích ứng hẳn", date: "20-06-2025 11:20" },
-          { topic: "Hỏi đáp", main: "Răng miệng", sub: "PTTM", title: "Có nên niềng răng tuổi 30?", content: "Tuổi 30 vẫn niềng được nhé, mình mất 2 năm", date: "15-06-2025 18:05" },
-          { topic: "Cảnh báo", main: "Mũi", sub: "PTTM", title: "3 dấu hiệu nguy hiểm sau nâng mũi", content: "Bác sĩ nói rõ hơn về tình trạng đầu mũi tím?", date: "10-06-2025 09:30" },
+          { id: "C001", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review kem chống nắng SPF50+ Sunplay", content: "Mình dùng được 2 tuần, da đỡ kích ứng hẳn so với loại cũ", date: "20-06-2025 11:20" },
+          { id: "C002", topic: "Hỏi đáp", main: "Răng miệng", sub: "PTTM/ Tiểu phẫu", title: "Có nên niềng răng tuổi 30 không?", content: "Tuổi 30 vẫn niềng được nhé, mình mất 2 năm nhưng kết quả xứng đáng", date: "15-06-2025 18:05" },
+          { id: "C003", topic: "Cảnh báo", main: "Mũi", sub: "PTTM/ Tiểu phẫu", title: "3 dấu hiệu nguy hiểm sau nâng mũi", content: "Bác sĩ có thể nói rõ hơn về tình trạng đầu mũi bị tím không ạ?", date: "10-06-2025 09:30" },
+          { id: "C004", topic: "Hướng dẫn", main: "Tóc", sub: "Mỹ phẩm", title: "Phục hồi tóc cháy ép sau salon", content: "Mình từng tẩy tóc trắng nhiều lần, dùng mặt nạ Olaplex N3 đỡ kha khá", date: "06-06-2025 21:48" },
+          { id: "C005", topic: "Review", main: "Mắt/ Lông mi", sub: "Mỹ phẩm", title: "Mascara Maybelline Sky High có waterproof không?", content: "Bản thường thì không, có bản waterproof riêng nhé. Mình đeo lens vẫn ổn", date: "02-06-2025 14:10" },
         ];
-        const n = Math.min(samples.length, Math.max(1, (m.comments || 0) % 4));
-        tbody.innerHTML = samples.slice(0, n).map((c) => `
+        tbody.innerHTML = samples.map((c) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td class="td-left">${escText(c.topic)}</td>
             <td class="td-left">${escText(c.main)} - ${escText(c.sub)}</td>
             <td class="td-left">${escText(c.title)}</td>
-            <td class="td-left">${escText(c.content)}</td>
+            <td class="td-left">
+              <div class="cell-menu">
+                <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(c.content)}">${escText(c.content)}</button>
+                <div class="menu-list">
+                  <button class="menu-item" onclick="alert('Xem bình luận (đang phát triển).')">Xem bình luận</button>
+                  <hr style="margin:4px 0;border:none;border-top:1px solid var(--gray-200)"/>
+                  <button class="menu-item" onclick="alert('Xóa bình luận (đang phát triển).')">Xóa</button>
+                </div>
+              </div>
+            </td>
             <td>${escText(c.date)}</td>
           </tr>
         `).join("");
+      }
+
+      function enterRealNoteEdit() {
+        const noteDisplay = document.getElementById("real-note-display");
+        if (!noteDisplay) return;
+        const current = noteDisplay.textContent === "-" ? "" : noteDisplay.textContent;
+        const updated = prompt("Cập nhật ghi chú:", current);
+        if (updated === null) return;
+        const trimmed = updated.trim();
+        noteDisplay.textContent = trimmed || "-";
+        const m = realMembers.find((x) => x.id === currentRealMemberId);
+        if (m) m.note = trimmed;
       }
       function switchRealDetailTab(tab) {
         document.querySelectorAll("#page-real-detail .tab").forEach((t) => t.classList.remove("active"));
