@@ -1174,6 +1174,7 @@
           <div class="card-footer col-footer" id="col-footer-sub">
             <button
               class="btn btn-outline-primary btn-sm"
+              id="btn-add-sub"
               onclick="openAddSubCatModal()"
             >
               <svg
@@ -1213,6 +1214,7 @@
             </button>
             <button
               class="btn btn-outline-danger btn-sm"
+              id="btn-delete-sub"
               onclick="deleteSubCat()"
             >
               <svg
@@ -1285,6 +1287,36 @@
                   <span class="toggle-slider"></span>
                 </label>
               </div>
+            </div>
+
+            <div class="form-group" id="cat-is-other-group">
+              <label
+                class="form-label"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  cursor: pointer;
+                "
+              >
+                <input
+                  type="checkbox"
+                  id="cat-is-other"
+                  class="attr-toggle"
+                  onchange="handleCatIsOtherToggle()"
+                  disabled
+                  style="
+                    width: 16px;
+                    height: 16px;
+                    accent-color: var(--primary);
+                    cursor: pointer;
+                  "
+                />
+                Danh mục Khác
+                <span style="font-size: 11px; color: var(--gray-400)"
+                  >(không có danh mục con)</span
+                >
+              </label>
             </div>
 
             <div class="form-group">
@@ -1632,6 +1664,33 @@
               />
             </div>
           </div>
+          <div class="form-group">
+            <label
+              class="form-label"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+              "
+            >
+              <input
+                type="checkbox"
+                id="new-main-is-other"
+                onchange="handleNewMainIsOtherToggle()"
+                style="
+                  width: 16px;
+                  height: 16px;
+                  accent-color: var(--primary);
+                  cursor: pointer;
+                "
+              />
+              Danh mục Khác
+              <span style="font-size: 11px; color: var(--gray-400)"
+                >(không có danh mục con)</span
+              >
+            </label>
+          </div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-ghost" onclick="closeModal('add-main-cat')">
@@ -1937,6 +1996,7 @@
           desc: "Danh mục dành cho các thành viên chia sẻ những lo lắng liên quan đến ngoại hình của mình về chiều cao và hình thể.",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [
             {
               id: 11,
@@ -1981,6 +2041,7 @@
           desc: "Chia sẻ về chăm sóc và cải thiện vùng chân.",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [],
         },
         {
@@ -1989,6 +2050,7 @@
           desc: "",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [],
         },
         {
@@ -1997,6 +2059,7 @@
           desc: "",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [],
         },
         {
@@ -2005,6 +2068,7 @@
           desc: "",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [],
         },
         {
@@ -2013,17 +2077,43 @@
           desc: "",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [],
         },
-        { id: 7, name: "Môi", desc: "", visible: true, icon: null, subs: [] },
-        { id: 8, name: "Mũi", desc: "", visible: true, icon: null, subs: [] },
-        { id: 9, name: "Ngực", desc: "", visible: true, icon: null, subs: [] },
+        {
+          id: 7,
+          name: "Môi",
+          desc: "",
+          visible: true,
+          icon: null,
+          isOther: false,
+          subs: [],
+        },
+        {
+          id: 8,
+          name: "Mũi",
+          desc: "",
+          visible: true,
+          icon: null,
+          isOther: false,
+          subs: [],
+        },
+        {
+          id: 9,
+          name: "Ngực",
+          desc: "",
+          visible: true,
+          icon: null,
+          isOther: false,
+          subs: [],
+        },
         {
           id: 10,
           name: "Răng miệng",
           desc: "",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [],
         },
         {
@@ -2032,15 +2122,25 @@
           desc: "",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [],
         },
-        { id: 12, name: "Trán", desc: "", visible: true, icon: null, subs: [] },
+        {
+          id: 12,
+          name: "Trán",
+          desc: "",
+          visible: true,
+          icon: null,
+          isOther: false,
+          subs: [],
+        },
         {
           id: 13,
           name: "Vùng chữ Y",
           desc: "",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [],
         },
         {
@@ -2049,9 +2149,18 @@
           desc: "",
           visible: true,
           icon: null,
+          isOther: false,
           subs: [],
         },
-        { id: 15, name: "Khác", desc: "", visible: true, icon: null, subs: [] },
+        {
+          id: 15,
+          name: "Khác",
+          desc: "",
+          visible: true,
+          icon: null,
+          isOther: true,
+          subs: [],
+        },
       ];
 
       const LAYOUT_TEMPLATES = [
@@ -2338,6 +2447,7 @@
                 <div class="cat-item-left">
                   ${DRAG_HANDLE_SVG}
                   <span class="cat-item-name">${escapeHtml(c.name)}</span>
+                  ${c.isOther ? `<span style="font-size:10px;color:var(--gray-400);margin-left:6px">(Khác)</span>` : ""}
                 </div>
                 <span class="cat-arrow">›</span>
               </div>
@@ -2360,6 +2470,22 @@
         const wrap = document.getElementById("sub-cat-list");
         if (!wrap) return;
         const main = getMainCat(selectedMainCatId);
+        const addBtn = document.getElementById("btn-add-sub");
+        const editBtn = document.getElementById("btn-edit-sub");
+        const delBtn = document.getElementById("btn-delete-sub");
+        const isOther = !!(main && main.isOther);
+        [addBtn, editBtn, delBtn].forEach((b) => {
+          if (!b) return;
+          b.disabled = isOther;
+          b.style.opacity = isOther ? "0.45" : "";
+          b.style.cursor = isOther ? "not-allowed" : "";
+          b.style.pointerEvents = isOther ? "none" : "";
+        });
+        if (main && isOther) {
+          wrap.innerHTML =
+            '<div class="cat-empty" style="color:var(--warning);font-weight:500">Danh mục Khác không có danh mục con.</div>';
+          return;
+        }
         if (!main || !main.subs.length) {
           wrap.innerHTML = '<div class="cat-empty">Chưa có danh mục phụ.</div>';
           return;
@@ -2415,21 +2541,42 @@
         if (!nameInput || !descInput || !visInput) return;
 
         let target;
+        const isMainCat = selectedSubCatId == null;
         if (selectedSubCatId != null) {
           target = getSubCat(selectedMainCatId, selectedSubCatId);
         } else {
           target = getMainCat(selectedMainCatId);
         }
 
+        const isOtherGroup = document.getElementById("cat-is-other-group");
+        const isOtherCb = document.getElementById("cat-is-other");
+        if (isOtherGroup) isOtherGroup.style.display = isMainCat ? "" : "none";
+
         if (!target) {
           nameInput.value = "";
           descInput.value = "";
           visInput.checked = false;
+          if (isOtherCb) isOtherCb.checked = false;
+          handleCatIsOtherToggle();
           return;
         }
         nameInput.value = target.name || "";
         descInput.value = target.desc || "";
         visInput.checked = !!target.visible;
+        if (isOtherCb) isOtherCb.checked = isMainCat ? !!target.isOther : false;
+        handleCatIsOtherToggle();
+      }
+
+      function handleNewMainIsOtherToggle() {
+        const cb = document.getElementById("new-main-is-other");
+        const hint = document.getElementById("new-main-is-other-hint");
+        if (hint) hint.style.display = cb && cb.checked ? "" : "none";
+      }
+
+      function handleCatIsOtherToggle() {
+        const cb = document.getElementById("cat-is-other");
+        const hint = document.getElementById("cat-is-other-hint");
+        if (hint) hint.style.display = cb && cb.checked ? "" : "none";
       }
 
       /* ====== RENDER: TOPICS ====== */
@@ -2688,6 +2835,7 @@
             name: document.getElementById("cat-name").value,
             desc: document.getElementById("cat-desc").value,
             visible: document.getElementById("cat-visible").checked,
+            isOther: !!document.getElementById("cat-is-other")?.checked,
           };
         }
         const t = getTopic(selectedTopicId);
@@ -2706,6 +2854,9 @@
           document.getElementById("cat-name").value = snapshot.name || "";
           document.getElementById("cat-desc").value = snapshot.desc || "";
           document.getElementById("cat-visible").checked = !!snapshot.visible;
+          const cb = document.getElementById("cat-is-other");
+          if (cb) cb.checked = !!snapshot.isOther;
+          handleCatIsOtherToggle();
         } else {
           document.getElementById("topic-name").value = snapshot.name || "";
           document.getElementById("topic-desc").value = snapshot.desc || "";
@@ -2832,6 +2983,12 @@
         target.name = name;
         target.desc = desc;
         target.visible = visible;
+        if (selectedSubCatId == null) {
+          const isOtherCb = document.getElementById("cat-is-other");
+          const newIsOther = !!(isOtherCb && isOtherCb.checked);
+          target.isOther = newIsOther;
+          if (newIsOther) target.subs = [];
+        }
         renderMainCats();
         renderSubCats();
         exitAttrEditMode("cat");
@@ -2948,6 +3105,9 @@
       /* ====== ADD MAIN CAT (modal) ====== */
       function openAddMainCatModal() {
         resetModalForm("add-main-cat");
+        const isOtherCb = document.getElementById("new-main-is-other");
+        if (isOtherCb) isOtherCb.checked = false;
+        handleNewMainIsOtherToggle();
         openModal("add-main-cat");
         setTimeout(() => {
           document.getElementById("new-main-name")?.focus();
@@ -2965,6 +3125,7 @@
         errEl.textContent = "";
         nameInput.classList.remove("invalid");
         const newId = Date.now();
+        const isOther = !!document.getElementById("new-main-is-other")?.checked;
         mainCategories.push({
           id: newId,
           name,
@@ -2972,6 +3133,7 @@
           desc: document.getElementById("new-main-desc").value.trim(),
           visible: document.getElementById("new-main-visible").checked,
           icon: null,
+          isOther,
         });
         selectedMainCatId = newId;
         selectedSubCatId = null;
@@ -2992,6 +3154,10 @@
         const parent = getMainCat(selectedMainCatId);
         if (!parent) {
           alert("Vui lòng chọn danh mục lớn trước.");
+          return;
+        }
+        if (parent.isOther) {
+          alert("Danh mục Khác không được phép tạo danh mục con.");
           return;
         }
         document.getElementById("modal-add-sub-cat-title").textContent =

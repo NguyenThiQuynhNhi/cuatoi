@@ -8099,6 +8099,7 @@
       const postMainCategories = [
         {
           name: "Chiều cao/hình thể",
+          isOther: false,
           subs: [
             "Phẫu thuật/ tiểu phẫu",
             "Thể dục/ giảm cân",
@@ -8107,23 +8108,24 @@
             "Khác",
           ],
         },
-        { name: "Chân/bắp chân", subs: ["Khác"] },
-        { name: "Cổ", subs: ["Khác"] },
-        { name: "Da đầu/lông tóc", subs: ["Khác"] },
-        { name: "Khuôn mặt/ V line", subs: ["Khác"] },
+        { name: "Chân/bắp chân", isOther: false, subs: ["Khác"] },
+        { name: "Cổ", isOther: false, subs: ["Khác"] },
+        { name: "Da đầu/lông tóc", isOther: false, subs: ["Khác"] },
+        { name: "Khuôn mặt/ V line", isOther: false, subs: ["Khác"] },
         {
           name: "Làn da",
+          isOther: false,
           subs: ["Mỹ phẩm", "TPCN & dược phẩm", "Khác"],
         },
-        { name: "Mắt/lông mi", subs: ["Khác"] },
-        { name: "Môi", subs: ["Khác"] },
-        { name: "Mũi", subs: ["Khác"] },
-        { name: "Ngực", subs: ["Khác"] },
-        { name: "Răng miệng", subs: ["Khác"] },
-        { name: "Tay/cánh tay/bàn tay", subs: ["Khác"] },
-        { name: "Trán", subs: ["Khác"] },
-        { name: "Vùng chữ Y", subs: ["Khác"] },
-        { name: "Khác", subs: ["Khác"] },
+        { name: "Mắt/lông mi", isOther: false, subs: ["Khác"] },
+        { name: "Môi", isOther: false, subs: ["Khác"] },
+        { name: "Mũi", isOther: false, subs: ["Khác"] },
+        { name: "Ngực", isOther: false, subs: ["Khác"] },
+        { name: "Răng miệng", isOther: false, subs: ["Khác"] },
+        { name: "Tay/cánh tay/bàn tay", isOther: false, subs: ["Khác"] },
+        { name: "Trán", isOther: false, subs: ["Khác"] },
+        { name: "Vùng chữ Y", isOther: false, subs: ["Khác"] },
+        { name: "Khác", isOther: true, subs: [] },
       ];
 
       const tvaPostSearchOptions = {
@@ -8417,10 +8419,12 @@
         menu.innerHTML = postMainCategories
           .map(
             (c, i) =>
-              `<button class="criteria-option" onclick="selectMainCatForChange(${i})">${escTvaText(c.name)}</button>`,
+              `<button class="criteria-option" onclick="selectMainCatForChange(${i})">${escTvaText(c.name)}${c.isOther ? ' <span class="badge-other" style="font-size:10px;color:var(--gray-400);margin-left:4px">(không có danh mục con)</span>' : ""}</button>`,
           )
           .join("");
         document.getElementById("change-sub-cat-menu").innerHTML = "";
+        const subWrap = document.getElementById("change-sub-cat-wrap");
+        if (subWrap) subWrap.style.display = "";
         document
           .getElementById("change-category-modal-backdrop")
           .classList.add("open");
@@ -8466,7 +8470,19 @@
         document
           .getElementById("change-main-cat-wrap")
           .classList.remove("open");
+        const subWrap = document.getElementById("change-sub-cat-wrap");
         const subMenu = document.getElementById("change-sub-cat-menu");
+        if (cat.isOther) {
+          if (subWrap) {
+            subWrap.style.display = "none";
+            subWrap.classList.remove("open");
+          }
+          subMenu.innerHTML = "";
+          document.getElementById("change-sub-cat-label").textContent =
+            "Chọn danh mục phụ";
+          return;
+        }
+        if (subWrap) subWrap.style.display = "";
         subMenu.innerHTML = cat.subs
           .map(
             (s) =>
@@ -8488,9 +8504,17 @@
           alert("Vui lòng chọn danh mục.");
           return;
         }
-        const newCat = selectedSubCatForChange
-          ? `${selectedMainCatForChange} - ${selectedSubCatForChange}`
-          : selectedMainCatForChange;
+        const cat = postMainCategories.find(
+          (c) => c.name === selectedMainCatForChange,
+        );
+        if (cat && !cat.isOther && !selectedSubCatForChange) {
+          alert("Vui lòng chọn danh mục phụ.");
+          return;
+        }
+        const newCat =
+          cat && cat.isOther
+            ? selectedMainCatForChange
+            : `${selectedMainCatForChange} - ${selectedSubCatForChange}`;
         if (changingPostId == null) {
           tvaPosts.forEach((p) => {
             if (selectedTvaPostIds.includes(p.id)) p.category = newCat;

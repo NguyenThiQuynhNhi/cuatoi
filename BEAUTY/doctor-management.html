@@ -2941,20 +2941,14 @@
               <!-- Row 5: Danh mục lớn - Danh mục nhỏ -->
               <div class="form-group">
                 <label class="form-label">Danh mục lớn <span class="req">*</span></label>
-                <select id="f-category-big" class="form-input">
+                <select id="f-category-big" class="form-input" onchange="onDoctorCategoryBigChange()">
                   <option value="">-- Chọn danh mục --</option>
-                  <option>Thẩm mỹ da</option>
-                  <option>Chỉnh hình</option>
-                  <option>Nha khoa</option>
                 </select>
               </div>
-              <div class="form-group">
+              <div class="form-group" id="f-category-small-group">
                 <label class="form-label">Danh mục nhỏ <span class="req">*</span></label>
                 <select id="f-category-small" class="form-input">
                   <option value="">-- Chọn danh mục --</option>
-                  <option>Trẻ hóa da</option>
-                  <option>Tiêm chích</option>
-                  <option>Tái tạo da</option>
                 </select>
               </div>
 
@@ -3095,6 +3089,65 @@
       let avatarPreviewUrl = "";
       let degreeFiles = [];
 
+      /* ====== POST CATEGORY MAP (shared cho dropdown danh mục lớn/nhỏ) ====== */
+      const postCategoryMap = [
+        { name: "Làn da", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "TPCN/ Dược phẩm", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Mắt/ Lông mi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Môi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Khác"] },
+        { name: "Mũi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Khuôn mặt/ V line", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Da đầu/ Lông tóc", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Triệt lông", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Răng miệng", isOther: false, subs: ["PTTM/ Tiểu phẫu", "TPCN/ Dược phẩm", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Cổ", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Ngực", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Phun xăm", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Tay/ Cánh tay", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Nail", "Thiết bị", "Khác"] },
+        { name: "Chân/ Bắp chân", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Chiều cao/ Vóc dáng", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "TPCN/ Dược phẩm", "Khác"] },
+        { name: "Vùng kín/ Chữ Y", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Triệt lông", "TPCN", "Khác"] },
+        { name: "Trán", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Khác", isOther: true, subs: [] },
+      ];
+
+      function populateDoctorCategoryBig() {
+        const sel = document.getElementById("f-category-big");
+        if (!sel) return;
+        const current = sel.value;
+        sel.innerHTML =
+          '<option value="">-- Chọn danh mục --</option>' +
+          postCategoryMap
+            .map(
+              (c) =>
+                `<option value="${c.name}">${c.name}${c.isOther ? " (không có danh mục con)" : ""}</option>`,
+            )
+            .join("");
+        sel.value = current;
+      }
+
+      function populateDoctorCategorySmall(bigName, preserveValue) {
+        const sel = document.getElementById("f-category-small");
+        const group = document.getElementById("f-category-small-group");
+        if (!sel || !group) return;
+        const cat = postCategoryMap.find((c) => c.name === bigName);
+        if (cat && cat.isOther) {
+          sel.innerHTML = '<option value="">-- (không áp dụng) --</option>';
+          sel.value = "";
+          group.style.display = "none";
+          return;
+        }
+        group.style.display = "";
+        sel.innerHTML =
+          '<option value="">-- Chọn danh mục --</option>' +
+          ((cat && cat.subs) || [])
+            .map((s) => `<option value="${s}">${s}</option>`)
+            .join("");
+        if (preserveValue) sel.value = preserveValue;
+      }
+
+      function onDoctorCategoryBigChange() {
+        const sel = document.getElementById("f-category-big");
+        populateDoctorCategorySmall(sel.value, "");
+      }
+
       const doctorEditDefaults = {
         name: "Nguyen Van A",
         email: "doctor.a@beauty.com",
@@ -3104,8 +3157,8 @@
         id: "DOC001",
         nickname: "doctor.a123",
         region: "TP. Hồ Chí Minh",
-        categoryBig: "Thẩm mỹ da",
-        categorySmall: "Trẻ hóa da",
+        categoryBig: "Làn da",
+        categorySmall: "Mỹ phẩm",
         workplace: "Bệnh viện A",
         workAddress: "123 Lê Lợi, Q1, TP.HCM",
         education: "Tiến sĩ",
@@ -3696,8 +3749,9 @@
         setFormValue("f-id", data.id);
         setFormValue("f-nickname", data.nickname);
         setFormValue("f-region", data.region);
+        populateDoctorCategoryBig();
         setFormValue("f-category-big", data.categoryBig);
-        setFormValue("f-category-small", data.categorySmall);
+        populateDoctorCategorySmall(data.categoryBig, data.categorySmall);
         setFormValue("f-workplace", data.workplace);
         setFormValue("f-work-address", data.workAddress);
         setFormValue("f-education", data.education);
@@ -3779,6 +3833,17 @@
       }
 
       function handleFormSave() {
+        const big = document.getElementById("f-category-big")?.value || "";
+        const small = document.getElementById("f-category-small")?.value || "";
+        if (!big) {
+          alert("Vui lòng chọn danh mục lớn.");
+          return;
+        }
+        const cat = postCategoryMap.find((c) => c.name === big);
+        if (cat && !cat.isOther && !small) {
+          alert("Vui lòng chọn danh mục nhỏ.");
+          return;
+        }
         alert(detailMode === "add" ? "Đã thêm mới bác sĩ." : "Đã lưu chỉnh sửa bác sĩ.");
         goDetail();
       }

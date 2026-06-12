@@ -2369,15 +2369,6 @@
                 <div class="cat-add-row">
                   <select class="form-input" id="rf-cat-select" style="flex:0 1 260px">
                     <option value="">— Chọn danh mục chính —</option>
-                    <option>Làn da</option>
-                    <option>Tóc</option>
-                    <option>Răng miệng</option>
-                    <option>Mắt/ Lông mi</option>
-                    <option>Mũi</option>
-                    <option>Cằm/ Hàm</option>
-                    <option>Ngực</option>
-                    <option>Sức khỏe</option>
-                    <option>Dinh dưỡng</option>
                   </select>
                   <button class="btn btn-outline-primary btn-sm" onclick="addRealCategory()">+ Thêm</button>
                 </div>
@@ -2591,7 +2582,106 @@
       </div>
     </div>
 
+    <!-- ====== MODAL: THAY ĐỔI DANH MỤC (POST) ====== -->
+    <div
+      class="action-modal-backdrop"
+      id="real-change-cat-backdrop"
+      onclick="closeRealChangeCategoryModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        style="width:480px;max-width:95vw"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title" id="real-change-cat-title">
+          Thay đổi danh mục
+        </h3>
+        <div style="padding:4px 0 12px">
+          <label style="display:block;font-size:12px;color:var(--gray-700);font-weight:600;margin-bottom:8px">• Danh mục</label>
+          <div style="display:flex;gap:8px;align-items:flex-start">
+            <div class="criteria-wrap" id="real-change-main-wrap" style="flex:1">
+              <button
+                class="criteria-btn"
+                style="width:100%;justify-content:space-between"
+                onclick="toggleRealChangeCatDropdown('main', event)"
+              >
+                <span id="real-change-main-label">Chọn danh mục</span>
+                <span>▼</span>
+              </button>
+              <div
+                class="criteria-menu"
+                id="real-change-main-menu"
+                style="max-height:240px;overflow-y:auto"
+              ></div>
+            </div>
+            <div class="criteria-wrap" id="real-change-sub-wrap" style="flex:1">
+              <button
+                class="criteria-btn"
+                style="width:100%;justify-content:space-between"
+                onclick="toggleRealChangeCatDropdown('sub', event)"
+              >
+                <span id="real-change-sub-label">Chọn danh mục phụ</span>
+                <span>▼</span>
+              </button>
+              <div
+                class="criteria-menu"
+                id="real-change-sub-menu"
+                style="max-height:240px;overflow-y:auto"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeRealChangeCategoryModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm"
+            onclick="confirmRealChangeCategory()"
+          >
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script>
+      /* ====== POST CATEGORY MAP (shared cho modal Thay đổi danh mục + form Danh mục chính) ====== */
+      const postCategoryMap = [
+        { name: "Làn da", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "TPCN/ Dược phẩm", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Mắt/ Lông mi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Môi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Khác"] },
+        { name: "Mũi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Khuôn mặt/ V line", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Da đầu/ Lông tóc", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Triệt lông", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Răng miệng", isOther: false, subs: ["PTTM/ Tiểu phẫu", "TPCN/ Dược phẩm", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Cổ", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Ngực", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Phun xăm", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Tay/ Cánh tay", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Nail", "Thiết bị", "Khác"] },
+        { name: "Chân/ Bắp chân", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Chiều cao/ Vóc dáng", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "TPCN/ Dược phẩm", "Khác"] },
+        { name: "Vùng kín/ Chữ Y", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Triệt lông", "TPCN", "Khác"] },
+        { name: "Trán", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Khác", isOther: true, subs: [] },
+      ];
+
+      let pendingRealChangeCat = { postId: null };
+      let pendingRealMain = null;
+      let pendingRealSub = null;
+
+      const realDetailPostsSamples = [
+        { id: "P001", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review serum B5 sau 14 ngày dùng đều", date: "22-06-2025 14:30", views: 420 },
+        { id: "P002", topic: "Hướng dẫn", main: "Da đầu/ Lông tóc", sub: "Mỹ phẩm", title: "5 bước phục hồi tóc khô xơ tại nhà", date: "18-06-2025 09:45", views: 287 },
+        { id: "P003", topic: "Cảnh báo", main: "Mũi", sub: "PTTM/ Tiểu phẫu", title: "3 dấu hiệu nguy hiểm sau nâng mũi cần biết", date: "12-06-2025 21:12", views: 645 },
+        { id: "P004", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Kem chống nắng La Roche-Posay có thực sự hiệu quả?", date: "08-06-2025 10:18", views: 892 },
+        { id: "P005", topic: "Hỏi đáp", main: "Răng miệng", sub: "PTTM/ Tiểu phẫu", title: "Niềng răng trong suốt vs niềng mắc cài cố định", date: "05-06-2025 16:40", views: 533 },
+      ];
+
       /* ====== DATA ====== */
       const realMembers = [
         {
@@ -3048,24 +3138,19 @@
       function renderRealDetailPosts(m) {
         const tbody = document.getElementById("real-detail-posts-tbody");
         if (!tbody) return;
-        const samples = [
-          { id: "P001", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review serum B5 sau 14 ngày dùng đều", date: "22-06-2025 14:30", views: 420 },
-          { id: "P002", topic: "Hướng dẫn", main: "Tóc", sub: "Mỹ phẩm", title: "5 bước phục hồi tóc khô xơ tại nhà", date: "18-06-2025 09:45", views: 287 },
-          { id: "P003", topic: "Cảnh báo", main: "Mũi", sub: "PTTM/ Tiểu phẫu", title: "3 dấu hiệu nguy hiểm sau nâng mũi cần biết", date: "12-06-2025 21:12", views: 645 },
-          { id: "P004", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Kem chống nắng La Roche-Posay có thực sự hiệu quả?", date: "08-06-2025 10:18", views: 892 },
-          { id: "P005", topic: "Hỏi đáp", main: "Răng miệng", sub: "PTTM/ Tiểu phẫu", title: "Niềng răng trong suốt vs niềng mắc cài cố định", date: "05-06-2025 16:40", views: 533 },
-        ];
-        tbody.innerHTML = samples.map((p) => `
+        tbody.innerHTML = realDetailPostsSamples.map((p) => {
+          const sub = p.sub ? ` - ${escText(p.sub)}` : "";
+          return `
           <tr>
             <td><input type="checkbox" /></td>
             <td class="td-left">${escText(p.topic)}</td>
-            <td class="td-left">${escText(p.main)} - ${escText(p.sub)}</td>
+            <td class="td-left">${escText(p.main)}${sub}</td>
             <td class="td-left">
               <div class="cell-menu">
                 <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)" title="${escText(p.title)}">${escText(p.title)}</button>
                 <div class="menu-list">
                   <button class="menu-item" onclick="alert('Xem bài viết (đang phát triển).')">Xem bài viết</button>
-                  <button class="menu-item" onclick="alert('Thay đổi danh mục (đang phát triển).')">Thay đổi danh mục</button>
+                  <button class="menu-item" onclick="openRealChangeCategoryModal('${escText(p.id)}')">Thay đổi danh mục</button>
                   <button class="menu-item" onclick="alert('Gắn Best (đang phát triển).')">Gắn Best</button>
                   <button class="menu-item" onclick="alert('Tạm ẩn bài viết (đang phát triển).')">Tạm ẩn bài viết</button>
                   <button class="menu-item" onclick="alert('Gỡ khỏi trang chủ (đang phát triển).')">Gỡ khỏi trang chủ</button>
@@ -3077,7 +3162,8 @@
             <td>${escText(p.date)}</td>
             <td>${p.views}</td>
           </tr>
-        `).join("");
+        `;
+        }).join("");
       }
       function renderRealDetailComments(m) {
         const tbody = document.getElementById("real-detail-comments-tbody");
@@ -3110,6 +3196,93 @@
         `).join("");
       }
 
+      /* ====== CHANGE CATEGORY MODAL (POST) ====== */
+      function openRealChangeCategoryModal(postId) {
+        pendingRealChangeCat = { postId };
+        pendingRealMain = null;
+        pendingRealSub = null;
+        document.getElementById("real-change-cat-title").textContent =
+          `Thay đổi danh mục bài ${postId}`;
+        document.getElementById("real-change-main-label").textContent = "Chọn danh mục";
+        document.getElementById("real-change-sub-label").textContent = "Chọn danh mục phụ";
+        document.getElementById("real-change-sub-menu").innerHTML = "";
+        document.getElementById("real-change-sub-wrap").style.display = "";
+        const mainMenu = document.getElementById("real-change-main-menu");
+        mainMenu.innerHTML = postCategoryMap
+          .map(
+            (c, i) =>
+              `<button class="criteria-option" onclick="selectRealChangeMain(${i})">${escText(c.name)}${c.isOther ? ' <span style="font-size:10px;color:var(--gray-400);margin-left:4px">(không có danh mục con)</span>' : ""}</button>`,
+          )
+          .join("");
+        document.getElementById("real-change-cat-backdrop").classList.add("open");
+        closeAllMenus();
+      }
+      function closeRealChangeCategoryModal() {
+        document.getElementById("real-change-cat-backdrop").classList.remove("open");
+        document.getElementById("real-change-main-wrap")?.classList.remove("open");
+        document.getElementById("real-change-sub-wrap")?.classList.remove("open");
+        pendingRealChangeCat = { postId: null };
+      }
+      function toggleRealChangeCatDropdown(which, e) {
+        e.stopPropagation();
+        const wrap = document.getElementById("real-change-" + which + "-wrap");
+        const other = document.getElementById(
+          "real-change-" + (which === "main" ? "sub" : "main") + "-wrap",
+        );
+        other?.classList.remove("open");
+        wrap?.classList.toggle("open");
+      }
+      function selectRealChangeMain(idx) {
+        const cat = postCategoryMap[idx];
+        if (!cat) return;
+        pendingRealMain = cat.name;
+        pendingRealSub = null;
+        document.getElementById("real-change-main-label").textContent = cat.name;
+        document.getElementById("real-change-main-wrap").classList.remove("open");
+        const subWrap = document.getElementById("real-change-sub-wrap");
+        const subMenu = document.getElementById("real-change-sub-menu");
+        if (cat.isOther) {
+          subWrap.style.display = "none";
+          subWrap.classList.remove("open");
+          subMenu.innerHTML = "";
+          document.getElementById("real-change-sub-label").textContent = "Chọn danh mục phụ";
+          return;
+        }
+        subWrap.style.display = "";
+        subMenu.innerHTML = cat.subs
+          .map(
+            (s) =>
+              `<button class="criteria-option" onclick="selectRealChangeSub('${escText(s).replace(/'/g, "&#39;")}')">${escText(s)}</button>`,
+          )
+          .join("");
+        document.getElementById("real-change-sub-label").textContent = "Chọn danh mục phụ";
+      }
+      function selectRealChangeSub(sub) {
+        pendingRealSub = sub;
+        document.getElementById("real-change-sub-label").textContent = sub;
+        document.getElementById("real-change-sub-wrap").classList.remove("open");
+      }
+      function confirmRealChangeCategory() {
+        if (!pendingRealMain) {
+          alert("Vui lòng chọn danh mục chính.");
+          return;
+        }
+        const cat = postCategoryMap.find((c) => c.name === pendingRealMain);
+        if (cat && !cat.isOther && !pendingRealSub) {
+          alert("Vui lòng chọn danh mục phụ.");
+          return;
+        }
+        const post = realDetailPostsSamples.find((p) => p.id === pendingRealChangeCat.postId);
+        if (post) {
+          post.main = pendingRealMain;
+          post.sub = cat && cat.isOther ? "" : pendingRealSub;
+        }
+        const m = realMembers.find((x) => x.id === currentRealMemberId);
+        if (m) renderRealDetailPosts(m);
+        closeRealChangeCategoryModal();
+        alert("Đã thay đổi danh mục.");
+      }
+
       function enterRealNoteEdit() {
         const noteDisplay = document.getElementById("real-note-display");
         if (!noteDisplay) return;
@@ -3140,6 +3313,20 @@
         realFormCategories = Array.isArray(m.categories) ? [...m.categories] : [];
         renderRealCategoryChips();
       }
+      function populateRealCatSelect() {
+        const sel = document.getElementById("rf-cat-select");
+        if (!sel) return;
+        const current = sel.value;
+        sel.innerHTML =
+          '<option value="">— Chọn danh mục chính —</option>' +
+          postCategoryMap
+            .map(
+              (c) =>
+                `<option value="${escText(c.name)}">${escText(c.name)}${c.isOther ? " (Khác)" : ""}</option>`,
+            )
+            .join("");
+        sel.value = current;
+      }
       function renderRealCategoryChips() {
         const wrap = document.getElementById("rf-cat-chips");
         if (!wrap) return;
@@ -3147,9 +3334,13 @@
           wrap.innerHTML = '<span style="color:var(--gray-400);font-size:11px">Chưa có danh mục.</span>';
           return;
         }
-        wrap.innerHTML = realFormCategories.map((c, i) => `
-          <span class="cat-chip">${escText(c)}<span class="x" onclick="removeRealCategory(${i})">×</span></span>
-        `).join("");
+        wrap.innerHTML = realFormCategories.map((c, i) => {
+          const cat = postCategoryMap.find((x) => x.name === c);
+          const badge = cat && cat.isOther
+            ? ' <span style="font-size:10px;color:var(--gray-400);margin-left:4px">(Khác)</span>'
+            : "";
+          return `<span class="cat-chip">${escText(c)}${badge}<span class="x" onclick="removeRealCategory(${i})">×</span></span>`;
+        }).join("");
       }
       function addRealCategory() {
         const sel = document.getElementById("rf-cat-select");
@@ -4121,6 +4312,7 @@
       ["real", "suspended", "leave", "na", "as", "ms"].forEach(
         renderCriteriaMenu,
       );
+      populateRealCatSelect();
       renderRealMembers();
       renderSuspended();
       renderLeaveTable();

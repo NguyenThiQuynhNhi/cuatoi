@@ -2649,103 +2649,159 @@
 
     <script>
       /* ====== DATA ====== */
-      const postCategoryMap = {
-        "Làn da": [
-          "Mỹ phẩm",
-          "PTTM/ Tiểu phẫu",
-          "TPCN/ Dược phẩm",
-          "Thiết bị/ Sản phẩm",
-          "Khác",
-        ],
-        "Mắt/ Lông mi": [
-          "Mỹ phẩm",
-          "PTTM/ Tiểu phẫu",
-          "Thời trang",
-          "Phun xăm",
-          "TPCN",
-          "Thiết bị",
-          "Khác",
-        ],
-        Môi: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Khác"],
-        Mũi: [
-          "Mỹ phẩm",
-          "PTTM/ Tiểu phẫu",
-          "Thời trang",
-          "TPCN",
-          "Thiết bị",
-          "Khác",
-        ],
-        "Khuôn mặt/ V line": [
-          "Mỹ phẩm",
-          "PTTM/ Tiểu phẫu",
-          "Thiết bị/ Sản phẩm",
-          "Khác",
-        ],
-        "Da đầu/ Lông tóc": [
-          "Mỹ phẩm",
-          "PTTM/ Tiểu phẫu",
-          "Thời trang",
-          "Phun xăm",
-          "Triệt lông",
-          "TPCN",
-          "Thiết bị",
-          "Khác",
-        ],
-        "Răng miệng": [
-          "PTTM/ Tiểu phẫu",
-          "TPCN/ Dược phẩm",
-          "Thiết bị/ Sản phẩm",
-          "Khác",
-        ],
-        Cổ: [
-          "Mỹ phẩm",
-          "PTTM/ Tiểu phẫu",
-          "Thời trang",
-          "Thiết bị/ Sản phẩm",
-          "Khác",
-        ],
-        Ngực: [
-          "PTTM/ Tiểu phẫu",
-          "Thể thao/ Giảm cân",
-          "Thời trang",
-          "Phun xăm",
-          "TPCN",
-          "Thiết bị",
-          "Khác",
-        ],
-        "Tay/ Cánh tay": [
-          "PTTM/ Tiểu phẫu",
-          "Thể thao/ Giảm cân",
-          "Thời trang",
-          "Nail",
-          "Thiết bị",
-          "Khác",
-        ],
-        "Chân/ Bắp chân": [
-          "PTTM/ Tiểu phẫu",
-          "Thể thao/ Giảm cân",
-          "Thời trang",
-          "Thiết bị/ Sản phẩm",
-          "Khác",
-        ],
-        "Chiều cao/ Vóc dáng": [
-          "PTTM/ Tiểu phẫu",
-          "Thể thao/ Giảm cân",
-          "Thời trang",
-          "TPCN/ Dược phẩm",
-          "Khác",
-        ],
-        "Vùng kín/ Chữ Y": [
-          "PTTM/ Tiểu phẫu",
-          "Thời trang",
-          "Phun xăm",
-          "Triệt lông",
-          "TPCN",
-          "Khác",
-        ],
-        Trán: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"],
-        Khác: ["Khác"],
-      };
+      const postCategoryMap = [
+        {
+          name: "Làn da",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "TPCN/ Dược phẩm",
+            "Thiết bị/ Sản phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Mắt/ Lông mi",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Phun xăm",
+            "TPCN",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Môi",
+          isOther: false,
+          subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Khác"],
+        },
+        {
+          name: "Mũi",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "TPCN",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Khuôn mặt/ V line",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thiết bị/ Sản phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Da đầu/ Lông tóc",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Phun xăm",
+            "Triệt lông",
+            "TPCN",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Răng miệng",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "TPCN/ Dược phẩm",
+            "Thiết bị/ Sản phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Cổ",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Thiết bị/ Sản phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Ngực",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thể thao/ Giảm cân",
+            "Thời trang",
+            "Phun xăm",
+            "TPCN",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Tay/ Cánh tay",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thể thao/ Giảm cân",
+            "Thời trang",
+            "Nail",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Chân/ Bắp chân",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thể thao/ Giảm cân",
+            "Thời trang",
+            "Thiết bị/ Sản phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Chiều cao/ Vóc dáng",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thể thao/ Giảm cân",
+            "Thời trang",
+            "TPCN/ Dược phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Vùng kín/ Chữ Y",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Phun xăm",
+            "Triệt lông",
+            "TPCN",
+            "Khác",
+          ],
+        },
+        {
+          name: "Trán",
+          isOther: false,
+          subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"],
+        },
+        { name: "Khác", isOther: true, subs: [] },
+      ];
 
       const searchCriteriaOptions = {
         real: ["ID", "Tên hiển thị", "Nội dung tiêu đề", "Hashtag"],
@@ -3077,7 +3133,7 @@
 
       /* ====== CATEGORY FILTER DROPDOWN POPULATE ====== */
       function populateCategoryFilters() {
-        const cats = ["", ...Object.keys(postCategoryMap)];
+        const cats = ["", ...postCategoryMap.map((c) => c.name)];
         ["real", "best", "deleted", "hidden", "comments", "cdeleted"].forEach((t) => {
           const sel = document.getElementById("filter-cat-" + t);
           if (!sel) return;
@@ -3664,11 +3720,15 @@
         document.getElementById("change-sub-label").textContent =
           "Chọn danh mục phụ";
         document.getElementById("change-sub-menu").innerHTML = "";
+        document.getElementById("change-sub-col").style.display = "";
+        document
+          .querySelector("#change-category-modal-backdrop .change-cat-hint")
+          ?.style.removeProperty("display");
         const mainMenu = document.getElementById("change-main-menu");
-        mainMenu.innerHTML = Object.keys(postCategoryMap)
+        mainMenu.innerHTML = postCategoryMap
           .map(
-            (m) =>
-              `<button class="change-cat-opt" onclick="selectChangeMain('${escText(m)}')">${escText(m)}</button>`,
+            (c) =>
+              `<button class="change-cat-opt" onclick="selectChangeMain('${escText(c.name)}')">${escText(c.name)}${c.isOther ? ' <span class="badge-other" style="font-size:10px;color:var(--gray-400);margin-left:4px">(không có danh mục con)</span>' : ""}</button>`,
           )
           .join("");
         document
@@ -3699,8 +3759,22 @@
         document.getElementById("change-main-col").classList.remove("open");
         document.getElementById("change-sub-label").textContent =
           "Chọn danh mục phụ";
+        const cat = postCategoryMap.find((c) => c.name === main);
+        const subCol = document.getElementById("change-sub-col");
+        const hint = document.querySelector(
+          "#change-category-modal-backdrop .change-cat-hint",
+        );
         const subMenu = document.getElementById("change-sub-menu");
-        subMenu.innerHTML = (postCategoryMap[main] || [])
+        if (cat && cat.isOther) {
+          subCol.style.display = "none";
+          subCol.classList.remove("open");
+          subMenu.innerHTML = "";
+          if (hint) hint.style.display = "none";
+          return;
+        }
+        subCol.style.display = "";
+        if (hint) hint.style.removeProperty("display");
+        subMenu.innerHTML = ((cat && cat.subs) || [])
           .map(
             (s) =>
               `<button class="change-cat-opt" onclick="selectChangeSub('${escText(s).replace(/'/g, "&#39;")}')">${escText(s)}</button>`,
@@ -3717,7 +3791,8 @@
           alert("Vui lòng chọn danh mục chính.");
           return;
         }
-        if (!pendingSub) {
+        const cat = postCategoryMap.find((c) => c.name === pendingMain);
+        if (cat && !cat.isOther && !pendingSub) {
           alert("Vui lòng chọn danh mục phụ.");
           return;
         }
@@ -3731,7 +3806,7 @@
         arr.forEach((p) => {
           if (ids.includes(p.id)) {
             p.mainCat = pendingMain;
-            p.subCat = pendingSub;
+            p.subCat = cat && cat.isOther ? "" : pendingSub;
           }
         });
         if (target === "real") renderTableReal();

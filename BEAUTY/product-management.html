@@ -2654,31 +2654,11 @@ Sau khi làm sạch và cân bằng da, lấy 2-3 giọt thoa đều lên mặt 
                 <label class="form-label"
                   >Danh mục <span class="req">*</span></label
                 >
-                <select class="form-input detail-editable-select">
+                <select
+                  id="prod-category-big"
+                  class="form-input detail-editable-select"
+                >
                   <option value="">Chọn danh mục ▼</option>
-                  <option selected>Làn da - Mỹ phẩm</option>
-                  <option>Làn da - TPCN/ Dược phẩm</option>
-                  <option>Làn da - Thiết bị/ Sản phẩm</option>
-                  <option>Làn da - Khác</option>
-                  <option>Mắt/ Lông mi - Mỹ phẩm</option>
-                  <option>Mắt/ Lông mi - Thiết bị</option>
-                  <option>Môi - Mỹ phẩm</option>
-                  <option>Mũi - Mỹ phẩm</option>
-                  <option>Khuôn mặt/ V line - Mỹ phẩm</option>
-                  <option>Khuôn mặt/ V line - Thiết bị/ Sản phẩm</option>
-                  <option>Da đầu/ Lông tóc - Mỹ phẩm</option>
-                  <option>Da đầu/ Lông tóc - Thiết bị</option>
-                  <option>Cổ - Mỹ phẩm</option>
-                  <option>Trán - Mỹ phẩm</option>
-                  <option>Tay/ Cánh tay - Mỹ phẩm</option>
-                  <option>Tay/ Cánh tay - Nail</option>
-                  <option>Chân/ Bắp chân - Mỹ phẩm</option>
-                  <option>Chiều cao/ Vóc dáng - TPCN/ Dược phẩm</option>
-                  <option>Răng miệng - TPCN/ Dược phẩm</option>
-                  <option>Răng miệng - Thiết bị/ Sản phẩm</option>
-                  <option>Ngực - Thời trang</option>
-                  <option>Vùng kín/ Chữ Y - Mỹ phẩm</option>
-                  <option>Khác - Khác</option>
                 </select>
               </div>
               <!-- Row 4 -->
@@ -2928,6 +2908,44 @@ Không dùng trên vùng da có vết thương hở. Bảo quản dưới 30°C,
         fieldValues: [],
         uploadPreviewText: "",
       };
+
+      /* ====== POST CATEGORY MAP (shared cho dropdown danh mục lớn/nhỏ) ====== */
+      const postCategoryMap = [
+        { name: "Làn da", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "TPCN/ Dược phẩm", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Mắt/ Lông mi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Môi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Khác"] },
+        { name: "Mũi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Khuôn mặt/ V line", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Da đầu/ Lông tóc", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Triệt lông", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Răng miệng", isOther: false, subs: ["PTTM/ Tiểu phẫu", "TPCN/ Dược phẩm", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Cổ", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Ngực", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Phun xăm", "TPCN", "Thiết bị", "Khác"] },
+        { name: "Tay/ Cánh tay", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Nail", "Thiết bị", "Khác"] },
+        { name: "Chân/ Bắp chân", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Chiều cao/ Vóc dáng", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "TPCN/ Dược phẩm", "Khác"] },
+        { name: "Vùng kín/ Chữ Y", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Triệt lông", "TPCN", "Khác"] },
+        { name: "Trán", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"] },
+        { name: "Khác", isOther: true, subs: [] },
+      ];
+
+      function populateProductCategory(preserveValue) {
+        const sel = document.getElementById("prod-category-big");
+        if (!sel) return;
+        sel.innerHTML =
+          '<option value="">Chọn danh mục ▼</option>' +
+          postCategoryMap
+            .map(
+              (c) =>
+                `<option value="${c.name}">${c.name}${c.isOther ? " (Khác)" : ""}</option>`,
+            )
+            .join("");
+        if (preserveValue) sel.value = preserveValue;
+      }
+
+      document.addEventListener("DOMContentLoaded", () =>
+        populateProductCategory("Làn da"),
+      );
+
       let currentActionModalType = "soft-delete";
       const actionModalMap = {
         "soft-delete": {
