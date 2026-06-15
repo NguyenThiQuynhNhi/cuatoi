@@ -1296,25 +1296,24 @@
                   display: flex;
                   align-items: center;
                   gap: 8px;
-                  cursor: pointer;
+                  cursor: default;
                 "
+                title="Thuộc tính này chỉ cố định lúc tạo, không thể chỉnh sửa."
               >
                 <input
                   type="checkbox"
                   id="cat-is-other"
-                  class="attr-toggle"
-                  onchange="handleCatIsOtherToggle()"
                   disabled
                   style="
                     width: 16px;
                     height: 16px;
                     accent-color: var(--primary);
-                    cursor: pointer;
+                    cursor: not-allowed;
                   "
                 />
                 Danh mục Khác
                 <span style="font-size: 11px; color: var(--gray-400)"
-                  >(không có danh mục con)</span
+                  >(cố định khi tạo, không sửa được)</span
                 >
               </label>
             </div>
@@ -2557,25 +2556,17 @@
           descInput.value = "";
           visInput.checked = false;
           if (isOtherCb) isOtherCb.checked = false;
-          handleCatIsOtherToggle();
           return;
         }
         nameInput.value = target.name || "";
         descInput.value = target.desc || "";
         visInput.checked = !!target.visible;
         if (isOtherCb) isOtherCb.checked = isMainCat ? !!target.isOther : false;
-        handleCatIsOtherToggle();
       }
 
       function handleNewMainIsOtherToggle() {
         const cb = document.getElementById("new-main-is-other");
         const hint = document.getElementById("new-main-is-other-hint");
-        if (hint) hint.style.display = cb && cb.checked ? "" : "none";
-      }
-
-      function handleCatIsOtherToggle() {
-        const cb = document.getElementById("cat-is-other");
-        const hint = document.getElementById("cat-is-other-hint");
         if (hint) hint.style.display = cb && cb.checked ? "" : "none";
       }
 
@@ -2856,7 +2847,6 @@
           document.getElementById("cat-visible").checked = !!snapshot.visible;
           const cb = document.getElementById("cat-is-other");
           if (cb) cb.checked = !!snapshot.isOther;
-          handleCatIsOtherToggle();
         } else {
           document.getElementById("topic-name").value = snapshot.name || "";
           document.getElementById("topic-desc").value = snapshot.desc || "";
@@ -2983,12 +2973,7 @@
         target.name = name;
         target.desc = desc;
         target.visible = visible;
-        if (selectedSubCatId == null) {
-          const isOtherCb = document.getElementById("cat-is-other");
-          const newIsOther = !!(isOtherCb && isOtherCb.checked);
-          target.isOther = newIsOther;
-          if (newIsOther) target.subs = [];
-        }
+        // isOther cố định khi tạo, không cập nhật ở đây
         renderMainCats();
         renderSubCats();
         exitAttrEditMode("cat");

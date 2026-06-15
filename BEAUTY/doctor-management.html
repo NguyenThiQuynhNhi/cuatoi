@@ -1490,7 +1490,7 @@
                     <circle cx="11" cy="11" r="8" />
                     <path d="m21 21-4.35-4.35" />
                   </svg>
-                  Tìm kiếm
+                  <span id="date-filter-label">Ngày cập nhật</span>
                 </div>
                 <div class="date-range">
                   <button
@@ -1732,7 +1732,7 @@
                       <th>Số Bài viết</th>
                       <th>Số Bình luận</th>
                       <th>Giới tính</th>
-                      <th>Ngày tạo</th>
+                      <th>Ngày cập nhật</th>
                       <th>Người tạo</th>
                       <th>Ghi chú</th>
                     </tr>
@@ -3861,6 +3861,9 @@
           document
             .getElementById("tab-deleted")
             .classList.toggle("active", tab === "deleted");
+          const dateLabel = document.getElementById("date-filter-label");
+          if (dateLabel)
+            dateLabel.textContent = tab === "info" ? "Ngày cập nhật" : "Ngày xóa";
         } else if (tab === "posts" || tab === "comments") {
           document.getElementById("panel-posts").style.display =
             tab === "posts" ? "block" : "none";
