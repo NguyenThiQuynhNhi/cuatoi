@@ -1342,6 +1342,8 @@
                     <option>Danh sách 30</option>
                     <option>Danh sách 50</option>
                     <option>Danh sách 100</option>
+                    <option>Danh sách 150</option>
+                    <option>Danh sách 200</option>
                   </select>
                 </div>
               </div>
@@ -1503,6 +1505,8 @@
                     <option>Danh sách 30</option>
                     <option>Danh sách 50</option>
                     <option>Danh sách 100</option>
+                    <option>Danh sách 150</option>
+                    <option>Danh sách 200</option>
                   </select>
                 </div>
               </div>
@@ -1666,6 +1670,8 @@
                     <option>Danh sách 30</option>
                     <option>Danh sách 50</option>
                     <option>Danh sách 100</option>
+                    <option>Danh sách 150</option>
+                    <option>Danh sách 200</option>
                   </select>
                 </div>
               </div>
@@ -1847,6 +1853,8 @@
                     <option>Danh sách 30</option>
                     <option>Danh sách 50</option>
                     <option>Danh sách 100</option>
+                    <option>Danh sách 150</option>
+                    <option>Danh sách 200</option>
                   </select>
                 </div>
               </div>
@@ -2014,6 +2022,8 @@
                     <option>Danh sách 30</option>
                     <option>Danh sách 50</option>
                     <option>Danh sách 100</option>
+                    <option>Danh sách 150</option>
+                    <option>Danh sách 200</option>
                   </select>
                 </div>
               </div>
@@ -2180,6 +2190,8 @@
                     <option>Danh sách 30</option>
                     <option>Danh sách 50</option>
                     <option>Danh sách 100</option>
+                    <option>Danh sách 150</option>
+                    <option>Danh sách 200</option>
                   </select>
                 </div>
               </div>
@@ -2234,7 +2246,6 @@
                 id="reason-input"
                 class="reason-input"
                 placeholder="Nhập lý do xoá"
-                oninput="handleReasonInputChange()"
                 onkeydown="handleReasonKey(event)"
               />
               <button
@@ -2304,6 +2315,47 @@
             onclick="confirmActionModal()"
           >
             Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== MODAL: CHỈNH SỬA LÝ DO XOÁ ====== -->
+    <div
+      class="action-modal-backdrop"
+      id="edit-reason-backdrop"
+      onclick="closeEditReasonModal()"
+    >
+      <div
+        class="action-modal"
+        role="dialog"
+        aria-modal="true"
+        style="max-width:440px"
+        onclick="event.stopPropagation()"
+      >
+        <h3 class="action-modal-title">Chỉnh sửa lý do xoá</h3>
+        <div style="margin: 12px 0 16px">
+          <input
+            type="text"
+            id="edit-reason-input"
+            class="reason-input"
+            placeholder="Nhập lý do"
+            style="width:100%"
+            onkeydown="handleEditReasonKey(event)"
+          />
+        </div>
+        <div class="action-modal-actions">
+          <button
+            class="action-modal-btn action-modal-btn-cancel"
+            onclick="closeEditReasonModal()"
+          >
+            Hủy
+          </button>
+          <button
+            class="action-modal-btn action-modal-btn-confirm is-primary"
+            onclick="confirmEditReason()"
+          >
+            Lưu
           </button>
         </div>
       </div>
@@ -3655,8 +3707,8 @@
         if (type === "delete-reason" && id) {
           const idx = deleteReasons.findIndex((r) => r.id === id);
           if (idx >= 0) deleteReasons.splice(idx, 1);
-          if (editingReasonId === id) resetReasonEditor();
-          else renderReasonTable();
+          if (editingReasonModalId === id) closeEditReasonModal();
+          renderReasonTable();
         } else if (id) {
           applyActionToggle(type, id);
           renderAllTables();
@@ -4239,7 +4291,7 @@
         { id: "R003", reason: "Nội dung không phù hợp", creator: "Admin" },
         { id: "R004", reason: "Dẫn link bên ngoài", creator: "chikihong" },
       ];
-      let editingReasonId = null;
+      let editingReasonModalId = null;
 
       function renderReasonTable() {
         const tbody = document.getElementById("tbody-reason");
@@ -4252,12 +4304,14 @@
               <tr>
                 <td class="td-left" style="padding-left: 16px">
                   <div class="reason-chip-wrap">
-                    <button class="reason-chip${editingReasonId === r.id ? " editing" : ""}" onclick="editReason('${escText(r.id)}')">${escText(r.reason)}</button>
-                    
+                    <span class="reason-chip" style="cursor:default">${escText(r.reason)}</span>
                   </div>
                 </td>
                 <td>
-                  <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('delete-reason','${escText(r.id)}')">Xóa</button>
+                  <div style="display:flex;gap:6px;justify-content:center">
+                    <button class="btn btn-outline-primary btn-sm" onclick="openEditReasonModal('${escText(r.id)}')">Sửa</button>
+                    <button class="btn btn-outline-danger btn-sm" onclick="openActionModal('delete-reason','${escText(r.id)}')">Xóa</button>
+                  </div>
                 </td>
                 <td>${escText(r.creator)}</td>
               </tr>`,
@@ -4265,40 +4319,46 @@
           .join("");
       }
 
-      function editReason(id) {
+      function openEditReasonModal(id) {
         const r = deleteReasons.find((x) => x.id === id);
         if (!r) return;
-        editingReasonId = id;
-        const input = document.getElementById("reason-input");
+        editingReasonModalId = id;
+        const input = document.getElementById("edit-reason-input");
         input.value = r.reason;
-        input.classList.add("editing");
-        input.focus();
-        document.getElementById("reason-submit-btn").textContent = "Cập nhật";
-        renderReasonTable();
+        document
+          .getElementById("edit-reason-backdrop")
+          .classList.add("open");
+        setTimeout(() => input.focus(), 30);
       }
 
-      function resetReasonEditor() {
-        editingReasonId = null;
-        const input = document.getElementById("reason-input");
-        input.value = "";
-        input.classList.remove("editing");
-        document.getElementById("reason-submit-btn").textContent = "Thêm";
-        renderReasonTable();
+      function closeEditReasonModal() {
+        document
+          .getElementById("edit-reason-backdrop")
+          .classList.remove("open");
+        editingReasonModalId = null;
       }
 
-      function handleReasonInputChange() {
-        const input = document.getElementById("reason-input");
-        if (editingReasonId && input.value.trim() === "") {
-          resetReasonEditor();
+      function handleEditReasonKey(e) {
+        if (e.key === "Enter") confirmEditReason();
+        else if (e.key === "Escape") closeEditReasonModal();
+      }
+
+      function confirmEditReason() {
+        if (!editingReasonModalId) return closeEditReasonModal();
+        const text = (document.getElementById("edit-reason-input").value || "").trim();
+        if (!text) {
+          alert("Vui lòng nhập lý do.");
+          return;
         }
+        const r = deleteReasons.find((x) => x.id === editingReasonModalId);
+        if (r) r.reason = text;
+        closeEditReasonModal();
+        renderReasonTable();
+        alert("Đã cập nhật lý do.");
       }
 
       function handleReasonKey(e) {
-        if (e.key === "Escape") {
-          resetReasonEditor();
-        } else if (e.key === "Enter") {
-          submitReason();
-        }
+        if (e.key === "Enter") submitReason();
       }
 
       function submitReason() {
@@ -4308,27 +4368,20 @@
           alert("Vui lòng nhập lý do.");
           return;
         }
-        if (editingReasonId) {
-          const r = deleteReasons.find((x) => x.id === editingReasonId);
-          if (r) r.reason = text;
-          alert("Đã cập nhật lý do.");
-          resetReasonEditor();
-        } else {
-          const nextId =
-            "R" +
-            String(
-              Math.max(
-                0,
-                ...deleteReasons.map(
-                  (r) => Number(r.id.replace(/\D/g, "")) || 0,
-                ),
-              ) + 1,
-            ).padStart(3, "0");
-          deleteReasons.unshift({ id: nextId, reason: text, creator: "Admin" });
-          input.value = "";
-          alert("Đã thêm lý do.");
-          renderReasonTable();
-        }
+        const nextId =
+          "R" +
+          String(
+            Math.max(
+              0,
+              ...deleteReasons.map(
+                (r) => Number(r.id.replace(/\D/g, "")) || 0,
+              ),
+            ) + 1,
+          ).padStart(3, "0");
+        deleteReasons.unshift({ id: nextId, reason: text, creator: "Admin" });
+        input.value = "";
+        alert("Đã thêm lý do.");
+        renderReasonTable();
       }
 
       /* ====== GLOBAL LISTENERS ====== */
@@ -4345,6 +4398,7 @@
           closeViewModal();
           closeSuspendModal();
           closeForceLeaveModal();
+          closeEditReasonModal();
         }
       });
 
