@@ -3392,14 +3392,17 @@
 
         <div class="before-after-form">
           <label class="field">
-            <span class="label">Tiêu đề (tối đa 20 ký tự)</span>
+            <span class="label"
+              >Tiêu đề (tối thiểu 5 ký tự, tối đa 60 ký tự)</span
+            >
             <input
               id="before-after-title"
               type="text"
-              maxlength="20"
+              minlength="5"
+              maxlength="60"
               placeholder="Nhập tiêu đề"
             />
-            <div id="before-after-title-count" class="char-counter">0/20</div>
+            <div id="before-after-title-count" class="char-counter">0/60</div>
           </label>
 
           <label class="field">
@@ -3495,14 +3498,17 @@
 
         <div class="general-compose-form">
           <label id="general-title-field" class="field">
-            <span class="label">Tiêu đề (dưới 20 ký tự)</span>
+            <span class="label"
+              >Tiêu đề (tối thiểu 5 ký tự, tối đa 60 ký tự)</span
+            >
             <input
               id="general-title-input"
               type="text"
-              maxlength="20"
+              minlength="5"
+              maxlength="60"
               placeholder="Nhập tiêu đề"
             />
-            <div id="general-title-count" class="char-counter">0/20</div>
+            <div id="general-title-count" class="char-counter">0/60</div>
           </label>
 
           <label class="field">
@@ -3605,11 +3611,14 @@
         <div class="talk-compose-card">
           <!-- THÊM VÀO TRƯỚC <textarea id="talk-content-input" ...> -->
           <div class="talk-field">
-            <span class="talk-label">Tiêu đề (dưới 20 ký tự)</span>
+            <span class="talk-label"
+              >Tiêu đề (tối thiểu 5 ký tự, tối đa 60 ký tự)</span
+            >
             <input
               id="talk-title-input"
               type="text"
-              maxlength="20"
+              minlength="5"
+              maxlength="60"
               placeholder="Nhập tiêu đề"
               class="form-input"
               oninput="
@@ -3617,7 +3626,7 @@
                 updateTalkSubmitState();
               "
             />
-            <div id="talk-title-count" class="char-counter">0/20</div>
+            <div id="talk-title-count" class="char-counter">0/60</div>
           </div>
 
           <textarea
@@ -4810,7 +4819,7 @@
           allowImages: true,
           allowVideos: true,
           videoOnly: false,
-          titleLabel: "Nhập tiêu đề (dưới 20 ký tự)",
+          titleLabel: "Nhập tiêu đề (tối thiểu 5 ký tự, tối đa 60 ký tự)",
         },
         "Thông tin chuyên gia": {
           pageTitle: "Viết bài Thông tin từ chuyên gia",
@@ -4818,7 +4827,7 @@
           allowImages: true,
           allowVideos: true,
           videoOnly: false,
-          titleLabel: "Nhập tiêu đề (dưới 20 ký tự)",
+          titleLabel: "Nhập tiêu đề (tối thiểu 5 ký tự, tối đa 60 ký tự)",
         },
         "Hỏi đáp": {
           pageTitle: "Viết bài Hỏi đáp",
@@ -4826,6 +4835,7 @@
           allowImages: true,
           allowVideos: true,
           videoOnly: false,
+          titleLabel: "Nhập tiêu đề (tối thiểu 5 ký tự, tối đa 60 ký tự)",
         },
       };
 
