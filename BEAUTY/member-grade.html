@@ -25,6 +25,7 @@
         --gray-300: #c9c4e0;
         --gray-400: #9b93bf;
         --gray-500: #6b6390;
+        --gray-600: #5a5379;
         --gray-700: #3d3660;
         --gray-900: #1e1a35;
         --shadow-sm:
@@ -46,6 +47,7 @@
         color: var(--gray-900);
         font-size: 13px;
         min-height: 100vh;
+        overflow-x: hidden;
       }
       .header {
         position: fixed;
@@ -63,8 +65,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding: 0 20px;
         box-shadow: 0 2px 12px rgba(74, 32, 150, 0.25);
       }
       .header-logo {
@@ -75,7 +76,7 @@
         font-weight: 700;
         font-size: 14px;
       }
-      .header-logo .logo-box {
+      .logo-box {
         width: 30px;
         height: 30px;
         background: rgba(255, 255, 255, 0.2);
@@ -85,7 +86,6 @@
         justify-content: center;
         font-weight: 800;
         font-size: 13px;
-        color: white;
         border: 1.5px solid rgba(255, 255, 255, 0.35);
       }
       .header-nav {
@@ -107,6 +107,8 @@
         text-align: center;
         max-width: 120px;
         transition: all 0.15s;
+        text-decoration: none;
+        display: inline-block;
       }
       .nav-item:hover,
       .nav-item.active {
@@ -120,7 +122,7 @@
       .nav-item-group {
         position: relative;
       }
-      .nav-item-group .nav-dropdown {
+      .nav-dropdown {
         position: absolute;
         top: 100%;
         left: 0;
@@ -149,10 +151,6 @@
       .nav-dropdown a:hover {
         background: var(--gray-100);
         color: var(--primary);
-      }
-      a.nav-item {
-        text-decoration: none;
-        display: inline-block;
       }
       .header-user {
         display: flex;
@@ -184,7 +182,6 @@
         font-size: 10.5px;
         opacity: 0.75;
       }
-
       .app-body {
         display: flex;
         padding-top: var(--header-h);
@@ -233,7 +230,6 @@
         color: var(--primary);
         font-weight: 600;
       }
-
       .main {
         margin-left: var(--sidebar-w);
         flex: 1;
@@ -251,7 +247,6 @@
         color: var(--gray-900);
         margin-bottom: 16px;
       }
-
       .card {
         background: white;
         border-radius: var(--radius);
@@ -262,7 +257,6 @@
       .card-body {
         padding: 16px 18px;
       }
-
       .search-row {
         display: flex;
         align-items: center;
@@ -278,7 +272,6 @@
         color: var(--gray-700);
         white-space: nowrap;
       }
-
       .date-range {
         display: flex;
         align-items: center;
@@ -330,7 +323,6 @@
         border-color: transparent;
         font-weight: 700;
       }
-
       .criteria-wrap {
         position: relative;
       }
@@ -395,7 +387,6 @@
         font-family: inherit;
         outline: none;
       }
-
       .btn {
         padding: 6px 16px;
         border-radius: 8px;
@@ -409,6 +400,7 @@
         align-items: center;
         gap: 5px;
         white-space: nowrap;
+        text-decoration: none;
       }
       .btn-outline-primary {
         background: white;
@@ -445,7 +437,6 @@
         padding: 4px 11px;
         font-size: 11px;
       }
-
       .table-title {
         font-size: 13px;
         font-weight: 700;
@@ -484,14 +475,15 @@
         font-weight: 500;
       }
       .table-wrap {
-        overflow-x: auto;
+        overflow-x: hidden;
         border-radius: 8px;
         border: 1px solid var(--gray-200);
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        min-width: 900px;
+        min-width: 0;
+        table-layout: fixed;
       }
       thead {
         background: var(--gray-50);
@@ -502,8 +494,10 @@
         font-size: 11.5px;
         font-weight: 600;
         color: var(--gray-500);
-        white-space: nowrap;
+        white-space: normal;
+        line-height: 1.35;
         border-bottom: 1.5px solid var(--gray-200);
+        word-break: break-word;
       }
       tbody tr {
         border-bottom: 1px solid var(--gray-100);
@@ -517,11 +511,12 @@
         font-size: 12px;
         color: var(--gray-700);
         vertical-align: middle;
+        word-break: break-word;
+        line-height: 1.4;
       }
       .td-left {
         text-align: left !important;
       }
-
       .cell-menu {
         position: relative;
         display: inline-block;
@@ -568,7 +563,6 @@
         background: var(--gray-100);
         color: var(--primary);
       }
-
       .table-footer {
         display: flex;
         justify-content: space-between;
@@ -600,7 +594,6 @@
         border-color: var(--primary);
         color: white;
       }
-
       .select-dropdown {
         position: relative;
         display: inline-flex;
@@ -617,7 +610,8 @@
         background: white;
         cursor: pointer;
         outline: none;
-        min-width: 150px;
+        min-width: 0;
+        width: 100%;
       }
       .select-dropdown::after {
         content: "▾";
@@ -627,17 +621,14 @@
         font-size: 10px;
         color: var(--gray-400);
       }
-
       .ip-text {
         font-family: ui-monospace, SFMono-Regular, monospace;
         font-size: 11.5px;
         color: var(--gray-700);
       }
-
-      /* ====== GRADE CARDS ====== */
       .grade-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 12px;
       }
       .grade-card {
@@ -745,8 +736,6 @@
         padding-top: 10px;
         border-top: 1px solid var(--gray-200);
       }
-
-      /* ====== ACTION MODAL ====== */
       .action-modal-backdrop {
         position: fixed;
         top: 0;
@@ -804,8 +793,6 @@
         background: var(--primary);
         color: white;
       }
-
-      /* ====== EDIT GRADE MODAL ====== */
       .form-group {
         display: flex;
         flex-direction: column;
@@ -826,6 +813,7 @@
         color: var(--gray-900);
         outline: none;
         width: 100%;
+        background: white;
       }
       .form-input:focus {
         border-color: var(--primary);
@@ -833,6 +821,267 @@
       textarea.form-input {
         resize: vertical;
         min-height: 80px;
+      }
+      .hero-card {
+        background: linear-gradient(180deg, #fff 0%, #fbf9ff 100%);
+      }
+      .hero-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--primary);
+        background: var(--primary-light);
+        border: 1px solid var(--gray-200);
+        border-radius: 999px;
+        padding: 4px 8px;
+      }
+      .hero-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--gray-900);
+      }
+      .hero-desc {
+        font-size: 12px;
+        color: var(--gray-500);
+        line-height: 1.6;
+      }
+      .hero-help {
+        margin-top: 14px;
+        padding: 14px;
+        background: var(--warning-light);
+        border: 1px solid #f0d79c;
+        border-radius: 12px;
+        color: #7c5200;
+        font-size: 12px;
+      }
+      .hero-help ul {
+        margin-top: 8px;
+        padding-left: 18px;
+      }
+      .hero-help li + li {
+        margin-top: 4px;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .config-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+      .metric-grid {
+        display: grid;
+        gap: 10px;
+      }
+      .metric-grid.and {
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      }
+      .metric-grid.or {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+      .metric-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .metric-hint {
+        font-size: 9px;
+        line-height: 1.3;
+        color: var(--gray-500);
+        font-weight: 700;
+      }
+      .metric-hint.error {
+        color: var(--accent);
+      }
+      .level-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 10px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 800;
+        border: 1px solid var(--gray-200);
+      }
+      .level-chip.auto {
+        background: #ecfdf5;
+        color: #047857;
+        border-color: #bbf7d0;
+      }
+      .level-chip.manual {
+        background: #fce7f3;
+        color: #be185d;
+        border-color: #fbcfe8;
+      }
+      .badge-config {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 56px;
+        padding: 4px 8px;
+        border-radius: 10px;
+        border: 1px solid var(--gray-200);
+        background: var(--gray-50);
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--gray-900);
+      }
+      .badge-config.warn {
+        background: #fff7ed;
+        border-color: #fed7aa;
+        color: #9a3412;
+      }
+      .badge-inline {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        border: 1px solid var(--gray-200);
+      }
+      .badge-view {
+        background: #ecfdf5;
+        color: #047857;
+        border-color: #bbf7d0;
+      }
+      .detail-layout {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: start;
+      }
+
+      @media (max-width: 1200px) {
+        .main {
+          padding: 16px;
+        }
+
+        .card-body {
+          padding: 14px 14px;
+        }
+
+        .config-grid {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .metric-grid.and {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+
+        .metric-grid.or {
+          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        }
+      }
+
+      @media (max-width: 900px) {
+        .sidebar {
+          position: static;
+          width: auto;
+          min-height: auto;
+          border-right: none;
+          border-bottom: 1px solid var(--gray-200);
+        }
+
+        .app-body {
+          display: block;
+          padding-top: var(--header-h);
+        }
+
+        .main {
+          margin-left: 0;
+        }
+
+        .table-actions,
+        .table-footer,
+        .detail-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .detail-layout {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .table-footer {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 10px;
+        }
+
+        .select-dropdown,
+        .select-dropdown select,
+        .criteria-btn,
+        .search-input-lg {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page-title {
+          font-size: 14px;
+        }
+
+        .header {
+          padding: 0 12px;
+        }
+
+        .header-nav {
+          padding: 0 10px;
+          overflow-x: auto;
+        }
+
+        .table-title {
+          flex-wrap: wrap;
+        }
+
+        .metric-grid.and,
+        .metric-grid.or,
+        .config-grid {
+          grid-template-columns: 1fr;
+        }
+
+        thead th,
+        tbody td {
+          font-size: 11px;
+          padding: 8px 8px;
+        }
+      }
+      .main.page {
+        display: none;
+      }
+      .main.page.active {
+        display: block;
+      }
+      .w-full {
+        width: 100%;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .text-right {
+        text-align: right;
+      }
+      .text-left {
+        text-align: left;
       }
     </style>
   </head>
@@ -855,10 +1104,10 @@
         <div class="nav-item nav-item-group">
           Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
           <div class="nav-dropdown">
-            <a class="" href="doctor-management.html">Bác sĩ</a>
-            <a class="" href="hospital-management.html">Bệnh viện</a>
-            <a class="" href="partner-management.html">Đối tác</a>
-            <a class="" href="product-management.html">Sản phẩm</a>
+            <a href="doctor-management.html">Bác sĩ</a>
+            <a href="hospital-management.html">Bệnh viện</a>
+            <a href="partner-management.html">Đối tác</a>
+            <a href="product-management.html">Sản phẩm</a>
           </div>
         </div>
         <a class="nav-item" href="menu-management.html">Menu</a>
@@ -906,61 +1155,236 @@
         </div>
       </aside>
 
-      <!-- ====== 5.1 QUẢN LÝ CẤP BẬC & NÂNG CẤP ====== -->
       <main class="main page active" id="page-grade">
         <div class="page-title">• Quản lý cấp bậc &amp; nâng cấp</div>
+        <div class="card hero-card">
+          <div class="card-body">
+            <div class="hero-head">
+              <div>
+                <div class="hero-kicker">Cấu hình hệ thống tự động</div>
+                <div class="hero-title" style="margin-top: 8px">
+                  Quản lý cấp bậc &amp; thăng cấp tự động
+                </div>
+                <div class="hero-desc" style="margin-top: 6px">
+                  Thiết lập chuẩn hóa chỉ số thăng cấp tự động cho các tài khoản
+                  thành viên trong hệ thống làm đẹp.
+                </div>
+              </div>
+              <button
+                class="btn btn-danger"
+                type="button"
+                onclick="openAddLevelForm()"
+              >
+                + Thêm cấp bậc mới
+              </button>
+            </div>
+            <div class="hero-help">
+              <strong>Giải thích tên cấp bậc và điều kiện nâng cấp:</strong>
+              <ul>
+                <li>
+                  Chỉ số hoạt động (AND) - thành viên phải đạt đồng thời toàn bộ
+                  thông số.
+                </li>
+                <li>
+                  Chỉ số đánh giá (OR) - thành viên cần đạt ít nhất một trong 3
+                  số liệu nhận được.
+                </li>
+                <li>
+                  Các cấp Chuyên gia và Bác sĩ cần phê duyệt thủ công từ QTV cấp
+                  cao.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card hidden" id="add-level-wrap">
+          <div class="card-body" style="display: grid; gap: 14px">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+                border-bottom: 1px solid var(--gray-200);
+                padding-bottom: 10px;
+              "
+            >
+              <div class="table-title" style="margin-bottom: 0">
+                Thêm thiết lập Cấp bậc mới &amp; Chỉ số thăng cấp
+              </div>
+              <button
+                class="btn btn-ghost btn-sm"
+                type="button"
+                onclick="closeAddLevelForm()"
+              >
+                X
+              </button>
+            </div>
+            <div class="config-grid">
+              <div class="form-group">
+                <label class="form-label">Mã cấp bậc</label
+                ><input
+                  class="form-input"
+                  id="newLevelName"
+                  type="text"
+                  placeholder="Lv.6"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >Sao chép quyền hạn từ [ Chọn cấp bậc ▼ ]</label
+                ><select class="form-input" id="newLevelCopyTo">
+                  <option value="">[ Chọn cấp bậc ▼ ]</option>
+                  <option>Lv.1</option>
+                  <option>Lv.2</option>
+                  <option>Lv.3</option>
+                  <option>Lv.4</option>
+                  <option>Lv.5</option>
+                  <option>KOL</option>
+                  <option>Chuyên gia</option>
+                  <option>Bác sĩ</option>
+                </select>
+                <div class="metric-hint" style="margin-top: 6px">
+                  Hệ thống sẽ sao chép toàn bộ quyền chuyên mục từ cấp bậc được
+                  chọn. Admin có thể chỉnh sửa lại sau tại màn Cài đặt quyền hạn
+                  Chuyên mục (Menu)
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Icon Biểu trưng</label
+                ><select class="form-input" id="newLevelIcon">
+                  <option>🧁 Bánh ngọt</option>
+                  <option>🍬 Kẹo dẻo</option>
+                  <option>🥑 Quả bơ xanh</option>
+                  <option>🍊 Cam ngọt</option>
+                  <option>🍇 Nho tím</option>
+                  <option>👑 Vương miện</option>
+                  <option>🩺 Bác sĩ</option>
+                  <option>⭐️ Ngôi sao</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label"
+                  >Giải thích &amp; Điều kiện tổng quát</label
+                ><input
+                  class="form-input"
+                  id="newLevelExpl"
+                  type="text"
+                  placeholder="Tiêu chuẩn vận dụng thực tế cho cấp này..."
+                />
+              </div>
+            </div>
+            <div class="card" style="margin-bottom: 0">
+              <div class="card-body">
+                <label style="display: flex; gap: 10px; align-items: flex-start"
+                  ><input
+                    type="checkbox"
+                    id="newLevelIsAuto"
+                    checked
+                    onchange="renderAddLevelMetricWrap()"
+                  /><span
+                    ><strong
+                      >Cấu hình nâng cấp tự động (Automatic Upgrade)</strong
+                    ><br /><span style="font-size: 10px; color: var(--gray-500)"
+                      >Tích chọn để cài đặt chỉ số thăng cấp; Bỏ chọn nếu đây là
+                      cấp bậc thủ công do Admin tự bổ nhiệm</span
+                    ></span
+                  ></label
+                >
+              </div>
+            </div>
+            <div id="newLevelMetricWrap"></div>
+            <div style="display: flex; justify-content: flex-end; gap: 8px">
+              <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="closeAddLevelForm()"
+              >
+                Bỏ qua</button
+              ><button
+                class="btn btn-primary"
+                type="button"
+                onclick="handleAddNewLevel()"
+              >
+                Thêm Cấp bậc
+              </button>
+            </div>
+          </div>
+        </div>
 
         <div class="card">
-          <div class="card-body">
-            <div class="grade-grid" id="grade-grid"></div>
+          <div class="card-body" style="padding-bottom: 0">
+            <div class="table-title">Danh sách cấp bậc</div>
+            <div class="table-wrap">
+              <table id="grade-table">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Biểu tượng / Icon</th>
+                    <th rowspan="2">Cấp bậc</th>
+                    <th rowspan="2" class="td-left">Giải thích</th>
+                    <th rowspan="2">Loại nâng cấp</th>
+                    <th colspan="5">Chỉ số hoạt động (điều kiện "and")</th>
+                    <th colspan="3">Chỉ số đánh giá (điều kiện "or")</th>
+                  </tr>
+                  <tr>
+                    <th>방문수</th>
+                    <th>게시글수</th>
+                    <th>댓글수</th>
+                    <th>누른 좋아요수</th>
+                    <th>팔로잉 수</th>
+                    <th>받은 좋아요수</th>
+                    <th>팔로우 수</th>
+                    <th>평균 조회수</th>
+                  </tr>
+                </thead>
+                <tbody id="grade-tbody"></tbody>
+              </table>
+            </div>
           </div>
+          <div
+            id="grade-actions-footer"
+            class="card-body"
+            style="
+              padding-top: 0;
+              border-top: 1px solid var(--gray-200);
+              display: flex;
+              justify-content: flex-end;
+              gap: 8px;
+              flex-wrap: wrap;
+            "
+          ></div>
         </div>
       </main>
 
-      <!-- ====== 5.2 QUẢN LÝ THÀNH VIÊN BỊ CHẶN NÂNG CẤP TỰ ĐỘNG ====== -->
       <main class="main page" id="page-blocked">
         <div class="page-title">
           • Quản lý thành viên bị chặn nâng cấp tự động
         </div>
-
-        <div class="card">
+        <div class="card hero-card">
           <div class="card-body">
-            <div class="search-row">
-              <span class="filter-label">Theo ngày xử lý:</span>
-              <div class="date-range">
-                <button class="date-nav" onclick="shiftDate('bl', -1)">
-                  ‹
-                </button>
-                <span class="date-display" id="bl-date"
-                  >23-06-2025 ~ 30-06-2025</span
+            <div class="hero-head">
+              <div>
+                <div
+                  class="hero-kicker"
+                  style="background: #fff1f2; color: #be123c"
                 >
-                <button class="date-nav" onclick="shiftDate('bl', 1)">›</button>
+                  Cấu hình bảo lưu danh vọng
+                </div>
+                <div class="hero-title" style="margin-top: 8px">
+                  Quản lý thành viên bị chặn nâng cấp tự động
+                </div>
+                <div class="hero-desc" style="margin-top: 6px">
+                  Ngăn chặn thành viên gian lận hoặc vi phạm quy chế cộng đồng
+                  thăng cấp tự động.
+                </div>
               </div>
-              <div class="time-filters">
-                <button class="tf-btn">Ngày</button>
-                <button class="tf-btn active">Tuần</button>
-                <button class="tf-btn">Tháng</button>
-                <button class="tf-btn">Năm</button>
-                <button class="tf-btn">Tất cả</button>
-              </div>
-            </div>
-            <div class="search-row">
-              <span class="filter-label">Tìm kiếm:</span>
-              <div class="criteria-wrap" id="criteria-bl">
-                <button
-                  class="criteria-btn"
-                  onclick="toggleCriteria('bl', event)"
-                >
-                  <span id="criteria-label-bl">ID</span><span>▼</span>
-                </button>
-                <div class="criteria-menu"></div>
-              </div>
-              <input class="search-input-lg" placeholder="Nhập thông tin" />
               <button
-                class="btn btn-primary btn-sm"
-                onclick="alert('Chức năng đang phát triển.')"
+                class="btn btn-danger"
+                type="button"
+                onclick="openAddBlockModal()"
               >
-                Tìm
+                + Chặn thành viên mới
               </button>
             </div>
           </div>
@@ -968,16 +1392,222 @@
 
         <div class="card">
           <div class="card-body">
+            <div class="search-row">
+              <span class="filter-label">Theo ngày xử lý:</span>
+              <div class="date-range">
+                <button
+                  class="date-nav"
+                  type="button"
+                  onclick="shiftDate('bl', -1)"
+                >
+                  ‹
+                </button>
+                <span class="date-display" id="bl-date"
+                  >23-06-2025 ~ 30-06-2025</span
+                >
+                <button
+                  class="date-nav"
+                  type="button"
+                  onclick="shiftDate('bl', 1)"
+                >
+                  ›
+                </button>
+              </div>
+              <div class="time-filters" id="block-date-tabs">
+                <button
+                  class="tf-btn"
+                  data-tab="day"
+                  onclick="handleDateTabChange('day')"
+                >
+                  Ngày
+                </button>
+                <button
+                  class="tf-btn active"
+                  data-tab="week"
+                  onclick="handleDateTabChange('week')"
+                >
+                  Tuần
+                </button>
+                <button
+                  class="tf-btn"
+                  data-tab="month"
+                  onclick="handleDateTabChange('month')"
+                >
+                  Tháng
+                </button>
+                <button
+                  class="tf-btn"
+                  data-tab="year"
+                  onclick="handleDateTabChange('year')"
+                >
+                  Năm
+                </button>
+                <button
+                  class="tf-btn"
+                  data-tab="all"
+                  onclick="handleDateTabChange('all')"
+                >
+                  Tất cả
+                </button>
+                <button
+                  class="tf-btn"
+                  data-tab="custom"
+                  onclick="handleDateTabChange('custom')"
+                >
+                  Tự chọn
+                </button>
+              </div>
+            </div>
+            <div class="search-row">
+              <span class="filter-label">Tìm kiếm:</span>
+              <div class="criteria-wrap" id="criteria-bl">
+                <button
+                  class="criteria-btn"
+                  type="button"
+                  onclick="toggleCriteria('bl', event)"
+                >
+                  <span id="criteria-label-bl">ID</span><span>▼</span>
+                </button>
+                <div class="criteria-menu" id="criteria-menu-bl"></div>
+              </div>
+              <input
+                class="search-input-lg"
+                id="bl-search"
+                placeholder="Nhập thông tin"
+                oninput="
+                  state.searchQuery = this.value;
+                  renderBlockedTable();
+                "
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                type="button"
+                onclick="executeBlockedSearch()"
+              >
+                Tìm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card hidden" id="add-block-modal-card">
+          <div class="card-body" style="display: grid; gap: 14px">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+                border-bottom: 1px solid var(--gray-200);
+                padding-bottom: 10px;
+              "
+            >
+              <div class="table-title" style="margin-bottom: 0">
+                Thêm chặn thăng cấp tự động
+              </div>
+              <button
+                class="btn btn-ghost btn-sm"
+                type="button"
+                onclick="closeAddBlockModal()"
+              >
+                X
+              </button>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nickname hoặc ID Thành viên</label
+              ><input
+                class="form-input"
+                id="addBlockNickname"
+                type="text"
+                placeholder="e.g. skin_blogger_99"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lý do hủy nâng cấp tự động</label>
+              <div class="card" style="margin-bottom: 0">
+                <div class="card-body" style="display: grid; gap: 8px">
+                  <label
+                    ><input
+                      type="radio"
+                      name="reasonType"
+                      checked
+                      onclick="state.reasonType = 'community'"
+                    />
+                    Vi phạm tiêu chuẩn cộng đồng</label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      name="reasonType"
+                      onclick="state.reasonType = 'spam'"
+                    />
+                    Spam, đăng bài liên tục</label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      name="reasonType"
+                      onclick="state.reasonType = 'ads'"
+                    />
+                    Quảng cáo, lăng mạ, chửi tục</label
+                  >
+                  <label style="display: flex; align-items: center; gap: 8px"
+                    ><input
+                      type="radio"
+                      name="reasonType"
+                      onclick="state.reasonType = 'other'" />
+                    Khác:
+                    <input
+                      class="form-input"
+                      id="customReasonText"
+                      style="max-width: 220px"
+                      type="text"
+                      placeholder="Nhập lý do"
+                  /></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Thời gian bị chặn</label
+              ><select class="form-input" id="addBlockDuration">
+                <option value="1">1 ngày bị chặn</option>
+                <option value="7" selected>7 ngày bị chặn</option>
+                <option value="14">14 ngày bị chặn</option>
+                <option value="30">30 ngày bị chặn</option>
+                <option value="vô thời hạn">Vô thời hạn bị chặn</option>
+              </select>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 8px">
+              <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="closeAddBlockModal()"
+              >
+                Bỏ qua</button
+              ><button
+                class="btn btn-danger"
+                type="button"
+                onclick="handleCreateNewBlock()"
+              >
+                Xác nhận Chặn
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body" style="padding-bottom: 0">
             <div class="table-title">
               • Quản lý thành viên bị chặn nâng cấp tự động
-              <span class="count" id="bl-count">2 người</span>
+              <span class="count" id="bl-count">0 người</span>
             </div>
             <div class="table-actions">
               <div class="table-actions-left">
-                <span>Mục đã chọn:</span>
-                <button
+                <span>Mục đã chọn:</span
+                ><button
                   class="btn btn-outline-primary btn-sm"
-                  onclick="openActionModal('bulk-unblock')"
+                  type="button"
+                  onclick="handleBulkUnblock()"
                 >
                   Hủy chặn
                 </button>
@@ -1010,11 +1640,17 @@
               <table>
                 <thead>
                   <tr>
-                    <th><input type="checkbox" /></th>
+                    <th>
+                      <input
+                        type="checkbox"
+                        id="select-all-blocked"
+                        onchange="handleSelectAll(this.checked)"
+                      />
+                    </th>
                     <th>ID</th>
                     <th>Tên hiển thị</th>
-                    <th>Cấp bậc hiện tại</th>
                     <th>Lý do chặn</th>
+                    <th>Số ngày bị chặn</th>
                     <th>Ngày xử lý</th>
                     <th>Người xử lý</th>
                     <th>Hủy chặn</th>
@@ -1022,25 +1658,24 @@
                 </thead>
                 <tbody id="tbody-bl"></tbody>
               </table>
-              <div class="table-footer">
-                <div></div>
-                <div class="pagination">
-                  <button class="pg-btn">‹</button>
-                  <button class="pg-btn active">1</button>
-                  <button class="pg-btn">2</button>
-                  <button class="pg-btn">3</button>
-                  <button class="pg-btn">4</button>
-                  <button class="pg-btn">›</button>
-                </div>
-                <div style="width: 120px"></div>
+            </div>
+            <div class="table-footer">
+              <div></div>
+              <div class="pagination">
+                <button class="pg-btn">‹</button
+                ><button class="pg-btn active">1</button
+                ><button class="pg-btn">2</button
+                ><button class="pg-btn">3</button
+                ><button class="pg-btn">4</button
+                ><button class="pg-btn">›</button>
               </div>
+              <div style="width: 120px"></div>
             </div>
           </div>
         </div>
       </main>
     </div>
 
-    <!-- ====== ACTION MODAL (generic confirm) ====== -->
     <div
       class="action-modal-backdrop"
       id="action-modal-backdrop"
@@ -1059,12 +1694,14 @@
         <div class="action-modal-actions">
           <button
             class="action-modal-btn action-modal-btn-cancel"
+            type="button"
             onclick="closeActionModal()"
           >
             Hủy
           </button>
           <button
             class="action-modal-btn action-modal-btn-confirm"
+            type="button"
             onclick="confirmActionModal()"
           >
             Xác nhận
@@ -1073,7 +1710,6 @@
       </div>
     </div>
 
-    <!-- ====== EDIT GRADE MODAL ====== -->
     <div
       class="action-modal-backdrop"
       id="edit-grade-backdrop"
@@ -1090,15 +1726,13 @@
         <div class="form-group">
           <label class="form-label"
             >Tên cấp bậc <span style="color: var(--accent)">*</span></label
-          >
-          <input type="text" class="form-input" id="eg-name" />
+          ><input type="text" class="form-input" id="eg-name" />
         </div>
         <div class="form-group">
           <label class="form-label"
             >Điều kiện nâng cấp tự động
             <span style="color: var(--accent)">*</span></label
-          >
-          <textarea
+          ><textarea
             class="form-input"
             id="eg-cond"
             placeholder="Ví dụ: Có ít nhất 10 bài viết và 30 ngày hoạt động"
@@ -1107,12 +1741,13 @@
         <div class="action-modal-actions">
           <button
             class="action-modal-btn action-modal-btn-cancel"
+            type="button"
             onclick="closeEditGrade()"
           >
-            Hủy
-          </button>
-          <button
+            Hủy</button
+          ><button
             class="action-modal-btn action-modal-btn-confirm"
+            type="button"
             onclick="confirmEditGrade()"
           >
             Lưu
@@ -1122,269 +1757,510 @@
     </div>
 
     <script>
-      /* ====== DATA ====== */
-      const grades = [
+      const clone = (v) => JSON.parse(JSON.stringify(v));
+      const DEFAULT_MEMBER_LEVELS = [
         {
-          id: "lv1",
-          code: "Lv.1",
-          name: "Người mới",
-          cls: "lv1",
-          condition: "Đăng ký tài khoản thành công, hoạt động dưới 7 ngày.",
-          members: 1820,
-          autoUpgrade: 1480,
+          id: "Lv.1",
+          rawName: "Lv.1",
+          icon: "🧁",
+          color: "bg-rose-100 text-rose-800 border-rose-200",
+          vietnameseName: "Cấp 1",
+          explanation:
+            "Người dùng vừa đăng ký thành viên. Không thể sử dụng tính năng viết bài Chỉ dành cho chuyên gia",
+          criteria: {
+            visits: 0,
+            posts: 0,
+            comments: 0,
+            likesGiven: 0,
+            followings: 0,
+            likesReceived: 0,
+            followers: 0,
+            avgViews: 0,
+          },
+          isAutomaticConfigurable: true,
         },
         {
-          id: "lv2",
-          code: "Lv.2",
-          name: "Người dùng tích cực",
-          cls: "lv2",
-          condition: "Có ≥ 5 bài viết HOẶC 20 bình luận, hoạt động ≥ 14 ngày.",
-          members: 612,
-          autoUpgrade: 540,
+          id: "Lv.2",
+          rawName: "Lv.2",
+          icon: "🍬",
+          color: "bg-amber-100 text-amber-805 border-amber-200",
+          vietnameseName: "Cấp 2",
+          explanation:
+            "Không thể sử dụng tính năng viết bài Chỉ dành cho chuyên gia (Lv.2)",
+          criteria: {
+            visits: 1,
+            posts: 1,
+            comments: 3,
+            likesGiven: 0,
+            followings: 0,
+            likesReceived: 5,
+            followers: 2,
+            avgViews: 15,
+          },
+          isAutomaticConfigurable: true,
         },
         {
-          id: "lv3",
-          code: "Lv.3",
-          name: "Người đóng góp",
-          cls: "lv3",
-          condition: "Có ≥ 20 bài viết, ≥ 50 bình luận, hoạt động ≥ 30 ngày.",
-          members: 198,
-          autoUpgrade: 170,
+          id: "Lv.3",
+          rawName: "Lv.3",
+          icon: "🥑",
+          color: "bg-emerald-100 text-emerald-800 border-emerald-200",
+          vietnameseName: "Cấp 3",
+          explanation:
+            "Không thể sử dụng tính năng viết bài Chỉ dành cho chuyên gia (Lv.3)",
+          criteria: {
+            visits: 10,
+            posts: 10,
+            comments: 20,
+            likesGiven: 10,
+            followings: 10,
+            likesReceived: 15,
+            followers: 15,
+            avgViews: 45,
+          },
+          isAutomaticConfigurable: true,
         },
         {
-          id: "lv4",
-          code: "Lv.4",
-          name: "Người đóng góp tích cực",
-          cls: "lv4",
-          condition: "Có ≥ 50 bài viết, ≥ 200 bình luận, hoạt động ≥ 60 ngày.",
-          members: 78,
-          autoUpgrade: 65,
+          id: "Lv.4",
+          rawName: "Lv.4",
+          icon: "🍊",
+          color: "bg-orange-100 text-orange-850 border-orange-200",
+          vietnameseName: "Cấp 4",
+          explanation:
+            "Không thể sử dụng tính năng viết bài Chỉ dành cho chuyên gia (Lv.4)",
+          criteria: {
+            visits: 50,
+            posts: 30,
+            comments: 50,
+            likesGiven: 50,
+            followings: 50,
+            likesReceived: 75,
+            followers: 75,
+            avgViews: 225,
+          },
+          isAutomaticConfigurable: true,
         },
         {
-          id: "lv5",
-          code: "Lv.5",
-          name: "Thành viên cốt cán",
-          cls: "lv5",
-          condition: "Có ≥ 100 bài viết, ≥ 500 bình luận, hoạt động ≥ 90 ngày.",
-          members: 26,
-          autoUpgrade: 22,
+          id: "Lv.5",
+          rawName: "Lv.5",
+          icon: "🍇",
+          color: "bg-cyan-100 text-cyan-850 border-cyan-200",
+          vietnameseName: "Cấp 5",
+          explanation:
+            "Không thể sử dụng tính năng viết bài Chỉ dành cho chuyên gia (Lv.5)",
+          criteria: {
+            visits: 500,
+            posts: 100,
+            comments: 200,
+            likesGiven: 250,
+            followings: 250,
+            likesReceived: 375,
+            followers: 375,
+            avgViews: 1125,
+          },
+          isAutomaticConfigurable: true,
         },
         {
-          id: "kol",
-          code: "KOL",
-          name: "KOL",
-          cls: "kol",
-          condition:
-            "Được xác minh KOL bởi Admin. Bài viết phải đạt tương tác trung bình ≥ 500 lượt.",
-          members: 14,
-          autoUpgrade: 0,
+          id: "전문가",
+          rawName: "전문가",
+          icon: "👑",
+          color: "bg-indigo-100 text-indigo-850 border-indigo-200",
+          vietnameseName: "Chuyên gia (KOL)",
+          explanation:
+            "Là KOL, beauty blogger. Thành viên chuyên gia phải thông qua QTV mới được nâng cấp thành Chuyên gia.",
+          criteria: {
+            visits: 9999,
+            posts: 9999,
+            comments: 9999,
+            likesGiven: 9999,
+            followings: 9999,
+            likesReceived: 9999,
+            followers: 9999,
+            avgViews: 9999,
+          },
+          isAutomaticConfigurable: false,
         },
         {
-          id: "exp",
-          code: "Chuyên gia",
-          name: "Chuyên gia",
-          cls: "exp",
-          condition:
-            "Được xác minh có chứng chỉ chuyên môn (mỹ phẩm, dinh dưỡng…) bởi Admin.",
-          members: 9,
-          autoUpgrade: 0,
-        },
-        {
-          id: "doc",
-          code: "Bác sĩ",
-          name: "Bác sĩ",
-          cls: "doc",
-          condition:
-            "Được xác minh có chứng chỉ hành nghề y bởi Admin (trang Bác sĩ).",
-          members: 6,
-          autoUpgrade: 0,
+          id: "의사",
+          rawName: "의사",
+          icon: "🩺",
+          color: "bg-teal-100 text-teal-850 border-teal-200",
+          vietnameseName: "Bác sĩ",
+          explanation:
+            'Thành viên Bác sĩ - Có tính năng như một thành viên chuyên gia - Phải thông qua QTV mới được nâng cấp thành Bác sĩ - Bài viết có bình luận của Bác sĩ sẽ được đánh dấu nổi bật "Bác sĩ đã bình luận"',
+          criteria: {
+            visits: 9999,
+            posts: 9999,
+            comments: 9999,
+            likesGiven: 9999,
+            followings: 9999,
+            likesReceived: 9999,
+            followers: 9999,
+            avgViews: 9999,
+          },
+          isAutomaticConfigurable: false,
         },
       ];
-
-      const blockedMembers = [
+      const DEFAULT_BLOCKED_MEMBERS = [
         {
-          id: "M501",
+          id: "MEM-2025-091",
           nickname: "nguyettp",
-          grade: "Lv.2",
-          reason: "Spam",
-          date: "30-06-2025 16:33",
-          handler: "maimai",
+          avatar:
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
+          blockedReason: "Spam bài viết dồn dập",
+          blockedDuration: "30",
+          processedDate: "30/06/2025",
+          processedBy: "maimai",
+          visits: 42,
+          posts: 15,
+          comments: 65,
+          status: "active",
         },
         {
-          id: "M502",
-          nickname: "hoaian",
-          grade: "Lv.1",
-          reason: "Nội dung không phù hợp",
-          date: "28-06-2025 16:59",
-          handler: "chikihong",
+          id: "MEM-2025-045",
+          nickname: "duongtthuong",
+          avatar:
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+          blockedReason: "Sử dụng từ cấm quảng cáo sản phẩm",
+          blockedDuration: "7",
+          processedDate: "28/06/2025",
+          processedBy: "admin01",
+          visits: 89,
+          posts: 3,
+          comments: 142,
+          status: "active",
         },
         {
-          id: "M503",
-          nickname: "mintzgg",
-          grade: "Lv.3",
-          reason: "Bài viết bị báo cáo nhiều",
-          date: "26-06-2025 16:25",
-          handler: "Admin B",
+          id: "MEM-2025-102",
+          nickname: "beautyfan_girl",
+          avatar:
+            "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150",
+          blockedReason: "Spam likes liên tục không bình thường",
+          blockedDuration: "14",
+          processedDate: "25/06/2025",
+          processedBy: "maimai",
+          visits: 120,
+          posts: 0,
+          comments: 310,
+          status: "active",
         },
         {
-          id: "M504",
-          nickname: "fakeacc05",
-          grade: "Lv.1",
-          reason: "Nghi ngờ tài khoản giả",
-          date: "25-06-2025 09:08",
-          handler: "maimai",
+          id: "MEM-2025-077",
+          nickname: "skincare_lover",
+          avatar:
+            "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150",
+          blockedReason: "Chia sẻ link độc hại lặp đi lặp lại",
+          blockedDuration: "vô thời hạn",
+          processedDate: "24/06/2025",
+          processedBy: "admin_quyen",
+          visits: 210,
+          posts: 54,
+          comments: 489,
+          status: "active",
+        },
+        {
+          id: "MEM-2025-015",
+          nickname: "tony_tran",
+          avatar:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+          blockedReason: "Bình luận gây gổ, khiếm nhã trong group spa",
+          blockedDuration: "1",
+          processedDate: "23/06/2025",
+          processedBy: "admin01",
+          visits: 15,
+          posts: 1,
+          comments: 9,
+          status: "active",
         },
       ];
-
       const SEARCH_CRITERIA = ["ID", "Tên hiển thị"];
-
-      let pendingAction = null;
-      let editingGradeId = null;
-
-      /* ====== HELPERS ====== */
-      function escText(s) {
-        return String(s ?? "")
+      const state = {
+        grades: clone(DEFAULT_MEMBER_LEVELS),
+        savedGrades: clone(DEFAULT_MEMBER_LEVELS),
+        isEditing: false,
+        showAddLevelForm: false,
+        newLevelCriteria: {
+          visits: 500,
+          posts: 100,
+          comments: 200,
+          likesGiven: 250,
+          followings: 250,
+          likesReceived: 375,
+          followers: 375,
+          avgViews: 1125,
+        },
+        blockedMembers: clone(DEFAULT_BLOCKED_MEMBERS),
+        selectedBlockedIds: [],
+        dateRange: "23/06/2025 ~ 30/06/2025",
+        activeDateTab: "week",
+        searchQuery: "",
+        focusedMemberId: "MEM-2025-091",
+        activeActionMenuId: null,
+        showAddNewBlockModal: false,
+        reasonType: "community",
+        pendingAction: null,
+        editingGradeId: null,
+      };
+      function escText(v) {
+        return String(v ?? "")
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;")
           .replace(/"/g, "&quot;")
           .replace(/'/g, "&#39;");
       }
-      function fmtNum(n) {
-        return Number(n || 0).toLocaleString("vi-VN");
-      }
-
-      /* ====== NAVIGATION ====== */
       function goSection(section) {
         document
-          .querySelectorAll(".sidebar-item")
-          .forEach((el) => el.classList.remove("active"));
-        document.getElementById("sidebar-" + section)?.classList.add("active");
+          .getElementById("sidebar-grade")
+          .classList.toggle("active", section === "grade");
         document
-          .querySelectorAll(".main.page")
-          .forEach((el) => el.classList.remove("active"));
-        document.getElementById("page-" + section)?.classList.add("active");
-        closeAllMenus();
+          .getElementById("sidebar-blocked")
+          .classList.toggle("active", section === "blocked");
+        document
+          .getElementById("page-grade")
+          .classList.toggle("active", section === "grade");
+        document
+          .getElementById("page-blocked")
+          .classList.toggle("active", section === "blocked");
       }
-
-      function shiftDate(target, dir) {
-        alert(
-          "Chuyển khoảng thời gian: " + (dir > 0 ? "tiếp theo" : "trước đó"),
-        );
-      }
-
-      /* ====== CRITERIA ====== */
-      function renderCriteriaMenu(target) {
-        const menu = document.querySelector(
-          `#criteria-${target} .criteria-menu`,
-        );
-        if (!menu) return;
-        menu.innerHTML = SEARCH_CRITERIA.map(
-          (opt) =>
-            `<button class="criteria-option" onclick="selectCriteria('${target}','${escText(opt)}')">${escText(opt)}</button>`,
-        ).join("");
+      function renderCriteriaMenu() {
+        document.getElementById("criteria-menu-bl").innerHTML =
+          SEARCH_CRITERIA.map(
+            (opt) =>
+              `<button class="criteria-option" type="button" onclick="selectCriteria('bl','${escText(opt)}')">${escText(opt)}</button>`,
+          ).join("");
       }
       function toggleCriteria(target, e) {
         e.stopPropagation();
-        const wrap = document.getElementById("criteria-" + target);
-        document.querySelectorAll(".criteria-wrap.open").forEach((w) => {
-          if (w !== wrap) w.classList.remove("open");
-        });
-        wrap?.classList.toggle("open");
+        document.getElementById("criteria-bl").classList.toggle("open");
       }
       function selectCriteria(target, label) {
-        const el = document.getElementById("criteria-label-" + target);
-        if (el) el.textContent = label;
-        document.getElementById("criteria-" + target)?.classList.remove("open");
-      }
-
-      /* ====== CELL MENU ====== */
-      function toggleMenu(event, menuEl) {
-        event.stopPropagation();
-        menuEl.classList.toggle("open");
+        document.getElementById("criteria-label-bl").textContent = label;
+        document.getElementById("criteria-bl").classList.remove("open");
       }
       function closeAllMenus() {
-        document
-          .querySelectorAll(".cell-menu.open")
-          .forEach((m) => m.classList.remove("open"));
-        document
-          .querySelectorAll(".criteria-wrap.open")
-          .forEach((w) => w.classList.remove("open"));
+        document.getElementById("criteria-bl").classList.remove("open");
+        state.activeActionMenuId = null;
       }
-
-      /* ====== RENDER GRADES ====== */
-      function renderGrades() {
-        const grid = document.getElementById("grade-grid");
-        if (!grid) return;
-        grid.innerHTML = grades
+      function openAddLevelForm() {
+        state.isEditing = true;
+        state.showAddLevelForm = true;
+        document.getElementById("add-level-wrap").classList.remove("hidden");
+        renderGradeActions();
+        renderGradeTable();
+        renderAddLevelMetricWrap();
+      }
+      function closeAddLevelForm() {
+        state.showAddLevelForm = false;
+        document.getElementById("add-level-wrap").classList.add("hidden");
+      }
+      function setEditing(v) {
+        state.isEditing = v;
+        renderGradeActions();
+        renderGradeTable();
+      }
+      function resetLevels() {
+        if (
+          confirm(
+            "Bạn có đồng ý khôi phục dữ liệu cấu hình thăng cấp về mặc định?",
+          )
+        ) {
+          state.grades = clone(DEFAULT_MEMBER_LEVELS);
+          state.savedGrades = clone(DEFAULT_MEMBER_LEVELS);
+          state.isEditing = false;
+          closeAddLevelForm();
+          renderGradeActions();
+          renderGradeTable();
+        }
+      }
+      function saveLevels() {
+        state.savedGrades = clone(state.grades);
+        state.isEditing = false;
+        renderGradeActions();
+        renderGradeTable();
+        alert(
+          "Đã cập nhật cấu hình điều kiện thăng cấp & Cấp bậc thành viên thành công!",
+        );
+      }
+      function inputMetric(field, label, hintText, tone) {
+        return `<div class="metric-field"><label class="form-label">${label}</label><input class="form-input" type="number" min="0" value="${state.newLevelCriteria[field]}" oninput="state.newLevelCriteria.${field}=Number(this.value||0); renderAddLevelMetricWrap()" /><div class="metric-hint ${tone === "amber" ? "error" : ""}">${hintText}</div></div>`;
+      }
+      function renderAddLevelMetricWrap() {
+        const wrap = document.getElementById("newLevelMetricWrap");
+        if (!wrap) return;
+        wrap.innerHTML = document.getElementById("newLevelIsAuto").checked
+          ? `<div class="card" style="margin-bottom:0"><div class="card-body" style="display:grid; gap:14px"><div style="font-size:10px; font-weight:800; color:var(--primary); text-transform:uppercase; letter-spacing:.08em; background:var(--primary-light); display:inline-flex; padding:4px 8px; border-radius:999px">Thiết lập Chỉ Số Thăng Cấp Chi Tiết:</div><div><h4 style="font-size:11px; font-weight:900; color:var(--primary); margin-bottom:8px">#### 1. Chỉ số hoạt động (Điều kiện đồng thời "AND")</h4><div class="metric-grid and">${inputMetric("visits", "Lần truy cập (방문수)", "Yêu cầu ≥ 500 (Lv.5)")} ${inputMetric("posts", "Bài viết (게시글수)", "Yêu cầu ≥ 100 (Lv.5)")} ${inputMetric("comments", "Bình luận (댓글수)", "Yêu cầu ≥ 200 (Lv.5)")} ${inputMetric("likesGiven", "Thích thả (누른 좋아요)", "Yêu cầu ≥ 250 (Lv.5)")} ${inputMetric("followings", "Đang Follow (팔로잉)", "Yêu cầu ≥ 250 (Lv.5)")}</div></div><div style="border-top:1px solid var(--gray-200); padding-top:14px"><h4 style="font-size:11px; font-weight:900; color:#b45309; margin-bottom:8px">#### 2. Chỉ số đánh giá (Điều kiện tối thiểu "OR")</h4><div class="metric-grid or">${inputMetric("likesReceived", "Được Thích (받은 좋아요)", "Yêu cầu ≥ 375 (Lv.5)", "amber")} ${inputMetric("followers", "Theo dõi (팔로우)", "Yêu cầu ≥ 375 (Lv.5)", "amber")} ${inputMetric("avgViews", "Xem trung bình (평균 조회)", "Yêu cầu ≥ 1125 (Lv.5)", "amber")}</div></div></div></div>`
+          : "";
+      }
+      function renderGradeTable() {
+        const tbody = document.getElementById("grade-tbody");
+        tbody.innerHTML = state.grades
           .map(
-            (g) => `
-          <div class="grade-card">
-            <div class="grade-head">
-              <div class="grade-badge ${g.cls}">${escText(g.code)}</div>
-              <div>
-                <div class="grade-name">${escText(g.name)}</div>
-                <div class="grade-id">${escText(g.code)} · ID: ${escText(g.id)}</div>
-              </div>
-            </div>
-            <div>
-              <div class="grade-cond-label">Điều kiện nâng cấp</div>
-              <div class="grade-cond">${escText(g.condition)}</div>
-            </div>
-            <div class="grade-stats">
-              <div class="grade-stat">
-                <div class="v">${fmtNum(g.members)}</div>
-                <div class="l">Thành viên</div>
-              </div>
-              <div class="grade-stat">
-                <div class="v">${fmtNum(g.autoUpgrade)}</div>
-                <div class="l">Nâng cấp tự động</div>
-              </div>
-            </div>
-            <div class="grade-actions">
-              <button class="btn btn-outline-primary btn-sm" onclick="openEditGrade('${escText(g.id)}')">Chỉnh sửa</button>
-              <button class="btn btn-outline-primary btn-sm" onclick="alert('Chức năng đang phát triển.')">Xem thành viên</button>
-            </div>
-          </div>
-        `,
+            (lvl, index) =>
+              `<tr><td class="text-center"><span style="font-size:28px">${lvl.icon}</span></td><td class="text-center"><span class="level-chip ${lvl.isAutomaticConfigurable ? "auto" : "manual"}">${escText(lvl.id)}</span></td><td class="td-left">${state.isEditing ? `<textarea class="form-input" rows="3" oninput="state.grades[${index}].explanation=this.value; renderGradeTable()">${escText(lvl.explanation)}</textarea>` : `<div style="font-size:11px; line-height:1.5; font-weight:600">${escText(lvl.explanation)}</div>`}</td><td class="text-center"><span class="level-chip ${lvl.isAutomaticConfigurable ? "auto" : "manual"}">${lvl.isAutomaticConfigurable ? "Tự động" : "Thủ công"}</span></td>${["visits", "posts", "comments", "likesGiven", "followings"].map((field) => `<td>${lvl.isAutomaticConfigurable && state.isEditing ? `<div style="display:grid; gap:4px; justify-items:center"><input class="form-input" style="width:90px; text-align:center" type="number" min="0" value="${lvl.criteria[field]}" oninput="state.grades[${index}].criteria.${field}=Number(this.value||0); renderGradeTable()" /><div class="metric-hint">≥ ${lvl.criteria[field]}</div></div>` : `<span class="badge-config">${lvl.isAutomaticConfigurable ? (lvl.criteria[field] === 9999 ? "9999+" : lvl.criteria[field]) : "-"}</span>`}</td>`).join("")}${["likesReceived", "followers", "avgViews"].map((field) => `<td>${lvl.isAutomaticConfigurable && state.isEditing ? `<div style="display:grid; gap:4px; justify-items:center"><input class="form-input" style="width:90px; text-align:center" type="number" min="0" value="${lvl.criteria[field]}" oninput="state.grades[${index}].criteria.${field}=Number(this.value||0); renderGradeTable()" /><div class="metric-hint error">≥ ${lvl.criteria[field]}</div></div>` : `<span class="badge-config warn">${lvl.isAutomaticConfigurable ? (lvl.criteria[field] === 9999 ? "9999+" : lvl.criteria[field]) : "-"}</span>`}</td>`).join("")}</tr>`,
           )
           .join("");
+
+        if (state.isEditing) {
+          tbody.insertAdjacentHTML(
+            "beforeend",
+            `<tr class="bg-slate-100/40 animate-in fade-in duration-300"><td colSpan="4" class="px-6 py-4.5 font-bold text-slate-500"><button type="button" onclick="openAddLevelForm()" class="text-indigo-600 hover:text-indigo-850 font-black inline-flex items-center gap-1.5">Thêm cấp bậc +</button></td>${Array.from(
+              { length: 8 },
+            )
+              .map(
+                () =>
+                  '<td class="px-2.5 py-4 border-l border-slate-205 text-center text-slate-350 font-bold">+</td>',
+              )
+              .join("")}</tr>`,
+          );
+        }
       }
 
-      /* ====== RENDER BLOCKED MEMBERS ====== */
-      function renderBlocked() {
+      function renderGradeActions() {
+        const footer = document.getElementById("grade-actions-footer");
+        if (!footer) return;
+        footer.innerHTML = state.isEditing
+          ? `
+            <button class="btn btn-ghost" type="button" onclick="resetLevels()">Hủy thay đổi (Huỷ)</button>
+            <button class="btn btn-primary" type="button" onclick="saveLevels()">Lọc &amp; Cập nhật cấu hình (Lưu)</button>
+          `
+          : `
+            <button class="btn btn-danger" type="button" onclick="setEditing(true)">Chỉnh sửa Thiết lập (Edit)</button>
+          `;
+      }
+      function openAddBlockModal() {
+        state.showAddNewBlockModal = true;
+        document
+          .getElementById("add-block-modal-card")
+          .classList.remove("hidden");
+      }
+      function closeAddBlockModal() {
+        state.showAddNewBlockModal = false;
+        document.getElementById("add-block-modal-card").classList.add("hidden");
+      }
+      function handleDateTabChange(tab) {
+        state.activeDateTab = tab;
+        const map = {
+          day: "30-06-2025 ~ 30-06-2025",
+          week: "23-06-2025 ~ 30-06-2025",
+          month: "01-06-2025 ~ 30-06-2025",
+          year: "01-01-2025 ~ 31-12-2025",
+          all: "Tất cả thời gian lịch sử",
+          custom: "20-06-2025 ~ 10-07-2025",
+        };
+        state.dateRange = map[tab];
+        document.getElementById("bl-date").textContent = state.dateRange;
+        document
+          .querySelectorAll("#block-date-tabs .tf-btn")
+          .forEach((btn) =>
+            btn.classList.toggle("active", btn.dataset.tab === tab),
+          );
+      }
+      function parseDateVN(text) {
+        const match = String(text || "")
+          .trim()
+          .match(/^(\d{2})-(\d{2})-(\d{4})$/);
+        if (!match) return null;
+        const day = Number.parseInt(match[1], 10);
+        const month = Number.parseInt(match[2], 10) - 1;
+        const year = Number.parseInt(match[3], 10);
+        const date = new Date(year, month, day);
+        return Number.isNaN(date.getTime()) ? null : date;
+      }
+      function shiftDate(target, dir) {
+        const stepMap = {
+          day: (date, delta) => date.setDate(date.getDate() + delta),
+          week: (date, delta) => date.setDate(date.getDate() + delta * 7),
+          month: (date, delta) => date.setMonth(date.getMonth() + delta),
+          year: (date, delta) => date.setFullYear(date.getFullYear() + delta),
+        };
+        const step = stepMap[state.activeDateTab];
+        if (
+          !step ||
+          state.activeDateTab === "all" ||
+          state.activeDateTab === "custom"
+        )
+          return;
+
+        const [startText, endText] = state.dateRange.split(" ~ ");
+        const start = parseDateVN(startText);
+        const end = parseDateVN(endText);
+        if (!start || !end) return;
+        step(start, dir);
+        step(end, dir);
+        state.dateRange = `${formatDateVN(start)} ~ ${formatDateVN(end)}`;
+        document.getElementById("bl-date").textContent = state.dateRange;
+      }
+
+      function executeBlockedSearch() {
+        renderBlockedTable();
+      }
+
+      function showBlockedMemberDetail(member) {
+        if (!member) return;
+        alert(
+          [
+            `Chi tiết thành viên: ${member.nickname}`,
+            `ID: ${member.id}`,
+            `Lý do chặn: ${member.blockedReason}`,
+            `Thời gian bị chặn: ${member.blockedDuration === "vô thời hạn" ? "Vô thời hạn" : `${member.blockedDuration} ngày`}`,
+            `Ngày xử lý: ${member.processedDate}`,
+            `Người xử lý: ${member.processedBy}`,
+            `Lượt truy cập: ${member.visits}`,
+            `Số bài viết: ${member.posts}`,
+            `Số bình luận: ${member.comments}`,
+          ].join("\n"),
+        );
+      }
+
+      function showBlockedMemberHistory(member) {
+        if (!member) return;
+        alert(
+          `Lịch sử hoạt động của ${member.nickname}:\n- ${member.visits} lượt truy cập\n- ${member.posts} bài viết\n- ${member.comments} bình luận\n- Bị chặn nâng cấp tự động bởi ${member.processedBy} vào ${member.processedDate}`,
+        );
+      }
+      function renderBlockedTable() {
         const tbody = document.getElementById("tbody-bl");
-        if (!tbody) return;
-        document.getElementById("bl-count").textContent =
-          blockedMembers.length + " người";
-        tbody.innerHTML = blockedMembers
+        const q = state.searchQuery.trim().toLowerCase();
+        const filtered = state.blockedMembers.filter(
+          (m) =>
+            !q ||
+            m.nickname.toLowerCase().includes(q) ||
+            m.id.toLowerCase().includes(q),
+        );
+        tbody.innerHTML = filtered
           .map(
-            (m) => `
-          <tr>
-            <td><input type="checkbox" /></td>
-            <td>${escText(m.id)}</td>
-            <td class="td-left">
-              <div class="cell-menu">
-                <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(m.nickname)}</button>
-                <div class="menu-list">
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Thông tin chi tiết</button>
-                  <button class="menu-item" onclick="alert('Chức năng đang phát triển.')">Lịch sử hoạt động</button>
-                </div>
-              </div>
-            </td>
-            <td>${escText(m.grade)}</td>
-            <td class="td-left">${escText(m.reason)}</td>
-            <td>${escText(m.date)}</td>
-            <td>${escText(m.handler)}</td>
-            <td>
-              <button class="btn btn-outline-primary btn-sm" onclick="openActionModal('unblock','${escText(m.id)}')">Hủy chặn</button>
-            </td>
-          </tr>`,
+            (m) =>
+              `<tr class="${state.focusedMemberId === m.id ? "bg-slate-50" : ""}"><td><input type="checkbox" ${state.selectedBlockedIds.includes(m.id) ? "checked" : ""} onchange="handleToggleSelectOne('${m.id}')" /></td><td class="ip-text">${escText(m.id)}</td><td class="td-left"><div class="cell-menu ${state.activeActionMenuId === m.id ? "open" : ""}"><button class="menu-trigger" type="button" onclick="toggleMenu(event,'${m.id}')">${escText(m.nickname)}</button><div class="menu-list"><button class="menu-item" type="button" onclick="showBlockedMemberDetail(state.blockedMembers.find((x) => x.id === '${m.id}'))">Chi tiết thông tin</button><button class="menu-item" type="button" onclick="showBlockedMemberHistory(state.blockedMembers.find((x) => x.id === '${m.id}'))">Lịch sử hoạt động</button></div></div></td><td class="td-left">${escText(m.blockedReason)}</td><td>${m.blockedDuration === "vô thời hạn" ? '<span class="level-chip manual">Vô thời hạn</span>' : `<span class="badge-config">${escText(m.blockedDuration)} ngày</span>`}</td><td class="ip-text">${escText(m.processedDate)}</td><td>${escText(m.processedBy)}</td><td><button class="btn btn-outline-primary btn-sm" type="button" onclick="handleSingleUnblock('${m.id}','${escText(m.nickname)}')">Hủy chặn</button></td></tr>${state.focusedMemberId === m.id ? `<tr><td></td><td colspan="7"><div class="card" style="margin:10px 0 0"><div class="card-body detail-layout"><div><div class="badge-inline badge-view">Lượt truy cập: ${m.visits} • Số bài viết: ${m.posts} • Bình luận: ${m.comments}</div><div style="margin-top:8px; font-size:11px; color:var(--gray-500); font-style:italic">* Thành viên này đang tạm khóa chức năng tự động tăng cấp do vi phạm các cột mốc tương tác.</div></div><div style="display:flex; gap:8px; flex-wrap:wrap"><button class="btn btn-ghost btn-sm" type="button" onclick="showBlockedMemberDetail(state.blockedMembers.find((x) => x.id === '${m.id}'))">Chi tiết thông tin</button><button class="btn btn-ghost btn-sm" type="button" onclick="showBlockedMemberHistory(state.blockedMembers.find((x) => x.id === '${m.id}'))">Lịch sử hoạt động</button></div></div></div></td></tr>` : ""}`,
           )
           .join("");
+        document.getElementById("bl-count").textContent =
+          `${filtered.length} người`;
+        document.getElementById("select-all-blocked").checked =
+          filtered.length > 0 &&
+          state.selectedBlockedIds.length === filtered.length;
       }
-
-      /* ====== ACTION MODAL ====== */
+      function handleSelectAll(checked) {
+        const q = state.searchQuery.trim().toLowerCase();
+        const filtered = state.blockedMembers.filter(
+          (m) =>
+            !q ||
+            m.nickname.toLowerCase().includes(q) ||
+            m.id.toLowerCase().includes(q),
+        );
+        state.selectedBlockedIds = checked ? filtered.map((m) => m.id) : [];
+        renderBlockedTable();
+      }
+      function handleToggleSelectOne(id) {
+        state.selectedBlockedIds = state.selectedBlockedIds.includes(id)
+          ? state.selectedBlockedIds.filter((x) => x !== id)
+          : [...state.selectedBlockedIds, id];
+        renderBlockedTable();
+      }
+      function toggleMenu(event, id) {
+        event.stopPropagation();
+        state.activeActionMenuId = state.activeActionMenuId === id ? null : id;
+        renderBlockedTable();
+      }
       const actionMap = {
         unblock: {
           title: "Hủy chặn nâng cấp tự động",
@@ -1400,72 +2276,194 @@
       function openActionModal(type, id) {
         const cfg = actionMap[type];
         if (!cfg) return;
-        pendingAction = { type, id: id || null };
+        state.pendingAction = { type, id: id || null };
         document.getElementById("action-modal-title").textContent = cfg.title;
         document.getElementById("action-modal-body").textContent = cfg.body;
         document.getElementById("action-modal-backdrop").classList.add("open");
-        closeAllMenus();
       }
       function closeActionModal() {
         document
           .getElementById("action-modal-backdrop")
           .classList.remove("open");
-        pendingAction = null;
+        state.pendingAction = null;
       }
       function confirmActionModal() {
-        const cfg = actionMap[pendingAction?.type];
+        const cfg = actionMap[state.pendingAction?.type];
         if (cfg) alert(cfg.done);
         closeActionModal();
       }
-
-      /* ====== EDIT GRADE MODAL ====== */
+      function handleBulkUnblock() {
+        if (state.selectedBlockedIds.length === 0) {
+          alert("Vui lòng chọn ít nhất 1 thành viên để hủy chặn thăng cấp!");
+          return;
+        }
+        if (
+          confirm(
+            `Bạn có chắc muốn hủy chặn nâng cấp tự động cho ${state.selectedBlockedIds.length} thành viên đã chọn?`,
+          )
+        ) {
+          state.blockedMembers = state.blockedMembers.filter(
+            (b) => !state.selectedBlockedIds.includes(b.id),
+          );
+          state.selectedBlockedIds = [];
+          renderBlockedTable();
+          alert(
+            "Đã hủy chặn thành công và khôi phục thăng cấp tự động cho các thành viên tuyển chọn!",
+          );
+        }
+      }
+      function handleSingleUnblock(id, name) {
+        if (
+          confirm(
+            `Bạn có chắc chắn muốn hủy chặn thăng cấp tự động cho thành viên "${name}" không?`,
+          )
+        ) {
+          state.blockedMembers = state.blockedMembers.filter(
+            (b) => b.id !== id,
+          );
+          state.selectedBlockedIds = state.selectedBlockedIds.filter(
+            (x) => x !== id,
+          );
+          renderBlockedTable();
+          alert(`Đã hủy chặn thăng cấp tự động cho "${name}" thành công!`);
+        }
+      }
+      function handleCreateNewBlock() {
+        const nickname = document
+          .getElementById("addBlockNickname")
+          .value.trim();
+        const customReasonText = document
+          .getElementById("customReasonText")
+          .value.trim();
+        const duration = document.getElementById("addBlockDuration").value;
+        if (!nickname) {
+          alert(
+            "Vui lòng nhập Nickname hoặc ID thành viên cần giữ chặn nâng cấp!",
+          );
+          return;
+        }
+        const finalReason =
+          state.reasonType === "other"
+            ? customReasonText || "Lý do khác"
+            : state.reasonType === "community"
+              ? "Vi phạm tiêu chuẩn cộng đồng"
+              : state.reasonType === "spam"
+                ? "Spam, đăng bài liên tục"
+                : "Quảng cáo, lăng mạ, chửi tục";
+        state.blockedMembers = [
+          {
+            id: `MEM-2025-1${Math.floor(Math.random() * 90) + 10}`,
+            nickname,
+            avatar: "",
+            blockedReason: finalReason,
+            blockedDuration: duration,
+            processedDate: "30/06/2025",
+            processedBy: "Nguyễn Văn Admin",
+            visits: 12,
+            posts: 0,
+            comments: 3,
+            status: "active",
+          },
+          ...state.blockedMembers,
+        ];
+        document.getElementById("addBlockNickname").value = "";
+        document.getElementById("customReasonText").value = "";
+        document.getElementById("addBlockDuration").value = "7";
+        closeAddBlockModal();
+        renderBlockedTable();
+        alert(
+          `Đã thêm khóa chặn nâng cấp tự động với thời hạn ${duration === "vô thời hạn" ? "vô thời hạn" : duration + " ngày"} thành công cho thành viên ${nickname}!`,
+        );
+      }
       function openEditGrade(id) {
-        const g = grades.find((x) => x.id === id);
+        const g = state.grades.find((x) => x.id === id);
         if (!g) return;
-        editingGradeId = id;
+        state.editingGradeId = id;
         document.getElementById("eg-title").textContent =
-          `Chỉnh sửa cấp bậc: ${g.code}`;
-        document.getElementById("eg-name").value = g.name;
-        document.getElementById("eg-cond").value = g.condition;
+          `Chỉnh sửa cấp bậc: ${g.id}`;
+        document.getElementById("eg-name").value = g.vietnameseName;
+        document.getElementById("eg-cond").value = g.explanation;
         document.getElementById("edit-grade-backdrop").classList.add("open");
       }
       function closeEditGrade() {
         document.getElementById("edit-grade-backdrop").classList.remove("open");
-        editingGradeId = null;
+        state.editingGradeId = null;
       }
       function confirmEditGrade() {
-        const g = grades.find((x) => x.id === editingGradeId);
+        const g = state.grades.find((x) => x.id === state.editingGradeId);
         if (!g) return closeEditGrade();
         const name = document.getElementById("eg-name").value.trim();
         const cond = document.getElementById("eg-cond").value.trim();
-        if (!name) {
-          alert("Tên cấp bậc không được để trống.");
-          return;
-        }
-        if (!cond) {
-          alert("Điều kiện nâng cấp không được để trống.");
-          return;
-        }
-        g.name = name;
-        g.condition = cond;
-        renderGrades();
+        if (!name) return alert("Tên cấp bậc không được để trống.");
+        if (!cond) return alert("Điều kiện nâng cấp không được để trống.");
+        g.vietnameseName = name;
+        g.explanation = cond;
+        renderGradeTable();
         closeEditGrade();
         alert("Đã lưu cấp bậc.");
       }
-
-      /* ====== GLOBAL LISTENERS ====== */
+      function handleAddNewLevel() {
+        const name = document.getElementById("newLevelName").value.trim();
+        const expl = document.getElementById("newLevelExpl").value.trim();
+        const icon = document.getElementById("newLevelIcon").value;
+        const isAuto = document.getElementById("newLevelIsAuto").checked;
+        if (!name) {
+          alert("Vui lòng điền mã cấp bậc (ví dụ: Lv.6)!");
+          return;
+        }
+        if (
+          state.grades.some((l) => l.id.toLowerCase() === name.toLowerCase())
+        ) {
+          alert(`Mã cấp bậc "${name}" đã tồn tại!`);
+          return;
+        }
+        const newLvl = {
+          id: name,
+          rawName: name,
+          icon,
+          color: "bg-purple-100 text-purple-850 border-purple-200",
+          vietnameseName: name,
+          explanation: expl || "Cấp bậc thành viên bổ trợ hệ thống.",
+          criteria: isAuto
+            ? clone(state.newLevelCriteria)
+            : {
+                visits: 9999,
+                posts: 9999,
+                comments: 9999,
+                likesGiven: 9999,
+                followings: 9999,
+                likesReceived: 9999,
+                followers: 9999,
+                avgViews: 9999,
+              },
+          isAutomaticConfigurable: isAuto,
+        };
+        const firstNonAutoIdx = state.grades.findIndex(
+          (l) => !l.isAutomaticConfigurable,
+        );
+        if (firstNonAutoIdx !== -1)
+          state.grades.splice(firstNonAutoIdx, 0, newLvl);
+        else state.grades.push(newLvl);
+        closeAddLevelForm();
+        renderGradeTable();
+        alert(`Đã thêm cấp bậc cấu hình mới: "${name}"`);
+      }
+      function renderAll() {
+        renderCriteriaMenu();
+        renderGradeActions();
+        renderGradeTable();
+        renderBlockedTable();
+      }
       document.addEventListener("click", () => closeAllMenus());
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           closeActionModal();
           closeEditGrade();
+          closeAddBlockModal();
         }
       });
-
-      /* ====== INIT ====== */
-      renderCriteriaMenu("bl");
-      renderGrades();
-      renderBlocked();
+      renderAll();
+      goSection("grade");
     </script>
   </body>
 </html>
