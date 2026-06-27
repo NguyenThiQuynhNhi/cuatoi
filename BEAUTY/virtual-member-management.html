@@ -114,7 +114,7 @@
         background: rgba(255, 255, 255, 0.18);
         color: white;
       }
-            .nav-item-group {
+      .nav-item-group {
         position: relative;
       }
       .nav-item-group .nav-dropdown {
@@ -156,7 +156,7 @@
         text-decoration: none;
         display: inline-block;
       }
-.nav-item.active {
+      .nav-item.active {
         background: rgba(255, 255, 255, 0.22);
         font-weight: 600;
       }
@@ -2112,8 +2112,12 @@
       <nav class="header-nav">
         <a class="nav-item" href="home-management.html">Trang chủ</a>
         <a class="nav-item" href="info-management.html">Quản lý thông tin</a>
-        <a class="nav-item active" href="virtual-member-management.html">Thành viên ảo</a>
-        <a class="nav-item" href="real-member-staff.html">Thành viên thực, staff</a>
+        <a class="nav-item active" href="virtual-member-management.html"
+          >Thành viên ảo</a
+        >
+        <a class="nav-item" href="real-member-staff.html"
+          >Thành viên thực, staff</a
+        >
         <a class="nav-item" href="member-grade.html">Cấp bậc thành viên</a>
         <div class="nav-item nav-item-group">
           Bác sĩ. Bệnh viện. Đối tác. Sản phẩm
@@ -2125,13 +2129,21 @@
           </div>
         </div>
         <a class="nav-item" href="menu-management.html">Menu</a>
-        <a class="nav-item" href="post-comment-management.html">Bài viết. Bình luận</a>
+        <a class="nav-item" href="post-comment-management.html"
+          >Bài viết. Bình luận</a
+        >
         <a class="nav-item" href="tag-management.html">Hashtag</a>
-        <a class="nav-item" href="report-management.html">Từ cấm. Spam. Báo cáo</a>
+        <a class="nav-item" href="report-management.html"
+          >Từ cấm. Spam. Báo cáo</a
+        >
         <a class="nav-item" href="banner-management.html">Banner quảng cáo</a>
-        <a class="nav-item" href="reward-badge-management.html">Điểm thưởng. Huy hiệu</a>
+        <a class="nav-item" href="reward-badge-management.html"
+          >Điểm thưởng. Huy hiệu</a
+        >
         <a class="nav-item" href="statistics-management.html">Thống kê</a>
-        <a class="nav-item" href="push-notification-management.html">Thông báo đẩy</a>
+        <a class="nav-item" href="push-notification-management.html"
+          >Thông báo đẩy</a
+        >
       </nav>
       <div class="header-user">
         <div class="user-info">
@@ -3591,6 +3603,23 @@
         <div class="talk-compose-title">Viết bài Tán gẫu</div>
 
         <div class="talk-compose-card">
+          <!-- THÊM VÀO TRƯỚC <textarea id="talk-content-input" ...> -->
+          <div class="talk-field">
+            <span class="talk-label">Tiêu đề (dưới 20 ký tự)</span>
+            <input
+              id="talk-title-input"
+              type="text"
+              maxlength="20"
+              placeholder="Nhập tiêu đề"
+              class="form-input"
+              oninput="
+                updateTalkTitleCount();
+                updateTalkSubmitState();
+              "
+            />
+            <div id="talk-title-count" class="char-counter">0/20</div>
+          </div>
+
           <textarea
             id="talk-content-input"
             class="talk-compose-textarea"
@@ -3782,6 +3811,13 @@
                   class="table-actions-right"
                   style="display: flex; gap: 8px; align-items: center"
                 >
+                  <div class="select-dropdown">
+                    <select>
+                      <option>Tất cả bài viết</option>
+                      <option>Bài viết thường</option>
+                      <option>Bài viết Best</option>
+                    </select>
+                  </div>
                   <div class="select-dropdown">
                     <select>
                       <option>Danh sách 30</option>
@@ -6520,6 +6556,9 @@
         const content = (
           document.getElementById("talk-content-input")?.value || ""
         ).trim();
+        const title = (
+          document.getElementById("talk-title-input")?.value || ""
+        ).trim();
         if (requireComplete && !content) {
           alert("Vui lòng nhập nội dung trước khi đăng hoặc hẹn lịch.");
           return null;
@@ -6528,7 +6567,7 @@
           memberId: selectedMemberId,
           type: "talk",
           typeLabel: "Tán gẫu",
-          title: "",
+          title,
           content,
           categoryText: "Tán gẫu",
           hashtags: [...talkComposeDraft.hashtags],
@@ -6682,6 +6721,9 @@
         Object.assign(talkComposeDraft, post.draftData || {});
         const talkInput = document.getElementById("talk-content-input");
         if (talkInput) talkInput.value = post.content || "";
+        const talkTitleInput = document.getElementById("talk-title-input");
+        if (talkTitleInput) talkTitleInput.value = post.title || "";
+        updateTalkTitleCount();
         renderTalkMedia();
         renderTalkHashtags();
         updateTalkSubmitState();
@@ -7356,6 +7398,9 @@
         talkComposeDraft.content = "";
         talkComposeDraft.hashtags = [];
         talkComposeMediaType = "";
+        const talkTitleInput = document.getElementById("talk-title-input");
+        if (talkTitleInput) talkTitleInput.value = "";
+        updateTalkTitleCount();
       }
 
       function openTalkComposer() {
@@ -7502,6 +7547,13 @@
           (item) => item !== tag,
         );
         renderTalkHashtags();
+      }
+
+      function updateTalkTitleCount() {
+        const input = document.getElementById("talk-title-input");
+        const counter = document.getElementById("talk-title-count");
+        if (!input || !counter) return;
+        counter.textContent = `${input.value.length}/20`;
       }
 
       function updateTalkSubmitState() {
@@ -8920,6 +8972,6 @@
 
       renderTvaCommentSearchCriteria();
       renderTvaCommentTable();
-</script>
+    </script>
   </body>
 </html>

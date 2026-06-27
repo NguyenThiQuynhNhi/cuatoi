@@ -2214,6 +2214,7 @@
                     <th>Người viết</th>
                     <th>Địa chỉ IP</th>
                     <th>Người xử lý</th>
+                    <th>Lý do xóa</th>
                     <th>Ngày xóa</th>
                   </tr>
                 </thead>
@@ -2330,7 +2331,7 @@
         class="action-modal"
         role="dialog"
         aria-modal="true"
-        style="max-width:440px"
+        style="max-width: 440px"
         onclick="event.stopPropagation()"
       >
         <h3 class="action-modal-title">Chỉnh sửa lý do xoá</h3>
@@ -2340,7 +2341,7 @@
             id="edit-reason-input"
             class="reason-input"
             placeholder="Nhập lý do"
-            style="width:100%"
+            style="width: 100%"
             onkeydown="handleEditReasonKey(event)"
           />
         </div>
@@ -2729,7 +2730,13 @@
         {
           name: "Môi",
           isOther: false,
-          subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Khác"],
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Phun xăm",
+            "Khác",
+          ],
         },
         {
           name: "Mũi",
@@ -2746,12 +2753,7 @@
         {
           name: "Khuôn mặt/ V line",
           isOther: false,
-          subs: [
-            "Mỹ phẩm",
-            "PTTM/ Tiểu phẫu",
-            "Thiết bị/ Sản phẩm",
-            "Khác",
-          ],
+          subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"],
         },
         {
           name: "Da đầu/ Lông tóc",
@@ -3186,16 +3188,18 @@
       /* ====== CATEGORY FILTER DROPDOWN POPULATE ====== */
       function populateCategoryFilters() {
         const cats = ["", ...postCategoryMap.map((c) => c.name)];
-        ["real", "best", "deleted", "hidden", "comments", "cdeleted"].forEach((t) => {
-          const sel = document.getElementById("filter-cat-" + t);
-          if (!sel) return;
-          sel.innerHTML = cats
-            .map(
-              (c) =>
-                `<option value="${escText(c)}">${c === "" ? "Tất cả danh mục" : escText(c)}</option>`,
-            )
-            .join("");
-        });
+        ["real", "best", "deleted", "hidden", "comments", "cdeleted"].forEach(
+          (t) => {
+            const sel = document.getElementById("filter-cat-" + t);
+            if (!sel) return;
+            sel.innerHTML = cats
+              .map(
+                (c) =>
+                  `<option value="${escText(c)}">${c === "" ? "Tất cả danh mục" : escText(c)}</option>`,
+              )
+              .join("");
+          },
+        );
       }
 
       /* ====== CELL MENU ====== */
@@ -4255,6 +4259,7 @@
                 <td class="td-left">${renderAuthorMenuCommentDeleted(c)}</td>
                 <td class="td-left">${renderIpCell(c)}</td>
                 <td>${escText(c.handler)}</td>
+                <td>${escText(c.reason)}</td>
                 <td>${escText(c.dateDeleted)}</td>
               </tr>`,
           )
@@ -4325,9 +4330,7 @@
         editingReasonModalId = id;
         const input = document.getElementById("edit-reason-input");
         input.value = r.reason;
-        document
-          .getElementById("edit-reason-backdrop")
-          .classList.add("open");
+        document.getElementById("edit-reason-backdrop").classList.add("open");
         setTimeout(() => input.focus(), 30);
       }
 
@@ -4345,7 +4348,9 @@
 
       function confirmEditReason() {
         if (!editingReasonModalId) return closeEditReasonModal();
-        const text = (document.getElementById("edit-reason-input").value || "").trim();
+        const text = (
+          document.getElementById("edit-reason-input").value || ""
+        ).trim();
         if (!text) {
           alert("Vui lòng nhập lý do.");
           return;
@@ -4373,9 +4378,7 @@
           String(
             Math.max(
               0,
-              ...deleteReasons.map(
-                (r) => Number(r.id.replace(/\D/g, "")) || 0,
-              ),
+              ...deleteReasons.map((r) => Number(r.id.replace(/\D/g, "")) || 0),
             ) + 1,
           ).padStart(3, "0");
         deleteReasons.unshift({ id: nextId, reason: text, creator: "Admin" });
