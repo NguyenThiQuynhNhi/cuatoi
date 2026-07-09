@@ -907,44 +907,192 @@
       }
 
       /* ====== DETAIL / EDIT PAGES ====== */
-      .breadcrumb { font-size: 11.5px; color: var(--gray-500); margin-bottom: 10px; }
-      .bc-link { color: var(--primary); cursor: pointer; font-weight: 600; }
-      .bc-sep { margin: 0 6px; color: var(--gray-400); }
-      .bc-current { color: var(--gray-700); font-weight: 600; }
+      .breadcrumb {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        margin-bottom: 10px;
+      }
+      .bc-link {
+        color: var(--primary);
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .bc-sep {
+        margin: 0 6px;
+        color: var(--gray-400);
+      }
+      .bc-current {
+        color: var(--gray-700);
+        font-weight: 600;
+      }
 
-      .detail-header { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
-      .detail-header-title { display: flex; gap: 12px; align-items: center; }
-      .doctor-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
-      .detail-title { font-size: 16px; font-weight: 700; color: var(--gray-900); }
-      .meta-badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--primary-light); color: var(--primary); }
+      .detail-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .detail-header-title {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .doctor-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .detail-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--gray-900);
+      }
+      .meta-badge {
+        display: inline-block;
+        padding: 2px 9px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 600;
+        background: var(--primary-light);
+        color: var(--primary);
+      }
 
-      .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 16px; }
-      .stat-box { padding: 10px 8px; background: var(--gray-100); border-radius: 8px; text-align: center; }
-      .stat-label { font-size: 11px; color: var(--gray-600); font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
-      .stat-value { font-size: 18px; font-weight: 700; color: var(--primary); }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .stat-box {
+        padding: 10px 8px;
+        background: var(--gray-100);
+        border-radius: 8px;
+        text-align: center;
+      }
+      .stat-label {
+        font-size: 11px;
+        color: var(--gray-600);
+        font-weight: 500;
+        margin-bottom: 4px;
+        line-height: 1.3;
+      }
+      .stat-value {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary);
+      }
 
-      .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; }
-      .form-group { display: flex; flex-direction: column; gap: 5px; }
-      .form-row-full { grid-column: 1 / -1; }
-      .form-label { font-size: 12px; font-weight: 600; color: var(--gray-700); }
-      .form-label .req { color: var(--accent); }
-      .form-input, .form-textarea, .form-select { border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 8px 11px; font-size: 12px; font-family: inherit; color: var(--gray-700); outline: none; background: white; }
-      .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--primary); }
-      .form-textarea { min-height: 70px; resize: vertical; }
-      .form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--gray-200); }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 18px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .form-row-full {
+        grid-column: 1 / -1;
+      }
+      .form-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--gray-700);
+      }
+      .form-label .req {
+        color: var(--accent);
+      }
+      .form-input,
+      .form-textarea,
+      .form-select {
+        border: 1.5px solid var(--gray-200);
+        border-radius: 8px;
+        padding: 8px 11px;
+        font-size: 12px;
+        font-family: inherit;
+        color: var(--gray-700);
+        outline: none;
+        background: white;
+      }
+      .form-input:focus,
+      .form-textarea:focus,
+      .form-select:focus {
+        border-color: var(--primary);
+      }
+      .form-textarea {
+        min-height: 70px;
+        resize: vertical;
+      }
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid var(--gray-200);
+      }
 
-      .cat-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
-      .cat-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-mid); border-radius: 999px; font-size: 11.5px; font-weight: 600; }
-      .cat-chip .x { cursor: pointer; opacity: 0.6; }
-      .cat-chip .x:hover { opacity: 1; }
-      .cat-add-row { display: flex; gap: 8px; align-items: center; }
+      .cat-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .cat-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        background: var(--primary-light);
+        color: var(--primary);
+        border: 1px solid var(--primary-mid);
+        border-radius: 999px;
+        font-size: 11.5px;
+        font-weight: 600;
+      }
+      .cat-chip .x {
+        cursor: pointer;
+        opacity: 0.6;
+      }
+      .cat-chip .x:hover {
+        opacity: 1;
+      }
+      .cat-add-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
 
-      .read-only-field { background: var(--gray-50); color: var(--gray-700); padding: 8px 11px; border-radius: 8px; border: 1.5px solid var(--gray-200); font-size: 12px; }
+      .read-only-field {
+        background: var(--gray-50);
+        color: var(--gray-700);
+        padding: 8px 11px;
+        border-radius: 8px;
+        border: 1.5px solid var(--gray-200);
+        font-size: 12px;
+      }
       #page-real-edit.view-mode .form-input,
       #page-real-edit.view-mode .form-textarea,
-      #page-real-edit.view-mode .form-select { background: var(--gray-50); color: var(--gray-700); pointer-events: none; }
-      #page-real-edit.view-mode .cat-add-row { display: none; }
-      #page-real-edit.view-mode .cat-chip .x { display: none; }
+      #page-real-edit.view-mode .form-select {
+        background: var(--gray-50);
+        color: var(--gray-700);
+        pointer-events: none;
+      }
+      #page-real-edit.view-mode .cat-add-row {
+        display: none;
+      }
+      #page-real-edit.view-mode .cat-chip .x {
+        display: none;
+      }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   </head>
@@ -1799,7 +1947,10 @@
                   id="filter-inactive-grade"
                   class="form-input"
                   style="width: 180px"
-                  onchange="renderInactiveChart();renderInactiveTable()"
+                  onchange="
+                    renderInactiveChart();
+                    renderInactiveTable();
+                  "
                 >
                   <option value="">Tất cả cấp bậc</option>
                   <option value="lv1">Lv.1</option>
@@ -2126,17 +2277,30 @@
       <!-- ====== TRANG: THÔNG TIN VÀ HOẠT ĐỘNG (real-detail/history) ====== -->
       <main class="main page" id="page-real-detail">
         <div class="breadcrumb">
-          <span class="bc-link" onclick="goSection('real')">Danh sách thành viên thực</span>
+          <span class="bc-link" onclick="goSection('real')"
+            >Danh sách thành viên thực</span
+          >
           <span class="bc-sep">/</span>
-          <span class="bc-current" id="real-detail-name">Chi tiết thành viên</span>
+          <span class="bc-current" id="real-detail-name"
+            >Chi tiết thành viên</span
+          >
         </div>
 
         <div class="card">
           <div class="card-body">
-            <div style="margin-bottom:12px">
-              <button class="btn btn-ghost" onclick="goSection('real')">‹ Danh sách thành viên thực</button>
+            <div style="margin-bottom: 12px">
+              <button class="btn btn-ghost" onclick="goSection('real')">
+                ‹ Danh sách thành viên thực
+              </button>
             </div>
-            <div style="margin-bottom:12px;font-size:16px;font-weight:600;text-transform:uppercase">
+            <div
+              style="
+                margin-bottom: 12px;
+                font-size: 16px;
+                font-weight: 600;
+                text-transform: uppercase;
+              "
+            >
               Thông tin và Hoạt động
             </div>
 
@@ -2144,43 +2308,99 @@
               <div class="detail-header-title">
                 <div class="doctor-avatar" id="real-detail-avatar">MM</div>
                 <div>
-                  <div class="detail-title" id="real-detail-title">Tên hiển thị</div>
-                  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
-                    <span class="meta-badge" id="real-detail-badge-id">ID: M001</span>
-                    <span class="meta-badge" id="real-detail-badge-level">Lv.1</span>
+                  <div class="detail-title" id="real-detail-title">
+                    Tên hiển thị
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      gap: 8px;
+                      flex-wrap: wrap;
+                      margin-top: 6px;
+                    "
+                  >
+                    <span class="meta-badge" id="real-detail-badge-id"
+                      >ID: M001</span
+                    >
+                    <span class="meta-badge" id="real-detail-badge-level"
+                      >Lv.1</span
+                    >
                   </div>
                 </div>
               </div>
               <div style="display: flex; gap: 12px; flex-wrap: wrap">
-                <button class="btn btn-outline-primary" onclick="goRealEdit(currentRealMemberId)">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <button
+                  class="btn btn-outline-primary"
+                  onclick="goRealEdit(currentRealMemberId)"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
                     <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0" />
                   </svg>
                   Chỉnh sửa thông tin
                 </button>
-                <button class="btn btn-outline-danger" onclick="openSuspendModal()">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                <button
+                  class="btn btn-outline-danger"
+                  onclick="openSuspendModal()"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
                   Tạm khóa hoạt động
                 </button>
-                <button class="btn btn-outline-danger" onclick="openForceLeaveModal()">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                    <circle cx="8.5" cy="7" r="4"/>
-                    <line x1="18" y1="8" x2="23" y2="13"/>
-                    <line x1="23" y1="8" x2="18" y2="13"/>
+                <button
+                  class="btn btn-outline-danger"
+                  onclick="openForceLeaveModal()"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="8.5" cy="7" r="4" />
+                    <line x1="18" y1="8" x2="23" y2="13" />
+                    <line x1="23" y1="8" x2="18" y2="13" />
                   </svg>
                   Buộc rời bỏ
                 </button>
-                <button class="btn btn-outline-primary" onclick="openRealChangeLevelModal()">
+                <button
+                  class="btn btn-outline-primary"
+                  onclick="openRealChangeLevelModal()"
+                >
                   Thay đổi cấp bậc
                 </button>
-                <button class="btn btn-primary" onclick="openActionModal('push-notify')">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                <button
+                  class="btn btn-primary"
+                  onclick="openActionModal('push-notify')"
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                   </svg>
                   Gửi thông báo đẩy
                 </button>
@@ -2220,13 +2440,29 @@
           <div class="card-body">
             <div class="table-title">Lịch sử hoạt động</div>
             <div class="tabs">
-              <div class="tab active" id="real-tab-posts" onclick="switchRealDetailTab('posts')">Bài viết</div>
-              <div class="tab" id="real-tab-comments" onclick="switchRealDetailTab('comments')">Bình luận</div>
+              <div
+                class="tab active"
+                id="real-tab-posts"
+                onclick="switchRealDetailTab('posts')"
+              >
+                Bài viết
+              </div>
+              <div
+                class="tab"
+                id="real-tab-comments"
+                onclick="switchRealDetailTab('comments')"
+              >
+                Bình luận
+              </div>
             </div>
 
             <div id="real-panel-posts">
-              <div class="search-row" style="margin-bottom:10px">
-                <input class="search-input-lg" placeholder="Tìm kiếm bài viết..." style="flex:0 1 300px" />
+              <div class="search-row" style="margin-bottom: 10px">
+                <input
+                  class="search-input-lg"
+                  placeholder="Tìm kiếm bài viết..."
+                  style="flex: 0 1 300px"
+                />
               </div>
               <div class="table-wrap">
                 <table>
@@ -2243,14 +2479,20 @@
                   <tbody id="real-detail-posts-tbody"></tbody>
                 </table>
               </div>
-              <div class="table-actions" style="margin-top:12px">
-                <button class="btn btn-outline-danger btn-sm">Xóa mục chọn</button>
+              <div class="table-actions" style="margin-top: 12px">
+                <button class="btn btn-outline-danger btn-sm">
+                  Xóa mục chọn
+                </button>
               </div>
             </div>
 
-            <div id="real-panel-comments" style="display:none">
-              <div class="search-row" style="margin-bottom:10px">
-                <input class="search-input-lg" placeholder="Tìm kiếm bình luận..." style="flex:0 1 300px" />
+            <div id="real-panel-comments" style="display: none">
+              <div class="search-row" style="margin-bottom: 10px">
+                <input
+                  class="search-input-lg"
+                  placeholder="Tìm kiếm bình luận..."
+                  style="flex: 0 1 300px"
+                />
               </div>
               <div class="table-wrap">
                 <table>
@@ -2267,8 +2509,10 @@
                   <tbody id="real-detail-comments-tbody"></tbody>
                 </table>
               </div>
-              <div class="table-actions" style="margin-top:12px">
-                <button class="btn btn-outline-danger btn-sm">Xóa mục chọn</button>
+              <div class="table-actions" style="margin-top: 12px">
+                <button class="btn btn-outline-danger btn-sm">
+                  Xóa mục chọn
+                </button>
               </div>
             </div>
 
@@ -2321,17 +2565,31 @@
       <!-- ====== TRANG: CHỈNH SỬA CHI TIẾT (real-edit) ====== -->
       <main class="main page" id="page-real-edit">
         <div class="breadcrumb">
-          <span class="bc-link" onclick="goSection('real')">Danh sách thành viên thực</span>
+          <span class="bc-link" onclick="goSection('real')"
+            >Danh sách thành viên thực</span
+          >
           <span class="bc-sep">/</span>
-          <span class="bc-current" id="rf-breadcrumb-current">Chỉnh sửa thông tin</span>
+          <span class="bc-current" id="rf-breadcrumb-current"
+            >Chỉnh sửa thông tin</span
+          >
         </div>
 
         <div class="card">
           <div class="card-body">
-            <div style="margin-bottom:12px">
-              <button class="btn btn-ghost" onclick="goSection('real')">‹ Danh sách thành viên thực</button>
+            <div style="margin-bottom: 12px">
+              <button class="btn btn-ghost" onclick="goSection('real')">
+                ‹ Danh sách thành viên thực
+              </button>
             </div>
-            <div id="rf-page-title" style="margin-bottom:14px;font-size:16px;font-weight:600;text-transform:uppercase">
+            <div
+              id="rf-page-title"
+              style="
+                margin-bottom: 14px;
+                font-size: 16px;
+                font-weight: 600;
+                text-transform: uppercase;
+              "
+            >
               Chỉnh sửa thông tin thành viên thực
             </div>
 
@@ -2341,16 +2599,31 @@
                 <div class="read-only-field" id="rf-id">M001</div>
               </div>
               <div class="form-group">
-                <label class="form-label">Tên hiển thị <span class="req">*</span></label>
-                <input class="form-input" id="rf-nickname" placeholder="Nhập tên hiển thị" />
+                <label class="form-label"
+                  >Tên hiển thị <span class="req">*</span></label
+                >
+                <input
+                  class="form-input"
+                  id="rf-nickname"
+                  placeholder="Nhập tên hiển thị"
+                />
               </div>
               <div class="form-group">
                 <label class="form-label">Họ tên thật</label>
-                <input class="form-input" id="rf-fullname" placeholder="Nhập họ tên thật" />
+                <input
+                  class="form-input"
+                  id="rf-fullname"
+                  placeholder="Nhập họ tên thật"
+                />
               </div>
               <div class="form-group">
                 <label class="form-label">Email</label>
-                <input class="form-input" id="rf-email" type="email" placeholder="abc@email.com" />
+                <input
+                  class="form-input"
+                  id="rf-email"
+                  type="email"
+                  placeholder="abc@email.com"
+                />
               </div>
               <div class="form-group">
                 <label class="form-label">Giới tính</label>
@@ -2379,39 +2652,77 @@
               </div>
               <div class="form-group">
                 <label class="form-label">ID người giới thiệu</label>
-                <input class="form-input" id="rf-referrer" placeholder="Nhập ID người giới thiệu" />
+                <input
+                  class="form-input"
+                  id="rf-referrer"
+                  placeholder="Nhập ID người giới thiệu"
+                />
               </div>
 
               <div class="form-row-full">
                 <label class="form-label">Danh mục chính (tối đa 3)</label>
                 <div class="cat-row" id="rf-cat-chips"></div>
                 <div class="cat-add-row">
-                  <select class="form-input" id="rf-cat-select" style="flex:0 1 260px">
+                  <select
+                    class="form-input"
+                    id="rf-cat-select"
+                    style="flex: 0 1 260px"
+                  >
                     <option value="">— Chọn danh mục chính —</option>
                   </select>
-                  <button class="btn btn-outline-primary btn-sm" onclick="addRealCategory()">+ Thêm</button>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    onclick="addRealCategory()"
+                  >
+                    + Thêm
+                  </button>
                 </div>
               </div>
 
               <div class="form-row-full">
                 <label class="form-label">Ghi chú</label>
-                <textarea class="form-textarea" id="rf-note" placeholder="Nhập ghi chú..."></textarea>
+                <textarea
+                  class="form-textarea"
+                  id="rf-note"
+                  placeholder="Nhập ghi chú..."
+                ></textarea>
               </div>
             </div>
 
-            <div class="form-actions" id="rf-actions-view" style="display:none">
-              <button class="btn btn-ghost" onclick="goSection('real')">Đóng</button>
+            <div
+              class="form-actions"
+              id="rf-actions-view"
+              style="display: none"
+            >
+              <button class="btn btn-ghost" onclick="goSection('real')">
+                Đóng
+              </button>
               <button class="btn btn-primary" onclick="switchToEditMode()">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                  <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  />
+                  <path
+                    d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                  />
                 </svg>
                 Chỉnh sửa
               </button>
             </div>
             <div class="form-actions" id="rf-actions-edit">
-              <button class="btn btn-ghost" onclick="goSection('real')">Hủy</button>
-              <button class="btn btn-primary" onclick="saveRealMember()">Lưu</button>
+              <button class="btn btn-ghost" onclick="goSection('real')">
+                Hủy
+              </button>
+              <button class="btn btn-primary" onclick="saveRealMember()">
+                Lưu
+              </button>
             </div>
           </div>
         </div>
@@ -2611,19 +2922,32 @@
         class="action-modal"
         role="dialog"
         aria-modal="true"
-        style="width:480px;max-width:95vw"
+        style="width: 480px; max-width: 95vw"
         onclick="event.stopPropagation()"
       >
         <h3 class="action-modal-title" id="real-change-cat-title">
           Thay đổi danh mục
         </h3>
-        <div style="padding:4px 0 12px">
-          <label style="display:block;font-size:12px;color:var(--gray-700);font-weight:600;margin-bottom:8px">• Danh mục</label>
-          <div style="display:flex;gap:8px;align-items:flex-start">
-            <div class="criteria-wrap" id="real-change-main-wrap" style="flex:1">
+        <div style="padding: 4px 0 12px">
+          <label
+            style="
+              display: block;
+              font-size: 12px;
+              color: var(--gray-700);
+              font-weight: 600;
+              margin-bottom: 8px;
+            "
+            >• Danh mục</label
+          >
+          <div style="display: flex; gap: 8px; align-items: flex-start">
+            <div
+              class="criteria-wrap"
+              id="real-change-main-wrap"
+              style="flex: 1"
+            >
               <button
                 class="criteria-btn"
-                style="width:100%;justify-content:space-between"
+                style="width: 100%; justify-content: space-between"
                 onclick="toggleRealChangeCatDropdown('main', event)"
               >
                 <span id="real-change-main-label">Chọn danh mục</span>
@@ -2632,13 +2956,17 @@
               <div
                 class="criteria-menu"
                 id="real-change-main-menu"
-                style="max-height:240px;overflow-y:auto"
+                style="max-height: 240px; overflow-y: auto"
               ></div>
             </div>
-            <div class="criteria-wrap" id="real-change-sub-wrap" style="flex:1">
+            <div
+              class="criteria-wrap"
+              id="real-change-sub-wrap"
+              style="flex: 1"
+            >
               <button
                 class="criteria-btn"
-                style="width:100%;justify-content:space-between"
+                style="width: 100%; justify-content: space-between"
                 onclick="toggleRealChangeCatDropdown('sub', event)"
               >
                 <span id="real-change-sub-label">Chọn danh mục phụ</span>
@@ -2647,7 +2975,7 @@
               <div
                 class="criteria-menu"
                 id="real-change-sub-menu"
-                style="max-height:240px;overflow-y:auto"
+                style="max-height: 240px; overflow-y: auto"
               ></div>
             </div>
           </div>
@@ -2672,20 +3000,157 @@
     <script>
       /* ====== POST CATEGORY MAP (shared cho modal Thay đổi danh mục + form Danh mục chính) ====== */
       const postCategoryMap = [
-        { name: "Làn da", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "TPCN/ Dược phẩm", "Thiết bị/ Sản phẩm", "Khác"] },
-        { name: "Mắt/ Lông mi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "TPCN", "Thiết bị", "Khác"] },
-        { name: "Môi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Khác"] },
-        { name: "Mũi", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "TPCN", "Thiết bị", "Khác"] },
-        { name: "Khuôn mặt/ V line", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"] },
-        { name: "Da đầu/ Lông tóc", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Triệt lông", "TPCN", "Thiết bị", "Khác"] },
-        { name: "Răng miệng", isOther: false, subs: ["PTTM/ Tiểu phẫu", "TPCN/ Dược phẩm", "Thiết bị/ Sản phẩm", "Khác"] },
-        { name: "Cổ", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thời trang", "Thiết bị/ Sản phẩm", "Khác"] },
-        { name: "Ngực", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Phun xăm", "TPCN", "Thiết bị", "Khác"] },
-        { name: "Tay/ Cánh tay", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Nail", "Thiết bị", "Khác"] },
-        { name: "Chân/ Bắp chân", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "Thiết bị/ Sản phẩm", "Khác"] },
-        { name: "Chiều cao/ Vóc dáng", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thể thao/ Giảm cân", "Thời trang", "TPCN/ Dược phẩm", "Khác"] },
-        { name: "Vùng kín/ Chữ Y", isOther: false, subs: ["PTTM/ Tiểu phẫu", "Thời trang", "Phun xăm", "Triệt lông", "TPCN", "Khác"] },
-        { name: "Trán", isOther: false, subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"] },
+        {
+          name: "Làn da",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "TPCN/ Dược phẩm",
+            "Thiết bị/ Sản phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Mắt/ Lông mi",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Phun xăm",
+            "TPCN",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Môi",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Phun xăm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Mũi",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "TPCN",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Khuôn mặt/ V line",
+          isOther: false,
+          subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"],
+        },
+        {
+          name: "Da đầu/ Lông tóc",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Phun xăm",
+            "Triệt lông",
+            "TPCN",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Răng miệng",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "TPCN/ Dược phẩm",
+            "Thiết bị/ Sản phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Cổ",
+          isOther: false,
+          subs: [
+            "Mỹ phẩm",
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Thiết bị/ Sản phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Ngực",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thể thao/ Giảm cân",
+            "Thời trang",
+            "Phun xăm",
+            "TPCN",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Tay/ Cánh tay",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thể thao/ Giảm cân",
+            "Thời trang",
+            "Nail",
+            "Thiết bị",
+            "Khác",
+          ],
+        },
+        {
+          name: "Chân/ Bắp chân",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thể thao/ Giảm cân",
+            "Thời trang",
+            "Thiết bị/ Sản phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Chiều cao/ Vóc dáng",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thể thao/ Giảm cân",
+            "Thời trang",
+            "TPCN/ Dược phẩm",
+            "Khác",
+          ],
+        },
+        {
+          name: "Vùng kín/ Chữ Y",
+          isOther: false,
+          subs: [
+            "PTTM/ Tiểu phẫu",
+            "Thời trang",
+            "Phun xăm",
+            "Triệt lông",
+            "TPCN",
+            "Khác",
+          ],
+        },
+        {
+          name: "Trán",
+          isOther: false,
+          subs: ["Mỹ phẩm", "PTTM/ Tiểu phẫu", "Thiết bị/ Sản phẩm", "Khác"],
+        },
         { name: "Khác", isOther: true, subs: [] },
       ];
 
@@ -2694,11 +3159,51 @@
       let pendingRealSub = null;
 
       const realDetailPostsSamples = [
-        { id: "P001", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review serum B5 sau 14 ngày dùng đều", date: "22-06-2025 14:30", views: 420 },
-        { id: "P002", topic: "Hướng dẫn", main: "Da đầu/ Lông tóc", sub: "Mỹ phẩm", title: "5 bước phục hồi tóc khô xơ tại nhà", date: "18-06-2025 09:45", views: 287 },
-        { id: "P003", topic: "Cảnh báo", main: "Mũi", sub: "PTTM/ Tiểu phẫu", title: "3 dấu hiệu nguy hiểm sau nâng mũi cần biết", date: "12-06-2025 21:12", views: 645 },
-        { id: "P004", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Kem chống nắng La Roche-Posay có thực sự hiệu quả?", date: "08-06-2025 10:18", views: 892 },
-        { id: "P005", topic: "Hỏi đáp", main: "Răng miệng", sub: "PTTM/ Tiểu phẫu", title: "Niềng răng trong suốt vs niềng mắc cài cố định", date: "05-06-2025 16:40", views: 533 },
+        {
+          id: "P001",
+          topic: "Review",
+          main: "Làn da",
+          sub: "Mỹ phẩm",
+          title: "Review serum B5 sau 14 ngày dùng đều",
+          date: "22-06-2025 14:30",
+          views: 420,
+        },
+        {
+          id: "P002",
+          topic: "Hướng dẫn",
+          main: "Da đầu/ Lông tóc",
+          sub: "Mỹ phẩm",
+          title: "5 bước phục hồi tóc khô xơ tại nhà",
+          date: "18-06-2025 09:45",
+          views: 287,
+        },
+        {
+          id: "P003",
+          topic: "Cảnh báo",
+          main: "Mũi",
+          sub: "PTTM/ Tiểu phẫu",
+          title: "3 dấu hiệu nguy hiểm sau nâng mũi cần biết",
+          date: "12-06-2025 21:12",
+          views: 645,
+        },
+        {
+          id: "P004",
+          topic: "Review",
+          main: "Làn da",
+          sub: "Mỹ phẩm",
+          title: "Kem chống nắng La Roche-Posay có thực sự hiệu quả?",
+          date: "08-06-2025 10:18",
+          views: 892,
+        },
+        {
+          id: "P005",
+          topic: "Hỏi đáp",
+          main: "Răng miệng",
+          sub: "PTTM/ Tiểu phẫu",
+          title: "Niềng răng trong suốt vs niềng mắc cài cố định",
+          date: "05-06-2025 16:40",
+          views: 533,
+        },
       ];
 
       /* ====== DATA ====== */
@@ -3120,13 +3625,14 @@
         setRealFormMode("edit");
       }
       function fillRealDetail(m) {
-        const initials = (m.fullname || m.nickname || "TV")
-          .split(" ")
-          .filter(Boolean)
-          .slice(-2)
-          .map((w) => w[0])
-          .join("")
-          .toUpperCase() || "TV";
+        const initials =
+          (m.fullname || m.nickname || "TV")
+            .split(" ")
+            .filter(Boolean)
+            .slice(-2)
+            .map((w) => w[0])
+            .join("")
+            .toUpperCase() || "TV";
         document.getElementById("real-detail-avatar").textContent = initials;
         const titleText = m.fullname
           ? `${m.fullname} (${m.nickname})`
@@ -3157,9 +3663,10 @@
       function renderRealDetailPosts(m) {
         const tbody = document.getElementById("real-detail-posts-tbody");
         if (!tbody) return;
-        tbody.innerHTML = realDetailPostsSamples.map((p) => {
-          const sub = p.sub ? ` - ${escText(p.sub)}` : "";
-          return `
+        tbody.innerHTML = realDetailPostsSamples
+          .map((p) => {
+            const sub = p.sub ? ` - ${escText(p.sub)}` : "";
+            return `
           <tr>
             <td><input type="checkbox" /></td>
             <td class="td-left">${escText(p.topic)}</td>
@@ -3182,19 +3689,66 @@
             <td>${p.views}</td>
           </tr>
         `;
-        }).join("");
+          })
+          .join("");
       }
       function renderRealDetailComments(m) {
         const tbody = document.getElementById("real-detail-comments-tbody");
         if (!tbody) return;
         const samples = [
-          { id: "C001", topic: "Review", main: "Làn da", sub: "Mỹ phẩm", title: "Review kem chống nắng SPF50+ Sunplay", content: "Mình dùng được 2 tuần, da đỡ kích ứng hẳn so với loại cũ", date: "20-06-2025 11:20" },
-          { id: "C002", topic: "Hỏi đáp", main: "Răng miệng", sub: "PTTM/ Tiểu phẫu", title: "Có nên niềng răng tuổi 30 không?", content: "Tuổi 30 vẫn niềng được nhé, mình mất 2 năm nhưng kết quả xứng đáng", date: "15-06-2025 18:05" },
-          { id: "C003", topic: "Cảnh báo", main: "Mũi", sub: "PTTM/ Tiểu phẫu", title: "3 dấu hiệu nguy hiểm sau nâng mũi", content: "Bác sĩ có thể nói rõ hơn về tình trạng đầu mũi bị tím không ạ?", date: "10-06-2025 09:30" },
-          { id: "C004", topic: "Hướng dẫn", main: "Tóc", sub: "Mỹ phẩm", title: "Phục hồi tóc cháy ép sau salon", content: "Mình từng tẩy tóc trắng nhiều lần, dùng mặt nạ Olaplex N3 đỡ kha khá", date: "06-06-2025 21:48" },
-          { id: "C005", topic: "Review", main: "Mắt/ Lông mi", sub: "Mỹ phẩm", title: "Mascara Maybelline Sky High có waterproof không?", content: "Bản thường thì không, có bản waterproof riêng nhé. Mình đeo lens vẫn ổn", date: "02-06-2025 14:10" },
+          {
+            id: "C001",
+            topic: "Review",
+            main: "Làn da",
+            sub: "Mỹ phẩm",
+            title: "Review kem chống nắng SPF50+ Sunplay",
+            content: "Mình dùng được 2 tuần, da đỡ kích ứng hẳn so với loại cũ",
+            date: "20-06-2025 11:20",
+          },
+          {
+            id: "C002",
+            topic: "Hỏi đáp",
+            main: "Răng miệng",
+            sub: "PTTM/ Tiểu phẫu",
+            title: "Có nên niềng răng tuổi 30 không?",
+            content:
+              "Tuổi 30 vẫn niềng được nhé, mình mất 2 năm nhưng kết quả xứng đáng",
+            date: "15-06-2025 18:05",
+          },
+          {
+            id: "C003",
+            topic: "Cảnh báo",
+            main: "Mũi",
+            sub: "PTTM/ Tiểu phẫu",
+            title: "3 dấu hiệu nguy hiểm sau nâng mũi",
+            content:
+              "Bác sĩ có thể nói rõ hơn về tình trạng đầu mũi bị tím không ạ?",
+            date: "10-06-2025 09:30",
+          },
+          {
+            id: "C004",
+            topic: "Hướng dẫn",
+            main: "Tóc",
+            sub: "Mỹ phẩm",
+            title: "Phục hồi tóc cháy ép sau salon",
+            content:
+              "Mình từng tẩy tóc trắng nhiều lần, dùng mặt nạ Olaplex N3 đỡ kha khá",
+            date: "06-06-2025 21:48",
+          },
+          {
+            id: "C005",
+            topic: "Review",
+            main: "Mắt/ Lông mi",
+            sub: "Mỹ phẩm",
+            title: "Mascara Maybelline Sky High có waterproof không?",
+            content:
+              "Bản thường thì không, có bản waterproof riêng nhé. Mình đeo lens vẫn ổn",
+            date: "02-06-2025 14:10",
+          },
         ];
-        tbody.innerHTML = samples.map((c) => `
+        tbody.innerHTML = samples
+          .map(
+            (c) => `
           <tr>
             <td><input type="checkbox" /></td>
             <td class="td-left">${escText(c.topic)}</td>
@@ -3212,7 +3766,9 @@
             </td>
             <td>${escText(c.date)}</td>
           </tr>
-        `).join("");
+        `,
+          )
+          .join("");
       }
 
       /* ====== CHANGE CATEGORY MODAL (POST) ====== */
@@ -3222,8 +3778,10 @@
         pendingRealSub = null;
         document.getElementById("real-change-cat-title").textContent =
           `Thay đổi danh mục bài ${postId}`;
-        document.getElementById("real-change-main-label").textContent = "Chọn danh mục";
-        document.getElementById("real-change-sub-label").textContent = "Chọn danh mục phụ";
+        document.getElementById("real-change-main-label").textContent =
+          "Chọn danh mục";
+        document.getElementById("real-change-sub-label").textContent =
+          "Chọn danh mục phụ";
         document.getElementById("real-change-sub-menu").innerHTML = "";
         document.getElementById("real-change-sub-wrap").style.display = "";
         const mainMenu = document.getElementById("real-change-main-menu");
@@ -3233,13 +3791,21 @@
               `<button class="criteria-option" onclick="selectRealChangeMain(${i})">${escText(c.name)}${c.isOther ? ' <span style="font-size:10px;color:var(--gray-400);margin-left:4px">(không có danh mục con)</span>' : ""}</button>`,
           )
           .join("");
-        document.getElementById("real-change-cat-backdrop").classList.add("open");
+        document
+          .getElementById("real-change-cat-backdrop")
+          .classList.add("open");
         closeAllMenus();
       }
       function closeRealChangeCategoryModal() {
-        document.getElementById("real-change-cat-backdrop").classList.remove("open");
-        document.getElementById("real-change-main-wrap")?.classList.remove("open");
-        document.getElementById("real-change-sub-wrap")?.classList.remove("open");
+        document
+          .getElementById("real-change-cat-backdrop")
+          .classList.remove("open");
+        document
+          .getElementById("real-change-main-wrap")
+          ?.classList.remove("open");
+        document
+          .getElementById("real-change-sub-wrap")
+          ?.classList.remove("open");
         pendingRealChangeCat = { postId: null };
       }
       function toggleRealChangeCatDropdown(which, e) {
@@ -3256,15 +3822,19 @@
         if (!cat) return;
         pendingRealMain = cat.name;
         pendingRealSub = null;
-        document.getElementById("real-change-main-label").textContent = cat.name;
-        document.getElementById("real-change-main-wrap").classList.remove("open");
+        document.getElementById("real-change-main-label").textContent =
+          cat.name;
+        document
+          .getElementById("real-change-main-wrap")
+          .classList.remove("open");
         const subWrap = document.getElementById("real-change-sub-wrap");
         const subMenu = document.getElementById("real-change-sub-menu");
         if (cat.isOther) {
           subWrap.style.display = "none";
           subWrap.classList.remove("open");
           subMenu.innerHTML = "";
-          document.getElementById("real-change-sub-label").textContent = "Chọn danh mục phụ";
+          document.getElementById("real-change-sub-label").textContent =
+            "Chọn danh mục phụ";
           return;
         }
         subWrap.style.display = "";
@@ -3274,12 +3844,15 @@
               `<button class="criteria-option" onclick="selectRealChangeSub('${escText(s).replace(/'/g, "&#39;")}')">${escText(s)}</button>`,
           )
           .join("");
-        document.getElementById("real-change-sub-label").textContent = "Chọn danh mục phụ";
+        document.getElementById("real-change-sub-label").textContent =
+          "Chọn danh mục phụ";
       }
       function selectRealChangeSub(sub) {
         pendingRealSub = sub;
         document.getElementById("real-change-sub-label").textContent = sub;
-        document.getElementById("real-change-sub-wrap").classList.remove("open");
+        document
+          .getElementById("real-change-sub-wrap")
+          .classList.remove("open");
       }
       function confirmRealChangeCategory() {
         if (!pendingRealMain) {
@@ -3291,7 +3864,9 @@
           alert("Vui lòng chọn danh mục phụ.");
           return;
         }
-        const post = realDetailPostsSamples.find((p) => p.id === pendingRealChangeCat.postId);
+        const post = realDetailPostsSamples.find(
+          (p) => p.id === pendingRealChangeCat.postId,
+        );
         if (post) {
           post.main = pendingRealMain;
           post.sub = cat && cat.isOther ? "" : pendingRealSub;
@@ -3305,7 +3880,8 @@
       function enterRealNoteEdit() {
         const noteDisplay = document.getElementById("real-note-display");
         if (!noteDisplay) return;
-        const current = noteDisplay.textContent === "-" ? "" : noteDisplay.textContent;
+        const current =
+          noteDisplay.textContent === "-" ? "" : noteDisplay.textContent;
         const updated = prompt("Cập nhật ghi chú:", current);
         if (updated === null) return;
         const trimmed = updated.trim();
@@ -3314,10 +3890,14 @@
         if (m) m.note = trimmed;
       }
       function switchRealDetailTab(tab) {
-        document.querySelectorAll("#page-real-detail .tab").forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll("#page-real-detail .tab")
+          .forEach((t) => t.classList.remove("active"));
         document.getElementById("real-tab-" + tab)?.classList.add("active");
-        document.getElementById("real-panel-posts").style.display = tab === "posts" ? "" : "none";
-        document.getElementById("real-panel-comments").style.display = tab === "comments" ? "" : "none";
+        document.getElementById("real-panel-posts").style.display =
+          tab === "posts" ? "" : "none";
+        document.getElementById("real-panel-comments").style.display =
+          tab === "comments" ? "" : "none";
       }
       function fillRealEdit(m) {
         document.getElementById("rf-id").textContent = m.id;
@@ -3329,7 +3909,9 @@
         document.getElementById("rf-birthday").value = m.birthday || "";
         document.getElementById("rf-referrer").value = m.referrerId || "";
         document.getElementById("rf-note").value = m.note || "";
-        realFormCategories = Array.isArray(m.categories) ? [...m.categories] : [];
+        realFormCategories = Array.isArray(m.categories)
+          ? [...m.categories]
+          : [];
         renderRealCategoryChips();
       }
       function populateRealCatSelect() {
@@ -3350,16 +3932,20 @@
         const wrap = document.getElementById("rf-cat-chips");
         if (!wrap) return;
         if (!realFormCategories.length) {
-          wrap.innerHTML = '<span style="color:var(--gray-400);font-size:11px">Chưa có danh mục.</span>';
+          wrap.innerHTML =
+            '<span style="color:var(--gray-400);font-size:11px">Chưa có danh mục.</span>';
           return;
         }
-        wrap.innerHTML = realFormCategories.map((c, i) => {
-          const cat = postCategoryMap.find((x) => x.name === c);
-          const badge = cat && cat.isOther
-            ? ' <span style="font-size:10px;color:var(--gray-400);margin-left:4px">(Khác)</span>'
-            : "";
-          return `<span class="cat-chip">${escText(c)}${badge}<span class="x" onclick="removeRealCategory(${i})">×</span></span>`;
-        }).join("");
+        wrap.innerHTML = realFormCategories
+          .map((c, i) => {
+            const cat = postCategoryMap.find((x) => x.name === c);
+            const badge =
+              cat && cat.isOther
+                ? ' <span style="font-size:10px;color:var(--gray-400);margin-left:4px">(Khác)</span>'
+                : "";
+            return `<span class="cat-chip">${escText(c)}${badge}<span class="x" onclick="removeRealCategory(${i})">×</span></span>`;
+          })
+          .join("");
       }
       function addRealCategory() {
         const sel = document.getElementById("rf-cat-select");
@@ -3418,7 +4004,11 @@
         "Chuyên gia",
         "Bác sĩ",
       ];
-      const STAFF_LEVELS = ["Quản trị viên 1", "Quản trị viên 2", "Quản trị viên 3"];
+      const STAFF_LEVELS = [
+        "Quản trị viên 1",
+        "Quản trị viên 2",
+        "Quản trị viên 3",
+      ];
       let currentLevelContext = "real";
       function fillLevelOptions(levels) {
         const sel = document.getElementById("change-level-select");
@@ -4083,6 +4673,7 @@
                 <button class="menu-trigger" onclick="toggleMenu(event,this.parentElement)">${escText(s.nickname)}</button>
                 <div class="menu-list">
                   <button class="menu-item" onclick="openActionModal('change-staff-grade')">Đổi cấp bậc</button>
+                  <button class="menu-item" onclick="openActionModal('goHistory')">Lịch sử hoạt động</button>
                   <button class="menu-item" onclick="openActionModal('remove-staff')">Xóa (trở về thành viên ảo, mất quyền quản trị)</button>
                 </div>
               </div>

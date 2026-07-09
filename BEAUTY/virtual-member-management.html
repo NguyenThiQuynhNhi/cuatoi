@@ -2148,7 +2148,7 @@
       <div class="header-user">
         <div class="user-info">
           <div class="user-name">Nguyễn Văn Admin</div>
-          <div class="user-role">Quản trị viên cấp 2</div>
+          <div class="user-role">lv3 cấp 2</div>
         </div>
         <div class="avatar">NV</div>
       </div>
@@ -2335,6 +2335,9 @@
                 <option value="kol">KOL</option>
                 <option value="expert">Chuyên gia</option>
                 <option value="doctor">Bác sĩ</option>
+                <option value="supportadmin">Support Admin</option>
+                <option value="mainadmin">Main Admin</option>
+                <option value="superadmin">Super Admin</option>
               </select>
               <button class="btn btn-outline-primary" onclick="executeSearch()">
                 Tìm
@@ -3250,9 +3253,17 @@
                 >
                 <select id="vf-grade" class="form-input">
                   <option value="">Chọn cấp bậc</option>
-                  <option value="Thành viên">Thành viên</option>
-                  <option value="Cộng tác viên">Cộng tác viên</option>
-                  <option value="Quản trị viên">Quản trị viên</option>
+                  <option value="lv1">Lv.1</option>
+                  <option value="lv2">Lv.2</option>
+                  <option value="lv3">Lv.3</option>
+                  <option value="lv4">Lv.4</option>
+                  <option value="lv5">Lv.5</option>
+                  <option value="kol">KOL</option>
+                  <option value="expert">Chuyên gia</option>
+                  <option value="doctor">Bác sĩ</option>
+                  <option value="supportadmin">Support Admin</option>
+                  <option value="mainadmin">Main Admin</option>
+                  <option value="superadmin">Super Admin</option>
                 </select>
               </div>
 
@@ -3854,6 +3865,7 @@
                       <th>Tên danh mục</th>
                       <th>Tiêu đề</th>
                       <th>Người viết</th>
+                      <th>Cấp bậc</th>
                       <th>Lượt xem</th>
                       <th>Lượt thích</th>
                       <th>Bình luận</th>
@@ -3941,6 +3953,7 @@
                       <th>Tên chuyên mục</th>
                       <th>Tên danh mục</th>
                       <th>Tiêu đề</th>
+                      <th>Cấp bậc</th>
                       <th>Người xóa</th>
                       <th>Ngày xóa</th>
                       <th>Ghi chú</th>
@@ -4098,6 +4111,7 @@
                       <th>Tiêu đề</th>
                       <th>Nội dung bình luận</th>
                       <th>Người viết</th>
+                      <th>Cấp bậc</th>
                     </tr>
                   </thead>
                   <tbody id="tbody-tva-comments"></tbody>
@@ -4180,6 +4194,7 @@
                       <th>Tiêu đề bài viết</th>
                       <th>Nội dung bình luận</th>
                       <th>Người viết</th>
+                      <th>Cấp bậc</th>
                       <th>Người xóa</th>
                       <th>Ngày xóa</th>
                       <th>Ghi chú</th>
@@ -4617,9 +4632,17 @@
             "
           >
             <option value="">-- Chọn cấp bậc --</option>
-            <option value="Thành viên">Thành viên</option>
-            <option value="Cộng tác viên">Cộng tác viên</option>
-            <option value="Quản trị viên">Quản trị viên</option>
+            <option value="lv1">Lv.1</option>
+            <option value="lv2">Lv.2</option>
+            <option value="lv3">Lv.3</option>
+            <option value="lv4">Lv.4</option>
+            <option value="lv5">Lv.5</option>
+            <option value="kol">KOL</option>
+            <option value="expert">Chuyên gia</option>
+            <option value="doctor">Bác sĩ</option>
+            <option value="supportadmin">Support Admin</option>
+            <option value="mainadmin">Main Admin</option>
+            <option value="superadmin">Super Admin</option>
           </select>
         </div>
         <div class="action-modal-actions">
@@ -5045,7 +5068,7 @@
           phone: "0901-321-111",
           birth: "1998-06-12",
           region: "TP. Hồ Chí Minh",
-          grade: "Cộng tác viên",
+          grade: "Lv1",
           intro: "Thành viên ảo định hướng nội dung chăm sóc da.",
         },
         {
@@ -5060,7 +5083,7 @@
           phone: "0901-321-222",
           birth: "1996-08-19",
           region: "Hà Nội",
-          grade: "Thành viên",
+          grade: "Lv2",
           intro: "Thành viên ảo phong cách tư vấn kỹ thuật.",
         },
         {
@@ -5075,7 +5098,7 @@
           phone: "0901-321-333",
           birth: "1999-01-03",
           region: "Đà Nẵng",
-          grade: "Cộng tác viên",
+          grade: "Lv1",
           intro: "Thành viên ảo chuyên nội dung trend.",
         },
         {
@@ -5090,7 +5113,7 @@
           phone: "0901-321-444",
           birth: "1994-11-11",
           region: "TP. Hồ Chí Minh",
-          grade: "Thành viên",
+          grade: "Lv2",
           intro: "Thành viên ảo tập trung tương tác thảo luận.",
         },
         {
@@ -5105,7 +5128,7 @@
           phone: "0901-321-555",
           birth: "1997-04-20",
           region: "Hà Nội",
-          grade: "Cộng tác viên",
+          grade: "Lv1",
           intro: "Thành viên ảo chia sẻ kiến thức chăm sóc da.",
         },
         {
@@ -5120,7 +5143,7 @@
           phone: "0901-321-666",
           birth: "1995-09-15",
           region: "TP. Hồ Chí Minh",
-          grade: "Thành viên",
+          grade: "Lv2",
           intro: "Thành viên ảo định hướng CTA trong bình luận.",
         },
       ];
@@ -5137,7 +5160,7 @@
           deletedBy: "Admin B",
           birth: "1994-02-14",
           region: "TP. Hồ Chí Minh",
-          grade: "Thành viên",
+          grade: "Lv2",
           note: "Ngừng sử dụng vì thay đổi chiến dịch.",
         },
         {
@@ -5151,7 +5174,7 @@
           deletedBy: "Admin A",
           birth: "1996-07-22",
           region: "Hà Nội",
-          grade: "Thành viên",
+          grade: "Lv2",
           note: "Nội dung lặp, tạm dừng tài khoản.",
         },
         {
@@ -5165,7 +5188,7 @@
           deletedBy: "Admin C",
           birth: "1993-11-05",
           region: "Đà Nẵng",
-          grade: "Cộng tác viên",
+          grade: "Lv1",
           note: "Không còn phù hợp định hướng nội dung mới.",
         },
         {
@@ -5179,7 +5202,7 @@
           deletedBy: "Admin B",
           birth: "1997-03-18",
           region: "Đà Nẵng",
-          grade: "Thành viên",
+          grade: "Lv2",
           note: "Dừng chiến dịch khu vực miền Trung.",
         },
         {
@@ -5193,7 +5216,7 @@
           deletedBy: "Admin A",
           birth: "1998-05-10",
           region: "TP. Hồ Chí Minh",
-          grade: "Thành viên",
+          grade: "Lv2",
           note: "Đổi sang cụm TVA mới để đồng bộ persona.",
         },
         {
@@ -5207,7 +5230,7 @@
           deletedBy: "Admin C",
           birth: "1999-09-27",
           region: "Hà Nội",
-          grade: "Cộng tác viên",
+          grade: "Lv1",
           note: "Giảm hiệu quả tương tác theo KPI tháng.",
         },
       ];
@@ -8085,6 +8108,7 @@
           author: "maimai",
           date: "16-04-2026 10:20",
           views: 1002,
+          level: "main admin",
           likes: 125,
           comments: 999,
         },
@@ -8097,6 +8121,7 @@
           author: "drAnh.skin.vn",
           date: "15-04-2026 09:45",
           views: 850,
+          level: "lv2",
           likes: 340,
           comments: 120,
         },
@@ -8109,6 +8134,7 @@
           author: "haiyen.beauty",
           date: "14-04-2026 16:12",
           views: 2300,
+          level: "lv3",
           likes: 890,
           comments: 450,
         },
@@ -8121,6 +8147,7 @@
           author: "Khanh.clinic.talk",
           date: "12-04-2026 11:30",
           views: 560,
+          level: "Lv1",
           likes: 78,
           comments: 230,
         },
@@ -8133,6 +8160,7 @@
           author: "Thu.skin.journal",
           date: "10-04-2026 20:05",
           views: 3100,
+          level: "lv3",
           likes: 1200,
           comments: 670,
         },
@@ -8146,6 +8174,7 @@
           category: "Makeup - Khác",
           title: "Today's beauty",
           author: "maimai",
+          level: "support admin",
           deletedBy: "chikihong",
           deletedDate: "23-06-2025 14:30",
           note: "",
@@ -8158,6 +8187,7 @@
           category: "Làn da - Mỹ phẩm",
           title: "Review kem chống nắng",
           author: "maimai",
+          level: "lv3",
           deletedBy: "Admin A",
           deletedDate: "22-06-2025 10:15",
           note: "Vi phạm nội dung",
@@ -8170,6 +8200,7 @@
           category: "Mắt/lông mi - Khác",
           title: "Lông mi giả hay thật?",
           author: "haiyen.beauty",
+          level: "lv3",
           deletedBy: "Admin B",
           deletedDate: "21-06-2025 15:45",
           note: "",
@@ -8343,6 +8374,7 @@
                   </div>
                 </td>
                 <td>${escTvaText(p.author || "-")}</td>
+                <td>${escTvaText(p.level || "-")}</td>
                 <td
                   ondblclick="openAdjustMetricModal('${escTvaText(p.id)}','views',${p.views})"
                   title="Nhấn đúp để điều chỉnh lượt xem"
@@ -8384,6 +8416,7 @@
                     </div>
                   </div>
                 </td>
+                <td>${escTvaText(p.level || "-")}</td>
                 <td>${escTvaText(p.deletedBy)}</td>
                 <td>${escTvaText(p.deletedDate)}</td>
                 <td class="td-left">
@@ -8693,6 +8726,7 @@
           content: "ng đẹp j ơi cho m...",
           manager: "maimai",
           author: "maimai",
+          level: "lv2",
           authorType: "web",
         },
         {
@@ -8704,7 +8738,8 @@
           content:
             "Mình dùng cái này được 2 tháng rồi, da không bị bít lỗ chân lông.",
           manager: "maimai",
-          author: "",
+          author: "mai anh",
+          level: "Lv1",
           authorType: "app",
         },
         {
@@ -8716,6 +8751,7 @@
           content: "Bạn nên tham khảo ý kiến bác sĩ trước khi quyết định nhé.",
           manager: "drAnh.skin.vn",
           author: "drAnh.skin.vn",
+          level: "lv3",
           authorType: "web",
         },
         {
@@ -8726,7 +8762,8 @@
           postTitle: "5 tips kẻ mắt cho mắt một mí",
           content: "Mình thử cách này rồi, hiệu quả lắm bạn ơi!",
           manager: "haiyen.beauty",
-          author: "",
+          author: "haiyen.beauty",
+          level: "super admin",
           authorType: "app",
         },
       ];
@@ -8740,6 +8777,7 @@
           postTitle: "Ngày hôm nay",
           content: "Người đầu đẹp ziii",
           author: "maimai",
+          level: "lv5",
           authorType: "web",
           deletedBy: "chikihong",
           deletedDate: "25-06-2025 10:00 ",
@@ -8752,7 +8790,8 @@
           category: "Làn da - Mỹ phẩm",
           postTitle: "Review kem chống nắng SPF50",
           content: "Bình luận vi phạm cộng đồng.",
-          author: "",
+          author: "maimai",
+          level: "lv2",
           authorType: "app",
           deletedBy: "Admin A",
           deletedDate: "24-06-2025 14:15",
@@ -8766,6 +8805,7 @@
           postTitle: "5 tips kẻ mắt cho mắt một mí",
           content: "Spam quảng cáo sản phẩm không rõ.",
           author: "haiyen.beauty",
+          level: "super admin",
           authorType: "web",
           deletedBy: "Admin B",
           deletedDate: "23-06-2025 12:30",
@@ -8875,6 +8915,7 @@
                   </div>
                 </td>
                 <td>${escTvaText(authorText)}</td>
+                <td>${escTvaText(c.level || "-")}</td>
               </tr>`;
             })
             .join("");
@@ -8923,6 +8964,7 @@
                   </div>
                 </td>
                 <td>${escTvaText(authorText)}</td>
+                <td>${escTvaText(c.level || "-")}</td>
                 <td>${escTvaText(c.deletedBy)}</td>
                 <td>${escTvaText(c.deletedDate)}</td>
                 <td class="td-left">
