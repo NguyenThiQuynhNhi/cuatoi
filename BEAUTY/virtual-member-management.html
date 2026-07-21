@@ -40,6 +40,20 @@
         padding: 0;
       }
 
+      .metric-editable {
+        cursor: pointer;
+        position: relative;
+      }
+      .metric-edit-icon {
+        display: none;
+        font-size: 11px;
+        margin-left: 4px;
+        opacity: 0.6;
+      }
+      .metric-editable:hover .metric-edit-icon {
+        display: inline;
+      }
+
       body {
         font-family: "Be Vietnam Pro", sans-serif;
         background: var(--gray-50);
@@ -3867,7 +3881,9 @@
                       <th>Người viết</th>
                       <th>Cấp bậc</th>
                       <th>Lượt xem</th>
+                      <th>Tăng lượt xem</th>
                       <th>Lượt thích</th>
+                      <th>Tăng lượt thích</th>
                       <th>Bình luận</th>
                     </tr>
                   </thead>
@@ -4315,16 +4331,14 @@
         onclick="event.stopPropagation()"
       >
         <h3 class="action-modal-title" id="adjust-metric-title">
-          Điều chỉnh lượt xem
+          Chỉnh sửa Tăng lượt xem
         </h3>
         <div style="padding: 4px 0 12px">
           <div
             style="font-size: 12px; color: var(--gray-700); margin-bottom: 12px"
           >
-            Số hiện tại:
-            <strong id="adjust-metric-current" style="color: var(--gray-900)"
-              >0</strong
-            >
+            Tổng:
+            <strong id="adjust-metric-total" style="color: var(--gray-900)">0</strong>
           </div>
           <label
             class="form-label"
@@ -4335,7 +4349,7 @@
               font-weight: 600;
               margin-bottom: 6px;
             "
-            >Số mới <span class="req">*</span></label
+            >Tăng thêm <span class="req">*</span></label
           >
           <input
             type="number"
@@ -4343,7 +4357,6 @@
             class="form-input"
             min="0"
             placeholder="Nhập số mong muốn"
-            oninput="this.value = Math.abs(parseInt(this.value) || 0)"
           />
           <div
             class="error-text"
@@ -4355,7 +4368,6 @@
               min-height: 14px;
             "
           ></div>
-        </div>
         <div class="action-modal-actions">
           <button
             class="action-modal-btn action-modal-btn-cancel"
@@ -8107,9 +8119,11 @@
           title: "Ngày hôm nay dưỡng da thế nào",
           author: "maimai",
           date: "16-04-2026 10:20",
-          views: 1002,
+          views:200,
+          fake_views: 1002,
           level: "main admin",
-          likes: 125,
+          likes: 200,
+          fake_likes: 125,
           comments: 999,
         },
         {
@@ -8120,9 +8134,11 @@
           title: "Review phòng khám XYZ",
           author: "drAnh.skin.vn",
           date: "15-04-2026 09:45",
-          views: 850,
+          views:200,
+          fake_views: 850,
           level: "lv2",
-          likes: 340,
+          likes: 200,
+          fake_likes: 340,
           comments: 120,
         },
         {
@@ -8133,9 +8149,11 @@
           title: "5 tips kẻ mắt cho mắt một mí",
           author: "haiyen.beauty",
           date: "14-04-2026 16:12",
-          views: 2300,
+          views:200,
+          fake_views: 2300,
           level: "lv3",
-          likes: 890,
+          likes: 200,
+          fake_likes: 890,
           comments: 450,
         },
         {
@@ -8146,9 +8164,11 @@
           title: "Có nên niềng răng ở tuổi 30?",
           author: "Khanh.clinic.talk",
           date: "12-04-2026 11:30",
-          views: 560,
+          views:200,
+          fake_views: 560,
           level: "Lv1",
-          likes: 78,
+          likes: 200,
+          fake_likes: 78,
           comments: 230,
         },
         {
@@ -8159,9 +8179,11 @@
           title: "Collagen uống có thực sự hiệu quả?",
           author: "Thu.skin.journal",
           date: "10-04-2026 20:05",
-          views: 3100,
+          views:200,
+          fake_views: 3100,
           level: "lv3",
-          likes: 1200,
+          likes: 200,
+          fake_likes: 1200,
           comments: 670,
         },
       ];
@@ -8375,16 +8397,16 @@
                 </td>
                 <td>${escTvaText(p.author || "-")}</td>
                 <td>${escTvaText(p.level || "-")}</td>
-                <td
-                  ondblclick="openAdjustMetricModal('${escTvaText(p.id)}','views',${p.views})"
-                  title="Nhấn đúp để điều chỉnh lượt xem"
-                  style="cursor:pointer;text-decoration:underline dotted"
-                >${p.views.toLocaleString("vi-VN")}</td>
-                <td
-                  ondblclick="openAdjustMetricModal('${escTvaText(p.id)}','likes',${p.likes})"
-                  title="Nhấn đúp để điều chỉnh lượt thích"
-                  style="cursor:pointer;text-decoration:underline dotted"
-                >${p.likes.toLocaleString("vi-VN")}</td>
+                <td>${p.views.toLocaleString("vi-VN")}</td>
+                <td class="metric-editable" onclick="openAdjustMetricModal('${escTvaText(p.id)}','fake_views',${p.fake_views})">
+                  <span class="metric-val">${p.fake_views.toLocaleString("vi-VN")}</span>
+                  <span class="metric-edit-icon">✏️</span>
+                </td>
+                <td>${p.likes.toLocaleString("vi-VN")}</td>
+                <td class="metric-editable" onclick="openAdjustMetricModal('${escTvaText(p.id)}','fake_likes',${p.fake_likes})">
+                  <span class="metric-val">${p.fake_likes.toLocaleString("vi-VN")}</span>
+                  <span class="metric-edit-icon">✏️</span>
+                </td>
                 <td>${p.comments.toLocaleString("vi-VN")}</td>
               </tr>`;
             })
@@ -8648,18 +8670,38 @@
       function openAdjustMetricModal(postId, field, currentValue) {
         adjustMetricPostId = postId;
         adjustMetricField = field;
-        const label = field === "views" ? "lượt xem" : "lượt thích";
+        const label = field === "fake_views" ? "lượt xem" : "lượt thích";
         document.getElementById("adjust-metric-title").textContent =
-          `Điều chỉnh ${label}`;
-        document.getElementById("adjust-metric-current").textContent = Number(
-          currentValue || 0,
-        ).toLocaleString("vi-VN");
+          `Chỉnh sửa Tăng ${label}`;
+        
         const input = document.getElementById("adjust-metric-input");
         input.value = "";
+        input._baseValue = currentValue; // lưu base
         document.getElementById("adjust-metric-error").textContent = "";
-        document
-          .getElementById("adjust-metric-modal-backdrop")
-          .classList.add("open");
+
+        // tính tổng ban đầu
+        const baseVal = currentValue || 0;
+        const post = tvaPosts.find(p => p.id === adjustMetricPostId);
+        let total = 0;
+        if (post) {
+          if (adjustMetricField === "fake_views") total = post.views + baseVal;
+          else total = post.likes + baseVal;
+        }
+        document.getElementById("adjust-metric-total").textContent = total.toLocaleString("vi-VN");
+
+        // cập nhật tổng realtime
+        input.oninput = function() {
+          this.value = Math.abs(parseInt(this.value) || 0);
+          const fakeVal = parseInt(this.value) || 0;
+          const p = tvaPosts.find(x => x.id === adjustMetricPostId);
+          if (!p) return;
+          let newTotal = 0;
+          if (adjustMetricField === "fake_views") newTotal = p.views + fakeVal;
+          else newTotal = p.likes + fakeVal;
+          document.getElementById("adjust-metric-total").textContent = newTotal.toLocaleString("vi-VN");
+        };
+
+        document.getElementById("adjust-metric-modal-backdrop").classList.add("open");
         setTimeout(() => input.focus(), 50);
       }
 
@@ -8689,7 +8731,7 @@
           renderTvaPostTable();
         }
         const fieldLabel =
-          adjustMetricField === "views" ? "lượt xem" : "lượt thích";
+          adjustMetricField === "views" ? "tăng lượt xem" : "tăng lượt thích";
         closeAdjustMetricModal();
         alert(`Đã cập nhật ${fieldLabel}.`);
       }
